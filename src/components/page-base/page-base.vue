@@ -15,7 +15,7 @@ const locale = i18n.map((i18n) => i18n.locale);
 <template>
   <div class="page-base">
     <nav class="page-base-nav">
-      <router-link to="/" class="page-base-home">workout</router-link>
+      <router-link to="/" class="page-base-home">calystone</router-link>
     </nav>
     <overlay-base :show="busy" class="page-base-content-overlay">
       <div class="page-base-content">

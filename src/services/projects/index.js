@@ -1,2 +1,2 @@
 export * from "./projects";
-export * from "./i18n";
+export * from "./project";

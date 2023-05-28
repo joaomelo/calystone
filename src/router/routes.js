@@ -1,12 +1,13 @@
-import { PageDashboard, PageMeasurement } from "../pages";
+// import { PageDashboard, PageMeasurement } from "../pages";
+import { PageDashboard } from "../pages";
 
 export const routes = {
   dashboard: { path: "/dashboard", component: PageDashboard },
-  open: {
-    path: "/measurement",
-    component: PageMeasurement,
-    props: (route) => ({ id: route.query.id }),
-  },
+  // open: {
+  //   path: "/measurement",
+  //   component: PageMeasurement,
+  //   props: (route) => ({ id: route.query.id }),
+  // },
 };
 
 export const routesConfigs = Object.entries(routes).map(([name, config]) => ({
