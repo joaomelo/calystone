@@ -1,6 +1,6 @@
 <script setup>
 import { inject } from "vue";
-import { OverlayBase } from "../overlay-base";
+import { OverlayBase } from "../../components";
 
 defineProps({
   busy: {

@@ -3,8 +3,7 @@
 // import { useRouter } from "vue-router";
 // import { routesPaths } from "../../router";
 // import { useTask } from "../../utils";
-import { PageBase } from "../../components";
-import { AddProject } from "../../features";
+import { ProjectAdd, ProjectsList, PageBase } from "../../views";
 
 // const router = useRouter();
 
@@ -27,7 +26,8 @@ import { AddProject } from "../../features";
 // const busy = computed(() => measurementCreate.busy.value);
 </script>
 <template>
-  <page-base :busy="busy">
-    <add-project />
+  <page-base>
+    <project-add />
+    <projects-list />
   </page-base>
 </template>
