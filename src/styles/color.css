@@ -1,0 +1,18 @@
+:root {
+  --color-10: hsl(0, 0%, 10%);
+  --color-20: hsl(0, 0%, 20%);
+  --color-30: hsl(0, 0%, 50%);
+  --color-40: hsl(0, 0%, 95%);
+  --color-50: hsl(0, 0%, 100%);
+}
+
+html {
+  background-color: var(--color-40);
+  color: var(--color-10);
+}
+
+a:link,
+a:visited,
+a:active {
+  color: var(--color-10);
+}

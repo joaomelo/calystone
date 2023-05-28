@@ -1,0 +1,37 @@
+{
+  "name": "calystone",
+  "version": "0.0.1",
+  "main": "src/index.html",
+  "scripts": {
+    "lint": "eslint \"src/**/*.{js,vue}\"",
+    "start": "npm run dev",
+    "dev": "vite",
+    "test": "vitest",
+    "build": "vite build",
+    "deploy": "firebase deploy --only hosting:calystone"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaomelo/calystone.git"
+  },
+  "author": "joão melo <j@melo.plus> (https://joao.melo.plus)",
+  "dependencies": {
+    "lodash.clonedeep": "^4.5.0",
+    "rxjs": "^7.8.1",
+    "uuid": "^9.0.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "concurrently": "^8.0.1",
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-vue": "^9.14.1",
+    "firebase-tools": "^12.2.1",
+    "vite": "^4.3.9",
+    "vite-plugin-pwa": "^0.15.1",
+    "vitest": "^0.31.1",
+    "vue-eslint-parser": "^9.3.0"
+  }
+}
