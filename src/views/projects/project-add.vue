@@ -10,7 +10,7 @@ const task = useTask(
     await projects.add({ name: name.value });
     name.value = null;
   },
-  { delay: 3 }
+  { delay: 1 }
 );
 </script>
 <template>

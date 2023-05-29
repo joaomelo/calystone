@@ -43,7 +43,7 @@ defineProps({
 .overlay-base-spinner {
   width: var(--size-40);
   height: var(--size-40);
-  border: var(--size-00) solid var(--color-50);
+  border: var(--size-00) solid var(--color-70);
   border-right-color: transparent;
   border-radius: 50%;
   animation: spinner 1s linear infinite;

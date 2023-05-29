@@ -8,6 +8,10 @@ defineProps({
     type: String,
     default: null,
   },
+  transparent: {
+    type: Boolean,
+    default: false,
+  },
 });
 defineEmits(["update:modelValue", "submit"]);
 </script>
@@ -16,6 +20,7 @@ defineEmits(["update:modelValue", "submit"]);
     :type="type"
     :value="modelValue"
     class="input-base"
+    :class="{ transparent }"
     @input="$emit('update:modelValue', $event.target.value)"
     @keyup.enter="$emit('submit')"
   />
@@ -23,5 +28,11 @@ defineEmits(["update:modelValue", "submit"]);
 <style scoped>
 .input-base {
   width: 100%;
+}
+
+.input-base.transparent {
+  border: none;
+  background-color: transparent;
+  outline: none;
 }
 </style>

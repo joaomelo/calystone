@@ -39,6 +39,6 @@ main {
   margin: auto;
   padding-block: var(--size-20);
   padding-inline: var(--size-20);
-  background-color: var(--color-50);
+  background-color: var(--color-70);
 }
 </style>

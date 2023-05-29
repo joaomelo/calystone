@@ -18,4 +18,10 @@ export class Projects extends Stateful {
   list() {
     return Array.from(this.#projects.values());
   }
+
+  update(id, { name }) {
+    const project = this.get(id);
+    project.name = name;
+    this.notify();
+  }
 }
