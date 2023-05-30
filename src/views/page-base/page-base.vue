@@ -56,7 +56,7 @@ const locale = i18n.map((i18n) => i18n.locale);
 
 .page-base-footer {
   text-align: center;
-  color: var(--color-30);
+  color: var(--color-neutral-30);
   font-size: var(--font-size-10);
 }
 </style>

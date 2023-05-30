@@ -10,7 +10,7 @@ defineProps({
 <template>
   <button class="button-base">
     <div class="button-base-spinner" v-if="busy">
-      <spinner-base :show="busy" size="--size-20" color="--color-30" />
+      <spinner-base :show="busy" size="--size-20" color="--color-neutral-30" />
     </div>
     <div class="button-base-content" :class="{ busy }">
       <slot></slot>

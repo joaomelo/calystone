@@ -1,20 +1,20 @@
 :root {
-  --color-10: hsl(0, 0%, 0%);
-  --color-20: hsl(0, 0%, 20%);
-  --color-30: hsl(0, 0%, 40%);
-  --color-40: hsl(0, 0%, 60%);
-  --color-50: hsl(0, 0%, 85%);
-  --color-60: hsl(0, 0%, 95%);
-  --color-70: hsl(0, 0%, 100%);
+  --color-neutral-10: hsl(0, 0%, 0%);
+  --color-neutral-20: hsl(0, 0%, 20%);
+  --color-neutral-30: hsl(0, 0%, 40%);
+  --color-neutral-40: hsl(0, 0%, 60%);
+  --color-neutral-50: hsl(0, 0%, 85%);
+  --color-neutral-60: hsl(0, 0%, 95%);
+  --color-neutral-70: hsl(0, 0%, 100%);
 }
 
 html {
-  background-color: var(--color-60);
-  color: var(--color-10);
+  background-color: var(--color-neutral-60);
+  color: var(--color-neutral-10);
 }
 
 a:link,
 a:visited,
 a:active {
-  color: var(--color-10);
+  color: var(--color-neutral-10);
 }

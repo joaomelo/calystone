@@ -12,7 +12,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: "--color-50",
+    default: "--color-neutral-50",
   },
 });
 

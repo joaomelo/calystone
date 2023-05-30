@@ -1,5 +1,6 @@
 <script setup>
 import { InputBase } from "../input-base";
+import ItemActions from "./item-actions.vue";
 
 defineProps({
   items: {
@@ -21,6 +22,7 @@ const handleUpdate = (id, value) => {
         @update:modelValue="handleUpdate(item.id, $event)"
         transparent
       />
+      <item-actions />
     </div>
   </div>
 </template>
@@ -28,13 +30,14 @@ const handleUpdate = (id, value) => {
 <style scoped>
 .list-base-item {
   padding-block: var(--size-10);
+  display: flex;
 }
 
 .list-base-item:hover {
-  background-color: var(--color-60);
+  background-color: var(--color-neutral-60);
 }
 
 .list-base-item:focus-within {
-  background-color: var(--color-50);
+  background-color: var(--color-neutral-50);
 }
 </style>
