@@ -1,6 +1,8 @@
 <script setup>
+import { ref } from "vue";
 import { InputBase } from "../input-base";
-import ItemActions from "./item-actions.vue";
+import { ButtonBase } from "../button-base";
+import ItemDetail from "./item-detail.vue";
 
 defineProps({
   items: {
@@ -8,10 +10,22 @@ defineProps({
     default: () => [],
   },
 });
-const emit = defineEmits(["update"]);
+const emit = defineEmits(["update", "detail", "cancel"]);
+
+const open = ref(false);
 
 const handleUpdate = (id, value) => {
   emit("update", { id, value });
+};
+
+const handleConfirm = (payload) => {
+  emit("detail", payload);
+  open.value = false;
+};
+
+const handleCancel = () => {
+  emit("cancel");
+  open.value = false;
 };
 </script>
 <template>
@@ -22,7 +36,13 @@ const handleUpdate = (id, value) => {
         @update:modelValue="handleUpdate(item.id, $event)"
         transparent
       />
-      <item-actions />
+      <button-base @click="open = true">...</button-base>
+      <item-detail
+        :id="item.id"
+        :open="open"
+        @confirm="handleConfirm"
+        @cancel="handleCancel"
+      />
     </div>
   </div>
 </template>
