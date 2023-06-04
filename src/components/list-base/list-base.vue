@@ -1,48 +1,35 @@
 <script setup>
-import { ref } from "vue";
-import { InputBase } from "../input-base";
 import { ButtonBase } from "../button-base";
-import ItemDetail from "./item-detail.vue";
 
 defineProps({
   items: {
     type: Array,
     default: () => [],
   },
+  actions: {
+    type: Array,
+    default: () => [],
+  },
 });
-const emit = defineEmits(["update", "detail", "cancel"]);
 
-const open = ref(false);
-
-const handleUpdate = (id, value) => {
-  emit("update", { id, value });
-};
-
-const handleConfirm = (payload) => {
-  emit("detail", payload);
-  open.value = false;
-};
-
-const handleCancel = () => {
-  emit("cancel");
-  open.value = false;
+const emit = defineEmits(["action"]);
+const handleAction = (id, action) => {
+  emit("action", { id, action });
 };
 </script>
 <template>
   <div>
     <div v-for="item in items" :key="item.id" class="list-base-item">
-      <input-base
-        :modelValue="item.name"
-        @update:modelValue="handleUpdate(item.id, $event)"
-        transparent
-      />
-      <button-base @click="open = true">...</button-base>
-      <item-detail
-        :id="item.id"
-        :open="open"
-        @confirm="handleConfirm"
-        @cancel="handleCancel"
-      />
+      <div class="list-base-name">{{ item.name }}</div>
+      <div class="list-base-actions">
+        <button-base
+          v-for="action in actions"
+          @click="() => handleAction(item.id, action)"
+          :key="action"
+        >
+          {{ action }}
+        </button-base>
+      </div>
     </div>
   </div>
 </template>
@@ -59,5 +46,14 @@ const handleCancel = () => {
 
 .list-base-item:focus-within {
   background-color: var(--color-neutral-50);
+}
+
+.list-base-name {
+  flex-grow: 1;
+}
+
+.list-base-actions {
+  display: flex;
+  gap: var(--size-00);
 }
 </style>

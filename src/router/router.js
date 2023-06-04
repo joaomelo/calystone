@@ -4,8 +4,8 @@ import { routesPaths, routesConfigs } from "./routes";
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: "/", redirect: routesPaths.dashboard },
+    { path: "/", redirect: routesPaths.projects },
     ...routesConfigs,
-    { path: "/:pathMatch(.*)*", redirect: routesPaths.dashboard },
+    { path: "/:pathMatch(.*)*", redirect: routesPaths.projects },
   ],
 });

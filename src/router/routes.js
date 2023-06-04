@@ -1,8 +1,7 @@
-// import { PageDashboard, PageMeasurement } from "../pages";
-import { PageDashboard } from "../pages";
+import { PageProjects } from "../pages";
 
 export const routes = {
-  dashboard: { path: "/dashboard", component: PageDashboard },
+  dashboard: { path: "/projects", component: PageProjects },
   // open: {
   //   path: "/measurement",
   //   component: PageMeasurement,
