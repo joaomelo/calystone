@@ -1,8 +1,12 @@
 <script setup>
 import { inject } from "vue";
-import { OverlayBase } from "../../components";
+import { OverlayBase } from "../../pure-components";
 
 defineProps({
+  title: {
+    type: String,
+    default: null,
+  },
   busy: {
     type: Boolean,
     default: false,
@@ -15,14 +19,14 @@ const locale = i18n.map((i18n) => i18n.locale);
 <template>
   <div class="page-base">
     <nav class="page-base-nav">
-      <router-link to="/" class="page-base-home">calystone</router-link>
+      <h1 class="page-base-title">{{ title }}</h1>
     </nav>
     <overlay-base :show="busy" class="page-base-content-overlay">
       <div class="page-base-content">
         <slot></slot>
       </div>
     </overlay-base>
-    <footer class="page-base-footer">{{ locale }}</footer>
+    <footer class="page-base-footer">calystone - {{ locale }}</footer>
   </div>
 </template>
 <style scoped>
@@ -36,8 +40,7 @@ const locale = i18n.map((i18n) => i18n.locale);
   margin-block-end: var(--size-30);
 }
 
-.page-base-home {
-  text-decoration: none;
+.page-base-title {
   font-size: var(--font-size-30);
   font-weight: var(--font-weight-30);
 }

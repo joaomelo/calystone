@@ -1,7 +1,7 @@
 import { PageProjects } from "../pages";
 
 export const routes = {
-  dashboard: { path: "/projects", component: PageProjects },
+  projects: { path: "/projects", component: PageProjects },
   // open: {
   //   path: "/measurement",
   //   component: PageMeasurement,

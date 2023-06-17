@@ -1,18 +1,28 @@
 <script setup>
-import { inject } from "vue";
-import { ListBase } from "../../components";
-import PojectEdit from "./project-edit.vue";
+import { ListBase, ButtonBase } from "../../lib";
+defineProps({
+  items: {
+    type: Array,
+    default: () => [],
+  },
+});
+const emit = defineEmits(["edit", "archive", "delete"]);
 
-const { projects } = inject("store");
-const items = projects.map(() => projects.list());
-
-const actions = ["edit", "archive", "delete"];
-
-const handleAction = ({ id, action }) => {
-  console.log({ id, action });
-};
+const handleEdit = (item) => emit("edit", item.id);
+const handleArchive = (item) => emit("archive", item.id);
+const handleDelete = (item) => emit("delete", item.id);
 </script>
 <template>
-  <list-base :items="items" :actions="actions" @action="handleAction" />
-  <project-edit :id="id" :show="showEdit"></project-edit>
+  <list-base :items="items">
+    <template #content="{ item }">{{ item.name }}</template>
+    <template #aside="{ item }">
+      <button-base @click="handleEdit(item)" v-if="!item.archived">
+        edit
+      </button-base>
+      <button-base @click="handleArchive(item)" v-if="!item.archived">
+        archive
+      </button-base>
+      <button-base @click="handleDelete(item)">delete</button-base>
+    </template>
+  </list-base>
 </template>

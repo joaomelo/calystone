@@ -1,1 +1,1 @@
-export { default as PageDashboard } from "./page-dashboard.vue";
+export { default as PageProjects } from "./page-projects.vue";

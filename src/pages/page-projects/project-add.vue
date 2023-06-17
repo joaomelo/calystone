@@ -1,22 +1,25 @@
 <script setup>
-import { inject, ref } from "vue";
-import { InputBase, ButtonBase } from "../../components";
-import { useTask } from "../../utils";
+import { reactive } from "vue";
+import { InputBase, ButtonBase } from "../../lib";
 
-const { projects } = inject("store");
-const name = ref(null);
-const task = useTask(
-  async () => {
-    await projects.add({ name: name.value });
-    name.value = null;
+defineProps({
+  busy: {
+    type: Boolean,
+    default: false,
   },
-  { delay: 1 }
-);
+});
+const emit = defineEmits(["add"]);
+
+const payload = reactive({ name: null });
+const handleAdd = () => {
+  emit("add", { ...payload });
+  payload.name = null;
+};
 </script>
 <template>
   <div class="project-add">
-    <input-base v-model="name" @submit="task.run"></input-base>
-    <button-base @click="task.run" :busy="task.busy">add</button-base>
+    <input-base v-model="payload.name" @submit="handleAdd" />
+    <button-base @click="handleAdd" :busy="busy">add</button-base>
   </div>
 </template>
 <style scoped>

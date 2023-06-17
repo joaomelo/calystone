@@ -1,6 +1,6 @@
 import { supported, localize } from "./locale";
 import { translate } from "./translate";
-import { Stateful } from "../../utils";
+import { Stateful } from "../../lib";
 
 export class I18n extends Stateful {
   #supported = supported;

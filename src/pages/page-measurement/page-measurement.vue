@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, inject } from "vue";
-import { PageBase } from "../../components";
+import { PageBase } from "../../lib";
 import { readMeasurement } from "../../services";
 
 const props = defineProps({

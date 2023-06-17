@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { ModalBase, ButtonBase } from "../../components";
+import { ModalBase, ButtonBase } from "../../lib";
 defineProps({
   id: {
     type: String,
