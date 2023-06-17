@@ -1,3 +1,3 @@
-export * from "./connected-components";
-export * from "./pure-components";
+export * from "./connected";
+export * from "./pure";
 export * from "./utils";

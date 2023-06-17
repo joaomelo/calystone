@@ -1,6 +1,6 @@
 <script setup>
 import { inject } from "vue";
-import { OverlayBase } from "../../pure-components";
+import { OverlayBase } from "../../pure";
 
 defineProps({
   title: {

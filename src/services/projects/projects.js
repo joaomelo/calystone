@@ -36,7 +36,6 @@ export class Projects extends Stateful {
   delete(id) {
     const project = this.get(id);
     this.#projects.delete(id);
-    console.log({ id, v: this.#projects });
     this.notify();
     return project;
   }

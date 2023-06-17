@@ -14,7 +14,9 @@ const handleDelete = (item) => emit("delete", item.id);
 </script>
 <template>
   <list-base :items="items">
-    <template #content="{ item }">{{ item.name }}</template>
+    <template #content="{ item }">
+      <p :class="{ archived: item.archived }">{{ item.name }}</p>
+    </template>
     <template #aside="{ item }">
       <button-base @click="handleEdit(item)" v-if="!item.archived">
         edit
@@ -26,3 +28,10 @@ const handleDelete = (item) => emit("delete", item.id);
     </template>
   </list-base>
 </template>
+
+<style scoped>
+.archived {
+  color: var(--color-neutral-40);
+  text-decoration: line-through;
+}
+</style>
