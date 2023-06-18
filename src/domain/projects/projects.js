@@ -1,7 +1,6 @@
-import { Stateful } from "../../lib";
 import { Project } from "./project";
 
-export class Projects extends Stateful {
+export class Projects {
   #projects = new Map();
 
   get(id) {
@@ -12,31 +11,22 @@ export class Projects extends Stateful {
     return Array.from(this.#projects.values());
   }
 
-  add({ name }) {
-    const project = new Project({ name });
+  add({ name, owner }) {
+    const project = new Project({ name, owner });
     this.#projects.set(project.id, project);
-    this.notify();
-    return project;
   }
 
   set({ id, name }) {
     const project = this.get(id);
     project.name = name;
-    this.notify();
-    return project;
   }
 
   archive(id) {
     const project = this.get(id);
-    this.notify();
     project.archive();
-    return project;
   }
 
   delete(id) {
-    const project = this.get(id);
     this.#projects.delete(id);
-    this.notify();
-    return project;
   }
 }

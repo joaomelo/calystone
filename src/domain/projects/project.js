@@ -3,11 +3,13 @@ import { v4 as uuid } from "uuid";
 export class Project {
   _id;
   _name;
+  _owner;
   _archivedAt = null;
 
-  constructor({ id, name, archivedAt }) {
+  constructor({ id, name, archivedAt, owner }) {
     this._id = id || uuid();
     this._name = name;
+    this._owner = owner;
 
     if (archivedAt) {
       this.archive(archivedAt);

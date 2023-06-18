@@ -1,16 +1,22 @@
+import { v4 as uuid } from "uuid";
 import { Stateful } from "../../lib";
 import { AUTH_STATUSES } from "./statuses";
 
 export class Auth extends Stateful {
   _status = AUTH_STATUSES.UNSOLVED;
+  _userId = uuid();
 
   constructor() {
     super();
-    setTimeout(() => this.signOut(), 5000);
+    setTimeout(() => this.signOut(), 1000);
   }
 
   get status() {
     return this._status;
+  }
+
+  get userId() {
+    return this._userId;
   }
 
   signIn() {
@@ -20,7 +26,6 @@ export class Auth extends Stateful {
 
   signOut() {
     this._status = AUTH_STATUSES.SIGNED_OUT;
-    console.log("hi");
     this.notify();
   }
 }
