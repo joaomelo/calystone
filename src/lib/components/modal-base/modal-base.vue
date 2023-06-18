@@ -9,6 +9,7 @@ const props = defineProps({
 
 const dialog = ref(null);
 
+const close = () => dialog.value.close();
 watch(
   () => props.show,
   (show) => {
@@ -25,8 +26,17 @@ watch(
     <div>
       <slot />
     </div>
-    <div>
-      <slot name="buttons" />
+    <div class="model-base-buttons">
+      <slot name="buttons" :close="close" />
     </div>
   </dialog>
 </template>
+
+<style scoped>
+.model-base-buttons {
+  margin-top: var(--size-20);
+  display: flex;
+  justify-content: end;
+  gap: var(--size-10);
+}
+</style>

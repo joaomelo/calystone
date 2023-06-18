@@ -22,6 +22,10 @@ export class Project {
     return this._name;
   }
 
+  set name(value) {
+    this._name = value;
+  }
+
   get archived() {
     return !!this._archivedAt;
   }
