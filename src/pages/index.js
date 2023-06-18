@@ -1,1 +1,1 @@
-export * from "./page-projects";
+export * from "./router";

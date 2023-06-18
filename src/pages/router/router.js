@@ -4,8 +4,8 @@ import { routesPaths, routesConfigs } from "./routes";
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: "/", redirect: routesPaths.projects },
+    { path: "/", redirect: routesPaths.disambiguate },
     ...routesConfigs,
-    { path: "/:pathMatch(.*)*", redirect: routesPaths.projects },
+    { path: "/:pathMatch(.*)*", redirect: routesPaths.disambiguate },
   ],
 });

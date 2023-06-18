@@ -1,8 +1,11 @@
 <script setup>
-import { inject } from "vue";
+import { inject, watch } from "vue";
+import { useRouter } from "vue-router";
 import { OverlayBase } from "../../lib";
+import { AUTH_STATUSES } from "../../services";
+import { PAGE_VISIBILITY } from "./visibilities";
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     default: null,
@@ -11,7 +14,37 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  visibility: {
+    type: String,
+    default: PAGE_VISIBILITY.PUBLIC,
+  },
 });
+
+const router = useRouter();
+const { auth } = inject("store");
+const authStatus = auth.map((a) => a.status);
+
+watch(
+  [() => props.visibility, () => authStatus.value],
+  ([visibility, status]) => {
+    if (visibility === PAGE_VISIBILITY.PUBLIC) return;
+
+    if (
+      visibility === PAGE_VISIBILITY.INTERNAL &&
+      status !== AUTH_STATUSES.SIGNED_IN
+    )
+      return router.push("/");
+
+    if (
+      visibility === PAGE_VISIBILITY.EXTERNAL &&
+      status !== AUTH_STATUSES.SIGNED_OUT
+    )
+      return router.push("/");
+  },
+  {
+    immediate: true,
+  }
+);
 
 const { i18n } = inject("store");
 const locale = i18n.map((i18n) => i18n.locale);
@@ -20,6 +53,7 @@ const locale = i18n.map((i18n) => i18n.locale);
   <div class="page-base">
     <nav class="page-base-nav">
       <h1 class="page-base-title">{{ title }}</h1>
+      <slot name="aside"></slot>
     </nav>
     <overlay-base :show="busy" class="page-base-content-overlay">
       <div class="page-base-content">
@@ -38,6 +72,8 @@ const locale = i18n.map((i18n) => i18n.locale);
 
 .page-base-nav {
   margin-block-end: var(--size-30);
+  display: flex;
+  justify-content: space-between;
 }
 
 .page-base-title {

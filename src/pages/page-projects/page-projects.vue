@@ -1,7 +1,7 @@
 <script setup>
 import { ref, inject } from "vue";
 import { useTask } from "../../lib";
-import { PageBase } from "../page-base";
+import { PageInternal } from "../page-base";
 
 import ProjectAdd from "./project-add.vue";
 import ProjectEdit from "./project-edit.vue";
@@ -29,7 +29,7 @@ const handleCancel = () => {
 };
 </script>
 <template>
-  <page-base :title="pageTitle">
+  <page-internal :title="pageTitle">
     <project-add @add="add.run" :busy="add.busy" />
     <projects-list
       :items="items"
@@ -38,5 +38,5 @@ const handleCancel = () => {
       @edit="handleOpen"
     />
     <project-edit :item="item" @save="handleSave" @cancel="handleCancel" />
-  </page-base>
+  </page-internal>
 </template>
