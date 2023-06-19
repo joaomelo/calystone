@@ -1,0 +1,9 @@
+:root {
+  --color-neutral-10: hsl(0, 0%, 0%);
+  --color-neutral-20: hsl(0, 0%, 20%);
+  --color-neutral-30: hsl(0, 0%, 40%);
+  --color-neutral-40: hsl(0, 0%, 60%);
+  --color-neutral-50: hsl(0, 0%, 85%);
+  --color-neutral-60: hsl(0, 0%, 95%);
+  --color-neutral-70: hsl(0, 0%, 100%);
+}

@@ -1,0 +1,14 @@
+:root {
+  --font-size-10: 10px;
+  --font-size-20: 18px;
+  --font-size-30: 26px;
+  --font-size-40: 34px;
+  --font-size-50: 42px;
+  --font-size-60: 50px;
+  --font-size-70: 58px;
+
+  --font-weight-10: 100;
+  --font-weight-20: 400;
+  --font-weight-30: 700;
+  --font-weight-40: 900;
+}

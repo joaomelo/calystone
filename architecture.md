@@ -1,2 +1,0 @@
-- only pages have access to services. pages subcomponentes are presentational only and deal with business logic by props and events. this makes those componentes more resilient to changes.
-- services expose consumed features with high level methods that manipulate the object tree they manage. this uncouple de view from details inside business classes.
