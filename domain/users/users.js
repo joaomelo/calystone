@@ -5,6 +5,10 @@ export class Users {
     return this._users.get(id);
   }
 
+  current() {
+    throw new Error("no built");
+  }
+
   list() {
     return Array.from(this._users.values());
   }

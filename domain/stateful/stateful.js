@@ -1,5 +1,4 @@
 import { BehaviorSubject } from "rxjs";
-import { ref } from "vue";
 
 export class Stateful {
   #subject;
@@ -12,12 +11,6 @@ export class Stateful {
   subscribe(observer) {
     const subscription = this.#subject.subscribe(observer);
     return () => subscription.unsubscribe();
-  }
-
-  map(to) {
-    const data = ref(to(this));
-    this.subscribe((stateful) => (data.value = to(stateful)));
-    return data;
   }
 
   notify() {
