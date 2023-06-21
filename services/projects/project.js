@@ -1,21 +1,14 @@
-import { v4 as uuid } from "uuid";
-import { Stateful } from "../stateful";
-
-export class Project extends Stateful {
+export class Project {
   _id;
   _name;
   _owner;
   _archivedAt = null;
 
   constructor({ id, name, archivedAt, owner }) {
-    super();
-    this._id = id || uuid();
+    this._id = id;
     this._name = name;
     this._owner = owner;
-
-    if (archivedAt) {
-      this.archive(archivedAt);
-    }
+    this._archivedAt = archivedAt;
   }
 
   get id() {
@@ -26,17 +19,7 @@ export class Project extends Stateful {
     return this._name;
   }
 
-  set name(value) {
-    this._name = value;
-    this.notify();
-  }
-
   get archived() {
     return !!this._archivedAt;
-  }
-
-  archive(archivedAt = new Date()) {
-    this._archivedAt = archivedAt;
-    this.notify();
   }
 }

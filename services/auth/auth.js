@@ -15,6 +15,10 @@ export class Auth extends Stateful {
     return this._status;
   }
 
+  get signedIn() {
+    return this._status === AUTH_STATUSES.SIGNED_IN;
+  }
+
   get userId() {
     return this._userId;
   }
