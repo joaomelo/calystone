@@ -1,10 +1,8 @@
-import { PageDisambiguate } from "../page-disambiguate";
-import { PageProjects } from "../page-projects";
-import { PageAuth } from "../page-auth";
+import { PageLoading, PageProjects, PageAuth } from "../pages";
 
 export const routes = {
   auth: { path: "/auth", component: PageAuth },
-  disambiguate: { path: "/disambiguate", component: PageDisambiguate },
+  loading: { path: "/loading", component: PageLoading },
   projects: { path: "/projects", component: PageProjects },
 };
 

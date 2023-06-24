@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { AUTH_STATUSES } from "../../../body";
 import { useStateful } from "../../helpers";
 import { OverlayBase } from "../../components";
+import { routesPaths } from "../../router";
 import { PAGE_VISIBILITY } from "./visibilities";
 
 const props = defineProps({
@@ -28,19 +29,20 @@ const authStatus = useStateful(auth, (a) => a.status);
 watch(
   [() => props.visibility, () => authStatus.value],
   ([visibility, status]) => {
-    if (visibility === PAGE_VISIBILITY.PUBLIC) return;
+    if (status === AUTH_STATUSES.UNSOLVED)
+      return router.push(routesPaths.loading);
 
     if (
       visibility === PAGE_VISIBILITY.INTERNAL &&
-      status !== AUTH_STATUSES.SIGNED_IN
+      status === AUTH_STATUSES.SIGNED_OUT
     )
-      return router.push("/");
+      return router.push(routesPaths.auth);
 
     if (
       visibility === PAGE_VISIBILITY.EXTERNAL &&
-      status !== AUTH_STATUSES.SIGNED_OUT
+      status === AUTH_STATUSES.SIGNED_IN
     )
-      return router.push("/");
+      return router.push(routesPaths.projects);
   },
   {
     immediate: true,

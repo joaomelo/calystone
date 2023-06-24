@@ -1,7 +1,7 @@
 import { createApp } from "vue";
-import { FirebaseDriver, Auth } from "../body";
-// import { I18n } from "./i18n";
-import { router } from "./pages";
+import { FirebaseDriver, Auth, Projects } from "../body";
+import { I18n } from "./i18n";
+import { router } from "./router";
 import App from "./app.vue";
 import "./styles";
 
@@ -18,12 +18,12 @@ export function initApp(elementId) {
   const driver = new FirebaseDriver(firebaseConfig);
   const auth = new Auth(driver.auth);
 
-  // const i18n = new I18n(navigator.navigate);
-  // const projects = new ProjectsService(auth);
+  const i18n = new I18n(navigator.navigate);
+  const projects = new Projects(auth);
   const globals = {
-    // i18n,
+    i18n,
     auth,
-    // projects,
+    projects,
   };
 
   const app = createApp(App);

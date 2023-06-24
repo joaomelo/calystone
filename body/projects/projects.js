@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { Stateful } from "../stateful";
+import { Stateful } from "../../lib";
 import { Project } from "./project";
 
 export class Projects extends Stateful {
