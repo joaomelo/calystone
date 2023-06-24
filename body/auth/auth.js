@@ -7,7 +7,7 @@ export class Auth extends Stateful {
   _user = null;
   _driver;
 
-  constructor({ driver }) {
+  constructor(driver) {
     super();
     this._driver = driver;
 

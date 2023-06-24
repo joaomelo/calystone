@@ -1,13 +1,13 @@
 <script setup>
 import { ref, inject } from "vue";
-import { useTask } from "../../lib";
+import { useTask } from "../../../helpers";
 import { PageInternal } from "../page-base";
 
 import ProjectAdd from "./project-add.vue";
 import ProjectEdit from "./project-edit.vue";
 import ProjectsList from "./projects-list.vue";
 
-const { i18n, projects } = inject("store");
+const { i18n, projects } = inject("globals");
 
 const pageTitle = i18n.map(() => i18n.t("projects"));
 const items = projects.map(() => projects.list());

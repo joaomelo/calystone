@@ -1,4 +1,5 @@
 .env
 .firebase/
 dist/
+dist-web/
 node_modules/

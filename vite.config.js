@@ -27,10 +27,11 @@ export default defineConfig(() => {
       //   // },
       // }),
     ],
-    root: "./views/web",
+    root: "./web",
+    envDir: "../",
     // publicDir: "../assets",
     build: {
-      outDir: "../../dist-web",
+      outDir: "../dist-web",
       assetsDir: ".",
       emptyOutDir: true,
       sourcemap: true,

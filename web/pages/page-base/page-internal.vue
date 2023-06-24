@@ -1,6 +1,6 @@
 <script setup>
 import { inject } from "vue";
-import { ButtonBase } from "../../lib";
+import { ButtonBase } from "../../../components";
 import { PAGE_VISIBILITY } from "./visibilities";
 import PageBase from "./page-base.vue";
 
@@ -15,7 +15,7 @@ defineProps({
   },
 });
 
-const { auth } = inject("store");
+const { auth } = inject("globals");
 const handleSignOut = () => auth.signOut();
 </script>
 <template>

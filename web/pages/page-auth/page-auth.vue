@@ -1,9 +1,9 @@
 <script setup>
 import { inject } from "vue";
-import { ButtonBase } from "../../lib";
+import { ButtonBase } from "../../../components";
 import { PageExternal } from "../page-base";
 
-const { auth } = inject("store");
+const { auth } = inject("globals");
 
 const handleSign = () => auth.signIn();
 </script>

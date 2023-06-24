@@ -1,4 +1,3 @@
-import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -8,12 +7,10 @@ import {
 } from "firebase/auth";
 
 export class AuthDriver {
-  _app;
   _auth;
 
-  constructor(options) {
-    this._app = initializeApp(options);
-    this._auth = getAuth(this._app);
+  constructor(app) {
+    this._auth = getAuth(app);
   }
 
   subscribe(observer) {

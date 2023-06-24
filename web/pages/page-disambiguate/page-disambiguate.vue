@@ -1,12 +1,12 @@
 <script setup>
 import { inject, watch } from "vue";
 import { useRouter } from "vue-router";
-import { AUTH_STATUSES } from "../../services";
+import { AUTH_STATUSES } from "../../../../body";
 import { PageBase } from "../page-base";
 import { routesPaths } from "../router";
 
 const router = useRouter();
-const { auth } = inject("store");
+const { auth } = inject("globals");
 const authStatus = auth.map((a) => a.status);
 
 watch(

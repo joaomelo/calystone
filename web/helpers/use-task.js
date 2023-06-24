@@ -1,5 +1,5 @@
 import { reactive } from "vue";
-import { delay } from "../utils";
+import { delay } from "../../lib";
 
 export function useTask(fn, { delay: seconds }) {
   const task = reactive({
