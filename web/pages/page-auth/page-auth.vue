@@ -1,6 +1,6 @@
 <script setup>
 import { inject } from "vue";
-import { ButtonBase } from "../../../components";
+import { ButtonBase } from "../../components";
 import { PageExternal } from "../page-base";
 
 const { auth } = inject("globals");

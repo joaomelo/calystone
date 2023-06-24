@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { AuthDriver } from "./auth";
 
-export class AppDriver {
+export class FirebaseDriver {
   _app;
   _analytics;
 

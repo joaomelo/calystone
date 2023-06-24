@@ -1,5 +1,5 @@
 <script setup>
-import { ListBase, ButtonBase } from "../../../components";
+import { ListBase, ButtonBase } from "../../components";
 defineProps({
   items: {
     type: Array,

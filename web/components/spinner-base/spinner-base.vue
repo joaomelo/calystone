@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue";
-import { asCss } from "../../utils";
+import { asCss } from "../../helpers";
 const props = defineProps({
   show: {
     type: Boolean,

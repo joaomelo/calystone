@@ -1,8 +1,9 @@
 <script setup>
 import { inject, watch } from "vue";
 import { useRouter } from "vue-router";
-import { AUTH_STATUSES } from "../../../../body";
-import { OverlayBase } from "../../../components";
+import { AUTH_STATUSES } from "../../../body";
+import { useStateful } from "../../helpers";
+import { OverlayBase } from "../../components";
 import { PAGE_VISIBILITY } from "./visibilities";
 
 const props = defineProps({
@@ -22,7 +23,7 @@ const props = defineProps({
 
 const router = useRouter();
 const { auth } = inject("globals");
-const authStatus = auth.map((a) => a.status);
+const authStatus = useStateful(auth, (a) => a.status);
 
 watch(
   [() => props.visibility, () => authStatus.value],

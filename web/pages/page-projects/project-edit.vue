@@ -1,6 +1,6 @@
 <script setup>
 import { computed, reactive, watch } from "vue";
-import { ModalBase, ButtonBase, InputBase } from "../../lib";
+import { ModalBase, ButtonBase, InputBase } from "../../components";
 const props = defineProps({
   item: {
     type: Object,

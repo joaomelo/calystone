@@ -1,6 +1,6 @@
 <script setup>
 import { inject } from "vue";
-import { ButtonBase } from "../../../components";
+import { ButtonBase } from "../../components";
 import { PAGE_VISIBILITY } from "./visibilities";
 import PageBase from "./page-base.vue";
 

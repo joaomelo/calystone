@@ -1,6 +1,6 @@
 <script setup>
 import { ref, inject } from "vue";
-import { useTask } from "../../../helpers";
+import { useTask } from "../../helpers";
 import { PageInternal } from "../page-base";
 
 import ProjectAdd from "./project-add.vue";

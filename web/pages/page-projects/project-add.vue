@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from "vue";
-import { InputBase, ButtonBase } from "../../../components";
+import { InputBase, ButtonBase } from "../../components";
 
 defineProps({
   busy: {

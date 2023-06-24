@@ -1,13 +1,14 @@
 <script setup>
 import { inject, watch } from "vue";
 import { useRouter } from "vue-router";
-import { AUTH_STATUSES } from "../../../../body";
+import { AUTH_STATUSES } from "../../../body";
+import { useStateful } from "../../helpers";
 import { PageBase } from "../page-base";
 import { routesPaths } from "../router";
 
 const router = useRouter();
 const { auth } = inject("globals");
-const authStatus = auth.map((a) => a.status);
+const authStatus = useStateful(auth, (a) => a.status);
 
 watch(
   () => authStatus.value,
