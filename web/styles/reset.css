@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700;900&display=swap");
+
 *,
 *::before,
 *::after {
@@ -43,8 +45,6 @@ a:visited,
 a:active {
   color: var(--color-neutral-10);
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700;900&display=swap");
 
 body {
   font-family: "Roboto", sans-serif;

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, inject } from "vue";
-import { useTask } from "../../helpers";
+import { useTask, useStateful } from "../../helpers";
 import { PageInternal } from "../page-base";
 
 import ProjectAdd from "./project-add.vue";
@@ -9,8 +9,8 @@ import ProjectsList from "./projects-list.vue";
 
 const { i18n, projects } = inject("globals");
 
-const pageTitle = i18n.map(() => i18n.t("projects"));
-const items = projects.map(() => projects.list());
+const pageTitle = useStateful(i18n, (i) => i.t("projects"));
+const items = useStateful(projects, (p) => p.list());
 
 const delay = { delay: 0.5 };
 const add = useTask((payload) => projects.add(payload), delay);

@@ -1,15 +1,19 @@
 <script setup>
-import { inject } from "vue";
-import { ButtonBase } from "../../components";
+import { inject, reactive } from "vue";
+import { ButtonBase, InputBase } from "../../components";
 import { PageExternal } from "../page-base";
 
 const { auth } = inject("globals");
 
-const handleSign = () => auth.signIn();
+const credentials = reactive({ email: null, password: null });
+const handleSignIn = () => auth.signIn(credentials);
+const handleSignUp = () => auth.signUp(credentials);
 </script>
 <template>
   <page-external title="auth">
-    <button-base @click="handleSign">sign in</button-base>
-    <button-base @click="handleSign">sign up</button-base>
+    <input-base v-model="credentials.email" />
+    <input-base v-model="credentials.password" />
+    <button-base @click="handleSignIn">sign in</button-base>
+    <button-base @click="handleSignUp">sign up</button-base>
   </page-external>
 </template>

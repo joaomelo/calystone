@@ -9,9 +9,9 @@ export class Projects extends Stateful {
 
   constructor({ auth, engine }) {
     super();
-    this._auth = auth;
-    this._auth.subscribe(() => this.link());
-    this._engine = engine;
+    // this._auth = auth;
+    // this._auth.subscribe(() => this.link());
+    // this._engine = engine;
   }
 
   link() {

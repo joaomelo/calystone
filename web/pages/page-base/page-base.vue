@@ -1,10 +1,12 @@
 <script setup>
 import { inject, watch } from "vue";
 import { useRouter } from "vue-router";
+
 import { AUTH_STATUSES } from "../../../body";
-import { useStateful } from "../../helpers";
 import { OverlayBase } from "../../components";
 import { routesPaths } from "../../router";
+import { useStateful } from "../../helpers";
+
 import { PAGE_VISIBILITY } from "./visibilities";
 
 const props = defineProps({
@@ -33,14 +35,14 @@ watch(
       return router.push(routesPaths.loading);
 
     if (
-      visibility === PAGE_VISIBILITY.INTERNAL &&
-      status === AUTH_STATUSES.SIGNED_OUT
+      status === AUTH_STATUSES.SIGNED_OUT &&
+      visibility !== PAGE_VISIBILITY.EXTERNAL
     )
       return router.push(routesPaths.auth);
 
     if (
-      visibility === PAGE_VISIBILITY.EXTERNAL &&
-      status === AUTH_STATUSES.SIGNED_IN
+      status === AUTH_STATUSES.SIGNED_IN &&
+      visibility !== PAGE_VISIBILITY.INTERNAL
     )
       return router.push(routesPaths.projects);
   },
@@ -50,7 +52,7 @@ watch(
 );
 
 const { i18n } = inject("globals");
-const locale = i18n.map((i18n) => i18n.locale);
+const locale = useStateful(i18n, (i) => i.locale);
 </script>
 <template>
   <div class="page-base">
