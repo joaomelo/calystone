@@ -1,32 +1,18 @@
-import { v4 as uuid } from "uuid";
 import { Stateful } from "../../lib";
-import { Project } from "./project";
 
 export class Projects extends Stateful {
   _projects = new Map();
-  _auth;
-  _engine;
+  _collection;
 
-  constructor({ auth, engine }) {
+  constructor(collection) {
     super();
-    // this._auth = auth;
-    // this._auth.subscribe(() => this.link());
-    // this._engine = engine;
+    this._collection = collection;
+    this._collection.subscribe((items) => this.load(items));
   }
 
-  link() {
-    if (!this._auth.signedIn) {
-      this._projects.clear();
-      this.notify();
-      return;
-    }
-
-    const query = this._engine.where("OWNER", "===", this._auth.userId);
-    query.onSnapshot((snapshot) => {
-      snapshot;
-    });
-
-    // active listener to database tied to this user
+  load(items) {
+    this._projects.clear();
+    items.forEach((item) => this._projects.set(item.id, item));
     this.notify();
   }
 
@@ -39,18 +25,26 @@ export class Projects extends Stateful {
   }
 
   add(payload) {
-    const owner = this._auth.userId;
-    const id = uuid();
-    this.set({ owner, id, ...payload });
+    return this._collection.add(payload);
   }
 
-  set(payload) {
-    this._projects.set(project.id, project);
-    this.notify();
+  edit(payload) {
+    const project = this.get(payload.id);
+    return this._collection.set({
+      ...project,
+      ...payload,
+    });
   }
 
-  delete(id) {
-    this._projects.delete(id);
-    this.notify();
+  archive(id) {
+    const project = this.get(id);
+    return this._collection.set({
+      ...project,
+      archivedAt: new Date(),
+    });
+  }
+
+  del(id) {
+    return this._collection.del(id);
   }
 }

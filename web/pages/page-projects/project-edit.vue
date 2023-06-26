@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { ModalBase, ButtonBase, InputBase } from "../../components";
 const props = defineProps({
   item: {
@@ -10,12 +10,14 @@ const props = defineProps({
 defineEmits(["save", "cancel"]);
 
 const show = computed(() => !!props.item);
-const payload = reactive({ id: props.item?.id, name: props.item?.name });
+const payload = ref({ id: props.item?.id, name: props.item?.name });
 watch(
   () => props.item,
   (value) => {
-    payload.id = value?.id;
-    payload.name = value?.name;
+    payload.value = {
+      id: value?.id,
+      name: value?.name,
+    };
   }
 );
 </script>

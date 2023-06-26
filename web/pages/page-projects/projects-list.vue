@@ -15,13 +15,13 @@ const handleDelete = (item) => emit("delete", item.id);
 <template>
   <list-base :items="items">
     <template #content="{ item }">
-      <p :class="{ archived: item.archived }">{{ item.name }}</p>
+      <p :class="{ archived: !!item.archivedAt }">{{ item.name }}</p>
     </template>
     <template #aside="{ item }">
       <button-base @click="handleEdit(item)" v-if="!item.archived">
         edit
       </button-base>
-      <button-base @click="handleArchive(item)" v-if="!item.archived">
+      <button-base @click="handleArchive(item)" v-if="!item.archivedAt">
         archive
       </button-base>
       <button-base @click="handleDelete(item)">delete</button-base>

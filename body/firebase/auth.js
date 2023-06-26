@@ -6,28 +6,32 @@ import {
   signOut,
 } from "firebase/auth";
 
-export class AuthDriver {
-  _auth;
+export class Auth {
+  _firebaseAuth;
 
   constructor(app) {
-    this._auth = getAuth(app);
+    this._firebaseAuth = getAuth(app);
+  }
+
+  get userId() {
+    return this._firebaseAuth.currentUser.uid;
   }
 
   subscribe(observer) {
-    return onAuthStateChanged(this._auth, observer);
+    return onAuthStateChanged(this._firebaseAuth, observer);
   }
 
   signUp(credentials) {
     const { email, password } = credentials;
-    return createUserWithEmailAndPassword(this._auth, email, password);
+    return createUserWithEmailAndPassword(this._firebaseAuth, email, password);
   }
 
   signIn(credentials) {
     const { email, password } = credentials;
-    return signInWithEmailAndPassword(this._auth, email, password);
+    return signInWithEmailAndPassword(this._firebaseAuth, email, password);
   }
 
   signOut() {
-    return signOut(this._auth);
+    return signOut(this._firebaseAuth);
   }
 }

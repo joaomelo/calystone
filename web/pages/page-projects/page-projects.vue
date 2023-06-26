@@ -15,8 +15,8 @@ const items = useStateful(projects, (p) => p.list());
 const delay = { delay: 0.5 };
 const add = useTask((payload) => projects.add(payload), delay);
 const archive = useTask((id) => projects.archive(id), delay);
-const del = useTask((id) => projects.delete(id), delay);
-const edit = useTask((payload) => projects.set(payload), delay);
+const del = useTask((id) => projects.del(id), delay);
+const edit = useTask((payload) => projects.edit(payload), delay);
 
 const item = ref(null);
 const handleOpen = (id) => (item.value = projects.get(id));
