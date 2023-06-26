@@ -3,7 +3,7 @@ import { inject, watch } from "vue";
 import { useRouter } from "vue-router";
 
 import { AUTH_STATUSES } from "../../../body";
-import { useStateful, OverlayBase } from "../../../lib";
+import { useStateful, OverlayBase, InputBase } from "../../../lib";
 import { routesPaths } from "../../router";
 
 import { PAGE_VISIBILITY } from "./visibilities";
@@ -52,6 +52,8 @@ watch(
 
 const { i18n } = inject("globals");
 const locale = useStateful(i18n, (i) => i.locale);
+const supported = i18n.supported;
+const handleUpdateLocale = (value) => (i18n.locale = value);
 </script>
 <template>
   <div class="page-base">
@@ -64,7 +66,16 @@ const locale = useStateful(i18n, (i) => i.locale);
         <slot></slot>
       </div>
     </overlay-base>
-    <footer class="page-base-footer">calystone - {{ locale }}</footer>
+    <footer class="page-base-footer">
+      calystone -
+      <input-base
+        :options="supported"
+        type="select"
+        :modelValue="locale"
+        @update:modelValue="handleUpdateLocale"
+        class="page-base-locale"
+      />
+    </footer>
   </div>
 </template>
 <style scoped>
@@ -101,5 +112,9 @@ const locale = useStateful(i18n, (i) => i.locale);
   text-align: center;
   color: var(--color-neutral-30);
   font-size: var(--font-size-10);
+}
+
+.page-base-locale {
+  display: inline;
 }
 </style>
