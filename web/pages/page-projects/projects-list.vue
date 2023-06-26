@@ -1,5 +1,6 @@
 <script setup>
-import { ListBase, ButtonBase } from "../../components";
+import { inject } from "vue";
+import { ListBase, ButtonBase, useStateful } from "../../../lib";
 defineProps({
   items: {
     type: Array,
@@ -7,6 +8,11 @@ defineProps({
   },
 });
 const emit = defineEmits(["edit", "archive", "delete"]);
+
+const { i18n } = inject("globals");
+const editText = useStateful(i18n, (i) => i.t("edit"));
+const archiveText = useStateful(i18n, (i) => i.t("archive"));
+const deleteText = useStateful(i18n, (i) => i.t("delete"));
 
 const handleEdit = (item) => emit("edit", item.id);
 const handleArchive = (item) => emit("archive", item.id);
@@ -19,12 +25,12 @@ const handleDelete = (item) => emit("delete", item.id);
     </template>
     <template #aside="{ item }">
       <button-base @click="handleEdit(item)" v-if="!item.archived">
-        edit
+        {{ editText }}
       </button-base>
       <button-base @click="handleArchive(item)" v-if="!item.archivedAt">
-        archive
+        {{ archiveText }}
       </button-base>
-      <button-base @click="handleDelete(item)">delete</button-base>
+      <button-base @click="handleDelete(item)">{{ deleteText }}</button-base>
     </template>
   </list-base>
 </template>

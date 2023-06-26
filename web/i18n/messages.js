@@ -1,8 +1,28 @@
 export const messages = {
   en: {
+    signIn: "sign in",
+    signUp: "sign up",
+    signOut: "sign out",
+    loading: "loading",
+    add: "add",
+    save: "save",
+    cancel: "cancel",
+    edit: "edit",
+    archive: "archive",
+    delete: "delete",
     projects: "projects",
   },
   "pt-br": {
+    signIn: "entrar",
+    signUp: "criar",
+    signOut: "sair",
+    loading: "carregando",
+    add: "novo",
+    save: "salvar",
+    cancel: "cancelar",
+    edit: "editar",
+    archive: "arquivar",
+    delete: "excluir",
     projects: "projetos",
   },
 };

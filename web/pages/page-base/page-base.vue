@@ -3,9 +3,8 @@ import { inject, watch } from "vue";
 import { useRouter } from "vue-router";
 
 import { AUTH_STATUSES } from "../../../body";
-import { OverlayBase } from "../../components";
+import { useStateful, OverlayBase } from "../../../lib";
 import { routesPaths } from "../../router";
-import { useStateful } from "../../helpers";
 
 import { PAGE_VISIBILITY } from "./visibilities";
 

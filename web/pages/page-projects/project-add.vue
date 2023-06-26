@@ -1,6 +1,6 @@
 <script setup>
-import { reactive } from "vue";
-import { InputBase, ButtonBase } from "../../components";
+import { inject, reactive } from "vue";
+import { InputBase, ButtonBase, useStateful } from "../../../lib";
 
 defineProps({
   busy: {
@@ -9,6 +9,9 @@ defineProps({
   },
 });
 const emit = defineEmits(["add"]);
+
+const { i18n } = inject("globals");
+const addText = useStateful(i18n, (i) => i.t("add"));
 
 const payload = reactive({ name: null });
 const handleAdd = () => {
@@ -19,7 +22,7 @@ const handleAdd = () => {
 <template>
   <div class="project-add">
     <input-base v-model="payload.name" @submit="handleAdd" />
-    <button-base @click="handleAdd" :busy="busy">add</button-base>
+    <button-base @click="handleAdd" :busy="busy">{{ addText }}</button-base>
   </div>
 </template>
 <style scoped>
