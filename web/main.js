@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { Firebase, Auth, Projects } from "../body";
-import { I18n } from "./i18n";
+import { I18n } from "../lib";
+import { messages } from "./i18n";
 import { router } from "./router";
 import App from "./app.vue";
 import "./styles";
@@ -19,7 +20,8 @@ export function initApp(elementId) {
   const auth = new Auth(driver.auth);
   const projects = new Projects(driver.projects);
 
-  const i18n = new I18n(navigator.navigate);
+  const i18n = new I18n(messages);
+  i18n.locale = navigator.navigate;
 
   const globals = {
     i18n,
