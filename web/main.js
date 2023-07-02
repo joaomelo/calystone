@@ -1,6 +1,6 @@
 import { createApp } from "vue";
-import { Firebase, Auth, Projects } from "../body";
-import { I18n } from "../lib";
+import { Firebase, I18n } from "../lib";
+import { Auth, Projects } from "../body";
 import { messages } from "./i18n";
 import { router } from "./router";
 import App from "./app.vue";
@@ -16,9 +16,9 @@ export function initApp(elementId) {
     appId: import.meta.env.VITE_APP_ID,
     measurementId: import.meta.env.VITE_MEASUREMENT_ID,
   };
-  const driver = new Firebase({ config, collections: ["projects"] });
+  const driver = new Firebase(config);
   const auth = new Auth(driver.auth);
-  const projects = new Projects(driver.projects);
+  const projects = new Projects(driver);
 
   const i18n = new I18n(messages);
   i18n.locale = navigator.navigate;

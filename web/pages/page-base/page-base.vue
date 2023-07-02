@@ -67,7 +67,8 @@ const handleUpdateLocale = (value) => (i18n.locale = value);
       </div>
     </overlay-base>
     <footer class="page-base-footer">
-      calystone -
+      <span class="page-base-footer-brand">calystone</span>
+      <span class="page-base-footer-divider">·</span>
       <input-base
         :options="supported"
         type="select"
@@ -116,5 +117,10 @@ const handleUpdateLocale = (value) => (i18n.locale = value);
 
 .page-base-locale {
   display: inline;
+}
+
+.page-base-footer-brand,
+.page-base-footer-divider {
+  margin-right: var(--size-10);
 }
 </style>

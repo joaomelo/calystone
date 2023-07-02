@@ -28,6 +28,7 @@ const handleAdd = () => {
 <style scoped>
 .project-add {
   display: flex;
+  justify-content: space-between;
   gap: var(--size-00);
 }
 </style>

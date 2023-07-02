@@ -13,6 +13,7 @@ const { i18n } = inject("globals");
 const editText = useStateful(i18n, (i) => i.t("edit"));
 const archiveText = useStateful(i18n, (i) => i.t("archive"));
 const deleteText = useStateful(i18n, (i) => i.t("delete"));
+const sharingText = useStateful(i18n, (i) => i.t("sharing"));
 
 const handleEdit = (item) => emit("edit", item.id);
 const handleArchive = (item) => emit("archive", item.id);
@@ -31,6 +32,7 @@ const handleDelete = (item) => emit("delete", item.id);
         {{ archiveText }}
       </button-base>
       <button-base @click="handleDelete(item)">{{ deleteText }}</button-base>
+      <button-base @click="handleDelete(item)">{{ sharingText }}</button-base>
     </template>
   </list-base>
 </template>

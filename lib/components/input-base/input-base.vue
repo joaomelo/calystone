@@ -24,13 +24,13 @@ defineProps({
 defineEmits(["update:modelValue", "submit"]);
 </script>
 <template>
-  <div>
+  <div class="input-base">
     <label class="input-base-label" v-if="label">{{ label }}</label>
     <template v-if="type === 'text'">
       <input
         :type="type"
         :value="modelValue"
-        class="input-base"
+        class="input-base-text"
         :class="{ transparent }"
         @input="$emit('update:modelValue', $event.target.value)"
         @keyup.enter="$emit('submit')"
@@ -49,7 +49,8 @@ defineEmits(["update:modelValue", "submit"]);
   </div>
 </template>
 <style scoped>
-.input-base {
+.input-base,
+.input-base-text {
   width: 100%;
 }
 

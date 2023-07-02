@@ -4,9 +4,13 @@ export class Projects extends Stateful {
   _projects = new Map();
   _collection;
 
-  constructor(collection) {
+  constructor(driver) {
     super();
-    this._collection = collection;
+    this._collection = driver.collection("projects", (user) => ({
+      field: "users",
+      op: "array-contains",
+      value: user.uid,
+    }));
     this._collection.subscribe((items) => this.load(items));
   }
 
