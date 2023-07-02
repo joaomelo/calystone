@@ -3,9 +3,11 @@ import { Stateful } from "../../lib";
 export class Projects extends Stateful {
   _projects = new Map();
   _collection;
+  _auth;
 
-  constructor(driver) {
+  constructor({ driver, auth }) {
     super();
+    this._auth = auth;
     this._collection = driver.collection("projects", (user) => ({
       field: "users",
       op: "array-contains",
@@ -29,7 +31,11 @@ export class Projects extends Stateful {
   }
 
   add(payload) {
-    return this._collection.add(payload);
+    const payloadWithUser = {
+      ...payload,
+      users: [this._auth.userId],
+    };
+    return this._collection.add(payloadWithUser);
   }
 
   edit(payload) {
