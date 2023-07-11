@@ -1,8 +1,8 @@
 import { createApp } from "vue";
-import { Firebase, I18n } from "../lib";
+import { Firebase, I18n, globalize } from "../lib";
 import { Auth, Projects, Community } from "../body";
 import { messages } from "./i18n";
-import { router } from "./router";
+import { createRouter } from "./router";
 import App from "./app.vue";
 import "./styles";
 
@@ -24,17 +24,17 @@ export function initApp(elementId) {
   const i18n = new I18n(messages);
   i18n.locale = navigator.navigate;
 
-  const globals = {
+  const globals = globalize({
     i18n,
     auth,
     projects,
     community,
-  };
+  });
+
+  const router = createRouter();
 
   const app = createApp(App);
-  app.provide("globals", globals);
+  app.use(globals);
   app.use(router);
   app.mount(elementId);
-
-  window.$globals = globals;
 }

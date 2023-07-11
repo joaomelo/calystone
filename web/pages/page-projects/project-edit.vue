@@ -1,6 +1,11 @@
 <script setup>
-import { computed, ref, watch, inject } from "vue";
-import { ModalBase, ButtonBase, InputBase, useStateful } from "../../../lib";
+import { computed, ref, watch } from "vue";
+import {
+  ModalBase,
+  ButtonBase,
+  InputBase,
+  useGlobalStateful,
+} from "../../../lib";
 const props = defineProps({
   item: {
     type: Object,
@@ -9,9 +14,8 @@ const props = defineProps({
 });
 defineEmits(["save", "cancel"]);
 
-const { i18n } = inject("globals");
-const saveText = useStateful(i18n, (i) => i.t("save"));
-const cancelText = useStateful(i18n, (i) => i.t("cancel"));
+const saveText = useGlobalStateful((i18n) => i18n.t("save"));
+const cancelText = useGlobalStateful((i18n) => i18n.t("cancel"));
 
 const show = computed(() => !!props.item);
 const payload = ref({ id: props.item?.id, name: props.item?.name });

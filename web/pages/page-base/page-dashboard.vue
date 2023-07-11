@@ -1,7 +1,5 @@
 <script setup>
-import { inject } from "vue";
-import { ButtonBase, useStateful } from "../../../lib";
-import { PAGE_VISIBILITY } from "./visibilities";
+import { ButtonBase, useGlobals, useGlobalStateful } from "../../../lib";
 import PageBase from "./page-base.vue";
 
 defineProps({
@@ -15,14 +13,13 @@ defineProps({
   },
 });
 
-const { auth } = inject("globals");
+const { auth } = useGlobals();
 const handleSignOut = () => auth.signOut();
 
-const { i18n } = inject("globals");
-const signOutText = useStateful(i18n, (i) => i.t("signOut"));
+const signOutText = useGlobalStateful((i18n) => i18n.t("signOut"));
 </script>
 <template>
-  <page-base :title="title" :busy="busy" :visibility="PAGE_VISIBILITY.INTERNAL">
+  <page-base :title="title" :busy="busy">
     <template #aside>
       <button-base @click="handleSignOut">{{ signOutText }}</button-base>
     </template>

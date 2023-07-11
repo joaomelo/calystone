@@ -1,9 +1,28 @@
-import { PageLoading, PageProjects, PageAuth } from "../pages";
+import { PageLoading, PageProjects, PageAuth, PageSharing } from "../pages";
+import { ROUTE_VISIBILITY } from "./visibilities";
 
 export const routes = {
-  auth: { path: "/auth", component: PageAuth },
-  loading: { path: "/loading", component: PageLoading },
-  projects: { path: "/projects", component: PageProjects },
+  auth: {
+    path: "/auth",
+    component: PageAuth,
+    meta: { visibility: ROUTE_VISIBILITY.EXTERNAL },
+  },
+  loading: {
+    path: "/loading",
+    component: PageLoading,
+    meta: { visibility: ROUTE_VISIBILITY.PUBLIC },
+  },
+  projects: {
+    path: "/projects/list",
+    component: PageProjects,
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  },
+  sharing: {
+    path: "/projects/sharing/:projectId",
+    component: PageSharing,
+    props: true,
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  },
 };
 
 // used to list all routes in a array combined name and configuration

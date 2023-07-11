@@ -1,14 +1,12 @@
 <script setup>
-import { inject, watch } from "vue";
-import { useRouter } from "vue-router";
+import {
+  useGlobalStateful,
+  useGlobals,
+  OverlayBase,
+  InputBase,
+} from "../../../lib";
 
-import { AUTH_STATUSES } from "../../../body";
-import { useStateful, OverlayBase, InputBase } from "../../../lib";
-import { routesPaths } from "../../router";
-
-import { PAGE_VISIBILITY } from "./visibilities";
-
-const props = defineProps({
+defineProps({
   title: {
     type: String,
     default: null,
@@ -17,41 +15,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  visibility: {
-    type: String,
-    default: PAGE_VISIBILITY.PUBLIC,
-  },
 });
 
-const router = useRouter();
-const { auth } = inject("globals");
-const authStatus = useStateful(auth, (a) => a.status);
-
-watch(
-  [() => props.visibility, () => authStatus.value],
-  ([visibility, status]) => {
-    if (status === AUTH_STATUSES.UNSOLVED)
-      return router.push(routesPaths.loading);
-
-    if (
-      status === AUTH_STATUSES.SIGNED_OUT &&
-      visibility !== PAGE_VISIBILITY.EXTERNAL
-    )
-      return router.push(routesPaths.auth);
-
-    if (
-      status === AUTH_STATUSES.SIGNED_IN &&
-      visibility !== PAGE_VISIBILITY.INTERNAL
-    )
-      return router.push(routesPaths.projects);
-  },
-  {
-    immediate: true,
-  }
-);
-
-const { i18n } = inject("globals");
-const locale = useStateful(i18n, (i) => i.locale);
+const locale = useGlobalStateful((i18n) => i18n.locale);
+const { i18n } = useGlobals();
 const supported = i18n.supported;
 const handleUpdateLocale = (value) => (i18n.locale = value);
 </script>

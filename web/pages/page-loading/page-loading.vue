@@ -1,10 +1,8 @@
 <script setup>
-import { inject } from "vue";
-import { useStateful } from "../../../lib";
+import { useGlobalStateful } from "../../../lib";
 import { PageBase } from "../page-base";
 
-const { i18n } = inject("globals");
-const loadingText = useStateful(i18n, (i) => i.t("loading"));
+const loadingText = useGlobalStateful((i18n) => i18n.t("loading"));
 </script>
 <template>
   <page-base>

@@ -1,6 +1,6 @@
 <script setup>
-import { inject, reactive } from "vue";
-import { InputBase, ButtonBase, useStateful } from "../../../lib";
+import { reactive } from "vue";
+import { InputBase, ButtonBase, useGlobalStateful } from "../../../lib";
 
 defineProps({
   busy: {
@@ -10,8 +10,7 @@ defineProps({
 });
 const emit = defineEmits(["add"]);
 
-const { i18n } = inject("globals");
-const addText = useStateful(i18n, (i) => i.t("add"));
+const addText = useGlobalStateful((i18n) => i18n.t("add"));
 
 const payload = reactive({ name: null });
 const handleAdd = () => {
