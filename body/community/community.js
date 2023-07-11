@@ -24,7 +24,7 @@ export class Community extends Stateful {
     return Array.from(this._community.values());
   }
 
-  add(payload) {
-    return this._collection.add(payload);
+  add({ id, email }) {
+    return this._collection.add({ id, title: email });
   }
 }
