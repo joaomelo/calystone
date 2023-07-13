@@ -3,10 +3,6 @@ import { ButtonBase, useGlobals, useGlobalStateful } from "../../../lib";
 import PageBase from "./page-base.vue";
 
 defineProps({
-  title: {
-    type: String,
-    default: null,
-  },
   busy: {
     type: Boolean,
     default: false,
@@ -19,7 +15,10 @@ const handleSignOut = () => auth.signOut();
 const signOutText = useGlobalStateful((i18n) => i18n.t("signOut"));
 </script>
 <template>
-  <page-base :title="title" :busy="busy">
+  <page-base :busy="busy">
+    <template #title>
+      <slot name="title"></slot>
+    </template>
     <template #aside>
       <button-base @click="handleSignOut">{{ signOutText }}</button-base>
     </template>

@@ -4,8 +4,9 @@ export class Projects extends Stateful {
   _projects = new Map();
   _collection;
   _auth;
+  _community;
 
-  constructor({ driver, auth }) {
+  constructor({ driver, auth, community }) {
     super();
     this._auth = auth;
     this._collection = driver.collection("projects", (user) => ({
@@ -14,6 +15,7 @@ export class Projects extends Stateful {
       value: user.uid,
     }));
     this._collection.subscribe((items) => this.load(items));
+    this._community = community;
   }
 
   load(items) {
@@ -28,6 +30,14 @@ export class Projects extends Stateful {
 
   list() {
     return Array.from(this._projects.values());
+  }
+
+  usersOf(id) {
+    const project = this.get(id);
+    if (!project) return [];
+
+    const users = project.users.map((userId) => this._community.get(userId));
+    return users;
   }
 
   add(payload) {

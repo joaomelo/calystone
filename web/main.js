@@ -19,7 +19,7 @@ export function initApp(elementId) {
   const driver = new Firebase(config);
   const community = new Community(driver);
   const auth = new Auth({ driver, community });
-  const projects = new Projects({ driver, auth });
+  const projects = new Projects({ driver, auth, community });
 
   const i18n = new I18n(messages);
   i18n.locale = navigator.navigate;

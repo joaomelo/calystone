@@ -19,10 +19,13 @@ const handleSignIn = () => auth.signIn(credentials);
 const handleSignUp = () => auth.signUp(credentials);
 </script>
 <template>
-  <page-base title="auth">
-    <input-base v-model="credentials.email" :label="emailText" />
-    <input-base v-model="credentials.password" :label="passwordText" />
-    <button-base @click="handleSignIn">{{ signInText }}</button-base>
-    <button-base @click="handleSignUp">{{ signUpText }}</button-base>
+  <page-base>
+    <template #title>auth</template>
+    <template #default>
+      <input-base v-model="credentials.email" :label="emailText" />
+      <input-base v-model="credentials.password" :label="passwordText" />
+      <button-base @click="handleSignIn">{{ signInText }}</button-base>
+      <button-base @click="handleSignUp">{{ signUpText }}</button-base>
+    </template>
   </page-base>
 </template>

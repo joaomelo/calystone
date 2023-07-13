@@ -33,15 +33,20 @@ const handleSharing = (id) =>
   router.push({ name: "sharing", params: { projectId: id } });
 </script>
 <template>
-  <page-dashboard :title="pageTitle">
-    <project-add @add="add.run" :busy="add.busy" />
-    <projects-list
-      :items="items"
-      @delete="del.run"
-      @archive="archive.run"
-      @edit="handleOpen"
-      @sharing="handleSharing"
-    />
-    <project-edit :item="item" @save="handleSave" @cancel="handleCancel" />
+  <page-dashboard>
+    <template #title>
+      {{ pageTitle }}
+    </template>
+    <template #default>
+      <project-add @add="add.run" :busy="add.busy" />
+      <projects-list
+        :items="items"
+        @delete="del.run"
+        @archive="archive.run"
+        @edit="handleOpen"
+        @sharing="handleSharing"
+      />
+      <project-edit :item="item" @save="handleSave" @cancel="handleCancel" />
+    </template>
   </page-dashboard>
 </template>

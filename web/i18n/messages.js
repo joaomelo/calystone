@@ -13,7 +13,7 @@ export const messages = {
     archive: "archive",
     delete: "delete",
     sharing: "sharing",
-    sharingOf: "sharing of {name}",
+    sharingOf: "sharing of",
     projects: "projects",
   },
   "pt-br": {
@@ -30,7 +30,7 @@ export const messages = {
     archive: "arquivar",
     delete: "excluir",
     sharing: "compartilhamento",
-    sharingOf: "compartilhamento de {name}",
+    sharingOf: "compartilhamento de",
     projects: "projetos",
   },
 };

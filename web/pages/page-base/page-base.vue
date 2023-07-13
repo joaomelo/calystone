@@ -7,10 +7,6 @@ import {
 } from "../../../lib";
 
 defineProps({
-  title: {
-    type: String,
-    default: null,
-  },
   busy: {
     type: Boolean,
     default: false,
@@ -25,7 +21,7 @@ const handleUpdateLocale = (value) => (i18n.locale = value);
 <template>
   <div class="page-base">
     <nav class="page-base-nav">
-      <h1 class="page-base-title">{{ title }}</h1>
+      <h1 class="page-base-title"><slot name="title"></slot></h1>
       <slot name="aside"></slot>
     </nav>
     <overlay-base :show="busy" class="page-base-content-overlay">
