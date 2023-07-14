@@ -6,12 +6,12 @@ export class Auth extends Stateful {
   _status = AUTH_STATUSES.UNSOLVED;
   _user = null;
   _driver;
-  _community;
+  _users;
 
-  constructor({ driver, community }) {
+  constructor({ driver, users }) {
     super();
     this._driver = driver;
-    this._community = community;
+    this._users = users;
 
     this._driver.auth.subscribe((user) => {
       this._status = user ? AUTH_STATUSES.SIGNED_IN : AUTH_STATUSES.SIGNED_OUT;
@@ -37,7 +37,7 @@ export class Auth extends Stateful {
     validateEmail(email);
     validatePassword(password);
     const { user } = await this._driver.auth.signUp(credentials);
-    return this._community.add({ id: user.uid, email });
+    return this._users.add({ id: user.uid, email });
   }
 
   signIn(credentials) {

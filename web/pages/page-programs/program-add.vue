@@ -19,13 +19,13 @@ const handleAdd = () => {
 };
 </script>
 <template>
-  <div class="project-add">
+  <div class="program-add">
     <input-base v-model="payload.name" @submit="handleAdd" />
     <button-base @click="handleAdd" :busy="busy">{{ addText }}</button-base>
   </div>
 </template>
 <style scoped>
-.project-add {
+.program-add {
   display: flex;
   justify-content: space-between;
   gap: var(--size-00);

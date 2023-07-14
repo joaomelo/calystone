@@ -1,11 +1,15 @@
 <script setup>
-import { ListBase } from "../../../lib";
-defineProps({
-  items: {
-    type: Array,
-    default: () => [],
+import { useGlobalStateful, ListBase } from "../../../lib";
+const props = defineProps({
+  programId: {
+    type: String,
+    required: true,
   },
 });
+
+const items = useGlobalStateful((programs) =>
+  programs.usersOf(props.programId)
+);
 </script>
 <template>
   <list-base :items="items">

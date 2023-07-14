@@ -1,4 +1,4 @@
-import { PageLoading, PageProjects, PageAuth, PageSharing } from "../pages";
+import { PageLoading, PagePrograms, PageAuth, PageSharing } from "../pages";
 import { ROUTE_VISIBILITY } from "./visibilities";
 
 export const routes = {
@@ -12,13 +12,13 @@ export const routes = {
     component: PageLoading,
     meta: { visibility: ROUTE_VISIBILITY.PUBLIC },
   },
-  projects: {
-    path: "/projects/list",
-    component: PageProjects,
+  programs: {
+    path: "/programs/list",
+    component: PagePrograms,
     meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
   },
   sharing: {
-    path: "/projects/sharing/:projectId",
+    path: "/programs/sharing/:programId",
     component: PageSharing,
     props: true,
     meta: { visibility: ROUTE_VISIBILITY.INTERNAL },

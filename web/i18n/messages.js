@@ -14,7 +14,8 @@ export const messages = {
     delete: "delete",
     sharing: "sharing",
     sharingOf: "sharing of",
-    projects: "projects",
+    programs: "programs",
+    invite: "invite",
   },
   "pt-br": {
     signIn: "entrar",
@@ -31,6 +32,7 @@ export const messages = {
     delete: "excluir",
     sharing: "compartilhamento",
     sharingOf: "compartilhamento de",
-    projects: "projetos",
+    programs: "programas",
+    invite: "convidar",
   },
 };

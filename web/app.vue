@@ -32,7 +32,7 @@ watch(
       routeVisibility !== ROUTE_VISIBILITY.INTERNAL
     ) {
       if (initialRedirected || !initialRoute)
-        return router.push(routesPaths.projects);
+        return router.push(routesPaths.programs);
 
       initialRedirected = true;
       return router.push(initialRoute.fullPath);

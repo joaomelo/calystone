@@ -4,24 +4,24 @@ import { useGlobalStateful } from "../../../lib";
 import { routesPaths } from "../../router";
 
 const props = defineProps({
-  projectId: {
+  programId: {
     type: String,
     required: true,
   },
 });
 
-const projectsText = useGlobalStateful((i18n) => i18n.t("projects"));
+const programsText = useGlobalStateful((i18n) => i18n.t("programs"));
 
-const projectText = useGlobalStateful((projects) => {
-  const project = projects.get(props.projectId);
-  return project ? project.name : "...";
+const programText = useGlobalStateful((programs) => {
+  const program = programs.get(props.programId);
+  return program ? program.name : "...";
 });
 const sharingOf = useGlobalStateful((i18n) => i18n.t("sharingOf"));
-const sharingText = computed(() => `${sharingOf.value} ${projectText.value}`);
+const sharingText = computed(() => `${sharingOf.value} ${programText.value}`);
 </script>
 <template>
   <div>
-    <router-link :to="routesPaths.projects">{{ projectsText }}</router-link>
+    <router-link :to="routesPaths.programs">{{ programsText }}</router-link>
     <span>&nbsp;>&nbsp;</span>
     <span>{{ sharingText }}</span>
   </div>

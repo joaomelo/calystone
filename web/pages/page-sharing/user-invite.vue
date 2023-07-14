@@ -1,31 +1,41 @@
 <script setup>
 import { reactive } from "vue";
-import { InputBase, ButtonBase, useGlobalStateful } from "../../../lib";
+import {
+  InputBase,
+  ButtonBase,
+  useGlobals,
+  useGlobalStateful,
+  useTask,
+} from "../../../lib";
 
-defineProps({
-  busy: {
-    type: Boolean,
-    default: false,
+const props = defineProps({
+  programId: {
+    type: String,
+    required: true,
   },
 });
-const emit = defineEmits(["invite"]);
 
-const addText = useGlobalStateful((i18n) => i18n.t("add"));
+const inviteText = useGlobalStateful((i18n) => i18n.t("invite"));
 
-const payload = reactive({ name: null });
-const handleAdd = () => {
-  emit("invite", { ...payload });
-  payload.name = null;
+const { invites } = useGlobals();
+const payload = reactive({ email: null, program: props.programId });
+const invite = useTask(() => invites.invite(payload));
+
+const handleInvite = async () => {
+  await invite.run();
+  payload.email = null;
 };
 </script>
 <template>
-  <div class="project-add">
-    <input-base v-model="payload.name" @submit="handleAdd" />
-    <button-base @click="handleAdd" :busy="busy">{{ addText }}</button-base>
+  <div class="program-add">
+    <input-base v-model="payload.email" @submit="handleInvite" />
+    <button-base @click="handleInvite" :busy="invite.busy">
+      {{ inviteText }}
+    </button-base>
   </div>
 </template>
 <style scoped>
-.project-add {
+.program-add {
   display: flex;
   justify-content: space-between;
   gap: var(--size-00);

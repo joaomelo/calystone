@@ -1,30 +1,19 @@
-import { Stateful } from "../../lib";
+import { StatefulMap } from "../../lib";
 
-export class Community extends Stateful {
-  _community = new Map();
+export class Users extends StatefulMap {
   _collection;
 
   constructor(driver) {
     super();
-    this._collection = driver.collection("community");
+    this._collection = driver.collection("users");
     this._collection.subscribe((items) => this.load(items));
   }
 
-  load(items) {
-    this._community.clear();
-    items.forEach((item) => this._community.set(item.id, item));
-    this.notify();
-  }
-
-  get(id) {
-    return this._community.get(id);
-  }
-
-  list() {
-    return Array.from(this._community.values());
+  getByEmail(email) {
+    return this.find((user) => user.email === email);
   }
 
   add({ id, email }) {
-    return this._collection.add({ id, title: email });
+    return this._collection.add({ id, email });
   }
 }
