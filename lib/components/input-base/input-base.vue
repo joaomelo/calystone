@@ -20,6 +20,10 @@ defineProps({
     type: Array,
     default: null,
   },
+  rows: {
+    type: String,
+    default: "5",
+  },
 });
 defineEmits(["update:modelValue", "submit"]);
 </script>
@@ -35,6 +39,15 @@ defineEmits(["update:modelValue", "submit"]);
         @input="$emit('update:modelValue', $event.target.value)"
         @keyup.enter="$emit('submit')"
       />
+    </template>
+    <template v-if="type === 'textarea'">
+      <textarea
+        :value="modelValue"
+        class="input-base-textarea"
+        :class="{ transparent }"
+        @input="$emit('update:modelValue', $event.target.value)"
+        :rows="rows"
+      ></textarea>
     </template>
     <template v-if="type === 'select'">
       <select
@@ -52,6 +65,11 @@ defineEmits(["update:modelValue", "submit"]);
 .input-base,
 .input-base-text {
   width: 100%;
+}
+
+.input-base-textarea {
+  width: 100%;
+  resize: none;
 }
 
 .input-base-label {

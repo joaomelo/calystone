@@ -3,10 +3,13 @@ import { StatefulRepository } from "../../lib";
 export class Strategist extends StatefulRepository {
   _programs;
   _shepherd;
+  _gatekeeper;
 
-  constructor({ programs, shepherd }) {
+  constructor({ programs, shepherd, gatekeeper }) {
     super();
     this._shepherd = shepherd;
+    this._gatekeeper = gatekeeper;
+
     this._programs = programs;
     this._programs.subscribe((items) => this.load(items));
   }
@@ -24,7 +27,7 @@ export class Strategist extends StatefulRepository {
   program(payload) {
     const payloadWithUser = {
       ...payload,
-      users: [this._auth.userId],
+      users: [this._gatekeeper.userId],
     };
     return this._programs.add(payloadWithUser);
   }

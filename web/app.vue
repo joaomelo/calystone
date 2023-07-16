@@ -5,7 +5,7 @@ import { useGlobalStateful } from "../lib";
 import { GATEKEEPER_STATUSES } from "../body";
 import { ROUTE_VISIBILITY, routesPaths } from "./router";
 
-const authStatus = useGlobalStateful((auth) => auth.status);
+const authStatus = useGlobalStateful((gatekeeper) => gatekeeper.status);
 const router = useRouter();
 const route = useRoute();
 

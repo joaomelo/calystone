@@ -5,11 +5,15 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  type: {
+    type: String,
+    default: "button",
+  },
 });
 </script>
 <template>
-  <button class="button-base">
-    <div class="button-base-spinner" v-if="busy">
+  <button class="button-base" :type="type">
+    <div v-if="busy">
       <spinner-base :show="busy" size="--size-20" color="--color-neutral-30" />
     </div>
     <div class="button-base-content" :class="{ busy }">

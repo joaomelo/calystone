@@ -12,8 +12,8 @@ const props = defineProps({
 
 const programsText = useGlobalStateful((i18n) => i18n.t("programs"));
 
-const programParticle = useGlobalStateful((programs) => {
-  const program = programs.get(props.programId);
+const programParticle = useGlobalStateful((strategist) => {
+  const program = strategist.get(props.programId);
   return program ? program.name : "...";
 });
 const editParticle = useGlobalStateful((i18n) => i18n.t("edit"));

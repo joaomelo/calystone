@@ -1,4 +1,10 @@
-import { PageLoading, PagePrograms, PageAuth, PageSharing } from "../pages";
+import {
+  PageAuth,
+  PageLoading,
+  PageProgramEdit,
+  PagePrograms,
+  PageProgramSharing,
+} from "../pages";
 import { ROUTE_VISIBILITY } from "./visibilities";
 
 export const routes = {
@@ -17,9 +23,15 @@ export const routes = {
     component: PagePrograms,
     meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
   },
-  sharing: {
+  programSharing: {
     path: "/programs/sharing/:programId",
-    component: PageSharing,
+    component: PageProgramSharing,
+    props: true,
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  },
+  programEdit: {
+    path: "/programs/edit/:programId",
+    component: PageProgramEdit,
     props: true,
     meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
   },

@@ -1,7 +1,7 @@
 <script setup>
 import { PageDashboard } from "../page-base";
 import SharingTitle from "./sharing-title.vue";
-import communityList from "./community-list.vue";
+import UsersList from "./users-list.vue";
 import UserInvite from "./user-invite.vue";
 
 defineProps({
@@ -18,7 +18,7 @@ defineProps({
     </template>
     <template #default>
       <user-invite :program-id="programId" />
-      <community-list :program-id="programId" />
+      <users-list :program-id="programId" />
     </template>
   </page-dashboard>
 </template>

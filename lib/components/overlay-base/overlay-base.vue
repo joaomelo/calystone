@@ -1,8 +1,18 @@
 <script setup>
+import { SpinnerBase } from "../spinner-base";
+
 defineProps({
   show: {
     type: Boolean,
     default: false,
+  },
+  spinnerSize: {
+    type: String,
+    default: "--size-40",
+  },
+  spinnerColor: {
+    type: String,
+    default: "--color-neutral-50",
   },
 });
 </script>
@@ -11,9 +21,7 @@ defineProps({
     <slot></slot>
     <template v-if="show">
       <div class="overlay-base-film">
-        <div class="overlay-base-spinner-container">
-          <div class="overlay-base-spinner"></div>
-        </div>
+        <spinner-base :show="show" :size="spinnerSize" :color="spinnerColor" />
       </div>
     </template>
   </div>
@@ -31,27 +39,5 @@ defineProps({
   height: 100%;
   background-color: var(--color-neutral-10);
   opacity: 0.1;
-}
-
-.overlay-base-spinner-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-}
-
-.overlay-base-spinner {
-  width: var(--size-40);
-  height: var(--size-40);
-  border: var(--size-00) solid var(--color-neutral-70);
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: spinner 1s linear infinite;
-}
-
-@keyframes spinner {
-  to {
-    transform: rotate(1turn);
-  }
 }
 </style>
