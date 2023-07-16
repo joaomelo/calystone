@@ -14,9 +14,9 @@ const emailText = useGlobalStateful((i18n) => i18n.t("email"));
 const passwordText = useGlobalStateful((i18n) => i18n.t("password"));
 
 const credentials = reactive({ email: null, password: null });
-const { auth } = useGlobals();
-const handleSignIn = () => auth.signIn(credentials);
-const handleSignUp = () => auth.signUp(credentials);
+const { gatekeeper } = useGlobals();
+const handleSignIn = () => gatekeeper.signIn(credentials);
+const handleSignUp = () => gatekeeper.signUp(credentials);
 </script>
 <template>
   <page-base>

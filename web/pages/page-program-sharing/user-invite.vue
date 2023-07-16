@@ -17,9 +17,9 @@ const props = defineProps({
 
 const inviteText = useGlobalStateful((i18n) => i18n.t("invite"));
 
-const { invites } = useGlobals();
+const { hostess } = useGlobals();
 const payload = reactive({ email: null, program: props.programId });
-const invite = useTask(() => invites.invite(payload));
+const invite = useTask(() => hostess.invite(payload));
 
 const handleInvite = async () => {
   await invite.run();

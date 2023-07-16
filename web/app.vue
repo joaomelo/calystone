@@ -2,7 +2,7 @@
 import { watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useGlobalStateful } from "../lib";
-import { AUTH_STATUSES } from "../body";
+import { GATEKEEPER_STATUSES } from "../body";
 import { ROUTE_VISIBILITY, routesPaths } from "./router";
 
 const authStatus = useGlobalStateful((auth) => auth.status);
@@ -18,17 +18,17 @@ watch(
     if (!initialRoute && route.meta.visibility === ROUTE_VISIBILITY.INTERNAL)
       initialRoute = { ...route };
 
-    if (authStatusValue === AUTH_STATUSES.UNSOLVED)
+    if (authStatusValue === GATEKEEPER_STATUSES.UNSOLVED)
       return router.push(routesPaths.loading);
 
     if (
-      authStatusValue === AUTH_STATUSES.SIGNED_OUT &&
+      authStatusValue === GATEKEEPER_STATUSES.SIGNED_OUT &&
       routeVisibility !== ROUTE_VISIBILITY.EXTERNAL
     )
       return router.push(routesPaths.auth);
 
     if (
-      authStatusValue === AUTH_STATUSES.SIGNED_IN &&
+      authStatusValue === GATEKEEPER_STATUSES.SIGNED_IN &&
       routeVisibility !== ROUTE_VISIBILITY.INTERNAL
     ) {
       if (initialRedirected || !initialRoute)

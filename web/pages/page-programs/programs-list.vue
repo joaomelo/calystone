@@ -1,25 +1,23 @@
 <script setup>
-import { ListBase, ButtonBase, useGlobalStateful } from "../../../lib";
-defineProps({
-  items: {
-    type: Array,
-    default: () => [],
-  },
-});
-const emit = defineEmits(["edit", "archive", "delete", "sharing"]);
+import { useRouter } from "vue-router";
+import { ListBase, ButtonBase, useGlobalStateful, useTask } from "../../../lib";
 
 const editText = useGlobalStateful((i18n) => i18n.t("edit"));
 const archiveText = useGlobalStateful((i18n) => i18n.t("archive"));
-const deleteText = useGlobalStateful((i18n) => i18n.t("delete"));
 const sharingText = useGlobalStateful((i18n) => i18n.t("sharing"));
 
-const handleEdit = (item) => emit("edit", item.id);
-const handleArchive = (item) => emit("archive", item.id);
-const handleDelete = (item) => emit("delete", item.id);
-const handleSharing = (item) => emit("sharing", item.id);
+const programs = useGlobalStateful((strategist) => strategist.list());
+const archive = useTask((id) => programs.archive(id));
+const handleArchive = (item) => archive.run(item.id);
+
+const router = useRouter();
+const handleEdit = (item) =>
+  router.push({ name: "programEdit", params: { programId: item.id } });
+const handleSharing = (item) =>
+  router.push({ name: "programSharing", params: { programId: item.id } });
 </script>
 <template>
-  <list-base :items="items">
+  <list-base :items="programs">
     <template #content="{ item }">
       <p :class="{ archived: !!item.archivedAt }">{{ item.name }}</p>
     </template>
@@ -30,8 +28,9 @@ const handleSharing = (item) => emit("sharing", item.id);
       <button-base @click="handleArchive(item)" v-if="!item.archivedAt">
         {{ archiveText }}
       </button-base>
-      <button-base @click="handleDelete(item)">{{ deleteText }}</button-base>
-      <button-base @click="handleSharing(item)">{{ sharingText }}</button-base>
+      <button-base @click="handleSharing(item)">
+        {{ sharingText }}
+      </button-base>
     </template>
   </list-base>
 </template>

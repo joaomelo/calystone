@@ -1,0 +1,30 @@
+<script setup>
+import { computed } from "vue";
+import { useGlobalStateful } from "../../../lib";
+import { routesPaths } from "../../router";
+
+const props = defineProps({
+  programId: {
+    type: String,
+    required: true,
+  },
+});
+
+const programsText = useGlobalStateful((i18n) => i18n.t("programs"));
+
+const programParticle = useGlobalStateful((programs) => {
+  const program = programs.get(props.programId);
+  return program ? program.name : "...";
+});
+const editParticle = useGlobalStateful((i18n) => i18n.t("edit"));
+const editText = computed(
+  () => `${editParticle.value} ${programParticle.value}`
+);
+</script>
+<template>
+  <div>
+    <router-link :to="routesPaths.programs">{{ programsText }}</router-link>
+    <span>&nbsp;>&nbsp;</span>
+    <span>{{ editText }}</span>
+  </div>
+</template>

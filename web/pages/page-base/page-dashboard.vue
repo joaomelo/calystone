@@ -9,8 +9,8 @@ defineProps({
   },
 });
 
-const { auth } = useGlobals();
-const handleSignOut = () => auth.signOut();
+const { gatekeeper } = useGlobals();
+const handleSignOut = () => gatekeeper.signOut();
 
 const signOutText = useGlobalStateful((i18n) => i18n.t("signOut"));
 </script>

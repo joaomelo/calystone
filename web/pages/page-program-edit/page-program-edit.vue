@@ -1,8 +1,7 @@
 <script setup>
 import { PageDashboard } from "../page-base";
-import SharingTitle from "./sharing-title.vue";
-import UsersList from "./users-list.vue";
-import UserInvite from "./user-invite.vue";
+import EditTitle from "./edit-title.vue";
+import EditForm from "./edit-form.vue";
 
 defineProps({
   programId: {
@@ -14,11 +13,10 @@ defineProps({
 <template>
   <page-dashboard>
     <template #title>
-      <sharing-title :program-id="programId" />
+      <edit-title :program-id="programId" />
     </template>
     <template #default>
-      <user-invite :program-id="programId" />
-      <users-list :program-id="programId" />
+      <edit-form :program-id="programId" />
     </template>
   </page-dashboard>
 </template>

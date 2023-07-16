@@ -1,6 +1,6 @@
 import { createApp } from "vue";
-import { Firebase, I18n, globalize } from "../lib";
-import { Auth, Programs, Users, Invites } from "../body";
+import { Firebase, Auth, Dataset, I18n, globalize } from "../lib";
+import { Gatekeeper, Shepherd, Hostess, Strategist } from "../body";
 import { messages } from "./i18n";
 import { createRouter } from "./router";
 import App from "./app.vue";
@@ -16,21 +16,29 @@ export function initApp(elementId) {
     appId: import.meta.env.VITE_APP_ID,
     measurementId: import.meta.env.VITE_MEASUREMENT_ID,
   };
-  const driver = new Firebase(config);
-  const users = new Users(driver);
-  const auth = new Auth({ driver, users });
-  const programs = new Programs({ driver, auth, users });
-  const invites = new Invites({ driver, auth, users });
+
+  const firebaseDriver = new Firebase(config);
+  const auth = new Auth(firebaseDriver.app);
+
+  const db = firebaseDriver.db;
+  const users = new Dataset({ name: "users", db, auth });
+  const invites = new Dataset({ name: "invites", db, auth });
+  const programs = new Dataset({ name: "programs", db, auth });
+
+  const shepherd = new Shepherd(users);
+  const gatekeeper = new Gatekeeper({ auth, shepherd });
+  const strategist = new Strategist({ programs, shepherd });
+  const hostess = new Hostess({ invites, shepherd, gatekeeper, strategist });
 
   const i18n = new I18n(messages);
   i18n.locale = navigator.navigate;
 
   const globals = globalize({
     i18n,
-    auth,
-    programs,
-    users,
-    invites,
+    gatekeeper,
+    strategist,
+    shepherd,
+    hostess,
   });
 
   const router = createRouter();
