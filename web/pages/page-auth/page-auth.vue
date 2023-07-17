@@ -3,6 +3,7 @@ import { reactive } from "vue";
 import {
   ButtonBase,
   InputBase,
+  HeadingText,
   useGlobals,
   useGlobalStateful,
 } from "../../../lib";
@@ -20,7 +21,7 @@ const handleSignUp = () => gatekeeper.signUp(credentials);
 </script>
 <template>
   <page-base>
-    <template #title>auth</template>
+    <template #title><heading-text>auth</heading-text></template>
     <template #default>
       <input-base v-model="credentials.email" :label="emailText" />
       <input-base v-model="credentials.password" :label="passwordText" />

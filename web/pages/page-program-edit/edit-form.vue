@@ -29,8 +29,8 @@ const program = useGlobalStateful((strategist) =>
 );
 const payload = reactive({
   id: props.programId,
-  name: program.value.name,
-  notes: program.value.notes,
+  name: program.value?.name,
+  notes: program.value?.notes,
 });
 const edit = useTask(() => strategist.edit(payload));
 

@@ -17,8 +17,8 @@ defineProps({
       <sharing-title :program-id="programId" />
     </template>
     <template #default>
-      <user-invite :program-id="programId" />
-      <users-list :program-id="programId" />
+      <!-- <user-invite :program-id="programId" />
+      <users-list :program-id="programId" /> -->
     </template>
   </page-dashboard>
 </template>

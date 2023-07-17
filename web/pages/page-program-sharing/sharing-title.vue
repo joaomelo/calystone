@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue";
-import { useGlobalStateful } from "../../../lib";
+import { HeadingText, useGlobalStateful } from "../../../lib";
 import { routesPaths } from "../../router";
 
 const props = defineProps({
@@ -12,17 +12,16 @@ const props = defineProps({
 
 const programsText = useGlobalStateful((i18n) => i18n.t("programs"));
 
-const programText = useGlobalStateful((programs) => {
-  const program = programs.get(props.programId);
+const programText = useGlobalStateful((strategist) => {
+  const program = strategist.get(props.programId);
   return program ? program.name : "...";
 });
 const sharingOf = useGlobalStateful((i18n) => i18n.t("sharingOf"));
 const sharingText = computed(() => `${sharingOf.value} ${programText.value}`);
 </script>
 <template>
-  <div>
+  <heading-text clipped>
     <router-link :to="routesPaths.programs">{{ programsText }}</router-link>
-    <span>&nbsp;>&nbsp;</span>
-    <span>{{ sharingText }}</span>
-  </div>
+    &nbsp;>&nbsp;{{ sharingText }}
+  </heading-text>
 </template>

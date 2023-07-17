@@ -1,5 +1,5 @@
 <script setup>
-import { useGlobalStateful } from "../../../lib";
+import { HeadingText, useGlobalStateful } from "../../../lib";
 import { PageDashboard } from "../page-base";
 
 import ProgramAdd from "./program-add.vue";
@@ -10,7 +10,7 @@ const pageTitle = useGlobalStateful((i18n) => i18n.t("programs"));
 <template>
   <page-dashboard>
     <template #title>
-      {{ pageTitle }}
+      <heading-text>{{ pageTitle }}</heading-text>
     </template>
     <template #default>
       <program-add />

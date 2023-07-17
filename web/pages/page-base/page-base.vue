@@ -21,8 +21,12 @@ const handleUpdateLocale = (value) => (i18n.locale = value);
 <template>
   <div class="page-base">
     <nav class="page-base-nav">
-      <h1 class="page-base-title"><slot name="title"></slot></h1>
-      <slot name="aside"></slot>
+      <div class="page-base-nav-title">
+        <slot name="title"></slot>
+      </div>
+      <div class="page-base-nav-aside">
+        <slot name="aside"></slot>
+      </div>
     </nav>
     <overlay-base :show="busy" class="page-base-content-overlay">
       <div class="page-base-content">
@@ -53,11 +57,16 @@ const handleUpdateLocale = (value) => (i18n.locale = value);
   margin-block-end: var(--size-30);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.page-base-title {
-  font-size: var(--font-size-30);
-  font-weight: var(--font-weight-30);
+.page-base-nav-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.page-base-nav-aside {
+  flex-shrink: 0;
 }
 
 .page-base-content {

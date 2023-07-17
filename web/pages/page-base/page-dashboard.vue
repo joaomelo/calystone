@@ -20,10 +20,17 @@ const signOutText = useGlobalStateful((i18n) => i18n.t("signOut"));
       <slot name="title"></slot>
     </template>
     <template #aside>
-      <button-base @click="handleSignOut">{{ signOutText }}</button-base>
+      <button-base @click="handleSignOut" class="page-dashboard-sign-out">
+        {{ signOutText }}
+      </button-base>
     </template>
     <template #default>
       <slot></slot>
     </template>
   </page-base>
 </template>
+<style scoped>
+.page-dashboard-sign-out {
+  min-width: max-content;
+}
+</style>

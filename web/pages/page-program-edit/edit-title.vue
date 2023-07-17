@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue";
-import { useGlobalStateful } from "../../../lib";
+import { HeadingText, useGlobalStateful } from "../../../lib";
 import { routesPaths } from "../../router";
 
 const props = defineProps({
@@ -22,9 +22,9 @@ const editText = computed(
 );
 </script>
 <template>
-  <div>
+  <heading-text clipped>
     <router-link :to="routesPaths.programs">{{ programsText }}</router-link>
-    <span>&nbsp;>&nbsp;</span>
-    <span>{{ editText }}</span>
-  </div>
+    &nbsp;>&nbsp;
+    {{ editText }}
+  </heading-text>
 </template>
