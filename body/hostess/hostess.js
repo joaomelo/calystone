@@ -5,38 +5,51 @@ export class Hostess extends StatefulRepository {
   _invites;
   _gatekeeper;
   _shepherd;
-  _strategist;
 
-  constructor({ invites, gatekeeper, shepherd, strategist }) {
+  constructor({ invites, gatekeeper, shepherd }) {
     super();
     this._invites = invites;
     this._gatekeeper = gatekeeper;
     this._shepherd = shepherd;
-    this._strategist = strategist;
 
     this._invites.subscribe((rawItems) => {
       const items = rawItems.map((invite) => {
+        const { toUserId, fromUserId, ...rest } = invite;
+        const toUser = this._shepherd.get(toUserId);
+        const fromUser = this._shepherd.get(fromUserId);
         return {
-          ...invite,
-          // inject program and user data
+          ...rest,
+          toUser,
+          fromUser,
         };
       });
       this.load(items);
     });
   }
 
-  invite({ email, program }) {
-    const from = this._gatekeeper.userId;
+  invite({ toEmail, programId }) {
+    const fromUserId = this._gatekeeper.userId;
 
-    const userTo = this._shepherd.getByEmail(email);
-    const to = userTo.id;
+    const toUser = this._shepherd.getByEmail(toEmail);
+    const toUserId = toUser.id;
 
-    const status = INVITE_STATUSES.OPEN;
-
-    return this._invites.add({ from, to, program, status });
+    const status = INVITE_STATUSES.PENDING;
+    return this._invites.add({
+      fromUserId,
+      toUserId,
+      programId,
+      status,
+    });
   }
 
-  filterByProgram(programId) {
-    return this.filter((invite) => invite.program === programId);
+  invitesByProgram(programId) {
+    return this.filter((invite) => invite.programId === programId);
+  }
+
+  pendingInvitesByProgram(programId) {
+    const invites = this.invitesByProgram(programId);
+    return invites.filter(
+      (invite) => invite.status === INVITE_STATUSES.PENDING
+    );
   }
 }

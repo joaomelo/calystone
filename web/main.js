@@ -28,7 +28,7 @@ export function initApp(elementId) {
   const shepherd = new Shepherd(users);
   const gatekeeper = new Gatekeeper({ auth, shepherd });
   const strategist = new Strategist({ programs, shepherd, gatekeeper });
-  const hostess = new Hostess({ invites, shepherd, gatekeeper, strategist });
+  const hostess = new Hostess({ invites, shepherd, gatekeeper });
 
   const i18n = new I18n(messages);
   i18n.locale = navigator.navigate;

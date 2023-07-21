@@ -11,39 +11,40 @@ export class Strategist extends StatefulRepository {
     this._gatekeeper = gatekeeper;
 
     this._programs = programs;
-    this._programs.subscribe((items) => this.load(items));
+    this._programs.subscribe((rawItems) => {
+      const items = rawItems.map((rawItem) => {
+        const { usersIds, ...rest } = rawItem;
+        const users = usersIds.map((userId) => this._shepherd.get(userId));
+        return {
+          ...rest,
+          users,
+        };
+      });
+      this.load(items);
+    });
   }
 
-  communityOf(id) {
-    const program = this.get(id);
-    if (!program) return [];
-
-    const community = program.community.map((userId) =>
-      this._shepherd.get(userId)
+  listMine() {
+    return this.filter((item) =>
+      item.users.find((user) => user.id === this._gatekeeper.userId)
     );
-    return community;
   }
 
   program(payload) {
     const payloadWithUser = {
       ...payload,
-      users: [this._gatekeeper.userId],
+      usersIds: [this._gatekeeper.userId],
     };
     return this._programs.add(payloadWithUser);
   }
 
   edit(payload) {
-    const program = this.get(payload.id);
-    return this._programs.set({
-      ...program,
-      ...payload,
-    });
+    return this._programs.set(payload);
   }
 
   archive(id) {
-    const program = this.get(id);
     return this._programs.set({
-      ...program,
+      id,
       archivedAt: new Date(),
     });
   }

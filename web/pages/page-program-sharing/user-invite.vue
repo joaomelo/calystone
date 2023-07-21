@@ -18,17 +18,17 @@ const props = defineProps({
 const inviteText = useGlobalStateful((i18n) => i18n.t("invite"));
 
 const { hostess } = useGlobals();
-const payload = reactive({ email: null, program: props.programId });
+const payload = reactive({ toEmail: null, programId: props.programId });
 const invite = useTask(() => hostess.invite(payload));
 
 const handleInvite = async () => {
   await invite.run();
-  payload.email = null;
+  payload.toEmail = null;
 };
 </script>
 <template>
   <div class="program-add">
-    <input-base v-model="payload.email" @submit="handleInvite" />
+    <input-base v-model="payload.toEmail" @submit="handleInvite" />
     <button-base @click="handleInvite" :busy="invite.busy">
       {{ inviteText }}
     </button-base>

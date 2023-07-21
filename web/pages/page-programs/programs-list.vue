@@ -12,7 +12,7 @@ const editText = useGlobalStateful((i18n) => i18n.t("edit"));
 const archiveText = useGlobalStateful((i18n) => i18n.t("archive"));
 const sharingText = useGlobalStateful((i18n) => i18n.t("sharing"));
 
-const programs = useGlobalStateful((strategist) => strategist.list());
+const programs = useGlobalStateful((strategist) => strategist.listMine());
 
 const { strategist } = useGlobals();
 const archive = useTask((id) => strategist.archive(id));

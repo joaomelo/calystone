@@ -18,6 +18,7 @@ export const messages = {
     sharingOf: "sharing of",
     programs: "programs",
     invite: "invite",
+    pending: "pending",
   },
   "pt-br": {
     signIn: "entrar",
@@ -38,5 +39,6 @@ export const messages = {
     sharingOf: "compartilhamento de",
     programs: "programas",
     invite: "convidar",
+    pending: "pendente",
   },
 };
