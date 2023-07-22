@@ -13,7 +13,7 @@ const props = defineProps({
 const programsText = useGlobalStateful((i18n) => i18n.t("programs"));
 
 const programParticle = useGlobalStateful((strategist) => {
-  const program = strategist.get(props.programId);
+  const program = strategist.findById(props.programId);
   return program ? program.name : "...";
 });
 const editParticle = useGlobalStateful((i18n) => i18n.t("edit"));

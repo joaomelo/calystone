@@ -4,6 +4,7 @@ import { PageDashboard } from "../page-base";
 
 import ProgramAdd from "./program-add.vue";
 import ProgramsList from "./programs-list.vue";
+import ProgramsShared from "./programs-shared.vue";
 
 const pageTitle = useGlobalStateful((i18n) => i18n.t("programs"));
 </script>
@@ -15,6 +16,7 @@ const pageTitle = useGlobalStateful((i18n) => i18n.t("programs"));
     <template #default>
       <program-add />
       <programs-list />
+      <programs-shared />
     </template>
   </page-dashboard>
 </template>

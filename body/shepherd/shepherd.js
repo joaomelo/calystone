@@ -14,7 +14,7 @@ export class Shepherd extends StatefulRepository {
   }
 
   enroll({ id, email }) {
-    const user = this.get(id);
+    const user = this.findById(id);
     if (user) return;
     return this._users.add({ id, email });
   }

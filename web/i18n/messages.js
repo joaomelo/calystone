@@ -19,6 +19,8 @@ export const messages = {
     programs: "programs",
     invite: "invite",
     pending: "pending",
+    accept: "accept",
+    ignore: "ignore",
   },
   "pt-br": {
     signIn: "entrar",
@@ -40,5 +42,7 @@ export const messages = {
     programs: "programas",
     invite: "convidar",
     pending: "pendente",
+    accept: "aceitar",
+    ignore: "ignorar",
   },
 };

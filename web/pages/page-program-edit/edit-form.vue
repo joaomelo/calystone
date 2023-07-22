@@ -25,7 +25,7 @@ const saveText = useGlobalStateful((i18n) => i18n.t("save"));
 
 const { strategist } = useGlobals();
 const program = useGlobalStateful((strategist) =>
-  strategist.get(props.programId)
+  strategist.findById(props.programId)
 );
 const payload = reactive({
   id: props.programId,

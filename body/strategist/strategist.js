@@ -14,7 +14,7 @@ export class Strategist extends StatefulRepository {
     this._programs.subscribe((rawItems) => {
       const items = rawItems.map((rawItem) => {
         const { usersIds, ...rest } = rawItem;
-        const users = usersIds.map((userId) => this._shepherd.get(userId));
+        const users = usersIds.map((userId) => this._shepherd.findById(userId));
         return {
           ...rest,
           users,
