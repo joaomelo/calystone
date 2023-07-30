@@ -21,7 +21,7 @@ const ignoreTask = useTask((id) => hostess.ignore(id));
 <template>
   <list-base :items="invitedPrograms">
     <template #content="{ item }">
-      <p class="invited-program">{{ item.program.name }}</p>
+      <p class="invited-program">{{ item.program?.name }}</p>
     </template>
     <template #aside="{ item }">
       <button-base @click="acceptTask.run(item.id)">
