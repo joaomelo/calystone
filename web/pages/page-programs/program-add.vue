@@ -13,7 +13,7 @@ const addText = useGlobalStateful((i18n) => i18n.t("add"));
 const { strategist } = useGlobals();
 const payload = reactive({ name: null });
 
-const add = useTask(() => strategist.program(payload));
+const add = useTask(() => strategist.addProgram(payload));
 const handleAdd = async () => {
   await add.run(payload);
   payload.name = null;

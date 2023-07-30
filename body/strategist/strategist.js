@@ -30,9 +30,10 @@ export class Strategist extends StatefulRepository {
     );
   }
 
-  program(payload) {
+  addProgram({ name }) {
     const payloadWithUser = {
-      ...payload,
+      name,
+      archivedAt: null,
       usersIds: [this._gatekeeper.userId],
     };
     return this._programs.add(payloadWithUser);
@@ -43,9 +44,16 @@ export class Strategist extends StatefulRepository {
   }
 
   archive(id) {
-    return this._programs.set({
+    this._programs.set({
       id,
       archivedAt: new Date(),
+    });
+  }
+
+  unarchive(id) {
+    this._programs.set({
+      id,
+      archivedAt: null,
     });
   }
 }
