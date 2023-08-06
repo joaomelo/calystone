@@ -1,7 +1,7 @@
-import { StatefulRepository } from "../../lib";
+import { Stateful } from "../../lib";
 import { INVITE_STATUSES } from "./statuses";
 
-export class Hostess extends StatefulRepository {
+export class Hostess extends Stateful {
   _invites;
   _gatekeeper;
   _shepherd;
@@ -13,16 +13,16 @@ export class Hostess extends StatefulRepository {
     this._shepherd = shepherd;
     this._strategist = strategist;
 
-    this._invites.subscribe((rawItems) => this.load(rawItems));
+    this._invites.subscribe(() => this.notify());
   }
 
-  list() {
-    const rawItems = super.list();
+  listInvites() {
+    const rawItems = this._invites.list();
     return rawItems.map((invite) => {
       const { toUserId, fromUserId, programId, ...rest } = invite;
-      const toUser = this._shepherd.findById(toUserId);
-      const fromUser = this._shepherd.findById(fromUserId);
-      const program = this._strategist.findById(programId);
+      const toUser = this._shepherd.findUserWithId(toUserId);
+      const fromUser = this._shepherd.findUserWithId(fromUserId);
+      const program = this._strategist.findProgramWithId(programId);
       return {
         ...rest,
         program,
@@ -32,14 +32,14 @@ export class Hostess extends StatefulRepository {
     });
   }
 
-  listInvitesToMe() {
-    return this.filter(
-      (invite) => invite.toUser.id === this._gatekeeper.userId
-    );
+  listInvitesToCurrentUser() {
+    return this._invites.filter((invite) => {
+      return invite.toUserId === this._gatekeeper.userId;
+    });
   }
 
   invitesByProgram(programId) {
-    return this.filter((invite) => invite.program.id === programId);
+    return this._invites.filter((invite) => invite.program.id === programId);
   }
 
   pendingInvitesByProgram(programId) {
@@ -52,7 +52,7 @@ export class Hostess extends StatefulRepository {
   invite({ toEmail, programId }) {
     const fromUserId = this._gatekeeper.userId;
 
-    const toUser = this._shepherd.getByEmail(toEmail);
+    const toUser = this._shepherd.findUserWithEmail(toEmail);
     const toUserId = toUser.id;
 
     const status = INVITE_STATUSES.PENDING;

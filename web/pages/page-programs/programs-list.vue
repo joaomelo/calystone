@@ -1,8 +1,10 @@
 <script setup>
 import { ListBase, useGlobalStateful } from "../../../lib";
-import ProgramActions from "./program-actions.vue";
+import ProgramsListActions from "./programs-list-actions.vue";
 
-const programs = useGlobalStateful((strategist) => strategist.listMine());
+const programs = useGlobalStateful((strategist) =>
+  strategist.listCurrentUserPrograms()
+);
 </script>
 <template>
   <list-base :items="programs">
@@ -10,7 +12,7 @@ const programs = useGlobalStateful((strategist) => strategist.listMine());
       <p :class="{ archived: !!item.archivedAt }">{{ item.name }}</p>
     </template>
     <template #aside="{ item }">
-      <program-actions :program="item" />
+      <programs-list-actions :program="item" />
     </template>
   </list-base>
 </template>

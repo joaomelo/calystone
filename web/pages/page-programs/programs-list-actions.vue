@@ -26,11 +26,11 @@ const sharingAction = { name: "sharing", label: sharingText.value };
 
 const archiveText = useGlobalStateful((i18n) => i18n.t("archive"));
 const archiveAction = { name: "archive", label: archiveText.value };
-const archiveTask = useTask((id) => strategist.archive(id));
+const archiveTask = useTask((id) => strategist.archiveProgram(id));
 
 const unarchiveText = useGlobalStateful((i18n) => i18n.t("unarchive"));
 const unarchiveAction = { name: "unarchive", label: unarchiveText.value };
-const unarchiveTask = useTask((id) => strategist.unarchive(id));
+const unarchiveTask = useTask((id) => strategist.unarchiveProgram(id));
 
 const actions = computed(() => {
   if (props.program.archivedAt) return [unarchiveAction];

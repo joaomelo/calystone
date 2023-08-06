@@ -13,7 +13,7 @@ const props = defineProps({
 const programsText = useGlobalStateful((i18n) => i18n.t("programs"));
 
 const programText = useGlobalStateful((strategist) => {
-  const program = strategist.findById(props.programId);
+  const program = strategist.findProgramWithId(props.programId);
   return program ? program.name : "...";
 });
 const sharingOf = useGlobalStateful((i18n) => i18n.t("sharingOf"));

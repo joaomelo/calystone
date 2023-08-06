@@ -11,7 +11,7 @@ const props = defineProps({
 const pendingText = useGlobalStateful((i18n) => i18n.t("pending"));
 
 const users = useGlobalStateful((strategist) => {
-  const program = strategist.findById(props.programId);
+  const program = strategist.findProgramWithId(props.programId);
   if (!program) return [];
   return program.users.map((user) => ({
     email: user.email,

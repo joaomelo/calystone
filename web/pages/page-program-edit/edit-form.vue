@@ -25,14 +25,14 @@ const saveText = useGlobalStateful((i18n) => i18n.t("save"));
 
 const { strategist } = useGlobals();
 const program = useGlobalStateful((strategist) =>
-  strategist.findById(props.programId)
+  strategist.findProgramWithId(props.programId)
 );
 const payload = reactive({
   id: props.programId,
   name: program.value?.name,
   notes: program.value?.notes,
 });
-const edit = useTask(() => strategist.edit(payload));
+const edit = useTask(() => strategist.editProgram(payload));
 
 const router = useRouter();
 const handleSave = async (payload) => {

@@ -1,6 +1,6 @@
-import { StatefulRepository } from "../../lib";
+import { Stateful } from "../../lib";
 
-export class Strategist extends StatefulRepository {
+export class Strategist extends Stateful {
   _programs;
   _shepherd;
   _gatekeeper;
@@ -9,25 +9,33 @@ export class Strategist extends StatefulRepository {
     super();
     this._shepherd = shepherd;
     this._gatekeeper = gatekeeper;
-
     this._programs = programs;
-    this._programs.subscribe((rawItems) => {
-      const items = rawItems.map((rawItem) => {
-        const { usersIds, ...rest } = rawItem;
-        const users = usersIds.map((userId) => this._shepherd.findById(userId));
-        return {
-          ...rest,
-          users,
-        };
-      });
-      this.load(items);
-    });
+
+    this._programs.subscribe(() => this.notify());
   }
 
-  listMine() {
-    return this.filter((item) =>
+  listPrograms() {
+    const items = this._programs.list().map((rawItem) => {
+      const { usersIds, ...rest } = rawItem;
+      const users = usersIds.map((userId) =>
+        this._shepherd.findUserWithId(userId)
+      );
+      return {
+        ...rest,
+        users,
+      };
+    });
+    return items;
+  }
+
+  listCurrentUserPrograms() {
+    return this.listPrograms().filter((item) =>
       item.users.find((user) => user.id === this._gatekeeper.userId)
     );
+  }
+
+  findProgramWithId(id) {
+    return this._programs.findWithId(id);
   }
 
   addProgram({ name }) {
@@ -39,18 +47,18 @@ export class Strategist extends StatefulRepository {
     return this._programs.add(payloadWithUser);
   }
 
-  edit(payload) {
+  editProgram(payload) {
     return this._programs.set(payload);
   }
 
-  archive(id) {
+  archiveProgram(id) {
     this._programs.set({
       id,
       archivedAt: new Date(),
     });
   }
 
-  unarchive(id) {
+  unarchiveProgram(id) {
     this._programs.set({
       id,
       archivedAt: null,

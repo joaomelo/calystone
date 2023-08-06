@@ -1,22 +1,9 @@
 <script setup>
-import {
-  ButtonBase,
-  ListBase,
-  useGlobals,
-  useGlobalStateful,
-  useTask,
-} from "../../../lib";
-
-const acceptText = useGlobalStateful((i18n) => i18n.t("accept"));
-const ignoreText = useGlobalStateful((i18n) => i18n.t("ignore"));
+import { ButtonBase, ListBase, useGlobalStateful } from "../../../lib";
 
 const invitedPrograms = useGlobalStateful((hostess) =>
-  hostess.listInvitesToMe()
+  hostess.listInvitesToCurrentUser()
 );
-
-const { hostess } = useGlobals();
-const acceptTask = useTask((id) => hostess.accept(id));
-const ignoreTask = useTask((id) => hostess.ignore(id));
 </script>
 <template>
   <list-base :items="invitedPrograms">
