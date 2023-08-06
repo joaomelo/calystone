@@ -1,4 +1,4 @@
-import { Stateful } from "../../lib";
+import { Stateful, subscribe } from "../../lib";
 
 export class Strategist extends Stateful {
   _programs;
@@ -11,10 +11,13 @@ export class Strategist extends Stateful {
     this._gatekeeper = gatekeeper;
     this._programs = programs;
 
-    this._programs.subscribe(() => this.notify());
+    subscribe([programs, shepherd], () => this.notify());
   }
 
   listPrograms() {
+    if (this._programs.list().length === 0) return [];
+    if (this._shepherd.listUsers().length === 0) return [];
+
     const items = this._programs.list().map((rawItem) => {
       const { usersIds, ...rest } = rawItem;
       const users = usersIds.map((userId) =>
@@ -25,6 +28,7 @@ export class Strategist extends Stateful {
         users,
       };
     });
+
     return items;
   }
 
@@ -35,7 +39,7 @@ export class Strategist extends Stateful {
   }
 
   findProgramWithId(id) {
-    return this._programs.findWithId(id);
+    return this.listPrograms().find((program) => program.id === id);
   }
 
   addProgram({ name }) {

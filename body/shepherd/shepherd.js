@@ -9,6 +9,10 @@ export class Shepherd extends Stateful {
     this._users.subscribe(() => this.notify());
   }
 
+  listUsers() {
+    return this._users.list();
+  }
+
   findUserWithId(id) {
     return this._users.findWithId(id);
   }
