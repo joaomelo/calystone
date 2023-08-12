@@ -1,62 +1,20 @@
-import { Stateful } from "../../lib";
 import { INVITE_STATUSES } from "./statuses";
 
-export class Hostess extends Stateful {
-  _invites;
+export class Hostess {
   _gatekeeper;
-  _shepherd;
+  _invitesDataset;
+  _programsDataset;
 
-  constructor({ invites, gatekeeper, shepherd, strategist }) {
-    super();
-    this._invites = invites;
+  constructor({ gatekeeper, invitesDataset, programsDataset }) {
     this._gatekeeper = gatekeeper;
-    this._shepherd = shepherd;
-    this._strategist = strategist;
-
-    this._invites.subscribe(() => this.notify());
+    this._invitesDataset = invitesDataset;
+    this._programsDataset = programsDataset;
   }
 
-  listInvites() {
-    const rawItems = this._invites.list();
-    return rawItems.map((invite) => {
-      const { toUserId, fromUserId, programId, ...rest } = invite;
-      const toUser = this._shepherd.findUserWithId(toUserId);
-      const fromUser = this._shepherd.findUserWithId(fromUserId);
-      const program = this._strategist.findProgramWithId(programId);
-      return {
-        ...rest,
-        program,
-        toUser,
-        fromUser,
-      };
-    });
-  }
-
-  listInvitesToCurrentUser() {
-    return this._invites.filter((invite) => {
-      return invite.toUserId === this._gatekeeper.userId;
-    });
-  }
-
-  invitesByProgram(programId) {
-    return this._invites.filter((invite) => invite.program.id === programId);
-  }
-
-  pendingInvitesByProgram(programId) {
-    const invites = this.invitesByProgram(programId);
-    return invites.filter(
-      (invite) => invite.status === INVITE_STATUSES.PENDING
-    );
-  }
-
-  invite({ toEmail, programId }) {
+  invite({ toUserId, programId }) {
     const fromUserId = this._gatekeeper.userId;
-
-    const toUser = this._shepherd.findUserWithEmail(toEmail);
-    const toUserId = toUser.id;
-
     const status = INVITE_STATUSES.PENDING;
-    return this._invites.add({
+    return this._invitesDataset.add({
       fromUserId,
       toUserId,
       programId,
@@ -64,11 +22,22 @@ export class Hostess extends Stateful {
     });
   }
 
-  accept(inviteId) {
-    console.log("accept", inviteId);
+  accept(invite) {
+    const { id, program } = invite;
+    this._invitesDataset.set({
+      id,
+      status: INVITE_STATUSES.ACCEPTED,
+    });
+
+    const { usersIds } = invite;
+    this._programsDataset.set({ id: program.id, userIds: [...usersIds] });
   }
 
-  ignore(inviteId) {
-    console.log("ignore", inviteId);
+  ignore(invite) {
+    const { id } = invite;
+    this._invitesDataset.set({
+      id,
+      status: INVITE_STATUSES.IGNORED,
+    });
   }
 }

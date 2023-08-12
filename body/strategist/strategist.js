@@ -1,45 +1,10 @@
-import { Stateful, subscribe } from "../../lib";
-
-export class Strategist extends Stateful {
-  _programs;
-  _shepherd;
+export class Strategist {
   _gatekeeper;
+  _programsDataset;
 
-  constructor({ programs, shepherd, gatekeeper }) {
-    super();
-    this._shepherd = shepherd;
+  constructor({ gatekeeper, programsDataset }) {
     this._gatekeeper = gatekeeper;
-    this._programs = programs;
-
-    subscribe([programs, shepherd], () => this.notify());
-  }
-
-  listPrograms() {
-    if (this._programs.list().length === 0) return [];
-    if (this._shepherd.listUsers().length === 0) return [];
-
-    const items = this._programs.list().map((rawItem) => {
-      const { usersIds, ...rest } = rawItem;
-      const users = usersIds.map((userId) =>
-        this._shepherd.findUserWithId(userId)
-      );
-      return {
-        ...rest,
-        users,
-      };
-    });
-
-    return items;
-  }
-
-  listCurrentUserPrograms() {
-    return this.listPrograms().filter((item) =>
-      item.users.find((user) => user.id === this._gatekeeper.userId)
-    );
-  }
-
-  findProgramWithId(id) {
-    return this.listPrograms().find((program) => program.id === id);
+    this._programsDataset = programsDataset;
   }
 
   addProgram({ name }) {
@@ -48,22 +13,22 @@ export class Strategist extends Stateful {
       archivedAt: null,
       usersIds: [this._gatekeeper.userId],
     };
-    return this._programs.add(payloadWithUser);
+    return this._programsDataset.add(payloadWithUser);
   }
 
   editProgram(payload) {
-    return this._programs.set(payload);
+    return this._programsDataset.set(payload);
   }
 
   archiveProgram(id) {
-    this._programs.set({
+    this._programsDataset.set({
       id,
       archivedAt: new Date(),
     });
   }
 
   unarchiveProgram(id) {
-    this._programs.set({
+    this._programsDataset.set({
       id,
       archivedAt: null,
     });

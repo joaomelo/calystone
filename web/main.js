@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { Firebase, Auth, Dataset, I18n, globalize } from "../lib";
-import { Gatekeeper, Shepherd, Hostess, Strategist } from "../body";
+import { Brother, Gatekeeper, Shepherd, Hostess, Strategist } from "../body";
 import { messages } from "./i18n";
 import { createRouter } from "./router";
 import App from "./app.vue";
@@ -21,20 +21,27 @@ export function initApp(elementId) {
   const auth = new Auth(firebaseDriver.app);
 
   const db = firebaseDriver.db;
-  const users = new Dataset({ name: "users", db, auth });
-  const invites = new Dataset({ name: "invites", db, auth });
-  const programs = new Dataset({ name: "programs", db, auth });
+  const usersDataset = new Dataset({ name: "users", db, auth });
+  const invitesDataset = new Dataset({ name: "invites", db, auth });
+  const programsDataset = new Dataset({ name: "programs", db, auth });
 
-  const shepherd = new Shepherd(users);
+  const shepherd = new Shepherd({ usersDataset });
   const gatekeeper = new Gatekeeper({ auth, shepherd });
-  const strategist = new Strategist({ programs, shepherd, gatekeeper });
-  const hostess = new Hostess({ invites, shepherd, gatekeeper, strategist });
+  const hostess = new Hostess({ gatekeeper, invitesDataset, programsDataset });
+  const strategist = new Strategist({ gatekeeper, programsDataset });
+  const brother = new Brother({
+    gatekeeper,
+    programsDataset,
+    invitesDataset,
+    usersDataset,
+  });
 
   const i18n = new I18n(messages);
   i18n.locale = navigator.navigate;
 
   const globals = globalize({
     i18n,
+    brother,
     gatekeeper,
     strategist,
     shepherd,

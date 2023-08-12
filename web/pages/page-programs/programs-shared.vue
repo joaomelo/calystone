@@ -1,22 +1,23 @@
 <script setup>
-import { ButtonBase, ListBase, useGlobalStateful } from "../../../lib";
+import { ListBase, useGlobalStateful } from "../../../lib";
+import ProgramsSharedActions from "./programs-shared-actions.vue";
 
-const invitedPrograms = useGlobalStateful((hostess) =>
+const pendingText = useGlobalStateful((i18n) => i18n.t("pending"));
+
+const invites = useGlobalStateful((hostess) =>
   hostess.listInvitesToCurrentUser()
 );
 </script>
 <template>
-  <list-base :items="invitedPrograms">
+  <list-base :items="invites">
     <template #content="{ item }">
-      <p class="invited-program">{{ item.program?.name }}</p>
+      <p class="invited-program">
+        {{ item.program?.name }}
+        <span>({{ pendingText }})</span>
+      </p>
     </template>
     <template #aside="{ item }">
-      <button-base @click="acceptTask.run(item.id)">
-        {{ acceptText }}
-      </button-base>
-      <button-base @click="ignoreTask.run(item.id)">
-        {{ ignoreText }}
-      </button-base>
+      <programs-shared-actions :invite="item" />
     </template>
   </list-base>
 </template>

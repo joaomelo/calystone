@@ -1,24 +1,6 @@
-import { Stateful } from "../../lib";
-
-export class Shepherd extends Stateful {
-  _users;
-
-  constructor(users) {
-    super();
-    this._users = users;
-    this._users.subscribe(() => this.notify());
-  }
-
-  listUsers() {
-    return this._users.list();
-  }
-
-  findUserWithId(id) {
-    return this._users.findWithId(id);
-  }
-
-  findUserWithEmail(email) {
-    return this._users.find((user) => user.email === email);
+export class Shepherd {
+  constructor({ usersDataset }) {
+    this._usersDataset = usersDataset;
   }
 
   enroll({ id, email }) {
