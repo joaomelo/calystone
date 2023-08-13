@@ -10,17 +10,16 @@ const props = defineProps({
 
 const pendingText = useGlobalStateful((i18n) => i18n.t("pending"));
 
-const users = useGlobalStateful((strategist) => {
-  const program = strategist.findProgramWithId(props.programId);
+const users = useGlobalStateful((brother) => {
+  const program = brother.findProgramWithId(props.programId);
   if (!program) return [];
   return program.users.map((user) => ({
     email: user.email,
   }));
 });
 
-const pendingInvites = useGlobalStateful((hostess) => {
-  const invites = hostess.pendingInvitesByProgram(props.programId);
-  if (!invites) return [];
+const pendingInvites = useGlobalStateful((brother) => {
+  const invites = brother.listPendingInvitesOfProgram(props.programId);
   return invites.map((invite) => ({
     email: invite.toUser.email,
     status: invite.status,

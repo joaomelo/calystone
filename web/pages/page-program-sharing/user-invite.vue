@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import {
   InputBase,
   ButtonBase,
@@ -17,9 +17,15 @@ const props = defineProps({
 
 const inviteText = useGlobalStateful((i18n) => i18n.t("invite"));
 
-const { hostess } = useGlobals();
-const payload = reactive({ toEmail: null, programId: props.programId });
-const invite = useTask(() => hostess.invite(payload));
+const { hostess, brother } = useGlobals();
+const email = ref(null);
+const payload = reactive({ toUserId: null, programId: props.programId });
+const invite = useTask(() => {
+  const user = brother.findUserWithEmail(email.value);
+  if (!user) throw Error("COULD_NOT_FIND_USER_WITH_EMAIL");
+  payload.toUserId = user.id;
+  hostess.invite(payload);
+});
 
 const handleInvite = async () => {
   await invite.run();
@@ -28,7 +34,7 @@ const handleInvite = async () => {
 </script>
 <template>
   <div class="program-add">
-    <input-base v-model="payload.toEmail" @submit="handleInvite" />
+    <input-base v-model="email" @submit="handleInvite" />
     <button-base @click="handleInvite" :busy="invite.busy">
       {{ inviteText }}
     </button-base>

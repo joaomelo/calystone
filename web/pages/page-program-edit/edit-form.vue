@@ -24,8 +24,8 @@ const cancelText = useGlobalStateful((i18n) => i18n.t("cancel"));
 const saveText = useGlobalStateful((i18n) => i18n.t("save"));
 
 const { strategist } = useGlobals();
-const program = useGlobalStateful((strategist) =>
-  strategist.findProgramWithId(props.programId)
+const program = useGlobalStateful((brother) =>
+  brother.findProgramWithId(props.programId)
 );
 const payload = reactive({
   id: props.programId,

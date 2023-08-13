@@ -20,19 +20,31 @@ export class Brother extends Stateful {
       [programsDataset, usersDataset, invitesDataset],
       ([programsData, usersData, invitesData]) => {
         if (!programsData || !usersData || !invitesData) {
+          this._users = [];
           this._programs = [];
+          this._invites = [];
           this.notify();
           return;
         }
 
+        this._users = [...usersData];
+
         this._programs = programsData.map((programData) => {
           const { usersIds, ...program } = programData;
-          const users = usersIds.map((userId) =>
-            usersData.find((user) => user.id === userId)
-          );
+          const users = usersIds.map((userId) => this.findUserWithId(userId));
           program.users = users;
           return program;
         });
+
+        this._invites = invitesData.map((inviteData) => {
+          const { toUserId, fromUserId, programId, ...invite } = inviteData;
+          invite.toUser = this.findUserWithId(toUserId);
+          invite.fromUser = this.findUserWithId(fromUserId);
+          invite.program = this.findProgramWithId(programId);
+          return invite;
+        });
+
+        this.notify();
       }
     );
   }
@@ -60,9 +72,7 @@ export class Brother extends Stateful {
   }
 
   listInvitesToUser(userId) {
-    return this._invites.filter((invite) => {
-      return invite.toUser.id === userId;
-    });
+    return this._invites.filter((invite) => invite.toUser.id === userId);
   }
 
   listInvitesToCurrentUser() {
@@ -74,18 +84,18 @@ export class Brother extends Stateful {
   }
 
   listPendingInvitesOfProgram(programId) {
-    const invites = this.invitesOfProgram(programId);
+    const invites = this.listInvitesOfProgram(programId);
     return invites.filter(
       (invite) => invite.status === INVITE_STATUSES.PENDING
     );
   }
 
   listUsers() {
-    return this._users.list();
+    return this._users;
   }
 
   findUserWithId(id) {
-    return this._users.findWithId(id);
+    return this._users.find((user) => user.id === id);
   }
 
   findUserWithEmail(email) {

@@ -54,4 +54,6 @@ export function initApp(elementId) {
   app.use(globals);
   app.use(router);
   app.mount(elementId);
+
+  window.$brother = brother;
 }

@@ -31,7 +31,7 @@ export class Gatekeeper extends Stateful {
   }
 
   get userId() {
-    return this._user.uid;
+    return this._user?.uid;
   }
 
   async signUp(credentials) {
