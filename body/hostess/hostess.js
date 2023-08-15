@@ -23,14 +23,16 @@ export class Hostess {
   }
 
   accept(invite) {
-    const { id, program } = invite;
+    const { id } = invite;
     this._invitesDataset.set({
       id,
       status: INVITE_STATUSES.ACCEPTED,
     });
 
-    const { usersIds } = invite;
-    this._programsDataset.set({ id: program.id, userIds: [...usersIds] });
+    const { toUser, program } = invite;
+    const currentUsers = program.users.map(({ id }) => id);
+    const usersIds = [toUser.id, ...currentUsers];
+    this._programsDataset.set({ id: program.id, usersIds });
   }
 
   ignore(invite) {

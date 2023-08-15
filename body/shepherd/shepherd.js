@@ -1,11 +1,16 @@
 export class Shepherd {
+  _usersDataset;
+
   constructor({ usersDataset }) {
     this._usersDataset = usersDataset;
   }
 
-  enroll({ id, email }) {
-    const user = this._users.findWithId(id);
+  async enroll({ id, email }) {
+    await this._usersDataset.firstLoad;
+
+    const user = this._usersDataset.findWithId(id);
     if (user) return;
-    return this._users.add({ id, email });
+
+    return this._usersDataset.add({ id, email });
   }
 }

@@ -75,8 +75,10 @@ export class Brother extends Stateful {
     return this._invites.filter((invite) => invite.toUser.id === userId);
   }
 
-  listInvitesToCurrentUser() {
-    return this.listInvitesToUser(this._gatekeeper.userId);
+  listPendingInvitesToCurrentUser() {
+    return this.listInvitesToUser(this._gatekeeper.userId).filter(
+      (invite) => invite.status === INVITE_STATUSES.PENDING
+    );
   }
 
   listInvitesOfProgram(programId) {
