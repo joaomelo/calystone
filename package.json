@@ -31,6 +31,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-vue": "^9.14.1",
     "firebase-tools": "^12.2.1",
+    "typescript": "^5.1.6",
     "vite": "^4.3.9",
     "vite-plugin-pwa": "^0.15.1",
     "vitest": "^0.31.1",

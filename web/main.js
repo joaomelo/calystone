@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { Service, I18n, globalize } from "../lib";
-import { Brother, Shepherd, Hostess, Strategist } from "../body";
+import { Shepherd, Hostess, Strategist } from "../body";
 import { messages } from "./i18n";
 import { createRouter } from "./router";
 import App from "./app.vue";
@@ -26,14 +26,12 @@ export async function initApp(elementId) {
   const shepherd = new Shepherd({ service });
   const hostess = new Hostess({ service });
   const strategist = new Strategist({ service });
-  const brother = new Brother({ service });
 
   const i18n = new I18n(messages);
   i18n.locale = navigator.navigate;
 
   const globals = globalize({
     i18n,
-    brother,
     strategist,
     shepherd,
     hostess,
@@ -46,5 +44,5 @@ export async function initApp(elementId) {
   app.use(router);
   app.mount(elementId);
 
-  window.$brother = brother;
+  window.$data = { shepherd, hostess, strategist };
 }

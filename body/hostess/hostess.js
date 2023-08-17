@@ -1,5 +1,5 @@
 import { Invite } from "../invite";
-import { INVITE_STATUSES } from "./statuses";
+import { INVITE_STATUSES } from "../invite";
 
 export class Hostess {
   _auth;
@@ -13,11 +13,37 @@ export class Hostess {
     this._programsDataset = service.data["programs"];
 
     this._invitesDataset.subscribe((invitesData) => {
-      this._invites = invitesData
+      this._invites = service.loadedOnce
         ? invitesData.map(({ id }) => Invite.service({ id, service }))
         : [];
       this.notify();
     });
+  }
+
+  listInvites() {
+    return this._invites;
+  }
+
+  listInvitesToUser(userId) {
+    return this._invites.filter((invite) => invite.isTo(userId));
+  }
+
+  listInvitesToCurrentUser() {
+    return this.listInvitesToUser(this._auth.userId);
+  }
+
+  listPendingInvitesToCurrentUser() {
+    const invites = this.listInvitesToCurrentUser();
+    return invites.filter((invite) => invite.isPending());
+  }
+
+  listInvitesOfProgram(programId) {
+    return this._invites.filter((invite) => invite.isOf(programId));
+  }
+
+  listPendingInvitesOfProgram(programId) {
+    const invites = this.listInvitesOfProgram(programId);
+    return invites.filter((invite) => invite.isPending());
   }
 
   invite({ toUserId, programId }) {
