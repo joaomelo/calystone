@@ -1,13 +1,13 @@
 import { createApp } from "vue";
-import { Firebase, Auth, Dataset, I18n, globalize } from "../lib";
-import { Brother, Gatekeeper, Shepherd, Hostess, Strategist } from "../body";
+import { Service, I18n, globalize } from "../lib";
+import { Brother, Shepherd, Hostess, Strategist } from "../body";
 import { messages } from "./i18n";
 import { createRouter } from "./router";
 import App from "./app.vue";
 import "./styles";
 
-export function initApp(elementId) {
-  const config = {
+export async function initApp(elementId) {
+  const serviceConnection = {
     apiKey: import.meta.env.VITE_API_KEY,
     authDomain: import.meta.env.VITE_AUTH_DOMAIN,
     projectId: import.meta.env.VITE_PROJECT_ID,
@@ -17,24 +17,16 @@ export function initApp(elementId) {
     measurementId: import.meta.env.VITE_MEASUREMENT_ID,
   };
 
-  const firebaseDriver = new Firebase(config);
-  const auth = new Auth(firebaseDriver.app);
+  const service = new Service(serviceConnection);
+  service.set({ name: "users" });
+  service.set({ name: "invites" });
+  service.set({ name: "programs" });
+  service.set({ name: "artifacts" });
 
-  const db = firebaseDriver.db;
-  const usersDataset = new Dataset({ name: "users", db, auth });
-  const invitesDataset = new Dataset({ name: "invites", db, auth });
-  const programsDataset = new Dataset({ name: "programs", db, auth });
-
-  const shepherd = new Shepherd({ usersDataset });
-  const gatekeeper = new Gatekeeper({ auth, shepherd });
-  const hostess = new Hostess({ gatekeeper, invitesDataset, programsDataset });
-  const strategist = new Strategist({ gatekeeper, programsDataset });
-  const brother = new Brother({
-    gatekeeper,
-    programsDataset,
-    invitesDataset,
-    usersDataset,
-  });
+  const shepherd = new Shepherd({ service });
+  const hostess = new Hostess({ service });
+  const strategist = new Strategist({ service });
+  const brother = new Brother({ service });
 
   const i18n = new I18n(messages);
   i18n.locale = navigator.navigate;
@@ -42,7 +34,6 @@ export function initApp(elementId) {
   const globals = globalize({
     i18n,
     brother,
-    gatekeeper,
     strategist,
     shepherd,
     hostess,

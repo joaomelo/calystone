@@ -1,9 +1,9 @@
 export class Strategist {
-  _gatekeeper;
+  _shepherd;
   _programsDataset;
 
-  constructor({ gatekeeper, programsDataset }) {
-    this._gatekeeper = gatekeeper;
+  constructor({ shepherd, programsDataset }) {
+    this._shepherd = shepherd;
     this._programsDataset = programsDataset;
   }
 
@@ -11,7 +11,7 @@ export class Strategist {
     const payloadWithUser = {
       name,
       archivedAt: null,
-      usersIds: [this._gatekeeper.userId],
+      usersIds: [this._shepherd.userId],
     };
     return this._programsDataset.add(payloadWithUser);
   }

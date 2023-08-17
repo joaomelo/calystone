@@ -1,18 +1,27 @@
+import { Invite } from "../invite";
 import { INVITE_STATUSES } from "./statuses";
 
 export class Hostess {
-  _gatekeeper;
+  _auth;
   _invitesDataset;
   _programsDataset;
+  _invites = [];
 
-  constructor({ gatekeeper, invitesDataset, programsDataset }) {
-    this._gatekeeper = gatekeeper;
-    this._invitesDataset = invitesDataset;
-    this._programsDataset = programsDataset;
+  constructor({ service }) {
+    this._auth = service.auth;
+    this._invitesDataset = service.data["invites"];
+    this._programsDataset = service.data["programs"];
+
+    this._invitesDataset.subscribe((invitesData) => {
+      this._invites = invitesData
+        ? invitesData.map(({ id }) => Invite.service({ id, service }))
+        : [];
+      this.notify();
+    });
   }
 
   invite({ toUserId, programId }) {
-    const fromUserId = this._gatekeeper.userId;
+    const fromUserId = this._auth.userId;
     const status = INVITE_STATUSES.PENDING;
     return this._invitesDataset.add({
       fromUserId,
