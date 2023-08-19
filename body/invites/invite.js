@@ -3,29 +3,25 @@ import { User } from "../user";
 import { INVITE_STATUSES } from "./statuses";
 
 export class Invite {
+  _invitesDataset;
+
   _id;
   _program;
   _fromUser;
   _toUser;
   _status;
 
-  static service({ id, service }) {
+  constructor({ id, service }) {
+    this._invitesDataset = service.data.invites;
+
     const { status, programId, fromUserId, toUserId } =
-      service.data["invites"].findWithId(id);
+      this._invitesDataset.findWithId(id);
 
-    const program = Program.service({ id: programId, service });
-    const toUser = User.service({ id: toUserId, service });
-    const fromUser = User.service({ id: fromUserId, service });
-
-    return new Invite({ id, status, program, toUser, fromUser });
-  }
-
-  constructor({ id, status, toUser, fromUser, program }) {
     this._id = id;
     this._status = status;
-    this._program = program;
-    this._toUser = toUser;
-    this._fromUser = fromUser;
+    this._program = new Program({ id: programId, service });
+    this._toUser = new User({ id: toUserId, service });
+    this._fromUser = new User({ id: fromUserId, service });
   }
 
   get id() {
@@ -70,5 +66,21 @@ export class Invite {
 
   isOf(programId) {
     return this.program.id === programId;
+  }
+
+  accept() {
+    const promiseInvite = this._invitesDataset.set({
+      id: this._id,
+      status: INVITE_STATUSES.ACCEPTED,
+    });
+    const promiseProgram = this._program.includeUser(this._toUser);
+    return Promise.all([promiseInvite, promiseProgram]);
+  }
+
+  ignore() {
+    return this._invitesDataset.set({
+      id: this._id,
+      status: INVITE_STATUSES.IGNORED,
+    });
   }
 }

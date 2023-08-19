@@ -1,20 +1,20 @@
-import { Invite } from "../invite";
-import { INVITE_STATUSES } from "../invite";
+import { Stateful } from "../../lib";
+import { Invite } from "./invite";
+import { INVITE_STATUSES } from "./statuses";
 
-export class Hostess {
+export class Invites extends Stateful {
   _auth;
   _invitesDataset;
-  _programsDataset;
   _invites = [];
 
-  constructor({ service }) {
+  constructor(service) {
+    super();
     this._auth = service.auth;
-    this._invitesDataset = service.data["invites"];
-    this._programsDataset = service.data["programs"];
+    this._invitesDataset = service.data.invites;
 
     this._invitesDataset.subscribe((invitesData) => {
       this._invites = service.loadedOnce
-        ? invitesData.map(({ id }) => Invite.service({ id, service }))
+        ? invitesData.map(({ id }) => new Invite({ id, service }))
         : [];
       this.notify();
     });
@@ -54,27 +54,6 @@ export class Hostess {
       toUserId,
       programId,
       status,
-    });
-  }
-
-  accept(invite) {
-    const { id } = invite;
-    this._invitesDataset.set({
-      id,
-      status: INVITE_STATUSES.ACCEPTED,
-    });
-
-    const { toUser, program } = invite;
-    const currentUsers = program.users.map(({ id }) => id);
-    const usersIds = [toUser.id, ...currentUsers];
-    this._programsDataset.set({ id: program.id, usersIds });
-  }
-
-  ignore(invite) {
-    const { id } = invite;
-    this._invitesDataset.set({
-      id,
-      status: INVITE_STATUSES.IGNORED,
     });
   }
 }

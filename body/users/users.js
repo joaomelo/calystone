@@ -1,30 +1,30 @@
 import { Stateful } from "../../lib";
-import { User } from "../user";
+import { User } from "./user";
 import { validateEmail, validatePassword } from "./validation";
 import { AUTH_STATUSES } from "./statuses";
 
-export class Shepherd extends Stateful {
+export class Users extends Stateful {
   _auth;
   _usersDataset;
 
-  _user;
+  _currentUserId;
   _authStatus = AUTH_STATUSES.UNSOLVED;
   _users = [];
 
-  constructor({ service }) {
+  constructor(service) {
     super();
     this._auth = service.auth;
-    this._usersDataset = service.data["users"];
+    this._usersDataset = service.data.users;
 
     service.select(["auth", "users"], ([authData, usersData]) => {
       this._authStatus = authData
         ? AUTH_STATUSES.SIGNED_IN
         : AUTH_STATUSES.SIGNED_OUT;
-      this._user = authData;
+      this._currentUserId = authData?.uid;
 
       if (service.loadedOnce) {
-        this._users = usersData.map(({ id }) => User.service({ id, service }));
-        this.enroll({ id: this._user.uid, email: this._user.email });
+        this._users = usersData.map(({ id }) => new User({ id, service }));
+        this.user({ id: authData?.uid, email: authData?.email });
       } else {
         this._users = [];
       }
@@ -38,7 +38,7 @@ export class Shepherd extends Stateful {
   }
 
   get userId() {
-    return this._user?.uid;
+    return this._currentUserId;
   }
 
   isUnsolved() {
@@ -65,12 +65,6 @@ export class Shepherd extends Stateful {
     return this._users.find((user) => user.email === email);
   }
 
-  enroll({ id, email }) {
-    const user = this._usersDataset.findWithId(id);
-    if (user) return;
-    return this._usersDataset.add({ id, email });
-  }
-
   signUp(credentials) {
     const { email, password } = credentials;
     validateEmail(email);
@@ -86,5 +80,11 @@ export class Shepherd extends Stateful {
 
   signOut() {
     return this._auth.signOut();
+  }
+
+  user({ id, email }) {
+    const user = this._usersDataset.findWithId(id);
+    if (user) return;
+    return this._usersDataset.add({ id, email });
   }
 }
