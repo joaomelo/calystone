@@ -1,7 +1,7 @@
 import { Stateful } from "../../lib";
 import { Program } from "./program";
 
-export class Strategist extends Stateful {
+export class Programs extends Stateful {
   _auth;
   _programsDataset;
   _programs = [];
@@ -12,10 +12,16 @@ export class Strategist extends Stateful {
     this._auth = service.auth;
     this._programsDataset = service.data.programs;
 
-    this._programsDataset.subscribe((programsData) => {
-      this._programs = service.loadedOnce
-        ? programsData.map(({ id }) => new Program({ id, service }))
-        : [];
+    service.select(["programs", "users"], ([programsData, usersData]) => {
+      if (!programsData || !usersData) {
+        this._programs = [];
+        this.notify();
+        return;
+      }
+
+      this._programs = programsData.map(({ id: programId }) =>
+        Program.mount({ programId, programsData, usersData })
+      );
       this.notify();
     });
   }
@@ -25,8 +31,8 @@ export class Strategist extends Stateful {
   }
 
   listProgramsOfUser(userId) {
-    return this.listPrograms().filter((item) =>
-      item.users.find((user) => user.id === userId)
+    return this.listPrograms().filter((program) =>
+      program.users.find((user) => user.id === userId)
     );
   }
 
@@ -45,5 +51,23 @@ export class Strategist extends Stateful {
       usersIds: [this._auth.userId],
     };
     return this._programsDataset.add(payloadWithUser);
+  }
+
+  edit(payload) {
+    return this._programsDataset.set(payload);
+  }
+
+  archive(programId) {
+    return this._programsDataset.set({
+      id: programId,
+      archivedAt: new Date(),
+    });
+  }
+
+  unarchive(programId) {
+    return this._programsDataset.set({
+      id: programId,
+      archivedAt: null,
+    });
   }
 }

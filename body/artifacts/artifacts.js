@@ -1,7 +1,7 @@
 import { Stateful } from "../../lib";
 import { Artifact } from "./artifact";
 
-export class Tactician extends Stateful {
+export class Artifacts extends Stateful {
   _artifactsDataset;
   _artifacts = [];
 
@@ -11,9 +11,15 @@ export class Tactician extends Stateful {
     this._artifactsDataset = service.data.artifacts;
 
     this._artifactsDataset.subscribe((artifactsData) => {
-      this._artifacts = service.loadedOnce
-        ? artifactsData.map(({ id }) => new Artifact({ id, service }))
-        : [];
+      if (!this._artifactsDataset.loadedOnce) {
+        this._artifacts = [];
+        this.notify();
+        return;
+      }
+
+      this._artifacts = artifactsData.map(({ id: artifactId }) =>
+        Artifact.mount({ artifactId, artifactsData })
+      );
       this.notify();
     });
   }

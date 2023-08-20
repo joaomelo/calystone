@@ -9,8 +9,8 @@ defineProps({
   },
 });
 
-const { shepherd } = useGlobals();
-const handleSignOut = () => shepherd.signOut();
+const { users } = useGlobals();
+const handleSignOut = () => users.signOut();
 
 const signOutText = useGlobalStateful((i18n) => i18n.t("signOut"));
 </script>

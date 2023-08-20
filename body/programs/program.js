@@ -1,25 +1,31 @@
-import { User } from "../user";
+import { User } from "../users";
 
 export class Program {
-  _programsDataset;
-
   _id;
   _name;
   _notes;
   _archivedAt;
   _users;
 
-  constructor({ id, service }) {
-    this._programsDataset = service.data.programs;
+  static mount({ programId, programsData, usersData }) {
+    const { usersIds, ...programData } = programsData.find(
+      ({ id }) => id === programId
+    );
 
-    const { name, notes, archivedAt, usersIds } =
-      this._programsDataset.findWithId(id);
+    const users = usersIds.map((userId) => {
+      const userData = usersData.find(({ id }) => id === userId);
+      return new User(userData);
+    });
 
+    return new Program({ users, ...programData });
+  }
+
+  constructor({ id, name, notes, archivedAt, users }) {
     this._id = id;
     this._name = name;
     this._notes = notes;
     this._archivedAt = archivedAt;
-    this._users = usersIds.map(({ id }) => new User({ id, service }));
+    this._users = users;
   }
 
   get id() {
@@ -40,29 +46,5 @@ export class Program {
 
   get users() {
     return this._users;
-  }
-
-  addUser(user) {
-    const currentUsersIds = this._users.map(({ id }) => id);
-    const usersIds = [user.id, ...currentUsersIds];
-    this._programsDataset.set({ id: this._id, usersIds });
-  }
-
-  edit(payload) {
-    return this._programsDataset.set({ id: this._id, ...payload });
-  }
-
-  archive() {
-    this._programsDataset.set({
-      id: this._id,
-      archivedAt: new Date(),
-    });
-  }
-
-  unarchive() {
-    this._programsDataset.set({
-      id: this._id,
-      archivedAt: null,
-    });
   }
 }

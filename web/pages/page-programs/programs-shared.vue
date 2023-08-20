@@ -4,8 +4,8 @@ import ProgramsSharedActions from "./programs-shared-actions.vue";
 
 const pendingText = useGlobalStateful((i18n) => i18n.t("pending"));
 
-const invites = useGlobalStateful((brother) =>
-  brother.listPendingInvitesToCurrentUser()
+const invites = useGlobalStateful((invites) =>
+  invites.listPendingInvitesToCurrentUser()
 );
 </script>
 <template>

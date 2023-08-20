@@ -22,13 +22,16 @@ export class Users extends Stateful {
         : AUTH_STATUSES.SIGNED_OUT;
       this._currentUserId = authData?.uid;
 
-      if (service.loadedOnce) {
-        this._users = usersData.map(({ id }) => new User({ id, service }));
-        this.user({ id: authData?.uid, email: authData?.email });
-      } else {
+      if (!this._usersDataset.loadedOnce) {
         this._users = [];
+        this.notify();
+        return;
       }
 
+      this._users = usersData.map(({ id: userId }) =>
+        User.mount({ userId, usersData })
+      );
+      this.user({ id: authData?.uid, email: authData?.email });
       this.notify();
     });
   }

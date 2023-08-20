@@ -6,7 +6,6 @@ import {
   FormBase,
   InputBase,
   useGlobalStateful,
-  useGlobals,
   useTask,
 } from "../../../lib";
 import { routesPaths } from "../../router";
@@ -23,16 +22,14 @@ const notesText = useGlobalStateful((i18n) => i18n.t("notes"));
 const cancelText = useGlobalStateful((i18n) => i18n.t("cancel"));
 const saveText = useGlobalStateful((i18n) => i18n.t("save"));
 
-const { strategist } = useGlobals();
-const program = useGlobalStateful((brother) =>
-  brother.findProgramWithId(props.programId)
+const program = useGlobalStateful((programs) =>
+  programs.findProgramWithId(props.programId)
 );
 const payload = reactive({
-  id: props.programId,
   name: program.value?.name,
   notes: program.value?.notes,
 });
-const edit = useTask(() => strategist.editProgram(payload));
+const edit = useTask(() => program.edit(payload));
 
 const router = useRouter();
 const handleSave = async (payload) => {

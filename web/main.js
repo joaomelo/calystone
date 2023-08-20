@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { Service, I18n, globalize } from "../lib";
-import { Shepherd, Hostess, Strategist } from "../body";
+import { Users, Invites, Programs, Artifacts } from "../body";
 import { messages } from "./i18n";
 import { createRouter } from "./router";
 import App from "./app.vue";
@@ -18,23 +18,25 @@ export async function initApp(elementId) {
   };
 
   const service = new Service(serviceConnection);
-  service.set({ name: "users" });
-  service.set({ name: "invites" });
-  service.set({ name: "programs" });
-  service.set({ name: "artifacts" });
+  service.load({ name: "users" });
+  service.load({ name: "invites" });
+  service.load({ name: "programs" });
+  service.load({ name: "artifacts" });
 
-  const shepherd = new Shepherd({ service });
-  const hostess = new Hostess({ service });
-  const strategist = new Strategist({ service });
+  const users = new Users(service);
+  const invites = new Invites(service);
+  const programs = new Programs(service);
+  const artifacts = new Artifacts(service);
 
   const i18n = new I18n(messages);
   i18n.locale = navigator.navigate;
 
   const globals = globalize({
     i18n,
-    strategist,
-    shepherd,
-    hostess,
+    programs,
+    users,
+    invites,
+    artifacts,
   });
 
   const router = createRouter();
@@ -44,5 +46,5 @@ export async function initApp(elementId) {
   app.use(router);
   app.mount(elementId);
 
-  window.$data = { shepherd, hostess, strategist };
+  window.$data = { programs, users, invites, artifacts };
 }

@@ -10,23 +10,21 @@ const props = defineProps({
 
 const pendingText = useGlobalStateful((i18n) => i18n.t("pending"));
 
-const users = useGlobalStateful((brother) => {
-  const program = brother.findProgramWithId(props.programId);
+const relatedUsers = useGlobalStateful((programs) => {
+  const program = programs.findProgramWithId(props.programId);
   if (!program) return [];
-  return program.users.map((user) => ({
-    email: user.email,
-  }));
+  return program.users.map(({ email }) => ({ email }));
 });
 
-const pendingInvites = useGlobalStateful((brother) => {
-  const invites = brother.listPendingInvitesOfProgram(props.programId);
-  return invites.map((invite) => ({
+const pendingInvites = useGlobalStateful((invites) => {
+  const pendingInvites = invites.listPendingInvitesOfProgram(props.programId);
+  return pendingInvites.map((invite) => ({
     email: invite.toUser.email,
     status: invite.status,
   }));
 });
 
-const items = computed(() => users.value.concat(pendingInvites.value));
+const items = computed(() => relatedUsers.value.concat(pendingInvites.value));
 </script>
 <template>
   <list-base :items="items">

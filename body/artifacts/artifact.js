@@ -1,15 +1,14 @@
 export class Artifact {
-  _artifactsDataset;
-
   _id;
   _name;
   _programId;
 
-  constructor({ id, service }) {
-    this._artifactsDataset = service.data.artifacts;
+  static mount({ artifactId, artifactsData }) {
+    const artifactData = artifactsData.find(({ id }) => id === artifactId);
+    return new Artifact(artifactData);
+  }
 
-    const { name, programId } = this._artifactsDataset.findWithId(id);
-
+  constructor({ id, name, programId }) {
     this._id = id;
     this._name = name;
     this._programId = programId;

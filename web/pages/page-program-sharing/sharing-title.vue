@@ -12,8 +12,8 @@ const props = defineProps({
 
 const programsText = useGlobalStateful((i18n) => i18n.t("programs"));
 
-const programText = useGlobalStateful((brother) => {
-  const program = brother.findProgramWithId(props.programId);
+const programText = useGlobalStateful((programs) => {
+  const program = programs.findProgramWithId(props.programId);
   return program ? program.name : "...";
 });
 const sharingOf = useGlobalStateful((i18n) => i18n.t("sharingOf"));

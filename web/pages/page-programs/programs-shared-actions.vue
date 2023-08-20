@@ -13,15 +13,19 @@ const props = defineProps({
   },
 });
 
-const { hostess } = useGlobals();
+const { invites } = useGlobals();
 
 const acceptText = useGlobalStateful((i18n) => i18n.t("accept"));
 const acceptAction = { name: "accept", label: acceptText.value };
-const acceptTask = useTask(() => hostess.accept(props.invite));
+const acceptTask = useTask(() =>
+  invites.findInviteWithId(props.invite.id).accept()
+);
 
 const ignoreText = useGlobalStateful((i18n) => i18n.t("ignore"));
 const ignoreAction = { name: "ignore", label: ignoreText.value };
-const ignoreTask = useTask(() => hostess.ignore(props.invite));
+const ignoreTask = useTask(() =>
+  invites.findInviteWithId(props.invite.id).ignore()
+);
 
 const handleAction = (action) => {
   switch (action) {

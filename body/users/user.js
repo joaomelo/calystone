@@ -1,14 +1,13 @@
 export class User {
-  _usersDataset;
-
   _id;
   _email;
 
-  constructor({ id, service }) {
-    this._usersDataset = service.data.users;
+  static mount({ userId, usersData }) {
+    const userData = usersData.find(({ id }) => id === userId);
+    return new User(userData);
+  }
 
-    const { email } = this._usersDataset.findWithId(id);
-
+  constructor({ id, email }) {
     this._id = id;
     this._email = email;
   }

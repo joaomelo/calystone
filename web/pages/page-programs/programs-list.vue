@@ -2,8 +2,8 @@
 import { ListBase, useGlobalStateful } from "../../../lib";
 import ProgramsListActions from "./programs-list-actions.vue";
 
-const programs = useGlobalStateful((brother) =>
-  brother.listProgramsOfCurrentUser()
+const programs = useGlobalStateful((programs) =>
+  programs.listProgramsOfCurrentUser()
 );
 </script>
 <template>

@@ -17,14 +17,14 @@ const props = defineProps({
 
 const inviteText = useGlobalStateful((i18n) => i18n.t("invite"));
 
-const { hostess, brother } = useGlobals();
+const { users, invites } = useGlobals();
 const email = ref(null);
 const payload = reactive({ toUserId: null, programId: props.programId });
 const invite = useTask(() => {
-  const user = brother.findUserWithEmail(email.value);
+  const user = users.findUserWithEmail(email.value);
   if (!user) throw Error("COULD_NOT_FIND_USER_WITH_EMAIL");
   payload.toUserId = user.id;
-  hostess.invite(payload);
+  invites.invite(payload);
 });
 
 const handleInvite = async () => {

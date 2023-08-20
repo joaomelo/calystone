@@ -5,7 +5,7 @@ import { useGlobalStateful } from "../lib";
 import { AUTH_STATUSES } from "../body";
 import { ROUTE_VISIBILITY, routesPaths } from "./router";
 
-const authStatus = useGlobalStateful((shepherd) => shepherd.status);
+const authStatus = useGlobalStateful((users) => users.authStatus);
 const router = useRouter();
 const route = useRoute();
 

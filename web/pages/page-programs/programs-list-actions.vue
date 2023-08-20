@@ -15,7 +15,7 @@ const props = defineProps({
   },
 });
 
-const { strategist } = useGlobals();
+const { programs } = useGlobals();
 const router = useRouter();
 
 const editText = useGlobalStateful((i18n) => i18n.t("edit"));
@@ -26,12 +26,14 @@ const sharingAction = { name: "sharing", label: sharingText.value };
 
 const archiveText = useGlobalStateful((i18n) => i18n.t("archive"));
 const archiveAction = { name: "archive", label: archiveText.value };
-const archiveTask = useTask(() => strategist.archiveProgram(props.program.id));
+const archiveTask = useTask(() =>
+  programs.findProgramWithId(props.program.id).archive()
+);
 
 const unarchiveText = useGlobalStateful((i18n) => i18n.t("unarchive"));
 const unarchiveAction = { name: "unarchive", label: unarchiveText.value };
 const unarchiveTask = useTask(() =>
-  strategist.unarchiveProgram(props.program.id)
+  programs.findProgramWithId(props.program.id).unarchive()
 );
 
 const actions = computed(() => {

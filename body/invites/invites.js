@@ -5,12 +5,30 @@ import { INVITE_STATUSES } from "./statuses";
 export class Invites extends Stateful {
   _auth;
   _invitesDataset;
+  _programsDataset;
   _invites = [];
 
   constructor(service) {
     super();
     this._auth = service.auth;
     this._invitesDataset = service.data.invites;
+    this._programsDataset = service.data.programs;
+
+    service.select(
+      ["invites", "programs", "users"],
+      ([invitesData, programsData, usersData]) => {
+        if (!invitesData || !programsData || !usersData) {
+          this._invites = [];
+          this.notify();
+          return;
+        }
+
+        this._invites = invitesData.map(({ id: inviteId }) =>
+          Invite.mount({ inviteId, invitesData, programsData, usersData })
+        );
+        this.notify();
+      }
+    );
 
     this._invitesDataset.subscribe((invitesData) => {
       this._invites = service.loadedOnce
@@ -46,6 +64,10 @@ export class Invites extends Stateful {
     return invites.filter((invite) => invite.isPending());
   }
 
+  findInviteWithId(id) {
+    return this.listInvites().find((invite) => invite.id === id);
+  }
+
   invite({ toUserId, programId }) {
     const fromUserId = this._auth.userId;
     const status = INVITE_STATUSES.PENDING;
@@ -54,6 +76,28 @@ export class Invites extends Stateful {
       toUserId,
       programId,
       status,
+    });
+  }
+
+  accept(inviteId) {
+    const promiseInvite = this._invitesDataset.set({
+      id: this._id,
+      status: INVITE_STATUSES.ACCEPTED,
+    });
+    const promiseProgram = this._program.includeUser(this._toUser);
+
+    const { users: currentUsers } = this.findProgramWithId(programId);
+    const currentUsersIds = currentUsers.map(({ id }) => id);
+    const usersIds = [userId, ...currentUsersIds];
+    return this._programsDataset.set({ id: programId, usersIds });
+
+    return Promise.all([promiseInvite, promiseProgram]);
+  }
+
+  ignore(inviteId) {
+    return this._invitesDataset.set({
+      id: this._id,
+      status: INVITE_STATUSES.IGNORED,
     });
   }
 }
