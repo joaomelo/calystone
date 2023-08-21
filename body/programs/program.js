@@ -11,12 +11,7 @@ export class Program {
     const { usersIds, ...programData } = programsData.find(
       ({ id }) => id === programId
     );
-
-    const users = usersIds.map((userId) => {
-      const userData = usersData.find(({ id }) => id === userId);
-      return new User(userData);
-    });
-
+    const users = usersIds.map((userId) => User.mount({ userId, usersData }));
     return new Program({ users, ...programData });
   }
 

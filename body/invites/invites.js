@@ -29,13 +29,6 @@ export class Invites extends Stateful {
         this.notify();
       }
     );
-
-    this._invitesDataset.subscribe((invitesData) => {
-      this._invites = service.loadedOnce
-        ? invitesData.map(({ id }) => new Invite({ id, service }))
-        : [];
-      this.notify();
-    });
   }
 
   listInvites() {
@@ -79,24 +72,30 @@ export class Invites extends Stateful {
     });
   }
 
-  accept(inviteId) {
+  accept(invite) {
     const promiseInvite = this._invitesDataset.set({
-      id: this._id,
+      id: invite.id,
       status: INVITE_STATUSES.ACCEPTED,
     });
-    const promiseProgram = this._program.includeUser(this._toUser);
 
-    const { users: currentUsers } = this.findProgramWithId(programId);
+    const { users: currentUsers } = invite.program.users;
     const currentUsersIds = currentUsers.map(({ id }) => id);
-    const usersIds = [userId, ...currentUsersIds];
-    return this._programsDataset.set({ id: programId, usersIds });
+    const { toUser } = invite;
+    const usersIds = [toUser.id, ...currentUsersIds];
+
+    const { program } = invite;
+    const promiseProgram = this._programsDataset.set({
+      id: program.id,
+      usersIds,
+    });
 
     return Promise.all([promiseInvite, promiseProgram]);
   }
 
-  ignore(inviteId) {
+  ignore(invite) {
+    const { id } = invite;
     return this._invitesDataset.set({
-      id: this._id,
+      id,
       status: INVITE_STATUSES.IGNORED,
     });
   }

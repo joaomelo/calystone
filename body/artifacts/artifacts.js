@@ -11,7 +11,7 @@ export class Artifacts extends Stateful {
     this._artifactsDataset = service.data.artifacts;
 
     this._artifactsDataset.subscribe((artifactsData) => {
-      if (!this._artifactsDataset.loadedOnce) {
+      if (!artifactsData) {
         this._artifacts = [];
         this.notify();
         return;

@@ -22,7 +22,7 @@ export class Users extends Stateful {
         : AUTH_STATUSES.SIGNED_OUT;
       this._currentUserId = authData?.uid;
 
-      if (!this._usersDataset.loadedOnce) {
+      if (!usersData) {
         this._users = [];
         this.notify();
         return;
