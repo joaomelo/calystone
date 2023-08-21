@@ -31,6 +31,10 @@ export class Program {
     return this._name;
   }
 
+  get notes() {
+    return this._notes;
+  }
+
   get archivedAt() {
     return this._archivedAt;
   }

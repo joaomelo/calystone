@@ -73,22 +73,20 @@ export class Invites extends Stateful {
   }
 
   accept(invite) {
+    const { program, toUser } = invite;
+    const { users: currentUsers } = program;
+
+    const currentUsersIds = currentUsers.map(({ id }) => id);
+    const usersIds = [toUser.id, ...currentUsersIds];
+
     const promiseInvite = this._invitesDataset.set({
       id: invite.id,
       status: INVITE_STATUSES.ACCEPTED,
     });
-
-    const { users: currentUsers } = invite.program.users;
-    const currentUsersIds = currentUsers.map(({ id }) => id);
-    const { toUser } = invite;
-    const usersIds = [toUser.id, ...currentUsersIds];
-
-    const { program } = invite;
     const promiseProgram = this._programsDataset.set({
       id: program.id,
       usersIds,
     });
-
     return Promise.all([promiseInvite, promiseProgram]);
   }
 

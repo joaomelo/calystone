@@ -37,7 +37,7 @@ export class Programs extends Stateful {
   }
 
   listProgramsOfCurrentUser() {
-    return this.listProgramsOfUser(this.userId);
+    return this.listProgramsOfUser(this._auth.userId);
   }
 
   findProgramWithId(id) {

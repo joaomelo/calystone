@@ -5,6 +5,7 @@ import {
   ButtonBase,
   FormBase,
   InputBase,
+  useGlobals,
   useGlobalStateful,
   useTask,
 } from "../../../lib";
@@ -22,24 +23,26 @@ const notesText = useGlobalStateful((i18n) => i18n.t("notes"));
 const cancelText = useGlobalStateful((i18n) => i18n.t("cancel"));
 const saveText = useGlobalStateful((i18n) => i18n.t("save"));
 
+const { programs } = useGlobals();
 const program = useGlobalStateful((programs) =>
   programs.findProgramWithId(props.programId)
 );
 const payload = reactive({
+  id: props.programId,
   name: program.value?.name,
   notes: program.value?.notes,
 });
-const edit = useTask(() => program.edit(payload));
+const editTask = useTask(() => programs.edit(payload));
 
 const router = useRouter();
 const handleSave = async (payload) => {
-  await edit.run(payload);
+  await editTask.run(payload);
   router.push(routesPaths.programs);
 };
 const handleCancel = () => router.push(routesPaths.programs);
 </script>
 <template>
-  <form-base @submit="handleSave" :busy="edit.busy">
+  <form-base @submit="handleSave" :busy="editTask.busy">
     <template #default>
       <input-base v-model="payload.name" :label="nameText" />
       <input-base
