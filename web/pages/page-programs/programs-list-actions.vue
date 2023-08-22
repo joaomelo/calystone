@@ -18,6 +18,9 @@ const props = defineProps({
 const { programs } = useGlobals();
 const router = useRouter();
 
+const planText = useGlobalStateful((i18n) => i18n.t("plan"));
+const planAction = { name: "plan", label: planText.value };
+
 const editText = useGlobalStateful((i18n) => i18n.t("edit"));
 const editAction = { name: "edit", label: editText.value };
 
@@ -34,12 +37,17 @@ const unarchiveTask = useTask(() => programs.unarchive(props.program.id));
 
 const actions = computed(() => {
   if (props.program.archivedAt) return [unarchiveAction];
-  return [editAction, archiveAction, sharingAction];
+  return [planAction, editAction, archiveAction, sharingAction];
 });
 
 const handleAction = (action) => {
   const programId = props.program.id;
   switch (action) {
+    case "plan":
+      return router.push({
+        name: "programPlan",
+        params: { programId },
+      });
     case "edit":
       return router.push({
         name: "programEdit",

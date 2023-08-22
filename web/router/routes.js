@@ -2,6 +2,7 @@ import {
   PageAuth,
   PageLoading,
   PageProgramEdit,
+  PageProgramPlan,
   PagePrograms,
   PageProgramSharing,
 } from "../pages";
@@ -32,6 +33,12 @@ export const routes = {
   programEdit: {
     path: "/programs/edit/:programId",
     component: PageProgramEdit,
+    props: true,
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  },
+  programPlan: {
+    path: "/programs/plan/:programId",
+    component: PageProgramPlan,
     props: true,
     meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
   },
