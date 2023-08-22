@@ -24,7 +24,7 @@ const editText = computed(
 <template>
   <heading-text clipped>
     <router-link :to="routesPaths.programs">{{ programsText }}</router-link>
-    &nbsp;>&nbsp;
+    >
     {{ editText }}
   </heading-text>
 </template>

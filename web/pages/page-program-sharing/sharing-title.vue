@@ -22,6 +22,7 @@ const sharingText = computed(() => `${sharingOf.value} ${programText.value}`);
 <template>
   <heading-text clipped>
     <router-link :to="routesPaths.programs">{{ programsText }}</router-link>
-    &nbsp;>&nbsp;{{ sharingText }}
+    >
+    {{ sharingText }}
   </heading-text>
 </template>

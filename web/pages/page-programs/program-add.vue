@@ -13,15 +13,14 @@ const addText = useGlobalStateful((i18n) => i18n.t("add"));
 const { programs } = useGlobals();
 const payload = reactive({ name: null });
 
-const addTask = useTask(() => programs.program(payload));
-const handleAdd = async () => {
-  await addTask.run(payload);
+const addTask = useTask(async () => {
+  await programs.program(payload);
   payload.name = null;
-};
+});
 </script>
 <template>
   <div class="program-add">
-    <input-base v-model="payload.name" @submit="handleAdd" />
+    <input-base v-model="payload.name" @submit="addTask.run" />
     <button-base @click="handleAdd" :busy="addTask.busy">
       {{ addText }}
     </button-base>

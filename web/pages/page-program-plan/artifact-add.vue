@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { reactive } from "vue";
 import {
   InputBase,
   ButtonBase,
@@ -15,33 +15,25 @@ const props = defineProps({
   },
 });
 
-const inviteText = useGlobalStateful((i18n) => i18n.t("invite"));
+const addText = useGlobalStateful((i18n) => i18n.t("add"));
 
-const { users, invites } = useGlobals();
-const email = ref(null);
-const payload = reactive({ toUserId: null, programId: props.programId });
-const invite = useTask(() => {
-  const user = users.findUserWithEmail(email.value);
-  if (!user) throw Error("COULD_NOT_FIND_USER_WITH_EMAIL");
-  payload.toUserId = user.id;
-  invites.invite(payload);
+const { artifacts } = useGlobals();
+const payload = reactive({ name: null, programId: props.programId });
+const addTask = useTask(async () => {
+  await artifacts.artifact(payload);
+  payload.name = null;
 });
-
-const handleInvite = async () => {
-  await invite.run();
-  payload.toEmail = null;
-};
 </script>
 <template>
-  <div class="program-add">
-    <input-base v-model="email" @submit="handleInvite" />
-    <button-base @click="handleInvite" :busy="invite.busy">
-      {{ inviteText }}
+  <div class="artifact-add">
+    <input-base v-model="payload.name" @submit="addTask.run" />
+    <button-base @click="addTask.run" :busy="addTask.busy">
+      {{ addText }}
     </button-base>
   </div>
 </template>
 <style scoped>
-.program-add {
+.artifact-add {
   display: flex;
   justify-content: space-between;
   gap: var(--size-00);

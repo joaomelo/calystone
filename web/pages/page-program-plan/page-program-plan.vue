@@ -1,8 +1,8 @@
 <script setup>
 import { PageDashboard } from "../page-base";
-// import SharingTitle from "./sharing-title.vue";
-// import UsersList from "./users-list.vue";
-// import UserInvite from "./user-invite.vue";
+import PlanTitle from "./plan-title.vue";
+import ArtifactsList from "./artifacts-list.vue";
+import ArtifactAdd from "./artifact-add.vue";
 
 defineProps({
   programId: {
@@ -14,12 +14,11 @@ defineProps({
 <template>
   <page-dashboard>
     <template #title>
-      plan
-      <!-- <sharing-title :program-id="programId" /> -->
+      <plan-title :program-id="programId" />
     </template>
     <template #default>
-      <!-- <user-invite :program-id="programId" />
-      <users-list :program-id="programId" /> -->
+      <artifact-add :program-id="programId" />
+      <artifacts-list :program-id="programId" />
     </template>
   </page-dashboard>
 </template>

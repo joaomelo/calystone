@@ -2,12 +2,12 @@
 import { ListBase, useGlobalStateful } from "../../../lib";
 import ProgramsListActions from "./programs-list-actions.vue";
 
-const programs = useGlobalStateful((programs) =>
+const programsOfCurrentUser = useGlobalStateful((programs) =>
   programs.listProgramsOfCurrentUser()
 );
 </script>
 <template>
-  <list-base :items="programs">
+  <list-base :items="programsOfCurrentUser">
     <template #content="{ item }">
       <p :class="{ archived: !!item.archivedAt }">{{ item.name }}</p>
     </template>
