@@ -1,4 +1,5 @@
 import {
+  PageArtifactEdit,
   PageAuth,
   PageLoading,
   PageProgramEdit,
@@ -39,6 +40,12 @@ export const routes = {
   programPlan: {
     path: "/programs/plan/:programId",
     component: PageProgramPlan,
+    props: true,
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  },
+  artifactEdit: {
+    path: "/artifacts/edit/:artifactId",
+    component: PageArtifactEdit,
     props: true,
     meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
   },

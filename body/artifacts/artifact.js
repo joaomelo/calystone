@@ -1,17 +1,24 @@
+import { Program } from "../programs";
+
 export class Artifact {
   _id;
   _name;
-  _programId;
+  _notes;
+  _program;
 
-  static mount({ artifactId, artifactsData }) {
-    const artifactData = artifactsData.find(({ id }) => id === artifactId);
-    return new Artifact(artifactData);
+  static mount({ artifactId, artifactsData, programsData, usersData }) {
+    const { programId, ...artifactData } = artifactsData.find(
+      ({ id }) => id === artifactId
+    );
+    const program = Program.mount({ programId, programsData, usersData });
+    return new Artifact({ program, ...artifactData });
   }
 
-  constructor({ id, name, programId }) {
+  constructor({ id, name, notes, program }) {
     this._id = id;
     this._name = name;
-    this._programId = programId;
+    this._notes = notes;
+    this._program = program;
   }
 
   get id() {
@@ -22,8 +29,16 @@ export class Artifact {
     return this._name;
   }
 
+  get notes() {
+    return this._notes;
+  }
+
+  get program() {
+    return this._program;
+  }
+
   get programId() {
-    return this._programId;
+    return this._program.id;
   }
 
   isOf(programId) {

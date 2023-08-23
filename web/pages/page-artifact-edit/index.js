@@ -1,1 +1,1 @@
-export { default as PageProgramEdit } from "./page-program-edit.vue";
+export { default as PageArtifactEdit } from "./page-artifact-edit.vue";

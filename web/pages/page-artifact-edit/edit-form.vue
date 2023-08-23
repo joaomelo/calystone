@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import {
   ButtonBase,
@@ -9,10 +9,9 @@ import {
   useGlobalStateful,
   useTask,
 } from "../../../lib";
-import { routesPaths } from "../../router";
 
 const props = defineProps({
-  programId: {
+  artifactId: {
     type: String,
     required: true,
   },
@@ -23,30 +22,42 @@ const notesText = useGlobalStateful((i18n) => i18n.t("notes"));
 const cancelText = useGlobalStateful((i18n) => i18n.t("cancel"));
 const saveText = useGlobalStateful((i18n) => i18n.t("save"));
 
-const { programs } = useGlobals();
-const program = useGlobalStateful((programs) =>
-  programs.findProgramWithId(props.programId)
+const artifact = useGlobalStateful((artifacts) =>
+  artifacts.findArtifactWithId(props.artifactId)
 );
-const payload = reactive({
-  id: props.programId,
-  name: program.value?.name,
-  notes: program.value?.notes,
+
+const artifactData = reactive({
+  id: props.artifactId,
+  name: null,
+  notes: null,
 });
-const editTask = useTask(() => programs.edit(payload));
+watch(artifact, (newArtifact) => {
+  artifactData.name = newArtifact?.name || null;
+  artifactData.notes = newArtifact?.notes || null;
+});
+
+const { artifacts } = useGlobals();
+const editTask = useTask(() => artifacts.edit(artifactData));
 
 const router = useRouter();
-const handleSave = async (payload) => {
-  await editTask.run(payload);
-  router.push(routesPaths.programs);
+const route = () =>
+  router.push({
+    name: "programPlan",
+    params: { programId: artifact.value?.program.id },
+  });
+
+const handleSave = async () => {
+  await editTask.run(artifactData);
+  route();
 };
-const handleCancel = () => router.push(routesPaths.programs);
+const handleCancel = route;
 </script>
 <template>
   <form-base @submit="handleSave" :busy="editTask.busy">
     <template #default>
-      <input-base v-model="payload.name" :label="nameText" />
+      <input-base v-model="artifactData.name" :label="nameText" />
       <input-base
-        v-model="payload.notes"
+        v-model="artifactData.notes"
         :label="notesText"
         type="textarea"
         rows="20"

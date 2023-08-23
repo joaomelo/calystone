@@ -10,18 +10,21 @@ export class Artifacts extends Stateful {
 
     this._artifactsDataset = service.data.artifacts;
 
-    this._artifactsDataset.subscribe((artifactsData) => {
-      if (!artifactsData) {
-        this._artifacts = [];
-        this.notify();
-        return;
-      }
+    service.select(
+      ["artifacts", "programs", "users"],
+      ([artifactsData, programsData, usersData]) => {
+        if (!artifactsData || !programsData || !usersData) {
+          this._artifacts = [];
+          this.notify();
+          return;
+        }
 
-      this._artifacts = artifactsData.map(({ id: artifactId }) =>
-        Artifact.mount({ artifactId, artifactsData })
-      );
-      this.notify();
-    });
+        this._artifacts = artifactsData.map(({ id: artifactId }) =>
+          Artifact.mount({ artifactId, artifactsData, programsData, usersData })
+        );
+        this.notify();
+      }
+    );
   }
 
   listArtifacts() {
@@ -32,10 +35,18 @@ export class Artifacts extends Stateful {
     return this._artifacts.filter((artifact) => artifact.isOf(programId));
   }
 
+  findArtifactWithId(id) {
+    return this.listArtifacts().find((artifact) => artifact.id === id);
+  }
+
   artifact({ programId, name }) {
     if (!programId) throw new Error("NO_REQUIRED_PROGRAM_ID");
     if (!name) throw new Error("NO_REQUIRED_NAME");
 
     return this._artifactsDataset.add({ programId, name });
+  }
+
+  edit(artifactData) {
+    return this._artifactsDataset.set(artifactData);
   }
 }

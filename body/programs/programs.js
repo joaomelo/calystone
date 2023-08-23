@@ -53,8 +53,8 @@ export class Programs extends Stateful {
     return this._programsDataset.add(payloadWithUser);
   }
 
-  edit(payload) {
-    return this._programsDataset.set(payload);
+  edit(programData) {
+    return this._programsDataset.set(programData);
   }
 
   archive(programId) {
