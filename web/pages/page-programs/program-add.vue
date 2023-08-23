@@ -21,7 +21,7 @@ const addTask = useTask(async () => {
 <template>
   <div class="program-add">
     <input-base v-model="payload.name" @submit="addTask.run" />
-    <button-base @click="handleAdd" :busy="addTask.busy">
+    <button-base @click="addTask.run" :busy="addTask.busy">
       {{ addText }}
     </button-base>
   </div>

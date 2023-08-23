@@ -1,6 +1,6 @@
 <script setup>
 import { ListBase, useGlobalStateful } from "../../../lib";
-import ProgramsListActions from "./programs-list-actions.vue";
+import ProgramsListItemActions from "./programs-list-item-actions.vue";
 
 const programsOfCurrentUser = useGlobalStateful((programs) =>
   programs.listProgramsOfCurrentUser()
@@ -12,7 +12,7 @@ const programsOfCurrentUser = useGlobalStateful((programs) =>
       <p :class="{ archived: !!item.archivedAt }">{{ item.name }}</p>
     </template>
     <template #aside="{ item }">
-      <programs-list-actions :program="item" />
+      <programs-list-item-actions :program="item" />
     </template>
   </list-base>
 </template>
