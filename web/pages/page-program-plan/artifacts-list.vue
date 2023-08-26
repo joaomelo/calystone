@@ -24,7 +24,7 @@ const artifactsOfProgram = useGlobalStateful((artifacts) =>
   </list-base>
 </template>
 <style scoped>
-.pending {
+.archived {
   color: var(--color-neutral-40);
   text-decoration: line-through;
 }

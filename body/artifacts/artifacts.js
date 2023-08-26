@@ -43,10 +43,28 @@ export class Artifacts extends Stateful {
     if (!programId) throw new Error("NO_REQUIRED_PROGRAM_ID");
     if (!name) throw new Error("NO_REQUIRED_NAME");
 
-    return this._artifactsDataset.add({ programId, name });
+    return this._artifactsDataset.add({ programId, name, archivedAt: null });
   }
 
   edit(artifactData) {
     return this._artifactsDataset.set(artifactData);
+  }
+
+  archive(programId) {
+    return this._artifactsDataset.set({
+      id: programId,
+      archivedAt: new Date(),
+    });
+  }
+
+  unarchive(programId) {
+    return this._artifactsDataset.set({
+      id: programId,
+      archivedAt: null,
+    });
+  }
+
+  delete(programId) {
+    return this._artifactsDataset.del(programId);
   }
 }

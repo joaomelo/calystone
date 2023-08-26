@@ -5,6 +5,7 @@ export class Artifact {
   _name;
   _notes;
   _program;
+  _archivedAt;
 
   static mount({ artifactId, artifactsData, programsData, usersData }) {
     const { programId, ...artifactData } = artifactsData.find(
@@ -14,11 +15,12 @@ export class Artifact {
     return new Artifact({ program, ...artifactData });
   }
 
-  constructor({ id, name, notes, program }) {
+  constructor({ id, name, notes, program, archivedAt }) {
     this._id = id;
     this._name = name;
     this._notes = notes;
     this._program = program;
+    this._archivedAt = archivedAt;
   }
 
   get id() {
@@ -39,6 +41,14 @@ export class Artifact {
 
   get programId() {
     return this._program.id;
+  }
+
+  get archivedAt() {
+    return this._archivedAt;
+  }
+
+  get isArchived() {
+    return !!this._archivedAt;
   }
 
   isOf(programId) {
