@@ -1,1 +1,0 @@
-calystone self management app

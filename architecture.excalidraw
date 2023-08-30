@@ -56,44 +56,33 @@
       ]
     },
     {
-      "id": "oLPXUNSOS7br6MLxV3rw2",
       "type": "arrow",
-      "x": 892.1919950010182,
-      "y": 274.16570432831395,
-      "width": 125.34255204944361,
-      "height": 252.03568436001547,
-      "angle": 0,
-      "strokeColor": "#ced4da",
-      "backgroundColor": "transparent",
+      "version": 110,
+      "versionNonce": 1732660555,
+      "isDeleted": false,
+      "id": "oLPXUNSOS7br6MLxV3rw2",
       "fillStyle": "hachure",
       "strokeWidth": 1,
       "strokeStyle": "solid",
       "roughness": 1,
       "opacity": 100,
+      "angle": 0,
+      "x": 892.1919950010182,
+      "y": 274.16570432831395,
+      "strokeColor": "#ced4da",
+      "backgroundColor": "transparent",
+      "width": 125.34255204944361,
+      "height": 252.03568436001547,
+      "seed": 1189453771,
       "groupIds": [],
       "frameId": null,
       "roundness": {
         "type": 2
       },
-      "seed": 1189453771,
-      "version": 110,
-      "versionNonce": 1732660555,
-      "isDeleted": false,
-      "boundElements": null,
+      "boundElements": [],
       "updated": 1693062503000,
       "link": null,
       "locked": false,
-      "points": [
-        [
-          0,
-          0
-        ],
-        [
-          125.34255204944361,
-          252.03568436001547
-        ]
-      ],
-      "lastCommittedPoint": null,
       "startBinding": {
         "elementId": "rdQq5hGhUHga8MlGqSsS8",
         "focus": -0.7579828348582748,
@@ -104,48 +93,48 @@
         "focus": 0.2340226711839792,
         "gap": 3.0514071966673555
       },
+      "lastCommittedPoint": null,
       "startArrowhead": null,
-      "endArrowhead": "arrow"
-    },
-    {
-      "id": "Ckak-J15ZsGAkECQmkGtR",
-      "type": "arrow",
-      "x": 1178.9877283702135,
-      "y": 312.8191711652928,
-      "width": 143.33284015501727,
-      "height": 211.9119823085282,
-      "angle": 0,
-      "strokeColor": "#ced4da",
-      "backgroundColor": "transparent",
-      "fillStyle": "hachure",
-      "strokeWidth": 1,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "opacity": 100,
-      "groupIds": [],
-      "frameId": null,
-      "roundness": {
-        "type": 2
-      },
-      "seed": 1481993835,
-      "version": 277,
-      "versionNonce": 1396993003,
-      "isDeleted": false,
-      "boundElements": null,
-      "updated": 1693062503000,
-      "link": null,
-      "locked": false,
+      "endArrowhead": "arrow",
       "points": [
         [
           0,
           0
         ],
         [
-          -143.33284015501727,
-          211.9119823085282
+          125.34255204944361,
+          252.03568436001547
         ]
-      ],
-      "lastCommittedPoint": null,
+      ]
+    },
+    {
+      "type": "arrow",
+      "version": 277,
+      "versionNonce": 1396993003,
+      "isDeleted": false,
+      "id": "Ckak-J15ZsGAkECQmkGtR",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 1178.9877283702135,
+      "y": 312.8191711652928,
+      "strokeColor": "#ced4da",
+      "backgroundColor": "transparent",
+      "width": 143.33284015501727,
+      "height": 211.9119823085282,
+      "seed": 1481993835,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "updated": 1693062503000,
+      "link": null,
+      "locked": false,
       "startBinding": {
         "elementId": "3bds6oC5o7Kjq3w4DByvx",
         "focus": -0.24526329908528924,
@@ -156,8 +145,19 @@
         "focus": -0.09252929245966347,
         "gap": 4.521642411175776
       },
+      "lastCommittedPoint": null,
       "startArrowhead": null,
-      "endArrowhead": "arrow"
+      "endArrowhead": "arrow",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -143.33284015501727,
+          211.9119823085282
+        ]
+      ]
     },
     {
       "type": "arrow",
@@ -2065,8 +2065,8 @@
     },
     {
       "type": "text",
-      "version": 1304,
-      "versionNonce": 1579193739,
+      "version": 1308,
+      "versionNonce": 2058300682,
       "isDeleted": false,
       "id": "DTbwK25bqwKp4JsHpX7dO",
       "fillStyle": "hachure",
@@ -2085,8 +2085,8 @@
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "boundElements": null,
-      "updated": 1693062547005,
+      "boundElements": [],
+      "updated": 1693165518701,
       "link": null,
       "locked": false,
       "fontSize": 53.60003662109374,
@@ -2097,7 +2097,7 @@
       "containerId": null,
       "originalText": "high-level view",
       "lineHeight": 1.25,
-      "baseline": 46.000000000000014
+      "baseline": 46
     },
     {
       "type": "text",
@@ -4226,6 +4226,76 @@
       "originalText": "the body serves as abstractions that brings the server api directly to thje front ui. the will consume the body methods like apis endpoints",
       "lineHeight": 1.25,
       "baseline": 85
+    },
+    {
+      "type": "rectangle",
+      "version": 504,
+      "versionNonce": 1537701910,
+      "isDeleted": false,
+      "id": "Oo2Aqryh3uB2Bq8Y-DvHC",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 791.4496218177505,
+      "y": -263.8522022444695,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#b2f2bb",
+      "width": 464,
+      "height": 309,
+      "seed": 607668362,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "DTEE0wBcWObGGyymYFz0e"
+        }
+      ],
+      "updated": 1693165666347,
+      "link": null,
+      "locked": false
+    },
+    {
+      "type": "text",
+      "version": 1183,
+      "versionNonce": 784088138,
+      "isDeleted": false,
+      "id": "DTEE0wBcWObGGyymYFz0e",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 796.4496218177505,
+      "y": -221.85220224446948,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 449.3796081542969,
+      "height": 225,
+      "seed": 1676846922,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1693165666347,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "the main architecture factor is \"make the \ndev lifecycle as simples as possible even if it\ncompromises the UX because you are just \none person and have little time to apply\", so:\n\n- it will have only the frontend using firebase\nand vue because you know how to use it\n- use tailwind to reuse its battle-tested \ndesign system",
+      "textAlign": "left",
+      "verticalAlign": "middle",
+      "containerId": "Oo2Aqryh3uB2Bq8Y-DvHC",
+      "originalText": "the main architecture factor is \"make the dev lifecycle as simples as possible even if it compromises the UX because you are just one person and have little time to apply\", so:\n\n- it will have only the frontend using firebase and vue because you know how to use it\n- use tailwind to reuse its battle-tested design system",
+      "lineHeight": 1.25,
+      "baseline": 218
     }
   ],
   "appState": {
