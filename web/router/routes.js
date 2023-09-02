@@ -4,7 +4,7 @@ import {
   PageLoading,
   // PageProgramEdit,
   // PageProgramPlan,
-  // PagePrograms,
+  PageArtifactsPlan,
   // PageProgramSharing,
 } from "../pages";
 import { ROUTE_VISIBILITY } from "./visibilities";
@@ -20,11 +20,11 @@ export const routes = {
     component: PageLoading,
     meta: { visibility: ROUTE_VISIBILITY.PUBLIC },
   },
-  // programs: {
-  //   path: "/programs/list",
-  //   component: PagePrograms,
-  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  // },
+  artifactsPlan: {
+    path: "/artifacts/plan",
+    component: PageArtifactsPlan,
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  },
   // programSharing: {
   //   path: "/programs/sharing/:programId",
   //   component: PageProgramSharing,

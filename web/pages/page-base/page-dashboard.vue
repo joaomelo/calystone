@@ -1,5 +1,6 @@
 <script setup>
-import { ButtonBase, useService, useT } from "@lib";
+import { ButtonBase, useT } from "@lib";
+import { useSignOut } from "@body";
 import PageBase from "./page-base.vue";
 
 defineProps({
@@ -9,7 +10,7 @@ defineProps({
   },
 });
 
-const auth = useService("auth");
+const signOut = useSignOut();
 const t = useT();
 </script>
 <template>
@@ -18,7 +19,7 @@ const t = useT();
       <slot name="title"></slot>
     </template>
     <template #aside>
-      <button-base @click="auth.signOut" class="page-dashboard-sign-out">
+      <button-base @click="signOut.run" class="page-dashboard-sign-out">
         {{ t("signOut") }}
       </button-base>
     </template>

@@ -1,49 +1,6 @@
-import { Stateful } from "../../lib";
-import { Artifact } from "./artifact";
-
-export class Artifacts extends Stateful {
-  _artifactsDataset;
-  _artifacts = [];
-
-  constructor(service) {
-    super();
-
-    this._artifactsDataset = service.data.artifacts;
-
-    service.select(
-      ["artifacts", "programs", "users"],
-      ([artifactsData, programsData, usersData]) => {
-        if (!artifactsData || !programsData || !usersData) {
-          this._artifacts = [];
-          this.notify();
-          return;
-        }
-
-        this._artifacts = artifactsData.map(({ id: artifactId }) =>
-          Artifact.mount({ artifactId, artifactsData, programsData, usersData })
-        );
-        this.notify();
-      }
-    );
-  }
-
-  listArtifacts() {
-    return this._artifacts;
-  }
-
-  listArtifactsOfProgram(programId) {
-    return this._artifacts.filter((artifact) => artifact.isOf(programId));
-  }
-
+export class Artifacts {
   findArtifactWithId(id) {
     return this.listArtifacts().find((artifact) => artifact.id === id);
-  }
-
-  artifact({ programId, name }) {
-    if (!programId) throw new Error("NO_REQUIRED_PROGRAM_ID");
-    if (!name) throw new Error("NO_REQUIRED_NAME");
-
-    return this._artifactsDataset.add({ programId, name, archivedAt: null });
   }
 
   edit(artifactData) {
@@ -66,5 +23,29 @@ export class Artifacts extends Stateful {
 
   delete(programId) {
     return this._artifactsDataset.del(programId);
+  }
+}
+
+export class Programs {
+  findProgramWithId(id) {
+    return this.listPrograms().find((program) => program.id === id);
+  }
+
+  edit(programData) {
+    return this._programsDataset.set(programData);
+  }
+
+  archive(programId) {
+    return this._programsDataset.set({
+      id: programId,
+      archivedAt: new Date(),
+    });
+  }
+
+  unarchive(programId) {
+    return this._programsDataset.set({
+      id: programId,
+      archivedAt: null,
+    });
   }
 }

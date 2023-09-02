@@ -1,4 +1,4 @@
-import { AppError } from "../../lib";
+import { AppError } from "@lib";
 
 export const USERS_ERRORS = {
   EMAIL_INVALID: "USERS_ERRORS.EMAIL_INVALID",

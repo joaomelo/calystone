@@ -1,10 +1,10 @@
 <script setup>
 import { watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useService, AUTH_STATUSES } from "@lib";
+import { useAuthStatus } from "@body";
 import { ROUTE_VISIBILITY, routesPaths } from "./router";
 
-const auth = useService("auth");
+const authStatus = useAuthStatus();
 const router = useRouter();
 const route = useRoute();
 
@@ -12,26 +12,22 @@ let initialRoute = null;
 let initialRedirected = false;
 
 watch(
-  [() => auth.user.status, () => route.meta.visibility],
-  ([authStatus, routeVisibility]) => {
+  [() => route.meta.visibility, () => authStatus.status],
+  ([routeVisibility]) => {
     if (!initialRoute && route.meta.visibility === ROUTE_VISIBILITY.INTERNAL)
       initialRoute = { ...route };
 
-    if (authStatus === AUTH_STATUSES.UNSOLVED)
-      return router.push(routesPaths.loading);
+    if (authStatus.isUnsolved) return router.push(routesPaths.loading);
 
-    if (
-      authStatus === AUTH_STATUSES.SIGNED_OUT &&
-      routeVisibility !== ROUTE_VISIBILITY.EXTERNAL
-    )
+    if (authStatus.isSignedOut && routeVisibility !== ROUTE_VISIBILITY.EXTERNAL)
       return router.push(routesPaths.auth);
 
     if (
-      authStatus === AUTH_STATUSES.SIGNED_IN &&
+      authStatus.isSignedIn &&
       routeVisibility !== ROUTE_VISIBILITY.INTERNAL
     ) {
       if (initialRedirected || !initialRoute)
-        return router.push(routesPaths.programs);
+        return router.push(routesPaths.artifactsPlan);
 
       initialRedirected = true;
       return router.push(initialRoute.fullPath);
