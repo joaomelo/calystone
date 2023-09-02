@@ -1,32 +1,23 @@
 <script setup>
 import { reactive } from "vue";
-import {
-  ButtonBase,
-  InputBase,
-  HeadingText,
-  useGlobals,
-  useGlobalStateful,
-} from "../../../lib";
+import { ButtonBase, HeadingText, InputBase, useService, useT } from "@lib";
 import { PageBase } from "../page-base";
 
-const signInText = useGlobalStateful((i18n) => i18n.t("signIn"));
-const signUpText = useGlobalStateful((i18n) => i18n.t("signUp"));
-const emailText = useGlobalStateful((i18n) => i18n.t("email"));
-const passwordText = useGlobalStateful((i18n) => i18n.t("password"));
+const t = useT();
 
 const credentials = reactive({ email: null, password: null });
-const { users } = useGlobals();
-const handleSignIn = () => users.signIn(credentials);
-const handleSignUp = () => users.signUp(credentials);
+const auth = useService("auth");
+const handleSignIn = () => auth.signIn(credentials);
+const handleSignUp = () => auth.signUp(credentials);
 </script>
 <template>
   <page-base>
     <template #title><heading-text>auth</heading-text></template>
     <template #default>
-      <input-base v-model="credentials.email" :label="emailText" />
-      <input-base v-model="credentials.password" :label="passwordText" />
-      <button-base @click="handleSignIn">{{ signInText }}</button-base>
-      <button-base @click="handleSignUp">{{ signUpText }}</button-base>
+      <input-base v-model="credentials.email" :label="t('email')" />
+      <input-base v-model="credentials.password" :label="t('password')" />
+      <button-base @click="handleSignIn">{{ t("signIn") }}</button-base>
+      <button-base @click="handleSignUp">{{ t("signUp") }}</button-base>
     </template>
   </page-base>
 </template>

@@ -1,11 +1,10 @@
 <script setup>
 import { watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useGlobalStateful } from "../lib";
-import { AUTH_STATUSES } from "../body";
+import { useService, AUTH_STATUSES } from "@lib";
 import { ROUTE_VISIBILITY, routesPaths } from "./router";
 
-const authStatus = useGlobalStateful((users) => users.authStatus);
+const auth = useService("auth");
 const router = useRouter();
 const route = useRoute();
 
@@ -13,22 +12,22 @@ let initialRoute = null;
 let initialRedirected = false;
 
 watch(
-  [() => authStatus.value, () => route.meta.visibility],
-  ([authStatusValue, routeVisibility]) => {
+  [() => auth.user.status, () => route.meta.visibility],
+  ([authStatus, routeVisibility]) => {
     if (!initialRoute && route.meta.visibility === ROUTE_VISIBILITY.INTERNAL)
       initialRoute = { ...route };
 
-    if (authStatusValue === AUTH_STATUSES.UNSOLVED)
+    if (authStatus === AUTH_STATUSES.UNSOLVED)
       return router.push(routesPaths.loading);
 
     if (
-      authStatusValue === AUTH_STATUSES.SIGNED_OUT &&
+      authStatus === AUTH_STATUSES.SIGNED_OUT &&
       routeVisibility !== ROUTE_VISIBILITY.EXTERNAL
     )
       return router.push(routesPaths.auth);
 
     if (
-      authStatusValue === AUTH_STATUSES.SIGNED_IN &&
+      authStatus === AUTH_STATUSES.SIGNED_IN &&
       routeVisibility !== ROUTE_VISIBILITY.INTERNAL
     ) {
       if (initialRedirected || !initialRoute)

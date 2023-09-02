@@ -1,10 +1,5 @@
 <script setup>
-import {
-  useGlobalStateful,
-  useGlobals,
-  OverlayBase,
-  InputBase,
-} from "../../../lib";
+import { useI18n, OverlayBase, InputBase } from "@lib";
 
 defineProps({
   busy: {
@@ -13,10 +8,8 @@ defineProps({
   },
 });
 
-const locale = useGlobalStateful((i18n) => i18n.locale);
-const { i18n } = useGlobals();
-const supported = i18n.supported;
-const handleUpdateLocale = (value) => (i18n.locale = value);
+const i18n = useI18n();
+const handleUpdate = (locale) => i18n.updateLocale(locale);
 </script>
 <template>
   <div class="page-base">
@@ -37,10 +30,10 @@ const handleUpdateLocale = (value) => (i18n.locale = value);
       <span class="page-base-footer-brand">calystone</span>
       <span class="page-base-footer-divider">·</span>
       <input-base
-        :options="supported"
+        :options="i18n.supported"
         type="select"
-        :modelValue="locale"
-        @update:modelValue="handleUpdateLocale"
+        :modelValue="i18n.locale"
+        @update:modelValue="handleUpdate"
         class="page-base-locale"
       />
     </footer>

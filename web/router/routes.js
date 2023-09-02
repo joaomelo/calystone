@@ -1,11 +1,11 @@
 import {
-  PageArtifactEdit,
+  // PageArtifactEdit,
   PageAuth,
   PageLoading,
-  PageProgramEdit,
-  PageProgramPlan,
-  PagePrograms,
-  PageProgramSharing,
+  // PageProgramEdit,
+  // PageProgramPlan,
+  // PagePrograms,
+  // PageProgramSharing,
 } from "../pages";
 import { ROUTE_VISIBILITY } from "./visibilities";
 
@@ -20,35 +20,35 @@ export const routes = {
     component: PageLoading,
     meta: { visibility: ROUTE_VISIBILITY.PUBLIC },
   },
-  programs: {
-    path: "/programs/list",
-    component: PagePrograms,
-    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  },
-  programSharing: {
-    path: "/programs/sharing/:programId",
-    component: PageProgramSharing,
-    props: true,
-    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  },
-  programEdit: {
-    path: "/programs/edit/:programId",
-    component: PageProgramEdit,
-    props: true,
-    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  },
-  programPlan: {
-    path: "/programs/plan/:programId",
-    component: PageProgramPlan,
-    props: true,
-    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  },
-  artifactEdit: {
-    path: "/artifacts/edit/:artifactId",
-    component: PageArtifactEdit,
-    props: true,
-    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  },
+  // programs: {
+  //   path: "/programs/list",
+  //   component: PagePrograms,
+  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  // },
+  // programSharing: {
+  //   path: "/programs/sharing/:programId",
+  //   component: PageProgramSharing,
+  //   props: true,
+  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  // },
+  // programEdit: {
+  //   path: "/programs/edit/:programId",
+  //   component: PageProgramEdit,
+  //   props: true,
+  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  // },
+  // programPlan: {
+  //   path: "/programs/plan/:programId",
+  //   component: PageProgramPlan,
+  //   props: true,
+  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  // },
+  // artifactEdit: {
+  //   path: "/artifacts/edit/:artifactId",
+  //   component: PageArtifactEdit,
+  //   props: true,
+  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  // },
 };
 
 // used to list all routes in a array combined name and configuration

@@ -1,5 +1,5 @@
 <script setup>
-import { ButtonBase, useGlobals, useGlobalStateful } from "../../../lib";
+import { ButtonBase, useService, useT } from "@lib";
 import PageBase from "./page-base.vue";
 
 defineProps({
@@ -9,10 +9,8 @@ defineProps({
   },
 });
 
-const { users } = useGlobals();
-const handleSignOut = () => users.signOut();
-
-const signOutText = useGlobalStateful((i18n) => i18n.t("signOut"));
+const auth = useService("auth");
+const t = useT();
 </script>
 <template>
   <page-base :busy="busy">
@@ -20,8 +18,8 @@ const signOutText = useGlobalStateful((i18n) => i18n.t("signOut"));
       <slot name="title"></slot>
     </template>
     <template #aside>
-      <button-base @click="handleSignOut" class="page-dashboard-sign-out">
-        {{ signOutText }}
+      <button-base @click="auth.signOut" class="page-dashboard-sign-out">
+        {{ t("signOut") }}
       </button-base>
     </template>
     <template #default>

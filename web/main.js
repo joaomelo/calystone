@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { Service, I18n } from "../lib";
+import { Service, I18n } from "@lib";
 import { messages } from "./i18n";
 import { createRouter } from "./router";
 import App from "./app.vue";
@@ -25,7 +25,7 @@ export async function initApp(elementId) {
   app.use(service);
 
   const i18n = new I18n(messages);
-  i18n.locale = navigator.navigate;
+  i18n.updateLocale(navigator.navigate);
   app.use(i18n);
 
   const router = createRouter();

@@ -1,12 +1,12 @@
 <script setup>
-import { useGlobalStateful } from "../../../lib";
+import { useT } from "../../../lib";
 import { PageBase } from "../page-base";
 
-const loadingText = useGlobalStateful((i18n) => i18n.t("loading"));
+const t = useT();
 </script>
 <template>
   <page-base>
-    <p class="message">{{ loadingText }}...</p>
+    <p class="message">{{ t("loading") }}...</p>
   </page-base>
 </template>
 <style scoped>
