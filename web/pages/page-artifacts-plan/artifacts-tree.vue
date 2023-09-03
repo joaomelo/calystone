@@ -1,20 +1,34 @@
 <script setup>
-// import { TreeBase } from "@lib";
+import { computed } from "vue";
+import { ListBase, useService, and } from "@lib";
 // import ProgramsListItemActions from "./programs-list-item-actions.vue";
-import { useArtifactsTree } from "@body";
+import { useArtifacts, createIsOfUser, createIsChildOf, isRoot } from "@body";
 
-const tree = useArtifactsTree();
+const artifacts = useArtifacts();
+
+const auth = useService("auth");
+const isFirstLevel = and(isRoot, createIsOfUser(auth.user));
+
+const items = computed(() => {
+  const list = Array.from(artifacts.values());
+
+  const asItem = ({ id, name }) => {
+    const isChildOf = createIsChildOf(id);
+    return { id, title: name, children: list.filter(isChildOf).map(asItem) };
+  };
+
+  return list.filter(isFirstLevel).map(asItem);
+});
 </script>
 <template>
-  <pre>{{ tree }}</pre>
-  <!-- <list-base :items="programsOfCurrentUser">
-    <template #content="{ item }">
+  <list-base :items="items">
+    <!-- <template #content="{ item }">
       <p :class="{ archived: !!item.archivedAt }">{{ item.name }}</p>
-    </template>
-    <template #aside="{ item }">
+    </template> -->
+    <!-- <template #aside="{ item }">
       <programs-list-item-actions :program="item" />
-    </template>
-  </list-base> -->
+    </template> -->
+  </list-base>
 </template>
 
 <style scoped>

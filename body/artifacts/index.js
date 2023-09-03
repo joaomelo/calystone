@@ -1,2 +1,3 @@
 export * from "./use-add";
-export * from "./use-tree";
+export * from "./use-artifacts";
+export * from "./selectors";
