@@ -1,28 +1,14 @@
 <script setup>
 import { computed } from "vue";
-import {
-  ListBase,
-  useService,
-  and,
-  useT,
-  treeify,
-  isRoot as isRootBase,
-} from "@lib";
+import { ListBase, useService, and, treeify, isRoot as isRootBase } from "@lib";
 // import ProgramsListItemActions from "./programs-list-item-actions.vue";
 import { useArtifacts, createIsOfUser, isArchived } from "@body";
+import { useActions } from "./use-actions";
 
-const t = useT();
-
-const editAction = { name: "edit", label: t("edit") };
-const archiveAction = { name: "archive", label: t("archive") };
-const unarchiveAction = { name: "unarchive", label: t("unarchive") };
-const deleteAction = { name: "delete", label: t("delete") };
+const { solveActions, solveTask } = useActions();
 
 const map = (artifact) => {
-  const actions = artifact.archivedAt
-    ? [unarchiveAction, deleteAction]
-    : [editAction, archiveAction, deleteAction];
-
+  const actions = solveActions(artifact);
   return {
     id: artifact.id,
     title: artifact.name,
@@ -41,7 +27,8 @@ const tree = computed(() => {
 });
 
 const handleAction = ({ action, item }) => {
-  console.log(action, item.title);
+  const task = solveTask(action);
+  return task.run(item);
 };
 </script>
 <template>
