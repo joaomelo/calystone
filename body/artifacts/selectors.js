@@ -1,6 +1,9 @@
-export function createIsChildOf(parentOrId) {
-  const id = typeof parentOrId?.id === "string" ? parentOrId.id : parentOrId;
-  return (artifact) => artifact.parentId === id;
+export function createIsChildOf(parentOrParentId) {
+  const parentId =
+    typeof parentOrParentId?.id === "string"
+      ? parentOrParentId.id
+      : parentOrParentId;
+  return (artifact) => artifact.parentId === parentId;
 }
 
 export function createIsOfUser(user) {
@@ -10,6 +13,6 @@ export function createIsOfUser(user) {
   };
 }
 
-export function isRoot(artifact) {
-  return !artifact.parentId;
+export function isArchived(artifact) {
+  return !!artifact.archivedAt;
 }

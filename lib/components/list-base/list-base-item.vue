@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { hasElements } from "@lib";
+import { ActionsMenu } from "../actions-menu";
 import { LIST_ITEM_STATUSES } from "./lista-item-statuses";
 import CollapseSymbol from "./collapse-symbol.vue";
 
@@ -10,6 +11,7 @@ const props = defineProps({
     required: true,
   },
 });
+defineEmits(["action"]);
 
 const state = ref(
   hasElements(props.item.children)
@@ -26,11 +28,16 @@ const toggleChildren = () => {
 </script>
 <template>
   <div class="list-base-item">
-    <div class="list-base-item-cover" @click="toggleChildren">
-      <collapse-symbol :state="state" />
-      <div class="list-base-content">{{ item.title }}</div>
-      <div class="list-base-aside">
-        <slot name="aside" :item="item"></slot>
+    <div class="list-base-item-cover">
+      <collapse-symbol :state="state" @click="toggleChildren" />
+      <div class="list-base-content" :class="{ closed: item.closed }">
+        {{ item.title }}
+      </div>
+      <div class="list-base-actions">
+        <actions-menu
+          :actions="item.actions"
+          @action="$emit('action', { action: $event, item })"
+        />
       </div>
     </div>
     <div
@@ -38,7 +45,7 @@ const toggleChildren = () => {
       class="list-base-item-children"
     >
       <template v-for="child in item.children" :key="child.id">
-        <list-base-item :item="child" />
+        <list-base-item :item="child" @action="$emit('action', $event)" />
       </template>
     </div>
   </div>
@@ -62,7 +69,12 @@ const toggleChildren = () => {
   padding-inline-start: var(--size-00);
 }
 
-.list-base-aside {
+.list-base-content.closed {
+  color: var(--color-neutral-40);
+  text-decoration: line-through;
+}
+
+.list-base-actions {
   display: flex;
   gap: var(--size-00);
 }

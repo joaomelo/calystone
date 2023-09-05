@@ -16,13 +16,19 @@ const char = computed(() =>
     ? "▼"
     : "►"
 );
+
+const collapsable = computed(() => props.state !== LIST_ITEM_STATUSES.FLAT);
 </script>
 <template>
-  <div class="collapse-symbol">{{ char }}</div>
+  <div class="collapse-symbol" :class="{ collapsable }">{{ char }}</div>
 </template>
 <style scoped>
 .collapse-symbol {
   width: var(--size-20);
   text-align: center;
+}
+
+.collapse-symbol.collapsable:hover {
+  cursor: pointer;
 }
 </style>

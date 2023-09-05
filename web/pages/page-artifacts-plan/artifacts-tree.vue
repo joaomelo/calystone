@@ -1,34 +1,51 @@
 <script setup>
 import { computed } from "vue";
-import { ListBase, useService, and } from "@lib";
+import {
+  ListBase,
+  useService,
+  and,
+  useT,
+  treeify,
+  isRoot as isRootBase,
+} from "@lib";
 // import ProgramsListItemActions from "./programs-list-item-actions.vue";
-import { useArtifacts, createIsOfUser, createIsChildOf, isRoot } from "@body";
+import { useArtifacts, createIsOfUser, isArchived } from "@body";
+
+const t = useT();
+
+const editAction = { name: "edit", label: t("edit") };
+const archiveAction = { name: "archive", label: t("archive") };
+const unarchiveAction = { name: "unarchive", label: t("unarchive") };
+const deleteAction = { name: "delete", label: t("delete") };
+
+const map = (artifact) => {
+  const actions = artifact.archivedAt
+    ? [unarchiveAction, deleteAction]
+    : [editAction, archiveAction, deleteAction];
+
+  return {
+    id: artifact.id,
+    title: artifact.name,
+    closed: isArchived(artifact),
+    actions,
+  };
+};
 
 const artifacts = useArtifacts();
-
 const auth = useService("auth");
-const isFirstLevel = and(isRoot, createIsOfUser(auth.user));
+const isRoot = and(isRootBase, createIsOfUser(auth.user));
 
-const items = computed(() => {
+const tree = computed(() => {
   const list = Array.from(artifacts.values());
-
-  const asItem = ({ id, name }) => {
-    const isChildOf = createIsChildOf(id);
-    return { id, title: name, children: list.filter(isChildOf).map(asItem) };
-  };
-
-  return list.filter(isFirstLevel).map(asItem);
+  return treeify(list, { map, isRoot });
 });
+
+const handleAction = ({ action, item }) => {
+  console.log(action, item.title);
+};
 </script>
 <template>
-  <list-base :items="items">
-    <!-- <template #content="{ item }">
-      <p :class="{ archived: !!item.archivedAt }">{{ item.name }}</p>
-    </template> -->
-    <!-- <template #aside="{ item }">
-      <programs-list-item-actions :program="item" />
-    </template> -->
-  </list-base>
+  <list-base :items="tree" @action="handleAction" />
 </template>
 
 <style scoped>

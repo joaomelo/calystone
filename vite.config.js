@@ -22,5 +22,8 @@ export default defineConfig(() => {
       emptyOutDir: true,
       sourcemap: true,
     },
+    test: {
+      include: ["../**/*.test.js"],
+    },
   };
 });
