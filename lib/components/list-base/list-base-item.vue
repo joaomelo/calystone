@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed, watch } from "vue";
 import { hasElements } from "@lib";
 import { ActionsMenu } from "../actions-menu";
 import { LIST_ITEM_STATUSES } from "./lista-item-statuses";
@@ -13,23 +13,18 @@ const props = defineProps({
 });
 defineEmits(["action"]);
 
-const state = ref(
+const initialState = computed(() =>
   hasElements(props.item.children)
     ? LIST_ITEM_STATUSES.OPEN
     : LIST_ITEM_STATUSES.FLAT
 );
-const toggleChildren = () => {
-  if (state.value === LIST_ITEM_STATUSES.FLAT) return;
-  state.value =
-    state.value === LIST_ITEM_STATUSES.OPEN
-      ? LIST_ITEM_STATUSES.CLOSED
-      : LIST_ITEM_STATUSES.OPEN;
-};
+const state = ref(initialState.value);
+watch(initialState, (newValue) => (state.value = newValue));
 </script>
 <template>
   <div class="list-base-item">
     <div class="list-base-item-cover">
-      <collapse-symbol :state="state" @click="toggleChildren" />
+      <collapse-symbol v-model="state" />
       <div class="list-base-content" :class="{ closed: item.closed }">
         {{ item.title }}
       </div>
