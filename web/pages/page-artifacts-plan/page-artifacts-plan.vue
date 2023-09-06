@@ -3,7 +3,6 @@ import { HeadingText, useT } from "@lib";
 import { PageDashboard } from "../page-base";
 import ArtifactAdd from "./artifact-add.vue";
 import ArtifactsTree from "./artifacts-tree.vue";
-// import ProgramsShared from "./programs-shared.vue";
 
 const t = useT();
 </script>
@@ -15,7 +14,6 @@ const t = useT();
     <template #default>
       <artifact-add />
       <artifacts-tree />
-      <!--<programs-shared /> -->
     </template>
   </page-dashboard>
 </template>

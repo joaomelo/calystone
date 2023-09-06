@@ -1,12 +1,4 @@
-import {
-  // PageArtifactEdit,
-  PageAuth,
-  PageLoading,
-  // PageProgramEdit,
-  // PageProgramPlan,
-  PageArtifactsPlan,
-  // PageProgramSharing,
-} from "../pages";
+import { PageAuth, PageLoading, PageArtifactsPlan } from "../pages";
 import { ROUTE_VISIBILITY } from "./visibilities";
 
 export const routes = {
@@ -25,24 +17,6 @@ export const routes = {
     component: PageArtifactsPlan,
     meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
   },
-  // programSharing: {
-  //   path: "/programs/sharing/:programId",
-  //   component: PageProgramSharing,
-  //   props: true,
-  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  // },
-  // programEdit: {
-  //   path: "/programs/edit/:programId",
-  //   component: PageProgramEdit,
-  //   props: true,
-  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  // },
-  // programPlan: {
-  //   path: "/programs/plan/:programId",
-  //   component: PageProgramPlan,
-  //   props: true,
-  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  // },
   // artifactEdit: {
   //   path: "/artifacts/edit/:artifactId",
   //   component: PageArtifactEdit,

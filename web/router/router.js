@@ -11,9 +11,5 @@ export function createRouter() {
     ],
   });
 
-  // router.beforeEach((to, from) => {
-  //   console.log({ from: from.fullPath, to: to.fullPath });
-  // });
-
   return router;
 }
