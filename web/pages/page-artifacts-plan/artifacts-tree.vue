@@ -1,11 +1,10 @@
 <script setup>
 import { computed } from "vue";
 import { ListBase, useService, and, treeify, isRoot as isRootBase } from "@lib";
-// import ProgramsListItemActions from "./programs-list-item-actions.vue";
 import { useArtifacts, createIsOfUser, isArchived } from "@body";
 import { useActions } from "./use-actions";
 
-const { solveActions, solveTask } = useActions();
+const { solveActions, runAction } = useActions();
 
 const map = (artifact) => {
   const actions = solveActions(artifact);
@@ -25,14 +24,9 @@ const tree = computed(() => {
   const list = Array.from(artifacts.values());
   return treeify(list, { map, isRoot });
 });
-
-const handleAction = ({ action, item }) => {
-  const task = solveTask(action);
-  return task.run(item);
-};
 </script>
 <template>
-  <list-base :items="tree" @action="handleAction" />
+  <list-base :items="tree" @action="runAction" />
 </template>
 
 <style scoped>

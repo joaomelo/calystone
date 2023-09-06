@@ -1,30 +1,35 @@
-import { useT } from "@lib";
+import { useRouter } from "vue-router";
 import { useDeleteArtifact } from "@body";
+import { useT } from "@lib";
 
 export function useActions() {
   const t = useT();
 
   const editAction = { name: "edit", label: t("edit") };
-  const archiveAction = { name: "archive", label: t("archive") };
-  const unarchiveAction = { name: "unarchive", label: t("unarchive") };
   const deleteAction = { name: "delete", label: t("delete") };
 
   const solveActions = (artifact) => {
-    return artifact.archivedAt
-      ? [unarchiveAction, deleteAction]
-      : [editAction, archiveAction, deleteAction];
+    return artifact.archivedAt ? [deleteAction] : [editAction, deleteAction];
   };
 
   const deleteTask = useDeleteArtifact();
 
-  const solveTask = (action) => {
+  const router = useRouter();
+  const editArtifact = (artifact) => {
+    router.push({
+      name: "artifactEdit",
+      params: { artifactId: artifact.id },
+    });
+  };
+
+  const runAction = ({ action, item }) => {
     switch (action) {
       case deleteAction.name:
-        return deleteTask;
-      default:
-        () => console.log(action);
+        return deleteTask.run(item);
+      case editAction.name:
+        return editArtifact(item);
     }
   };
 
-  return { solveActions, solveTask };
+  return { solveActions, runAction };
 }

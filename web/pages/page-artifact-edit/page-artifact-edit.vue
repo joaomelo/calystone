@@ -1,7 +1,7 @@
 <script setup>
 import { PageDashboard } from "../page-base";
-import EditTitle from "./edit-title.vue";
-import EditForm from "./edit-form.vue";
+// import EditTitle from "./edit-title.vue";
+// import EditForm from "./edit-form.vue";
 
 defineProps({
   artifactId: {
@@ -13,10 +13,11 @@ defineProps({
 <template>
   <page-dashboard>
     <template #title>
-      <edit-title :artifact-id="artifactId" />
+      <!-- <edit-title :artifact-id="artifactId" /> -->
     </template>
     <template #default>
-      <edit-form :artifact-id="artifactId" />
+      {{ artifactId }}
+      <!-- <edit-form :artifact-id="artifactId" /> -->
     </template>
   </page-dashboard>
 </template>

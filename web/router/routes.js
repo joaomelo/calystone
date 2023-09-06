@@ -1,4 +1,9 @@
-import { PageAuth, PageLoading, PageArtifactsPlan } from "../pages";
+import {
+  PageAuth,
+  PageLoading,
+  PageArtifactsPlan,
+  PageArtifactEdit,
+} from "../pages";
 import { ROUTE_VISIBILITY } from "./visibilities";
 
 export const routes = {
@@ -17,12 +22,12 @@ export const routes = {
     component: PageArtifactsPlan,
     meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
   },
-  // artifactEdit: {
-  //   path: "/artifacts/edit/:artifactId",
-  //   component: PageArtifactEdit,
-  //   props: true,
-  //   meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
-  // },
+  artifactEdit: {
+    path: "/artifacts/edit/:artifactId",
+    component: PageArtifactEdit,
+    props: true,
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+  },
 };
 
 // used to list all routes in a array combined name and configuration
