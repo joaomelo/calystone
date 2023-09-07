@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
-import { HeadingText, useGlobalStateful } from "../../../lib";
+import { HeadingText, useT } from "@lib";
+import { useArtifacts } from "@body";
 
 const props = defineProps({
   artifactId: {
@@ -9,31 +10,37 @@ const props = defineProps({
   },
 });
 
-const artifact = useGlobalStateful((artifacts) =>
-  artifacts.findArtifactWithId(props.artifactId)
-);
+const t = useT();
 
-const planText = useGlobalStateful((i18n) => i18n.t("plan"));
-const programText = computed(() =>
-  artifact.value ? artifact.value.program.name : "..."
-);
+const artifacts = useArtifacts();
 
-const editText = useGlobalStateful((i18n) => i18n.t("edit"));
-const artifactText = computed(() =>
-  artifact.value ? artifact.value.name : "..."
-);
+const artifactText = computed(() => {
+  const artifact = artifacts.get(props.artifactId);
+  return artifact ? artifact.name : "...";
+});
 
-const planRoute = computed(() => ({
-  name: "programPlan",
-  params: { programId: artifact.value?.program.id || "..." },
-}));
+// const editText = useGlobalStateful((i18n) => i18n.t("edit"));
+// const artifactText = computed(() =>
+//   artifact.value ? artifact.value.name : "..."
+// );
+
+// const planRoute = computed(() => ({
+//   name: "programPlan",
+//   params: { programId: artifact.value?.program.id || "..." },
+// }));
 </script>
 <template>
-  <heading-text clipped>
-    <router-link :to="planRoute">
-      {{ `${planText} ${programText}` }}
-    </router-link>
-    <span> > </span>
-    <span>{{ `${editText} ${artifactText}` }}</span>
-  </heading-text>
+  <div>
+    <heading-text clipped>{{ artifactText }}</heading-text>
+    <div class="edit-title-crumbs">
+      <router-link :to="{ name: 'artifactsPlan' }">
+        {{ t("artifacts") }}
+      </router-link>
+    </div>
+  </div>
 </template>
+<style scoped>
+.edit-title-crumbs {
+  margin-top: var(--size-10);
+}
+</style>

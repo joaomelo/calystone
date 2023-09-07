@@ -50,7 +50,7 @@ const handleUpdate = (locale) => i18n.updateLocale(locale);
   margin-block-end: var(--size-30);
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
 }
 
 .page-base-nav-title {
