@@ -12,7 +12,7 @@ export function useAddArtifact() {
     addArtifact({ artifactData, auth, artifactsDataset })
   );
 
-  return [addArtifactTask, artifactData];
+  return { addArtifactTask, artifactData };
 }
 
 function addArtifact({ artifactData, auth, artifactsDataset }) {

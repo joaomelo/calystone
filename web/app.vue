@@ -13,24 +13,29 @@ let initialRedirected = false;
 
 watch(
   [() => route.meta.visibility, () => authStatus.status],
-  ([routeVisibility]) => {
+  async ([routeVisibility]) => {
     if (!initialRoute && route.meta.visibility === ROUTE_VISIBILITY.INTERNAL)
       initialRoute = { ...route };
 
-    if (authStatus.isUnsolved) return router.push(routesPaths.loading);
+    if (authStatus.isUnsolved) return router.push({ name: "loadingAuth" });
 
     if (authStatus.isSignedOut && routeVisibility !== ROUTE_VISIBILITY.EXTERNAL)
-      return router.push(routesPaths.auth);
+      return router.push({ name: "auth" });
 
     if (
       authStatus.isSignedIn &&
       routeVisibility !== ROUTE_VISIBILITY.INTERNAL
     ) {
-      if (initialRedirected || !initialRoute)
-        return router.push(routesPaths.artifactsPlan);
-
+      const initialPath =
+        initialRedirected || !initialRoute
+          ? routesPaths.artifactsPlan
+          : initialRoute.fullPath;
       initialRedirected = true;
-      return router.push(initialRoute.fullPath);
+
+      router.push({
+        name: "loadingDatasets",
+        params: { redirect: initialPath },
+      });
     }
   }
 );

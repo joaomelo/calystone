@@ -18,16 +18,6 @@ const artifactText = computed(() => {
   const artifact = artifacts.get(props.artifactId);
   return artifact ? artifact.name : "...";
 });
-
-// const editText = useGlobalStateful((i18n) => i18n.t("edit"));
-// const artifactText = computed(() =>
-//   artifact.value ? artifact.value.name : "..."
-// );
-
-// const planRoute = computed(() => ({
-//   name: "programPlan",
-//   params: { programId: artifact.value?.program.id || "..." },
-// }));
 </script>
 <template>
   <div>

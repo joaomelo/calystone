@@ -23,6 +23,7 @@ export async function initApp(elementId) {
   service.load({ name: "invites" });
   service.load({ name: "artifacts" });
   app.use(service);
+  window.$service = service;
 
   const i18n = new I18n(messages);
   i18n.updateLocale(navigator.navigate);
@@ -32,6 +33,4 @@ export async function initApp(elementId) {
   app.use(router);
 
   app.mount(elementId);
-
-  window.$service = service;
 }
