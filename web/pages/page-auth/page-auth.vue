@@ -1,11 +1,17 @@
 <script setup>
-import { ButtonBase, HeadingText, InputBase, useT } from "@lib";
-import { useSignUp, useSignIn } from "@body";
+import {
+  ButtonBase,
+  HeadingText,
+  InputBase,
+  useSignIn,
+  useSignUp,
+  useT,
+} from "@lib";
 import { PageBase } from "../page-base";
 
 const t = useT();
-const [signIn, signInPayload] = useSignIn();
-const [signUp, signUpPayload] = useSignUp();
+const { signInTask, payload: signInPayload } = useSignIn();
+const { signUpTask, payload: signUpPayload } = useSignUp();
 </script>
 <template>
   <page-base>
@@ -13,11 +19,11 @@ const [signUp, signUpPayload] = useSignUp();
     <template #default>
       <input-base v-model="signInPayload.email" :label="t('email')" />
       <input-base v-model="signInPayload.password" :label="t('password')" />
-      <button-base @click="signIn.run">{{ t("signIn") }}</button-base>
+      <button-base @click="signInTask.run">{{ t("signIn") }}</button-base>
 
       <input-base v-model="signUpPayload.email" :label="t('email')" />
       <input-base v-model="signUpPayload.password" :label="t('password')" />
-      <button-base @click="signUp.run">{{ t("signUp") }}</button-base>
+      <button-base @click="signUpTask.run">{{ t("signUp") }}</button-base>
     </template>
   </page-base>
 </template>

@@ -3,7 +3,7 @@ import { watch, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useReadiness, READINESS } from "@body";
 import { useT, useFirebase } from "@lib";
-import { PageUnloaded, PageUnsolved } from "./pages";
+import { PageUnloaded, PageUnsolved, PageAuth } from "./pages";
 
 const readiness = useReadiness();
 const firebase = useFirebase();
@@ -47,6 +47,12 @@ const firebase = useFirebase();
   <main>
     <template v-if="readiness === READINESS.UNSOLVED">
       <page-unsolved />
+    </template>
+    <template v-if="readiness === READINESS.OUT">
+      <page-auth />
+    </template>
+    <template v-if="readiness === READINESS.UNLOADED">
+      <page-unloaded />
     </template>
     <template v-else>todo</template>
   </main>
