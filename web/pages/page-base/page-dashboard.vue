@@ -1,6 +1,6 @@
 <script setup>
 import { ButtonBase, useT } from "@lib";
-import { useSignOut } from "@body";
+import { useSignOut } from "@lib";
 import PageBase from "./page-base.vue";
 
 defineProps({

@@ -1,6 +1,7 @@
 import {
   PageAuth,
-  PageLoading,
+  PageLoadingAuth,
+  PageLoadingDatasets,
   PageArtifactsPlan,
   PageArtifactEdit,
 } from "../pages";
@@ -12,21 +13,27 @@ export const routes = {
     component: PageAuth,
     meta: { visibility: ROUTE_VISIBILITY.EXTERNAL },
   },
-  loading: {
-    path: "/loading",
-    component: PageLoading,
+  loadingAuth: {
+    path: "/loading-auth",
+    component: PageLoadingAuth,
     meta: { visibility: ROUTE_VISIBILITY.PUBLIC },
+  },
+  loadingDatasets: {
+    path: "/loading-datasets",
+    component: PageLoadingDatasets,
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+    props: (route) => ({ entryRoute: route.query.entryRoute }),
   },
   artifactsPlan: {
     path: "/artifacts/plan",
     component: PageArtifactsPlan,
-    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL, entry: true },
   },
   artifactEdit: {
     path: "/artifacts/edit/:artifactId",
     component: PageArtifactEdit,
     props: true,
-    meta: { visibility: ROUTE_VISIBILITY.INTERNAL },
+    meta: { visibility: ROUTE_VISIBILITY.INTERNAL, entry: true },
   },
 };
 

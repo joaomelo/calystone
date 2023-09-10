@@ -1,49 +1,54 @@
 <script setup>
-import { watch } from "vue";
+import { watch, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useAuthStatus } from "@body";
-import { ROUTE_VISIBILITY, routesPaths } from "./router";
+import { useReadiness, READINESS } from "@body";
+import { useT, useFirebase } from "@lib";
+import { PageUnloaded, PageUnsolved } from "./pages";
 
-const authStatus = useAuthStatus();
-const router = useRouter();
-const route = useRoute();
+const readiness = useReadiness();
+const firebase = useFirebase();
 
-let initialRoute = null;
-let initialRedirected = false;
+// const t = useT();
+// const auth = useService("auth");
+// const router = useRouter();
+// const route = useRoute();
 
-watch(
-  [() => route.meta.visibility, () => authStatus.status],
-  async ([routeVisibility]) => {
-    if (!initialRoute && route.meta.visibility === ROUTE_VISIBILITY.INTERNAL)
-      initialRoute = { ...route };
+// let initialPath = null;
 
-    if (authStatus.isUnsolved) return router.push({ name: "loadingAuth" });
+// watch([() => route, () => auth.user.status], async ([route, authStatus]) => {
+//   if (!initialPath && route.meta.entry) {
+//     console.info(`saving initial route path to ${route.fullPath}`);
+//     initialPath = route.fullPath;
+//   }
 
-    if (authStatus.isSignedOut && routeVisibility !== ROUTE_VISIBILITY.EXTERNAL)
-      return router.push({ name: "auth" });
+//   if (
+//     authStatus === AUTH_STATUSES.SIGNED_OUT &&
+//     route.meta.visibility !== ROUTE_VISIBILITY.EXTERNAL
+//   ) {
+//     console.info("user is not authenticated. redirecting to auth page");
+//     return router.push({ name: "auth" });
+//   }
 
-    if (
-      authStatus.isSignedIn &&
-      routeVisibility !== ROUTE_VISIBILITY.INTERNAL
-    ) {
-      const initialPath =
-        initialRedirected || !initialRoute
-          ? routesPaths.artifactsPlan
-          : initialRoute.fullPath;
-      initialRedirected = true;
-
-      router.push({
-        name: "loadingDatasets",
-        params: { redirect: initialPath },
-      });
-    }
-  }
-);
+//   if (authStatus.isSignedIn && routeVisibility !== ROUTE_VISIBILITY.INTERNAL) {
+//   const initialPath =
+//     initialRedirected || !initialPath
+//       ? routesPaths.artifactsPlan
+//       : initialPath.fullPath;
+//   initialRedirected = true;
+//   router.push({
+//     name: "loadingDatasets",
+//     params: { redirect: initialPath },
+//   });
+// }
+// });
 </script>
 
 <template>
   <main>
-    <router-view />
+    <template v-if="readiness === READINESS.UNSOLVED">
+      <page-unsolved />
+    </template>
+    <template v-else>todo</template>
   </main>
 </template>
 
