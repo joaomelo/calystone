@@ -1,13 +1,13 @@
 import { reactive } from "vue";
-import { useService, useTask } from "@lib";
+import { useEdit, useTask } from "@lib";
+import { useArtifacts } from "./use-artifacts";
 
 export function useEditArtifact(artifactId) {
-  const artifactsDataset = useService("artifacts");
-  const artifactData = reactive(artifactsDataset.items.get(artifactId));
+  const edit = useEdit("artifacts");
+  const artifacts = useArtifacts();
 
-  console.log({ artifactData });
+  const artifact = reactive(artifacts.hash[artifactId]);
+  const editArtifact = useTask(() => edit(artifact));
 
-  const editArtifactTask = useTask(() => artifactsDataset.set(artifactData));
-
-  return { editArtifactTask, artifactData };
+  return { editArtifact, artifact };
 }
