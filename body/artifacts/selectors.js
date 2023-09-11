@@ -12,7 +12,3 @@ export function createIsOfUser(user) {
     return artifact.usersIds.includes(user.id);
   };
 }
-
-export function isArchived(artifact) {
-  return !!artifact.archivedAt;
-}

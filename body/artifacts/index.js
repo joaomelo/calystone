@@ -1,5 +1,5 @@
 export * from "./selectors";
 export * from "./use-add";
 export * from "./use-artifacts";
-export * from "./use-delete";
-export * from "./use-edit";
+export * from "./use-del";
+// export * from "./use-edit";

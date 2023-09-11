@@ -1,60 +1,21 @@
 <script setup>
-import { watch, computed } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useReadiness, READINESS } from "@body";
-import { useT, useFirebase } from "@lib";
-import { PageUnloaded, PageUnsolved, PageAuth } from "./pages";
+import { useAuthState, AUTH_STATUSES } from "@lib";
+import { PageArtifactsPlan, PageUnsolved, PageAuth } from "./pages";
 
-const readiness = useReadiness();
-const firebase = useFirebase();
-
-// const t = useT();
-// const auth = useService("auth");
-// const router = useRouter();
-// const route = useRoute();
-
-// let initialPath = null;
-
-// watch([() => route, () => auth.user.status], async ([route, authStatus]) => {
-//   if (!initialPath && route.meta.entry) {
-//     console.info(`saving initial route path to ${route.fullPath}`);
-//     initialPath = route.fullPath;
-//   }
-
-//   if (
-//     authStatus === AUTH_STATUSES.SIGNED_OUT &&
-//     route.meta.visibility !== ROUTE_VISIBILITY.EXTERNAL
-//   ) {
-//     console.info("user is not authenticated. redirecting to auth page");
-//     return router.push({ name: "auth" });
-//   }
-
-//   if (authStatus.isSignedIn && routeVisibility !== ROUTE_VISIBILITY.INTERNAL) {
-//   const initialPath =
-//     initialRedirected || !initialPath
-//       ? routesPaths.artifactsPlan
-//       : initialPath.fullPath;
-//   initialRedirected = true;
-//   router.push({
-//     name: "loadingDatasets",
-//     params: { redirect: initialPath },
-//   });
-// }
-// });
+const authState = useAuthState();
 </script>
 
 <template>
   <main>
-    <template v-if="readiness === READINESS.UNSOLVED">
+    <template v-if="authState.status === AUTH_STATUSES.UNSOLVED">
       <page-unsolved />
     </template>
-    <template v-if="readiness === READINESS.OUT">
+    <template v-if="authState.status === AUTH_STATUSES.SIGNED_OUT">
       <page-auth />
     </template>
-    <template v-if="readiness === READINESS.UNLOADED">
-      <page-unloaded />
+    <template v-if="authState.status === AUTH_STATUSES.SIGNED_IN">
+      <page-artifacts-plan />
     </template>
-    <template v-else>todo</template>
   </main>
 </template>
 

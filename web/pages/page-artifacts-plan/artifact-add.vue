@@ -3,12 +3,12 @@ import { ButtonBase, InputBase, useT } from "@lib";
 import { useAddArtifact } from "@body";
 
 const t = useT();
-const { addArtifactTask, artifactData } = useAddArtifact();
+const { addArtifact, artifact } = useAddArtifact();
 </script>
 <template>
   <div class="artifact-add">
-    <input-base v-model="artifactData.name" @submit="addArtifactTask.run" />
-    <button-base @click="addArtifactTask.run" :busy="addArtifactTask.busy">
+    <input-base v-model="artifact.name" @submit="addArtifact.run" />
+    <button-base @click="addArtifact.run" :busy="addArtifact.busy">
       {{ t("add") }}
     </button-base>
   </div>

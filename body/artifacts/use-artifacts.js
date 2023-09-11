@@ -1,6 +1,5 @@
-import { useService } from "@lib";
+import { useSelect } from "@lib";
 
 export function useArtifacts() {
-  const artifactsDataset = useService("artifacts");
-  return artifactsDataset.items;
+  return useSelect("artifacts");
 }

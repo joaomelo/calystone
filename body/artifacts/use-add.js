@@ -1,27 +1,25 @@
 import { reactive } from "vue";
-import { AppError, useService, useTask } from "@lib";
+import { useTask, useAdd, useAuthState } from "@lib";
 
 export function useAddArtifact() {
-  const [auth, artifactsDataset] = useService(["auth", "artifacts"]);
-  const artifactData = reactive({
-    name: null,
-    parentId: null,
+  const add = useAdd("artifacts");
+  const authState = useAuthState();
+
+  const artifact = reactive({});
+  const reset = () => {
+    artifact.name = null;
+    artifact.parentId = null;
+    artifact.usersIds = null;
+  };
+  reset();
+
+  const addArtifact = useTask(async () => {
+    const { parentId } = artifact;
+    artifact.usersIds = parentId ? null : [authState.id];
+    const result = await add(artifact);
+    reset();
+    return result;
   });
 
-  const addArtifactTask = useTask(() =>
-    addArtifact({ artifactData, auth, artifactsDataset })
-  );
-
-  return { addArtifactTask, artifactData };
-}
-
-function addArtifact({ artifactData, auth, artifactsDataset }) {
-  const { name, parentId } = artifactData;
-
-  if (!name) throw new AppError({ code: "ARTIFACTS_ERRORS.NO_REQUIRED_NAME" });
-
-  const usersIds = parentId ? null : [auth.user.id];
-  const archivedAt = null;
-
-  return artifactsDataset.add({ name, parentId, usersIds, archivedAt });
+  return { addArtifact, artifact };
 }
