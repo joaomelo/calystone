@@ -1,8 +1,20 @@
 <script setup>
+import { reactive } from "vue";
 import { useAuthState, AUTH_STATUSES } from "@lib";
-import { PageArtifactsPlan, PageUnsolved, PageAuth } from "./pages";
+import {
+  PageArtifactsPlan,
+  PageUnsolved,
+  PageAuth,
+  PageArtifactEdit,
+} from "./pages";
 
 const authState = useAuthState();
+
+const useCase = reactive({ name: "artifactsPlan", context: null });
+const updateCase = (name, context = null) => {
+  useCase.name = name;
+  useCase.context = context;
+};
 </script>
 
 <template>
@@ -14,7 +26,15 @@ const authState = useAuthState();
       <page-auth />
     </template>
     <template v-if="authState.status === AUTH_STATUSES.SIGNED_IN">
-      <page-artifacts-plan />
+      <template v-if="useCase.name === 'artifactsPlan'">
+        <page-artifacts-plan @edit="updateCase('artifactEdit', $event)" />
+      </template>
+      <template v-if="useCase.name === 'artifactEdit'">
+        <page-artifact-edit
+          :artifact-id="useCase.context"
+          @done="updateCase('artifactsPlan')"
+        />
+      </template>
     </template>
   </main>
 </template>

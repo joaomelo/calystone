@@ -9,23 +9,24 @@ const props = defineProps({
     required: true,
   },
 });
+defineEmits(["done"]);
 
 const t = useT();
-
 const artifacts = useArtifacts();
+await artifacts.loaded;
 
 const artifactText = computed(() => {
-  const artifact = artifacts.get(props.artifactId);
-  return artifact ? artifact.name : "...";
+  console.log({ hash: { ...artifacts.hash }, id: props.artifactId });
+  const artifact = artifacts.hash[props.artifactId];
+  console.log({ artifact });
+  return artifact.name;
 });
 </script>
 <template>
   <div>
     <heading-text clipped>{{ artifactText }}</heading-text>
-    <div class="edit-title-crumbs">
-      <router-link :to="{ name: 'artifactsPlan' }">
-        {{ t("artifacts") }}
-      </router-link>
+    <div class="edit-title-crumbs" @click="$emit('done')">
+      {{ t("artifacts") }}
     </div>
   </div>
 </template>

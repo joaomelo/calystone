@@ -36,7 +36,7 @@ const handleAction = ({ action, item }) => {
     case deleteAction.name:
       return delArtifact.run(item);
     case editAction.name:
-      return emit("edit", item);
+      return emit("edit", item.id);
   }
 };
 </script>

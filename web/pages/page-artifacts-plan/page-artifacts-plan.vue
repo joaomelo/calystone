@@ -4,6 +4,8 @@ import { PageDashboard } from "../page-base";
 import ArtifactAdd from "./artifact-add.vue";
 import ArtifactsTree from "./artifacts-tree.vue";
 
+defineEmits(["edit"]);
+
 const t = useT();
 </script>
 <template>
@@ -13,7 +15,7 @@ const t = useT();
     </template>
     <template #default>
       <artifact-add />
-      <artifacts-tree />
+      <artifacts-tree @edit="$emit('edit', $event)" />
     </template>
   </page-dashboard>
 </template>
