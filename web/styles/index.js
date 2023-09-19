@@ -1,2 +1,1 @@
-import "./tokens.css";
-import "./reset.css";
+import "./styles.css";

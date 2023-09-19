@@ -1,2 +1,4 @@
 .eslintrc.js
 *.ts
+tailwind.config.js
+postcss.config.js
