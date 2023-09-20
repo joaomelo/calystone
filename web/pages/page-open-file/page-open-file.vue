@@ -1,5 +1,6 @@
 <script setup>
-import { ButtonBase, HeadingText, useT } from "@lib";
+import { useT } from "@lib";
+import { ButtonBase, HeadingText } from "@web/components";
 import { PageBase } from "../page-base";
 
 const t = useT();

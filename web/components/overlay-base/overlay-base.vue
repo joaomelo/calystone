@@ -6,28 +6,20 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  spinnerSize: {
-    type: String,
-    default: "--size-40",
-  },
-  spinnerColor: {
-    type: String,
-    default: "--color-neutral-50",
-  },
 });
 </script>
 <template>
-  <div class="overlay-base-container">
+  <div class="overlay-base">
     <slot></slot>
     <template v-if="show">
       <div class="overlay-base-film">
-        <spinner-base :show="show" :size="spinnerSize" :color="spinnerColor" />
+        <spinner-base :show="show" />
       </div>
     </template>
   </div>
 </template>
 <style scoped>
-.overlay-base-container {
+.overlay-base {
   position: relative;
 }
 

@@ -1,31 +1,23 @@
 <script setup>
-import { computed } from "vue";
-import { asCss } from "../../utils";
-const props = defineProps({
+defineProps({
   show: {
     type: Boolean,
     default: false,
   },
-  size: {
-    type: String,
-    default: "--size-40",
-  },
-  color: {
-    type: String,
-    default: "--color-neutral-50",
-  },
 });
-
-const sizeValue = computed(() => asCss(props.size));
-const colorValue = computed(() => asCss(props.color));
 </script>
 <template>
-  <div class="spinner-base-container">
+  <div class="spinner-base">
     <div class="spinner-base-shape"></div>
   </div>
 </template>
 <style scoped>
-.spinner-base-container {
+.spinner-base {
+  --spinner-base-size: var(--size-40);
+  --spinner-base-color: var(--color-neutral-50);
+}
+
+.spinner-base {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -33,9 +25,9 @@ const colorValue = computed(() => asCss(props.color));
 }
 
 .spinner-base-shape {
-  width: v-bind(sizeValue);
-  height: v-bind(sizeValue);
-  border: var(--size-00) solid v-bind(colorValue);
+  width: var(--spinner-base-size);
+  height: var(--spinner-base-size);
+  border: var(--size-00) solid var(--spinner-base-color);
   border-right-color: transparent;
   border-radius: 50%;
   animation: spinner 1s linear infinite;

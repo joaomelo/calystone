@@ -1,5 +1,6 @@
 <script setup>
-import { useI18n, OverlayBase, InputBase } from "@lib";
+import { useI18n } from "@lib";
+import { OverlayBase, InputBase } from "@web/components";
 
 defineProps({
   busy: {
