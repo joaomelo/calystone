@@ -1,7 +1,6 @@
 export const messages = {
   en: {
-    openFile: "open or create the data file",
-    openOrNew: "open or new",
+    load: "load data",
     accept: "accept",
     add: "add",
     archive: "archive",
@@ -31,8 +30,7 @@ export const messages = {
     unarchive: "unarchive",
   },
   "pt-br": {
-    openFile: "abrir ou criar o arquivo com os dados",
-    openOrNew: "abrir ou criar",
+    load: "carregar dados",
     accept: "aceitar",
     add: "novo",
     archive: "arquivar",

@@ -1,34 +1,20 @@
 <script setup>
-import { useI18n } from "@lib";
-import { OverlayBase, InputBase } from "@web/components";
-
-defineProps({
-  busy: {
-    type: Boolean,
-    default: false,
-  },
-});
+import { useI18n } from "@web/i18n";
+import { InputBase } from "@web/components";
 
 const i18n = useI18n();
 const handleUpdate = (locale) => i18n.updateLocale(locale);
 </script>
 <template>
   <div class="page-base">
-    <nav class="page-base-nav">
-      <div class="page-base-nav-title">
-        <slot name="title"></slot>
-      </div>
-      <div class="page-base-nav-aside">
-        <slot name="aside"></slot>
-      </div>
-    </nav>
-    <overlay-base :show="busy" class="page-base-content-overlay">
-      <div class="page-base-content">
-        <slot></slot>
-      </div>
-    </overlay-base>
+    <header>
+      <slot name="header"></slot>
+    </header>
+    <div class="page-base-content">
+      <slot></slot>
+    </div>
     <footer class="page-base-footer">
-      <span class="page-base-footer-brand">calystone</span>
+      <span>calystone</span>
       <span class="page-base-footer-divider">·</span>
       <input-base
         :options="i18n.supported"
@@ -42,37 +28,17 @@ const handleUpdate = (locale) => i18n.updateLocale(locale);
 </template>
 <style scoped>
 .page-base {
+  flex-grow: 1;
+
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
-
-.page-base-nav {
-  margin-block-end: var(--size-30);
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-}
-
-.page-base-nav-title {
-  flex: 1;
-  min-width: 0;
-}
-
-.page-base-nav-aside {
-  flex-shrink: 0;
 }
 
 .page-base-content {
+  flex-grow: 1;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: var(--size-20);
-}
-
-.page-base-content-overlay {
-  width: 100%;
-  height: 100%;
 }
 
 .page-base-footer {
@@ -85,8 +51,7 @@ const handleUpdate = (locale) => i18n.updateLocale(locale);
   display: inline;
 }
 
-.page-base-footer-brand,
 .page-base-footer-divider {
-  margin-right: var(--size-10);
+  margin-inline: var(--size-10);
 }
 </style>

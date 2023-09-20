@@ -12,7 +12,8 @@ export default defineConfig(() => {
     resolve: {
       alias: {
         "@body": pathTo("./body"),
-        "@lib": pathTo("./lib"),
+        "@db": pathTo("./db"),
+        "@primitives": pathTo("./primitives"),
         "@web": pathTo("./web"),
       },
     },

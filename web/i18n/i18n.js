@@ -1,17 +1,18 @@
 import { reactive } from "vue";
 import { install } from "./plugin";
+import { messages } from "./messages";
+
+const supported = Object.keys(messages);
 
 export class I18n {
   state = reactive({
-    locale: null,
-    supported: [],
-    messages: {},
+    locale: supported[0],
+    supported,
+    messages,
   });
 
-  constructor(messages) {
-    this.state.messages = messages;
-    this.state.supported = Object.keys(messages);
-    this.updateLocale(this.supported[0]);
+  constructor(maybeLocale) {
+    this.updateLocale(maybeLocale);
   }
 
   get supported() {

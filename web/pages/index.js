@@ -1,1 +1,1 @@
-export * from "./page-open-file";
+export * from "./page-load";
