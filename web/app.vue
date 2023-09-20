@@ -1,16 +1,8 @@
 <script setup>
 import { reactive } from "vue";
-import { useAuthState, AUTH_STATUSES } from "@lib";
-import {
-  PageArtifactsPlan,
-  PageUnsolved,
-  PageAuth,
-  PageArtifactEdit,
-} from "./pages";
+import { PageOpenFile } from "./pages";
 
-const authState = useAuthState();
-
-const useCase = reactive({ name: "artifactsPlan", context: null });
+const useCase = reactive({ name: "openFile", context: null });
 const updateCase = (name, context = null) => {
   useCase.name = name;
   useCase.context = context;
@@ -19,26 +11,11 @@ const updateCase = (name, context = null) => {
 
 <template>
   <main>
-    <template v-if="authState.status === AUTH_STATUSES.UNSOLVED">
-      <page-unsolved />
-    </template>
-    <template v-if="authState.status === AUTH_STATUSES.SIGNED_OUT">
-      <page-auth />
-    </template>
-    <template v-if="authState.status === AUTH_STATUSES.SIGNED_IN">
-      <template v-if="useCase.name === 'artifactsPlan'">
-        <page-artifacts-plan @edit="updateCase('artifactEdit', $event)" />
-      </template>
-      <template v-if="useCase.name === 'artifactEdit'">
-        <page-artifact-edit
-          :artifact-id="useCase.context"
-          @done="updateCase('artifactsPlan')"
-        />
-      </template>
+    <template v-if="useCase.name === 'openFile'">
+      <page-open-file @edit="updateCase('artifactEdit', $event)" />
     </template>
   </main>
 </template>
-
 <style scoped>
 main {
   max-width: var(--size-90);
