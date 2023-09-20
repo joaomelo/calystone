@@ -2,12 +2,14 @@ import { reactive } from "vue";
 import { delay } from "../../lib";
 
 export function useTask(fn, { delay: delayData } = {}) {
+  const payload = reactive({});
+
   const task = reactive({
     busy: false,
     run: null,
   });
 
-  task.run = async (payload) => {
+  task.run = async () => {
     try {
       task.busy = true;
       if (delayData) {
@@ -20,5 +22,5 @@ export function useTask(fn, { delay: delayData } = {}) {
     }
   };
 
-  return task;
+  return { task, payload };
 }

@@ -10,6 +10,10 @@ export class InMemoryDb {
     return this.collections.get(name);
   }
 
+  load() {
+    this.collections.clear();
+  }
+
   add({ name, payload }) {
     const collection = this._collection(name);
     return add({ collection, payload });

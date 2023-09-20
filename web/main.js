@@ -1,6 +1,7 @@
-import { createApp, reactive } from "vue";
-import { createDb } from "@db";
+import { createApp } from "vue";
+import { createDb, Artifacts } from "@body";
 import { I18n } from "@web/i18n";
+import { createStore } from "@web/store";
 import App from "./app.vue";
 import "./styles";
 
@@ -8,11 +9,13 @@ export async function initApp(elementId) {
   const app = createApp(App);
 
   const db = createDb();
-  app.provide("db", db);
   window.$db = db;
 
-  const store = reactive({});
-  app.provide("store", store);
+  const artifacts = new Artifacts(db);
+
+  const store = createStore({ artifacts });
+  window.$store = store;
+  app.use(store);
 
   const i18n = new I18n(navigator.navigate);
   app.use(i18n);
