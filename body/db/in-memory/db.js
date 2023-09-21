@@ -1,17 +1,26 @@
+import { delay } from "@primitives";
 import { add } from "./add";
 import { del } from "./del";
 import { edit } from "./edit";
 
 export class InMemoryDb {
-  collections = new Map();
+  _collections = new Map();
+  _loadDelay = null;
 
-  _collection(name) {
-    if (!this.collections.has(name)) this.collections.set(name, new Map());
-    return this.collections.get(name);
+  constructor({ loadDelay = null } = {}) {
+    this._loadDelay = loadDelay;
   }
 
-  load() {
-    this.collections.clear();
+  _collection(name) {
+    if (!this._collections.has(name)) this._collections.set(name, new Map());
+    return this._collections.get(name);
+  }
+
+  async load() {
+    if (this._loadDelay) {
+      await delay(this._loadDelay);
+    }
+    this._collections.clear();
   }
 
   add({ name, payload }) {

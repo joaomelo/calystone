@@ -12,7 +12,11 @@ const updateCase = (name, context = null) => {
 <template>
   <main>
     <template v-if="useCase.name === 'openFile'">
-      <page-load @edit="updateCase('artifactEdit', $event)" />
+      <page-load @load="updateCase('artifactsPlan')" />
+    </template>
+    <template v-if="useCase.name === 'artifactsPlan'">
+      <p>plan</p>
+      <!-- <page-load @load="updateCase('artifactsPlan')" /> -->
     </template>
   </main>
 </template>

@@ -14,7 +14,7 @@ defineProps({
 <template>
   <button class="button-base" :type="type">
     <div v-if="busy">
-      <spinner-base :show="busy" size="--size-20" color="--color-neutral-30" />
+      <spinner-base :show="busy" class="button-base-spinner" />
     </div>
     <div class="button-base-content" :class="{ busy }">
       <slot></slot>
@@ -28,5 +28,10 @@ defineProps({
 
 .button-base-content.busy {
   opacity: 0.1;
+}
+
+.button-base-spinner {
+  --spinner-base-size: var(--size-20);
+  --spinner-base-color: var(--color-neutral-30);
 }
 </style>

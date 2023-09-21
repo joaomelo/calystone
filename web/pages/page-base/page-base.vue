@@ -2,6 +2,13 @@
 import { useI18n } from "@web/i18n";
 import { InputBase } from "@web/components";
 
+defineProps({
+  busy: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 const i18n = useI18n();
 const handleUpdate = (locale) => i18n.updateLocale(locale);
 </script>
@@ -32,11 +39,11 @@ const handleUpdate = (locale) => i18n.updateLocale(locale);
 
   display: flex;
   flex-direction: column;
+  row-gap: var(--size-10);
 }
 
 .page-base-content {
   flex-grow: 1;
-
   display: flex;
   flex-direction: column;
 }
