@@ -1,27 +1,22 @@
 <script setup>
 import { useT } from "@web/i18n";
-import { ButtonBase, useTask } from "@web/components";
-import { useStore } from "@web/store";
-import { PageBase } from "../page-base";
+import { ButtonBase } from "@web/components";
+import { LayoutBase } from "@web/layouts";
+import { useOpen } from "./use-open";
 
 const emit = defineEmits(["load"]);
 
 const t = useT();
-const { db } = useStore();
-
-const { task } = useTask(async () => {
-  await db.load();
-  emit("load");
-});
+const openTask = useOpen(() => emit("load"));
 </script>
 <template>
-  <page-base>
+  <layout-base>
     <div class="page-load">
-      <button-base @click="task.run" :busy="task.busy">{{
-        t("load")
-      }}</button-base>
+      <button-base @click="openTask.run" :busy="openTask.busy">
+        {{ t("load") }}
+      </button-base>
     </div>
-  </page-base>
+  </layout-base>
 </template>
 <style scoped>
 .page-load {

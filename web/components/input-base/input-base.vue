@@ -24,13 +24,13 @@ defineProps({
 defineEmits(["update:modelValue", "submit"]);
 </script>
 <template>
-  <div class="w-full">
-    <label class="block mb-1" v-if="label">{{ label }}</label>
+  <div class="input-base">
+    <label v-if="label">{{ label }}</label>
     <template v-if="type === 'text'">
       <input
         :type="type"
         :value="modelValue"
-        class="w-full"
+        class="input-base-text"
         @input="$emit('update:modelValue', $event.target.value)"
         @keyup.enter="$emit('submit')"
       />
@@ -38,7 +38,7 @@ defineEmits(["update:modelValue", "submit"]);
     <template v-if="type === 'textarea'">
       <textarea
         :value="modelValue"
-        class="w-full resize-none"
+        class="input-base-text-area"
         @input="$emit('update:modelValue', $event.target.value)"
         :rows="rows"
       ></textarea>
@@ -47,7 +47,7 @@ defineEmits(["update:modelValue", "submit"]);
       <select
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        class="border-2 border-slate-200"
+        class="input-base-select"
       >
         <option v-for="option in options" :key="option" :value="option">
           {{ option }}
@@ -56,3 +56,13 @@ defineEmits(["update:modelValue", "submit"]);
     </template>
   </div>
 </template>
+
+<style scoped>
+.input-base {
+  width: 100%;
+}
+
+.input-base-text {
+  width: 100%;
+}
+</style>

@@ -16,10 +16,14 @@ export class InMemoryDb {
     return this._collections.get(name);
   }
 
-  async load() {
+  async open() {
     if (this._loadDelay) {
       await delay(this._loadDelay);
     }
+    this._collections.clear();
+  }
+
+  close() {
     this._collections.clear();
   }
 

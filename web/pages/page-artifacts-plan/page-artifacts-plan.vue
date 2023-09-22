@@ -1,21 +1,27 @@
 <script setup>
-import { HeadingText, useT } from "@lib";
-import { PageDashboard } from "../page-base";
+import { HeadingText } from "@web/components";
+import { useT } from "@web/i18n";
+import { LayoutDashboard } from "@web/layouts";
 import ArtifactAdd from "./artifact-add.vue";
-import ArtifactsTree from "./artifacts-tree.vue";
+// import ArtifactsTree from "./artifacts-tree.vue";
 
-defineEmits(["edit"]);
+defineEmits(["edit", "close"]);
 
 const t = useT();
+
+const handleAdd = () => {
+  console.log("add");
+  // const { addArtifact, artifact } = useAddArtifact();
+};
 </script>
 <template>
-  <page-dashboard>
+  <layout-dashboard @close="$emit('close')">
     <template #title>
       <heading-text>{{ t("artifacts") }}</heading-text>
     </template>
     <template #default>
-      <artifact-add />
-      <artifacts-tree @edit="$emit('edit', $event)" />
+      <artifact-add @add="handleAdd" />
+      <!-- <artifacts-tree @edit="$emit('edit', $event)" /> -->
     </template>
-  </page-dashboard>
+  </layout-dashboard>
 </template>

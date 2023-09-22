@@ -1,8 +1,8 @@
 <script setup>
 import { reactive } from "vue";
-import { PageLoad } from "./pages";
+import { PageLoad, PageArtifactsPlan } from "./pages";
 
-const useCase = reactive({ name: "openFile", context: null });
+const useCase = reactive({ name: "loadDb", context: null });
 const updateCase = (name, context = null) => {
   useCase.name = name;
   useCase.context = context;
@@ -11,12 +11,11 @@ const updateCase = (name, context = null) => {
 
 <template>
   <main>
-    <template v-if="useCase.name === 'openFile'">
+    <template v-if="useCase.name === 'loadDb'">
       <page-load @load="updateCase('artifactsPlan')" />
     </template>
     <template v-if="useCase.name === 'artifactsPlan'">
-      <p>plan</p>
-      <!-- <page-load @load="updateCase('artifactsPlan')" /> -->
+      <page-artifacts-plan @close="updateCase('loadDb')" />
     </template>
   </main>
 </template>

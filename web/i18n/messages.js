@@ -1,6 +1,7 @@
 export const messages = {
   en: {
     load: "load data",
+    close: "close",
     accept: "accept",
     add: "add",
     archive: "archive",
@@ -31,6 +32,7 @@ export const messages = {
   },
   "pt-br": {
     load: "carregar dados",
+    close: "fechar",
     accept: "aceitar",
     add: "novo",
     archive: "arquivar",

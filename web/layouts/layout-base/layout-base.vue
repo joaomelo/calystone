@@ -13,52 +13,51 @@ const i18n = useI18n();
 const handleUpdate = (locale) => i18n.updateLocale(locale);
 </script>
 <template>
-  <div class="page-base">
+  <div class="layout-base">
     <header>
       <slot name="header"></slot>
     </header>
-    <div class="page-base-content">
+    <div class="layout-base-content">
       <slot></slot>
     </div>
-    <footer class="page-base-footer">
+    <footer class="layout-base-footer">
       <span>calystone</span>
-      <span class="page-base-footer-divider">·</span>
+      <span class="layout-base-footer-divider">·</span>
       <input-base
         :options="i18n.supported"
         type="select"
         :modelValue="i18n.locale"
         @update:modelValue="handleUpdate"
-        class="page-base-locale"
+        class="layout-base-locale"
       />
     </footer>
   </div>
 </template>
 <style scoped>
-.page-base {
+.layout-base {
   flex-grow: 1;
 
   display: flex;
   flex-direction: column;
-  row-gap: var(--size-10);
 }
 
-.page-base-content {
+.layout-base-content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-.page-base-footer {
+.layout-base-footer {
   text-align: center;
   color: var(--color-neutral-30);
   font-size: var(--font-size-10);
 }
 
-.page-base-locale {
+.layout-base-locale {
   display: inline;
 }
 
-.page-base-footer-divider {
+.layout-base-footer-divider {
   margin-inline: var(--size-10);
 }
 </style>
