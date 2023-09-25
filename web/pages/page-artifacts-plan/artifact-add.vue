@@ -15,7 +15,7 @@ const t = useT();
 const name = ref(null);
 
 const handleAdd = () => {
-  emit("add", name.value);
+  emit("add", { name: name.value });
   name.value = null;
 };
 </script>

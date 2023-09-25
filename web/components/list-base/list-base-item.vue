@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from "vue";
-import { hasElements } from "@lib";
+import { hasElements } from "@primitives";
 import { ActionsMenu } from "../actions-menu";
 import { LIST_ITEM_STATUSES } from "./lista-item-statuses";
 import CollapseSymbol from "./collapse-symbol.vue";

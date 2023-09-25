@@ -43,6 +43,6 @@ export class InMemoryDb {
   }
 
   select(name) {
-    return this._collection(name).values();
+    return Array.from(this._collection(name).values());
   }
 }

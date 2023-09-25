@@ -8,7 +8,7 @@ import "./styles";
 export async function initApp(elementId) {
   const app = createApp(App);
 
-  const db = createDb({ type: "in-memory", loadDelay: 3 });
+  const db = createDb({ type: "in-memory", loadDelay: 1 });
   window.$db = db;
 
   const artifacts = new Artifacts(db);

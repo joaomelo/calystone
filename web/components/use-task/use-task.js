@@ -1,22 +1,23 @@
 import { reactive } from "vue";
 
 export function useTask(fn) {
-  const payload = reactive({});
+  const reactivePayload = reactive({});
 
   const task = reactive({
     busy: false,
     run: null,
   });
 
-  task.run = async () => {
+  task.run = async (maybePayload) => {
     try {
       task.busy = true;
-      const result = await fn(payload);
+      const finalPayload = maybePayload || reactivePayload;
+      const result = await fn(finalPayload);
       return result;
     } finally {
       task.busy = false;
     }
   };
 
-  return { task, payload };
+  return { task, payload: reactivePayload };
 }
