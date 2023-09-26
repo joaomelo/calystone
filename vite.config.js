@@ -12,7 +12,7 @@ export default defineConfig(() => {
     resolve: {
       alias: {
         "@body": pathTo("./body"),
-        "@services": pathTo("./services"),
+        "@service": pathTo("./service"),
         "@shared": pathTo("./shared"),
         "@view": pathTo("./view"),
       },

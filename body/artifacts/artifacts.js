@@ -1,17 +1,6 @@
 import { treeify, flatTree } from "@shared";
 
 export class Artifacts {
-  _db;
-  _name = "artifacts";
-
-  constructor(db) {
-    this._db = db;
-  }
-
-  select(filter) {
-    return this._db.select(this._name, filter);
-  }
-
   selectOne(find) {
     return this._db.selectOne(this._name, find);
   }

@@ -1,21 +1,15 @@
 import { createApp } from "vue";
-import { createDb, Artifacts } from "@body";
+import { createService } from "@service";
 import { I18n } from "@view/i18n";
-import { createStore } from "@view/store";
 import App from "./app.vue";
 import "./styles";
 
 export async function initApp(elementId) {
   const app = createApp(App);
 
-  const db = createDb({ type: "in-memory", loadDelay: 1 });
-  window.$db = db;
-
-  const artifacts = new Artifacts(db);
-
-  const store = createStore({ db, artifacts });
-  window.$store = store;
-  app.use(store);
+  const service = createService({ type: "in-memory", loadDelay: 1 });
+  window.$service = service;
+  app.use(service);
 
   const i18n = new I18n(navigator.navigate);
   app.use(i18n);
