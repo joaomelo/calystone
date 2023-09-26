@@ -1,4 +1,4 @@
-import { treeify, flatTree } from "@primitives";
+import { treeify, flatTree } from "@shared";
 
 export class Artifacts {
   _db;
@@ -8,8 +8,12 @@ export class Artifacts {
     this._db = db;
   }
 
-  select() {
-    return this._db.select(this._name);
+  select(filter) {
+    return this._db.select(this._name, filter);
+  }
+
+  selectOne(find) {
+    return this._db.selectOne(this._name, find);
   }
 
   add(artifact) {

@@ -1,5 +1,5 @@
-import { useTask } from "@web/components";
-import { useStore } from "@web/store";
+import { useTask } from "@view/components";
+import { useStore } from "@view/store";
 
 export function useOpen(onOpen) {
   const { db } = useStore();

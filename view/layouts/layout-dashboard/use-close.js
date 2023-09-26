@@ -1,5 +1,5 @@
-import { useStore } from "@web/store";
-import { useTask } from "@web/components";
+import { useStore } from "@view/store";
+import { useTask } from "@view/components";
 
 export function useClose(onClose) {
   const { db } = useStore();

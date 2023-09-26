@@ -1,7 +1,7 @@
 <script setup>
-import { useT } from "@web/i18n";
-import { ButtonBase } from "@web/components";
-import { LayoutBase } from "@web/layouts";
+import { useT } from "@view/i18n";
+import { ButtonBase } from "@view/components";
+import { LayoutBase } from "@view/layouts";
 import { useOpen } from "./use-open";
 
 const emit = defineEmits(["load"]);

@@ -1,6 +1,6 @@
 <script setup>
-import { ButtonBase } from "@web/components";
-import { useT } from "@web/i18n";
+import { ButtonBase } from "@view/components";
+import { useT } from "@view/i18n";
 import { LayoutBase } from "../layout-base";
 import { useClose } from "./use-close";
 

@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import { createDb, Artifacts } from "@body";
-import { I18n } from "@web/i18n";
-import { createStore } from "@web/store";
+import { I18n } from "@view/i18n";
+import { createStore } from "@view/store";
 import App from "./app.vue";
 import "./styles";
 

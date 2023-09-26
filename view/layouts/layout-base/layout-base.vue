@@ -1,6 +1,6 @@
 <script setup>
-import { useI18n } from "@web/i18n";
-import { InputBase } from "@web/components";
+import { useI18n } from "@view/i18n";
+import { InputBase } from "@view/components";
 
 defineProps({
   busy: {

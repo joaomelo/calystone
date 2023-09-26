@@ -1,14 +1,14 @@
 import { computed } from "vue";
-import { treeify } from "@primitives";
-import { useStore } from "@web/store";
-import { useT } from "@web/i18n";
+import { treeify } from "@shared";
+import { useStore } from "@view/store";
+import { useT } from "@view/i18n";
 
 export function useTree() {
   const { artifacts } = useStore();
 
   const t = useT();
   const editAction = { name: "edit", label: t("edit") };
-  const deleteAction = { name: "delete", label: t("delete") };
+  const deleteAction = { name: "del", label: t("delete") };
 
   const map = (artifact) => ({
     id: artifact.id,

@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { ButtonBase, InputBase } from "@web/components";
-import { useT } from "@web/i18n";
+import { ButtonBase, InputBase } from "@view/components";
+import { useT } from "@view/i18n";
 
 defineProps({
   busy: {

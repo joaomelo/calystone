@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from "vue";
-import { PageLoad, PageArtifactsPlan } from "./pages";
+import { PageLoad, PageArtifactsPlan, PageArtifactEdit } from "./pages";
 
 const useCase = reactive({ name: "loadDb", context: null });
 const updateCase = (name, context = null) => {
@@ -15,7 +15,13 @@ const updateCase = (name, context = null) => {
       <page-load @load="updateCase('artifactsPlan')" />
     </template>
     <template v-if="useCase.name === 'artifactsPlan'">
-      <page-artifacts-plan @close="updateCase('loadDb')" />
+      <page-artifacts-plan
+        @close="updateCase('loadDb')"
+        @edit="updateCase('artifactEdit', $event)"
+      />
+    </template>
+    <template v-if="useCase.name === 'artifactEdit'">
+      <page-artifact-edit :artifact-id="useCase.context" />
     </template>
   </main>
 </template>

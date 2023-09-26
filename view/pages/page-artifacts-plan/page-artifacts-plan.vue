@@ -1,17 +1,19 @@
 <script setup>
-import { HeadingText } from "@web/components";
-import { useT } from "@web/i18n";
-import { LayoutDashboard } from "@web/layouts";
+import { HeadingText } from "@view/components";
+import { useT } from "@view/i18n";
+import { LayoutDashboard } from "@view/layouts";
+import { useAdd } from "./use-add";
+import { useDel } from "./use-del";
+import { useTree } from "./use-tree";
 import ArtifactAdd from "./artifact-add.vue";
 import ArtifactsTree from "./artifacts-tree.vue";
-import { useAdd } from "./use-add";
-import { useTree } from "./use-tree";
 
 defineEmits(["edit", "close"]);
 
 const t = useT();
-const addTask = useAdd();
 const tree = useTree();
+const addTask = useAdd();
+const delTask = useDel();
 </script>
 <template>
   <layout-dashboard @close="$emit('close')">
@@ -20,7 +22,11 @@ const tree = useTree();
     </template>
     <template #default>
       <artifact-add @add="addTask.run" class="page-artifacts-plan-add" />
-      <artifacts-tree @edit="$emit('edit', $event)" :tree="tree" />
+      <artifacts-tree
+        :tree="tree"
+        @edit="$emit('edit', $event)"
+        @del="delTask.run"
+      />
     </template>
   </layout-dashboard>
 </template>

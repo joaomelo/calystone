@@ -1,4 +1,4 @@
-import { asArray } from "@primitives";
+import { asArray } from "@shared";
 
 export function del({ collection, payload }) {
   const itemsOrIds = asArray(payload);

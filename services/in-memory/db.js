@@ -1,4 +1,4 @@
-import { delay } from "@primitives";
+import { delay } from "@shared";
 import { add } from "./add";
 import { del } from "./del";
 import { edit } from "./edit";
@@ -42,7 +42,14 @@ export class InMemoryDb {
     return del({ collection, payload });
   }
 
-  select(name) {
-    return Array.from(this._collection(name).values());
+  select(name, filter) {
+    const list = Array.from(this._collection(name).values());
+    if (!filter) return list;
+    return list.filter(filter);
+  }
+
+  selectOne(name, find) {
+    const list = Array.from(this._collection(name).values());
+    return list.find(find);
   }
 }
