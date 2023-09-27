@@ -1,4 +1,4 @@
-export function edit({ collection, payload }) {
+export function edit(collection, payload) {
   const current = collection.get(payload.id);
   const item = {
     ...current,

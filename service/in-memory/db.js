@@ -29,20 +29,20 @@ export class InMemoryDb {
 
   add(name, payload) {
     const collection = this._collection(name);
-    return add({ collection, payload });
+    return add(collection, payload);
   }
 
   edit(name, payload) {
     const collection = this._collection(name);
-    return edit({ collection, payload });
+    return edit(collection, payload);
   }
 
   del(name, payload) {
     const collection = this._collection(name);
-    return del({ collection, payload });
+    return del(collection, payload);
   }
 
-  select({ name, filter }) {
+  select(name, filter) {
     const list = Array.from(this._collection(name).values());
     if (!filter) return list;
     return list.filter(filter);

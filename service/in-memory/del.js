@@ -1,6 +1,6 @@
 import { asArray } from "@shared";
 
-export function del({ collection, payload }) {
+export function del(collection, payload) {
   const itemsOrIds = asArray(payload);
 
   itemsOrIds.forEach((itemOrId) => {

@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 
-export function add({ collection, payload }) {
+export function add(collection, payload) {
   const item = {
     id: uuid(),
     createdAt: new Date(),
