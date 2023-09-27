@@ -27,22 +27,22 @@ export class InMemoryDb {
     this._collections.clear();
   }
 
-  add({ name, payload }) {
+  add(name, payload) {
     const collection = this._collection(name);
     return add({ collection, payload });
   }
 
-  edit({ name, payload }) {
+  edit(name, payload) {
     const collection = this._collection(name);
     return edit({ collection, payload });
   }
 
-  del({ name, payload }) {
+  del(name, payload) {
     const collection = this._collection(name);
     return del({ collection, payload });
   }
 
-  select(name, filter) {
+  select({ name, filter }) {
     const list = Array.from(this._collection(name).values());
     if (!filter) return list;
     return list.filter(filter);
@@ -50,6 +50,7 @@ export class InMemoryDb {
 
   selectOne(name, find) {
     const list = Array.from(this._collection(name).values());
+    if (!find) return null;
     return list.find(find);
   }
 }

@@ -1,18 +1,24 @@
 <script setup>
+import { useTask } from "@shared";
+import { useService } from "@service";
 import { useT } from "@view/i18n";
 import { ButtonBase } from "@view/components";
 import { LayoutBase } from "@view/layouts";
-import { useOpen } from "./use-open";
 
 const emit = defineEmits(["load"]);
 
 const t = useT();
-const openTask = useOpen(() => emit("load"));
+const service = useService();
+
+const { task } = useTask(async () => {
+  await service.db.open();
+  emit("load");
+});
 </script>
 <template>
   <layout-base>
     <div class="page-load">
-      <button-base @click="openTask.run" :busy="openTask.busy">
+      <button-base @click="task.run" :busy="task.busy">
         {{ t("load") }}
       </button-base>
     </div>

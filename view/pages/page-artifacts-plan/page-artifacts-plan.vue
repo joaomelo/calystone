@@ -1,10 +1,8 @@
 <script setup>
-import { useArtifacts } from "@body";
+import { useArtifacts, useArtifactAdd, useArtifactDel } from "@body";
 import { HeadingText } from "@view/components";
 import { useT } from "@view/i18n";
 import { LayoutDashboard } from "@view/layouts";
-import { useAdd } from "./use-add";
-import { useDel } from "./use-del";
 import ArtifactAdd from "./artifact-add.vue";
 import ArtifactsTree from "./artifacts-tree.vue";
 
@@ -12,8 +10,8 @@ defineEmits(["edit", "close"]);
 
 const t = useT();
 const artifacts = useArtifacts();
-const addTask = useAdd();
-const delTask = useDel();
+const addTask = useArtifactAdd();
+const delTask = useArtifactDel();
 </script>
 <template>
   <layout-dashboard @close="$emit('close')">

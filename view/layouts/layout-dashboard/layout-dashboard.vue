@@ -1,13 +1,17 @@
 <script setup>
+import { useService } from "@service";
 import { ButtonBase } from "@view/components";
 import { useT } from "@view/i18n";
 import { LayoutBase } from "../layout-base";
-import { useClose } from "./use-close";
 
 const emit = defineEmits(["close"]);
 
 const t = useT();
-const closeTask = useClose(() => emit("close"));
+const handleClose = () => {
+  const service = useService();
+  service.db.close();
+  emit("close");
+};
 </script>
 <template>
   <layout-base>
@@ -17,7 +21,7 @@ const closeTask = useClose(() => emit("close"));
           <slot name="title"></slot>
         </div>
         <div class="layout-dashboard-nav-aside">
-          <button-base @click="closeTask.run" class="layout-dashboard-close">
+          <button-base @click="handleClose" class="layout-dashboard-close">
             {{ t("close") }}
           </button-base>
         </div>
