@@ -1,3 +1,4 @@
+import { computed, reactive } from "vue";
 import { delay } from "@shared";
 import { add } from "./add";
 import { del } from "./del";
@@ -12,7 +13,8 @@ export class InMemoryDb {
   }
 
   _collection(name) {
-    if (!this._collections.has(name)) this._collections.set(name, new Map());
+    if (!this._collections.has(name))
+      this._collections.set(name, reactive(new Map()));
     return this._collections.get(name);
   }
 
@@ -43,14 +45,18 @@ export class InMemoryDb {
   }
 
   select(name, filter) {
-    const list = Array.from(this._collection(name).values());
-    if (!filter) return list;
-    return list.filter(filter);
+    return computed(() => {
+      const list = Array.from(this._collection(name).values());
+      if (!filter) return list;
+      return list.filter(filter);
+    });
   }
 
   selectOne(name, find) {
-    const list = Array.from(this._collection(name).values());
-    if (!find) return null;
-    return list.find(find);
+    return computed(() => {
+      const list = Array.from(this._collection(name).values());
+      if (!find) return null;
+      return list.find(find);
+    });
   }
 }
