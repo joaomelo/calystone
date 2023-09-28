@@ -21,7 +21,11 @@ const updateCase = (name, context = null) => {
       />
     </template>
     <template v-if="useCase.name === 'artifactEdit'">
-      <page-artifact-edit :artifact-id="useCase.context" />
+      <page-artifact-edit
+        :artifact-id="useCase.context"
+        @close="updateCase('loadDb')"
+        @done="updateCase('artifactsPlan')"
+      />
     </template>
   </main>
 </template>

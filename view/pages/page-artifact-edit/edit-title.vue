@@ -1,5 +1,5 @@
 <script setup>
-import { HeadingText } from "@view/components";
+import { HeadingText, CrumbsBase } from "@view/components";
 import { useT } from "@view/i18n";
 
 defineProps({
@@ -11,27 +11,24 @@ defineProps({
 defineEmits(["artifacts"]);
 
 const t = useT();
+
+const crumbs = [
+  { event: "artifacts", text: t("artifacts") },
+  { text: t("edit") },
+];
 </script>
 <template>
   <div>
     <heading-text clipped>{{ name }}</heading-text>
-    <div>
-      <span class="edit-title-crumbs" @click="$emit('artifacts')">
-        {{ t("artifacts") }}
-      </span>
-      <span class="divider">\</span>
-      <span>edit</span>
-    </div>
+    <crumbs-base
+      :crumbs="crumbs"
+      class="edit-title-crumbs"
+      @crumb="$emit('artifacts')"
+    />
   </div>
 </template>
 <style scoped>
 .edit-title-crumbs {
   margin-top: var(--size-10);
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.divider {
-  margin-inline: var(--size-00);
 }
 </style>

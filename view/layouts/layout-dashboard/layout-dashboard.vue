@@ -7,8 +7,9 @@ import { LayoutBase } from "../layout-base";
 const emit = defineEmits(["close"]);
 
 const t = useT();
+const service = useService();
+
 const handleClose = () => {
-  const service = useService();
   service.db.close();
   emit("close");
 };

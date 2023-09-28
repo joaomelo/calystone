@@ -17,7 +17,7 @@ const artifact = useArtifact(createIsId(props.artifactId));
 <template>
   <layout-dashboard @close="$emit('close')">
     <template #title>
-      <edit-title :name="artifact.name" />
+      <edit-title :name="artifact.name" @artifacts="$emit('done')" />
     </template>
     <template #default>
       <!-- <edit-form :artifact-id="artifactId" /> -->
