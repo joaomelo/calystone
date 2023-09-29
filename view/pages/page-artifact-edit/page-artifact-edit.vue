@@ -1,8 +1,8 @@
 <script setup>
-import { useArtifact, createIsId } from "@body";
+import { useArtifactEdit } from "@body";
 import { LayoutDashboard } from "@view/layouts";
 import EditTitle from "./edit-title.vue";
-// import EditForm from "./edit-form.vue";
+import EditForm from "./edit-form.vue";
 
 const props = defineProps({
   artifactId: {
@@ -10,9 +10,13 @@ const props = defineProps({
     required: true,
   },
 });
-defineEmits(["done"]);
+const emit = defineEmits(["done", "close"]);
 
-const artifact = useArtifact(createIsId(props.artifactId));
+const { task, artifact } = useArtifactEdit(props.artifactId);
+const handleSave = async (payload) => {
+  await task.run(payload);
+  emit("done");
+};
 </script>
 <template>
   <layout-dashboard @close="$emit('close')">
@@ -20,7 +24,11 @@ const artifact = useArtifact(createIsId(props.artifactId));
       <edit-title :name="artifact.name" @artifacts="$emit('done')" />
     </template>
     <template #default>
-      <!-- <edit-form :artifact-id="artifactId" /> -->
+      <edit-form
+        :artifact="artifact"
+        @save="handleSave"
+        @cancel="$emit('done')"
+      />
     </template>
   </layout-dashboard>
 </template>

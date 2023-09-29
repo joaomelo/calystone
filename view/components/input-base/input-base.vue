@@ -20,17 +20,21 @@ defineProps({
     type: String,
     default: "5",
   },
+  inline: {
+    type: Boolean,
+    default: false,
+  },
 });
 defineEmits(["update:modelValue", "submit"]);
 </script>
 <template>
-  <div class="input-base">
-    <label v-if="label">{{ label }}</label>
+  <div class="input-base" :class="{ inline }">
+    <label v-if="label" class="input-base-label">{{ label }}</label>
     <template v-if="type === 'text'">
       <input
         :type="type"
         :value="modelValue"
-        class="input-base-text"
+        class="input-base-input text"
         @input="$emit('update:modelValue', $event.target.value)"
         @keyup.enter="$emit('submit')"
       />
@@ -38,7 +42,7 @@ defineEmits(["update:modelValue", "submit"]);
     <template v-if="type === 'textarea'">
       <textarea
         :value="modelValue"
-        class="input-base-text-area"
+        class="input-base-input text-area"
         @input="$emit('update:modelValue', $event.target.value)"
         :rows="rows"
       ></textarea>
@@ -47,7 +51,7 @@ defineEmits(["update:modelValue", "submit"]);
       <select
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        class="input-base-select"
+        class="input-base-input select"
       >
         <option v-for="option in options" :key="option" :value="option">
           {{ option }}
@@ -60,9 +64,26 @@ defineEmits(["update:modelValue", "submit"]);
 <style scoped>
 .input-base {
   width: 100%;
+  font-family: inherit;
 }
 
-.input-base-text {
+.input-base-label {
+  display: block;
+  margin-bottom: var(--size-00);
+}
+
+.input-base-input {
   width: 100%;
+  display: block;
+  margin: 0;
+}
+
+.inline .input-base-input {
+  display: inline;
+  width: max-content;
+}
+
+.input-base-input.text-area {
+  resize: none;
 }
 </style>

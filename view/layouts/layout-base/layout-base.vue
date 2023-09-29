@@ -29,6 +29,7 @@ const handleUpdate = (locale) => i18n.updateLocale(locale);
         :modelValue="i18n.locale"
         @update:modelValue="handleUpdate"
         class="layout-base-locale"
+        inline
       />
     </footer>
   </div>
