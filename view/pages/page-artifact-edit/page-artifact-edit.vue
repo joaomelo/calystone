@@ -13,13 +13,15 @@ const props = defineProps({
 const emit = defineEmits(["done", "close"]);
 
 const { task, artifact } = useArtifactEdit(props.artifactId);
+if (!artifact.value) emit("done");
+
 const handleSave = async (payload) => {
   await task.run(payload);
   emit("done");
 };
 </script>
 <template>
-  <layout-dashboard @close="$emit('close')">
+  <layout-dashboard v-if="artifact" @close="$emit('close')">
     <template #title>
       <edit-title :name="artifact.name" @artifacts="$emit('done')" />
     </template>

@@ -1,32 +1,29 @@
 <script setup>
-import { reactive } from "vue";
+import { UseCases } from "@body";
 import { PageLoad, PageArtifactsPlan, PageArtifactEdit } from "./pages";
 
-const useCase = reactive({ name: "loadDb", context: null });
-const updateCase = (name, context = null) => {
-  useCase.name = name;
-  useCase.context = context;
-};
+const useCases = new UseCases();
 </script>
 
 <template>
   <main>
-    <template v-if="useCase.name === 'loadDb'">
-      <page-load @load="updateCase('artifactsPlan')" />
+    <template v-if="useCases.is(UseCases.LOAD_DB)">
+      <page-load @load="useCases.update(UseCases.ARTIFACTS_PLAN)" />
     </template>
-    <template v-if="useCase.name === 'artifactsPlan'">
+    <template v-else-if="useCases.is(UseCases.ARTIFACTS_PLAN)">
       <page-artifacts-plan
-        @close="updateCase('loadDb')"
-        @edit="updateCase('artifactEdit', $event)"
+        @close="useCases.update(UseCases.LOAD_DB)"
+        @edit="useCases.update(UseCases.ARTIFACT_EDIT, $event)"
       />
     </template>
-    <template v-if="useCase.name === 'artifactEdit'">
+    <template v-else-if="useCases.is(UseCases.ARTIFACT_EDIT)">
       <page-artifact-edit
-        :artifact-id="useCase.context"
-        @close="updateCase('loadDb')"
-        @done="updateCase('artifactsPlan')"
+        :artifact-id="useCases.context"
+        @close="useCases.update(UseCases.LOAD_DB)"
+        @done="useCases.update(UseCases.ARTIFACTS_PLAN)"
       />
     </template>
+    <template v-else>loading</template>
   </main>
 </template>
 <style scoped>
