@@ -1,16 +1,18 @@
 import { inject } from "vue";
-import { createDb } from "./factory";
+import { Db } from "./db";
 
 const key = "service";
 
-export function createService(options) {
-  const service = {};
-  service.db = createDb(options);
-  service.install = (app) => {
-    app.provide(key, service);
-  };
+export class Service {
+  db;
 
-  return service;
+  constructor(options) {
+    this.db = new Db(options);
+  }
+
+  install(app) {
+    app.provide(key, this);
+  }
 }
 
 export function useService() {

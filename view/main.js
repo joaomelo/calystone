@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { createService } from "@service";
+import { Service } from "@service";
 import { I18n } from "@view/i18n";
 import App from "./app.vue";
 import "./styles";
@@ -7,7 +7,7 @@ import "./styles";
 export async function initApp(elementId) {
   const app = createApp(App);
 
-  const service = createService({ type: "in-memory", loadDelay: 1 });
+  const service = new Service({ plugin: "memory", loadDelay: 1 });
   window.$service = service;
   app.use(service);
 

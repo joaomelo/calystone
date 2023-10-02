@@ -11,8 +11,22 @@ const t = useT();
 const service = useService();
 
 const { task } = useTask(async () => {
-  await service.db.open();
-  emit("load");
+  try {
+    const [file] = await window.showOpenFilePicker({
+      types: [
+        {
+          description: "calystone file",
+          accept: {
+            "application/json*": [".calystone"],
+          },
+        },
+      ],
+    });
+    // await service.db.open();
+    // emit("load");
+  } catch {
+    console.info("could not open file");
+  }
 });
 </script>
 <template>
