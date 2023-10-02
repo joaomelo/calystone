@@ -10,16 +10,18 @@ const props = defineProps({
     default: () => [],
   },
 });
-const emit = defineEmits(["edit", "del"]);
+const emit = defineEmits(["edit", "del", "append"]);
 
 const t = useT();
 
 const editAction = { name: "edit", label: t("edit") };
+const appendAction = { name: "append", label: t("append") };
 const delAction = { name: "del", label: t("delete") };
+
 const map = (artifact) => ({
   id: artifact.id,
   title: artifact.name,
-  actions: [editAction, delAction],
+  actions: [editAction, appendAction, delAction],
 });
 const tree = computed(() => treeify(props.artifacts, { map }));
 

@@ -23,6 +23,7 @@ const delTask = useArtifactDel();
       <artifacts-tree
         :artifacts="artifacts"
         @edit="$emit('edit', $event)"
+        @append="addTask.run({ name: '', parentId: $event })"
         @del="delTask.run"
       />
     </template>
