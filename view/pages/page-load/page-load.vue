@@ -22,7 +22,7 @@ const { task } = useTask(async () => {
         },
       ],
     });
-    // await service.db.open();
+    await service.db.open(file);
     // emit("load");
   } catch {
     console.info("could not open file");

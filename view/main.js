@@ -7,7 +7,7 @@ import "./styles";
 export async function initApp(elementId) {
   const app = createApp(App);
 
-  const service = new Service({ plugin: "memory", loadDelay: 1 });
+  const service = new Service({ plugin: "file" });
   window.$service = service;
   app.use(service);
 

@@ -1,7 +1,7 @@
 import { computed, reactive } from "vue";
 import { v4 as uuid } from "uuid";
 import { asArray } from "@shared";
-import { createPlugin } from "./factory";
+import { createPlugin } from "./plugin-factory";
 
 export class Db {
   _collections = new Map();
@@ -19,8 +19,9 @@ export class Db {
 
   async open(connection) {
     this._collections.clear();
-    const initialData = await this._plugin.open(connection, this._collections);
+    const initialData = await this._plugin.open(connection);
     Object.entries(initialData).forEach(([name, items]) => {
+      console.log({ name, items });
       const collection = this._collection(name);
       items.forEach((item) => collection.set(item.id, item));
     });

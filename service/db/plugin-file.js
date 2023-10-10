@@ -1,21 +1,12 @@
-import { delay } from "@shared";
-
 export class PluginFile {
-  _loadDelay = null;
+  _handle;
 
-  constructor({ loadDelay = null } = {}) {
-    this._loadDelay = loadDelay;
-  }
-
-  async _delay() {
-    if (this._loadDelay) {
-      await delay(this._loadDelay);
-    }
-  }
-
-  async open() {
-    await this._delay();
-    return {};
+  async open(handle) {
+    this._handle = handle;
+    const file = await this._handle.getFile();
+    const text = await file.text();
+    const json = JSON.parse(text);
+    return json;
   }
 
   async close() {
