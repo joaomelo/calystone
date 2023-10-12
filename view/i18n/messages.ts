@@ -1,4 +1,46 @@
-export const messages = {
+import type { SupportedLocales } from "./locales";
+
+export type Messages = RecordOf<SupportedLocales, MessagesLocalized>;
+export type MessagesLocalized = RecordOf<MessagesKeys, string>;
+export type MessageKey = MessagesKeys[number];
+export type MessagesKeys = [
+  "accept",
+  "add",
+  "append",
+  "archive",
+  "artifact",
+  "artifacts",
+  "cancel",
+  "close",
+  "delete",
+  "edit",
+  "email",
+  "ignore",
+  "invite",
+  "load",
+  "name",
+  "notes",
+  "password",
+  "pending",
+  "plan",
+  "planningOf",
+  "programs",
+  "save",
+  "sharing",
+  "sharingOf",
+  "signIn",
+  "signOut",
+  "signUp",
+  "unarchive",
+  "unloaded",
+  "unsolved"
+];
+export type MessageValues = Record<string, string>;
+type RecordOf<T extends string[], Z> = {
+  [K in T[number]]: Z;
+};
+
+export const messages: Messages = {
   en: {
     load: "load data",
     close: "close",

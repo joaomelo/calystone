@@ -17,19 +17,24 @@
   "author": "joão melo <j@melo.plus> (https://joao.melo.plus)",
   "dependencies": {
     "@floating-ui/vue": "^1.0.2",
+    "firebase": "^10.4.0",
     "lodash.clonedeep": "^4.5.0",
     "open-props": "^1.5.15",
-    "uuid": "^9.0.0",
+    "uuid": "^9.0.1",
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.5",
     "@vitejs/plugin-vue": "^4.2.3",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-vue": "^9.14.1",
+    "firebase-tools": "^12.6.2",
     "typescript": "^5.2.2",
     "vite": "^4.3.9",
+    "vite-plugin-checker": "^0.6.2",
     "vitest": "^0.31.4",
-    "vue-eslint-parser": "^9.3.0"
+    "vue-eslint-parser": "^9.3.0",
+    "vue-tsc": "^1.8.19"
   }
 }

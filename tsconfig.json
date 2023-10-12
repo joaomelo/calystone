@@ -1,0 +1,33 @@
+{
+  // based on https://github.com/vuejs/tsconfig/blob/main/tsconfig.json
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "noImplicitThis": true,
+    "strict": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "ES2021.String"],
+    "types": ["vite/client"],
+    "allowJs": true,
+    "baseUrl": "./",
+    "paths": {
+      "@body": ["./body"],
+      "@service": ["./service"],
+      "@shared": ["./shared"],
+      "@view": ["./view"],
+      "@body/*": ["./body/*"],
+      "@service/*": ["./service/*"],
+      "@shared/*": ["./shared/*"],
+      "@view/*": ["./view/*"]
+    }
+  }
+}

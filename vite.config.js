@@ -1,12 +1,13 @@
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
+import checker from "vite-plugin-checker";
 import vue from "@vitejs/plugin-vue";
 
 const pathTo = (path) => fileURLToPath(new URL(path, import.meta.url));
 
 export default defineConfig(() => {
   return {
-    plugins: [vue()],
+    plugins: [vue(), checker({ vueTsc: true, root: "../" })],
     root: "./view",
     envDir: "../",
     resolve: {
@@ -18,7 +19,7 @@ export default defineConfig(() => {
       },
     },
     build: {
-      outDir: "../dist-view",
+      outDir: "../dist",
       assetsDir: ".",
       emptyOutDir: true,
       sourcemap: true,

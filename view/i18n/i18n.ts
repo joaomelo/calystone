@@ -1,33 +1,33 @@
-import { reactive } from "vue";
-import { install } from "./plugin";
-import { messages } from "./messages";
+import type { App, Ref, InjectionKey } from "vue";
+import type { Locale } from "./locales";
+import type { MessageKey, MessageValues } from "./messages";
 
-const supported = Object.keys(messages);
+import { ref } from "vue";
+import { messages } from "./messages";
+import { supported } from "./locales";
+
+export const key: InjectionKey<I18n> = Symbol("i18n");
 
 export class I18n {
-  state = reactive({
-    locale: supported[0],
-    supported,
-    messages,
-  });
+  _locale: Ref<Locale> = ref(supported[0]);
 
-  constructor(maybeLocale) {
+  constructor(maybeLocale: string) {
     this.updateLocale(maybeLocale);
   }
 
   get supported() {
-    return this.state.supported;
+    return supported;
   }
 
   get locale() {
-    return this.state.locale;
+    return this._locale.value;
   }
 
   get messages() {
-    return this.state.messages[this.locale];
+    return messages[this.locale];
   }
 
-  updateLocale(maybeLocale) {
+  updateLocale(maybeLocale: string) {
     if (!maybeLocale) return;
 
     const lowered = maybeLocale.toLowerCase();
@@ -40,12 +40,11 @@ export class I18n {
     if (!newLocale) return;
     if (this.locale === newLocale) return;
 
-    this.state.locale = newLocale;
+    this._locale.value = newLocale;
   }
 
-  t(key, values) {
+  t(key: MessageKey, values?: MessageValues) {
     const baseMessage = this.messages[key];
-    if (!baseMessage) return key;
     if (!values) return baseMessage;
 
     const replaced = Object.entries(values).reduce((acc, [key, value]) => {
@@ -55,7 +54,7 @@ export class I18n {
     return replaced;
   }
 
-  d(value) {
+  d(value: Date) {
     return new Intl.DateTimeFormat(this.locale, {
       day: "2-digit",
       month: "2-digit",
@@ -63,7 +62,7 @@ export class I18n {
     }).format(value);
   }
 
-  install(app) {
-    return install({ i18n: this, app });
+  install(app: App) {
+    app.provide(key, this);
   }
 }
