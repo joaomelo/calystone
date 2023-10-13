@@ -3,8 +3,8 @@ export function isArray(maybeArray: unknown) {
 }
 
 export function asArray<T>(maybeArray: unknown) {
-  if (isArray(maybeArray)) return maybeArray as T[];
   if (maybeArray === undefined || maybeArray === null) return [];
+  if (isArray(maybeArray)) return maybeArray as T[];
   return [maybeArray as T];
 }
 

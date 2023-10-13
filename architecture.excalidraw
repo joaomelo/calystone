@@ -6342,8 +6342,8 @@
     },
     {
       "type": "rectangle",
-      "version": 1513,
-      "versionNonce": 878377506,
+      "version": 1514,
+      "versionNonce": 198690658,
       "isDeleted": false,
       "id": "LD1rePvDb0nr265i8juDp",
       "fillStyle": "hachure",
@@ -6353,7 +6353,7 @@
       "opacity": 100,
       "angle": 0,
       "x": 4520.300083805803,
-      "y": 4976.980568515428,
+      "y": 4978.980614291795,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#b2f2bb",
       "width": 228.5199845094417,
@@ -6370,14 +6370,14 @@
           "id": "7Fm1Ap4eWcfLqMjdrbVzg"
         }
       ],
-      "updated": 1697131566712,
+      "updated": 1697140036077,
       "link": null,
       "locked": false
     },
     {
       "type": "text",
-      "version": 1813,
-      "versionNonce": 352019938,
+      "version": 1814,
+      "versionNonce": 367823650,
       "isDeleted": false,
       "id": "7Fm1Ap4eWcfLqMjdrbVzg",
       "fillStyle": "hachure",
@@ -6387,7 +6387,7 @@
       "opacity": 100,
       "angle": 0,
       "x": 4544.560121836891,
-      "y": 4982.185617555332,
+      "y": 4984.185663331699,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#ffc9c9",
       "width": 179.99990844726562,
@@ -6397,7 +6397,7 @@
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1697131566712,
+      "updated": 1697140036077,
       "link": null,
       "locked": false,
       "fontSize": 16,
@@ -6461,6 +6461,76 @@
           108.57142857142856
         ]
       ]
+    },
+    {
+      "type": "rectangle",
+      "version": 1675,
+      "versionNonce": 1342268798,
+      "isDeleted": false,
+      "id": "-QKNvdnM1xPcTirusHSN8",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 4974.430230216697,
+      "y": 3427.914912624196,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#b2f2bb",
+      "width": 228.5199845094417,
+      "height": 270,
+      "seed": 766510690,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "A6L9YnvbdAPqoi_8PpF3t"
+        }
+      ],
+      "updated": 1697140100057,
+      "link": null,
+      "locked": false
+    },
+    {
+      "type": "text",
+      "version": 2216,
+      "versionNonce": 1341392318,
+      "isDeleted": false,
+      "id": "A6L9YnvbdAPqoi_8PpF3t",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 4979.97029754466,
+      "y": 3432.914912624196,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffc9c9",
+      "width": 217.43984985351562,
+      "height": 260,
+      "seed": 1885661730,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1697140100057,
+      "link": null,
+      "locked": false,
+      "fontSize": 16,
+      "fontFamily": 1,
+      "text": "evitar classes genéricas pq\nelas ficam dificeis de dar \nmanutenção\n\nos composables capturam \nmelhor o espiritico de \ncasos de uso\n\neles podem expandir \nexpandir em quantidade \nlidando com o crescimento \ngradativo da complexidade \nde situações",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "-QKNvdnM1xPcTirusHSN8",
+      "originalText": "evitar classes genéricas pq elas ficam dificeis de dar manutenção\n\nos composables capturam melhor o espiritico de casos de uso\n\neles podem expandir expandir em quantidade lidando com o crescimento gradativo da complexidade de situações",
+      "lineHeight": 1.25,
+      "baseline": 254
     }
   ],
   "appState": {

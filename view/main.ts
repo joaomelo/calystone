@@ -7,7 +7,6 @@ import "./styles";
 export async function initApp(elementId: string) {
   const app = createApp(App);
 
-  const collections = ["artifacts"];
   const connection = {
     apiKey: import.meta.env.VITE_API_KEY,
     authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -18,8 +17,7 @@ export async function initApp(elementId: string) {
     measurementId: import.meta.env.VITE_MEASUREMENT_ID,
   };
 
-  const service = new Service({ collections, connection });
-  app.use(service);
+  const service = new Service({ connection });
 
   const i18n = new I18n(navigator.language);
   app.use(i18n);

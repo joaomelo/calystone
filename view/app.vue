@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { UseCases } from "@body";
 import { PageLoad, PageArtifactsPlan, PageArtifactEdit } from "./pages";
 
