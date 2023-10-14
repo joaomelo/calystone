@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export type CollectionName = string;
+
 const valueSchema = z.union([
   z.string(),
   z.number(),

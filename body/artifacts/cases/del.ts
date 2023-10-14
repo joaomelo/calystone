@@ -1,8 +1,9 @@
-import { useTask, treeify, flatTree } from "@shared";
-import { useService } from "@service";
-import { useArtifacts } from "./use-artifacts";
+import type { Driver } from "@service";
+import type { ItemId } from "@shared";
 
-export function useArtifactDel() {
+import { treeify, flatTree } from "@shared";
+
+export function artifactDel(id: ItemId, artifacts: ) {
   const service = useService();
   const artifacts = useArtifacts();
 

@@ -50,13 +50,13 @@ export class Select {
     this._unsubscribe();
   }
 
-  filter(predicate?: Predicate) {
+  filter<T extends Item>(predicate?: Predicate) {
     const items = computed(() => {
       const list = Array.from(this._items.values());
       if (!predicate) return list;
-      return list.filter(predicate);
+      return list.filter(predicate) as T[];
     });
-    return items;
+    return;
   }
 
   find(predicate: Predicate) {
