@@ -1,4 +1,4 @@
-import type { IsRoot, Map } from "./node";
+import type { IsRoot, Map } from "./treeable";
 
 import { describe, test, expect } from "vitest";
 import { treeify } from "./treeify";
@@ -15,12 +15,12 @@ describe("treeify", () => {
     expect(tree).toEqual([]);
   });
 
-  test("if the list has only parents the tree will be similar", () => {
+  test("if the list has only parents the tree will be similar but with all treeable fields", () => {
     const tree = treeify([a, b]);
 
     expect(tree).toEqual([
       { ...a, children: [] },
-      { ...b, children: [] },
+      { ...b, parentId: null, children: [] },
     ]);
   });
 
@@ -28,7 +28,7 @@ describe("treeify", () => {
     const tree = treeify([b, a1, b1, a11, a]);
 
     expect(tree).toEqual([
-      { ...b, children: [{ ...b1, children: [] }] },
+      { ...b, parentId: null, children: [{ ...b1, children: [] }] },
       {
         ...a,
         children: [{ ...a1, children: [{ ...a11, children: [] }] }],
@@ -36,15 +36,15 @@ describe("treeify", () => {
     ]);
   });
 
-  test.only("is able to map data preserving default fields", () => {
+  test("is able to map data preserving default fields", () => {
     const map: Map = ({ id, archivedAt }) => ({ id, isArchived: !!archivedAt });
     const tree = treeify([b, b1], { map });
 
     expect(tree).toEqual([
       {
         id: b.id,
-        isArchived: false,
         parentId: null,
+        isArchived: false,
         children: [
           { id: b1.id, isArchived: true, parentId: b1.parentId, children: [] },
         ],

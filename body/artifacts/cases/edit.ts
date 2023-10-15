@@ -1,14 +1,12 @@
-import type { ItemId } from "@shared";
+import type { Driver } from "@service";
+import type { ArtifactPayloadWithId } from "../artifact";
 
-import { useEdit } from "@service";
-import { createIsId } from "./selectors";
-import { useArtifact } from "./use-artifact";
+import { put } from "@service";
 
-export function useArtifactEdit(id: ItemId) {
-  const edit = useEdit("artifacts");
-  const artifact = useArtifact(createIsId(id));
-  const edit = useTask(async (payload) => {
-    await service.db.edit("artifacts", payload);
-  });
-  return { artifact, task };
+export async function editArtifact(
+  payload: ArtifactPayloadWithId,
+  driver: Driver
+) {
+  const to = { name: "artifacts", driver };
+  await put(payload, to);
 }

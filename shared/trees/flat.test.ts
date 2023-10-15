@@ -1,4 +1,4 @@
-import type { IsRoot } from "./node";
+import type { IsRoot } from "./treeable";
 
 import { describe, test, expect } from "vitest";
 import { treeify } from "./treeify";

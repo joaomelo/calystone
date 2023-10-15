@@ -1,4 +1,7 @@
+import type { WithId } from "./ids";
+
 import { z } from "zod";
+import { itemIdSchema } from "./ids";
 
 export type CollectionName = string;
 
@@ -12,8 +15,7 @@ const valueSchema = z.union([
 const payloadSchema = z.record(z.string().min(1), valueSchema);
 export type Payload = z.infer<typeof payloadSchema>;
 
-const itemIdSchema = z.string();
-export type ItemId = z.infer<typeof itemIdSchema>;
+export type PayloadWithId = Payload & WithId;
 
 export const itemFieldsSchema = z.object({
   id: itemIdSchema,
@@ -22,6 +24,3 @@ export const itemFieldsSchema = z.object({
 });
 export const itemSchema = itemFieldsSchema.catchall(payloadSchema);
 export type Item = z.infer<typeof itemSchema>;
-
-export type WithIdOrIds = WithId | WithId[];
-export type WithId = ItemId | Item;

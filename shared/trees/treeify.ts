@@ -1,4 +1,4 @@
-import type { Node, Treeable, IsRoot, Map } from "./node";
+import type { Node, Treeable, IsRoot, Map } from "./treeable";
 
 import { isRoot as defaultIsRoot } from "./is-root";
 

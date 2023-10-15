@@ -1,4 +1,4 @@
-import type { Node, Treeable } from "./node";
+import type { Node, Treeable } from "./treeable";
 
 export function flatTree(tree: Node[]) {
   const result: Treeable[] = [];

@@ -1,4 +1,4 @@
-import type { Treeable } from "./node";
+import type { Treeable } from "./treeable";
 
 export function isRoot(node: Treeable) {
   return !node.parentId;

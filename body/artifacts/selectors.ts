@@ -1,6 +1,6 @@
-import type { WithId } from "@shared";
+import type { Idable } from "@shared";
 
-export function createIsChildOf(parentOrParentId: WithId) {
+export function createIsChildOf(parentOrParentId: Idable) {
   const parentId =
     typeof parentOrParentId === "string"
       ? parentOrParentId

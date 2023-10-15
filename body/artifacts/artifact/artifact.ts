@@ -1,3 +1,5 @@
+import type { WithId } from "@shared";
+
 import { z } from "zod";
 import { itemFieldsSchema } from "@shared";
 
@@ -11,6 +13,8 @@ export const artifactFieldsSchema = z.object({
 });
 export type ArtifactFields = z.infer<typeof artifactFieldsSchema>;
 export type ArtifactPayload = Partial<ArtifactFields>;
+
+export type ArtifactPayloadWithId = ArtifactPayload & WithId;
 
 export const artifactSchema = artifactFieldsSchema.merge(itemFieldsSchema);
 export type Artifact = z.infer<typeof artifactSchema>;
