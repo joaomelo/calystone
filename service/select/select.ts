@@ -1,26 +1,17 @@
-import type {
-  Firestore,
-  Unsubscribe,
-  CollectionReference,
-} from "firebase/firestore";
-import type { ItemId, Item, Predicate } from "@shared";
-import type { CollectionName } from "./collections";
+import type { Unsubscribe, CollectionReference } from "firebase/firestore";
+import type { ItemId, ItemFields, Predicate, CollectionName } from "@shared";
+import type { Driver } from "../driver";
 
 import { computed, reactive } from "vue";
 import { onSnapshot, collection } from "firebase/firestore";
 
-type Options = {
-  firestore: Firestore;
-  name: CollectionName;
-};
-
-export class Select {
+export class Select<T extends ItemFields> {
   _query: CollectionReference;
   _unsubscribe: Unsubscribe = () => undefined;
-  _items = reactive(new Map<ItemId, Item>());
+  _items = reactive(new Map<ItemId, T>());
 
-  constructor({ firestore, name }: Options) {
-    this._query = collection(firestore, name);
+  constructor(name: CollectionName, driver: Driver) {
+    this._query = collection(driver.getFirestore(), name);
   }
 
   async open() {
@@ -36,9 +27,9 @@ export class Select {
               acc[field] = parsedValue;
               return acc;
             },
-            { id: doc.id } as Item
+            { id: doc.id } as Record<string, unknown>
           );
-          this._items.set(doc.id, item);
+          this._items.set(doc.id, item as T);
         });
         resolve();
       });
@@ -50,13 +41,13 @@ export class Select {
     this._unsubscribe();
   }
 
-  filter<T extends Item>(predicate?: Predicate) {
+  filter(predicate?: Predicate) {
     const items = computed(() => {
       const list = Array.from(this._items.values());
       if (!predicate) return list;
-      return list.filter(predicate) as T[];
+      return list.filter(predicate);
     });
-    return;
+    return items;
   }
 
   find(predicate: Predicate) {

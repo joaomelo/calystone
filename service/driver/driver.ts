@@ -1,4 +1,4 @@
-import type { App, InjectionKey } from "vue";
+import type { App } from "vue";
 import type { FirebaseOptions, FirebaseApp } from "firebase/app";
 import type { Analytics } from "firebase/analytics";
 import type { Firestore } from "firebase/firestore";
@@ -6,8 +6,6 @@ import type { Firestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-
-export const key: InjectionKey<Driver> = Symbol("driver");
 
 type Options = {
   connection: FirebaseOptions;
@@ -26,9 +24,5 @@ export class Driver {
 
   getFirestore() {
     return this._firestore;
-  }
-
-  install(app: App) {
-    app.provide(key, this);
   }
 }

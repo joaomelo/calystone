@@ -1,16 +1,18 @@
 import type { Driver } from "@service";
-import type { Idable, Treeable } from "@shared";
+import type { Ideable, Treeable } from "@shared";
 import type { Artifact } from "../artifact";
 
 import { treeify, flatTree, extractId } from "@shared";
 import { del } from "@service";
 
-export async function artifactDel(
-  Idable: Idable,
-  artifacts: Artifact[],
-  driver: Driver
-) {
-  const id = extractId(Idable);
+type From = {
+  artifacts: Artifact[];
+  driver: Driver;
+};
+
+export async function delArtifact(ideable: Ideable, from: From) {
+  const { artifacts, driver } = from;
+  const id = extractId(ideable);
 
   const isRoot = (artifact: Treeable) => artifact.id === id;
   const tree = treeify(artifacts, { isRoot });

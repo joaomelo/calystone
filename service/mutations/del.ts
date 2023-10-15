@@ -1,16 +1,16 @@
-import type { IdableOrIdables, Idable } from "@shared";
+import type { IdeableOrIdeables, Ideable } from "@shared";
 import type { To } from "./to";
 
 import { doc, deleteDoc } from "firebase/firestore";
 import { asArray } from "@shared";
 
-export async function del(idOrIds: IdableOrIdables, to: To) {
+export async function del(idOrIds: IdeableOrIdeables, to: To) {
   const { name, driver } = to;
   const firestore = driver.getFirestore();
 
-  const Idables = asArray<Idable>(idOrIds);
-  const ids = Idables.map((Idable) =>
-    typeof Idable === "string" ? Idable : Idable.id
+  const Ideables = asArray<Ideable>(idOrIds);
+  const ids = Ideables.map((Ideable) =>
+    typeof Ideable === "string" ? Ideable : Ideable.id
   );
 
   const promises = ids.map((id) => {

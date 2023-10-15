@@ -5,13 +5,7 @@ import { itemIdSchema } from "./ids";
 
 export type CollectionName = string;
 
-const valueSchema = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  z.date(),
-  z.null(),
-]);
+const valueSchema = z.unknown();
 const payloadSchema = z.record(z.string().min(1), valueSchema);
 export type Payload = z.infer<typeof payloadSchema>;
 
@@ -22,5 +16,7 @@ export const itemFieldsSchema = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
 });
+export type ItemFields = z.infer<typeof itemFieldsSchema>;
+
 export const itemSchema = itemFieldsSchema.catchall(payloadSchema);
 export type Item = z.infer<typeof itemSchema>;
