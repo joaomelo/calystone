@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import { Driver } from "@service";
 import { I18n } from "@view/i18n";
-import { ArtifactsSelect } from "@body";
+import { Artifacts } from "@body";
 import App from "./app.vue";
 import "./styles";
 
@@ -19,7 +19,8 @@ export async function initApp(elementId: string) {
   };
 
   const driver = new Driver({ connection });
-  const artifacts = new ArtifactsSelect(driver);
+  const artifacts = new Artifacts(driver);
+  app.use(artifacts);
 
   const i18n = new I18n(navigator.language);
   app.use(i18n);

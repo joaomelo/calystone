@@ -1,22 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { useI18n } from "@view/i18n";
 import { InputBase } from "@view/components";
 
-defineProps({
-  busy: {
-    type: Boolean,
-    default: false,
-  },
-});
-
 const i18n = useI18n();
-const handleUpdate = (locale) => i18n.updateLocale(locale);
+const handleUpdate = (locale: string) => i18n.updateLocale(locale);
 </script>
 <template>
   <div class="layout-base">
-    <header>
-      <slot name="header"></slot>
-    </header>
     <div class="layout-base-content">
       <slot></slot>
     </div>

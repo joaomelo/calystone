@@ -1,3 +1,1 @@
-export * from "./artifact";
-export * from "./cases";
-export * from "./select";
+export * from "./artifacts";

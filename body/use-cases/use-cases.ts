@@ -44,7 +44,7 @@ export class UseCases {
     return this._state.useCase === useCase;
   }
 
-  update(userUseCase: UseCase, userContext: Context) {
+  update(userUseCase: UseCase, userContext?: Context) {
     const useCase = this._attemptedState.useCase || userUseCase;
     const context = this._attemptedState.context || userContext;
 

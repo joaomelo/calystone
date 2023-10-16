@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { UseCases } from "@body";
+import { LayoutBase, LayoutDashboard } from "./layouts";
 import { PageLoad, PageArtifactsPlan, PageArtifactEdit } from "./pages";
 
 const useCases = new UseCases();
@@ -7,20 +8,22 @@ const useCases = new UseCases();
 
 <template>
   <main>
-    <template v-if="useCases.is(UseCases.LOAD_DB)">
-      <page-load @load="useCases.update(UseCases.ARTIFACTS_PLAN)" />
+    <template v-if="useCases.is('AUTH')">
+      <layout-base>
+        <page-load @load="useCases.update('ARTIFACTS_PLAN')" />
+      </layout-base>
     </template>
-    <template v-else-if="useCases.is(UseCases.ARTIFACTS_PLAN)">
+    <template v-else-if="useCases.is('ARTIFACTS_PLAN')">
       <page-artifacts-plan
-        @close="useCases.update(UseCases.LOAD_DB)"
-        @edit="useCases.update(UseCases.ARTIFACT_EDIT, $event)"
+        @close="useCases.update('AUTH')"
+        @edit="useCases.update('ARTIFACT_EDIT', $event)"
       />
     </template>
-    <template v-else-if="useCases.is(UseCases.ARTIFACT_EDIT)">
+    <template v-else-if="useCases.is('ARTIFACT_EDIT')">
       <page-artifact-edit
         :artifact-id="useCases.context"
-        @close="useCases.update(UseCases.LOAD_DB)"
-        @done="useCases.update(UseCases.ARTIFACTS_PLAN)"
+        @close="useCases.update('AUTH')"
+        @done="useCases.update('ARTIFACTS_PLAN')"
       />
     </template>
     <template v-else>loading</template>

@@ -14,6 +14,6 @@ export function useI18n() {
 
 export function useT() {
   const i18n = useI18n();
-  const t = (key: MessageKey, values: MessageValues) => i18n.t(key, values);
+  const t = (key: MessageKey, values?: MessageValues) => i18n.t(key, values);
   return t;
 }

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "src/index.html",
   "scripts": {
-    "lint": "eslint \"src/**/*.{js,vue}\"",
+    "lint": "eslint body/ service/ shared/ view/ --ext .ts,.vue",
     "start": "npm run dev",
     "dev": "vite",
     "test": "vitest",
@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "@types/uuid": "^9.0.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
     "@vitejs/plugin-vue": "^4.2.3",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",

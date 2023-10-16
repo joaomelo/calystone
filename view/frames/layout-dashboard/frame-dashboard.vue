@@ -1,16 +1,16 @@
-<script setup>
-import { useService } from "@service";
+<script setup lang="ts">
 import { ButtonBase } from "@view/components";
 import { useT } from "@view/i18n";
 import { LayoutBase } from "../layout-base";
+import { useClose } from "./use-close";
 
 const emit = defineEmits(["close"]);
 
 const t = useT();
-const service = useService();
+const close = useClose();
 
 const handleClose = () => {
-  service.db.close();
+  close();
   emit("close");
 };
 </script>

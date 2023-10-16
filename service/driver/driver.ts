@@ -1,4 +1,3 @@
-import type { App } from "vue";
 import type { FirebaseOptions, FirebaseApp } from "firebase/app";
 import type { Analytics } from "firebase/analytics";
 import type { Firestore } from "firebase/firestore";
