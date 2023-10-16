@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { ButtonBase } from "@view/components";
 import { useT } from "@view/i18n";
-import { LayoutBase } from "../layout-base";
+import { FrameBase } from "../frame-base";
 import { useClose } from "./use-close";
 
+defineProps({
+  title: {
+    type: String,
+    default: null,
+  },
+});
 const emit = defineEmits(["close"]);
 
 const t = useT();
@@ -15,14 +21,14 @@ const handleClose = () => {
 };
 </script>
 <template>
-  <layout-base>
+  <frame-base>
     <template #header>
       <nav class="layout-dashboard-nav">
         <div class="layout-dashboard-nav-title">
-          <slot name="title"></slot>
+          {{ title }}
         </div>
         <div class="layout-dashboard-nav-aside">
-          <button-base @click="handleClose" class="layout-dashboard-close">
+          <button-base class="layout-dashboard-close" @click="handleClose">
             {{ t("close") }}
           </button-base>
         </div>
@@ -31,7 +37,7 @@ const handleClose = () => {
     <template #default>
       <slot></slot>
     </template>
-  </layout-base>
+  </frame-base>
 </template>
 <style scoped>
 .layout-dashboard-close {

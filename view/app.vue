@@ -1,30 +1,41 @@
 <script setup lang="ts">
 import { UseCases } from "@body";
-import { LayoutBase, LayoutDashboard } from "./layouts";
-import { PageLoad, PageArtifactsPlan, PageArtifactEdit } from "./pages";
+import { useT } from "@view/i18n";
+import { FrameBase, FrameDashboard } from "./frames";
+import { PageAuth, PageArtifactsPlan, PageArtifactEdit } from "./pages";
 
-const useCases = new UseCases();
+const t = useT();
+
+const useCases = new UseCases([
+  { value: "AUTH", text: "auth" },
+  { value: "ARTIFACTS_PLAN", text: t("artifacts") },
+  { value: "ARTIFACTS_EDIT", text: t("edit") },
+]);
 </script>
 
 <template>
   <main>
-    <template v-if="useCases.is('AUTH')">
-      <layout-base>
-        <page-load @load="useCases.update('ARTIFACTS_PLAN')" />
-      </layout-base>
+    <template v-if="useCases.isCurrent('AUTH')">
+      <frame-base>
+        <page-auth @load="useCases.update('ARTIFACTS_PLAN')" />
+      </frame-base>
     </template>
-    <template v-else-if="useCases.is('ARTIFACTS_PLAN')">
-      <page-artifacts-plan
-        @close="useCases.update('AUTH')"
-        @edit="useCases.update('ARTIFACT_EDIT', $event)"
-      />
-    </template>
-    <template v-else-if="useCases.is('ARTIFACT_EDIT')">
-      <page-artifact-edit
-        :artifact-id="useCases.context"
-        @close="useCases.update('AUTH')"
-        @done="useCases.update('ARTIFACTS_PLAN')"
-      />
+    <template
+      v-else-if="useCases.isCurrentSome('ARTIFACTS_PLAN', 'ARTIFACT_EDIT')"
+    >
+      <frame-dashboard @close="useCases.update('AUTH')">
+        <template v-if="useCases.isCurrent('ARTIFACTS_PLAN')">
+          <page-artifacts-plan
+            @edit="useCases.update('ARTIFACT_EDIT', $event)"
+          />
+        </template>
+        <template v-else-if="useCases.isCurrent('ARTIFACT_EDIT')">
+          <page-artifact-edit
+            :artifact-id="useCases.context"
+            @done="useCases.update('ARTIFACTS_PLAN')"
+          />
+        </template>
+      </frame-dashboard>
     </template>
     <template v-else>loading</template>
   </main>

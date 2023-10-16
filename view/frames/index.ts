@@ -1,2 +1,2 @@
-export * from "./layout-base";
-export * from "./layout-dashboard";
+export * from "./frame-base";
+export * from "./frame-dashboard";

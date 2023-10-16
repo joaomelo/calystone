@@ -16,10 +16,10 @@ const handleUpdate = (locale: string) => i18n.updateLocale(locale);
       <input-base
         :options="i18n.supported"
         type="select"
-        :modelValue="i18n.locale"
-        @update:modelValue="handleUpdate"
+        :model-value="i18n.locale"
         class="layout-base-locale"
         inline
+        @update:model-value="handleUpdate"
       />
     </footer>
   </div>

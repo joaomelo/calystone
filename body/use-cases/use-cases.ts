@@ -2,49 +2,68 @@ import type { UseCase } from "./use-case";
 
 import { reactive } from "vue";
 import { getParams, setParams } from "./url";
-import { initialUseCase, isUseCase } from "./use-case";
+import { asUseCase, isSameUseCase } from "./use-case";
 
 type UseCaseState = {
-  useCase: UseCase;
+  useCase?: UseCase;
   context?: Context;
 };
 type Context = string;
 
 export class UseCases {
   _state: UseCaseState = reactive({
-    useCase: "AUTH",
+    useCase: undefined,
     context: undefined,
   });
-
-  _attemptedState: Partial<UseCaseState> = {
+  _attemptedState: UseCaseState = {
     useCase: undefined,
     context: undefined,
   };
+  _useCases: UseCase[];
 
-  constructor() {
-    const [useCase, context] = getParams(["useCase", "context"]);
+  constructor(useCases: UseCase[]) {
+    this._useCases = useCases;
+    this._state.useCase = useCases[0];
 
-    const validatedUseCase = isUseCase(useCase);
-    if (!validatedUseCase) return;
+    const [attemptedUseCaseValue, attemptedContext] = getParams([
+      "useCase",
+      "context",
+    ]);
 
-    if (validatedUseCase !== initialUseCase)
-      this._attemptedState.useCase = validatedUseCase;
-    if (context) this._attemptedState.context = context;
+    const attemptedUseCase = asUseCase(this._useCases, attemptedUseCaseValue);
+    if (!attemptedUseCase) return;
+
+    if (!isSameUseCase(attemptedUseCase, this._state.useCase))
+      this._attemptedState.useCase = attemptedUseCase;
+    if (attemptedContext) this._attemptedState.context = attemptedContext;
   }
 
   get useCase() {
     return this._state.useCase;
   }
 
+  get text() {
+    if (!this.useCase) return null;
+    return this.useCase.text;
+  }
+
   get context() {
     return this._state.context;
   }
 
-  is(useCase: UseCase) {
-    return this._state.useCase === useCase;
+  isCurrent(useCase: UseCase | string) {
+    if (!this.useCase) return false;
+    return isSameUseCase(this.useCase, useCase);
   }
 
-  update(userUseCase: UseCase, userContext?: Context) {
+  isCurrentSome(...useCases: (UseCase | string)[]) {
+    return useCases.some((useCase) => this.isCurrent(useCase));
+  }
+
+  update(userUseCaseValue: string, userContext?: Context) {
+    const userUseCase = asUseCase(this._useCases, userUseCaseValue);
+    if (!userUseCase) throw new Error("invalid user case");
+
     const useCase = this._attemptedState.useCase || userUseCase;
     const context = this._attemptedState.context || userContext;
 
@@ -54,6 +73,6 @@ export class UseCases {
     this._state.useCase = useCase;
     this._state.context = context;
 
-    setParams({ useCase, context });
+    setParams({ useCase: useCase.value, context });
   }
 }
