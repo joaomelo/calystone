@@ -17,13 +17,11 @@ const handleClick = async () => {
 };
 </script>
 <template>
-  <layout-base>
-    <div class="page-load">
-      <button-base :busy="loadTask.busy" @click="handleClick">
-        {{ t("load") }}
-      </button-base>
-    </div>
-  </layout-base>
+  <div class="page-load">
+    <button-base :busy="loadTask.busy" @click="handleClick">
+      {{ t("load") }}
+    </button-base>
+  </div>
 </template>
 <style scoped>
 .page-load {
