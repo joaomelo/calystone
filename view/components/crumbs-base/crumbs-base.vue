@@ -1,20 +1,21 @@
-<script setup>
+<script setup lang="ts">
+import type { Option, Value } from "../shared";
 import { hasElements } from "@shared";
 
-const props = defineProps({
-  crumbs: {
-    type: Array,
-    default: () => [],
-  },
-});
-const emit = defineEmits(["crumb"]);
+type Props = {
+  crumbs: Option[];
+};
+const props = defineProps<Props>();
 
-const notLast = (i) => i < props.crumbs.length - 1;
-const isClickable = (crumb) => !!crumb.event;
+type Emits = {
+  crumb: [name: Value];
+};
+const emit = defineEmits<Emits>();
 
-const handleClick = (crumb) => {
-  if (!isClickable) return;
-  emit("crumb", crumb.event);
+const notLast = (i: number) => i < props.crumbs.length - 1;
+const handleClick = (crumb: Option) => {
+  if (crumb.inactive) return;
+  emit("crumb", crumb.value);
 };
 </script>
 <template>
@@ -22,8 +23,8 @@ const handleClick = (crumb) => {
     <template v-for="(crumb, index) in crumbs" :key="index">
       <span
         class="crumbs-base-crumb"
-        :class="{ clickable: isClickable(crumb) }"
-        @click="handleClick"
+        :class="{ clickable: !crumb.inactive }"
+        @click="handleClick(crumb)"
       >
         {{ crumb.text }}
       </span>

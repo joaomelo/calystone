@@ -1,31 +1,34 @@
-<script setup>
-defineProps({
-  type: {
-    type: String,
-    default: "text",
-  },
-  modelValue: {
-    type: String,
-    default: null,
-  },
-  label: {
-    type: String,
-    default: null,
-  },
-  options: {
-    type: Array,
-    default: null,
-  },
-  rows: {
-    type: String,
-    default: "5",
-  },
-  inline: {
-    type: Boolean,
-    default: false,
-  },
+<script setup lang="ts">
+import type { Option } from "../shared";
+
+type Props = {
+  modelValue: string;
+  type?: string;
+  label?: string;
+  options?: Option[];
+  rows?: string;
+  inline?: boolean;
+};
+withDefaults(defineProps<Props>(), {
+  type: "text",
+  rows: "5",
+  boolean: false,
+  label: undefined,
+  options: () => [],
+  inline: false,
 });
-defineEmits(["update:modelValue", "submit"]);
+
+type Emits = {
+  "update:modelValue": [value: string | null];
+  submit: [];
+};
+const emit = defineEmits<Emits>();
+
+const handleUpdate = (event: Event) => {
+  if (!event || !event.target) emit("update:modelValue", null);
+  const { value = "" } = event.target as HTMLInputElement;
+  emit("update:modelValue", value);
+};
 </script>
 <template>
   <div class="input-base" :class="{ inline }">
@@ -35,7 +38,7 @@ defineEmits(["update:modelValue", "submit"]);
         :type="type"
         :value="modelValue"
         class="input-base-input text"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @input="handleUpdate"
         @keyup.enter="$emit('submit')"
       />
     </template>
@@ -43,18 +46,23 @@ defineEmits(["update:modelValue", "submit"]);
       <textarea
         :value="modelValue"
         class="input-base-input text-area"
-        @input="$emit('update:modelValue', $event.target.value)"
         :rows="rows"
+        @input="handleUpdate"
       ></textarea>
     </template>
     <template v-if="type === 'select'">
       <select
         :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
         class="input-base-input select"
+        @input="handleUpdate"
       >
-        <option v-for="option in options" :key="option" :value="option">
-          {{ option }}
+        <option
+          v-for="option in options"
+          :key="option.value"
+          :value="option.value"
+          :disabled="option.inactive"
+        >
+          {{ option.text }}
         </option>
       </select>
     </template>

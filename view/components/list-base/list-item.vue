@@ -1,46 +1,48 @@
-<script setup>
+<script setup lang="ts">
+import type { CollapseStatus, Item, ItemAction } from "./item";
+
 import { ref, computed, watch } from "vue";
 import { hasElements } from "@shared";
 import { ActionsMenu } from "../actions-menu";
-import { LIST_ITEM_STATUSES } from "./lista-item-statuses";
 import CollapseSymbol from "./collapse-symbol.vue";
 
-const props = defineProps({
-  item: {
-    type: Object,
-    required: true,
-  },
-});
-defineEmits(["action"]);
+type Props = {
+  item: Item;
+};
+const props = defineProps<Props>();
 
-const initialState = computed(() =>
-  hasElements(props.item.children)
-    ? LIST_ITEM_STATUSES.OPEN
-    : LIST_ITEM_STATUSES.FLAT
+type Emits = {
+  itemAction: [value: ItemAction];
+};
+defineEmits<Emits>();
+
+const initialCollapseStatus = computed<CollapseStatus>(() =>
+  hasElements(props.item.children) ? "open" : "flat"
 );
-const state = ref(initialState.value);
-watch(initialState, (newValue) => (state.value = newValue));
+const collapseStatus = ref(initialCollapseStatus.value);
+watch(initialCollapseStatus, (newValue) => (collapseStatus.value = newValue));
 </script>
 <template>
   <div class="list-base-item">
     <div class="list-base-item-cover">
-      <collapse-symbol v-model="state" />
-      <div class="list-base-content" :class="{ closed: item.closed }">
-        {{ item.title }}
+      <collapse-symbol v-model="collapseStatus" />
+      <div class="list-base-content" :class="{ inactive: item.inactive }">
+        {{ item.text }}
       </div>
       <div class="list-base-actions">
         <actions-menu
+          v-if="item.actions"
           :actions="item.actions"
-          @action="$emit('action', { action: $event, item })"
+          @action="$emit('itemAction', { action: $event, item: item.value })"
         />
       </div>
     </div>
-    <div
-      v-if="state === LIST_ITEM_STATUSES.OPEN"
-      class="list-base-item-children"
-    >
+    <div v-if="collapseStatus === 'open'" class="list-base-item-children">
       <template v-for="child in item.children" :key="child.id">
-        <list-base-item :item="child" @action="$emit('action', $event)" />
+        <list-base-item
+          :item="child"
+          @item-action="$emit('itemAction', $event)"
+        />
       </template>
     </div>
   </div>
@@ -64,7 +66,7 @@ watch(initialState, (newValue) => (state.value = newValue));
   padding-inline-start: var(--size-00);
 }
 
-.list-base-content.closed {
+.list-base-content.inactive {
   color: var(--color-neutral-40);
   text-decoration: line-through;
 }

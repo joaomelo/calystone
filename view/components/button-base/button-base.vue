@@ -1,14 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { SpinnerBase } from "../spinner-base";
-defineProps({
-  busy: {
-    type: Boolean,
-    default: false,
-  },
-  type: {
-    type: String,
-    default: "button",
-  },
+
+type Props = {
+  busy?: boolean;
+  type?: "button" | "submit" | "reset";
+};
+withDefaults(defineProps<Props>(), {
+  busy: false,
+  type: "button",
 });
 </script>
 <template>

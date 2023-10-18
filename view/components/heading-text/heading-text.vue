@@ -1,9 +1,9 @@
-<script setup>
-defineProps({
-  clipped: {
-    type: Boolean,
-    default: false,
-  },
+<script setup lang="ts">
+type Props = {
+  clipped?: boolean;
+};
+withDefaults(defineProps<Props>(), {
+  clipped: false,
 });
 </script>
 <template>

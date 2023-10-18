@@ -1,14 +1,15 @@
 import { reactive } from "vue";
-import { messageFrom } from "../errors";
+import { messageFrom } from "@shared";
 
-type TaskCallback<Payload> = (payload: Payload) => Promise<void>;
+type Callback<Payload> = (payload: Payload) => Promise<void>;
+
 type Task<Payload> = {
   error: null | string;
   busy: boolean;
-  run: TaskCallback<Payload>;
+  run: Callback<Payload>;
 };
 
-export function useTask<Payload>(callback: TaskCallback<Payload>) {
+export function useTask<Payload = void>(callback: Callback<Payload>) {
   const task: Task<Payload> = reactive({
     busy: false,
     error: null,

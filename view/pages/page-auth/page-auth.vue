@@ -1,38 +1,25 @@
-<script setup>
-import { useTask } from "@shared";
-import { useService } from "@service";
+<script setup lang="ts">
 import { useT } from "@view/i18n";
 import { ButtonBase } from "@view/components";
-import { LayoutBase } from "@view/layouts";
+import { useLoad } from "./use-load";
 
-const emit = defineEmits(["load"]);
+type Emits = {
+  load: [];
+};
+const emit = defineEmits<Emits>();
 
 const t = useT();
-const service = useService();
+const loadTask = useLoad();
 
-const { task } = useTask(async () => {
-  try {
-    const [file] = await window.showOpenFilePicker({
-      types: [
-        {
-          description: "calystone file",
-          accept: {
-            "application/json*": [".calystone"],
-          },
-        },
-      ],
-    });
-    await service.db.open(file);
-    // emit("load");
-  } catch {
-    console.info("could not open file");
-  }
-});
+const handleClick = async () => {
+  await loadTask.run();
+  emit("load");
+};
 </script>
 <template>
   <layout-base>
     <div class="page-load">
-      <button-base @click="task.run" :busy="task.busy">
+      <button-base :busy="loadTask.busy" @click="handleClick">
         {{ t("load") }}
       </button-base>
     </div>

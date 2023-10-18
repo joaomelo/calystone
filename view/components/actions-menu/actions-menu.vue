@@ -1,30 +1,36 @@
-<script setup>
+<script setup lang="ts">
+import type { Option, Value } from "../shared";
+
 import { computed, ref } from "vue";
 import { useFloating, autoUpdate, offset } from "@floating-ui/vue";
 import { ButtonBase } from "../button-base";
 
-const props = defineProps({
-  actions: {
-    type: Array,
-    default: () => [],
-  },
-});
-const emit = defineEmits(["action"]);
+type Props = {
+  actions: Option[];
+};
+const props = defineProps<Props>();
+
+type Emits = {
+  action: [value: Value];
+};
+const emit = defineEmits<Emits>();
 
 const isShort = computed(() => props.actions.length <= 1);
 const mainAction = computed(() => props.actions[0]);
 
-const handleAction = (name) => emit("action", name);
+const handleAction = (value: Value) => emit("action", value);
 
 const isShow = ref(false);
-const actionsMenuToggle = ref(null);
-const actionsMenuDropdown = ref(null);
+const actionsMenuToggle = ref();
+const actionsMenuDropdown = ref<HTMLDivElement>();
 const { floatingStyles } = useFloating(actionsMenuToggle, actionsMenuDropdown, {
   placement: "bottom",
   whileElementsMounted: autoUpdate,
   middleware: [offset({ mainAxis: 1, crossAxis: -25 })],
 });
+
 const showMenu = () => {
+  if (!actionsMenuDropdown.value) return;
   if (isShow.value) {
     actionsMenuDropdown.value.hidePopover();
   } else {
@@ -37,25 +43,25 @@ const showMenu = () => {
 <template>
   <div>
     <template v-if="isShort">
-      <button-base @click="handleAction(mainAction.name)">
-        {{ mainAction.label }}
+      <button-base @click="handleAction(mainAction.value)">
+        {{ mainAction.text }}
       </button-base>
     </template>
     <template v-else>
-      <button-base @click="showMenu" ref="actionsMenuToggle">...</button-base>
+      <button-base ref="actionsMenuToggle" @click="showMenu">...</button-base>
       <div
-        popover
         ref="actionsMenuDropdown"
+        popover
         class="actions-menu-dropdown"
         :style="floatingStyles"
       >
         <div
           v-for="action in actions"
-          :key="action.name"
+          :key="action.value"
           class="action-menu-dropdown-item"
-          @click="handleAction(action.name)"
+          @click="handleAction(action.value)"
         >
-          {{ action.label }}
+          {{ action.text }}
         </div>
       </div>
     </template>

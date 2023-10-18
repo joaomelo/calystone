@@ -1,18 +1,23 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from "vue";
-const props = defineProps({
-  show: {
-    type: Boolean,
-    default: false,
-  },
+
+type Props = {
+  show?: boolean;
+};
+const props = withDefaults(defineProps<Props>(), {
+  show: false,
 });
 
-const dialog = ref(null);
+const dialog = ref<HTMLDialogElement>();
 
-const close = () => dialog.value.close();
+const close = () => {
+  if (dialog.value) dialog.value.close();
+};
+
 watch(
   () => props.show,
   (show) => {
+    if (!dialog.value) return;
     if (show) {
       dialog.value.showModal();
     } else {
@@ -24,10 +29,10 @@ watch(
 <template>
   <dialog ref="dialog">
     <div>
-      <slot />
+      <slot></slot>
     </div>
     <div class="model-base-buttons">
-      <slot name="buttons" :close="close" />
+      <slot name="buttons" :close="close"></slot>
     </div>
   </dialog>
 </template>

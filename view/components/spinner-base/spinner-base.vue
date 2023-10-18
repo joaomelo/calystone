@@ -1,13 +1,13 @@
-<script setup>
-defineProps({
-  show: {
-    type: Boolean,
-    default: false,
-  },
+<script setup lang="ts">
+type Props = {
+  show?: boolean;
+};
+withDefaults(defineProps<Props>(), {
+  show: false,
 });
 </script>
 <template>
-  <div class="spinner-base">
+  <div v-if="show" class="spinner-base">
     <div class="spinner-base-shape"></div>
   </div>
 </template>

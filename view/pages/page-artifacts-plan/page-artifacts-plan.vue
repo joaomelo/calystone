@@ -1,33 +1,29 @@
-<script setup>
-import { useArtifacts, useArtifactAdd, useArtifactDel } from "@body";
-import { HeadingText } from "@view/components";
-import { useT } from "@view/i18n";
-import { LayoutDashboard } from "@view/layouts";
-import ArtifactAdd from "./artifact-add.vue";
-import ArtifactsTree from "./artifacts-tree.vue";
+<script setup lang="ts">
+// import { useArtifacts, useArtifactAdd, useArtifactDel } from "@body";
+// import { HeadingText } from "@view/components";
+// import { useT } from "@view/i18n";
+// import { LayoutDashboard } from "@view/layouts";
+// import ArtifactAdd from "./artifact-add.vue";
+// import ArtifactsTree from "./artifacts-tree.vue";
 
-defineEmits(["edit", "close"]);
+// defineEmits(["edit", "close"]);
 
-const t = useT();
-const artifacts = useArtifacts();
-const addTask = useArtifactAdd();
-const delTask = useArtifactDel();
+// const t = useT();
+// const artifacts = useArtifacts();
+// const addTask = useArtifactAdd();
+// const delTask = useArtifactDel();
 </script>
 <template>
-  <layout-dashboard @close="$emit('close')">
-    <template #title>
-      <heading-text>{{ t("artifacts") }}</heading-text>
-    </template>
-    <template #default>
-      <artifact-add @add="addTask.run" class="page-artifacts-plan-add" />
+  <div>
+    plan
+    <!-- <artifact-add class="page-artifacts-plan-add" @add="addTask.run" />
       <artifacts-tree
         :artifacts="artifacts"
         @edit="$emit('edit', $event)"
         @append="addTask.run({ name: '', parentId: $event })"
         @del="delTask.run"
-      />
-    </template>
-  </layout-dashboard>
+      /> -->
+  </div>
 </template>
 
 <style scoped>

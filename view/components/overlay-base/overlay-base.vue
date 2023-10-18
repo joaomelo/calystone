@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { SpinnerBase } from "../spinner-base";
 
-defineProps({
-  show: {
-    type: Boolean,
-    default: false,
-  },
+type Props = {
+  show?: boolean;
+};
+withDefaults(defineProps<Props>(), {
+  show: false,
 });
 </script>
 <template>

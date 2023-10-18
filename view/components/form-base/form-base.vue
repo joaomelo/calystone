@@ -1,22 +1,26 @@
-<script setup>
+<script setup lang="ts">
 import { OverlayBase } from "../overlay-base";
-defineProps({
-  busy: {
-    type: Boolean,
-    default: false,
-  },
+
+type Props = {
+  busy?: boolean;
+};
+withDefaults(defineProps<Props>(), {
+  busy: false,
 });
-const emit = defineEmits(["submit"]);
+const emit = defineEmits<{
+  submit: [];
+}>();
+
 const handleSubmit = () => emit("submit");
 </script>
 <template>
   <div>
     <form @submit.prevent="handleSubmit">
       <div class="form-base-content">
-        <slot />
+        <slot></slot>
       </div>
       <div class="form-base-buttons">
-        <slot name="buttons" />
+        <slot name="buttons"></slot>
       </div>
     </form>
     <overlay-base :show="busy" />

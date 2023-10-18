@@ -1,33 +1,27 @@
-<script setup>
-import { computed } from "vue";
-import { LIST_ITEM_STATUSES } from "./lista-item-statuses";
+<script setup lang="ts">
+import type { CollapseStatus } from "./item";
 
-const props = defineProps({
-  modelValue: {
-    type: String,
-    required: true,
-  },
-});
-const emit = defineEmits(["update:modelValue"]);
+import { computed } from "vue";
+
+type Props = {
+  modelValue: CollapseStatus;
+};
+const props = defineProps<Props>();
+
+type Emits = {
+  "update:modelValue": [status: CollapseStatus];
+};
+const emit = defineEmits<Emits>();
 
 const char = computed(() =>
-  props.modelValue === LIST_ITEM_STATUSES.FLAT
-    ? "•"
-    : props.modelValue === LIST_ITEM_STATUSES.OPEN
-    ? "▼"
-    : "►"
+  props.modelValue === "flat" ? "•" : props.modelValue === "open" ? "▼" : "►"
 );
-
-const collapsable = computed(
-  () => props.modelValue !== LIST_ITEM_STATUSES.FLAT
-);
+const collapsable = computed(() => props.modelValue !== "flat");
 
 const handleClick = () => {
-  if (props.modelValue === LIST_ITEM_STATUSES.FLAT) return;
-  const newValue =
-    props.modelValue === LIST_ITEM_STATUSES.OPEN
-      ? LIST_ITEM_STATUSES.CLOSED
-      : LIST_ITEM_STATUSES.OPEN;
+  if (props.modelValue === "flat") return;
+  const newValue: CollapseStatus =
+    props.modelValue === "open" ? "closed" : "open";
   emit("update:modelValue", newValue);
 };
 </script>
