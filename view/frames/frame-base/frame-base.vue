@@ -10,18 +10,17 @@ const handleUpdate = (locale: string | null) => {
 };
 </script>
 <template>
-  <div class="layout-base">
-    <div class="layout-base-content">
+  <div class="frame-base">
+    <main class="frame-base-content">
       <slot></slot>
-    </div>
-    <footer class="layout-base-footer">
+    </main>
+    <footer class="frame-base-footer">
       <span>calystone</span>
-      <span class="layout-base-footer-divider">·</span>
+      <span class="frame-base-footer-divider">·</span>
       <input-base
         :options="supported"
         type="select"
         :model-value="i18n.locale"
-        class="layout-base-locale"
         inline
         @update:model-value="handleUpdate"
       />
@@ -29,30 +28,35 @@ const handleUpdate = (locale: string | null) => {
   </div>
 </template>
 <style scoped>
-.layout-base {
+.frame-base {
   flex-grow: 1;
+
+  max-width: var(--size-90);
+  min-height: 100vh;
+  margin: auto;
+
+  padding-block: var(--size-10);
+  padding-inline: var(--size-20);
+
+  background-color: var(--color-neutral-70);
 
   display: flex;
   flex-direction: column;
 }
 
-.layout-base-content {
+.frame-base-content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-.layout-base-footer {
+.frame-base-footer {
   text-align: center;
   color: var(--color-neutral-30);
   font-size: var(--font-size-10);
 }
 
-.layout-base-locale {
-  display: inline;
-}
-
-.layout-base-footer-divider {
+.frame-base-footer-divider {
   margin-inline: var(--size-10);
 }
 </style>

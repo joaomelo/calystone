@@ -1,14 +1,12 @@
-import type { UseCase } from "./use-case";
-
 import { reactive } from "vue";
 import { getParams, setParams } from "./url";
-import { asUseCase, isSameUseCase } from "./use-case";
 
 type UseCaseState = {
   useCase?: UseCase;
   context?: Context;
 };
 type Context = string;
+type UseCase = string;
 
 export class UseCases {
   _state: UseCaseState = reactive({
@@ -51,12 +49,12 @@ export class UseCases {
     return this._state.context;
   }
 
-  isCurrent(useCase: UseCase | string) {
+  isCurrent(useCase: UseCase) {
     if (!this.useCase) return false;
     return isSameUseCase(this.useCase, useCase);
   }
 
-  isCurrentSome(...useCases: (UseCase | string)[]) {
+  isCurrentSome(...useCases: UseCase[]) {
     return useCases.some((useCase) => this.isCurrent(useCase));
   }
 

@@ -17,7 +17,7 @@ export type MessagesKeys = [
   "email",
   "ignore",
   "invite",
-  "load",
+  "sign-in",
   "name",
   "notes",
   "password",
@@ -42,7 +42,7 @@ type RecordOf<T extends string[], Z> = {
 
 export const messages: Messages = {
   en: {
-    load: "load data",
+    "sign-in": "enter",
     close: "close",
     accept: "accept",
     add: "add",
@@ -74,7 +74,7 @@ export const messages: Messages = {
     unarchive: "unarchive",
   },
   "pt-br": {
-    load: "carregar dados",
+    "sign-in": "entrar",
     close: "fechar",
     accept: "aceitar",
     add: "novo",

@@ -1,30 +1,28 @@
 <script setup lang="ts">
 import { useT } from "@view/i18n";
 import { ButtonBase } from "@view/components";
-import { useLoad } from "./use-load";
 
-type Emits = {
-  load: [];
+withDefaults(defineProps<Props>(), { busy: false });
+type Props = {
+  busy?: boolean;
 };
-const emit = defineEmits<Emits>();
+
+defineEmits<Emits>();
+type Emits = {
+  "sign-in": [];
+};
 
 const t = useT();
-const loadTask = useLoad();
-
-const handleClick = async () => {
-  await loadTask.run();
-  emit("load");
-};
 </script>
 <template>
-  <div class="page-load">
-    <button-base :busy="loadTask.busy" @click="handleClick">
-      {{ t("load") }}
+  <div class="page-auth">
+    <button-base :busy="busy" @click="$emit('sign-in')">
+      {{ t("sign-in") }}
     </button-base>
   </div>
 </template>
 <style scoped>
-.page-load {
+.page-auth {
   flex-grow: 1;
 
   display: flex;

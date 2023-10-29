@@ -1,23 +1,22 @@
 <script setup lang="ts">
-// import { useArtifacts, useArtifactAdd, useArtifactDel } from "@body";
 // import { HeadingText } from "@view/components";
-// import { useT } from "@view/i18n";
 // import { LayoutDashboard } from "@view/layouts";
-// import ArtifactAdd from "./artifact-add.vue";
+// import { useT } from "@view/i18n";
+import { useAddArtifact } from "./use-add-artifact";
+import ArtifactAdd from "./artifact-add.vue";
 // import ArtifactsTree from "./artifacts-tree.vue";
 
 // defineEmits(["edit", "close"]);
 
 // const t = useT();
 // const artifacts = useArtifacts();
-// const addTask = useArtifactAdd();
+const add = useAddArtifact();
 // const delTask = useArtifactDel();
 </script>
 <template>
   <div>
-    plan
-    <!-- <artifact-add class="page-artifacts-plan-add" @add="addTask.run" />
-      <artifacts-tree
+    <artifact-add class="page-artifacts-plan-add" @add="add.run" />
+    <!--  <artifacts-tree
         :artifacts="artifacts"
         @edit="$emit('edit', $event)"
         @append="addTask.run({ name: '', parentId: $event })"

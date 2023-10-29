@@ -21,13 +21,17 @@
     "allowJs": false,
     "baseUrl": "./",
     "paths": {
-      "@body": ["./body"],
+      "@controller": ["./controller"],
+      "@controller/*": ["./controller/*"],
+      "@main": ["./main"],
+      "@main/*": ["./main/*"],
+      "@model": ["./model"],
+      "@model/*": ["./model/*"],
       "@service": ["./service"],
-      "@shared": ["./shared"],
-      "@view": ["./view"],
-      "@body/*": ["./body/*"],
       "@service/*": ["./service/*"],
+      "@shared": ["./shared"],
       "@shared/*": ["./shared/*"],
+      "@view": ["./view"],
       "@view/*": ["./view/*"]
     }
   }

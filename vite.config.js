@@ -8,11 +8,13 @@ const pathTo = (path) => fileURLToPath(new URL(path, import.meta.url));
 export default defineConfig(() => {
   return {
     plugins: [vue(), checker({ vueTsc: true, root: "../" })],
-    root: "./view",
+    root: "./main",
     envDir: "../",
     resolve: {
       alias: {
-        "@body": pathTo("./body"),
+        "@controller": pathTo("./controller"),
+        "@main": pathTo("./main"),
+        "@model": pathTo("./model"),
         "@service": pathTo("./service"),
         "@shared": pathTo("./shared"),
         "@view": pathTo("./view"),
@@ -20,7 +22,7 @@ export default defineConfig(() => {
     },
     build: {
       outDir: "../dist",
-      assetsDir: ".",
+      assetsDir: "../view/assets",
       emptyOutDir: true,
       sourcemap: true,
     },

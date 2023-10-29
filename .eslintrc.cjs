@@ -23,6 +23,10 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "vue"],
   rules: {
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
     semi: ["error", "always"],
     "no-console": [
       "warn",

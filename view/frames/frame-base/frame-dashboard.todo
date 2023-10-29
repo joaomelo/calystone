@@ -4,17 +4,19 @@ import { useT } from "@view/i18n";
 import { FrameBase } from "../frame-base";
 import { useClose } from "./use-close";
 
-defineProps({
-  title: {
-    type: String,
-    default: null,
-  },
-});
-const emit = defineEmits(["close"]);
+defineProps<Props>();
+type Props = {
+  title: string;
+};
+
+const emit = defineEmits<Emits>();
+type Emits = {
+  close: [];
+};
 
 const t = useT();
-const close = useClose();
 
+const close = useClose();
 const handleClose = () => {
   close();
   emit("close");

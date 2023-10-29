@@ -1,28 +1,32 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { ButtonBase, InputBase } from "@view/components";
 import { useT } from "@view/i18n";
 
-defineProps({
-  busy: {
-    type: Boolean,
-    default: false,
-  },
+withDefaults(defineProps<Props>(), {
+  busy: false,
 });
-const emit = defineEmits(["add"]);
+type Props = {
+  busy?: boolean;
+};
+
+const emit = defineEmits<Emits>();
+type Emits = {
+  add: [name: string];
+};
 
 const t = useT();
-const name = ref(null);
 
+const name = ref("");
 const handleAdd = () => {
-  emit("add", { name: name.value });
-  name.value = null;
+  emit("add", name.value);
+  name.value = "";
 };
 </script>
 <template>
   <div class="artifact-add">
     <input-base v-model="name" @submit="handleAdd" />
-    <button-base @click="handleAdd" :busy="busy">
+    <button-base :busy="busy" @click="handleAdd">
       {{ t("add") }}
     </button-base>
   </div>

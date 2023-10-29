@@ -1,12 +1,9 @@
-import type { InjectionKey, App } from "vue";
-import type { Predicate, Payload, Ideable } from "@shared";
+import type { Predicate, Ideable } from "@shared";
 import type { Driver } from "@service";
-import type { ArtifactPayloadWithId } from "../artifact";
+import type { ArtifactPayloadWithId, ArtifactPayload } from "../artifact";
 
 import { ArtifactsSelect } from "../select";
-import { addArtifact, delArtifact, editArtifact } from "../cases";
-
-export const artifactsKey: InjectionKey<Artifacts> = Symbol("artifacts");
+import { addArtifact, delArtifact, editArtifact } from "../mutations";
 
 export class Artifacts {
   _driver: Driver;
@@ -33,7 +30,7 @@ export class Artifacts {
     return this._select.find(predicate);
   }
 
-  async add(payload: Payload) {
+  async add(payload: ArtifactPayload) {
     await addArtifact(payload, this._driver);
   }
 
@@ -48,9 +45,5 @@ export class Artifacts {
     };
 
     await delArtifact(ideable, from);
-  }
-
-  install(app: App) {
-    app.provide(artifactsKey, this);
   }
 }
