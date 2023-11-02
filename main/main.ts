@@ -1,17 +1,17 @@
-import type { Component } from "vue";
-
 import { createApp } from "vue";
 import { Driver } from "@service";
-import { I18n } from "@view";
+import { Display, I18n } from "@view";
 import { Pilot } from "@pilot";
 import App from "./app.vue";
 
 export function initApp(elementId: string) {
+  const app = createApp(App);
+
+  const display = new Display(app);
   const connection = createConnectionFromEnv();
   const driver = new Driver(connection);
-  const pilot = new Pilot(driver);
-
-  const app = createApp(App as Component, { pilot });
+  const pilot = new Pilot({ driver, display });
+  app.provide("pilot", pilot);
 
   const i18n = new I18n(navigator.language);
   app.use(i18n);

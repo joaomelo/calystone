@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import type { Pilot } from "@pilot";
 
+import { inject } from "vue";
 import "@view/styles";
 
-defineProps<Props>();
-type Props = {
-  pilot: Pilot;
-};
+const pilot = inject("pilot") as Pilot;
 </script>
 
 <template>
-  <component
-    :is="pilot.display.page"
-    v-bind="pilot.display.props"
-    @dispatch="pilot.dispatch"
-  />
+  <router-view v-slot="{ Component }">
+    <component
+      :is="Component"
+      v-bind="pilot.props"
+      @dispatch="pilot.dispatch"
+    />
+  </router-view>
 </template>

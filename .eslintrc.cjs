@@ -23,6 +23,8 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "vue"],
   rules: {
+    "vue/component-definition-name-casing": ["error", "kebab-case"],
+    "eslint-disable-next-line @typescript-eslint/await-thenable": "off",
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
