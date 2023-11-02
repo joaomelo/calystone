@@ -1,10 +1,3 @@
-type Options = {
-  code: Code;
-  meta?: Meta;
-};
-type Code = string;
-type Meta = Record<string, unknown>;
-
 export class AppError extends Error {
   code: Code;
   meta: Meta;
@@ -17,3 +10,10 @@ export class AppError extends Error {
     Error.captureStackTrace(this, AppError);
   }
 }
+
+type Options = {
+  code: Code;
+  meta?: Meta;
+};
+type Code = string;
+type Meta = Record<string, unknown>;

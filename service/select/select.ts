@@ -11,7 +11,7 @@ export class Select<T extends ItemFields> {
   _items = reactive(new Map<ItemId, T>());
 
   constructor(name: CollectionName, driver: Driver) {
-    this._query = collection(driver.getFirestore(), name);
+    this._query = collection(driver.firestore, name);
   }
 
   async open() {

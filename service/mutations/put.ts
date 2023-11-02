@@ -5,7 +5,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 export async function put(payload: PayloadWithId, to: To) {
   const { name, driver } = to;
-  const firestore = driver.getFirestore();
+  const firestore = driver.firestore;
 
   const payloadWithMetadata = {
     ...payload,

@@ -12,9 +12,9 @@ export default defineConfig(() => {
     envDir: "../",
     resolve: {
       alias: {
-        "@controller": pathTo("./controller"),
+        "@body": pathTo("./body"),
+        "@pilot": pathTo("./pilot"),
         "@main": pathTo("./main"),
-        "@model": pathTo("./model"),
         "@service": pathTo("./service"),
         "@shared": pathTo("./shared"),
         "@view": pathTo("./view"),

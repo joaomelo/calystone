@@ -6,7 +6,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 export async function add(payload: Payload, to: To) {
   const { name, driver } = to;
-  const firestore = driver.getFirestore();
+  const firestore = driver.firestore;
 
   const id = uuid();
   const item = {

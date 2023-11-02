@@ -2,17 +2,16 @@ import type { Component } from "vue";
 
 import { createApp } from "vue";
 import { Driver } from "@service";
-import { I18n } from "@view/i18n";
-import { Control } from "@body";
+import { I18n } from "@view";
+import { Pilot } from "@pilot";
 import App from "./app.vue";
-import "./styles";
 
 export function initApp(elementId: string) {
   const connection = createConnectionFromEnv();
-  const driver = new Driver({ connection });
-  const control = new Control(driver);
+  const driver = new Driver(connection);
+  const pilot = new Pilot(driver);
 
-  const app = createApp(App as Component, { control });
+  const app = createApp(App as Component, { pilot });
 
   const i18n = new I18n(navigator.language);
   app.use(i18n);
@@ -20,7 +19,7 @@ export function initApp(elementId: string) {
   app.mount(elementId);
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-  (window as any)["$control"] = control;
+  (window as any)["$pilot"] = pilot;
 }
 
 function createConnectionFromEnv() {

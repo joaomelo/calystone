@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { Message } from "@shared";
+
+import { FrameBase } from "@view/frames";
 import { useT } from "@view/i18n";
 import { ButtonBase } from "@view/components";
 
@@ -9,17 +12,19 @@ type Props = {
 
 defineEmits<Emits>();
 type Emits = {
-  "sign-in": [];
+  dispatch: [message: Message];
 };
 
 const t = useT();
 </script>
 <template>
-  <div class="page-auth">
-    <button-base :busy="busy" @click="$emit('sign-in')">
-      {{ t("sign-in") }}
-    </button-base>
-  </div>
+  <frame-base>
+    <div class="page-auth">
+      <button-base :busy="busy" @click="$emit('dispatch', { name: 'sign-in' })">
+        {{ t("sign-in") }}
+      </button-base>
+    </div>
+  </frame-base>
 </template>
 <style scoped>
 .page-auth {

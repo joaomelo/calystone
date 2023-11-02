@@ -6,7 +6,7 @@ import { asArray } from "@shared";
 
 export async function del(idOrIds: IdeableOrIdeables, to: To) {
   const { name, driver } = to;
-  const firestore = driver.getFirestore();
+  const firestore = driver.firestore;
 
   const Ideables = asArray<Ideable>(idOrIds);
   const ids = Ideables.map((Ideable) =>

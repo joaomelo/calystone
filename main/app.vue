@@ -1,46 +1,18 @@
 <script setup lang="ts">
-import { Control } from "@controller";
+import type { Pilot } from "@pilot";
 
-import {
-  FrameBase,
-  PageAuth,
-  // PageArtifactsPlan,
-  // PageArtifactEdit,
-} from "@view";
+import "@view/styles";
 
 defineProps<Props>();
 type Props = {
-  control: Control;
+  pilot: Pilot;
 };
-
-control.dispatch({
-  name: "navigate",
-  data: {
-    context: getFromBar,
-  },
-});
 </script>
 
 <template>
-  <frame-base>
-    <template v-if="control.is('AUTHENTICATING')">
-      <page-auth @sign-in="control.dispatch({ name: 'sign-in' })" />
-    </template>
-    <template v-else-if="control.is('ARTIFACTS_PLANNING', 'ARTIFACT_EDITING')">
-      <frame-dashboard @interaction="control.dispatch">
-        <template v-if="control.is('ARTIFACTS_PLANNING')">
-          planning
-          <!-- <page-artifacts-plan @interaction="control.dispatch" /> -->
-        </template>
-        <template v-else-if="control.is('ARTIFACT_EDITING')">
-          editing
-          <!-- <page-artifact-edit
-            :artifact-id="control.context"
-            @interaction="control.dispatch"
-          /> -->
-        </template>
-      </frame-dashboard>
-    </template>
-    <template v-else>loading</template>
-  </frame-base>
+  <component
+    :is="pilot.display.page"
+    v-bind="pilot.display.props"
+    @dispatch="pilot.dispatch"
+  />
 </template>

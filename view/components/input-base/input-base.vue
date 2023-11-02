@@ -75,6 +75,10 @@ const handleUpdate = (event: Event) => {
   font-family: inherit;
 }
 
+.input-base.inline {
+  display: inline;
+}
+
 .input-base-label {
   display: block;
   margin-bottom: var(--size-00);

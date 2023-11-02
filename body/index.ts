@@ -1,2 +1,2 @@
 export * from "./artifacts";
-export * from "./use";
+export * from "./auth";
