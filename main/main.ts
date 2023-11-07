@@ -2,16 +2,21 @@ import { createApp } from "vue";
 import { Driver } from "@service";
 import { Display, I18n } from "@view";
 import { Pilot } from "@pilot";
+import { Artifacts, Auth } from "@body";
 import App from "./app.vue";
 
 export function initApp(elementId: string) {
   const app = createApp(App);
 
   const display = new Display(app);
+
   const connection = createConnectionFromEnv();
   const driver = new Driver(connection);
-  const pilot = new Pilot({ driver, display });
-  app.provide("pilot", pilot);
+  const artifacts = new Artifacts(driver);
+  const auth = new Auth();
+
+  const pilot = new Pilot({ auth, artifacts, display });
+  app.use(pilot);
 
   const i18n = new I18n(navigator.language);
   app.use(i18n);

@@ -1,26 +1,18 @@
 <script setup lang="ts">
-import type { Message } from "@shared";
-
+import { usePilot } from "@pilot";
 import { FrameBase } from "@view/frames";
 import { useT } from "@view/i18n";
-import { ButtonBase } from "@view/components";
+import { ButtonBase, useTask } from "@view/components";
 
-withDefaults(defineProps<Props>(), { busy: false });
-type Props = {
-  busy?: boolean;
-};
-
-defineEmits<Emits>();
-type Emits = {
-  dispatch: [message: Message];
-};
-
+const pilot = usePilot();
 const t = useT();
+
+const singIn = useTask(() => pilot.singIn());
 </script>
 <template>
   <frame-base>
     <div class="page-auth">
-      <button-base :busy="busy" @click="$emit('dispatch', { name: 'sign-in' })">
+      <button-base :busy="singIn.busy" @click="singIn.run">
         {{ t("sign-in") }}
       </button-base>
     </div>

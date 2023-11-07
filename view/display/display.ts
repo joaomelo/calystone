@@ -1,43 +1,50 @@
 import type { App } from "vue";
-import type { Router } from "vue-router";
+import type { Router, RouteLocation } from "vue-router";
 
 import { createRouter, createWebHistory } from "vue-router";
 import { routes } from "./routes";
 
 export class Display {
+  private readonly entry: RouteLocation & { href: string };
   private router: Router;
-  private entryPath: string;
 
   constructor(app: App) {
-    this.entryPath = window.location.pathname;
     this.router = createRouter({
       history: createWebHistory(),
       routes,
     });
+
+    const entryPath = window.location.pathname;
+    this.entry = this.router.resolve(entryPath);
+
     app.use(this.router);
   }
 
-  signIn() {
-    const entryRoute = this.router.resolve(this.entryPath);
-    const canRedirect = entryRoute && entryRoute.meta.internal;
-    if (canRedirect) return this.push(this.entryPath);
-
-    return this.plan();
+  isEntryInternal() {
+    return this.entry.meta.internal;
   }
 
-  signOut() {
-    return this.push("/page-auth");
+  toEntry() {
+    this.push(this.entry.fullPath);
   }
 
-  plan() {
-    return this.push("/page-artifacts-plan");
+  toUnsolved() {
+    this.push("/page-unsolved");
   }
 
-  edit() {
-    return this.push("/page-artifacts-edit");
+  toSignOut() {
+    this.push("/page-auth");
+  }
+
+  toPlan() {
+    this.push("/page-artifacts-plan");
+  }
+
+  toEdit() {
+    this.push("/page-artifacts-edit");
   }
 
   private push(path: string) {
-    return this.router.push(path);
+    void this.router.push(path);
   }
 }

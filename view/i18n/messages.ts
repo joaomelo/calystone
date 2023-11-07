@@ -27,10 +27,9 @@ export type MessagesKeys = [
   "save",
   "sharing",
   "sharingOf",
+  "sign-up",
   "sign-in",
-  "signIn",
-  "signOut",
-  "signUp",
+  "sign-out",
   "unarchive",
   "unloaded",
   "unsolved"
@@ -42,7 +41,9 @@ type RecordOf<T extends string[], Z> = {
 
 export const messages: Messages = {
   en: {
-    "sign-in": "enter",
+    "sign-in": "sing in",
+    "sign-out": "sign out",
+    "sign-up": "sing up",
     accept: "accept",
     add: "add",
     append: "append",
@@ -66,15 +67,14 @@ export const messages: Messages = {
     save: "save",
     sharing: "sharing",
     sharingOf: "sharing of",
-    signIn: "sign in",
-    signOut: "sign out",
-    signUp: "sign up",
     unarchive: "unarchive",
     unloaded: "please wait while we load your data",
     unsolved: "please, wait while we attempt to recover your last session",
   },
   "pt-br": {
     "sign-in": "entrar",
+    "sign-out": "sair",
+    "sign-up": "criar",
     accept: "aceitar",
     add: "novo",
     append: "acrescentar",
@@ -98,12 +98,8 @@ export const messages: Messages = {
     save: "salvar",
     sharing: "compartilhamento",
     sharingOf: "compartilhamento de",
-    signIn: "entrar",
-    signOut: "sair",
-    signUp: "criar",
     unarchive: "desarquivar",
     unloaded: "por favor, aguarde enquanto carregamos seus dados",
-    unsolved:
-      "por favor, aguarde enquanto tentamos recuperar sua última sessão",
+    unsolved: "por favor, aguarde enquanto recuperamos sua última sessão",
   },
 };

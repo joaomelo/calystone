@@ -1,17 +1,9 @@
-import { Artifacts } from "../artifacts";
-
 export class Auth {
-  private artifacts: Artifacts;
-
-  constructor(artifacts: Artifacts) {
-    this.artifacts = artifacts;
-  }
-
   async signIn() {
-    await this.artifacts.open();
+    return Promise.resolve();
   }
 
-  signOut() {
-    this.artifacts.close();
+  async signOut() {
+    return Promise.resolve();
   }
 }
