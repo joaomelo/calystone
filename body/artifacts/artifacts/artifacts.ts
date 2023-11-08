@@ -22,7 +22,7 @@ export class Artifacts {
     this._select.close();
   }
 
-  filter(predicate: Predicate) {
+  filter(predicate?: Predicate) {
     return this._select.filter(predicate);
   }
 

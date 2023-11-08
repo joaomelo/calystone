@@ -36,6 +36,10 @@ export class Pilot {
     await this.artifacts.add({ name });
   }
 
+  listArtifacts() {
+    return this.artifacts.filter();
+  }
+
   install(app: App) {
     app.provide(key, this);
   }
