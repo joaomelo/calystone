@@ -1,16 +1,12 @@
-import type { Node, Treeable } from "./treeable";
+import type { Node } from "./node";
 
 export function flatTree(tree: Node[]) {
-  const result: Treeable[] = [];
+  const result: Omit<Node, "children">[] = [];
 
-  const add = (nodes: Node[]) => {
-    nodes.forEach(({ children, ...treeable }) => {
-      result.push(treeable);
-      add(children);
-    });
-  };
-
-  add(tree);
+  tree.forEach(({ children, ...data }) => {
+    result.push(data);
+    result.push(...flatTree(children));
+  });
 
   return result;
 }

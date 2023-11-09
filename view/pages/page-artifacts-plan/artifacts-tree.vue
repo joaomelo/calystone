@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Map, Treeable } from "@shared";
+import type { Item } from "@view/components";
 
 import { computed } from "vue";
-import { treeify } from "@shared";
+import { treeify, mapTree } from "@shared";
 import { usePilot } from "@pilot";
 import { ListBase } from "@view/components";
 import { useT } from "@view/i18n";
@@ -16,19 +16,19 @@ const actions = [editAction, appendAction, delAction];
 
 const pilot = usePilot();
 const artifacts = pilot.listArtifacts();
-const map = (artifact: Treeable) => ({
-  id: artifact.id,
-  parentId: artifact.parentId,
-  value: artifact.id,
-  text: artifact.title,
-  actions,
-});
-const tree = computed(() => {
+
+const items: Item[] = computed(() => {
   const tree = treeify(artifacts.value);
+  const items = mapTree(tree, (a) => ({
+    value: a.id,
+    text: a.title,
+    actions,
+  }));
+  return items;
 });
 
 const handleAction = ({ action, item }) => emit(action, item.id);
 </script>
 <template>
-  <list-base :items="tree" @action="handleAction" />
+  <list-base :items="items" @action="handleAction" />
 </template>

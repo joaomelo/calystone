@@ -1,5 +1,3 @@
-import type { IsRoot, Map } from "./treeable";
-
 import { describe, test, expect } from "vitest";
 import { treeify } from "./treeify";
 
@@ -20,7 +18,7 @@ describe("treeify", () => {
 
     expect(tree).toEqual([
       { ...a, children: [] },
-      { ...b, parentId: null, children: [] },
+      { ...b, children: [] },
     ]);
   });
 
@@ -28,34 +26,14 @@ describe("treeify", () => {
     const tree = treeify([b, a1, b1, a11, a]);
 
     expect(tree).toEqual([
-      { ...b, parentId: null, children: [{ ...b1, children: [] }] },
+      {
+        ...b,
+        children: [{ ...b1, children: [] }],
+      },
       {
         ...a,
         children: [{ ...a1, children: [{ ...a11, children: [] }] }],
       },
     ]);
-  });
-
-  test("is able to map data preserving default fields", () => {
-    const map: Map = ({ id, archivedAt }) => ({ id, isArchived: !!archivedAt });
-    const tree = treeify([b, b1], { map });
-
-    expect(tree).toEqual([
-      {
-        id: b.id,
-        parentId: null,
-        isArchived: false,
-        children: [
-          { id: b1.id, isArchived: true, parentId: b1.parentId, children: [] },
-        ],
-      },
-    ]);
-  });
-
-  test("accepts arbitrary roots", () => {
-    const isRoot: IsRoot = ({ id }) => id === a1.id;
-    const tree = treeify([b1, a11, a, a1, b], { isRoot });
-
-    expect(tree).toEqual([{ ...a1, children: [{ ...a11, children: [] }] }]);
   });
 });

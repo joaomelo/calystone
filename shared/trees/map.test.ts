@@ -1,0 +1,50 @@
+import type { Map } from "./map";
+
+import { describe, test, expect } from "vitest";
+import { treeify } from "./treeify";
+import { mapTree } from "./map";
+
+describe("map tree", () => {
+  const a = { id: "a", parentId: null };
+  const a1 = { id: "a1", parentId: "a" };
+  const a11 = { id: "a11", parentId: "a1", archivedAt: new Date() };
+  const b = { id: "b" };
+  const b1 = { id: "b1", archivedAt: new Date(), parentId: "b" };
+  const tree = treeify([a, a1, a11, b, b1]);
+
+  test("is able to map data preserving default fields", () => {
+    const map: Map = ({ id, archivedAt }) => ({ id, isArchived: !!archivedAt });
+    const newTree = mapTree(tree, map);
+
+    expect(newTree).toEqual([
+      {
+        id: a.id,
+        isArchived: false,
+        children: [
+          {
+            id: a1.id,
+            isArchived: false,
+            children: [
+              {
+                id: a11.id,
+                isArchived: true,
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: b.id,
+        isArchived: false,
+        children: [
+          {
+            id: b1.id,
+            isArchived: true,
+            children: [],
+          },
+        ],
+      },
+    ]);
+  });
+});

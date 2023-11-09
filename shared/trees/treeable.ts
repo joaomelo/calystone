@@ -5,10 +5,3 @@ export type Treeable = {
   parentId?: ItemId | null;
   [key: string]: unknown;
 };
-
-export type Node = Treeable & {
-  children: Node[];
-};
-
-export type IsRoot = (treeable: Treeable) => boolean;
-export type Map = (treeable: Treeable) => Treeable;

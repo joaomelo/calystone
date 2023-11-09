@@ -1,5 +1,6 @@
+export * from "./filter";
 export * from "./flat";
 export * from "./is-child-of";
-export * from "./is-root";
+export * from "./map";
 export * from "./treeable";
 export * from "./treeify";
