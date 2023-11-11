@@ -1,6 +1,6 @@
 <script setup>
+import { useI18n } from "@lib";
 import { FrameBase } from "@view/frames";
-import { useT } from "@view/i18n";
 
 const t = useT();
 </script>
