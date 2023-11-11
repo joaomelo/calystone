@@ -1,5 +1,5 @@
 import type { Unsubscribe, CollectionReference } from "firebase/firestore";
-import type { ItemId, ItemFields, Predicate, CollectionName } from "@shared";
+import type { ItemId, ItemFields, Predicate, CollectionName } from "@lib";
 import type { Driver } from "../driver";
 
 import { computed, reactive } from "vue";

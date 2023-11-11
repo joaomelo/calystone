@@ -2,7 +2,7 @@
 import type { CollapseStatus, Item, ItemAction } from "./item";
 
 import { ref, computed, watch } from "vue";
-import { hasElements } from "@shared";
+import { hasElements } from "@lib";
 import { ActionsMenu } from "../actions-menu";
 import CollapseSymbol from "./collapse-symbol.vue";
 

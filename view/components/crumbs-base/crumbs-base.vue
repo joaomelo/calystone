@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Option, Value } from "../shared";
-import { hasElements } from "@shared";
+import { hasElements } from "@lib";
 
 type Props = {
   crumbs: Option[];

@@ -1,4 +1,4 @@
-import type { Payload } from "@shared";
+import type { Payload } from "@lib";
 import type { To } from "./to";
 
 import { v4 as uuid } from "uuid";

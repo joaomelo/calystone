@@ -2,7 +2,7 @@
 import type { Item } from "@view/components";
 
 import { computed } from "vue";
-import { treeify, mapTree } from "@shared";
+import { treeify, mapTree } from "@lib";
 import { usePilot } from "@pilot";
 import { ListBase } from "@view/components";
 import { useT } from "@view/i18n";

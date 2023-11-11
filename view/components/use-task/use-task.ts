@@ -1,5 +1,5 @@
 import { reactive } from "vue";
-import { messageFrom } from "@shared";
+import { messageFrom } from "@lib";
 
 type Callback<Payload> = (payload: Payload) => Promise<void>;
 

@@ -1,7 +1,7 @@
-import type { WithId } from "@shared";
+import type { WithId } from "@lib";
 
 import { z } from "zod";
-import { itemFieldsSchema } from "@shared";
+import { itemFieldsSchema } from "@lib";
 
 const statuses = ["active", "completed"] as const;
 

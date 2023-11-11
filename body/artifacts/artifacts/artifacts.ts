@@ -1,4 +1,4 @@
-import type { Predicate, Ideable } from "@shared";
+import type { Predicate, Ideable } from "@lib";
 import type { Driver } from "@service";
 import type { ArtifactPayloadWithId, ArtifactPayload } from "../artifact";
 

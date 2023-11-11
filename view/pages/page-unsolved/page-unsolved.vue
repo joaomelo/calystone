@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { FrameBase } from "@view/frames";
 import { useT } from "@view/i18n";
 

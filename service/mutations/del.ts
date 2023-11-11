@@ -1,8 +1,8 @@
-import type { IdeableOrIdeables, Ideable } from "@shared";
+import type { IdeableOrIdeables, Ideable } from "@lib";
 import type { To } from "./to";
 
 import { doc, deleteDoc } from "firebase/firestore";
-import { asArray } from "@shared";
+import { asArray } from "@lib";
 
 export async function del(idOrIds: IdeableOrIdeables, to: To) {
   const { name, driver } = to;

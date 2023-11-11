@@ -1,5 +1,5 @@
-import type { Payload } from "@shared/data";
-import type { AppError } from "@shared/errors";
+import type { Payload } from "@lib/data";
+import type { AppError } from "@lib/errors";
 
 export type Action = {
   name: string;

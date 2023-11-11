@@ -1,30 +1,31 @@
 import { createApp } from "vue";
-import { Driver } from "@service";
-import { Display, I18n } from "@view";
-import { Pilot } from "@pilot";
-import { Artifacts, Auth } from "@body";
+// import { Driver } from "@service";
+import { Display } from "@view";
+// import { Display, I18n } from "@view";
+// import { Pilot } from "@pilot";
+// import { Artifacts, Auth } from "@body";
 import App from "./app.vue";
 
-export function initApp(elementId: string) {
+export function initApp(elementId) {
   const app = createApp(App);
 
   const display = new Display(app);
 
-  const connection = createConnectionFromEnv();
-  const driver = new Driver(connection);
-  const artifacts = new Artifacts(driver);
-  const auth = new Auth();
+  // const connection = createConnectionFromEnv();
+  // const driver = new Driver(connection);
+  // const artifacts = new Artifacts(driver);
+  // const auth = new Auth();
 
-  const pilot = new Pilot({ auth, artifacts, display });
-  app.use(pilot);
+  // const pilot = new Pilot({ auth, artifacts, display });
+  // app.use(pilot);
 
-  const i18n = new I18n(navigator.language);
-  app.use(i18n);
+  // const i18n = new I18n(navigator.language);
+  // app.use(i18n);
 
   app.mount(elementId);
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-  (window as any)["$pilot"] = pilot;
+  // // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+  // (window as any)["$pilot"] = pilot;
 }
 
 function createConnectionFromEnv() {

@@ -1,4 +1,4 @@
-import type { Payload } from "@shared";
+import type { Payload } from "@lib";
 
 export interface State {
   readonly name: string;

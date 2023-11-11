@@ -1,4 +1,4 @@
-import type { PayloadWithId } from "@shared";
+import type { PayloadWithId } from "@lib";
 import type { To } from "./to";
 
 import { doc, setDoc } from "firebase/firestore";
