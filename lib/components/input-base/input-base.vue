@@ -1,34 +1,19 @@
-<script setup lang="ts">
-import type { Option } from "../shared";
+<script setup>
+import { computed } from "vue";
+import { asOptions } from "../options";
 
-type Props = {
-  modelValue: string;
-  type?: string;
-  label?: string;
-  options?: Option[];
-  rows?: string;
-  inline?: boolean;
-};
-withDefaults(defineProps<Props>(), {
-  type: "text",
-  rows: "5",
-  boolean: false,
-  label: undefined,
-  options: () => [],
-  inline: false,
+const props = defineProps({
+  inline: { type: Boolean, default: false },
+  label: { type: String, default: null },
+  modelValue: { type: String, required: true },
+  options: { type: Array, default: () => [] },
+  rows: { type: String, default: "5" },
+  type: { type: String, default: "text" },
 });
+const emit = defineEmits(["update:modelValue"]);
 
-type Emits = {
-  "update:modelValue": [value: string | null];
-  submit: [];
-};
-const emit = defineEmits<Emits>();
-
-const handleUpdate = (event: Event) => {
-  if (!event || !event.target) emit("update:modelValue", null);
-  const { value = "" } = event.target as HTMLInputElement;
-  emit("update:modelValue", value);
-};
+const normalizedOptions = computed(() => asOptions(props.options));
+const handleUpdate = (event) => emit("update:modelValue", event?.target?.value);
 </script>
 <template>
   <div class="input-base" :class="{ inline }">
@@ -39,7 +24,6 @@ const handleUpdate = (event: Event) => {
         :value="modelValue"
         class="input-base-input text"
         @input="handleUpdate"
-        @keyup.enter="$emit('submit')"
       />
     </template>
     <template v-if="type === 'textarea'">
@@ -57,7 +41,7 @@ const handleUpdate = (event: Event) => {
         @input="handleUpdate"
       >
         <option
-          v-for="option in options"
+          v-for="option in normalizedOptions"
           :key="option.value"
           :value="option.value"
           :disabled="option.inactive"

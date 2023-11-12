@@ -1,13 +1,8 @@
-<script setup lang="ts">
-import { useI18n } from "@view/i18n";
-import { InputBase, asOptions } from "@view/components";
+<script setup>
+import { useI18n, InputBase } from "@lib";
 
-const i18n = useI18n();
-const supported = asOptions(i18n.supported);
-const handleUpdate = (locale: string | null) => {
-  if (!locale) return;
-  i18n.updateLocale(locale);
-};
+const { i18n } = useI18n();
+const handleUpdate = (locale) => i18n.updateLocale(locale);
 </script>
 <template>
   <div class="frame-base">
@@ -18,7 +13,7 @@ const handleUpdate = (locale: string | null) => {
       <span>calystone</span>
       <span class="frame-base-footer-divider">·</span>
       <input-base
-        :options="supported"
+        :options="i18n.supported"
         type="select"
         :model-value="i18n.locale"
         inline

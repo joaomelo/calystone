@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 // import { Driver } from "@service";
-import { Display } from "@view";
-// import { Display, I18n } from "@view";
+import { createRouter, messages } from "@view";
+import { I18n } from "@lib";
 // import { Pilot } from "@pilot";
 // import { Artifacts, Auth } from "@body";
 import App from "./app.vue";
@@ -9,7 +9,8 @@ import App from "./app.vue";
 export function initApp(elementId) {
   const app = createApp(App);
 
-  const display = new Display(app);
+  const router = createRouter();
+  app.use(router);
 
   // const connection = createConnectionFromEnv();
   // const driver = new Driver(connection);
@@ -19,8 +20,8 @@ export function initApp(elementId) {
   // const pilot = new Pilot({ auth, artifacts, display });
   // app.use(pilot);
 
-  // const i18n = new I18n(navigator.language);
-  // app.use(i18n);
+  const i18n = new I18n({ locale: navigator.language, messages });
+  app.use(i18n);
 
   app.mount(elementId);
 

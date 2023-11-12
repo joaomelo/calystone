@@ -15,7 +15,7 @@ export default defineConfig(() => {
         "@body": pathTo("./body"),
         "@main": pathTo("./main"),
         "@service": pathTo("./service"),
-        "@lib": pathTo("./shared"),
+        "@lib": pathTo("./lib"),
         "@view": pathTo("./view"),
       },
     },

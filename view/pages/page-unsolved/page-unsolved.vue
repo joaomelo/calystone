@@ -2,12 +2,12 @@
 import { useI18n } from "@lib";
 import { FrameBase } from "@view/frames";
 
-const t = useT();
+const { t } = useI18n();
 </script>
 <template>
   <frame-base>
     <div class="page-unsolved">
-      {{ t("unsolved") }}
+      {{ t("page-unsolved.unsolved") }}
     </div>
   </frame-base>
 </template>
@@ -19,6 +19,7 @@ const t = useT();
   justify-content: center;
   align-items: center;
 
-  font-size: var(--font-size-40);
+  font-size: var(--font-size-30);
+  text-align: center;
 }
 </style>
