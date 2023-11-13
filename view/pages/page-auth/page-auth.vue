@@ -1,20 +1,21 @@
-<script setup lang="ts">
-import { usePilot } from "@pilot";
+<script setup>
+// import { usePilot } from "@pilot";
 import { FrameBase } from "@view/frames";
-import { useT } from "@view/i18n";
-import { ButtonBase, useTask } from "@view/components";
+// import { useT } from "@view/i18n";
+// import { ButtonBase, useTask } from "@view/components";
 
-const pilot = usePilot();
-const t = useT();
+// const pilot = usePilot();
+// const t = useT();
 
-const singIn = useTask(() => pilot.singIn());
+// const singIn = useTask(() => pilot.singIn());
 </script>
 <template>
   <frame-base>
     <div class="page-auth">
-      <button-base :busy="singIn.busy" @click="singIn.run">
+      auth
+      <!-- <button-base :busy="singIn.busy" @click="singIn.run">
         {{ t("sign-in") }}
-      </button-base>
+      </button-base> -->
     </div>
   </frame-base>
 </template>

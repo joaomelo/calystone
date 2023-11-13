@@ -1,14 +1,14 @@
 import {
   // PageArtifactEdit,
   // PageArtifactsPlan,
-  // PageAuth,
+  PageAuth,
   PageUnsolved,
 } from "@view/pages";
 
 export const routes = [
   { path: "/", redirect: "/page-unsolved" },
   { path: "/page-unsolved", name: "page-unsolved", component: PageUnsolved },
-  // { path: "/page-auth", component: PageAuth },
+  { path: "/page-auth", name: "page-auth", component: PageAuth },
   // {
   //   path: "/page-artifacts-plan",
   //   component: PageArtifactsPlan,

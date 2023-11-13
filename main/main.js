@@ -1,32 +1,30 @@
 import { createApp } from "vue";
-// import { Driver } from "@service";
+import { Driver, I18n, Auth } from "@lib";
 import { createRouter, messages } from "@view";
-import { I18n } from "@lib";
-// import { Pilot } from "@pilot";
-// import { Artifacts, Auth } from "@body";
+import { Pilot } from "@pilot";
 import App from "./app.vue";
 
 export function initApp(elementId) {
   const app = createApp(App);
 
-  const router = createRouter();
-  app.use(router);
-
-  // const connection = createConnectionFromEnv();
-  // const driver = new Driver(connection);
-  // const artifacts = new Artifacts(driver);
-  // const auth = new Auth();
-
-  // const pilot = new Pilot({ auth, artifacts, display });
-  // app.use(pilot);
-
   const i18n = new I18n({ locale: navigator.language, messages });
   app.use(i18n);
 
+  const router = createRouter();
+  app.use(router);
+
+  const connection = createConnectionFromEnv();
+  const driver = new Driver(connection);
+  // const artifacts = new Artifacts(driver);
+  const auth = new Auth(driver);
+
+  const pilot = new Pilot({ auth, router });
+  app.use(pilot);
+  window.$pilot = pilot;
+
   app.mount(elementId);
 
-  // // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-  // (window as any)["$pilot"] = pilot;
+  pilot.start();
 }
 
 function createConnectionFromEnv() {

@@ -14,6 +14,7 @@ export default defineConfig(() => {
       alias: {
         "@body": pathTo("./body"),
         "@main": pathTo("./main"),
+        "@pilot": pathTo("./pilot"),
         "@service": pathTo("./service"),
         "@lib": pathTo("./lib"),
         "@view": pathTo("./view"),
