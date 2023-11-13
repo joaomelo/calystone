@@ -5,7 +5,7 @@ import { asOptions } from "../options";
 const props = defineProps({
   inline: { type: Boolean, default: false },
   label: { type: String, default: null },
-  modelValue: { type: String, required: true },
+  modelValue: { type: String, default: null },
   options: { type: Array, default: () => [] },
   rows: { type: String, default: "5" },
   type: { type: String, default: "text" },
@@ -18,14 +18,6 @@ const handleUpdate = (event) => emit("update:modelValue", event?.target?.value);
 <template>
   <div class="input-base" :class="{ inline }">
     <label v-if="label" class="input-base-label">{{ label }}</label>
-    <template v-if="type === 'text'">
-      <input
-        :type="type"
-        :value="modelValue"
-        class="input-base-input text"
-        @input="handleUpdate"
-      />
-    </template>
     <template v-if="type === 'textarea'">
       <textarea
         :value="modelValue"
@@ -34,7 +26,7 @@ const handleUpdate = (event) => emit("update:modelValue", event?.target?.value);
         @input="handleUpdate"
       ></textarea>
     </template>
-    <template v-if="type === 'select'">
+    <template v-else-if="type === 'select'">
       <select
         :value="modelValue"
         class="input-base-input select"
@@ -49,6 +41,14 @@ const handleUpdate = (event) => emit("update:modelValue", event?.target?.value);
           {{ option.text }}
         </option>
       </select>
+    </template>
+    <template v-else>
+      <input
+        :type="type"
+        :value="modelValue"
+        class="input-base-input text"
+        @input="handleUpdate"
+      />
     </template>
   </div>
 </template>

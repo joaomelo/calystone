@@ -1,9 +1,6 @@
-<script setup lang="ts">
-type Props = {
-  show?: boolean;
-};
-withDefaults(defineProps<Props>(), {
-  show: false,
+<script setup>
+defineProps({
+  show: { type: Boolean, default: false },
 });
 </script>
 <template>
