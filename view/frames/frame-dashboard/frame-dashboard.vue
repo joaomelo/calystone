@@ -1,16 +1,13 @@
-<script setup lang="ts">
+<script setup>
+import { useI18n, ButtonBase, useTask } from "@lib";
 import { usePilot } from "@pilot";
-import { ButtonBase, useTask } from "@view/components";
-import { useT } from "@view/i18n";
 import { FrameBase } from "../frame-base";
 
-defineProps<Props>();
-type Props = {
-  title: string;
-};
+defineProps({
+  title: { type: String, default: null },
+});
 
-const t = useT();
-
+const { t } = useI18n();
 const pilot = usePilot();
 const signOut = useTask(() => pilot.signOut());
 </script>
@@ -25,10 +22,9 @@ const signOut = useTask(() => pilot.signOut());
           <button-base
             class="frame-dashboard-close"
             :busy="signOut.busy"
+            :label="t('frame-dashboard.sign-out')"
             @click="signOut.run"
-          >
-            {{ t("sign-out") }}
-          </button-base>
+          />
         </div>
       </nav>
       <slot></slot>

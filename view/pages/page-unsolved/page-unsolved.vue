@@ -1,8 +1,15 @@
 <script setup>
+import { onMounted } from "vue";
 import { useI18n } from "@lib";
+import { usePilot } from "@pilot";
 import { FrameBase } from "@view/frames";
 
 const { t } = useI18n();
+const pilot = usePilot();
+
+onMounted(() => {
+  pilot.start();
+});
 </script>
 <template>
   <frame-base>

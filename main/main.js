@@ -24,8 +24,6 @@ export function initApp(elementId) {
   window.$pilot = pilot;
 
   app.mount(elementId);
-
-  pilot.start();
 }
 
 function createConnectionFromEnv() {

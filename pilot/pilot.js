@@ -15,9 +15,13 @@ export class Pilot {
 
   async start() {
     const status = await this.auth.open();
-    const name =
-      status === AUTH_STATUSES.SIGNED_IN ? "page-artifacts-plan" : "page-auth";
-    this.router.push({ name });
+
+    if (status === AUTH_STATUSES.SIGNED_IN) {
+      await this.artifacts.open();
+      this.router.push({ name: "page-artifacts-plan" });
+    } else {
+      this.router.push({ name: "page-auth" });
+    }
   }
 
   async signIn(payload) {
@@ -26,11 +30,12 @@ export class Pilot {
     this.router.push({ name: "page-artifacts-plan" });
   }
 
-  // async signOut() {
-  //   await this.auth.signOut();
-  //   this.artifacts.close();
-  //   this.router.toSignOut();
-  // }
+  async signOut() {
+    await this.auth.signOut();
+    this.artifacts.close();
+    this.router.push({ name: "page-auth" });
+  }
+
   // async addArtifact(name: string) {
   //   await this.artifacts.add({ name });
   // }
