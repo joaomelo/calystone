@@ -1,5 +1,5 @@
 <script setup>
-// import { HeadingText } from "@view/components";
+// import { TextHeading } from "@view/components";
 // import { LayoutDashboard } from "@view/layouts";
 // import { useT } from "@view/i18n";
 // import { FrameDashboard } from "@view/frames";

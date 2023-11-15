@@ -14,20 +14,18 @@ export class Pilot {
   }
 
   async start() {
-    const status = await this.auth.solve();
-    const name = status === AUTH_STATUSES.SIGNED_IN ? "page-plan" : "page-auth";
+    const status = await this.auth.open();
+    const name =
+      status === AUTH_STATUSES.SIGNED_IN ? "page-artifacts-plan" : "page-auth";
     this.router.push({ name });
   }
 
-  // async singIn() {
-  //   await this.auth.signIn();
-  //   await this.artifacts.open();
-  //   if (this.router.isEntryInternal()) {
-  //     this.router.toEntry();
-  //   } else {
-  //     this.router.toPlan();
-  //   }
-  // }
+  async signIn(payload) {
+    await this.auth.signIn(payload);
+    await this.artifacts.open();
+    this.router.push({ name: "page-artifacts-plan" });
+  }
+
   // async signOut() {
   //   await this.auth.signOut();
   //   this.artifacts.close();

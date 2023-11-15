@@ -5,42 +5,40 @@ import { FrameBase } from "@view/frames";
 import {
   ButtonBase,
   ButtonsPanel,
-  HeadingText,
+  TextHeading,
   InputBase,
   useI18n,
   useTask,
+  FormBase,
 } from "@lib";
 
 const { t } = useI18n();
 const pilot = usePilot();
 const payload = reactive({ email: null, password: null });
-const singIn = useTask(() => pilot.singIn(payload));
+const signIn = useTask(() => pilot.signIn(payload));
 </script>
 <template>
   <frame-base>
-    <div class="page-auth">
-      <heading-text>calystone</heading-text>
-      <input-base v-model="payload.email" :label="t('email')" />
+    <text-heading class="page-auth-heading">calystone</text-heading>
+    <form-base :error="signIn.error">
+      <input-base v-model="payload.email" :label="t('page-auth.email')" />
       <input-base
         v-model="payload.password"
         type="password"
-        :label="t('password')"
+        :label="t('page-auth.password')"
       />
       <buttons-panel>
         <button-base
-          :busy="singIn.busy"
-          :label="t('sign-in')"
-          @click="singIn.run"
+          :busy="signIn.busy"
+          :label="t('page-auth.sign-in')"
+          @click="signIn.run"
         />
       </buttons-panel>
-    </div>
+    </form-base>
   </frame-base>
 </template>
 <style scoped>
-.page-auth {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-20);
+.page-auth-heading {
+  margin-bottom: var(--size-20);
 }
 </style>

@@ -1,30 +1,26 @@
-<script setup lang="ts">
-import { OverlayBase } from "../overlay-base";
+<script setup>
+import { OverlayBase, ButtonsPanel, TextAlert } from "@lib";
 
-type Props = {
-  busy?: boolean;
-};
-withDefaults(defineProps<Props>(), {
-  busy: false,
+defineProps({
+  busy: { type: Boolean, default: false },
+  error: { type: String, default: null },
 });
-const emit = defineEmits<{
-  submit: [];
-}>();
+const emit = defineEmits("submit");
 
 const handleSubmit = () => emit("submit");
 </script>
 <template>
-  <div>
+  <overlay-base :show="busy">
     <form @submit.prevent="handleSubmit">
       <div class="form-base-content">
+        <text-alert v-if="error" icon="error" :text="error" />
         <slot></slot>
       </div>
-      <div class="form-base-buttons">
+      <buttons-panel>
         <slot name="buttons"></slot>
-      </div>
+      </buttons-panel>
     </form>
-    <overlay-base :show="busy" />
-  </div>
+  </overlay-base>
 </template>
 
 <style scoped>

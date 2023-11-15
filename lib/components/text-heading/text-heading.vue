@@ -4,10 +4,10 @@ defineProps({
 });
 </script>
 <template>
-  <h1 class="heading-text" :class="{ clipped }"><slot></slot></h1>
+  <h1 class="text-heading" :class="{ clipped }"><slot></slot></h1>
 </template>
 <style scoped>
-.heading-text {
+.text-heading {
   font-size: var(--font-size-30);
   font-weight: var(--font-weight-30);
 }
