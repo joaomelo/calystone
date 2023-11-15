@@ -1,11 +1,11 @@
 <script setup>
-import { useI18n } from "@lib";
-import { FrameDashboard } from "@view/frames";
 // import { TextHeading } from "@view/components";
 // import { LayoutDashboard } from "@view/layouts";
 // import { useAddArtifact } from "./use-add-artifact";
-// import ArtifactAdd from "./artifact-add.vue";
 // import ArtifactsTree from "./artifacts-tree.vue";
+import { useI18n } from "@lib";
+import { FrameDashboard } from "@view/frames";
+import ArtifactAdd from "./artifact-add.vue";
 
 // defineEmits(["edit", "close"]);
 
@@ -16,8 +16,8 @@ const { t } = useI18n();
 </script>
 <template>
   <frame-dashboard :title="t('plan')">
-    <!-- <artifact-add class="page-artifacts-plan-add" />
-     <artifacts-tree
+    <artifact-add class="page-artifacts-plan-add" />
+    <!-- <artifacts-tree
         :artifacts="artifacts"
         @edit="$emit('edit', $event)"
         @append="addTask.run({ name: '', parentId: $event })"
