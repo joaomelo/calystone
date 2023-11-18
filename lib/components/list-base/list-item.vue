@@ -1,23 +1,18 @@
-<script setup lang="ts">
-import type { CollapseStatus, Item, ItemAction } from "./item";
-
+<script setup>
 import { ref, computed, watch } from "vue";
-import { hasElements } from "@lib";
-import { ActionsMenu } from "../actions-menu";
+import { hasElements, ActionsMenu } from "@lib";
+import { COLLAPSE_STATUSES } from "./collapse-statuses";
 import CollapseSymbol from "./collapse-symbol.vue";
 
-type Props = {
-  item: Item;
-};
-const props = defineProps<Props>();
+const props = defineProps({
+  item: { type: Object, default: () => ({}) },
+});
+defineEmits(["action"]);
 
-type Emits = {
-  itemAction: [value: ItemAction];
-};
-defineEmits<Emits>();
-
-const initialCollapseStatus = computed<CollapseStatus>(() =>
-  hasElements(props.item.children) ? "open" : "flat"
+const initialCollapseStatus = computed(() =>
+  hasElements(props.item.children)
+    ? COLLAPSE_STATUSES.OPEN
+    : COLLAPSE_STATUSES.FLAT
 );
 const collapseStatus = ref(initialCollapseStatus.value);
 watch(initialCollapseStatus, (newValue) => (collapseStatus.value = newValue));
@@ -29,22 +24,22 @@ watch(initialCollapseStatus, (newValue) => (collapseStatus.value = newValue));
       <div class="list-base-content" :class="{ inactive: item.inactive }">
         {{ item.text }}
       </div>
-      <div class="list-base-actions">
-        <actions-menu
-          v-if="item.actions"
-          :actions="item.actions"
-          @action="$emit('itemAction', { action: $event, item: item.value })"
-        />
-      </div>
-    </div>
-    <div v-if="collapseStatus === 'open'" class="list-base-item-children">
-      <template v-for="child in item.children" :key="child.id">
-        <list-base-item
-          :item="child"
-          @item-action="$emit('itemAction', $event)"
-        />
+      <template v-if="hasElements(item.actions)">
+        <div class="list-base-actions">
+          <actions-menu
+            :actions="item.actions"
+            @action="$emit('action', { action: $event, item: item.value })"
+          />
+        </div>
       </template>
     </div>
+    <template v-if="collapseStatus === COLLAPSE_STATUSES.OPEN">
+      <div class="list-base-item-children">
+        <template v-for="child in item.children" :key="child.id">
+          <list-item :item="child" @action="$emit('action', $event)" />
+        </template>
+      </div>
+    </template>
   </div>
 </template>
 <style scoped>

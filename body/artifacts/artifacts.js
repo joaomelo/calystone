@@ -1,5 +1,4 @@
 import { Mutator, Select } from "@lib";
-// import { treeify, flatTree, extractId } from "@lib";
 import { validate } from "./validate";
 
 export class Artifacts {
@@ -23,16 +22,12 @@ export class Artifacts {
     return this.select.close();
   }
 
-  list() {
-    return this.select.list();
+  list(predicate) {
+    return this.select.list(predicate);
   }
 
-  filter(predicate) {
-    return this.select.filter(predicate);
-  }
-
-  find(predicate) {
-    return this.select.find(predicate);
+  computed(getter, predicate) {
+    return this.select.computed(getter, predicate);
   }
 
   add(payload) {

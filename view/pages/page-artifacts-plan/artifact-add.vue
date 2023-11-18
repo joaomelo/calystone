@@ -1,24 +1,17 @@
 <script setup>
-import { reactive } from "vue";
-import { ButtonBase, InputBase, useTask, useI18n } from "@lib";
-import { usePilot } from "@pilot";
+import { ButtonBase, InputBase, useI18n } from "@lib";
+import { useCase } from "@pilot";
 
 const { t } = useI18n();
-const pilot = usePilot();
-
-const payload = reactive({ name: null });
-const add = useTask(async () => {
-  await pilot.addArtifact(payload);
-  payload.name = null;
-});
+const { task, payload } = useCase("artifactAddCase");
 </script>
 <template>
   <div class="artifact-add">
     <input-base v-model="payload.name" />
     <button-base
-      :busy="add.busy"
+      :busy="task.busy"
       :label="t('page-artifacts-plan.add')"
-      @click="add.run"
+      @click="task.run"
     />
   </div>
 </template>

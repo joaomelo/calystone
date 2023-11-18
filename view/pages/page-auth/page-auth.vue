@@ -1,6 +1,5 @@
 <script setup>
-import { usePilot } from "@pilot";
-import { reactive } from "vue";
+import { useCase } from "@pilot";
 import { FrameBase } from "@view/frames";
 import {
   ButtonBase,
@@ -8,19 +7,16 @@ import {
   TextHeading,
   InputBase,
   useI18n,
-  useTask,
   FormBase,
 } from "@lib";
 
 const { t } = useI18n();
-const pilot = usePilot();
-const payload = reactive({ email: null, password: null });
-const signIn = useTask(() => pilot.signIn(payload));
+const { payload, task } = useCase("signInCase");
 </script>
 <template>
   <frame-base>
     <text-heading class="page-auth-heading">calystone</text-heading>
-    <form-base :error="signIn.error">
+    <form-base :error="task.error">
       <input-base v-model="payload.email" :label="t('page-auth.email')" />
       <input-base
         v-model="payload.password"
@@ -29,9 +25,9 @@ const signIn = useTask(() => pilot.signIn(payload));
       />
       <buttons-panel>
         <button-base
-          :busy="signIn.busy"
+          :busy="task.busy"
           :label="t('page-auth.sign-in')"
-          @click="signIn.run"
+          @click="task.run"
         />
       </buttons-panel>
     </form-base>

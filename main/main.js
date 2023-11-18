@@ -23,6 +23,9 @@ export function initApp(elementId) {
   app.use(pilot);
   window.$pilot = pilot;
 
+  const { task } = pilot.unsolveCase();
+  task.run();
+
   app.mount(elementId);
 }
 

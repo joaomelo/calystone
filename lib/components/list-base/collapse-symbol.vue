@@ -1,27 +1,31 @@
-<script setup lang="ts">
-import type { CollapseStatus } from "./item";
-
+<script setup>
 import { computed } from "vue";
+import { COLLAPSE_STATUSES } from "./collapse-statuses";
 
-type Props = {
-  modelValue: CollapseStatus;
-};
-const props = defineProps<Props>();
+const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true,
+  },
+});
 
-type Emits = {
-  "update:modelValue": [status: CollapseStatus];
-};
-const emit = defineEmits<Emits>();
+const emit = defineEmits(["update:modelValue"]);
 
 const char = computed(() =>
-  props.modelValue === "flat" ? "•" : props.modelValue === "open" ? "▼" : "►"
+  props.modelValue === COLLAPSE_STATUSES.FLAT
+    ? "•"
+    : props.modelValue === COLLAPSE_STATUSES.OPEN
+    ? "▼"
+    : "►"
 );
-const collapsable = computed(() => props.modelValue !== "flat");
+const collapsable = computed(() => props.modelValue !== COLLAPSE_STATUSES.FLAT);
 
 const handleClick = () => {
-  if (props.modelValue === "flat") return;
-  const newValue: CollapseStatus =
-    props.modelValue === "open" ? "closed" : "open";
+  if (props.modelValue === COLLAPSE_STATUSES.FLAT) return;
+  const newValue =
+    props.modelValue === COLLAPSE_STATUSES.OPEN
+      ? COLLAPSE_STATUSES.CLOSED
+      : COLLAPSE_STATUSES.OPEN;
   emit("update:modelValue", newValue);
 };
 </script>

@@ -1,15 +1,13 @@
 <script setup>
 import { onMounted } from "vue";
 import { useI18n } from "@lib";
-import { usePilot } from "@pilot";
+import { useCase } from "@pilot";
 import { FrameBase } from "@view/frames";
 
 const { t } = useI18n();
-const pilot = usePilot();
+const { task } = useCase("solveCase");
 
-onMounted(() => {
-  pilot.start();
-});
+onMounted(() => task.run());
 </script>
 <template>
   <frame-base>

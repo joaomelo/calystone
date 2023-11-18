@@ -1,43 +1,24 @@
-<script setup lang="ts">
-import type { Option, Value } from "../shared";
-
+<script setup>
 import { computed, ref } from "vue";
-import { useFloating, autoUpdate, offset } from "@floating-ui/vue";
-import { ButtonBase } from "../button-base";
+import { ButtonBase } from "@lib";
+import { useMenu } from "./use-menu";
 
-type Props = {
-  actions: Option[];
-};
-const props = defineProps<Props>();
-
-type Emits = {
-  action: [value: Value];
-};
-const emit = defineEmits<Emits>();
+const props = defineProps({
+  actions: {
+    type: Array,
+    default: () => [],
+  },
+});
+const emit = defineEmits(["action"]);
 
 const isShort = computed(() => props.actions.length <= 1);
 const mainAction = computed(() => props.actions[0]);
 
-const handleAction = (value: Value) => emit("action", value);
+const handleAction = (value) => emit("action", value);
 
-const isShow = ref(false);
-const actionsMenuToggle = ref();
-const actionsMenuDropdown = ref<HTMLDivElement>();
-const { floatingStyles } = useFloating(actionsMenuToggle, actionsMenuDropdown, {
-  placement: "bottom",
-  whileElementsMounted: autoUpdate,
-  middleware: [offset({ mainAxis: 1, crossAxis: -25 })],
-});
-
-const showMenu = () => {
-  if (!actionsMenuDropdown.value) return;
-  if (isShow.value) {
-    actionsMenuDropdown.value.hidePopover();
-  } else {
-    actionsMenuDropdown.value.showPopover();
-  }
-  isShow.value = !isShow.value;
-};
+const actionsToggle = ref();
+const actionsDropdown = ref();
+const { floatingStyles, toggle } = useMenu(actionsToggle, actionsDropdown);
 </script>
 
 <template>
@@ -48,9 +29,9 @@ const showMenu = () => {
       </button-base>
     </template>
     <template v-else>
-      <button-base ref="actionsMenuToggle" @click="showMenu">...</button-base>
+      <button-base ref="actionsToggle" @click="toggle">...</button-base>
       <div
-        ref="actionsMenuDropdown"
+        ref="actionsDropdown"
         popover
         class="actions-menu-dropdown"
         :style="floatingStyles"

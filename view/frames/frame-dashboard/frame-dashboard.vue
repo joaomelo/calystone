@@ -1,6 +1,6 @@
 <script setup>
-import { useI18n, ButtonBase, useTask } from "@lib";
-import { usePilot } from "@pilot";
+import { useI18n, ButtonBase } from "@lib";
+import { useCase } from "@pilot";
 import { FrameBase } from "../frame-base";
 
 defineProps({
@@ -8,8 +8,7 @@ defineProps({
 });
 
 const { t } = useI18n();
-const pilot = usePilot();
-const signOut = useTask(() => pilot.signOut());
+const { task } = useCase("signOutCase");
 </script>
 <template>
   <frame-base>
@@ -21,9 +20,9 @@ const signOut = useTask(() => pilot.signOut());
         <div class="frame-dashboard-nav-aside">
           <button-base
             class="frame-dashboard-close"
-            :busy="signOut.busy"
+            :busy="task.busy"
             :label="t('frame-dashboard.sign-out')"
-            @click="signOut.run"
+            @click="task.run"
           />
         </div>
       </nav>
