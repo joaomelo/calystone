@@ -1,21 +1,23 @@
 <script setup>
-import { reactive } from "vue";
-import { useT } from "@view/i18n";
-import { ButtonBase, FormBase, InputBase } from "@view/components";
+// import { reactive } from "vue";
+// import { ButtonBase, FormBase, InputBase, useI18n, useBody } from "@lib";
 
-const props = defineProps({
-  artifact: {
-    type: Object,
-    required: () => {},
-  },
-});
-defineEmits(["save", "cancel"]);
+// const props = defineProps({
+//   artifactId: {
+//     type: String,
+//     required: true,
+//   },
+// });
+// defineEmits(["save", "cancel"]);
 
-const t = useT();
-const payload = reactive({ ...props.artifact });
+// const t = useI18n();
+// const body = useBody();
+
+// const payload = reactive({ id: props.artifactId });
 </script>
 <template>
-  <form-base @submit="$emit('save', payload)">
+  form edit
+  <!-- <form-base @submit="$emit('save', payload)">
     <template #default>
       <input-base v-model="payload.name" :label="t('name')" />
       <input-base
@@ -29,5 +31,5 @@ const payload = reactive({ ...props.artifact });
       <button-base @click="$emit('cancel')">{{ t("cancel") }}</button-base>
       <button-base type="submit">{{ t("save") }}</button-base>
     </template>
-  </form-base>
+  </form-base> -->
 </template>

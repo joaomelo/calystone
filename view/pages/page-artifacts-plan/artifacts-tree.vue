@@ -1,20 +1,25 @@
 <script setup>
+import { useRouter } from "vue-router";
 import { ListBase } from "@lib";
-import { usePilot } from "@body";
+import { useBody } from "@body";
 import { useTree } from "./use-tree";
 
-const artifacts = useTree();
-const pilot = usePilot();
+const router = useRouter();
+const artifactsTree = useTree();
+const { artifacts } = useBody();
 
-const handleAction = ({ action, item }) => {
+const handleAction = ({ action, item: artifactId }) => {
   switch (action) {
     case "del":
-      return pilot.delArtifact(item);
-    default:
-      console.log({ action, item });
+      return artifacts.del(artifactId);
+    case "edit":
+      return router.push({
+        name: "page-artifacts-edit",
+        params: { artifactId },
+      });
   }
 };
 </script>
 <template>
-  <list-base :items="artifacts" @action="handleAction" />
+  <list-base :items="artifactsTree" @action="handleAction" />
 </template>

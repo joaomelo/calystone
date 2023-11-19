@@ -1,7 +1,7 @@
 import { createApp } from "vue";
-import { Driver, I18n, Auth } from "@lib";
-import { Artifacts, Pilot } from "@body";
+import { Driver, I18n } from "@lib";
 import { createRouter, messages } from "@view";
+import { Body } from "@body";
 import App from "./app.vue";
 
 export function initApp(elementId) {
@@ -15,12 +15,10 @@ export function initApp(elementId) {
 
   const connection = createConnectionFromEnv();
   const driver = new Driver(connection);
-  const artifacts = new Artifacts(driver);
-  const auth = new Auth(driver);
+  const body = new Body(driver);
 
-  const pilot = new Pilot({ auth, artifacts });
-  app.use(pilot);
-  window.$pilot = pilot;
+  app.use(body);
+  window.$body = body;
 
   router.push({ name: "page-unsolved" });
 

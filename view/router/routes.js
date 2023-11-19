@@ -1,5 +1,5 @@
 import {
-  // PageArtifactEdit,
+  PageArtifactEdit,
   PageArtifactsPlan,
   PageAuth,
   PageUnsolved,
@@ -14,9 +14,10 @@ export const routes = [
     name: "page-artifacts-plan",
     component: PageArtifactsPlan,
   },
-  // {
-  //   path: "/page-artifacts-edit",
-  //   component: PageArtifactEdit,
-  //   meta: { internal: true },
-  // },
+  {
+    path: "/page-artifacts-edit/:artifactId",
+    name: "page-artifacts-edit",
+    component: PageArtifactEdit,
+    props: true,
+  },
 ];

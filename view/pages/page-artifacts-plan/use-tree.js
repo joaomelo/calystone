@@ -1,9 +1,9 @@
 import { computed } from "vue";
 import { treeify, useI18n } from "@lib";
-import { usePilot } from "@body";
+import { useBody } from "@body";
 
 export function useTree() {
-  const pilot = usePilot();
+  const { artifacts } = useBody();
   const { t } = useI18n();
 
   const editAction = { value: "edit", text: t("edit") };
@@ -11,15 +11,13 @@ export function useTree() {
   const delAction = { value: "del", text: t("delete") };
   const actions = [editAction, appendAction, delAction];
 
-  const map = (artifact) => ({
-    value: artifact.id,
-    text: artifact.name,
+  const map = ({ id, name }) => ({
+    value: id,
+    text: name,
     actions,
   });
 
-  const artifactsList = pilot.artifacts.computed();
-  const artifactsTree = computed(() => {
-    return treeify(artifactsList.value, { map });
-  });
+  const artifactsList = artifacts.computed();
+  const artifactsTree = computed(() => treeify(artifactsList.value, { map }));
   return artifactsTree;
 }

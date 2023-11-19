@@ -9,16 +9,16 @@ import {
   useI18n,
   useTask,
 } from "@lib";
-import { usePilot } from "@body";
+import { useBody } from "@body";
 import { FrameBase } from "@view/frames";
 
 const { t } = useI18n();
-const pilot = usePilot();
+const { gate } = useBody();
 
 const payload = reactive({ email: null, password: null });
 
 const signIn = useTask(async () => {
-  await pilot.signIn(payload);
+  await gate.signIn(payload);
   this.router.push({ name: "page-artifacts-plan" });
 });
 </script>

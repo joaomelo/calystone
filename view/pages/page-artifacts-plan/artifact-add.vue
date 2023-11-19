@@ -1,14 +1,14 @@
 <script setup>
 import { reactive } from "vue";
 import { ButtonBase, InputBase, useI18n, useTask } from "@lib";
-import { usePilot } from "@body";
+import { useBody } from "@body";
 
 const { t } = useI18n();
-const pilot = usePilot();
+const { artifacts } = useBody();
 
 const payload = reactive({ name: null });
 const add = useTask(async () => {
-  await pilot.addArtifact(payload);
+  await artifacts.add(payload);
   payload.name = null;
 });
 </script>

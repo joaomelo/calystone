@@ -7,7 +7,7 @@ import ArtifactsTree from "./artifacts-tree.vue";
 const { t } = useI18n();
 </script>
 <template>
-  <frame-dashboard :title="t('plan')">
+  <frame-dashboard :title="t('page-artifacts-plan.plan')">
     <artifact-add class="page-artifacts-plan-add" />
     <artifacts-tree />
   </frame-dashboard>
