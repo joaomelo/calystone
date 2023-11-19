@@ -37,10 +37,9 @@ export class Artifacts {
   }
 
   add(payload) {
-    const artifact = validate(payload);
-
     const usersIds = [this.gate.userId];
-    return this.mutator.add({ ...artifact, usersIds });
+    const artifact = validate({ ...payload, usersIds });
+    return this.mutator.add(artifact);
   }
 
   edit(payload) {

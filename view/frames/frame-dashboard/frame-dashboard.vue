@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from "vue-router";
 import { useI18n, ButtonBase, useTask } from "@lib";
 import { useBody } from "@body";
 import { FrameBase } from "../frame-base";
@@ -7,12 +8,13 @@ defineProps({
   title: { type: String, default: null },
 });
 
+const router = useRouter();
 const { t } = useI18n();
 const { gate } = useBody();
 
 const signOut = useTask(async () => {
   await gate.signOut();
-  this.router.push({ name: "page-auth" });
+  router.push({ name: "page-auth" });
 });
 </script>
 <template>

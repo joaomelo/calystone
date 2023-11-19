@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter } from "vue-router";
 import { reactive } from "vue";
 import {
   ButtonBase,
@@ -12,6 +13,7 @@ import {
 import { useBody } from "@body";
 import { FrameBase } from "@view/frames";
 
+const router = useRouter();
 const { t } = useI18n();
 const { gate } = useBody();
 
@@ -19,7 +21,7 @@ const payload = reactive({ email: null, password: null });
 
 const signIn = useTask(async () => {
   await gate.signIn(payload);
-  this.router.push({ name: "page-artifacts-plan" });
+  router.push({ name: "page-artifacts-plan" });
 });
 </script>
 <template>

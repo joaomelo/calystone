@@ -1,5 +1,6 @@
 import { Mutator, Select, Auth } from "@lib";
-import { Artifacts, Gate } from "@body";
+import { Artifacts } from "../artifacts";
+import { Gate } from "../gate";
 import { key } from "./key";
 
 export class Body {
