@@ -7,7 +7,7 @@ defineProps({
     default: () => [],
   },
 });
-defineEmits("action");
+defineEmits(["action"]);
 </script>
 <template>
   <div class="list-base">

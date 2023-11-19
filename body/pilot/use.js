@@ -10,11 +10,3 @@ export function usePilot() {
 
   return pilot;
 }
-
-export function useCase(useCase) {
-  const pilot = usePilot();
-  if (!pilot[useCase])
-    throw new Error("the use case name must be present as a pilot method");
-
-  return pilot[useCase]();
-}

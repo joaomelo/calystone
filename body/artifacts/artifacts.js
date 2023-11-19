@@ -26,8 +26,8 @@ export class Artifacts {
     return this.select.list(predicate);
   }
 
-  computed(getter, predicate) {
-    return this.select.computed(getter, predicate);
+  computed(predicate) {
+    return this.select.computed(predicate);
   }
 
   add(payload) {

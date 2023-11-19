@@ -1,13 +1,22 @@
 <script setup>
 import { onMounted } from "vue";
-import { useI18n } from "@lib";
-import { useCase } from "@pilot";
+import { useRouter } from "vue-router";
+import { useI18n, AUTH_STATUSES } from "@lib";
+import { usePilot } from "@body";
 import { FrameBase } from "@view/frames";
 
 const { t } = useI18n();
-const { task } = useCase("solveCase");
+const router = useRouter();
+const pilot = usePilot();
 
-onMounted(() => task.run());
+onMounted(async () => {
+  await pilot.solve();
+  if (pilot.auth.status === AUTH_STATUSES.SIGNED_IN) {
+    router.push({ name: "page-artifacts-plan" });
+  } else {
+    router.push({ name: "page-auth" });
+  }
+});
 </script>
 <template>
   <frame-base>

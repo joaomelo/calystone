@@ -1,6 +1,6 @@
 <script setup>
-import { useI18n, ButtonBase } from "@lib";
-import { useCase } from "@pilot";
+import { useI18n, ButtonBase, useTask } from "@lib";
+import { usePilot } from "@body";
 import { FrameBase } from "../frame-base";
 
 defineProps({
@@ -8,7 +8,12 @@ defineProps({
 });
 
 const { t } = useI18n();
-const { task } = useCase("signOutCase");
+const pilot = usePilot();
+
+const signOut = useTask(async () => {
+  await pilot.signOut();
+  this.router.push({ name: "page-auth" });
+});
 </script>
 <template>
   <frame-base>
@@ -20,9 +25,9 @@ const { task } = useCase("signOutCase");
         <div class="frame-dashboard-nav-aside">
           <button-base
             class="frame-dashboard-close"
-            :busy="task.busy"
+            :busy="signOut.busy"
             :label="t('frame-dashboard.sign-out')"
-            @click="task.run"
+            @click="signOut.run"
           />
         </div>
       </nav>

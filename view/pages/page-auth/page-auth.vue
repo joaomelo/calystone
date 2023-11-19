@@ -1,22 +1,31 @@
 <script setup>
-import { useCase } from "@pilot";
-import { FrameBase } from "@view/frames";
+import { reactive } from "vue";
 import {
   ButtonBase,
   ButtonsPanel,
-  TextHeading,
-  InputBase,
-  useI18n,
   FormBase,
+  InputBase,
+  TextHeading,
+  useI18n,
+  useTask,
 } from "@lib";
+import { usePilot } from "@body";
+import { FrameBase } from "@view/frames";
 
 const { t } = useI18n();
-const { payload, task } = useCase("signInCase");
+const pilot = usePilot();
+
+const payload = reactive({ email: null, password: null });
+
+const signIn = useTask(async () => {
+  await pilot.signIn(payload);
+  this.router.push({ name: "page-artifacts-plan" });
+});
 </script>
 <template>
   <frame-base>
     <text-heading class="page-auth-heading">calystone</text-heading>
-    <form-base :error="task.error">
+    <form-base :error="signIn.error">
       <input-base v-model="payload.email" :label="t('page-auth.email')" />
       <input-base
         v-model="payload.password"
@@ -25,9 +34,9 @@ const { payload, task } = useCase("signInCase");
       />
       <buttons-panel>
         <button-base
-          :busy="task.busy"
+          :busy="signIn.busy"
           :label="t('page-auth.sign-in')"
-          @click="task.run"
+          @click="signIn.run"
         />
       </buttons-panel>
     </form-base>

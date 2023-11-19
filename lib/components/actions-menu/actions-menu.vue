@@ -14,11 +14,14 @@ const emit = defineEmits(["action"]);
 const isShort = computed(() => props.actions.length <= 1);
 const mainAction = computed(() => props.actions[0]);
 
-const handleAction = (value) => emit("action", value);
-
 const actionsToggle = ref();
 const actionsDropdown = ref();
 const { floatingStyles, toggle } = useMenu(actionsToggle, actionsDropdown);
+
+const handleAction = (value) => {
+  emit("action", value);
+  toggle();
+};
 </script>
 
 <template>
@@ -29,7 +32,7 @@ const { floatingStyles, toggle } = useMenu(actionsToggle, actionsDropdown);
       </button-base>
     </template>
     <template v-else>
-      <button-base ref="actionsToggle" @click="toggle">...</button-base>
+      <button-base ref="actionsToggle" label="..." @click="toggle" />
       <div
         ref="actionsDropdown"
         popover
