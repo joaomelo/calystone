@@ -18,6 +18,8 @@ export function useTree() {
   });
 
   const artifactsList = pilot.artifacts.computed();
-  const artifactsTree = computed(() => treeify(artifactsList.value, { map }));
+  const artifactsTree = computed(() => {
+    return treeify(artifactsList.value, { map });
+  });
   return artifactsTree;
 }

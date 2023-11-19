@@ -35,4 +35,8 @@ export class Pilot {
     const usersIds = [this.auth.userId];
     await this.artifacts.add({ ...payload, usersIds });
   }
+
+  async delArtifact(id) {
+    await this.artifacts.del(id);
+  }
 }

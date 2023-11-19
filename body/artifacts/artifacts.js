@@ -1,4 +1,4 @@
-import { Mutator, Select } from "@lib";
+import { Mutator, Select, extractId, treeify, flatTree } from "@lib";
 import { validate } from "./validate";
 
 export class Artifacts {
@@ -40,14 +40,13 @@ export class Artifacts {
     return this.mutator.put(artifact);
   }
 
-  // del(maybeId) {
-  //   const id = extractId(maybeId);
+  del(maybeId) {
+    const id = extractId(maybeId);
 
-  //   const artifacts = this.select.list();
-  //   const isRoot = (artifact) => extractId(artifact) === id;
-  //   const tree = treeify(artifacts, { isRoot });
-  //   const ids = flatTree(tree).map(extractId);
+    const isRoot = (artifact) => extractId(artifact) === id;
+    const tree = treeify(this.select.list(), { isRoot });
+    const ids = flatTree(tree).map(extractId);
 
-  //   return this.mutator.del(ids);
-  // }
+    return this.mutator.del(ids);
+  }
 }
