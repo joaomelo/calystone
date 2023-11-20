@@ -1,4 +1,5 @@
 <script setup>
+import { useI18n } from "@lib";
 import { FrameDashboard } from "@view/frames";
 import FormEdit from "./form-edit.vue";
 
@@ -8,9 +9,11 @@ defineProps({
     required: true,
   },
 });
+
+const { t } = useI18n();
 </script>
 <template>
-  <frame-dashboard :title="artifactId">
+  <frame-dashboard :title="t('page-artifact-edit.edit')">
     <form-edit :artifact-id="artifactId" />
   </frame-dashboard>
 </template>

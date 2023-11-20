@@ -5,7 +5,7 @@ defineProps({
   busy: { type: Boolean, default: false },
   error: { type: String, default: null },
 });
-const emit = defineEmits("submit");
+const emit = defineEmits(["submit"]);
 
 const handleSubmit = () => emit("submit");
 </script>
@@ -28,12 +28,6 @@ const handleSubmit = () => emit("submit");
   display: flex;
   flex-direction: column;
   gap: var(--size-20);
-}
-
-.form-base-buttons {
-  margin-top: var(--size-20);
-  display: flex;
-  justify-content: end;
-  gap: var(--size-10);
+  margin-bottom: var(--size-20);
 }
 </style>

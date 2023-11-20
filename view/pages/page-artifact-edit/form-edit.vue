@@ -1,23 +1,32 @@
 <script setup>
-// import { reactive } from "vue";
-// import { ButtonBase, FormBase, InputBase, useI18n, useBody } from "@lib";
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
+import { FormBase, InputBase, ButtonBase, useI18n, useTask } from "@lib";
+import { useBody } from "@body";
 
-// const props = defineProps({
-//   artifactId: {
-//     type: String,
-//     required: true,
-//   },
-// });
-// defineEmits(["save", "cancel"]);
+const props = defineProps({
+  artifactId: {
+    type: String,
+    required: true,
+  },
+});
 
-// const t = useI18n();
-// const body = useBody();
+const router = useRouter();
+const { t } = useI18n();
+const { artifacts } = useBody();
 
-// const payload = reactive({ id: props.artifactId });
+const { id, name, notes } = artifacts.findById(props.artifactId);
+const payload = reactive({ id, name, notes });
+
+const edit = useTask(async () => {
+  await artifacts.edit(payload);
+  push();
+});
+
+const push = () => router.push({ name: "page-artifacts-plan" });
 </script>
 <template>
-  form edit
-  <!-- <form-base @submit="$emit('save', payload)">
+  <form-base :error="edit.error" @submit="edit.run">
     <template #default>
       <input-base v-model="payload.name" :label="t('name')" />
       <input-base
@@ -28,8 +37,8 @@
       />
     </template>
     <template #buttons>
-      <button-base @click="$emit('cancel')">{{ t("cancel") }}</button-base>
-      <button-base type="submit">{{ t("save") }}</button-base>
+      <button-base type="submit" :label="t('save')" :busy="edit.busy" />
+      <button-base :label="t('cancel')" @click="push" />
     </template>
-  </form-base> -->
+  </form-base>
 </template>
