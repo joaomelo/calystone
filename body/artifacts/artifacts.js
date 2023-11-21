@@ -46,6 +46,10 @@ export class Artifacts {
     return this.mutator.add({ usersIds, name, notes, parentId, status });
   }
 
+  append(parentId) {
+    return this.add({ parentId });
+  }
+
   edit(payload) {
     if (!payload.id) throw new Error("artifact edit requires a id to perform");
     return this.mutator.put(payload);
