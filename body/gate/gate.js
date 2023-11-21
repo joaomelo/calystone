@@ -19,7 +19,7 @@ export class Gate {
 
   async solve() {
     const status = await this.auth.open();
-    if (status === AUTH_STATUSES.SIGNED_IN) {
+    if (status === AUTH_STATUSES.SIGNED_IN && !this.artifacts.isOpen) {
       await this.artifacts.open(this.userId);
     }
   }
@@ -30,7 +30,7 @@ export class Gate {
   }
 
   async signOut() {
-    await this.auth.signOut();
     this.artifacts.close();
+    await this.auth.signOut();
   }
 }

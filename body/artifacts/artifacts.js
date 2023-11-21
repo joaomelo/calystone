@@ -11,11 +11,15 @@ export class Artifacts {
     this.gate = gate;
   }
 
-  open(userId) {
+  get isOpen() {
+    return this.select.isOpen;
+  }
+
+  open() {
     return this.select.open({
       field: "usersIds",
       operator: "array-contains",
-      value: userId,
+      value: this.gate.userId,
     });
   }
 

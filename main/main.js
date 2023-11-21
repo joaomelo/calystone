@@ -1,7 +1,8 @@
 import { createApp } from "vue";
 import { Driver, I18n } from "@lib";
-import { createRouter, messages } from "@view";
 import { Body } from "@body";
+import { Display } from "@view/display";
+import { messages } from "@view/messages";
 import App from "./app.vue";
 
 export function initApp(elementId) {
@@ -10,8 +11,8 @@ export function initApp(elementId) {
   const i18n = new I18n({ locale: navigator.language, messages });
   app.use(i18n);
 
-  const router = createRouter();
-  app.use(router);
+  const display = new Display();
+  app.use(display);
 
   const connection = createConnectionFromEnv();
   const driver = new Driver(connection);
@@ -20,9 +21,9 @@ export function initApp(elementId) {
   app.use(body);
   window.$body = body;
 
-  router.push({ name: "page-unsolved" });
-
   app.mount(elementId);
+
+  display.pageSolve();
 }
 
 function createConnectionFromEnv() {

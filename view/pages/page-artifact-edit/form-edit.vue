@@ -1,8 +1,8 @@
 <script setup>
 import { reactive } from "vue";
-import { useRouter } from "vue-router";
 import { FormBase, InputBase, ButtonBase, useI18n, useTask } from "@lib";
 import { useBody } from "@body";
+import { useDisplay } from "@view/display";
 
 const props = defineProps({
   artifactId: {
@@ -11,7 +11,7 @@ const props = defineProps({
   },
 });
 
-const router = useRouter();
+const display = useDisplay();
 const { t } = useI18n();
 const { artifacts } = useBody();
 
@@ -23,7 +23,7 @@ const edit = useTask(async () => {
   push();
 });
 
-const push = () => router.push({ name: "page-artifacts-plan" });
+const push = () => display.pageArtifactsPlan();
 </script>
 <template>
   <form-base :error="edit.error" @submit="edit.run">

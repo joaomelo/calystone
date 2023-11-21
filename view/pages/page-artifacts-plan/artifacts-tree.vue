@@ -1,10 +1,10 @@
 <script setup>
-import { useRouter } from "vue-router";
 import { ListBase } from "@lib";
 import { useBody } from "@body";
+import { useDisplay } from "@view/display";
 import { useTree } from "./use-tree";
 
-const router = useRouter();
+const display = useDisplay();
 const artifactsTree = useTree();
 const { artifacts } = useBody();
 
@@ -15,10 +15,7 @@ const handleAction = ({ action, item: artifactId }) => {
     case "append":
       return artifacts.append(artifactId);
     case "edit":
-      return router.push({
-        name: "page-artifacts-edit",
-        params: { artifactId },
-      });
+      return display.pageArtifactEdit(artifactId);
   }
 };
 </script>

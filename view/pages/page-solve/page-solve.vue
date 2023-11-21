@@ -1,32 +1,32 @@
 <script setup>
 import { onMounted } from "vue";
-import { useRouter } from "vue-router";
 import { useI18n, AUTH_STATUSES } from "@lib";
 import { useBody } from "@body";
+import { useDisplay } from "@view/display";
 import { FrameBase } from "@view/frames";
 
 const { t } = useI18n();
-const router = useRouter();
+const display = useDisplay();
 const { gate } = useBody();
 
 onMounted(async () => {
   await gate.solve();
   if (gate.status === AUTH_STATUSES.SIGNED_IN) {
-    router.push({ name: "page-artifacts-plan" });
+    display.pageStart();
   } else {
-    router.push({ name: "page-auth" });
+    display.pageAuth();
   }
 });
 </script>
 <template>
   <frame-base>
-    <div class="page-unsolved">
-      {{ t("page-unsolved.unsolved") }}
+    <div class="page-solve">
+      {{ t("page-solve.prepare") }}
     </div>
   </frame-base>
 </template>
 <style scoped>
-.page-unsolved {
+.page-solve {
   flex-grow: 1;
 
   display: flex;

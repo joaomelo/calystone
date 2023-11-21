@@ -1,5 +1,5 @@
 import {
-  pageUnsolved,
+  pageSolve,
   pageAuth,
   pageArtifactsPlan,
   pageArtifactEdit,
@@ -8,7 +8,7 @@ import { frameDashboard } from "@view/frames";
 
 export const messages = {
   "frame-dashboard": frameDashboard,
-  "page-unsolved": pageUnsolved,
+  "page-solve": pageSolve,
   "page-auth": pageAuth,
   "page-artifacts-plan": pageArtifactsPlan,
   "page-artifact-edit": pageArtifactEdit,
