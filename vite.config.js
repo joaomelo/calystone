@@ -10,6 +10,10 @@ export default defineConfig(() => {
     root: "./main",
     publicDir: "../assets",
     envDir: "../",
+    server: {
+      port: 8080,
+      strictPort: true,
+    },
     resolve: {
       alias: {
         "@body": pathTo("./body"),

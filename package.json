@@ -3,10 +3,13 @@
   "version": "0.0.1",
   "main": "src/index.html",
   "scripts": {
-    "lint": "eslint body/ service/ shared/ view/ --ext .ts,.vue",
+    "lint": "eslint body/ service/ shared/ view/ cypress/ --ext .js,.vue",
     "start": "npm run dev",
     "dev": "vite",
-    "test": "vitest",
+    "test": "npm run test:unit && npm run test:e2e:run",
+    "test:unit": "vitest run",
+    "test:e2e:open": "concurrently -s \"first\" -k \"npm run dev\" \"cypress open --e2e --browser chrome\"",
+    "test:e2e:run": "concurrently -s \"first\" -k \"npm run dev\" \"cypress run --e2e\"",
     "build": "vite build",
     "deploy": "firebase deploy --only hosting:calystone"
   },
@@ -25,8 +28,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
+    "concurrently": "^8.2.2",
+    "cypress": "^13.6.0",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-vue": "^9.14.1",
     "firebase-tools": "^12.6.2",
     "vite": "^4.3.9",

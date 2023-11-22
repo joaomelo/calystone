@@ -28,14 +28,20 @@ const signIn = useTask(async () => {
   <frame-base>
     <text-heading class="page-auth-heading">calystone</text-heading>
     <form-base :error="signIn.error">
-      <input-base v-model="payload.email" :label="t('page-auth.email')" />
       <input-base
+        id="input-email"
+        v-model="payload.email"
+        :label="t('page-auth.email')"
+      />
+      <input-base
+        id="input-password"
         v-model="payload.password"
         type="password"
         :label="t('page-auth.password')"
       />
       <buttons-panel>
         <button-base
+          id="button-sign-in"
           :busy="signIn.busy"
           :label="t('page-auth.sign-in')"
           @click="signIn.run"
