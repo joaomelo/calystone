@@ -1,4 +1,5 @@
 <script setup>
+import { version } from "@main/../package.json";
 import { useI18n, InputBase } from "@lib";
 
 const { i18n } = useI18n();
@@ -11,6 +12,8 @@ const handleUpdate = (locale) => i18n.updateLocale(locale);
     </main>
     <footer class="frame-base-footer">
       <span>calystone</span>
+      <span class="frame-base-footer-divider">·</span>
+      <span>v{{ version }}</span>
       <span class="frame-base-footer-divider">·</span>
       <input-base
         :options="i18n.supported"
