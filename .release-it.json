@@ -14,9 +14,5 @@
     "preset": {
       "name": "conventionalcommits"
     }
-  },
-  "hooks": {
-    "before:init": "npm test",
-    "after:bump": ["npm run build", "npm run deploy"]
   }
 }
