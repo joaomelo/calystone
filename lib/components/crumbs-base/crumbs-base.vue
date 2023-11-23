@@ -1,19 +1,17 @@
-<script setup lang="ts">
-import type { Option, Value } from "../shared";
+<script setup>
 import { hasElements } from "@lib";
 
-type Props = {
-  crumbs: Option[];
-};
-const props = defineProps<Props>();
+const props = defineProps({
+  crumbs: {
+    type: Array,
+    default: () => [],
+  },
+});
 
-type Emits = {
-  crumb: [name: Value];
-};
-const emit = defineEmits<Emits>();
+const emit = defineEmits(["crumb"]);
 
-const notLast = (i: number) => i < props.crumbs.length - 1;
-const handleClick = (crumb: Option) => {
+const notLast = (c) => c < props.crumbs.length - 1;
+const handleClick = (crumb) => {
   if (crumb.inactive) return;
   emit("crumb", crumb.value);
 };

@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "main": "src/index.html",
   "scripts": {
-    "lint": "eslint body/ service/ shared/ view/ cypress/ --ext .js,.vue",
     "start": "npm run dev",
     "dev": "vite",
-    "test": "npm run test:unit && npm run test:e2e:run",
+    "test": "npm run lint && npm run test:unit && npm run test:e2e:run",
     "test:unit": "vitest run",
     "test:e2e:open": "concurrently -s \"first\" -k \"npm run dev\" \"cypress open --e2e --browser chrome\"",
     "test:e2e:run": "concurrently -s \"first\" -k \"npm run dev\" \"cypress run --e2e\"",
+    "lint": "eslint body/ cypress/ lib/ main/ view/ --ext .js,.vue",
     "build": "vite build",
     "deploy": "firebase deploy --only hosting:calystone"
   },

@@ -1,14 +1,11 @@
-<script setup lang="ts">
+<script setup>
 import { ref, watch } from "vue";
 
-type Props = {
-  show?: boolean;
-};
-const props = withDefaults(defineProps<Props>(), {
-  show: false,
+const props = defineProps({
+  show: { type: Boolean, default: false },
 });
 
-const dialog = ref<HTMLDialogElement>();
+const dialog = ref();
 
 const close = () => {
   if (dialog.value) dialog.value.close();
