@@ -10,6 +10,11 @@
   "github": {
     "release": false
   },
+  "@release-it/conventional-changelog": {
+    "preset": {
+      "name": "conventionalcommits"
+    }
+  },
   "hooks": {
     "before:init": "npm test",
     "after:bump": ["npm run build", "npm run deploy"]
