@@ -12,7 +12,7 @@
     "lint": "eslint body/ cypress/ lib/ main/ view/ --ext .js,.vue",
     "build": "vite build",
     "deploy": "firebase deploy",
-    "release": "release-it --ci --verbose --dry-run"
+    "release": "release-it --ci --verbose"
   },
   "repository": {
     "type": "git",
