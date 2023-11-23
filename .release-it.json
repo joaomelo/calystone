@@ -1,0 +1,17 @@
+{
+  "git": {
+    "tagName": "v${version}",
+    "commitMessage": "chore[no ci]: release v${version}"
+  },
+  "npm": {
+    "skipChecks": true,
+    "publish": false
+  },
+  "github": {
+    "release": false
+  },
+  "hooks": {
+    "before:init": "npm test",
+    "after:bump": "npm run build"
+  }
+}
