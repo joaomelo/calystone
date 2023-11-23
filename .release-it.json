@@ -10,9 +10,11 @@
   "github": {
     "release": false
   },
-  "@release-it/conventional-changelog": {
-    "preset": {
-      "name": "conventionalcommits"
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": {
+        "name": "conventionalcommits"
+      }
     }
   }
 }
