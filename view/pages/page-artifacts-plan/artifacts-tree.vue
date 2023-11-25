@@ -18,7 +18,18 @@ const handleAction = ({ action, item: artifactId }) => {
       return display.pageArtifactEdit(artifactId);
   }
 };
+
+const handleDrag = ({ target, source }) =>
+  artifacts.transfer({
+    itemId: source,
+    parentId: target,
+  });
 </script>
 <template>
-  <list-base :items="artifactsTree" @action="handleAction" />
+  <list-base
+    :items="artifactsTree"
+    draggable-items
+    @action="handleAction"
+    @drag="handleDrag"
+  />
 </template>

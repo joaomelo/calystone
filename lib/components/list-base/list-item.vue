@@ -1,25 +1,34 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { toRef } from "vue";
 import { hasElements, ActionsMenu } from "@lib";
 import { COLLAPSE_STATUSES } from "./collapse-statuses";
 import CollapseSymbol from "./collapse-symbol.vue";
+import { useCollapseStatus } from "./use-collapse-status";
+import { useDrag } from "./use-drag";
 
 const props = defineProps({
   item: { type: Object, default: () => ({}) },
+  draggable: { type: Boolean, default: false },
 });
-defineEmits(["action"]);
+const emit = defineEmits(["action", "drag"]);
 
-const initialCollapseStatus = computed(() =>
-  hasElements(props.item.children)
-    ? COLLAPSE_STATUSES.OPEN
-    : COLLAPSE_STATUSES.FLAT
-);
-const collapseStatus = ref(initialCollapseStatus.value);
-watch(initialCollapseStatus, (newValue) => (collapseStatus.value = newValue));
+const collapseStatus = useCollapseStatus(toRef(props, "item"));
+
+const { handleStart, handleOver, handleDrop } = useDrag({
+  collapseStatus,
+  value: props.item.value,
+  emit,
+});
 </script>
 <template>
-  <div class="list-base-item">
-    <div class="list-base-item-cover">
+  <div
+    :id="item.value"
+    :draggable="draggable"
+    @dragstart="handleStart"
+    @dragover="handleOver"
+    @drop="handleDrop"
+  >
+    <div class="list-item-cover">
       <collapse-symbol v-model="collapseStatus" />
       <div class="list-base-content" :class="{ inactive: item.inactive }">
         {{ item.text }}
@@ -34,25 +43,29 @@ watch(initialCollapseStatus, (newValue) => (collapseStatus.value = newValue));
       </template>
     </div>
     <template v-if="collapseStatus === COLLAPSE_STATUSES.OPEN">
-      <div class="list-base-item-children">
+      <div class="list-item-children">
         <template v-for="child in item.children" :key="child.id">
-          <list-item :item="child" @action="$emit('action', $event)" />
+          <list-item
+            :item="child"
+            :draggable="draggable"
+            @action="$emit('action', $event)"
+          />
         </template>
       </div>
     </template>
   </div>
 </template>
 <style scoped>
-.list-base-item-cover {
+.list-item-cover {
   padding-block: var(--size-10);
   display: flex;
 }
 
-.list-base-item-cover:hover {
+.list-item-cover:hover {
   background-color: var(--color-neutral-60);
 }
 
-.list-base-item-cover:focus-within {
+.list-item-cover:focus-within {
   background-color: var(--color-neutral-50);
 }
 
@@ -71,7 +84,7 @@ watch(initialCollapseStatus, (newValue) => (collapseStatus.value = newValue));
   gap: var(--size-00);
 }
 
-.list-base-item-children {
+.list-item-children {
   padding-inline-start: var(--size-20);
 }
 </style>

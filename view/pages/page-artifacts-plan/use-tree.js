@@ -1,5 +1,5 @@
 import { computed } from "vue";
-import { treeify, useI18n } from "@lib";
+import { treeify, useI18n, sort } from "@lib";
 import { useBody } from "@body";
 
 export function useTree() {
@@ -11,13 +11,13 @@ export function useTree() {
   const delAction = { value: "del", text: t("delete") };
   const actions = [editAction, appendAction, delAction];
 
-  const map = ({ id, name }) => ({
+  const map = ({ id, name, order }) => ({
     value: id,
-    text: name,
+    text: name + " " + order,
     actions,
   });
 
-  const artifactsList = artifacts.computed();
+  const artifactsList = artifacts.computed((list) => sort(list, "order"));
   const artifactsTree = computed(() => treeify(artifactsList.value, { map }));
   return artifactsTree;
 }

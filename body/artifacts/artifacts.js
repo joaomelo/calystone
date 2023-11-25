@@ -1,4 +1,5 @@
 import { extractId, treeify, flatTree } from "@lib";
+import { resolveOrder } from "./order";
 
 export class Artifacts {
   select;
@@ -17,8 +18,8 @@ export class Artifacts {
 
   open() {
     return this.select.open({
-      field: "usersIds",
-      operator: "array-contains",
+      field: "userId",
+      operator: "==",
       value: this.gate.userId,
     });
   }
@@ -31,8 +32,8 @@ export class Artifacts {
     return this.select.list(predicate);
   }
 
-  computed(predicate) {
-    return this.select.computed(predicate);
+  computed(getter) {
+    return this.select.computed(getter);
   }
 
   findById(id) {
@@ -41,17 +42,29 @@ export class Artifacts {
 
   add(payload) {
     const {
-      usersIds = [this.gate.userId],
+      userId = this.gate.userId,
       name = null,
       notes = null,
       parentId = null,
       status = "active",
     } = payload;
-    return this.mutator.add({ usersIds, name, notes, parentId, status });
+    const order = resolveOrder(parentId, this.select.list());
+
+    return this.mutator.add({ userId, name, notes, parentId, status, order });
   }
 
   append(parentId) {
     return this.add({ parentId });
+  }
+
+  transfer(payload) {
+    const { itemId, parentId = null } = payload;
+    if (!itemId) throw new Error("artifact transfer requires a id to perform");
+
+    return this.mutator.put({
+      id: itemId,
+      parentId,
+    });
   }
 
   edit(payload) {

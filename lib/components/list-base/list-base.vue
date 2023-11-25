@@ -2,17 +2,20 @@
 import ListItem from "./list-item.vue";
 
 defineProps({
-  items: {
-    type: Array,
-    default: () => [],
-  },
+  items: { type: Array, default: () => [] },
+  draggableItems: { type: Boolean, default: false },
 });
-defineEmits(["action"]);
+defineEmits(["action", "drag"]);
 </script>
 <template>
-  <div class="list-base">
+  <div>
     <template v-for="item in items" :key="item.value">
-      <list-item :item="item" @action="$emit('action', $event)" />
+      <list-item
+        :item="item"
+        :draggable="draggableItems"
+        @action="$emit('action', $event)"
+        @drag="$emit('drag', $event)"
+      />
     </template>
   </div>
 </template>
