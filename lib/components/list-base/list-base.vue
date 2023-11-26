@@ -1,18 +1,18 @@
 <script setup>
-import ListItem from "./list-item.vue";
+import ListTree from "./list-tree.vue";
 
 defineProps({
   items: { type: Array, default: () => [] },
-  draggableItems: { type: Boolean, default: false },
+  draggable: { type: Boolean, default: false },
 });
 defineEmits(["action", "drag"]);
 </script>
 <template>
   <div>
     <template v-for="item in items" :key="item.value">
-      <list-item
-        :item="item"
-        :draggable="draggableItems"
+      <list-tree
+        :root="item"
+        :draggable="draggable"
         @action="$emit('action', $event)"
         @drag="$emit('drag', $event)"
       />

@@ -57,13 +57,13 @@ export class Artifacts {
     return this.add({ parentId });
   }
 
-  transfer(payload) {
-    const { itemId, parentId = null } = payload;
+  transfer({ itemId, parentId = null }) {
     if (!itemId) throw new Error("artifact transfer requires a id to perform");
-
+    const order = resolveOrder(parentId, this.select.list());
     return this.mutator.put({
       id: itemId,
       parentId,
+      order,
     });
   }
 

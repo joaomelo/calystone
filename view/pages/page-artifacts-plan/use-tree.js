@@ -11,9 +11,9 @@ export function useTree() {
   const delAction = { value: "del", text: t("delete") };
   const actions = [editAction, appendAction, delAction];
 
-  const map = ({ id, name }) => ({
+  const map = ({ id, name, order }) => ({
     value: id,
-    text: name,
+    text: name + " [" + id.substring(0, 5) + "] " + " (" + order + ")",
     actions,
   });
 
