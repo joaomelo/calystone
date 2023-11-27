@@ -29,7 +29,7 @@ const { handlers, classes } = useDrag({ value: props.item.value, emit });
 </template>
 <style scoped>
 .list-item {
-  --list-item-drag-border-color: var(--color-neutral-50);
+  --list-item-drag-border-color: var(--color-neutral-40);
   --list-item-highlight-background-color: var(--color-neutral-60);
 }
 

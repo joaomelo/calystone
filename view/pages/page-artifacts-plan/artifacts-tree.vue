@@ -30,7 +30,14 @@ const handleDrag = ({ target, source, section }) => {
   }
 
   if (section === "top") {
-    artifacts.uplift({
+    artifacts.hoist({
+      itemId: source,
+      siblingId: target,
+    });
+  }
+
+  if (section === "bottom") {
+    artifacts.lower({
       itemId: source,
       siblingId: target,
     });

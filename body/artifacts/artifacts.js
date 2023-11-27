@@ -67,12 +67,13 @@ export class Artifacts {
     });
   }
 
-  async uplift({ itemId, siblingId }) {
+  async hoist({ itemId, siblingId }) {
     const sibling = this.select.findById(siblingId);
     const upwards = this.select.list(
       (artifact) =>
         artifact.parentId === sibling.parentId &&
-        artifact.order >= sibling.order
+        artifact.order >= sibling.order &&
+        artifact.id !== itemId
     );
 
     const promises = [
@@ -80,6 +81,35 @@ export class Artifacts {
         id: itemId,
         parentId: sibling.parentId,
         order: sibling.order,
+      }),
+    ];
+
+    upwards.forEach((upward) => {
+      promises.push(
+        this.mutator.put({
+          id: upward.id,
+          order: upward.order + 1,
+        })
+      );
+    });
+
+    await Promise.all(promises);
+  }
+
+  async lower({ itemId, siblingId }) {
+    const sibling = this.select.findById(siblingId);
+    const upwards = this.select.list(
+      (artifact) =>
+        artifact.parentId === sibling.parentId &&
+        artifact.order > sibling.order &&
+        artifact.id !== itemId
+    );
+
+    const promises = [
+      this.mutator.put({
+        id: itemId,
+        parentId: sibling.parentId,
+        order: sibling.order + 1,
       }),
     ];
 
