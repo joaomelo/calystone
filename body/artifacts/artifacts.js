@@ -1,5 +1,5 @@
 import { extractId, treeify, flatTree } from "@lib";
-import { resolveOrder } from "./order";
+import { nextOrder } from "./order";
 
 export class Artifacts {
   select;
@@ -48,7 +48,7 @@ export class Artifacts {
       parentId = null,
       status = "active",
     } = payload;
-    const order = resolveOrder(parentId, this.select.list());
+    const order = nextOrder(parentId, this.select.list());
 
     return this.mutator.add({ userId, name, notes, parentId, status, order });
   }
@@ -59,7 +59,7 @@ export class Artifacts {
 
   transfer({ itemId, parentId = null }) {
     if (!itemId) throw new Error("artifact transfer requires a id to perform");
-    const order = resolveOrder(parentId, this.select.list());
+    const order = nextOrder(parentId, this.select.list());
     return this.mutator.put({
       id: itemId,
       parentId,
@@ -67,34 +67,32 @@ export class Artifacts {
     });
   }
 
-  uplift({ itemId, siblingId }) {
-    console.log({ itemId, siblingId });
-    // // tem de deixar o parent igual e reordenar colocando o itemId na frente do siblingId
-    // const artifactA = this.artifacts.find(artifact => artifact.id === itemId);
-    // const artifactS = this.artifacts.find(artifact => artifact.id === siblingId);
+  async uplift({ itemId, siblingId }) {
+    const sibling = this.select.findById(siblingId);
+    const upwards = this.select.list(
+      (artifact) =>
+        artifact.parentId === sibling.parentId &&
+        artifact.order >= sibling.order
+    );
 
-    // if (!artifactA || !artifactS) {
-    //   // Handle the case where either artifactA or artifactS is not found
-    //   return;
-    // }
+    const promises = [
+      this.mutator.put({
+        id: itemId,
+        parentId: sibling.parentId,
+        order: sibling.order,
+      }),
+    ];
 
-    // // Update parentId of artifactA to match parentId of artifactS
-    // artifactA.parentId = artifactS.parentId;
+    upwards.forEach((upward) => {
+      promises.push(
+        this.mutator.put({
+          id: upward.id,
+          order: upward.order + 1,
+        })
+      );
+    });
 
-    // // Find all children of artifactS's parent
-    // const siblings = this.artifacts.filter(
-    //   artifact => artifact.parentId === artifactS.parentId
-    // );
-
-    // // Update orders for all siblings to accommodate artifactA
-    // siblings.forEach(artifact => {
-    //   if (artifact.order >= artifactS.order) {
-    //     artifact.order += 1;
-    //   }
-    // });
-
-    // // Set order of artifactA to be immediately smaller than artifactS
-    // artifactA.order = artifactS.order - 1;
+    await Promise.all(promises);
   }
 
   edit(payload) {

@@ -29,7 +29,7 @@ const handleDrag = ({ target, source, section }) => {
     });
   }
 
-  if (section === top) {
+  if (section === "top") {
     artifacts.uplift({
       itemId: source,
       siblingId: target,
