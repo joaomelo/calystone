@@ -19,11 +19,22 @@ const handleAction = ({ action, item: artifactId }) => {
   }
 };
 
-const handleDrag = ({ target, source }) => {
-  artifacts.transfer({
-    itemId: source,
-    parentId: target,
-  });
+const handleDrag = ({ target, source, section }) => {
+  if (target === source) return;
+
+  if (section === "middle") {
+    artifacts.transfer({
+      itemId: source,
+      parentId: target,
+    });
+  }
+
+  if (section === top) {
+    artifacts.uplift({
+      itemId: source,
+      siblingId: target,
+    });
+  }
 };
 </script>
 <template>

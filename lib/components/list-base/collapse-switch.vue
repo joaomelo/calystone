@@ -3,10 +3,7 @@ import { computed } from "vue";
 import { COLLAPSE_STATUSES } from "./collapse";
 
 const props = defineProps({
-  modelValue: {
-    type: String,
-    required: true,
-  },
+  modelValue: { type: String, required: true },
 });
 
 const emit = defineEmits(["update:modelValue"]);

@@ -1,5 +1,6 @@
 <script setup>
 import { toRef } from "vue";
+import { hasElements, ActionsMenu } from "@lib";
 import { COLLAPSE_STATUSES, useCollapse } from "./collapse";
 import CollapseSwitch from "./collapse-switch.vue";
 import ListItem from "./list-item.vue";
@@ -10,18 +11,26 @@ const props = defineProps({
 });
 defineEmits(["action", "drag"]);
 
-const collapse = useCollapse(toRef(props, "root"));
+const { collapse, handleStart, handleEnd } = useCollapse(toRef(props, "root"));
 </script>
 <template>
   <div class="list-tree">
-    <div class="list-item-wrapper">
+    <div class="list-root-wrapper">
       <collapse-switch v-model="collapse" />
       <list-item
         :item="root"
         :draggable="draggable"
+        @drag-start="handleStart"
+        @drag-end="handleEnd"
         @action="$emit('action', $event)"
         @drag="$emit('drag', $event)"
       />
+      <template v-if="hasElements(root.actions)">
+        <actions-menu
+          :actions="root.actions"
+          @action="$emit('action', { action: $event, item: root.value })"
+        />
+      </template>
     </div>
     <template v-if="collapse === COLLAPSE_STATUSES.OPEN">
       <div class="list-tree-children">
@@ -38,11 +47,12 @@ const collapse = useCollapse(toRef(props, "root"));
   </div>
 </template>
 <style scoped>
-.list-tree-children {
-  padding-inline-start: var(--size-20);
-}
-.list-item-wrapper {
+.list-root-wrapper {
   display: flex;
   align-items: center;
+}
+
+.list-tree-children {
+  padding-inline-start: var(--size-20);
 }
 </style>

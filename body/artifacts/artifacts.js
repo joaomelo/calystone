@@ -67,6 +67,36 @@ export class Artifacts {
     });
   }
 
+  uplift({ itemId, siblingId }) {
+    console.log({ itemId, siblingId });
+    // // tem de deixar o parent igual e reordenar colocando o itemId na frente do siblingId
+    // const artifactA = this.artifacts.find(artifact => artifact.id === itemId);
+    // const artifactS = this.artifacts.find(artifact => artifact.id === siblingId);
+
+    // if (!artifactA || !artifactS) {
+    //   // Handle the case where either artifactA or artifactS is not found
+    //   return;
+    // }
+
+    // // Update parentId of artifactA to match parentId of artifactS
+    // artifactA.parentId = artifactS.parentId;
+
+    // // Find all children of artifactS's parent
+    // const siblings = this.artifacts.filter(
+    //   artifact => artifact.parentId === artifactS.parentId
+    // );
+
+    // // Update orders for all siblings to accommodate artifactA
+    // siblings.forEach(artifact => {
+    //   if (artifact.order >= artifactS.order) {
+    //     artifact.order += 1;
+    //   }
+    // });
+
+    // // Set order of artifactA to be immediately smaller than artifactS
+    // artifactA.order = artifactS.order - 1;
+  }
+
   edit(payload) {
     if (!payload.id) throw new Error("artifact edit requires a id to perform");
     return this.mutator.put(payload);

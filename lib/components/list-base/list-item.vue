@@ -1,12 +1,11 @@
 <script setup>
-import { hasElements, ActionsMenu } from "@lib";
 import { useDrag } from "./use-drag";
 
 const props = defineProps({
   item: { type: Object, default: () => ({}) },
   draggable: { type: Boolean, default: false },
 });
-const emit = defineEmits(["action", "drag"]);
+const emit = defineEmits(["action", "drag", "drag-start", "drag-end"]);
 
 const { handlers, classes } = useDrag({ value: props.item.value, emit });
 </script>
@@ -21,35 +20,48 @@ const { handlers, classes } = useDrag({ value: props.item.value, emit });
     @dragleave="handlers.leave"
     @dragover="handlers.over"
     @drop="handlers.drop"
+    @dragend="handlers.end"
   >
     <div class="list-item-content" :class="{ inactive: item.inactive }">
       {{ item.text }}
     </div>
-    <template v-if="hasElements(item.actions)">
-      <actions-menu
-        :actions="item.actions"
-        @action="$emit('action', { action: $event, item: item.value })"
-      />
-    </template>
   </div>
 </template>
 <style scoped>
 .list-item {
+  --list-item-drag-border-color: var(--color-neutral-50);
+  --list-item-highlight-background-color: var(--color-neutral-60);
+}
+
+.list-item {
   padding-block: var(--size-10);
   display: flex;
   flex-grow: 1;
+  border: var(--border-size-20) solid transparent;
 }
 
 .list-item:hover {
-  background-color: var(--color-neutral-60);
+  background-color: var(--list-item-highlight-background-color);
 }
 
 .list-item:focus-within {
-  background-color: var(--color-neutral-50);
+  background-color: var(--list-item-highlight-background-color);
 }
 
 .list-item.over {
-  background-color: var(--color-neutral-50);
+  background-color: var(--list-item-highlight-background-color);
+}
+
+.list-item.over.top {
+  border-top-color: var(--list-item-drag-border-color);
+}
+
+.list-item.over.middle {
+  border-color: var(--list-item-drag-border-color);
+}
+
+.list-item.over.bottom {
+  border-bottom-color: var(--list-item-drag-border-color);
 }
 
 .list-item-content {
