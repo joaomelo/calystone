@@ -1,6 +1,6 @@
 import { extractId, treeify, flatTree } from "@lib";
 import { nextOrder } from "./order";
-import { parseAdd } from "./add";
+import { parse } from "./parse";
 import { moveManifests } from "./move";
 
 export class Artifacts {
@@ -42,9 +42,18 @@ export class Artifacts {
     return this.select.findById(id);
   }
 
+  nextOrder(parentId) {
+    return nextOrder(parentId, this.list());
+  }
+
   add(payload) {
-    const payloadParsed = parseAdd(payload, this.select.list());
-    return this.mutator.add(payloadParsed);
+    const parsed = parse(payload);
+
+    const { userId } = this.gate;
+    const order = this.nextOrder(parsed.parentId);
+    const complete = { ...parsed, userId, order };
+
+    return this.mutator.add(complete);
   }
 
   append(parentId) {
@@ -53,7 +62,7 @@ export class Artifacts {
 
   transfer({ id, parentId = null }) {
     if (!id) throw new Error("artifact transfer requires a id to perform");
-    const order = nextOrder(parentId, this.select.list());
+    const order = this.nextOrder(parentId);
     const payload = { id, parentId, order };
 
     return this.mutator.put(payload);
@@ -89,9 +98,10 @@ export class Artifacts {
     const id = extractId(maybeId);
 
     const isRoot = (artifact) => extractId(artifact) === id;
-    const tree = treeify(this.list(), { isRoot });
-    const ids = flatTree(tree).map(extractId);
+    const map = (payload) => ({ method: "del", payload });
+    const tree = treeify(this.list(), { isRoot, map });
+    const manifests = flatTree(tree);
 
-    return this.mutator.del(ids);
+    return this.mutator.do(manifests);
   }
 }
