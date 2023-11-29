@@ -24,21 +24,21 @@ const handleDrag = ({ target, source, section }) => {
 
   if (section === "middle") {
     artifacts.transfer({
-      itemId: source,
+      id: source,
       parentId: target,
     });
   }
 
   if (section === "top") {
     artifacts.hoist({
-      itemId: source,
+      id: source,
       siblingId: target,
     });
   }
 
   if (section === "bottom") {
     artifacts.lower({
-      itemId: source,
+      id: source,
       siblingId: target,
     });
   }

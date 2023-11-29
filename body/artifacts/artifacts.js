@@ -1,5 +1,7 @@
 import { extractId, treeify, flatTree } from "@lib";
 import { nextOrder } from "./order";
+import { parseAdd } from "./add";
+import { moveManifests } from "./move";
 
 export class Artifacts {
   select;
@@ -41,88 +43,41 @@ export class Artifacts {
   }
 
   add(payload) {
-    const {
-      userId = this.gate.userId,
-      name = null,
-      notes = null,
-      parentId = null,
-      status = "active",
-    } = payload;
-    const order = nextOrder(parentId, this.select.list());
-
-    return this.mutator.add({ userId, name, notes, parentId, status, order });
+    const payloadParsed = parseAdd(payload, this.select.list());
+    return this.mutator.add(payloadParsed);
   }
 
   append(parentId) {
     return this.add({ parentId });
   }
 
-  transfer({ itemId, parentId = null }) {
-    if (!itemId) throw new Error("artifact transfer requires a id to perform");
+  transfer({ id, parentId = null }) {
+    if (!id) throw new Error("artifact transfer requires a id to perform");
     const order = nextOrder(parentId, this.select.list());
-    return this.mutator.put({
-      id: itemId,
+    const payload = { id, parentId, order };
+
+    return this.mutator.put(payload);
+  }
+
+  hoist({ id, siblingId }) {
+    const { parentId, order } = this.findById(siblingId);
+    return this.move({ id, parentId, order });
+  }
+
+  lower({ id, siblingId }) {
+    const { parentId, order } = this.findById(siblingId);
+    return this.move({ id, parentId, order: order + 1 });
+  }
+
+  move({ id, parentId, order }) {
+    const manifests = moveManifests({
+      id,
       parentId,
+      list: this.list(),
       order,
     });
-  }
 
-  async hoist({ itemId, siblingId }) {
-    const sibling = this.select.findById(siblingId);
-    const upwards = this.select.list(
-      (artifact) =>
-        artifact.parentId === sibling.parentId &&
-        artifact.order >= sibling.order &&
-        artifact.id !== itemId
-    );
-
-    const promises = [
-      this.mutator.put({
-        id: itemId,
-        parentId: sibling.parentId,
-        order: sibling.order,
-      }),
-    ];
-
-    upwards.forEach((upward) => {
-      promises.push(
-        this.mutator.put({
-          id: upward.id,
-          order: upward.order + 1,
-        })
-      );
-    });
-
-    await Promise.all(promises);
-  }
-
-  async lower({ itemId, siblingId }) {
-    const sibling = this.select.findById(siblingId);
-    const upwards = this.select.list(
-      (artifact) =>
-        artifact.parentId === sibling.parentId &&
-        artifact.order > sibling.order &&
-        artifact.id !== itemId
-    );
-
-    const promises = [
-      this.mutator.put({
-        id: itemId,
-        parentId: sibling.parentId,
-        order: sibling.order + 1,
-      }),
-    ];
-
-    upwards.forEach((upward) => {
-      promises.push(
-        this.mutator.put({
-          id: upward.id,
-          order: upward.order + 1,
-        })
-      );
-    });
-
-    await Promise.all(promises);
+    return this.mutator.do(manifests);
   }
 
   edit(payload) {
@@ -134,7 +89,7 @@ export class Artifacts {
     const id = extractId(maybeId);
 
     const isRoot = (artifact) => extractId(artifact) === id;
-    const tree = treeify(this.select.list(), { isRoot });
+    const tree = treeify(this.list(), { isRoot });
     const ids = flatTree(tree).map(extractId);
 
     return this.mutator.del(ids);

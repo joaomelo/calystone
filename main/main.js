@@ -1,5 +1,11 @@
 import { createApp } from "vue";
-import { Driver, I18n } from "@lib";
+import {
+  Driver,
+  I18n,
+  MutatorFirestoreAdapter,
+  SelectFirestoreAdapter,
+  Auth,
+} from "@lib";
 import { Body } from "@body";
 import { Display } from "@view/display";
 import { messages } from "@view/messages";
@@ -16,7 +22,11 @@ export function initApp(elementId) {
 
   const connection = createConnectionFromEnv();
   const driver = new Driver(connection);
-  const body = new Body(driver);
+  const mutatorAdapter = new MutatorFirestoreAdapter(driver);
+  const selectAdapter = new SelectFirestoreAdapter(driver);
+  const auth = new Auth(driver);
+
+  const body = new Body({ mutatorAdapter, selectAdapter, auth });
 
   app.use(body);
   window.$body = body;
