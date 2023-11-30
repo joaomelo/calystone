@@ -27,7 +27,7 @@ const signIn = useTask(async () => {
 <template>
   <frame-base>
     <text-heading class="page-auth-heading">calystone</text-heading>
-    <form-base :error="signIn.error">
+    <form-base :error="signIn.error" class="page-auth-form">
       <input-base
         id="input-email"
         v-model="payload.email"
@@ -52,6 +52,11 @@ const signIn = useTask(async () => {
 </template>
 <style scoped>
 .page-auth-heading {
-  margin-bottom: var(--size-20);
+  margin-bottom: var(--size-40);
+  text-align: center;
+}
+
+.page-auth-form {
+  margin-inline: auto;
 }
 </style>

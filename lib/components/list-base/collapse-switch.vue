@@ -33,7 +33,7 @@ const handleClick = () => {
 </template>
 <style scoped>
 .collapse-symbol {
-  width: var(--size-20);
+  width: var(--size-35);
   text-align: center;
 }
 

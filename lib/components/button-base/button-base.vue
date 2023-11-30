@@ -27,7 +27,7 @@ defineProps({
 }
 
 .button-base-spinner {
-  --spinner-base-size: var(--size-20);
+  --spinner-base-size: var(--size-30);
   --spinner-base-color: var(--color-neutral-30);
 }
 </style>

@@ -61,7 +61,7 @@ const handleAction = (value) => {
 
 .action-menu-dropdown-item {
   cursor: pointer;
-  padding: var(--size-10);
+  padding: var(--size-20);
 }
 
 .action-menu-dropdown-item:hover {

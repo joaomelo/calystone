@@ -65,7 +65,7 @@ const handleUpdate = (event) => emit("update:modelValue", event?.target?.value);
 
 .input-base-label {
   display: block;
-  margin-bottom: var(--size-00);
+  margin-bottom: var(--size-15);
 }
 
 .input-base-input {

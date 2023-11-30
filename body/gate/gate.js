@@ -13,6 +13,10 @@ export class Gate {
     return this.auth.userId;
   }
 
+  get userEmail() {
+    return this.auth.user.email;
+  }
+
   get status() {
     return this.auth.status;
   }

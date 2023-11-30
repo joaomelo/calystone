@@ -36,9 +36,9 @@ watch(
 
 <style scoped>
 .model-base-buttons {
-  margin-top: var(--size-20);
+  margin-top: var(--size-15);
   display: flex;
   justify-content: end;
-  gap: var(--size-10);
+  gap: var(--size-15);
 }
 </style>

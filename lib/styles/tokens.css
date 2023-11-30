@@ -9,16 +9,25 @@
 }
 
 :root {
-  --size-00: 4px;
-  --size-10: 8px;
-  --size-20: 16px;
-  --size-30: 24px;
+  --size-00: 1px;
+  --size-05: 2px;
+  --size-10: 4px;
+  --size-15: 6px;
+  --size-20: 8px;
+  --size-25: 12px;
+  --size-30: 16px;
+  --size-35: 24px;
   --size-40: 32px;
-  --size-50: 48px;
-  --size-60: 64px;
-  --size-70: 128px;
-  --size-80: 256px;
-  --size-90: 512px;
+  --size-45: 48px;
+  --size-50: 64px;
+  --size-55: 96px;
+  --size-60: 128px;
+  --size-65: 192px;
+  --size-70: 256px;
+  --size-75: 384px;
+  --size-80: 512px;
+  --size-85: 768px;
+  --size-90: 1024px;
 
   --border-size-10: 1px;
   --border-size-20: 2px;

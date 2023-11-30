@@ -8,7 +8,7 @@
 .buttons-panel {
   display: flex;
   flex-direction: column;
-  gap: var(--size-10);
+  gap: var(--size-15);
 }
 
 @media (min-width: 512px) {

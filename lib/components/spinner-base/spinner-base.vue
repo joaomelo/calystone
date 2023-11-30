@@ -24,7 +24,7 @@ defineProps({
 .spinner-base-shape {
   width: var(--spinner-base-size);
   height: var(--spinner-base-size);
-  border: var(--size-00) solid var(--spinner-base-color);
+  border: var(--size-10) solid var(--spinner-base-color);
   border-right-color: transparent;
   border-radius: 50%;
   animation: spinner 1s linear infinite;

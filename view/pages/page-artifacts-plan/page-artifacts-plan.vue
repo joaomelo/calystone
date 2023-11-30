@@ -15,6 +15,6 @@ const { t } = useI18n();
 
 <style scoped>
 .page-artifacts-plan-add {
-  margin-bottom: var(--size-10);
+  margin-bottom: var(--size-25);
 }
 </style>

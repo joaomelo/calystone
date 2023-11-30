@@ -26,6 +26,6 @@ const add = useTask(async () => {
 .artifact-add {
   display: flex;
   justify-content: space-between;
-  gap: var(--size-00);
+  gap: var(--size-15);
 }
 </style>

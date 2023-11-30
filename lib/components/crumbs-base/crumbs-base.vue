@@ -37,6 +37,6 @@ const handleClick = (crumb) => {
 }
 
 .crumbs-base-divider {
-  margin-inline: var(--size-00);
+  margin-inline: var(--size-15);
 }
 </style>

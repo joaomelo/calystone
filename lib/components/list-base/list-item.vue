@@ -34,7 +34,7 @@ const { handlers, classes } = useDrag({ value: props.item.value, emit });
 }
 
 .list-item {
-  padding-block: var(--size-10);
+  padding-block: var(--size-15);
   display: flex;
   flex-grow: 1;
   border: var(--border-size-20) solid transparent;
@@ -66,7 +66,7 @@ const { handlers, classes } = useDrag({ value: props.item.value, emit });
 
 .list-item-content {
   flex-grow: 1;
-  padding-inline-start: var(--size-00);
+  padding-inline-start: var(--size-15);
   /* so dragenter and dragleave only fires at the list-item element */
   pointer-events: none;
 }

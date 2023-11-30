@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { name, version } from "@main/../package.json";
 import {
   Driver,
   I18n,
@@ -12,6 +13,8 @@ import { messages } from "@view/messages";
 import App from "./app.vue";
 
 export function initApp(elementId) {
+  console.info(`${name} v${version}`);
+
   const app = createApp(App);
 
   const i18n = new I18n({ locale: navigator.language, messages });

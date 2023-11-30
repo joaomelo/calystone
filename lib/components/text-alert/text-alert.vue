@@ -17,9 +17,9 @@ defineProps({
 .text-alert {
   display: flex;
   align-items: center;
-  gap: var(--size-10);
-  padding-block: var(--size-00);
-  padding-inline: var(--size-10);
+  gap: var(--size-15);
+  padding-block: var(--size-15);
+  padding-inline: var(--size-15);
   background-color: var(--color-neutral-60);
   border: var(--border-size-10) solid var(--color-neutral-40);
 }
