@@ -28,7 +28,16 @@
   --size-80: 512px;
   --size-85: 768px;
   --size-90: 1024px;
+}
 
+:root {
+  --screen-sm: 0px;
+  --screen-md: var(--size-80);
+  --screen-lg: var(--size-85);
+  --screen-xg: var(--size-90);
+}
+
+:root {
   --border-size-10: 1px;
   --border-size-20: 2px;
   --border-size-30: 4px;

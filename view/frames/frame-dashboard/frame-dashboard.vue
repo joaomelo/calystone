@@ -1,20 +1,27 @@
 <script setup>
 import { FrameBase } from "../frame-base";
-import SideBar from "./side-bar.vue";
+import { useSideBarState, screenLargeValue, useMediaQuery } from "@lib";
+import FrameSide from "./frame-side.vue";
+import FrameTop from "./frame-top.vue";
 
 defineProps({
   title: { type: String, default: null },
 });
+
+const isLarge = useMediaQuery(`(min-width: ${screenLargeValue()})`);
+const sideBarState = useSideBarState(isLarge);
 </script>
 <template>
   <frame-base>
     <template #default>
-      <div class="frame-dashboard">
-        <side-bar />
+      <div class="frame-dashboard" :class="{ large: isLarge }">
+        <frame-side v-model="sideBarState" />
         <div>
-          <div class="frame-dashboard-title">
-            {{ title }}
-          </div>
+          <frame-top
+            v-model="sideBarState"
+            :title="title"
+            class="frame-dashboard-top"
+          />
           <slot></slot>
         </div>
       </div>
@@ -24,13 +31,15 @@ defineProps({
 <style scoped>
 .frame-dashboard {
   display: grid;
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: 1fr;
   column-gap: var(--size-50);
 }
 
-.frame-dashboard-title {
-  font-weight: var(--font-weight-30);
-  font-size: var(--font-size-20);
+.frame-dashboard.large {
+  grid-template-columns: max-content 1fr;
+}
+
+.frame-dashboard-top {
   margin-block-end: var(--size-25);
 }
 </style>
