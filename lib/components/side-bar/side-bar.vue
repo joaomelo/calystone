@@ -1,19 +1,32 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { ButtonIcon } from "../button-icon";
 
 const props = defineProps({
-  modelValue: { type: String, required: true },
-  title: { type: String, default: null },
+  modelValue: {
+    type: String,
+    required: true,
+    validator: (value) => ["fixed", "open", "closed"].includes(value),
+  },
+  title: {
+    type: String,
+    default: null,
+  },
 });
 const emit = defineEmits(["update:modelValue"]);
 
-const sideBar = ref();
-
 const popover = computed(() =>
-  props.modelValue !== "fixed" ? "manual" : undefined
+  props.modelValue === "fixed" ? undefined : "auto"
 );
 
+const sideBar = ref();
+onMounted(() => {
+  sideBar.value.ontoggle = ({ newState }) => {
+    if (newState !== props.modelValue) {
+      emit("update:modelValue", newState);
+    }
+  };
+});
 watch(
   () => props.modelValue,
   (value) => {
@@ -39,6 +52,7 @@ const handleClick = () => emit("update:modelValue", "closed");
         <button-icon
           v-if="modelValue === 'open'"
           icon="close"
+          class="side-bar-close"
           @click="handleClick"
         />
       </div>
@@ -47,21 +61,31 @@ const handleClick = () => emit("update:modelValue", "closed");
   </aside>
 </template>
 <style scoped>
+.side-bar {
+  margin: 0;
+  border: 0;
+}
+
+.side-bar:popover-open {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  padding-block-start: var(--size-20);
+  padding-inline-start: var(--size-30);
+  padding-inline-end: var(--size-45);
+}
+
+.side-bar::backdrop {
+  background-color: var(--color-neutral-10);
+  opacity: 0.2;
+}
+
 .side-bar-container {
   display: flex;
   flex-direction: column;
   gap: var(--size-40);
 }
-
-/* .side-bar.open {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  background-color: var(--color-neutral-70);
-
-  padding-top: var(--size-30);
-} */
 
 .side-bar-header {
   display: flex;
@@ -71,5 +95,11 @@ const handleClick = () => emit("update:modelValue", "closed");
 .side-bar-title {
   font-size: var(--font-size-30);
   font-weight: var(--font-weight-40);
+}
+
+.side-bar-close {
+  position: absolute;
+  top: var(--size-05);
+  right: var(--size-05);
 }
 </style>

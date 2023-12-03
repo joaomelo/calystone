@@ -1,4 +1,5 @@
-:root {
+:root,
+::backdrop {
   --color-neutral-10: hsl(0, 0%, 0%);
   --color-neutral-20: hsl(0, 0%, 20%);
   --color-neutral-30: hsl(0, 0%, 40%);
@@ -8,7 +9,8 @@
   --color-neutral-70: hsl(0, 0%, 100%);
 }
 
-:root {
+:root,
+::backdrop {
   --size-00: 1px;
   --size-05: 2px;
   --size-10: 4px;
@@ -30,14 +32,16 @@
   --size-90: 1024px;
 }
 
-:root {
+:root,
+::backdrop {
   --screen-sm: 0px;
   --screen-md: var(--size-80);
   --screen-lg: var(--size-85);
   --screen-xg: var(--size-90);
 }
 
-:root {
+:root,
+::backdrop {
   --border-size-10: 1px;
   --border-size-20: 2px;
   --border-size-30: 4px;
@@ -47,7 +51,8 @@
   --border-radius-30: 1000px;
 }
 
-:root {
+:root,
+::backdrop {
   --font-size-10: 10px;
   --font-size-20: 18px;
   --font-size-30: 26px;
