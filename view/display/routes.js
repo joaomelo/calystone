@@ -1,7 +1,9 @@
 import {
   PageArtifactEdit,
-  PageArtifactsPlan,
   PageAuth,
+  PageOutline,
+  PagePreferences,
+  PageSearch,
   PageSolve,
 } from "@view/pages";
 
@@ -10,9 +12,21 @@ export const routes = [
   { path: "/page-solve", name: "page-solve", component: PageSolve },
   { path: "/page-auth", name: "page-auth", component: PageAuth },
   {
-    path: "/page-artifacts-plan",
-    name: "page-artifacts-plan",
-    component: PageArtifactsPlan,
+    path: "/page-outline",
+    name: "page-outline",
+    component: PageOutline,
+    meta: { intra: true },
+  },
+  {
+    path: "/page-preferences",
+    name: "page-preferences",
+    component: PagePreferences,
+    meta: { intra: true },
+  },
+  {
+    path: "/page-search",
+    name: "page-search",
+    component: PageSearch,
     meta: { intra: true },
   },
   {

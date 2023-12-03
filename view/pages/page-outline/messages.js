@@ -1,11 +1,11 @@
-export const pageArtifactsPlan = {
+export const pageOutline = {
   en: {
     add: "add",
     append: "append",
     archive: "archive",
     delete: "delete",
     edit: "edit",
-    plan: "plan",
+    outline: "outline",
     unarchive: "unarchive",
   },
   "pt-br": {
@@ -14,7 +14,7 @@ export const pageArtifactsPlan = {
     archive: "arquivar",
     delete: "excluir",
     edit: "editar",
-    plan: "planejar",
+    outline: "hierarquia",
     unarchive: "desarquivar",
   },
 };

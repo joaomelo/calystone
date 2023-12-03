@@ -17,7 +17,7 @@ const add = useTask(async () => {
     <input-base v-model="payload.name" />
     <button-base
       :busy="add.busy"
-      :label="t('page-artifacts-plan.add')"
+      :label="t('page-outline.add')"
       @click="add.run"
     />
   </div>

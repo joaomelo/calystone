@@ -8,7 +8,7 @@ defineProps({
 </template>
 <style scoped>
 .text-heading {
-  font-size: var(--font-size-30);
+  font-size: var(--font-size-15);
   font-weight: var(--font-weight-30);
 }
 

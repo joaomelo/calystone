@@ -7,14 +7,14 @@ import ArtifactsTree from "./artifacts-tree.vue";
 const { t } = useI18n();
 </script>
 <template>
-  <frame-dashboard :title="t('page-artifacts-plan.plan')">
-    <artifact-add class="page-artifacts-plan-add" />
+  <frame-dashboard :title="t('page-outline.outline')">
+    <artifact-add class="page-outline-add" />
     <artifacts-tree />
   </frame-dashboard>
 </template>
 
 <style scoped>
-.page-artifacts-plan-add {
+.page-outline-add {
   margin-bottom: var(--size-25);
 }
 </style>

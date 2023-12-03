@@ -93,7 +93,7 @@ const handleClick = () => emit("update:modelValue", "closed");
 }
 
 .side-bar-title {
-  font-size: var(--font-size-30);
+  font-size: var(--font-size-15);
   font-weight: var(--font-weight-40);
 }
 

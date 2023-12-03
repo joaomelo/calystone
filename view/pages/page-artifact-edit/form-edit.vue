@@ -23,22 +23,29 @@ const edit = useTask(async () => {
   push();
 });
 
-const push = () => display.pageArtifactsPlan();
+const push = () => display.pageOutline();
 </script>
 <template>
   <form-base :error="edit.error" @submit="edit.run">
     <template #default>
-      <input-base v-model="payload.name" :label="t('name')" />
+      <input-base
+        v-model="payload.name"
+        :label="t('page-artifacts-edit.name')"
+      />
       <input-base
         v-model="payload.notes"
-        :label="t('notes')"
+        :label="t('page-artifacts-edit.notes')"
         type="textarea"
         rows="20"
       />
     </template>
     <template #buttons>
-      <button-base type="submit" :label="t('save')" :busy="edit.busy" />
-      <button-base :label="t('cancel')" @click="push" />
+      <button-base
+        type="submit"
+        :label="t('page-artifacts-edit.save')"
+        :busy="edit.busy"
+      />
+      <button-base :label="t('page-artifacts-edit.cancel')" @click="push" />
     </template>
   </form-base>
 </template>

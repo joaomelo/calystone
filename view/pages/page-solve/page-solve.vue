@@ -33,7 +33,7 @@ onMounted(async () => {
   justify-content: center;
   align-items: center;
 
-  font-size: var(--font-size-30);
+  font-size: var(--font-size-15);
   text-align: center;
 }
 </style>

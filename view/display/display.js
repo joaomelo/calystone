@@ -24,13 +24,19 @@ export class Display {
 
   pageStart() {
     const route = this.router.resolve(this.start);
-    return route.meta.intra
-      ? this.router.push(route)
-      : this.pageArtifactsPlan();
+    return route.meta.intra ? this.router.push(route) : this.pageOutline();
   }
 
-  pageArtifactsPlan() {
-    return this.router.push({ name: "page-artifacts-plan" });
+  pageOutline() {
+    return this.router.push({ name: "page-outline" });
+  }
+
+  pagePreferences() {
+    return this.router.push({ name: "page-preferences" });
+  }
+
+  pageSearch() {
+    return this.router.push({ name: "page-search" });
   }
 
   pageArtifactEdit(artifactId) {

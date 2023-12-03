@@ -1,6 +1,13 @@
 <script setup>
-import { name, version } from "@main/../package.json";
-import { useI18n, InputBase, useTask, SideBar, SideSection } from "@lib";
+import { name } from "@main/../package.json";
+import {
+  useI18n,
+  useTask,
+  SideBar,
+  SideSection,
+  SideAction,
+  SideText,
+} from "@lib";
 import { useBody } from "@body";
 import { useDisplay } from "@view/display";
 
@@ -8,10 +15,8 @@ defineProps({ modelValue: { type: String, required: true } });
 defineEmits(["update:modelValue"]);
 
 const display = useDisplay();
-const { t, i18n } = useI18n();
+const { t } = useI18n();
 const { gate } = useBody();
-
-const handleUpdate = (locale) => i18n.updateLocale(locale);
 
 const signOut = useTask(async () => {
   await gate.signOut();
@@ -25,26 +30,23 @@ const signOut = useTask(async () => {
     @update:model-value="$emit('update:modelValue', $event)"
   >
     <side-section>
-      <span>plan</span>
-      <span>search</span>
-    </side-section>
-    <side-section>
-      <span class="frame-side-text">{{ gate.userEmail }}</span>
-      <span @click="signOut.run">{{ t("frame-dashboard.sign-out") }}</span>
-    </side-section>
-    <side-section>
-      <input-base
-        :options="i18n.supported"
-        type="select"
-        :model-value="i18n.locale"
-        @update:model-value="handleUpdate"
+      <side-action
+        :text="t('page-outline.outline')"
+        @click="() => display.pageOutline()"
       />
-      <span>v{{ version }}</span>
+      <side-action
+        :text="t('page-search.search')"
+        @click="() => display.pageSearch()"
+      />
+      <side-action
+        :text="t('page-preferences.preferences')"
+        @click="() => display.pagePreferences()"
+      />
+    </side-section>
+    <side-section>
+      <side-text :text="gate.userEmail" />
+      <side-action :text="t('frame-dashboard.sign-out')" @click="signOut.run" />
     </side-section>
   </side-bar>
 </template>
-<style scoped>
-.frame-side-text {
-  font-weight: var(--font-weight-30);
-}
-</style>
+<style scoped></style>

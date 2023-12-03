@@ -32,6 +32,6 @@ const showToggle = computed(() => props.modelValue !== "fixed");
 
 .frame-top-title {
   font-weight: var(--font-weight-30);
-  font-size: var(--font-size-30);
+  font-size: var(--font-size-20);
 }
 </style>
