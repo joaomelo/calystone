@@ -14,6 +14,10 @@ export class Display {
     });
   }
 
+  is(name) {
+    return this.router.currentRoute.value.name === name;
+  }
+
   pageSolve() {
     return this.router.push({ name: "page-solve" });
   }

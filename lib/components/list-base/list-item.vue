@@ -30,7 +30,6 @@ const { handlers, classes } = useDrag({ value: props.item.value, emit });
 <style scoped>
 .list-item {
   --list-item-drag-border-color: var(--color-neutral-40);
-  --list-item-highlight-background-color: var(--color-neutral-60);
 }
 
 .list-item {
@@ -40,16 +39,10 @@ const { handlers, classes } = useDrag({ value: props.item.value, emit });
   border: var(--border-size-20) solid transparent;
 }
 
-.list-item:hover {
-  background-color: var(--list-item-highlight-background-color);
-}
-
-.list-item:focus-within {
-  background-color: var(--list-item-highlight-background-color);
-}
-
+.list-item:hover,
+.list-item:focus-within,
 .list-item.over {
-  background-color: var(--list-item-highlight-background-color);
+  background-color: var(--background-color-hover);
 }
 
 .list-item.over.top {

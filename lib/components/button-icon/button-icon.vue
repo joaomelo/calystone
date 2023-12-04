@@ -1,7 +1,14 @@
 <script setup>
 import { VisualIcon } from "../visual-icon";
 defineProps({
-  icon: { type: String, required: true },
+  icon: {
+    type: String,
+    required: true,
+  },
+  size: {
+    type: String,
+    default: "var(--size-35)",
+  },
 });
 </script>
 <template>
@@ -18,6 +25,6 @@ defineProps({
 }
 
 .button-icon:hover {
-  background-color: var(--color-neutral-60);
+  background-color: var(--background-color-hover);
 }
 </style>

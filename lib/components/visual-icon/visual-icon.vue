@@ -4,6 +4,10 @@ defineProps({
     type: String,
     required: true,
   },
+  size: {
+    type: String,
+    default: "var(--size-35)",
+  },
 });
 </script>
 <template>

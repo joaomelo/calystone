@@ -65,6 +65,6 @@ const handleAction = (value) => {
 }
 
 .action-menu-dropdown-item:hover {
-  background-color: var(--color-neutral-60);
+  background-color: var(--background-color-hover);
 }
 </style>

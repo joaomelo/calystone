@@ -32,7 +32,7 @@ const sideBarState = useSideBarState(isLarge);
 .frame-dashboard {
   display: grid;
   grid-template-columns: 1fr;
-  column-gap: var(--size-50);
+  column-gap: var(--size-40);
 }
 
 .frame-dashboard.large {

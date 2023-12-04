@@ -6,6 +6,6 @@
 section {
   display: flex;
   flex-direction: column;
-  gap: var(--size-15);
+  gap: var(--size-05);
 }
 </style>

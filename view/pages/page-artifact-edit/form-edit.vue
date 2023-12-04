@@ -30,11 +30,11 @@ const push = () => display.pageOutline();
     <template #default>
       <input-base
         v-model="payload.name"
-        :label="t('page-artifacts-edit.name')"
+        :label="t('page-artifact-edit.name')"
       />
       <input-base
         v-model="payload.notes"
-        :label="t('page-artifacts-edit.notes')"
+        :label="t('page-artifact-edit.notes')"
         type="textarea"
         rows="20"
       />
@@ -42,10 +42,10 @@ const push = () => display.pageOutline();
     <template #buttons>
       <button-base
         type="submit"
-        :label="t('page-artifacts-edit.save')"
+        :label="t('page-artifact-edit.save')"
         :busy="edit.busy"
       />
-      <button-base :label="t('page-artifacts-edit.cancel')" @click="push" />
+      <button-base :label="t('page-artifact-edit.cancel')" @click="push" />
     </template>
   </form-base>
 </template>
