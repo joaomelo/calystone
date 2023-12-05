@@ -20,16 +20,17 @@ const { floatingStyles, toggle } = useMenu(actionsToggle, actionsDropdown);
 
 const handleAction = (value) => {
   emit("action", value);
-  toggle();
+  if (!isShort.value) toggle();
 };
 </script>
 
 <template>
   <div>
     <template v-if="isShort">
-      <button-base @click="handleAction(mainAction.value)">
-        {{ mainAction.text }}
-      </button-base>
+      <button-base
+        :label="mainAction.text"
+        @click="handleAction(mainAction.value)"
+      />
     </template>
     <template v-else>
       <button-base ref="actionsToggle" label="..." @click="toggle" />

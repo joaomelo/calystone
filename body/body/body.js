@@ -14,6 +14,7 @@ export class Body {
     const mutator = new Mutator("artifacts", mutatorAdapter);
     const select = new Select("artifacts", selectAdapter);
     const artifacts = new Artifacts({ select, mutator, gate });
+    this.artifactsSelect = select;
     this.artifacts = artifacts;
 
     gate.artifacts = artifacts;

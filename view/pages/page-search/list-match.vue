@@ -1,7 +1,8 @@
 <script setup>
 import { computed } from "vue";
-import { ListBase } from "@lib";
+import { ListBase, useI18n } from "@lib";
 import { useDisplay } from "@view/display";
+import { useWithBody, searchArtifacts } from "@body";
 
 const props = defineProps({
   term: {
@@ -10,16 +11,25 @@ const props = defineProps({
   },
 });
 
+const { t } = useI18n();
 const display = useDisplay();
-const list = computed(() =>
-  props.term ? [{ text: props.term, value: props.term }] : []
-);
+const search = useWithBody(searchArtifacts);
+
+const editAction = { value: "edit", text: t("page-search.edit") };
+const actions = [editAction];
+
+const list = computed(() => {
+  const searched = search(props.term);
+  return searched.map(({ id, name }) => ({
+    value: id,
+    text: name,
+    actions,
+  }));
+});
 
 const handleAction = ({ action, item: artifactId }) => {
   switch (action) {
-    case "focus":
-      return display.pageOutline(artifactId);
-    case "edit":
+    case editAction.value:
       return display.pageArtifactEdit(artifactId);
   }
 };

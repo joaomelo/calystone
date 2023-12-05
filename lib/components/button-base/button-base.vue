@@ -4,7 +4,7 @@ import { SpinnerBase } from "../spinner-base";
 defineProps({
   busy: { type: Boolean, default: false },
   type: { type: String, default: "button" },
-  label: { type: String, default: null },
+  label: { type: String, required: true },
 });
 </script>
 <template>
