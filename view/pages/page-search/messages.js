@@ -3,6 +3,6 @@ export const pageSearch = {
     search: "search",
   },
   "pt-br": {
-    search: "busca",
+    search: "buscar",
   },
 };

@@ -39,8 +39,8 @@ export class Display {
     return this.router.push({ name: "page-preferences" });
   }
 
-  pageSearch() {
-    return this.router.push({ name: "page-search" });
+  pageSearch({ term } = {}) {
+    return this.router.push({ name: "page-search", query: { term } });
   }
 
   pageArtifactEdit(artifactId) {

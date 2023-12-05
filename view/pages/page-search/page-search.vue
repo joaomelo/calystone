@@ -1,26 +1,26 @@
 <script setup>
 import { useI18n } from "@lib";
 import { FrameDashboard } from "@view/frames";
+import SearchBar from "./search-bar.vue";
+import ListMatch from "./list-match.vue";
+
+defineProps({
+  term: {
+    type: String,
+    default: null,
+  },
+});
 
 const { t } = useI18n();
-// const handleUpdate = (locale) => i18n.updateLocale(locale);
 </script>
 <template>
   <frame-dashboard :title="t('page-search.search')">
-    search
-    <!-- <form-base :error="edit.error" @submit="edit.run">
-      <template #default>
-        <input-base
-          :options="i18n.supported"
-          type="select"
-          :model-value="i18n.locale"
-          @update:model-value="handleUpdate"
-        />
-      </template>
-      <template #buttons>
-        <button-base type="submit" :label="t('save')" :busy="edit.busy" />
-        <button-base :label="t('cancel')" @click="push" />
-      </template>
-    </form-base> -->
+    <search-bar :term="term" class="page-search-bar" />
+    <list-match :term="term" />
   </frame-dashboard>
 </template>
+<style scoped>
+.page-search-bar {
+  margin-bottom: var(--size-25);
+}
+</style>

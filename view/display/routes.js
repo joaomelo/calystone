@@ -28,6 +28,7 @@ export const routes = [
     name: "page-search",
     component: PageSearch,
     meta: { intra: true },
+    props: (route) => ({ term: route.query.term }),
   },
   {
     path: "/page-artifact-edit/:artifactId",
