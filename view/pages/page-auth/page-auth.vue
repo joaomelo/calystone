@@ -1,5 +1,4 @@
 <script setup>
-import { reactive } from "vue";
 import {
   ButtonBase,
   ButtonsPanel,
@@ -7,27 +6,18 @@ import {
   InputBase,
   TextHeading,
   useI18n,
-  useTask,
 } from "@lib";
-import { useBody } from "@body";
-import { useDisplay } from "@view/display";
-import { FrameBase } from "@view/frames";
+import { FrameBase } from "@view";
+import { useSignIn } from "./use-sign-in";
 
-const display = useDisplay();
 const { t } = useI18n();
-const { gate } = useBody();
 
-const payload = reactive({ email: null, password: null });
-
-const signIn = useTask(async () => {
-  await gate.signIn(payload);
-  display.pageStart();
-});
+const { useCase, payload } = useSignIn();
 </script>
 <template>
   <frame-base>
     <text-heading class="page-auth-heading">calystone</text-heading>
-    <form-base :error="signIn.error" class="page-auth-form">
+    <form-base :error="useCase.error" class="page-auth-form">
       <input-base
         id="input-email"
         v-model="payload.email"
@@ -42,9 +32,9 @@ const signIn = useTask(async () => {
       <buttons-panel>
         <button-base
           id="button-sign-in"
-          :busy="signIn.busy"
           :label="t('page-auth.sign-in')"
-          @click="signIn.run"
+          :busy="useCase.busy"
+          @click="useCase.run"
         />
       </buttons-panel>
     </form-base>

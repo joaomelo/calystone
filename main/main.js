@@ -1,15 +1,16 @@
 import { createApp } from "vue";
 import { name, version } from "@main/../package.json";
 import {
+  Auth,
+  Dependencies,
   Driver,
   I18n,
+  Mutator,
   MutatorFirestoreAdapter,
+  Select,
   SelectFirestoreAdapter,
-  Auth,
 } from "@lib";
-import { Body } from "@body";
-import { Display } from "@view/display";
-import { messages } from "@view/messages";
+import { messages, createRouter } from "@view";
 import App from "./app.vue";
 
 export function initApp(elementId) {
@@ -20,23 +21,29 @@ export function initApp(elementId) {
   const i18n = new I18n({ locale: navigator.language, messages });
   app.use(i18n);
 
-  const display = new Display();
-  app.use(display);
+  const start = window.location.pathname;
+  const router = createRouter();
+  app.use(router);
 
   const connection = createConnectionFromEnv();
   const driver = new Driver(connection);
+  const auth = new Auth(driver);
   const mutatorAdapter = new MutatorFirestoreAdapter(driver);
   const selectAdapter = new SelectFirestoreAdapter(driver);
-  const auth = new Auth(driver);
+  const artifactsMutator = new Mutator("artifacts", mutatorAdapter);
+  const artifactsSelect = new Select("artifacts", selectAdapter);
 
-  const body = new Body({ mutatorAdapter, selectAdapter, auth });
-
-  app.use(body);
-  window.$body = body;
+  const dependencies = new Dependencies({
+    start,
+    router,
+    auth,
+    artifactsMutator,
+    artifactsSelect,
+  });
+  window.$dependencies = dependencies;
+  app.use(dependencies);
 
   app.mount(elementId);
-
-  display.pageSolve();
 }
 
 function createConnectionFromEnv() {

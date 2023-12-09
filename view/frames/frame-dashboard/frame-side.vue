@@ -1,20 +1,20 @@
 <script setup>
 import { name, version } from "@main/../package.json";
-import { useI18n, useTask, SideBar, SideSection, SideItem } from "@lib";
-import { useBody } from "@body";
-import { useDisplay } from "@view/display";
+import { useI18n, SideBar, SideSection, SideItem } from "@lib";
+import { useSignOut } from "./use-sign-out";
+import { useEmail } from "./use-email";
 
-defineProps({ modelValue: { type: String, required: true } });
+defineProps({
+  modelValue: {
+    type: String,
+    required: true,
+  },
+});
 defineEmits(["update:modelValue"]);
 
-const display = useDisplay();
 const { t } = useI18n();
-const { gate } = useBody();
-
-const signOut = useTask(async () => {
-  await gate.signOut();
-  display.pageAuth();
-});
+const signOut = useSignOut();
+const email = useEmail();
 </script>
 <template>
   <side-bar
@@ -25,24 +25,24 @@ const signOut = useTask(async () => {
       <side-item :text="name" />
     </side-section>
     <side-section>
-      <side-item
+      <!-- <side-item
         :text="t('page-outline.outline')"
-        :active="display.is('page-outline')"
-        @click="() => display.pageOutline()"
-      />
-      <side-item
+        :active="is('page-outline')"
+        @click="() => pageOutline()"
+      /> -->
+      <!-- <side-item
         :text="t('page-search.search')"
-        :active="display.is('page-search')"
-        @click="() => display.pageSearch()"
+        :active="is('page-search')"
+        @click="() => pageSearch()"
       />
       <side-item
         :text="t('page-preferences.preferences')"
-        :active="display.is('page-preferences')"
-        @click="() => display.pagePreferences()"
-      />
+        :active="is('page-preferences')"
+        @click="() => pagePreferences()"
+      /> -->
     </side-section>
     <side-section>
-      <side-item :text="gate.userEmail" />
+      <side-item :text="email" />
       <side-item :text="t('frame-dashboard.sign-out')" @click="signOut.run" />
     </side-section>
     <side-section>

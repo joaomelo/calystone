@@ -1,24 +1,24 @@
 <script setup>
-import { reactive } from "vue";
-import { ButtonBase, InputBase, useI18n, useTask } from "@lib";
-import { useBody } from "@body";
+import { ButtonBase, InputBase, useI18n } from "@lib";
+import { useAddArtifact } from "./use-add";
+
+const props = defineProps({
+  parentId: {
+    type: String,
+    default: null,
+  },
+});
 
 const { t } = useI18n();
-const { artifacts } = useBody();
-
-const payload = reactive({ name: null });
-const add = useTask(async () => {
-  await artifacts.add(payload);
-  payload.name = null;
-});
+const { useCase, payload } = useAddArtifact(props.parentId);
 </script>
 <template>
   <div class="artifact-add">
     <input-base v-model="payload.name" />
     <button-base
-      :busy="add.busy"
+      :busy="useCase.busy"
       :label="t('page-outline.add')"
-      @click="add.run"
+      @click="useCase.run"
     />
   </div>
 </template>

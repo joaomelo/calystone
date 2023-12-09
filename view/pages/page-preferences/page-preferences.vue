@@ -1,6 +1,6 @@
 <script setup>
 import { useI18n, FormBase, InputBase, ButtonBase } from "@lib";
-import { useDisplay } from "@view/display";
+import { useDisplay } from "@view/routes";
 import { FrameDashboard } from "@view/frames";
 
 const { t, i18n } = useI18n();

@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { ListBase, useI18n } from "@lib";
-import { useDisplay } from "@view/display";
+import { useDisplay } from "@view/routes";
 import { useWithBody, searchArtifacts } from "@body";
 
 const props = defineProps({

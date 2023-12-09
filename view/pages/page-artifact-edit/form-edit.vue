@@ -2,7 +2,7 @@
 import { reactive } from "vue";
 import { FormBase, InputBase, ButtonBase, useI18n, useTask } from "@lib";
 import { useBody } from "@body";
-import { useDisplay } from "@view/display";
+import { useDisplay } from "@view/routes";
 
 const props = defineProps({
   artifactId: {

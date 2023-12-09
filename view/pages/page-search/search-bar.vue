@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from "vue";
 import { ButtonBase, InputBase, useI18n } from "@lib";
-import { useDisplay } from "@view/display";
+import { useDisplay } from "@view/routes";
 
 const props = defineProps({
   term: {

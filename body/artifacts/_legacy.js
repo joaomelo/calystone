@@ -1,6 +1,5 @@
 import { extractId, treeify, flatTree } from "@lib";
 import { nextOrder } from "./order";
-import { parse } from "./parse";
 import { moveManifests } from "./move";
 
 export class Artifacts {
@@ -12,22 +11,6 @@ export class Artifacts {
     this.select = select;
     this.mutator = mutator;
     this.gate = gate;
-  }
-
-  get isOpen() {
-    return this.select.isOpen;
-  }
-
-  open() {
-    return this.select.open({
-      field: "userId",
-      operator: "==",
-      value: this.gate.userId,
-    });
-  }
-
-  close() {
-    return this.select.close();
   }
 
   list(predicate) {
@@ -44,16 +27,6 @@ export class Artifacts {
 
   nextOrder(parentId) {
     return nextOrder(parentId, this.list());
-  }
-
-  add(payload) {
-    const parsed = parse(payload);
-
-    const { userId } = this.gate;
-    const order = this.nextOrder(parsed.parentId);
-    const complete = { ...parsed, userId, order };
-
-    return this.mutator.add(complete);
   }
 
   append(parentId) {

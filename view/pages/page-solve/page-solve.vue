@@ -1,22 +1,13 @@
 <script setup>
 import { onMounted } from "vue";
-import { useI18n, AUTH_STATUSES } from "@lib";
-import { useBody } from "@body";
-import { useDisplay } from "@view/display";
-import { FrameBase } from "@view/frames";
+import { useI18n } from "@lib";
+import { FrameBase } from "@view";
+import { useSolveCase } from "./solve-case";
 
 const { t } = useI18n();
-const display = useDisplay();
-const { gate } = useBody();
+const { useCase } = useSolveCase();
 
-onMounted(async () => {
-  await gate.solve();
-  if (gate.status === AUTH_STATUSES.SIGNED_IN) {
-    display.pageStart();
-  } else {
-    display.pageAuth();
-  }
-});
+onMounted(() => useCase.run());
 </script>
 <template>
   <frame-base>

@@ -1,2 +1,2 @@
-export { default as PageAuth } from "./page-auth.vue";
+export * from "./navigation";
 export * from "./messages";

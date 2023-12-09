@@ -1,7 +1,7 @@
 <script setup>
 import { ListBase } from "@lib";
 import { useBody } from "@body";
-import { useDisplay } from "@view/display";
+import { useDisplay } from "@view/routes";
 import { useTree } from "./use-tree";
 
 const display = useDisplay();
