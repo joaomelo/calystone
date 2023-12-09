@@ -1,12 +1,12 @@
-import { useUseCase } from "@lib";
+import { useTask } from "@lib";
 import { signOut } from "@body";
 import { goStart } from "@view";
 
 export function useSignOut() {
-  const { useCase } = useUseCase(async (dependencies) => {
+  const { task } = useTask(async (dependencies) => {
     await signOut(dependencies);
     goStart(dependencies);
   });
 
-  return useCase;
+  return task;
 }

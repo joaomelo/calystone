@@ -5,9 +5,9 @@ import { FrameBase } from "@view";
 import { useSolveCase } from "./solve-case";
 
 const { t } = useI18n();
-const { useCase } = useSolveCase();
+const { task } = useSolveCase();
 
-onMounted(() => useCase.run());
+onMounted(() => task.run());
 </script>
 <template>
   <frame-base>

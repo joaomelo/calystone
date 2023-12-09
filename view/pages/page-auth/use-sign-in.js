@@ -1,9 +1,9 @@
-import { useUseCase } from "@lib";
+import { useTask } from "@lib";
 import { signIn } from "@body";
 import { goStart } from "@view";
 
 export function useSignIn() {
-  return useUseCase(
+  return useTask(
     async (dependencies, payload) => {
       await signIn(dependencies, payload);
       goStart(dependencies);

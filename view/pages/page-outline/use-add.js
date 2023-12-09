@@ -1,8 +1,8 @@
-import { useUseCase } from "@lib";
+import { useTask } from "@lib";
 import { addArtifact } from "@body";
 
 export function useAddArtifact(parentId) {
-  return useUseCase(
+  return useTask(
     async (dependencies, payload) => {
       await addArtifact(dependencies, payload);
     },

@@ -1,23 +1,32 @@
-import { computed } from "vue";
-import { treeify, useI18n, sort } from "@lib";
-import { useBody } from "@body";
+import { treeify, useI18n, sort, useDependencies } from "@lib";
+import { computeArtifacts } from "@body";
 
-export function useTree() {
-  const { artifacts } = useBody();
-  const { t } = useI18n();
+export function useTree(parentId) {
+  const dependencies = useDependencies();
 
-  const editAction = { value: "edit", text: t("page-outline.edit") };
-  const appendAction = { value: "append", text: t("page-outline.append") };
-  const delAction = { value: "del", text: t("page-outline.delete") };
-  const actions = [editAction, appendAction, delAction];
-
+  const actions = useActions();
   const map = ({ id, name }) => ({
     value: id,
     text: name,
     actions,
   });
 
-  const artifactsList = artifacts.computed((list) => sort(list, "order"));
-  const artifactsTree = computed(() => treeify(artifactsList.value, { map }));
-  return artifactsTree;
+  // some use cases provide the parentId as an empty string
+  const normalizedParentId = parentId || null;
+  const isRoot = (a) => a.parentId === normalizedParentId;
+
+  const artifacts = computeArtifacts(dependencies, (list) => {
+    const sorted = sort(list, "order");
+    return treeify(sorted, { map, isRoot });
+  });
+  return artifacts;
+}
+
+function useActions() {
+  const { t } = useI18n();
+
+  const editAction = { value: "edit", text: t("page-outline.edit") };
+  const appendAction = { value: "append", text: t("page-outline.append") };
+  const delAction = { value: "del", text: t("page-outline.delete") };
+  return [editAction, appendAction, delAction];
 }

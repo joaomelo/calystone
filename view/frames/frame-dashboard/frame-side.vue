@@ -3,6 +3,7 @@ import { name, version } from "@main/../package.json";
 import { useI18n, SideBar, SideSection, SideItem } from "@lib";
 import { useSignOut } from "./use-sign-out";
 import { useEmail } from "./use-email";
+import { useOutline } from "./use-outline";
 
 defineProps({
   modelValue: {
@@ -15,6 +16,7 @@ defineEmits(["update:modelValue"]);
 const { t } = useI18n();
 const signOut = useSignOut();
 const email = useEmail();
+const { isOutline, goOutline } = useOutline();
 </script>
 <template>
   <side-bar
@@ -25,11 +27,11 @@ const email = useEmail();
       <side-item :text="name" />
     </side-section>
     <side-section>
-      <!-- <side-item
+      <side-item
         :text="t('page-outline.outline')"
-        :active="is('page-outline')"
-        @click="() => pageOutline()"
-      /> -->
+        :active="isOutline()"
+        @click="goOutline"
+      />
       <!-- <side-item
         :text="t('page-search.search')"
         :active="is('page-search')"

@@ -12,12 +12,12 @@ import { useSignIn } from "./use-sign-in";
 
 const { t } = useI18n();
 
-const { useCase, payload } = useSignIn();
+const { task, payload } = useSignIn();
 </script>
 <template>
   <frame-base>
     <text-heading class="page-auth-heading">calystone</text-heading>
-    <form-base :error="useCase.error" class="page-auth-form">
+    <form-base :error="task.error" class="page-auth-form">
       <input-base
         id="input-email"
         v-model="payload.email"
@@ -33,8 +33,8 @@ const { useCase, payload } = useSignIn();
         <button-base
           id="button-sign-in"
           :label="t('page-auth.sign-in')"
-          :busy="useCase.busy"
-          @click="useCase.run"
+          :busy="task.busy"
+          @click="task.run"
         />
       </buttons-panel>
     </form-base>

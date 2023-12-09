@@ -10,15 +10,15 @@ const props = defineProps({
 });
 
 const { t } = useI18n();
-const { useCase, payload } = useAddArtifact(props.parentId);
+const { task, payload } = useAddArtifact(props.parentId);
 </script>
 <template>
   <div class="artifact-add">
     <input-base v-model="payload.name" />
     <button-base
-      :busy="useCase.busy"
+      :busy="task.busy"
       :label="t('page-outline.add')"
-      @click="useCase.run"
+      @click="task.run"
     />
   </div>
 </template>
