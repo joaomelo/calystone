@@ -1,10 +1,6 @@
 import { moveManifests } from "./move";
 
 export class Artifacts {
-  findById(id) {
-    return this.select.findById(id);
-  }
-
   transfer({ id, parentId = null }) {
     if (!id) throw new Error("artifact transfer requires a id to perform");
     const order = this.nextOrder(parentId);
@@ -32,10 +28,5 @@ export class Artifacts {
     });
 
     return this.mutator.do(manifests);
-  }
-
-  edit(payload) {
-    if (!payload.id) throw new Error("artifact edit requires a id to perform");
-    return this.mutator.put(payload);
   }
 }

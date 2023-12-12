@@ -1,10 +1,11 @@
-import { authRoute, solveRoute, outlineRoute } from "@view/pages";
+import { authRoute, solveRoute, outlineRoute, artifactEditRoute } from "@view";
 
 export const routes = [
   { path: "/", redirect: solveRoute.path },
   solveRoute,
   authRoute,
   outlineRoute,
+  artifactEditRoute,
   // {
   //   path: "/page-preferences",
   //   name: "page-preferences",
@@ -17,13 +18,6 @@ export const routes = [
   //   component: PageSearch,
   //   meta: { intra: true },
   //   props: (route) => ({ term: route.query.term }),
-  // },
-  // {
-  //   path: "/page-artifact-edit/:artifactId",
-  //   name: "page-artifact-edit",
-  //   component: PageArtifactEdit,
-  //   props: true,
-  //   meta: { intra: true },
   // },
   { path: "/:pathMatch(.*)*", redirect: solveRoute.path },
 ];

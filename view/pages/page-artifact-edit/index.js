@@ -1,2 +1,2 @@
-export { default as PageArtifactEdit } from "./page-artifact-edit.vue";
+export * from "./navigation";
 export * from "./messages";

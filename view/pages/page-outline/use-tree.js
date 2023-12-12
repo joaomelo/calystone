@@ -25,8 +25,9 @@ export function useTree(parentId) {
 function useActions() {
   const { t } = useI18n();
 
-  const editAction = { value: "edit", text: t("page-outline.edit") };
   const appendAction = { value: "append", text: t("page-outline.append") };
   const delAction = { value: "del", text: t("page-outline.delete") };
-  return [editAction, appendAction, delAction];
+  const editAction = { value: "edit", text: t("page-outline.edit") };
+  const focusAction = { value: "focus", text: t("page-outline.focus") };
+  return [editAction, appendAction, focusAction, delAction];
 }
