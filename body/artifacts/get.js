@@ -1,4 +1,6 @@
+import { getItem } from "@lib";
+
 export function getArtifact(dependencies, id) {
-  const { artifactsSelector } = dependencies;
-  return artifactsSelector.get(id);
+  const { selector } = dependencies;
+  return getItem(selector, { name: "artifacts", id });
 }

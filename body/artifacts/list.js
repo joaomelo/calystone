@@ -1,4 +1,6 @@
-export function listArtifacts(dependencies, predicate) {
-  const { artifactsSelect } = dependencies;
-  return artifactsSelect.list(predicate);
+import { listItems } from "@lib";
+
+export function listArtifacts(dependencies) {
+  const { selector } = dependencies;
+  return listItems(selector, "artifacts");
 }

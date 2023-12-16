@@ -1,4 +1,4 @@
-import { extractId, treeify, flatTree } from "@lib";
+import { extractId, treeify, flatTree, mutate } from "@lib";
 import { listArtifacts } from "./list";
 
 export async function delArtifact(dependencies, maybeId) {
@@ -6,10 +6,10 @@ export async function delArtifact(dependencies, maybeId) {
 
   const id = extractId(maybeId);
   const isRoot = (a) => extractId(a) === id;
-  const map = (payload) => ({ method: "del", payload });
+  const map = (payload) => ({ method: "del", name: "artifacts", payload });
   const tree = treeify(artifacts, { isRoot, map });
   const manifests = flatTree(tree);
 
-  const { artifactsMutator } = dependencies;
-  return artifactsMutator.do(manifests);
+  const { mutator } = dependencies;
+  return mutate(mutator, manifests);
 }
