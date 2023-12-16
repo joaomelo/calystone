@@ -1,7 +1,9 @@
+import { signOut as signOutBase } from "@lib";
 import { closeArtifacts } from "@body";
 
 export async function signOut(dependencies) {
-  const { auth } = dependencies;
   closeArtifacts(dependencies);
-  await auth.signOut();
+
+  const { auth } = dependencies;
+  await signOutBase(auth);
 }

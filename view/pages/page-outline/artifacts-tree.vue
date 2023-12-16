@@ -1,7 +1,8 @@
 <script setup>
 import { ListBase, useDependencies } from "@lib";
-import { addArtifact, delArtifact } from "@body";
-import { goArtifactEdit, goOutline } from "@view";
+import { addArtifact } from "@body";
+// import { addArtifact, delArtifact } from "@body";
+// import { goArtifactEdit, goOutline } from "@view";
 import { useTree } from "./use-tree";
 
 const props = defineProps({
@@ -17,12 +18,12 @@ const handleAction = ({ action, item: id }) => {
   switch (action) {
     case "append":
       return addArtifact(dependencies, { parentId: id });
-    case "del":
-      return delArtifact(dependencies, id);
-    case "edit":
-      return goArtifactEdit(dependencies, id);
-    case "focus":
-      return goOutline(dependencies, id);
+    // case "del":
+    //   return delArtifact(dependencies, id);
+    // case "edit":
+    //   return goArtifactEdit(dependencies, id);
+    // case "focus":
+    //   return goOutline(dependencies, id);
   }
 };
 

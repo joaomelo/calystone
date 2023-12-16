@@ -1,8 +1,7 @@
-import { useDependencies } from "@lib";
-import { currentUser } from "@body";
+import { useDependencies, currentUser } from "@lib";
 
 export function useEmail() {
-  const dependencies = useDependencies();
-  const { email } = currentUser(dependencies);
+  const { auth } = useDependencies();
+  const { email } = currentUser(auth);
   return email;
 }

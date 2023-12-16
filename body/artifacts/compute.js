@@ -1,10 +1,10 @@
 import { computed } from "vue";
-import { select } from "@lib";
+import { list } from "@lib";
 
 export function computeArtifacts(dependencies, getter) {
-  const { selectAdapter } = dependencies;
+  const { selector } = dependencies;
   return computed(() => {
-    const artifacts = select(selectAdapter, "artifacts");
+    const artifacts = list(selector, "artifacts");
     return getter(artifacts);
   });
 }

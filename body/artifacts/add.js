@@ -1,15 +1,15 @@
-import { currentUser } from "@body";
+import { mutate, currentUser } from "@lib";
 import { identifyLastOrder } from "./order";
 
-export function addArtifact(dependencies, payload) {
-  const parsed = parse(payload);
+export function addArtifact(dependencies, payloadData) {
+  const parsed = parse(payloadData);
 
-  const lastOrder = identifyLastOrder(dependencies, parsed);
+  const order = identifyLastOrder(dependencies, parsed) + 1;
   const { id: userId } = currentUser(dependencies);
-  const complete = { ...parsed, userId, order: lastOrder + 1 };
+  const payload = { ...parsed, userId, order };
 
-  const { artifactsMutator } = dependencies;
-  return artifactsMutator.add(complete);
+  const { mutator } = dependencies;
+  return mutate(mutator, { name: "artifacts", method: "add", payload });
 }
 
 function parse(payload) {
