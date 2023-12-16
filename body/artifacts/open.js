@@ -1,10 +1,16 @@
-export async function openArtifacts(dependencies, payload) {
-  const { artifactsSelect } = dependencies;
-  const { userId } = payload;
+import { openSelect } from "@lib";
 
-  await artifactsSelect.open({
-    field: "userId",
-    operator: "==",
-    value: userId,
+export async function openArtifacts(dependencies, userId) {
+  const { selector } = dependencies;
+
+  await openSelect(selector, {
+    name: "artifacts",
+    where: [
+      {
+        field: "userId",
+        operator: "==",
+        value: userId,
+      },
+    ],
   });
 }

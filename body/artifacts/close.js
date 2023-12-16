@@ -1,4 +1,6 @@
+import { closeSelect } from "@lib";
+
 export function closeArtifacts(dependencies) {
-  const { artifactsSelect } = dependencies;
-  artifactsSelect.close();
+  const { selector } = dependencies;
+  closeSelect(selector);
 }

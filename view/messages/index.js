@@ -6,10 +6,10 @@ import {
   pageOutline,
   pageSolve,
 } from "@view/pages";
-import { frameDashboard } from "@view/frames";
+// import { frameDashboard } from "@view/frames";
 
 export const messages = {
-  "frame-dashboard": frameDashboard,
+  // "frame-dashboard": frameDashboard,
   "page-auth": pageAuth,
   "page-outline": pageOutline,
   "page-solve": pageSolve,

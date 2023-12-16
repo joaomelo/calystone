@@ -2,10 +2,10 @@
 import { onMounted } from "vue";
 import { useI18n } from "@lib";
 import { FrameBase } from "@view";
-import { useSolveCase } from "./solve-case";
+import { useSolve } from "./use-solve";
 
 const { t } = useI18n();
-const { task } = useSolveCase();
+const { task } = useSolve();
 
 onMounted(() => task.run());
 </script>

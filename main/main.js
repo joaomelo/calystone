@@ -1,14 +1,11 @@
 import { createApp } from "vue";
 import { name, version } from "@main/../package.json";
 import {
-  Auth,
   Dependencies,
-  Driver,
+  FirebaseAuth,
+  FirebaseDriver,
+  FirestoreSelector,
   I18n,
-  Mutator,
-  MutatorFirestoreAdapter,
-  Select,
-  SelectFirestoreAdapter,
 } from "@lib";
 import { messages, createRouter } from "@view";
 import App from "./app.vue";
@@ -26,19 +23,17 @@ export function initApp(elementId) {
   app.use(router);
 
   const connection = createConnectionFromEnv();
-  const driver = new Driver(connection);
-  const auth = new Auth(driver);
-  const mutatorAdapter = new MutatorFirestoreAdapter(driver);
-  const selectAdapter = new SelectFirestoreAdapter(driver);
-  const artifactsMutator = new Mutator("artifacts", mutatorAdapter);
-  const artifactsSelect = new Select("artifacts", selectAdapter);
+  const driver = new FirebaseDriver(connection);
+  const auth = new FirebaseAuth(driver.app);
+  const selector = new FirestoreSelector(driver.app);
+  // const mutator = new FirestoreMutator(driver.firestore);
 
   const dependencies = new Dependencies({
     start,
     router,
     auth,
-    artifactsMutator,
-    artifactsSelect,
+    selector,
+    // mutatorAdapter,
   });
   window.$dependencies = dependencies;
   app.use(dependencies);
@@ -57,7 +52,7 @@ function createConnectionFromEnv() {
     typeof import.meta.env.VITE_MEASUREMENT_ID !== "string"
   ) {
     throw new Error(
-      "One or more of the environment variables for the service driver connection where not loaded properly"
+      "One or more of the environment variables for the service firebasedriver connection where not loaded properly"
     );
   }
 

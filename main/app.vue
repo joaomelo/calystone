@@ -1,10 +1,10 @@
 <script setup>
 import { onMounted } from "vue";
 import { useDependencies } from "@lib";
-import { goStart } from "@view";
+import { goSolve } from "@view";
 
 const dependencies = useDependencies();
-onMounted(() => goStart(dependencies));
+onMounted(() => goSolve(dependencies));
 </script>
 <template>
   <router-view></router-view>
