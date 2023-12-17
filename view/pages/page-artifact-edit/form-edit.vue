@@ -1,5 +1,6 @@
 <script setup>
 import { FormBase, InputBase, ButtonBase, useI18n } from "@lib";
+import { useBack } from "./use-back";
 import { useEdit } from "./use-edit";
 
 const props = defineProps({
@@ -10,7 +11,8 @@ const props = defineProps({
 });
 
 const { t } = useI18n();
-const { save, back, payload } = useEdit(props.artifactId);
+const back = useBack();
+const { save, payload } = useEdit(props.artifactId, back);
 </script>
 <template>
   <form-base :error="save.error" @submit="save.run">

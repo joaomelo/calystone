@@ -1,20 +1,17 @@
 import { useDependencies, useTask } from "@lib";
 import { editArtifact, getArtifact } from "@body";
-import { goBack } from "@view";
 
-export function useEdit(artifactId) {
+export function useEdit(artifactId, success) {
   const dependencies = useDependencies();
-
-  const back = () => goBack(dependencies);
 
   const { id, name, notes } = getArtifact(dependencies, artifactId);
   const { task, payload } = useTask(
     async (dependencies, payload) => {
       await editArtifact(dependencies, payload);
-      back();
+      success();
     },
     { id, name, notes }
   );
 
-  return { save: task, back, payload };
+  return { save: task, payload };
 }

@@ -4,6 +4,7 @@ import {
   Dependencies,
   FirebaseAuth,
   FirebaseDriver,
+  FirestoreMutator,
   FirestoreSelector,
   I18n,
 } from "@lib";
@@ -26,14 +27,14 @@ export function initApp(elementId) {
   const driver = new FirebaseDriver(connection);
   const auth = new FirebaseAuth(driver.app);
   const selector = new FirestoreSelector(driver.app);
-  // const mutator = new FirestoreMutator(driver.firestore);
+  const mutator = new FirestoreMutator(driver.firestore);
 
   const dependencies = new Dependencies({
     start,
     router,
     auth,
     selector,
-    // mutatorAdapter,
+    mutator,
   });
   window.$dependencies = dependencies;
   app.use(dependencies);

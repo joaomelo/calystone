@@ -1,7 +1,7 @@
 <script setup>
 import { toRef } from "vue";
 import { ListBase, useDependencies } from "@lib";
-import { goArtifactEdit, goOutline } from "@view";
+import { goArtifactEdit, goOutline } from "@view/pages";
 import { useActions } from "./use-actions";
 import { useSearched } from "./use-searched";
 
@@ -22,7 +22,7 @@ const handleAction = ({ action, item: artifactId }) => {
     case editAction.value:
       return goArtifactEdit(dependencies, artifactId);
     case focusAction.value:
-      return goOutline(artifactId);
+      return goOutline(dependencies, artifactId);
   }
 };
 </script>
