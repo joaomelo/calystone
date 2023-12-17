@@ -6,6 +6,7 @@ export const preferencesRoute = {
   path: `/${name}`,
   name,
   component: PagePreferences,
+  meta: { intra: true },
 };
 
 export function isPreferences(dependencies) {

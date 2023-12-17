@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from "vue";
-import { ButtonBase, InputBase, useI18n } from "@lib";
-import { useDisplay } from "@view/routes";
+import { ButtonBase, InputBase, useI18n, useDependencies } from "@lib";
+import { goSearch } from "@view";
 
 const props = defineProps({
   term: {
@@ -11,11 +11,10 @@ const props = defineProps({
 });
 
 const { t } = useI18n();
-const display = useDisplay();
+const dependencies = useDependencies();
 
 const search = reactive({ term: props.term });
-
-const handleClick = () => display.pageSearch(search);
+const handleClick = () => goSearch(dependencies, search.term);
 </script>
 <template>
   <div class="search-bar">
