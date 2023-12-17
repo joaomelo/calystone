@@ -1,8 +1,15 @@
 <script setup>
+import { toRef } from "vue";
 import { ListBase, useDependencies } from "@lib";
-import { addArtifact } from "@body";
-// import { addArtifact, delArtifact } from "@body";
-// import { goArtifactEdit, goOutline } from "@view";
+import {
+  addArtifact,
+  delArtifact,
+  hoistArtifact,
+  lowerArtifact,
+  transferArtifact,
+} from "@body";
+import { goArtifactEdit, goOutline } from "@view/pages";
+import { useActions } from "./use-actions";
 import { useTree } from "./use-tree";
 
 const props = defineProps({
@@ -14,46 +21,48 @@ const props = defineProps({
 
 const dependencies = useDependencies();
 
+const { actions, editAction, appendAction, focusAction, delAction } =
+  useActions();
+
 const handleAction = ({ action, item: id }) => {
   switch (action) {
-    case "append":
+    case appendAction.value:
       return addArtifact(dependencies, { parentId: id });
-    // case "del":
-    //   return delArtifact(dependencies, id);
-    // case "edit":
-    //   return goArtifactEdit(dependencies, id);
-    // case "focus":
-    //   return goOutline(dependencies, id);
+    case delAction.value:
+      return delArtifact(dependencies, id);
+    case editAction.value:
+      return goArtifactEdit(dependencies, id);
+    case focusAction.value:
+      return goOutline(dependencies, id);
   }
 };
 
 const handleDrag = ({ target, source, section }) => {
-  console.log({ target, source, section });
   if (target === source) return;
 
-  // if (section === "middle") {
-  //   artifacts.transfer({
-  //     id: source,
-  //     parentId: target,
-  //   });
-  // }
+  if (section === "middle") {
+    transferArtifact(dependencies, {
+      id: source,
+      parentId: target,
+    });
+  }
 
-  // if (section === "top") {
-  //   artifacts.hoist({
-  //     id: source,
-  //     siblingId: target,
-  //   });
-  // }
+  if (section === "top") {
+    hoistArtifact(dependencies, {
+      id: source,
+      siblingId: target,
+    });
+  }
 
-  // if (section === "bottom") {
-  //   artifacts.lower({
-  //     id: source,
-  //     siblingId: target,
-  //   });
-  // }
+  if (section === "bottom") {
+    lowerArtifact(dependencies, {
+      id: source,
+      siblingId: target,
+    });
+  }
 };
 
-const artifactsTree = useTree(props.parentId);
+const artifactsTree = useTree(toRef(props, "parentId"), actions);
 </script>
 <template>
   <list-base

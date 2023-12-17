@@ -1,33 +1,24 @@
-import { treeify, useI18n, sort, useDependencies } from "@lib";
-import { computeArtifacts } from "@body";
+import { computed } from "vue";
+import { treeify, sort, useDependencies } from "@lib";
+import { listArtifacts } from "@body";
 
-export function useTree(parentId) {
-  const dependencies = useDependencies();
-
-  const actions = useActions();
+export function useTree(parentId, actions) {
   const map = ({ id, name }) => ({
     value: id,
     text: name,
     actions,
   });
 
-  // some use cases provide the parentId as an empty string
-  const normalizedParentId = parentId || null;
-  const isRoot = (a) => a.parentId === normalizedParentId;
-
-  const artifacts = computeArtifacts(dependencies, (list) => {
+  const dependencies = useDependencies();
+  const artifacts = computed(() => {
+    const list = listArtifacts(dependencies);
     const sorted = sort(list, "order");
+
+    // some use cases provide the parentId as an empty string
+    const normalizedParentId = parentId.value || null;
+    const isRoot = (a) => a.parentId === normalizedParentId;
+
     return treeify(sorted, { map, isRoot });
   });
   return artifacts;
-}
-
-function useActions() {
-  const { t } = useI18n();
-
-  const appendAction = { value: "append", text: t("page-outline.append") };
-  const delAction = { value: "del", text: t("page-outline.delete") };
-  const editAction = { value: "edit", text: t("page-outline.edit") };
-  const focusAction = { value: "focus", text: t("page-outline.focus") };
-  return [editAction, appendAction, focusAction, delAction];
 }
