@@ -5,11 +5,13 @@ export function addArtifact(dependencies, payload) {
   const parsed = parse(payload);
 
   const order = identifyLastOrder(dependencies, parsed) + 1;
-  const { id: userId } = currentUser(dependencies);
+
+  const { auth } = dependencies;
+  const { id: userId } = currentUser(auth);
+
   const artifact = { ...parsed, userId, order };
 
   const { mutator } = dependencies;
-
   return mutate(mutator, {
     name: "artifacts",
     method: "add",

@@ -1,20 +1,20 @@
 <script setup>
-import { useI18n } from "@lib";
 import { FrameDashboard } from "@view/frames";
+import { useTitle } from "./use-title";
 import ArtifactAdd from "./artifact-add.vue";
 import ArtifactsTree from "./artifacts-tree.vue";
 
-defineProps({
+const props = defineProps({
   parentId: {
     type: String,
     default: null,
   },
 });
 
-const { t } = useI18n();
+const title = useTitle(props.parentId);
 </script>
 <template>
-  <frame-dashboard :title="t('page-outline.outline')">
+  <frame-dashboard :title="title">
     <artifact-add class="page-outline-add" :parent-id="parentId" />
     <artifacts-tree :parent-id="parentId" />
   </frame-dashboard>
