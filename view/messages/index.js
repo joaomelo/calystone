@@ -1,6 +1,6 @@
 import {
   pageArtifactEdit,
-  // pagePreferences,
+  pagePreferences,
   // pageSearch,
   pageAuth,
   pageOutline,
@@ -14,6 +14,6 @@ export const messages = {
   "page-outline": pageOutline,
   "page-solve": pageSolve,
   "page-artifact-edit": pageArtifactEdit,
-  // "page-preferences": pagePreferences,
+  "page-preferences": pagePreferences,
   // "page-search": pageSearch,
 };

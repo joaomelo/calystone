@@ -1,5 +1,5 @@
 import { extractId, treeify, flatTree, mutate } from "@lib";
-import { listArtifacts } from "./list";
+import { listArtifacts } from "@body";
 
 export async function delArtifact(dependencies, maybeId) {
   const artifacts = listArtifacts(dependencies);

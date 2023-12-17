@@ -1,7 +1,7 @@
 import { mutate } from "@lib";
 import { listArtifacts } from "@body";
 
-export function move(dependencies, { id, parentId, order }) {
+export function moveArtifact(dependencies, { id, parentId, order }) {
   if (!id) throw new Error("artifact move requires a id to perform");
 
   const list = listArtifacts(dependencies);

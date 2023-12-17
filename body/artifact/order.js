@@ -1,8 +1,8 @@
-import { list } from "@lib";
+import { listArtifacts } from "@body";
 
 export function identifyLastOrder(dependencies, { parentId = null } = {}) {
   const { selector } = dependencies;
-  const artifacts = list(selector, "artifacts");
+  const artifacts = listArtifacts(selector);
   const children = artifacts.filter((a) => (a.parentId = parentId));
   const lastOrder = children.reduce((acc, child) => {
     const siblingOrder = child.order || 0;

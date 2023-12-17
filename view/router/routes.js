@@ -1,15 +1,11 @@
-import {
-  authRoute,
-  solveRoute,
-  outlineRoute,
-  // artifactEditRoute
-} from "@view";
+import { authRoute, solveRoute, outlineRoute, preferencesRoute } from "@view";
 
 export const routes = [
   { path: "/", redirect: solveRoute.path },
   solveRoute,
   authRoute,
   outlineRoute,
+  preferencesRoute,
   // artifactEditRoute,
   // {
   //   path: "/page-preferences",

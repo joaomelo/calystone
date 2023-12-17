@@ -1,13 +1,18 @@
 <script setup>
-import { useI18n, FormBase, InputBase, ButtonBase } from "@lib";
-import { useDisplay } from "@view/routes";
-import { FrameDashboard } from "@view/frames";
+import {
+  ButtonBase,
+  FormBase,
+  InputBase,
+  useDependencies,
+  useI18n,
+} from "@lib";
+import { FrameDashboard, goOutline } from "@view";
 
 const { t, i18n } = useI18n();
-const display = useDisplay();
+const dependencies = useDependencies();
 
 const handleI18n = (locale) => i18n.updateLocale(locale);
-const handleDone = () => display.pageOutline();
+const handleDone = () => goOutline(dependencies);
 </script>
 <template>
   <frame-dashboard :title="t('page-preferences.preferences')">

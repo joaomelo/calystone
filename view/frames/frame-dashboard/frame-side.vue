@@ -1,9 +1,9 @@
 <script setup>
 import { name, version } from "@main/../package.json";
-import { useI18n, SideBar, SideSection, SideItem } from "@lib";
+import { useI18n, SideBar, SideSection, SideItem, useDependencies } from "@lib";
+import { goOutline, goPreferences, isOutline, isPreferences } from "@view";
 import { useSignOut } from "./use-sign-out";
 import { useEmail } from "./use-email";
-import { useOutline } from "./use-outline";
 
 defineProps({
   modelValue: {
@@ -13,10 +13,10 @@ defineProps({
 });
 defineEmits(["update:modelValue"]);
 
+const dependencies = useDependencies();
 const { t } = useI18n();
 const signOut = useSignOut();
 const email = useEmail();
-const { isOutline, goOutline } = useOutline();
 </script>
 <template>
   <side-bar
@@ -29,19 +29,19 @@ const { isOutline, goOutline } = useOutline();
     <side-section>
       <side-item
         :text="t('page-outline.outline')"
-        :active="isOutline()"
-        @click="goOutline"
+        :active="isOutline(dependencies)"
+        @click="() => goOutline(dependencies)"
       />
       <!-- <side-item
         :text="t('page-search.search')"
         :active="is('page-search')"
         @click="() => pageSearch()"
-      />
+      />-->
       <side-item
         :text="t('page-preferences.preferences')"
-        :active="is('page-preferences')"
-        @click="() => pagePreferences()"
-      /> -->
+        :active="isPreferences(dependencies)"
+        @click="() => goPreferences(dependencies)"
+      />
     </side-section>
     <side-section>
       <side-item :text="email" />
