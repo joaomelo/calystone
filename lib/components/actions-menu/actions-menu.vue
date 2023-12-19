@@ -1,12 +1,13 @@
 <script setup>
 import { computed, ref } from "vue";
-import { ButtonBase } from "@lib";
+import { ButtonBase, validateOptionOrOptions } from "@lib/components";
 import { useMenu } from "./use-menu";
 
 const props = defineProps({
   actions: {
     type: Array,
     default: () => [],
+    validator: validateOptionOrOptions,
   },
 });
 const emit = defineEmits(["action"]);

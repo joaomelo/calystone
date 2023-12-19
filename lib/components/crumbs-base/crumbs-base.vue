@@ -1,24 +1,28 @@
 <script setup>
-import { hasElements } from "@lib";
+import { computed } from "vue";
+import { asOptions, validateOptionOrOptions } from "@lib/components";
 
 const props = defineProps({
   crumbs: {
     type: Array,
-    default: () => [],
+    required: true,
+    validator: validateOptionOrOptions,
   },
 });
 
 const emit = defineEmits(["crumb"]);
 
+const normalizedCrumbs = computed(() => asOptions(props.crumbs));
 const notLast = (c) => c < props.crumbs.length - 1;
+
 const handleClick = (crumb) => {
   if (crumb.inactive) return;
   emit("crumb", crumb.value);
 };
 </script>
 <template>
-  <div v-if="hasElements(crumbs)">
-    <template v-for="(crumb, index) in crumbs" :key="index">
+  <div>
+    <template v-for="crumb in normalizedCrumbs" :key="crumb.value">
       <span
         class="crumbs-base-crumb"
         :class="{ clickable: !crumb.inactive }"
