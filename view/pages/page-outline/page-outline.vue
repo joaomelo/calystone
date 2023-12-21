@@ -1,7 +1,9 @@
 <script setup>
+import { computed } from "vue";
+import { useI18n } from "@lib";
 import { FrameDashboard } from "@view/frames";
-import { useTitle } from "./use-title";
 import ArtifactAdd from "./artifact-add.vue";
+import ArtifactAncestry from "./artifact-ancestry.vue";
 import ArtifactsTree from "./artifacts-tree.vue";
 
 const props = defineProps({
@@ -10,18 +12,21 @@ const props = defineProps({
     default: null,
   },
 });
+const { t } = useI18n();
 
-const title = useTitle(props.parentId);
+// vue router coerces the parentId param to an empty string when the correct value should be null
+const id = computed(() => props.parentId || null);
 </script>
 <template>
-  <frame-dashboard :title="title">
-    <artifact-add class="page-outline-add" :parent-id="parentId" />
-    <artifacts-tree :parent-id="parentId" />
+  <frame-dashboard :title="t('page-outline.outline')">
+    <artifact-ancestry v-if="id" :id="id" class="mb-25" />
+    <artifact-add :parent-id="id" class="mb-25" />
+    <artifacts-tree :parent-id="id" />
   </frame-dashboard>
 </template>
 
 <style scoped>
-.page-outline-add {
+.mb-25 {
   margin-bottom: var(--size-25);
 }
 </style>

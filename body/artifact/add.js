@@ -1,4 +1,4 @@
-import { mutate, currentUser } from "@lib";
+import { mutate, currentUser, isId, appError } from "@lib";
 import { identifyLastOrder } from "./order";
 
 export function addArtifact(dependencies, payload) {
@@ -26,6 +26,14 @@ function parse(payload) {
     parentId = null,
     status = "active",
   } = payload;
+
+  if (parentId !== null && !isId(parentId)) {
+    appError({
+      code: "INVALID_PARENT_ID",
+      message: "parentId must be null or an valid id",
+      meta: { parentId },
+    });
+  }
 
   return {
     name,

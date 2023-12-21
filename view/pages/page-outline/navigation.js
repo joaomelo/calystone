@@ -17,5 +17,5 @@ export function isOutline(dependencies) {
 
 export function goOutline(dependencies, parentId = null) {
   const { router } = dependencies;
-  return router.push({ name, params: { parentId } });
+  return router.push({ name, params: { parentId: parentId } });
 }
