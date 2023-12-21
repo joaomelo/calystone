@@ -1,14 +1,7 @@
 <script setup>
 import { name, version } from "@main/../package.json";
 import { useI18n, SideBar, SideSection, SideItem, useDependencies } from "@lib";
-import {
-  goOutline,
-  goPreferences,
-  isOutline,
-  isPreferences,
-  isSearch,
-  goSearch,
-} from "@view";
+import { goOutline, goPreferences, goSearch } from "@view";
 import { useSignOut } from "./use-sign-out";
 import { useEmail } from "./use-email";
 
@@ -36,17 +29,14 @@ const email = useEmail();
     <side-section>
       <side-item
         :text="t('page-outline.outline')"
-        :active="isOutline(dependencies)"
         @click="() => goOutline(dependencies)"
       />
       <side-item
         :text="t('page-search.search')"
-        :active="isSearch(dependencies)"
         @click="() => goSearch(dependencies)"
       />
       <side-item
         :text="t('page-preferences.preferences')"
-        :active="isPreferences(dependencies)"
         @click="() => goPreferences(dependencies)"
       />
     </side-section>

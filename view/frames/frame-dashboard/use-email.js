@@ -1,7 +1,7 @@
-import { useDependencies, currentUser } from "@lib";
+import { useDependencies, currentUser, truncate } from "@lib";
 
 export function useEmail() {
   const { auth } = useDependencies();
   const { email } = currentUser(auth);
-  return email;
+  return truncate(email, 15);
 }
