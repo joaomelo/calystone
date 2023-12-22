@@ -2,12 +2,28 @@
 import { useDrag } from "./use-drag";
 
 const props = defineProps({
-  item: { type: Object, default: () => ({}) },
-  draggable: { type: Boolean, default: false },
+  item: {
+    type: Object,
+    default: () => ({}),
+  },
+  draggable: {
+    type: Boolean,
+    default: false,
+  },
+  editable: {
+    type: Boolean,
+    default: false,
+  },
 });
-const emit = defineEmits(["action", "drag", "drag-start", "drag-end"]);
+const emit = defineEmits(["drag", "drag-start", "drag-end", "edit"]);
 
 const { handlers, classes } = useDrag({ value: props.item.value, emit });
+
+const handleBlur = (e) => {
+  const text = e.target.textContent;
+  if (text === props.item.text) return;
+  emit("edit", { item: props.item.value, text });
+};
 </script>
 <template>
   <div
@@ -15,12 +31,14 @@ const { handlers, classes } = useDrag({ value: props.item.value, emit });
     class="list-item"
     :class="classes"
     :draggable="draggable"
+    :contenteditable="editable ? 'plaintext-only' : 'false'"
     @dragstart="handlers.start"
     @dragenter="handlers.enter"
     @dragleave="handlers.leave"
     @dragover="handlers.over"
     @drop="handlers.drop"
     @dragend="handlers.end"
+    @blur="handleBlur"
   >
     <div class="list-item-content" :class="{ inactive: item.inactive }">
       {{ item.text }}

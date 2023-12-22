@@ -7,6 +7,7 @@ import {
   hoistArtifact,
   lowerArtifact,
   transferArtifact,
+  editArtifact,
 } from "@body";
 import { goArtifactEdit, goOutline } from "@view/pages";
 import { useActions } from "./use-actions";
@@ -62,13 +63,19 @@ const handleDrag = ({ target, source, section }) => {
   }
 };
 
+const handleEdit = ({ item, text }) => {
+  editArtifact(dependencies, { id: item, name: text });
+};
+
 const artifactsTree = useTree(toRef(props, "parentId"), actions);
 </script>
 <template>
   <list-base
     :items="artifactsTree"
     draggable
+    editable
     @action="handleAction"
     @drag="handleDrag"
+    @edit="handleEdit"
   />
 </template>

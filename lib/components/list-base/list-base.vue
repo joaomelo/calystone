@@ -2,10 +2,20 @@
 import ListTree from "./list-tree.vue";
 
 defineProps({
-  items: { type: Array, default: () => [] },
-  draggable: { type: Boolean, default: false },
+  items: {
+    type: Array,
+    default: () => [],
+  },
+  draggable: {
+    type: Boolean,
+    default: false,
+  },
+  editable: {
+    type: Boolean,
+    default: false,
+  },
 });
-defineEmits(["action", "drag"]);
+defineEmits(["action", "drag", "edit"]);
 </script>
 <template>
   <div>
@@ -13,8 +23,10 @@ defineEmits(["action", "drag"]);
       <list-tree
         :root="item"
         :draggable="draggable"
+        :editable="editable"
         @action="$emit('action', $event)"
         @drag="$emit('drag', $event)"
+        @edit="$emit('edit', $event)"
       />
     </template>
   </div>

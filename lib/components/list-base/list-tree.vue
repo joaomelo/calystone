@@ -6,10 +6,20 @@ import CollapseSwitch from "./collapse-switch.vue";
 import ListItem from "./list-item.vue";
 
 const props = defineProps({
-  root: { type: Object, default: () => ({}) },
-  draggable: { type: Boolean, default: false },
+  root: {
+    type: Object,
+    default: () => ({}),
+  },
+  draggable: {
+    type: Boolean,
+    default: false,
+  },
+  editable: {
+    type: Boolean,
+    default: false,
+  },
 });
-defineEmits(["action", "drag"]);
+defineEmits(["action", "drag", "edit"]);
 
 const { collapse, handleStart, handleEnd } = useCollapse(toRef(props, "root"));
 </script>
@@ -20,15 +30,17 @@ const { collapse, handleStart, handleEnd } = useCollapse(toRef(props, "root"));
       <list-item
         :item="root"
         :draggable="draggable"
+        :editable="editable"
         @drag-start="handleStart"
         @drag-end="handleEnd"
         @action="$emit('action', $event)"
         @drag="$emit('drag', $event)"
+        @edit="$emit('edit', $event)"
       />
       <template v-if="hasElements(root.actions)">
         <actions-menu
           :actions="root.actions"
-          @action="$emit('action', { action: $event, item: root.value })"
+          @action="$emit('action', { item: root.value, action: $event })"
         />
       </template>
     </div>
@@ -38,8 +50,10 @@ const { collapse, handleStart, handleEnd } = useCollapse(toRef(props, "root"));
           <list-tree
             :root="child"
             :draggable="draggable"
+            :editable="editable"
             @action="$emit('action', $event)"
             @drag="$emit('drag', $event)"
+            @edit="$emit('edit', $event)"
           />
         </template>
       </div>
