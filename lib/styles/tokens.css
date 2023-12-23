@@ -8,7 +8,7 @@
   --color-neutral-60: hsl(0, 0%, 95%);
   --color-neutral-70: hsl(0, 0%, 100%);
 
-  --background-color-hover: var(--color-neutral-60);
+  --background-color-highlight: var(--color-neutral-60);
 }
 
 :root,
@@ -47,6 +47,9 @@
   --border-size-10: 1px;
   --border-size-20: 2px;
   --border-size-30: 4px;
+
+  --border-color-standard: var(--color-neutral-40);
+  --border-color-highlight: var(--color-neutral-20);
 
   --border-radius-10: 4px;
   --border-radius-20: 8px;

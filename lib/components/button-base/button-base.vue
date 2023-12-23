@@ -2,9 +2,18 @@
 import { SpinnerBase } from "../spinner-base";
 
 defineProps({
-  busy: { type: Boolean, default: false },
-  type: { type: String, default: "button" },
-  label: { type: String, required: true },
+  busy: {
+    type: Boolean,
+    default: false,
+  },
+  type: {
+    type: String,
+    default: "button",
+  },
+  label: {
+    type: String,
+    required: true,
+  },
 });
 </script>
 <template>
@@ -20,6 +29,9 @@ defineProps({
 <style scoped>
 .button-base {
   position: relative;
+  border: var(--border-size-10) solid var(--border-color-standard);
+  padding-block: var(--size-10);
+  padding-inline: var(--size-20);
 }
 
 .button-base-content.busy {

@@ -1,5 +1,5 @@
 <script setup>
-import { FormBase, InputBase, ButtonBase, useI18n } from "@lib";
+import { ButtonBase, FormBase, InputText, InputMark, useI18n } from "@lib";
 import { useBack } from "./use-back";
 import { useEdit } from "./use-edit";
 
@@ -17,15 +17,15 @@ const { save, payload } = useEdit(props.artifactId, back);
 <template>
   <form-base :error="save.error" @submit="save.run">
     <template #default>
-      <input-base
+      <input-text
+        id="input-name"
         v-model="payload.name"
         :label="t('page-artifact-edit.name')"
       />
-      <input-base
+      <input-mark
+        id="input-notes"
         v-model="payload.notes"
         :label="t('page-artifact-edit.notes')"
-        type="textarea"
-        rows="20"
       />
     </template>
     <template #buttons>

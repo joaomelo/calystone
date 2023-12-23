@@ -25,6 +25,6 @@ defineProps({
 }
 
 .button-icon:hover {
-  background-color: var(--background-color-hover);
+  background-color: var(--background-color-highlight);
 }
 </style>

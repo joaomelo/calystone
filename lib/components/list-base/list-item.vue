@@ -60,7 +60,7 @@ const handleBlur = (e) => {
 .list-item:hover,
 .list-item:focus-within,
 .list-item.over {
-  background-color: var(--background-color-hover);
+  background-color: var(--background-color-highlight);
 }
 
 .list-item.over.top {
