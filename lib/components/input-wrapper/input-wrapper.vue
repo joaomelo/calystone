@@ -20,7 +20,7 @@ const inputId = computed(() => `${props.id}-input`);
 </script>
 <template>
   <div :id="id" class="input-wrapper" :class="{ inline }">
-    <label :for="inputId" :class="{ inline }">
+    <label v-if="label" :for="inputId" :class="{ inline }">
       {{ label }}
     </label>
     <slot :id="inputId"></slot>

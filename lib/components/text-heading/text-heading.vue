@@ -1,6 +1,13 @@
 <script setup>
 defineProps({
-  clipped: { type: Boolean, default: false },
+  clipped: {
+    type: Boolean,
+    default: false,
+  },
+  size: {
+    type: String,
+    default: "var(--font-size-15)",
+  },
 });
 </script>
 <template>
@@ -8,7 +15,7 @@ defineProps({
 </template>
 <style scoped>
 .text-heading {
-  font-size: var(--font-size-15);
+  font-size: v-bind(size);
   font-weight: var(--font-weight-30);
 }
 

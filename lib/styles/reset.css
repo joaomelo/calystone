@@ -69,4 +69,6 @@ textarea,
 select {
   font: inherit;
   border: 0;
+  padding: 0;
+  margin: 0;
 }

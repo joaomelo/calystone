@@ -30,7 +30,7 @@ defineProps({
 .button-base {
   position: relative;
   border: var(--border-size-10) solid var(--border-color-standard);
-  padding-block: var(--size-10);
+  padding-block: var(--size-15);
   padding-inline: var(--size-20);
 }
 

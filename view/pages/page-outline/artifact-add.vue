@@ -1,5 +1,5 @@
 <script setup>
-import { ButtonBase, InputBase, useI18n } from "@lib";
+import { ButtonBase, FormBase, InputText, useI18n } from "@lib";
 import { useAddArtifact } from "./use-add";
 
 const props = defineProps({
@@ -13,19 +13,16 @@ const { t } = useI18n();
 const { task, payload } = useAddArtifact(props.parentId);
 </script>
 <template>
-  <div class="artifact-add">
-    <input-base v-model="payload.name" />
-    <button-base
-      :busy="task.busy"
-      :label="t('page-outline.add')"
-      @click="task.run"
-    />
-  </div>
+  <form-base enter inline @submit="task.run">
+    <template #default>
+      <input-text id="input-name" v-model="payload.name" autofocus />
+    </template>
+    <template #buttons>
+      <button-base
+        :busy="task.busy"
+        :label="t('page-outline.add')"
+        type="submit"
+      />
+    </template>
+  </form-base>
 </template>
-<style scoped>
-.artifact-add {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--size-15);
-}
-</style>

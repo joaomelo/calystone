@@ -1,17 +1,40 @@
 <script setup>
 import { OverlayBase, ButtonsPanel, TextAlert } from "@lib";
 
-defineProps({
-  busy: { type: Boolean, default: false },
-  error: { type: String, default: null },
+const props = defineProps({
+  busy: {
+    type: Boolean,
+    default: false,
+  },
+  error: {
+    type: String,
+    default: null,
+  },
+  enter: {
+    type: Boolean,
+    default: false,
+  },
+  inline: {
+    type: Boolean,
+    default: false,
+  },
 });
 const emit = defineEmits(["submit"]);
 
 const handleSubmit = () => emit("submit");
+const handleEnter = () => {
+  if (props.enter) {
+    handleSubmit();
+  }
+};
 </script>
 <template>
-  <overlay-base :show="busy">
-    <form @submit.prevent="handleSubmit">
+  <overlay-base :show="busy" @keyup.enter="handleEnter">
+    <form
+      class="form-base-form"
+      :class="{ inline }"
+      @submit.prevent="handleSubmit"
+    >
       <div class="form-base-content">
         <text-alert v-if="error" icon="error" :text="error" />
         <slot></slot>
@@ -24,10 +47,21 @@ const handleSubmit = () => emit("submit");
 </template>
 
 <style scoped>
+.form-base-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-25);
+}
+
+.form-base-form.inline {
+  flex-direction: row;
+}
+
 .form-base-content {
   display: flex;
   flex-direction: column;
   gap: var(--size-20);
-  margin-bottom: var(--size-20);
+
+  flex-grow: 1;
 }
 </style>
