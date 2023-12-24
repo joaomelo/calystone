@@ -1,4 +1,5 @@
 <script setup>
+import { TooltipBase } from "../tooltip-base";
 import { useDrag } from "./use-drag";
 
 const props = defineProps({
@@ -28,6 +29,7 @@ const handleEnter = (e) => e.target.blur();
 </script>
 <template>
   <div
+    v-bind="$attrs"
     :id="item.value"
     class="list-item"
     :class="classes"
@@ -46,6 +48,7 @@ const handleEnter = (e) => e.target.blur();
       {{ item.text }}
     </div>
   </div>
+  <tooltip-base v-if="item.tooltip" :anchor="item.value" :text="item.tooltip" />
 </template>
 <style scoped>
 .list-item {

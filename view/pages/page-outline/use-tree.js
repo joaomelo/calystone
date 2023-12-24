@@ -1,11 +1,12 @@
 import { computed } from "vue";
-import { treeify, sort, useDependencies } from "@lib";
+import { treeify, sort, useDependencies, truncate } from "@lib";
 import { listArtifacts } from "@body";
 
 export function useTree(parentId, actions) {
-  const map = ({ id, name }) => ({
+  const map = ({ id, name, notes }) => ({
     value: id,
     text: name,
+    tooltip: truncate(notes, 100),
     actions,
   });
 
