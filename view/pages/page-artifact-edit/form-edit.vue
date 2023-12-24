@@ -1,5 +1,5 @@
 <script setup>
-import { ButtonBase, FormBase, InputText, InputMark, useI18n } from "@lib";
+import { ButtonBase, FormBase, InputText, InputRich, useI18n } from "@lib";
 import { useBack } from "./use-back";
 import { useEdit } from "./use-edit";
 
@@ -21,8 +21,9 @@ const { save, payload } = useEdit(props.artifactId, back);
         id="input-name"
         v-model="payload.name"
         :label="t('page-artifact-edit.name')"
+        autofocus
       />
-      <input-mark
+      <input-rich
         id="input-notes"
         v-model="payload.notes"
         :label="t('page-artifact-edit.notes')"

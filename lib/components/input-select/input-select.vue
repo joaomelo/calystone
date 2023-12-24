@@ -1,8 +1,10 @@
 <script setup>
+import { computed } from "vue";
 import { vFocus } from "@lib";
+import { asOptions } from "../options";
 import { InputWrapper } from "../input-wrapper";
 
-defineProps({
+const props = defineProps({
   modelValue: {
     type: String,
     default: null,
@@ -11,36 +13,46 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  type: {
-    type: String,
-    default: "text",
+  options: {
+    type: Array,
+    default: () => [],
   },
 });
 const emit = defineEmits(["update:modelValue"]);
+
+const normalizedOptions = computed(() => asOptions(props.options));
 const handleUpdate = (event) => emit("update:modelValue", event?.target?.value);
 </script>
 <template>
   <input-wrapper>
-    <input
+    <select
       v-focus="autofocus"
       :value="modelValue"
-      class="input-base-text"
-      :type="type"
+      class="input-base-select"
       @input="handleUpdate"
-    />
+    >
+      <option
+        v-for="option in normalizedOptions"
+        :key="option.value"
+        :value="option.value"
+        :disabled="option.inactive"
+      >
+        {{ option.text }}
+      </option>
+    </select>
   </input-wrapper>
 </template>
 
 <style scoped>
-.input-base-text {
+.input-base-select {
   width: 100%;
   border: var(--input-border);
   padding-block: var(--size-10);
   padding-inline: var(--size-20);
 }
 
-.input-base-text:focus-within,
-.input-base-text:focus-visible {
+.input-base-select:focus-within,
+.input-base-select:focus-visible {
   outline: var(--input-outline-focus);
 }
 </style>

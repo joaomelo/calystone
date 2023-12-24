@@ -24,6 +24,7 @@ const handleBlur = (e) => {
   if (text === props.item.text) return;
   emit("edit", { item: props.item.value, text });
 };
+const handleEnter = (e) => e.target.blur();
 </script>
 <template>
   <div
@@ -39,6 +40,7 @@ const handleBlur = (e) => {
     @drop="handlers.drop"
     @dragend="handlers.end"
     @blur="handleBlur"
+    @keydown.enter.prevent="handleEnter"
   >
     <div class="list-item-content" :class="{ inactive: item.inactive }">
       {{ item.text }}

@@ -2,7 +2,7 @@
 import {
   ButtonBase,
   FormBase,
-  InputBase,
+  InputSelect,
   useDependencies,
   useI18n,
 } from "@lib";
@@ -16,18 +16,18 @@ const handleDone = () => goOutline(dependencies);
 </script>
 <template>
   <frame-dashboard :title="t('page-preferences.preferences')">
-    <form-base>
+    <form-base @submit="handleDone">
       <template #default>
-        <input-base
+        <input-select
+          id="input-locale"
           :label="t('page-preferences.locale')"
           :model-value="i18n.locale"
-          type="select"
           :options="i18n.supported"
           @update:model-value="handleI18n"
         />
       </template>
       <template #buttons>
-        <button-base :label="t('page-preferences.done')" @click="handleDone" />
+        <button-base :label="t('page-preferences.done')" type="submit" />
       </template>
     </form-base>
   </frame-dashboard>

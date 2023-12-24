@@ -1,6 +1,12 @@
 <script setup>
 import { reactive } from "vue";
-import { ButtonBase, InputBase, useI18n, useDependencies } from "@lib";
+import {
+  ButtonBase,
+  FormBase,
+  InputText,
+  useI18n,
+  useDependencies,
+} from "@lib";
 import { goSearch } from "@view";
 
 const props = defineProps({
@@ -14,18 +20,15 @@ const { t } = useI18n();
 const dependencies = useDependencies();
 
 const search = reactive({ term: props.term });
-const handleClick = () => goSearch(dependencies, search.term);
+const handleSearch = () => goSearch(dependencies, search.term);
 </script>
 <template>
-  <div class="search-bar">
-    <input-base v-model="search.term" />
-    <button-base :label="t('page-search.search')" @click="handleClick" />
-  </div>
+  <form-base inline @submit="handleSearch">
+    <template #default>
+      <input-text id="input-search" v-model="search.term" autofocus />
+    </template>
+    <template #buttons>
+      <button-base :label="t('page-search.search')" type="submit" />
+    </template>
+  </form-base>
 </template>
-<style scoped>
-.search-bar {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--size-15);
-}
-</style>
