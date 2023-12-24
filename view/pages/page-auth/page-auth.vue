@@ -20,7 +20,7 @@ const { task, payload } = useSignIn();
       <text-heading class="page-auth-heading" size="var(--font-size-25)">
         calystone
       </text-heading>
-      <form-base :error="task.error" enter @submit="task.run">
+      <form-base :error="task.error" @submit="task.run">
         <template #default>
           <input-text
             id="input-email"

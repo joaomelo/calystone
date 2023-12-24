@@ -1,7 +1,7 @@
 <script setup>
 import { OverlayBase, ButtonsPanel, TextAlert } from "@lib";
 
-const props = defineProps({
+defineProps({
   busy: {
     type: Boolean,
     default: false,
@@ -10,26 +10,16 @@ const props = defineProps({
     type: String,
     default: null,
   },
-  enter: {
-    type: Boolean,
-    default: false,
-  },
   inline: {
     type: Boolean,
     default: false,
   },
 });
 const emit = defineEmits(["submit"]);
-
 const handleSubmit = () => emit("submit");
-const handleEnter = () => {
-  if (props.enter) {
-    handleSubmit();
-  }
-};
 </script>
 <template>
-  <overlay-base :show="busy" @keyup.enter="handleEnter">
+  <overlay-base :show="busy">
     <form
       class="form-base-form"
       :class="{ inline }"

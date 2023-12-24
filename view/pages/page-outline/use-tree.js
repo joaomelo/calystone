@@ -3,9 +3,9 @@ import { treeify, sort, useDependencies } from "@lib";
 import { listArtifacts } from "@body";
 
 export function useTree(parentId, actions) {
-  const map = ({ id, name }) => ({
+  const map = ({ id, name, order }) => ({
     value: id,
-    text: name,
+    text: name + " - " + order,
     actions,
   });
 
