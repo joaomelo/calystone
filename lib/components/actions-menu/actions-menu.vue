@@ -1,9 +1,17 @@
 <script setup>
 import { computed, ref } from "vue";
-import { ButtonBase, validateOptionOrOptions } from "@lib/components";
-import { useMenu } from "./use-menu";
+import {
+  ButtonBase,
+  createId,
+  PopoverBase,
+  validateOptionOrOptions,
+} from "@lib";
 
 const props = defineProps({
+  id: {
+    type: String,
+    default: null,
+  },
   actions: {
     type: Array,
     default: () => [],
@@ -15,18 +23,22 @@ const emit = defineEmits(["action"]);
 const isShort = computed(() => props.actions.length <= 1);
 const mainAction = computed(() => props.actions[0]);
 
-const actionsToggle = ref();
-const actionsDropdown = ref();
-const { floatingStyles, toggle } = useMenu(actionsToggle, actionsDropdown);
+const actionsId = computed(() => props.id || createId());
+const toggleId = computed(() => `${actionsId.value}-toggle`);
 
 const handleAction = (value) => {
   emit("action", value);
-  if (!isShort.value) toggle();
+  if (!isShort.value) handleToggle();
+};
+
+const show = ref(false);
+const handleToggle = () => {
+  show.value = !show.value;
 };
 </script>
 
 <template>
-  <div>
+  <div :id="actionsId">
     <template v-if="isShort">
       <button-base
         :label="mainAction.text"
@@ -34,39 +46,28 @@ const handleAction = (value) => {
       />
     </template>
     <template v-else>
-      <button-base ref="actionsToggle" label="..." @click="toggle" />
-      <div
-        ref="actionsDropdown"
-        popover
-        class="actions-menu-dropdown"
-        :style="floatingStyles"
-      >
+      <button-base :id="toggleId" label="..." @click="handleToggle" />
+      <popover-base v-model="show" :anchor="toggleId" block="end" inline="end">
         <div
           v-for="action in actions"
           :key="action.value"
-          class="action-menu-dropdown-item"
+          class="action-menu-item"
           @click="handleAction(action.value)"
         >
           {{ action.text }}
         </div>
-      </div>
+      </popover-base>
     </template>
   </div>
 </template>
 
 <style scoped>
-.actions-menu-dropdown {
-  margin: 0;
-  padding: 0;
-  border: var(--border-size-10) solid var(--color-neutral-40);
-}
-
-.action-menu-dropdown-item {
+.action-menu-item {
   cursor: pointer;
   padding: var(--size-20);
 }
 
-.action-menu-dropdown-item:hover {
+.action-menu-item:hover {
   background-color: var(--background-color-highlight);
 }
 </style>
