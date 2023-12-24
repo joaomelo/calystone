@@ -4,7 +4,7 @@ import { identifyLastOrder } from "./order";
 export function addArtifact(dependencies, payload) {
   const parsed = parse(payload);
 
-  const order = identifyLastOrder(dependencies, parsed) + 1;
+  const order = identifyLastOrder(dependencies, parsed.parentId) + 1;
 
   const { auth } = dependencies;
   const { id: userId } = currentUser(auth);
