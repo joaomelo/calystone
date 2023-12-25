@@ -11,7 +11,7 @@ export default defineConfig(() => {
     publicDir: "../assets",
     envDir: "../",
     server: {
-      port: 8080,
+      port: 8081,
       strictPort: true,
     },
     resolve: {
