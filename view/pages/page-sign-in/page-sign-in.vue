@@ -1,62 +1,44 @@
 <script setup>
-import {
-  ButtonBase,
-  FormBase,
-  InputPassword,
-  InputText,
-  TextHeading,
-  useI18n,
-} from "@lib";
-import { FrameBase } from "@view";
+import { ButtonBase, FormBase, InputPassword, InputText, useI18n } from "@lib";
+import { FrameSign } from "@view";
 import { useSignIn } from "./use-sign-in";
 
 const { t } = useI18n();
-
 const { task, payload } = useSignIn();
 </script>
 <template>
-  <frame-base>
-    <div class="page-auth">
-      <text-heading class="page-auth-heading" size="var(--font-size-25)">
-        calystone
-      </text-heading>
+  <frame-sign>
+    <template #form>
       <form-base :error="task.error" @submit="task.run">
         <template #default>
           <input-text
             id="input-email"
             v-model="payload.email"
-            :label="t('page-auth.email')"
+            :label="t('frame-sign.email')"
             autofocus
           />
           <input-password
             id="input-password"
             v-model="payload.password"
-            :label="t('page-auth.password')"
+            :label="t('frame-sign.password')"
           />
         </template>
         <template #buttons>
           <button-base
             id="button-sign-in"
-            :label="t('page-auth.sign-in')"
+            :label="t('frame-sign.sign-in')"
             :busy="task.busy"
             type="submit"
           />
         </template>
       </form-base>
-    </div>
-  </frame-base>
+    </template>
+    <template #link>
+      <span>{{ t("page-sign-in.no-account") }}</span>
+      <span>&nbsp;</span>
+      <router-link to="/page-sign-up">
+        {{ t("frame-sign.sign-up") }}
+      </router-link>
+    </template>
+  </frame-sign>
 </template>
-<style scoped>
-.page-auth {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-40);
-
-  width: min(100%, var(--size-70));
-  margin: auto;
-}
-
-.page-auth-heading {
-  text-align: center;
-}
-</style>

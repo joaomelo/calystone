@@ -1,4 +1,4 @@
-export const pageAuth = {
+export const frameSign = {
   en: {
     "sign-in": "sing in",
     "sign-up": "sing up",
@@ -7,7 +7,7 @@ export const pageAuth = {
   },
   "pt-br": {
     "sign-in": "entrar",
-    "sign-up": "criar",
+    "sign-up": "criar conta",
     email: "email",
     password: "senha",
   },

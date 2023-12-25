@@ -1,19 +1,22 @@
 import {
   pageArtifactEdit,
-  pageAuth,
   pageOutline,
   pagePreferences,
   pageSearch,
+  pageSignIn,
+  pageSignUp,
   pageSolve,
 } from "@view/pages";
-import { frameDashboard } from "@view/frames";
+import { frameDashboard, frameSign } from "@view/frames";
 
 export const messages = {
   "frame-dashboard": frameDashboard,
+  "frame-sign": frameSign,
   "page-artifact-edit": pageArtifactEdit,
-  "page-auth": pageAuth,
   "page-outline": pageOutline,
   "page-preferences": pagePreferences,
   "page-search": pageSearch,
+  "page-sign-in": pageSignIn,
+  "page-sign-up": pageSignUp,
   "page-solve": pageSolve,
 };
