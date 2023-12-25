@@ -1,6 +1,6 @@
 {
   "name": "calystone",
-  "version": "0.17.4",
+  "version": "0.18.0",
   "main": "src/index.html",
   "scripts": {
     "start": "npm run dev",
