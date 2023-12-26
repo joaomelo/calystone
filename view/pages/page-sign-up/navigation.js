@@ -6,6 +6,7 @@ export const signUpRoute = {
   path: "/page-sign-up",
   name,
   component: PageSignUp,
+  meta: { external: true },
 };
 
 export function goSignUp(dependencies) {

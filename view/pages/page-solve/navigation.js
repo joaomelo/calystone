@@ -16,14 +16,16 @@ export function goSolve(dependencies) {
 }
 
 export async function goStart(dependencies) {
-  const { start, router, auth } = dependencies;
+  const { start: startPath, router, auth } = dependencies;
 
   const status = await authStatus(auth);
 
+  const startRoute = router.resolve(startPath);
+  const goStart = () => router.push(startRoute);
+
   if (status === AUTH_STATUSES.SIGNED_OUT) {
-    return goSignIn(dependencies);
+    return startRoute.meta.external ? goStart() : goSignIn(dependencies);
   }
 
-  const route = router.resolve(start);
-  return route.meta.intra ? router.push(route) : goOutline(dependencies);
+  return startRoute.meta.intra ? goStart() : goOutline(dependencies);
 }
