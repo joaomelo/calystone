@@ -42,7 +42,11 @@ const email = useEmail();
     </side-section>
     <side-section>
       <side-item :text="email" />
-      <side-item :text="t('frame-dashboard.sign-out')" @click="signOut.run" />
+      <side-item
+        id="side-sign-out"
+        :text="t('frame-dashboard.sign-out')"
+        @click="signOut.run"
+      />
     </side-section>
     <side-section>
       <side-item :text="`v${version}`" />

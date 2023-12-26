@@ -3,7 +3,7 @@ import { default as PageSignIn } from "./page-sign-in.vue";
 const name = "page-sign-in";
 
 export const signInRoute = {
-  path: "/page-sign-in",
+  path: `/${name}`,
   name,
   component: PageSignIn,
   meta: { external: true },

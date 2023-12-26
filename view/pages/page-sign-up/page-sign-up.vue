@@ -25,7 +25,7 @@ const { task, payload } = useSignUp();
         </template>
         <template #buttons>
           <button-base
-            id="button-sign-in"
+            id="button-sign-up"
             :label="t('frame-sign.sign-up')"
             :busy="task.busy"
             type="submit"
@@ -36,7 +36,7 @@ const { task, payload } = useSignUp();
     <template #link>
       <span>{{ t("page-sign-up.have-account") }}</span>
       <span>&nbsp;</span>
-      <router-link to="/page-sing-in">
+      <router-link id="link-sign-in" to="/page-sign-in">
         {{ t("frame-sign.sign-in") }}
       </router-link>
     </template>

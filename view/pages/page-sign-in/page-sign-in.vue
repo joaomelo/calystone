@@ -36,7 +36,7 @@ const { task, payload } = useSignIn();
     <template #link>
       <span>{{ t("page-sign-in.no-account") }}</span>
       <span>&nbsp;</span>
-      <router-link to="/page-sign-up">
+      <router-link id="link-sign-up" to="/page-sign-up">
         {{ t("frame-sign.sign-up") }}
       </router-link>
     </template>
