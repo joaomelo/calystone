@@ -28,6 +28,7 @@ function crumb(text) {
 }
 
 function add(name) {
+  inputName().should("not.be.disabled");
   inputName().type(name);
   return buttonAdd().click();
 }
