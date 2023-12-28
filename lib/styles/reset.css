@@ -66,7 +66,8 @@ h6 {
 input,
 button,
 textarea,
-select {
+select,
+fieldset {
   font: inherit;
   border: 0;
   padding: 0;
