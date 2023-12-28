@@ -15,7 +15,12 @@ const { task, payload } = useAddArtifact(props.parentId);
 <template>
   <form-base inline @submit="task.run">
     <template #default>
-      <input-text id="input-name" v-model="payload.name" autofocus />
+      <input-text
+        id="input-name"
+        v-model="payload.name"
+        autofocus
+        :disabled="task.busy"
+      />
     </template>
     <template #buttons>
       <button-base
