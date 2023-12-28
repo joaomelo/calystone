@@ -2,22 +2,26 @@
 import { SpinnerBase } from "../spinner-base";
 
 defineProps({
-  busy: {
-    type: Boolean,
-    default: false,
+  label: {
+    type: String,
+    required: true,
   },
   type: {
     type: String,
     default: "button",
   },
-  label: {
-    type: String,
-    required: true,
+  busy: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
 <template>
-  <button class="button-base" :type="type">
+  <button class="button-base" :type="type" :disabled="disabled || busy">
     <div v-if="busy">
       <spinner-base :show="busy" class="button-base-spinner" />
     </div>
