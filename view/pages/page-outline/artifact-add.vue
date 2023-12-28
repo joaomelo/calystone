@@ -1,6 +1,6 @@
 <script setup>
-import { ButtonBase, FormBase, InputText, useI18n } from "@lib";
-import { useAddArtifact } from "./use-add";
+import { ButtonBase, FormBase, InputText, useI18n, useTask } from "@lib";
+import { addArtifact } from "@body";
 
 const props = defineProps({
   parentId: {
@@ -10,7 +10,13 @@ const props = defineProps({
 });
 
 const { t } = useI18n();
-const { task, payload } = useAddArtifact(props.parentId);
+
+const reset = () => ({ name: null, parentId: null });
+const { task, payload } = useTask((dependencies, payload) => {
+  // a navigation like focus maybe happened after reset was called
+  payload.parentId = props.parentId;
+  return addArtifact(dependencies, payload);
+}, reset);
 </script>
 <template>
   <form-base inline @submit="task.run">
