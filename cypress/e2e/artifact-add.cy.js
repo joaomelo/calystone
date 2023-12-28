@@ -1,27 +1,26 @@
-import { signUp, outlineSelectors } from "./shared";
+import { signUpPage, outlinePage } from "./shared";
 
 describe("artifact add", () => {
-  beforeEach(() => cy.clearData());
+  beforeEach(() => {
+    cy.clearData();
+    signUpPage.signUpAuto();
+  });
 
   it("creates an artifact from the outline root", () => {
-    const email = "test@test.com";
-    const password = "1234567890";
-    signUp({ email, password });
-
     const name = "task 1";
-    cy.get(outlineSelectors.inputName).type(name);
-    cy.get(outlineSelectors.buttonAdd).click();
-    cy.get(outlineSelectors.lisItemContent).should("have.text", name);
+    outlinePage.add(name);
+
+    outlinePage.listItem(name);
   });
 
   it("creates an artifact while focused", () => {
-    const email = "test@test.com";
-    const password = "1234567890";
-    signUp({ email, password });
+    const parentName = "task 1";
+    outlinePage.add(parentName);
+    outlinePage.focus(parentName);
 
-    const name = "task 1";
-    cy.get(outlineSelectors.inputName).type(name);
-    cy.get(outlineSelectors.buttonAdd).click();
-    cy.get(outlineSelectors.lisItemContent).should("have.text", name);
+    const name = "task 1.1";
+    outlinePage.add(name);
+
+    outlinePage.listItem(name);
   });
 });

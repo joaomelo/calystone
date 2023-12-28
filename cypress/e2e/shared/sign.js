@@ -1,4 +1,11 @@
-export const signSelectors = {
-  inputEmail: "#input-email input",
-  inputPassword: "#input-password input",
+export const sign = {
+  inputEmail,
+  inputPassword,
 };
+
+function inputEmail() {
+  return cy.get("#input-email input");
+}
+function inputPassword() {
+  return cy.get("#input-password input");
+}

@@ -1,3 +1,7 @@
-export const dashboardSelectors = {
-  sideSignOut: "#side-sign-out",
+export const dashboard = {
+  sideSignOut,
 };
+
+function sideSignOut() {
+  return cy.get("#side-sign-out");
+}

@@ -1,8 +1,18 @@
-import { signSelectors } from "./sign";
+import { sign } from "./sign";
 
-export const signInSelectors = {
-  path: "/page-sign-in",
-  linkSignUp: "#link-sign-up",
-  buttonSignIn: "#button-sign-in",
-  ...signSelectors,
+export const signInPage = {
+  ...sign,
+  path,
+  buttonSignIn,
+  linkSignUp,
 };
+
+function path() {
+  return "/page-sign-in";
+}
+function buttonSignIn() {
+  return cy.get("#button-sign-in");
+}
+function linkSignUp() {
+  return cy.get("#link-sign-up");
+}

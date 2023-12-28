@@ -1,30 +1,25 @@
-import {
-  signUp,
-  signUpSelectors,
-  signInSelectors,
-  outlineSelectors,
-} from "./shared";
+import { signUpPage, signInPage, outlinePage } from "./shared";
 
 describe("sign up", () => {
   beforeEach(() => cy.clearData());
 
   it("visit sign-up", () => {
-    cy.visit(signUpSelectors.path);
-    cy.location("pathname").should("equal", signUpSelectors.path);
+    cy.visit(signUpPage.path());
+    cy.location("pathname").should("equal", signUpPage.path());
   });
 
   it("visit sign-up through sign-in", () => {
-    cy.visit(signInSelectors.path);
-    cy.get(signInSelectors.linkSignUp).click();
-    cy.location("pathname").should("equal", signUpSelectors.path);
+    cy.visit(signInPage.path());
+    signInPage.linkSignUp().click();
+    cy.location("pathname").should("equal", signUpPage.path());
   });
 
   it("signs up new users", () => {
     const email = "test@test.com";
     const password = "1234567890";
 
-    signUp({ email, password });
+    signUpPage.signUp({ email, password });
 
-    cy.get(outlineSelectors.sideSignOut);
+    outlinePage.sideSignOut();
   });
 });
