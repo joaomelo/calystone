@@ -21,7 +21,7 @@ const handleClick = (crumb) => {
 };
 </script>
 <template>
-  <div>
+  <div class="crumbs-base">
     <template v-for="(crumb, index) in normalizedCrumbs" :key="crumb.value">
       <span
         class="crumbs-base-crumb"
