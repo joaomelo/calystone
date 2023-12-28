@@ -1,8 +1,9 @@
 import {
+  signUp,
   signUpSelectors,
   signInSelectors,
-  dashboardSelectors,
-} from "./selectors";
+  outlineSelectors,
+} from "./shared";
 
 describe("sign in", () => {
   beforeEach(() => cy.clearData());
@@ -18,21 +19,17 @@ describe("sign in", () => {
     cy.location("pathname").should("equal", signInSelectors.path);
   });
 
-  it.only("signs in users", () => {
+  it("signs in users", () => {
     const email = "test@test.com";
     const password = "1234567890";
-
-    cy.visit(signUpSelectors.path);
-    cy.get(signUpSelectors.inputEmail).type(email);
-    cy.get(signUpSelectors.inputPassword).type(password);
-    cy.get(signUpSelectors.buttonSignUp).click();
-    cy.get(dashboardSelectors.sideSignOut).click();
+    signUp({ email, password });
+    cy.get(outlineSelectors.sideSignOut).click();
 
     cy.visit(signInSelectors.path);
     cy.get(signInSelectors.inputEmail).type(email);
     cy.get(signInSelectors.inputPassword).type(password);
     cy.get(signInSelectors.buttonSignIn).click();
 
-    cy.get(dashboardSelectors.sideSignOut);
+    cy.get(outlineSelectors.sideSignOut);
   });
 });

@@ -19,6 +19,7 @@ const { task, payload } = useAddArtifact(props.parentId);
     </template>
     <template #buttons>
       <button-base
+        id="button-add"
         :busy="task.busy"
         :label="t('page-outline.add')"
         type="submit"
