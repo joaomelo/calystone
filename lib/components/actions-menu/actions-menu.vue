@@ -1,11 +1,9 @@
 <script setup>
 import { computed, ref } from "vue";
-import {
-  ButtonBase,
-  createId,
-  PopoverBase,
-  validateOptionOrOptions,
-} from "@lib";
+import { createId } from "@lib";
+import { ButtonBase } from "../button-base";
+import { PopoverBase } from "../popover-base";
+import { validateOptionOrOptions } from "../options";
 
 const props = defineProps({
   id: {
@@ -52,6 +50,7 @@ const handleToggle = () => {
           v-for="action in actions"
           :key="action.value"
           class="action-menu-item"
+          :class="[action.value]"
           @click="handleAction(action.value)"
         >
           {{ action.text }}
