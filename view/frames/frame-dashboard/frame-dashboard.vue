@@ -1,6 +1,6 @@
 <script setup>
 import { FrameBase } from "../frame-base";
-import { useSideBarState, screenLargeValue, useMediaQuery } from "@lib";
+import { useSideBarState, useIsAtLeastLarge } from "@lib";
 import FrameSide from "./frame-side.vue";
 import FrameTop from "./frame-top.vue";
 
@@ -8,7 +8,7 @@ defineProps({
   title: { type: String, default: null },
 });
 
-const isLarge = useMediaQuery(`(min-width: ${screenLargeValue()})`);
+const isLarge = useIsAtLeastLarge();
 const sideBarState = useSideBarState(isLarge);
 </script>
 <template>

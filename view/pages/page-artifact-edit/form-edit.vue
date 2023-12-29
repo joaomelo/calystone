@@ -1,5 +1,12 @@
 <script setup>
-import { ButtonBase, FormBase, InputText, InputRich, useI18n } from "@lib";
+import {
+  ButtonBase,
+  FormBase,
+  InputDate,
+  InputRich,
+  InputText,
+  useI18n,
+} from "@lib";
 import { useEdit } from "./use-edit";
 
 const props = defineProps({
@@ -20,6 +27,16 @@ const { save, back, payload } = useEdit(props.artifactId);
         v-model="payload.name"
         :label="t('page-artifact-edit.name')"
         autofocus
+      />
+      <input-date
+        id="input-date-start"
+        v-model="payload.dateStart"
+        :label="t('page-artifact-edit.date-start')"
+      />
+      <input-date
+        id="input-date-end"
+        v-model="payload.dateEnd"
+        :label="t('page-artifact-edit.date-end')"
       />
       <input-rich
         id="input-notes"
