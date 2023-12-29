@@ -1,6 +1,7 @@
 export const sign = {
   inputEmail,
   inputPassword,
+  linkSign,
 };
 
 function inputEmail() {
@@ -8,4 +9,8 @@ function inputEmail() {
 }
 function inputPassword() {
   return cy.get("#input-password input");
+}
+
+function linkSign() {
+  return cy.get("#link-sign");
 }

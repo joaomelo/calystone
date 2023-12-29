@@ -4,7 +4,6 @@ export const signUpPage = {
   ...sign,
   path,
   buttonSignUp,
-  linkSignIn,
   signUp,
   signUpAuto,
 };
@@ -12,11 +11,9 @@ export const signUpPage = {
 function path() {
   return "/page-sign-up";
 }
+
 function buttonSignUp() {
   return cy.get("#button-sign-up");
-}
-function linkSignIn() {
-  return cy.get("#link-sign-in");
 }
 
 function signUp({ email, password }) {

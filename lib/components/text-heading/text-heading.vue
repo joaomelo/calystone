@@ -4,10 +4,6 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  size: {
-    type: String,
-    default: "var(--font-size-15)",
-  },
 });
 </script>
 <template>
@@ -15,7 +11,7 @@ defineProps({
 </template>
 <style scoped>
 .text-heading {
-  font-size: v-bind(size);
+  font-size: var(--font-size-15);
   font-weight: var(--font-weight-30);
 }
 

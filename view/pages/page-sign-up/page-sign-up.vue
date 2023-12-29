@@ -7,7 +7,12 @@ const { t } = useI18n();
 const { task, payload } = useSignUp();
 </script>
 <template>
-  <frame-sign>
+  <frame-sign
+    :heading="t('frame-sign.sign-up')"
+    :question="t('page-sign-up.have-account')"
+    link-to="/page-sign-in"
+    :link-text="t('frame-sign.sign-in')"
+  >
     <template #form>
       <form-base :error="task.error" @submit="task.run">
         <template #default>
@@ -32,13 +37,6 @@ const { task, payload } = useSignUp();
           />
         </template>
       </form-base>
-    </template>
-    <template #link>
-      <span>{{ t("page-sign-up.have-account") }}</span>
-      <span>&nbsp;</span>
-      <router-link id="link-sign-in" to="/page-sign-in">
-        {{ t("frame-sign.sign-in") }}
-      </router-link>
     </template>
   </frame-sign>
 </template>

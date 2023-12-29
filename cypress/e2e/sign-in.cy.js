@@ -10,7 +10,7 @@ describe("sign in", () => {
 
   it("visit sign-in through sign-up", () => {
     cy.visit(signUpPage.path());
-    signUpPage.linkSignIn().click();
+    signUpPage.linkSign().click();
     cy.location("pathname").should("equal", signInPage.path());
   });
 
