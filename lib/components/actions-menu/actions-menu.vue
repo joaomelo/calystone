@@ -36,7 +36,7 @@ const handleToggle = () => {
 </script>
 
 <template>
-  <div :id="actionsId">
+  <div :id="actionsId" class="actions-menu">
     <template v-if="isShort">
       <button-base
         :label="mainAction.text"

@@ -23,4 +23,13 @@ describe("artifact add", () => {
 
     outlinePage.listItem(name);
   });
+
+  it("creates an artifact through append", () => {
+    const parentName = "task 1";
+    outlinePage.add(parentName);
+
+    outlinePage.appendUnder(parentName);
+
+    outlinePage.listItemChildOf(parentName);
+  });
 });
