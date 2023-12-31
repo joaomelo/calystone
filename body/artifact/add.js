@@ -1,5 +1,6 @@
-import { mutate, currentUser, isId, appError } from "@lib";
+import { mutate, currentUser } from "@lib";
 import { identifyLastOrder } from "./order";
+import { parseParent, parseContent } from "./parse";
 
 export function addArtifact(dependencies, payload) {
   const parsed = parse(payload);
@@ -20,25 +21,17 @@ export function addArtifact(dependencies, payload) {
 }
 
 function parse(payload) {
-  const {
-    name = null,
-    notes = null,
-    parentId = null,
-    status = "active",
-  } = payload;
-
-  if (parentId !== null && !isId(parentId)) {
-    appError({
-      code: "INVALID_PARENT_ID",
-      message: "parentId must be null or an valid id",
-      meta: { parentId },
-    });
-  }
+  // is useful to secure that every field is present and has a default value. payloads and functions like filters based on db data will have reliable behavior
+  const parentId = parseParent(payload);
+  const { name, notes, start, end } = parseContent(payload);
+  const status = "active";
 
   return {
     name,
     notes,
-    parentId,
     status,
+    parentId,
+    start,
+    end,
   };
 }

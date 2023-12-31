@@ -15,8 +15,10 @@ const md = useIsAtLeastMedium();
 }
 
 .inputs-panel.md {
-  flex-direction: row-reverse;
-  justify-content: end;
-  align-items: center;
+  flex-direction: row;
+
+  & > :deep(*) {
+    flex-grow: 1;
+  }
 }
 </style>

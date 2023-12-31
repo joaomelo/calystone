@@ -6,12 +6,7 @@ export function useEdit(artifactId) {
   const dependencies = useDependencies();
 
   const back = () => goBack(dependencies);
-
-  const reset = () => {
-    const { id, name, notes } = getArtifact(dependencies, artifactId);
-    return { id, name, notes };
-  };
-
+  const reset = () => getArtifact(dependencies, artifactId);
   const { task, payload } = useTask(async (dependencies, payload) => {
     await editArtifact(dependencies, payload);
     back();

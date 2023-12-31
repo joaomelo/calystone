@@ -4,6 +4,7 @@ import {
   FormBase,
   InputDate,
   InputRich,
+  InputsPanel,
   InputText,
   useI18n,
 } from "@lib";
@@ -28,16 +29,18 @@ const { save, back, payload } = useEdit(props.artifactId);
         :label="t('page-artifact-edit.name')"
         autofocus
       />
-      <input-date
-        id="input-date-start"
-        v-model="payload.dateStart"
-        :label="t('page-artifact-edit.date-start')"
-      />
-      <input-date
-        id="input-date-end"
-        v-model="payload.dateEnd"
-        :label="t('page-artifact-edit.date-end')"
-      />
+      <inputs-panel>
+        <input-date
+          id="input-date-start"
+          v-model="payload.start"
+          :label="t('page-artifact-edit.date-start')"
+        />
+        <input-date
+          id="input-date-end"
+          v-model="payload.end"
+          :label="t('page-artifact-edit.date-end')"
+        />
+      </inputs-panel>
       <input-rich
         id="input-notes"
         v-model="payload.notes"
