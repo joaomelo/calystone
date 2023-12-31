@@ -3,11 +3,12 @@ import { treeify, sort, useDependencies, truncate } from "@lib";
 import { listArtifacts } from "@body";
 
 export function useTree(parentId, actions) {
-  const map = ({ id, name, notes }) => ({
-    value: id,
-    text: name,
-    tooltip: truncate(notes, 100),
+  const map = (artifact) => ({
+    value: artifact.id,
+    text: artifact.name,
+    tooltip: truncate(artifact.notes, 100),
     actions,
+    artifact, // will be used to create custom interface in the side slot
   });
 
   const dependencies = useDependencies();

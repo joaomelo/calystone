@@ -49,7 +49,7 @@ const handleEnter = (e) => e.target.blur();
   >
     <span
       :contenteditable="editable ? 'plaintext-only' : 'false'"
-      class="list-item-content"
+      class="list-item-text"
       @blur="handleBlur"
       @keydown.enter.prevent="handleEnter"
     >
@@ -66,9 +66,10 @@ const handleEnter = (e) => e.target.blur();
 
 .list-item {
   display: flex;
+  align-items: baseline;
   flex-grow: 1;
   padding-block: var(--size-15);
-  padding-inline-start: var(--size-10);
+  padding-inline: var(--size-10);
   border: var(--border-size-20) solid transparent;
 }
 
@@ -95,7 +96,7 @@ const handleEnter = (e) => e.target.blur();
   border-bottom-color: var(--list-item-drag-border-color);
 }
 
-.list-item-content {
+.list-item-text {
   flex-grow: 1;
   outline: none;
 }

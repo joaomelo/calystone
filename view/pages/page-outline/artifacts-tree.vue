@@ -12,6 +12,7 @@ import {
 import { goArtifactEdit, goOutline } from "@view/pages";
 import { useActions } from "./use-actions";
 import { useTree } from "./use-tree";
+import ArtifactDates from "./artifact-dates.vue";
 
 const props = defineProps({
   parentId: {
@@ -78,5 +79,8 @@ const artifactsTree = useTree(toRef(props, "parentId"), actions);
     @drag="handleDrag"
     @edit="handleEdit"
   >
+    <template #side="{ artifact }">
+      <artifact-dates :artifact="artifact" />
+    </template>
   </list-base>
 </template>
