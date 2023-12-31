@@ -77,5 +77,6 @@ const artifactsTree = useTree(toRef(props, "parentId"), actions);
     @action="handleAction"
     @drag="handleDrag"
     @edit="handleEdit"
-  />
+  >
+  </list-base>
 </template>

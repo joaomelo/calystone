@@ -36,7 +36,11 @@ const { collapse, handleStart, handleEnd } = useCollapse(toRef(props, "root"));
         @action="$emit('action', $event)"
         @drag="$emit('drag', $event)"
         @edit="$emit('edit', $event)"
-      />
+      >
+        <template #side="slotProps">
+          <slot name="side" v-bind="slotProps"></slot>
+        </template>
+      </list-item>
       <template v-if="hasElements(root.actions)">
         <actions-menu
           :actions="root.actions"
@@ -54,7 +58,11 @@ const { collapse, handleStart, handleEnd } = useCollapse(toRef(props, "root"));
             @action="$emit('action', $event)"
             @drag="$emit('drag', $event)"
             @edit="$emit('edit', $event)"
-          />
+          >
+            <template #side="slotProps">
+              <slot name="side" v-bind="slotProps"></slot>
+            </template>
+          </list-tree>
         </template>
       </div>
     </template>

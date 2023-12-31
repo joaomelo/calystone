@@ -18,7 +18,7 @@ defineProps({
 defineEmits(["action", "drag", "edit"]);
 </script>
 <template>
-  <div>
+  <div class="list-base">
     <template v-for="item in items" :key="item.value">
       <list-tree
         :root="item"
@@ -27,7 +27,11 @@ defineEmits(["action", "drag", "edit"]);
         @action="$emit('action', $event)"
         @drag="$emit('drag', $event)"
         @edit="$emit('edit', $event)"
-      />
+      >
+        <template #side="slotProps">
+          <slot name="side" v-bind="slotProps"></slot>
+        </template>
+      </list-tree>
     </template>
   </div>
 </template>

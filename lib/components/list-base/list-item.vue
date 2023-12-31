@@ -40,17 +40,22 @@ const handleEnter = (e) => e.target.blur();
     class="list-item"
     :class="classes"
     :draggable="draggable"
-    :contenteditable="editable ? 'plaintext-only' : 'false'"
     @dragstart="handlers.start"
     @dragenter="handlers.enter"
     @dragleave="handlers.leave"
     @dragover="handlers.over"
     @drop="handlers.drop"
     @dragend="handlers.end"
-    @blur="handleBlur"
-    @keydown.enter.prevent="handleEnter"
   >
-    {{ item.text }}
+    <span
+      :contenteditable="editable ? 'plaintext-only' : 'false'"
+      class="list-item-content"
+      @blur="handleBlur"
+      @keydown.enter.prevent="handleEnter"
+    >
+      {{ item.text }}
+    </span>
+    <span><slot name="side" v-bind="item"></slot></span>
   </div>
   <tooltip-base v-if="item.tooltip" :anchor="item.value" :text="item.tooltip" />
 </template>
@@ -88,5 +93,10 @@ const handleEnter = (e) => e.target.blur();
 
 .list-item.over.bottom {
   border-bottom-color: var(--list-item-drag-border-color);
+}
+
+.list-item-content {
+  flex-grow: 1;
+  outline: none;
 }
 </style>
