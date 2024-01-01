@@ -29,7 +29,7 @@ describe("artifact edit", () => {
     outlinePage.listItem(newName);
   });
 
-  it.only("edit artifact dates", () => {
+  it("edit artifact dates", () => {
     const name = "task 1";
     outlinePage.add(name);
     outlinePage.edit(name);
