@@ -5,6 +5,7 @@ export const outlinePage = {
   inputName,
   buttonAdd,
   listItem,
+  listItemDates,
   listItemMenu,
   listItemChildOf,
   crumb,
@@ -23,11 +24,15 @@ function buttonAdd() {
 
 function listItem(name) {
   const strictlyText = new RegExp("^" + name + "$");
-  return cy.contains(".list-item", strictlyText);
+  return cy.contains(".list-item-text", strictlyText).parent();
 }
 
 function listItemMenu(name) {
   return listItem(name).siblings(".actions-menu");
+}
+
+function listItemDates(name) {
+  return listItem(name).find(".artifact-dates");
 }
 
 function listItemChildOf(name) {
