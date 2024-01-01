@@ -9,6 +9,7 @@ export const outlinePage = {
   listItemChildOf,
   crumb,
   add,
+  edit,
   focus,
   appendUnder,
 };
@@ -54,4 +55,9 @@ function focus(name) {
 function appendUnder(name) {
   listItemMenu(name).click();
   return cy.get(".append").click();
+}
+
+function edit(name) {
+  listItemMenu(name).click();
+  return cy.get(".edit").click();
 }

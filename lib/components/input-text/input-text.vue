@@ -21,13 +21,16 @@ const handleUpdate = (event) => emit("update:modelValue", event?.target?.value);
 </script>
 <template>
   <input-wrapper>
-    <input
-      v-focus="autofocus"
-      :value="modelValue"
-      class="input-base-text"
-      :type="type"
-      @input="handleUpdate"
-    />
+    <template #default="{ id }">
+      <input
+        :id="id"
+        v-focus="autofocus"
+        :value="modelValue"
+        class="input-base-text"
+        :type="type"
+        @input="handleUpdate"
+      />
+    </template>
   </input-wrapper>
 </template>
 

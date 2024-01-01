@@ -31,12 +31,12 @@ const { save, back, payload } = useEdit(props.artifactId);
       />
       <inputs-panel>
         <input-date
-          id="input-date-start"
+          id="input-start"
           v-model="payload.start"
           :label="t('page-artifact-edit.date-start')"
         />
         <input-date
-          id="input-date-end"
+          id="input-end"
           v-model="payload.end"
           :label="t('page-artifact-edit.date-end')"
         />
@@ -49,11 +49,16 @@ const { save, back, payload } = useEdit(props.artifactId);
     </template>
     <template #buttons>
       <button-base
+        id="button-save"
         type="submit"
         :label="t('page-artifact-edit.save')"
         :busy="save.busy"
       />
-      <button-base :label="t('page-artifact-edit.cancel')" @click="back" />
+      <button-base
+        id="button-cancel"
+        :label="t('page-artifact-edit.cancel')"
+        @click="back"
+      />
     </template>
   </form-base>
 </template>

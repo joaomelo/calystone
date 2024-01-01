@@ -28,13 +28,16 @@ const handleUpdate = (event) => {
 </script>
 <template>
   <input-wrapper>
-    <input
-      v-focus="autofocus"
-      :value="value"
-      class="input-date-input"
-      type="date"
-      @input="handleUpdate"
-    />
+    <template #default="{ id }">
+      <input
+        :id="id"
+        v-focus="autofocus"
+        :value="value"
+        class="input-date-input"
+        type="date"
+        @input="handleUpdate"
+      />
+    </template>
   </input-wrapper>
 </template>
 
