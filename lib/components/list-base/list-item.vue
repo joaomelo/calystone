@@ -1,5 +1,4 @@
 <script setup>
-import { computed } from "vue";
 import { TooltipBase } from "../tooltip-base";
 import { useDrag } from "./use-drag";
 
@@ -12,26 +11,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  editable: {
-    type: Boolean,
-    default: false,
-  },
 });
-const emit = defineEmits(["drag", "drag-start", "drag-end", "edit"]);
+const emit = defineEmits(["drag", "drag-start", "drag-end"]);
 
-const { handlers, dragClasses } = useDrag({ value: props.item.value, emit });
-
-const classes = computed(() => ({
-  ...dragClasses,
-  inactive: props.item.inactive,
-}));
-
-const handleBlur = (e) => {
-  const text = e.target.textContent;
-  if (text === props.item.text) return;
-  emit("edit", { item: props.item.value, text });
-};
-const handleEnter = (e) => e.target.blur();
+const { handlers, classes } = useDrag({ value: props.item.value, emit });
 </script>
 <template>
   <div
@@ -47,15 +30,7 @@ const handleEnter = (e) => e.target.blur();
     @drop="handlers.drop"
     @dragend="handlers.end"
   >
-    <span
-      :contenteditable="editable ? 'plaintext-only' : 'false'"
-      class="list-item-text"
-      @blur="handleBlur"
-      @keydown.enter.prevent="handleEnter"
-    >
-      {{ item.text }}
-    </span>
-    <span><slot name="side" v-bind="item"></slot></span>
+    <slot name="item" v-bind="item"></slot>
   </div>
   <tooltip-base v-if="item.tooltip" :anchor="item.value" :text="item.tooltip" />
 </template>
@@ -65,17 +40,13 @@ const handleEnter = (e) => e.target.blur();
 }
 
 .list-item {
-  display: flex;
-  align-items: baseline;
   flex-grow: 1;
+  border: var(--border-size-20) solid transparent;
   padding-block: var(--size-15);
   padding-inline: var(--size-10);
-  border: var(--border-size-20) solid transparent;
-}
 
-.list-item.inactive {
-  color: var(--color-neutral-40);
-  text-decoration: line-through;
+  display: flex;
+  align-items: baseline;
 }
 
 .list-item:hover,
@@ -94,10 +65,5 @@ const handleEnter = (e) => e.target.blur();
 
 .list-item.over.bottom {
   border-bottom-color: var(--list-item-drag-border-color);
-}
-
-.list-item-text {
-  flex-grow: 1;
-  outline: none;
 }
 </style>

@@ -10,12 +10,8 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  editable: {
-    type: Boolean,
-    default: false,
-  },
 });
-defineEmits(["action", "drag", "edit"]);
+defineEmits(["drag"]);
 </script>
 <template>
   <div class="list-base">
@@ -23,13 +19,10 @@ defineEmits(["action", "drag", "edit"]);
       <list-tree
         :root="item"
         :draggable="draggable"
-        :editable="editable"
-        @action="$emit('action', $event)"
         @drag="$emit('drag', $event)"
-        @edit="$emit('edit', $event)"
       >
-        <template #side="slotProps">
-          <slot name="side" v-bind="slotProps"></slot>
+        <template #item="slotProps">
+          <slot name="item" v-bind="slotProps"></slot>
         </template>
       </list-tree>
     </template>

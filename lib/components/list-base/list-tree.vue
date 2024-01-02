@@ -1,6 +1,5 @@
 <script setup>
 import { toRef } from "vue";
-import { hasElements, ActionsMenu } from "@lib";
 import { COLLAPSE_STATUSES, useCollapse } from "./collapse";
 import CollapseSwitch from "./collapse-switch.vue";
 import ListItem from "./list-item.vue";
@@ -19,34 +18,27 @@ const props = defineProps({
     default: false,
   },
 });
-defineEmits(["action", "drag", "edit"]);
+defineEmits(["drag"]);
 
-const { collapse, handleStart, handleEnd } = useCollapse(toRef(props, "root"));
+const { collapse, collapseForDragStart, collapseForDragEnd } = useCollapse(
+  toRef(props, "root")
+);
 </script>
 <template>
   <div class="list-tree">
-    <div class="list-root-wrapper">
+    <div class="list-tree-root">
       <collapse-switch v-model="collapse" />
       <list-item
         :item="root"
         :draggable="draggable"
-        :editable="editable"
-        @drag-start="handleStart"
-        @drag-end="handleEnd"
-        @action="$emit('action', $event)"
+        @drag-start="collapseForDragStart"
+        @drag-end="collapseForDragEnd"
         @drag="$emit('drag', $event)"
-        @edit="$emit('edit', $event)"
       >
-        <template #side="slotProps">
-          <slot name="side" v-bind="slotProps"></slot>
+        <template #item="slotProps">
+          <slot name="item" v-bind="slotProps"></slot>
         </template>
       </list-item>
-      <template v-if="hasElements(root.actions)">
-        <actions-menu
-          :actions="root.actions"
-          @action="$emit('action', { item: root.value, action: $event })"
-        />
-      </template>
     </div>
     <template v-if="collapse === COLLAPSE_STATUSES.OPEN">
       <div class="list-tree-children">
@@ -54,13 +46,10 @@ const { collapse, handleStart, handleEnd } = useCollapse(toRef(props, "root"));
           <list-tree
             :root="child"
             :draggable="draggable"
-            :editable="editable"
-            @action="$emit('action', $event)"
             @drag="$emit('drag', $event)"
-            @edit="$emit('edit', $event)"
           >
-            <template #side="slotProps">
-              <slot name="side" v-bind="slotProps"></slot>
+            <template #item="slotProps">
+              <slot name="item" v-bind="slotProps"></slot>
             </template>
           </list-tree>
         </template>
@@ -69,7 +58,7 @@ const { collapse, handleStart, handleEnd } = useCollapse(toRef(props, "root"));
   </div>
 </template>
 <style scoped>
-.list-root-wrapper {
+.list-tree-root {
   display: flex;
   align-items: center;
 }
