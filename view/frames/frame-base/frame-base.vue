@@ -15,7 +15,7 @@
   padding-block: var(--size-25);
   padding-inline: var(--size-30);
 
-  background-color: var(--color-neutral-70);
+  background-color: var(--color-surface-10);
 
   display: flex;
   flex-direction: column;

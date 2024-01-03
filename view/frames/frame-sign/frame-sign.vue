@@ -54,7 +54,7 @@ defineProps({
 }
 
 .frame-auth-title {
-  color: var(--color-neutral-40);
+  color: var(--color-content-40);
   font-size: var(--font-size-30);
 }
 

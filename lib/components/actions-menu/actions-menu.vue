@@ -2,6 +2,8 @@
 import { computed, ref } from "vue";
 import { createId } from "@lib";
 import { ButtonBase } from "../button-base";
+import { ButtonVeil } from "../button-veil";
+import { VisualIcon } from "../visual-icon";
 import { PopoverBase } from "../popover-base";
 import { validateOptionOrOptions } from "../options";
 
@@ -38,13 +40,12 @@ const handleToggle = () => {
 <template>
   <div :id="actionsId" class="actions-menu">
     <template v-if="isShort">
-      <button-base
-        :label="mainAction.text"
-        @click="handleAction(mainAction.value)"
-      />
+      <button-base :label="mainAction.text" @click="handleAction(mainAction.value)" />
     </template>
     <template v-else>
-      <button-base :id="toggleId" label="..." @click="handleToggle" />
+      <button-veil :id="toggleId" @click="handleToggle">
+        <visual-icon name="more_horiz" size="var(--size-30)" />
+      </button-veil>
       <popover-base v-model="show" :anchor="toggleId" block="end" inline="end">
         <div
           v-for="action in actions"
@@ -67,6 +68,6 @@ const handleToggle = () => {
 }
 
 .action-menu-item:hover {
-  background-color: var(--background-color-highlight);
+  background-color: var(--color-surface-30);
 }
 </style>

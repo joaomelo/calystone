@@ -1,14 +1,20 @@
 :root,
 ::backdrop {
-  --color-neutral-10: hsl(0, 0%, 0%);
-  --color-neutral-20: hsl(0, 0%, 20%);
-  --color-neutral-30: hsl(0, 0%, 40%);
-  --color-neutral-40: hsl(0, 0%, 60%);
-  --color-neutral-50: hsl(0, 0%, 85%);
-  --color-neutral-60: hsl(0, 0%, 95%);
-  --color-neutral-70: hsl(0, 0%, 100%);
+  --color-surface-10: hsl(0, 0%, 100%);
+  --color-surface-20: hsl(from var(--color-surface-10) h s calc(l - 0.02));
+  --color-surface-30: hsl(from var(--color-surface-10) h s calc(l - 0.05));
+  --color-surface-40: hsl(from var(--color-surface-10) h s calc(l - 0.1));
+  --color-surface-50: hsl(from var(--color-surface-10) h s calc(l - 0.2));
+  --color-surface-60: hsl(from var(--color-surface-10) h s calc(l - 0.3));
+  --color-surface-70: hsl(from var(--color-surface-10) h s calc(l - 0.4));
 
-  --background-color-highlight: var(--color-neutral-60);
+  --color-content-10: hsl(0, 0%, 0%);
+  --color-content-20: hsl(from var(--color-content-10) h s calc(l + 0.3));
+  --color-content-30: hsl(from var(--color-content-10) h s calc(l + 0.4));
+  --color-content-40: hsl(from var(--color-content-10) h s calc(l + 0.5));
+  --color-content-50: hsl(from var(--color-content-10) h s calc(l + 0.6));
+  --color-content-60: hsl(from var(--color-content-10) h s calc(l + 0.7));
+  --color-content-70: hsl(from var(--color-content-10) h s calc(l + 0.8));
 }
 
 :root,
@@ -40,20 +46,6 @@
   --screen-md: var(--size-80);
   --screen-lg: var(--size-85);
   --screen-xg: var(--size-90);
-}
-
-:root,
-::backdrop {
-  --border-size-10: 1px;
-  --border-size-20: 2px;
-  --border-size-30: 4px;
-
-  --border-color-standard: var(--color-neutral-40);
-  --border-color-highlight: var(--color-neutral-20);
-
-  --border-radius-10: 4px;
-  --border-radius-20: 8px;
-  --border-radius-30: 1000px;
 }
 
 :root,

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, watch } from "vue";
-import { ButtonIcon } from "../button-icon";
+import { ButtonVeil } from "../button-veil";
+import { VisualIcon } from "../visual-icon";
 
 const props = defineProps({
   modelValue: {
@@ -11,9 +12,7 @@ const props = defineProps({
 });
 const emit = defineEmits(["update:modelValue"]);
 
-const popover = computed(() =>
-  props.modelValue === "fixed" ? undefined : "auto"
-);
+const popover = computed(() => (props.modelValue === "fixed" ? undefined : "auto"));
 
 const sideBar = ref();
 const handleToggle = ({ newState }) => {
@@ -39,21 +38,12 @@ watch(
 const handleClick = () => emit("update:modelValue", "closed");
 </script>
 <template>
-  <aside
-    ref="sideBar"
-    :popover="popover"
-    class="side-bar"
-    @toggle="handleToggle"
-  >
+  <aside ref="sideBar" :popover="popover" class="side-bar" @toggle="handleToggle">
     <div class="side-bar-container">
-      <button-icon
-        v-if="modelValue === 'open'"
-        icon="close"
-        size="var(--size-30)"
-        class="side-bar-close"
-        @click="handleClick"
-      />
-      <slot />
+      <button-veil v-if="modelValue === 'open'" class="side-bar-close" @click="handleClick">
+        <visual-icon name="close" size="var(--size-30)" />
+      </button-veil>
+      <slot></slot>
     </div>
   </aside>
 </template>
@@ -73,8 +63,8 @@ const handleClick = () => emit("update:modelValue", "closed");
 }
 
 .side-bar::backdrop {
-  background-color: var(--color-neutral-10);
-  opacity: 0.2;
+  background-color: var(--color-surface-70);
+  opacity: 0.9;
 }
 
 .side-bar-container {

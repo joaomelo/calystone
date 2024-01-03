@@ -29,7 +29,7 @@ defineProps({
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--color-neutral-10);
+  background-color: var(--color-surface-20);
   opacity: 0.1;
 }
 </style>

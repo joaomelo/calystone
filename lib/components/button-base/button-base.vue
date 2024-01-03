@@ -33,9 +33,16 @@ defineProps({
 <style scoped>
 .button-base {
   position: relative;
-  border: var(--border-size-10) solid var(--border-color-standard);
+  border: var(--size-00) solid var(--color-surface-70);
   padding-block: var(--size-15);
   padding-inline: var(--size-20);
+
+  cursor: pointer;
+  background-color: var(--color-surface-20);
+}
+
+.button-base:hover {
+  background-color: var(--color-surface-30);
 }
 
 .button-base-content.busy {
@@ -44,6 +51,6 @@ defineProps({
 
 .button-base-spinner {
   --spinner-base-size: var(--size-30);
-  --spinner-base-color: var(--color-neutral-30);
+  --spinner-base-color: var(--color-content-70);
 }
 </style>

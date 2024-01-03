@@ -11,7 +11,7 @@ defineProps({
 <style scoped>
 .spinner-base {
   --spinner-base-size: var(--size-40);
-  --spinner-base-color: var(--color-neutral-50);
+  --spinner-base-color: var(--color-content-70);
 }
 
 .spinner-base {

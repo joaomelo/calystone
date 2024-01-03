@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
-import { ButtonIcon } from "../button-icon";
+import { ButtonVeil } from "../button-veil";
+import { VisualIcon } from "../visual-icon";
 
 const props = defineProps({
   modelValue: { type: String, required: true },
@@ -12,5 +13,7 @@ const handleToggle = () =>
   emit("update:modelValue", props.modelValue === "open" ? "closed" : "open");
 </script>
 <template>
-  <button-icon :icon="icon" @click="handleToggle" />
+  <button-veil @click="handleToggle">
+    <visual-icon :name="icon" />
+  </button-veil>
 </template>

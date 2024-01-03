@@ -33,7 +33,7 @@ const content = computed(() => !onClick);
 }
 
 .side-item.action:hover {
-  background-color: var(--background-color-highlight);
+  background-color: var(--color-surface-30);
 }
 
 .side-item.content {

@@ -29,8 +29,8 @@ const inputId = computed(() => `${props.id}-input`);
 
 <style scoped>
 .input-wrapper {
-  --input-border: var(--border-size-10) solid var(--border-color-standard);
-  --input-outline-focus: var(--border-color-highlight) auto 1px;
+  --input-border: var(--size-00) solid var(--color-surface-60);
+  --input-outline-focus: var(--color-surface-70) auto var(--size-00);
 }
 
 .input-wrapper {

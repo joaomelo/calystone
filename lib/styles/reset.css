@@ -36,8 +36,9 @@ svg {
 }
 
 html {
-  background-color: var(--color-neutral-60);
-  color: var(--color-neutral-10);
+  /* it has some color spin over the base surface because the main surface area will be above the document background */
+  background-color: var(--color-surface-30);
+  color: var(--color-content-10);
   font-family: "Roboto", sans-serif;
   line-height: 1;
 }
@@ -45,7 +46,7 @@ html {
 a:link,
 a:visited,
 a:active {
-  color: var(--color-neutral-10);
+  color: var(--color-content-10);
 }
 
 html,

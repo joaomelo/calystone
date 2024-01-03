@@ -4,7 +4,8 @@ import { useI18n } from "@lib";
 import { FrameDashboard } from "@view/frames";
 import ArtifactAdd from "./artifact-add.vue";
 import ArtifactAncestry from "./artifact-ancestry.vue";
-import ArtifactsTree from "./artifacts-tree.vue";
+import OutlineItems from "./outline-items.vue";
+import OutlineItem from "./outline-item.vue";
 
 const props = defineProps({
   parentId: {
@@ -21,7 +22,11 @@ const id = computed(() => props.parentId || null);
   <frame-dashboard :title="t('page-outline.outline')">
     <artifact-ancestry v-if="id" :id="id" class="mb-25" />
     <artifact-add :parent-id="id" class="mb-25" />
-    <artifacts-tree :parent-id="id" />
+    <outline-items :parent-id="id">
+      <template #item="item">
+        <outline-item :id="item.value" />
+      </template>
+    </outline-items>
   </frame-dashboard>
 </template>
 

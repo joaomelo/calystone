@@ -1,5 +1,6 @@
 <script setup>
 import { useI18n } from "@lib";
+
 defineProps({
   artifact: {
     type: Object,
@@ -9,8 +10,9 @@ defineProps({
 
 const { d } = useI18n();
 </script>
+
 <template>
-  <div v-if="artifact.start || artifact.end" class="artifact-dates">
+  <div v-if="artifact.start || artifact.end" class="outline-item-dates">
     <span v-if="artifact.start">
       {{ d(artifact.start) }}
     </span>
@@ -20,9 +22,10 @@ const { d } = useI18n();
     </span>
   </div>
 </template>
+
 <style scoped>
-.artifact-dates {
+.outline-item-dates {
   font-size: var(--font-size-10);
-  color: var(--color-neutral-40);
+  color: var(--color-content-30);
 }
 </style>

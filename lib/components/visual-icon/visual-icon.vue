@@ -11,9 +11,14 @@ defineProps({
 });
 </script>
 <template>
-  <span class="material-symbols-outlined">{{ name }}</span>
+  <span class="visual-icon material-symbols-outlined">{{ name }}</span>
 </template>
 <style>
+/* both classes are combined to increase specificity and override the font stylesheet font-size */
+.visual-icon.material-symbols-outlined {
+  font-size: v-bind(size);
+}
+
 .material-symbols-outlined {
   font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
 }

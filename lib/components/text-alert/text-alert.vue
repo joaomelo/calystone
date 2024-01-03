@@ -20,11 +20,11 @@ defineProps({
   gap: var(--size-15);
   padding-block: var(--size-15);
   padding-inline: var(--size-15);
-  background-color: var(--color-neutral-60);
-  border: var(--border-size-10) solid var(--color-neutral-40);
+  background-color: var(--color-surface-20);
+  border: var(--size-00) solid var(--color-surface-40);
 }
 
 .text-alert-icon {
-  color: var(--color-neutral-40);
+  color: var(--color-content-40);
 }
 </style>

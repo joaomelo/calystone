@@ -41,12 +41,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <popover-base
-    v-model="show"
-    :anchor="anchor"
-    block="start"
-    class="tooltip-base"
-  >
+  <popover-base v-model="show" :anchor="anchor" block="start" class="tooltip-base">
     {{ text }}
   </popover-base>
 </template>
@@ -54,7 +49,7 @@ onUnmounted(() => {
 <style scoped>
 .tooltip-base {
   --popover-base-font-size: var(--font-size-10);
-  --popover-base-color: var(--color-neutral-30);
+  --popover-base-color: var(--color-content-30);
   --popover-base-border-style: dashed;
   --popover-base-padding: var(--size-20);
 }

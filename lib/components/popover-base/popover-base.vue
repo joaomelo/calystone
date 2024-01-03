@@ -74,9 +74,9 @@ const show = () => {
   --popover-base-padding: 0;
   --popover-base-font-size: inherit;
   --popover-base-color: inherit;
-  --popover-base-border-size: var(--border-size-10);
+  --popover-base-border-size: var(--size-00);
   --popover-base-border-style: solid;
-  --popover-base-border-color: var(--border-color-standard);
+  --popover-base-border-color: var(--color-surface-70);
 }
 
 .popover-base {
@@ -84,8 +84,7 @@ const show = () => {
   top: var(--popover-base-top);
   left: var(--popover-base-left);
   padding: var(--popover-base-padding);
-  border: var(--popover-base-border-size) var(--popover-base-border-style)
-    var(--popover-base-border-color);
+  border: var(--popover-base-border-size) var(--popover-base-border-style) var(--popover-base-border-color);
   color: var(--popover-base-color);
   font-size: var(--popover-base-font-size);
   /* respects line breaks inside the slot. important for tooltips text */
