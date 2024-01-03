@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
 import { createId } from "@lib";
-import { ButtonBase } from "../button-base";
 import { ButtonVeil } from "../button-veil";
 import { VisualIcon } from "../visual-icon";
 import { PopoverBase } from "../popover-base";
@@ -18,56 +17,21 @@ const props = defineProps({
     validator: validateOptionOrOptions,
   },
 });
-const emit = defineEmits(["action"]);
-
-const isShort = computed(() => props.actions.length <= 1);
-const mainAction = computed(() => props.actions[0]);
 
 const actionsId = computed(() => props.id || createId());
 const toggleId = computed(() => `${actionsId.value}-toggle`);
 
-const handleAction = (value) => {
-  emit("action", value);
-  if (!isShort.value) handleToggle();
-};
-
 const show = ref(false);
-const handleToggle = () => {
-  show.value = !show.value;
-};
+const handleToggle = () => (show.value = !show.value);
 </script>
 
 <template>
   <div :id="actionsId" class="actions-menu">
-    <template v-if="isShort">
-      <button-base :label="mainAction.text" @click="handleAction(mainAction.value)" />
-    </template>
-    <template v-else>
-      <button-veil :id="toggleId" @click="handleToggle">
-        <visual-icon name="more_horiz" size="var(--size-30)" />
-      </button-veil>
-      <popover-base v-model="show" :anchor="toggleId" block="end" inline="end">
-        <div
-          v-for="action in actions"
-          :key="action.value"
-          class="action-menu-item"
-          :class="[action.value]"
-          @click="handleAction(action.value)"
-        >
-          {{ action.text }}
-        </div>
-      </popover-base>
-    </template>
+    <button-veil :id="toggleId" @click="handleToggle">
+      <visual-icon name="more_horiz" size="var(--size-30)" />
+    </button-veil>
+    <popover-base v-model="show" :anchor="toggleId" block="end" inline="end" @click="handleToggle">
+      <slot></slot>
+    </popover-base>
   </div>
 </template>
-
-<style scoped>
-.action-menu-item {
-  cursor: pointer;
-  padding: var(--size-20);
-}
-
-.action-menu-item:hover {
-  background-color: var(--color-surface-30);
-}
-</style>

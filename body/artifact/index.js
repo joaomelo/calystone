@@ -8,4 +8,5 @@ export * from "./get";
 export * from "./hoist";
 export * from "./lower";
 export * from "./move";
+export * from "./statuses";
 export * from "./transfer";

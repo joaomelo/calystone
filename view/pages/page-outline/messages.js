@@ -8,6 +8,9 @@ export const pageOutline = {
     focus: "focus",
     outline: "outline",
     unarchive: "unarchive",
+    activate: "activate",
+    complete: "complete",
+    close: "close",
   },
   "pt-br": {
     add: "novo",
@@ -18,5 +21,8 @@ export const pageOutline = {
     focus: "focar",
     outline: "hierarquia",
     unarchive: "desarquivar",
+    activate: "ativar",
+    complete: "completar",
+    close: "fechar",
   },
 };
