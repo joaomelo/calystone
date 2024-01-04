@@ -10,7 +10,7 @@ export const pageOutline = {
     unarchive: "unarchive",
     activate: "activate",
     complete: "complete",
-    close: "close",
+    cancel: "cancel",
   },
   "pt-br": {
     add: "novo",
@@ -23,6 +23,6 @@ export const pageOutline = {
     unarchive: "desarquivar",
     activate: "ativar",
     complete: "completar",
-    close: "fechar",
+    cancel: "cancelar",
   },
 };
