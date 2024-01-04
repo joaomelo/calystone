@@ -1,5 +1,5 @@
 import { mutate } from "@lib";
-import { flatTreeIncluding } from "@body";
+import { listDescendants } from "@body";
 import { isActive, ARTIFACT_STATUSES } from "./statuses";
 
 export function completeArtifact(dependencies, idOrArtifact) {
@@ -11,14 +11,13 @@ export function cancelArtifact(dependencies, idOrArtifact) {
 }
 
 function finishArtifact(dependencies, { idOrArtifact, status }) {
-  const potentialArtifacts = flatTreeIncluding(dependencies, idOrArtifact);
+  const potentialArtifacts = listDescendants(dependencies, idOrArtifact);
   const subjectedArtifacts = potentialArtifacts.filter((a) => isActive(a));
-  const manifests = subjectedArtifacts.map((a) => ({
+  const manifests = subjectedArtifacts.map(({ id }) => ({
     method: "put",
     name: "artifacts",
-    payload: { id: a.id, status },
+    payload: { id, status },
   }));
-
   const { mutator } = dependencies;
   return mutate(mutator, manifests);
 }

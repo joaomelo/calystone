@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
-import { useDependencies, ancestify, CrumbsBase } from "@lib";
-import { listArtifacts } from "@body";
+import { useDependencies, CrumbsBase } from "@lib";
+import { listAscendants } from "@body";
 import { goOutline } from "./navigation";
 
 const props = defineProps({
@@ -12,11 +12,10 @@ const props = defineProps({
 });
 
 const dependencies = useDependencies();
-const ancestry = computed(() => {
-  const list = listArtifacts(dependencies);
-  const ancestry = ancestify(list, props.id);
-  const last = ancestry.length - 1;
-  return ancestry.map(({ id, name }, i) => ({
+const crumbs = computed(() => {
+  const ascendants = listAscendants(dependencies, props.id);
+  const last = ascendants.length - 1;
+  return ascendants.map(({ id, name }, i) => ({
     value: id,
     text: name,
     inactive: i == last,
@@ -26,5 +25,5 @@ const ancestry = computed(() => {
 const handleCrumb = (value) => goOutline(dependencies, value);
 </script>
 <template>
-  <crumbs-base :crumbs="ancestry" @crumb="handleCrumb" />
+  <crumbs-base :crumbs="crumbs" @crumb="handleCrumb" />
 </template>

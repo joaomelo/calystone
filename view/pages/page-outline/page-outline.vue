@@ -3,7 +3,7 @@ import { computed } from "vue";
 import { useI18n } from "@lib";
 import { FrameDashboard } from "@view/frames";
 import ArtifactAdd from "./artifact-add.vue";
-import ArtifactAncestry from "./artifact-ancestry.vue";
+import OutlineCrumbs from "./outline-crumbs.vue";
 import OutlineItems from "./outline-items.vue";
 import OutlineItem from "./outline-item.vue";
 
@@ -20,7 +20,7 @@ const id = computed(() => props.parentId || null);
 </script>
 <template>
   <frame-dashboard :title="t('page-outline.outline')">
-    <artifact-ancestry v-if="id" :id="id" class="mb-25" />
+    <outline-crumbs v-if="id" :id="id" class="mb-25" />
     <artifact-add :parent-id="id" class="mb-25" />
     <outline-items :parent-id="id">
       <template #item="item">
