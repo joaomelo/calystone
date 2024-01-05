@@ -8,10 +8,15 @@ export const outlinePage = {
   listItemDates,
   listItemMenu,
   listItemChildOf,
+  listItemCompletedTag,
+  listItemCancelledTag,
   crumb,
   add,
   edit,
   focus,
+  activate,
+  complete,
+  cancel,
   appendUnder,
 };
 
@@ -35,6 +40,14 @@ function listItemDates(name) {
   return listItem(name).find(".artifact-dates");
 }
 
+function listItemCompletedTag(name) {
+  return listItem(name).find(".completed");
+}
+
+function listItemCancelledTag(name) {
+  return listItem(name).find(".cancelled");
+}
+
 function listItemChildOf(name) {
   return listItem(name)
     .parents(".list-tree-root")
@@ -54,15 +67,30 @@ function add(name) {
 
 function focus(name) {
   listItemMenu(name).click();
-  return cy.get(".menu-focus").click();
+  return listItemMenu(name).find(".menu-focus").click();
+}
+
+function complete(name) {
+  listItemMenu(name).click();
+  return listItemMenu(name).find(".menu-complete").click();
+}
+
+function cancel(name) {
+  listItemMenu(name).click();
+  return listItemMenu(name).find(".menu-cancel").click();
+}
+
+function activate(name) {
+  listItemMenu(name).click();
+  return listItemMenu(name).find(".menu-activate").click();
 }
 
 function appendUnder(name) {
   listItemMenu(name).click();
-  return cy.get(".menu-append").click();
+  return listItemMenu(name).find(".menu-append").click();
 }
 
 function edit(name) {
   listItemMenu(name).click();
-  return cy.get(".menu-edit").click();
+  return listItemMenu(name).find(".menu-edit").click();
 }

@@ -7,6 +7,8 @@ export const artifactItem = {
     activate: "activate",
     complete: "complete",
     cancel: "cancel",
+    completed: "completed",
+    cancelled: "cancelled",
   },
   "pt-br": {
     append: "acrescentar",
@@ -14,7 +16,9 @@ export const artifactItem = {
     edit: "editar",
     focus: "focar",
     activate: "ativar",
-    complete: "completar",
+    complete: "concluir",
     cancel: "cancelar",
+    completed: "concluído",
+    cancelled: "cancelado",
   },
 };

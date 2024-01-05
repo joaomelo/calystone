@@ -3,7 +3,7 @@ import { listDescendants } from "@body";
 import { ARTIFACT_STATUSES, isActive } from "./statuses";
 
 export function completeArtifact(dependencies, idOrArtifact) {
-  return finishArtifact(dependencies, { idOrArtifact, status: ARTIFACT_STATUSES.COMPLETE });
+  return finishArtifact(dependencies, { idOrArtifact, status: ARTIFACT_STATUSES.COMPLETED });
 }
 
 export function cancelArtifact(dependencies, idOrArtifact) {

@@ -1,4 +1,5 @@
 <script setup>
+import { useI18n } from "@lib";
 import { isFinished } from "@body";
 defineProps({
   artifact: {
@@ -6,14 +7,16 @@ defineProps({
     required: true,
   },
 });
+const { t } = useI18n();
 </script>
 
 <template>
   <div
     v-if="isFinished(artifact)"
     class="item-status"
+    :class="artifact.status"
   >
-    {{ artifact.status }}
+    {{ t(`artifact-item.${artifact.status}`) }}
   </div>
 </template>
 

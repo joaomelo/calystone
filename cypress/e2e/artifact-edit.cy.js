@@ -39,6 +39,6 @@ describe("artifact edit", () => {
     editPage.inputEnd().type(isoDate);
     editPage.buttonSave().click();
 
-    outlinePage.listItem(name);
+    outlinePage.listItemDates(name);
   });
 });

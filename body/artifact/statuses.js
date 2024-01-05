@@ -1,6 +1,6 @@
 export const ARTIFACT_STATUSES = {
   ACTIVE: "active",
-  COMPLETE: "complete",
+  COMPLETED: "completed",
   CANCELLED: "cancelled",
 };
 
@@ -9,11 +9,11 @@ export function isActive({ status }) {
 }
 
 export function isFinished(artifact) {
-  return isComplete(artifact) || isCancelled(artifact);
+  return isCompleted(artifact) || isCancelled(artifact);
 }
 
-export function isComplete({ status }) {
-  return status === ARTIFACT_STATUSES.COMPLETE;
+export function isCompleted({ status }) {
+  return status === ARTIFACT_STATUSES.COMPLETED;
 }
 
 export function isCancelled({ status }) {
