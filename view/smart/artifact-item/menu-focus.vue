@@ -15,7 +15,10 @@ const handleFocus = () => goOutline(dependencies, props.artifact.id);
 </script>
 
 <template>
-  <menu-item @click="handleFocus">
+  <menu-item
+    class="menu-focus"
+    @click="handleFocus"
+  >
     {{ t("artifact-item.focus") }}
   </menu-item>
 </template>

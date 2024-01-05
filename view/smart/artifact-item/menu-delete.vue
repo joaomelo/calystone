@@ -15,7 +15,10 @@ const handleDelete = () => delArtifact(dependencies, props.artifact.id);
 </script>
 
 <template>
-  <menu-item @click="handleDelete">
+  <menu-item
+    class="menu-delete"
+    @click="handleDelete"
+  >
     {{ t("artifact-item.delete") }}
   </menu-item>
 </template>

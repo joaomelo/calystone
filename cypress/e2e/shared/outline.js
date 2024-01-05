@@ -24,11 +24,11 @@ function buttonAdd() {
 
 function listItem(name) {
   const strictlyText = new RegExp("^" + name + "$");
-  return cy.contains(".list-item-text", strictlyText).parent();
+  return cy.contains(".item-name", strictlyText).parent();
 }
 
 function listItemMenu(name) {
-  return listItem(name).siblings(".actions-menu");
+  return listItem(name).find(".actions-menu");
 }
 
 function listItemDates(name) {
@@ -37,7 +37,7 @@ function listItemDates(name) {
 
 function listItemChildOf(name) {
   return listItem(name)
-    .parents(".list-root-wrapper")
+    .parents(".list-tree-root")
     .siblings(".list-tree-children")
     .find(".list-item");
 }
@@ -54,15 +54,15 @@ function add(name) {
 
 function focus(name) {
   listItemMenu(name).click();
-  return cy.get(".focus").click();
+  return cy.get(".menu-focus").click();
 }
 
 function appendUnder(name) {
   listItemMenu(name).click();
-  return cy.get(".append").click();
+  return cy.get(".menu-append").click();
 }
 
 function edit(name) {
   listItemMenu(name).click();
-  return cy.get(".edit").click();
+  return cy.get(".menu-edit").click();
 }

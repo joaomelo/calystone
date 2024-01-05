@@ -15,7 +15,10 @@ const handleAppend = () => addArtifact(dependencies, { parentId: props.artifact.
 </script>
 
 <template>
-  <menu-item @click="handleAppend">
+  <menu-item
+    class="menu-append"
+    @click="handleAppend"
+  >
     {{ t("artifact-item.append") }}
   </menu-item>
 </template>
