@@ -37,7 +37,7 @@ function listItemMenu(name) {
 }
 
 function listItemDates(name) {
-  return listItem(name).find(".artifact-dates");
+  return listItem(name).find(".item-dates");
 }
 
 function listItemCompletedTag(name) {
