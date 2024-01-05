@@ -7,5 +7,5 @@ const dependencies = useDependencies();
 onMounted(() => goSolve(dependencies));
 </script>
 <template>
-  <router-view></router-view>
+  <router-view />
 </template>

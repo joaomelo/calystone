@@ -15,14 +15,20 @@ defineEmits(["drag"]);
 </script>
 <template>
   <div class="list-base">
-    <template v-for="item in items" :key="item.value">
+    <template
+      v-for="item in items"
+      :key="item.value"
+    >
       <list-tree
         :root="item"
         :draggable="draggable"
         @drag="$emit('drag', $event)"
       >
         <template #item="slotProps">
-          <slot name="item" v-bind="slotProps"></slot>
+          <slot
+            name="item"
+            v-bind="slotProps"
+          />
         </template>
       </list-tree>
     </template>

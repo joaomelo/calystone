@@ -1,5 +1,5 @@
 export const pagePreferences = {
-  en: {
+  "en": {
     preferences: "preferences",
     locale: "locale",
     done: "done",

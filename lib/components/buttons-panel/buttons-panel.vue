@@ -3,8 +3,11 @@ import { useIsAtLeastMedium } from "@lib";
 const md = useIsAtLeastMedium();
 </script>
 <template>
-  <div class="buttons-panel" :class="{ md }">
-    <slot></slot>
+  <div
+    class="buttons-panel"
+    :class="{ md }"
+  >
+    <slot />
   </div>
 </template>
 <style scoped>

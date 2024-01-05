@@ -1,5 +1,5 @@
 export const pageSignUp = {
-  en: {
+  "en": {
     "have-account": "already have an account?",
   },
   "pt-br": {

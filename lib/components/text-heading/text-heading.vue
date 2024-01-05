@@ -7,7 +7,12 @@ defineProps({
 });
 </script>
 <template>
-  <h1 class="text-heading" :class="{ clipped }"><slot></slot></h1>
+  <h1
+    class="text-heading"
+    :class="{ clipped }"
+  >
+    <slot />
+  </h1>
 </template>
 <style scoped>
 .text-heading {

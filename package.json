@@ -38,11 +38,11 @@
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^8.0.1",
+    "@stylistic/eslint-plugin": "^1.5.3",
     "@vitejs/plugin-vue": "^4.2.3",
     "concurrently": "^8.2.2",
     "cypress": "^13.6.0",
     "eslint": "^8.41.0",
-    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-vue": "^9.14.1",
     "firebase-tools": "^13.0.2",

@@ -24,13 +24,20 @@ defineProps({
 <template>
   <frame-base>
     <div class="frame-auth">
-      <text-heading class="frame-auth-title">calystone</text-heading>
-      <text-heading class="frame-auth-heading">{{ heading }}</text-heading>
-      <div><slot name="form"></slot></div>
+      <text-heading class="frame-auth-title">
+        calystone
+      </text-heading>
+      <text-heading class="frame-auth-heading">
+        {{ heading }}
+      </text-heading>
+      <div><slot name="form" /></div>
       <div class="frame-auth-link">
         <span>{{ question }}</span>
         <span>&nbsp;</span>
-        <router-link id="link-sign" :to="linkTo">
+        <router-link
+          id="link-sign"
+          :to="linkTo"
+        >
           {{ linkText }}
         </router-link>
       </div>

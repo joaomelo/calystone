@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue";
-import { vFocus, isDate, asDate } from "@lib";
+import { asDate, isDate, vFocus } from "@lib";
 import { InputWrapper } from "../input-wrapper";
 
 const props = defineProps({
@@ -36,7 +36,7 @@ const handleUpdate = (event) => {
         class="input-date-input"
         type="date"
         @input="handleUpdate"
-      />
+      >
     </template>
   </input-wrapper>
 </template>

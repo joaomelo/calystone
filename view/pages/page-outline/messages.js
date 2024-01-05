@@ -1,28 +1,10 @@
 export const pageOutline = {
-  en: {
+  "en": {
     add: "add",
-    append: "append",
-    archive: "archive",
-    delete: "delete",
-    edit: "edit",
-    focus: "focus",
     outline: "outline",
-    unarchive: "unarchive",
-    activate: "activate",
-    complete: "complete",
-    cancel: "cancel",
   },
   "pt-br": {
     add: "novo",
-    append: "acrescentar",
-    archive: "arquivar",
-    delete: "excluir",
-    edit: "editar",
-    focus: "focar",
     outline: "hierarquia",
-    unarchive: "desarquivar",
-    activate: "ativar",
-    complete: "completar",
-    cancel: "cancelar",
   },
 };

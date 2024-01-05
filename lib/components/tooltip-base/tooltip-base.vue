@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { PopoverBase } from "../popover-base";
 
 const props = defineProps({
@@ -41,7 +41,12 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <popover-base v-model="show" :anchor="anchor" block="start" class="tooltip-base">
+  <popover-base
+    v-model="show"
+    :anchor="anchor"
+    block="start"
+    class="tooltip-base"
+  >
     {{ text }}
   </popover-base>
 </template>

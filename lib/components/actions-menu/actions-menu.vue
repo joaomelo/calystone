@@ -26,12 +26,27 @@ const handleToggle = () => (show.value = !show.value);
 </script>
 
 <template>
-  <div :id="actionsId" class="actions-menu">
-    <button-veil :id="toggleId" @click="handleToggle">
-      <visual-icon name="more_horiz" size="var(--size-30)" />
+  <div
+    :id="actionsId"
+    class="actions-menu"
+  >
+    <button-veil
+      :id="toggleId"
+      @click="handleToggle"
+    >
+      <visual-icon
+        name="more_horiz"
+        size="var(--size-30)"
+      />
     </button-veil>
-    <popover-base v-model="show" :anchor="toggleId" block="end" inline="end" @click="handleToggle">
-      <slot></slot>
+    <popover-base
+      v-model="show"
+      :anchor="toggleId"
+      block="end"
+      inline="end"
+      @click="handleToggle"
+    >
+      <slot />
     </popover-base>
   </div>
 </template>

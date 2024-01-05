@@ -4,8 +4,8 @@ import {
   ButtonBase,
   FormBase,
   InputText,
-  useI18n,
   useDependencies,
+  useI18n,
 } from "@lib";
 import { goSearch } from "@view";
 
@@ -23,12 +23,22 @@ const search = reactive({ term: props.term });
 const handleSearch = () => goSearch(dependencies, search.term);
 </script>
 <template>
-  <form-base inline @submit="handleSearch">
+  <form-base
+    inline
+    @submit="handleSearch"
+  >
     <template #default>
-      <input-text id="input-search" v-model="search.term" autofocus />
+      <input-text
+        id="input-search"
+        v-model="search.term"
+        autofocus
+      />
     </template>
     <template #buttons>
-      <button-base :label="t('page-search.search')" type="submit" />
+      <button-base
+        :label="t('page-search.search')"
+        type="submit"
+      />
     </template>
   </form-base>
 </template>

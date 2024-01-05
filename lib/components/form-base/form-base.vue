@@ -1,5 +1,5 @@
 <script setup>
-import { OverlayBase, ButtonsPanel, TextAlert } from "@lib";
+import { ButtonsPanel, OverlayBase, TextAlert } from "@lib";
 
 defineProps({
   busy: {
@@ -26,11 +26,15 @@ const handleSubmit = () => emit("submit");
       @submit.prevent="handleSubmit"
     >
       <div class="form-base-content">
-        <text-alert v-if="error" icon="error" :text="error" />
-        <slot></slot>
+        <text-alert
+          v-if="error"
+          icon="error"
+          :text="error"
+        />
+        <slot />
       </div>
       <buttons-panel>
-        <slot name="buttons"></slot>
+        <slot name="buttons" />
       </buttons-panel>
     </form>
   </overlay-base>

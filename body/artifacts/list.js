@@ -1,5 +1,4 @@
-import { extractId, treeify, ancestify, flatTree } from "@lib";
-import { listItems } from "@lib";
+import { ancestify, extractId, flatTree, listItems, treeify } from "@lib";
 
 export function listArtifacts(dependencies) {
   const { selector } = dependencies;
@@ -9,7 +8,7 @@ export function listArtifacts(dependencies) {
 export function listDescendants(dependencies, idOrArtifact) {
   const allArtifacts = listArtifacts(dependencies);
   const id = extractId(idOrArtifact);
-  const isRoot = (a) => extractId(a) === id;
+  const isRoot = a => extractId(a) === id;
   const tree = treeify(allArtifacts, { isRoot });
   return flatTree(tree);
 }

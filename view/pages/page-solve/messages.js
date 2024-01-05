@@ -1,5 +1,5 @@
 export const pageSolve = {
-  en: {
+  "en": {
     prepare: "please, wait while prepare your session",
   },
   "pt-br": {

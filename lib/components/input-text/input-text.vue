@@ -17,7 +17,7 @@ defineProps({
   },
 });
 const emit = defineEmits(["update:modelValue"]);
-const handleUpdate = (event) => emit("update:modelValue", event?.target?.value);
+const handleUpdate = event => emit("update:modelValue", event?.target?.value);
 </script>
 <template>
   <input-wrapper>
@@ -29,7 +29,7 @@ const handleUpdate = (event) => emit("update:modelValue", event?.target?.value);
         class="input-base-text"
         :type="type"
         @input="handleUpdate"
-      />
+      >
     </template>
   </input-wrapper>
 </template>

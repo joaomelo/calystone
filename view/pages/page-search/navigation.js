@@ -7,7 +7,7 @@ export const searchRoute = {
   name,
   component: PageSearch,
   meta: { intra: true },
-  props: (route) => ({ term: route.query.term }),
+  props: route => ({ term: route.query.term }),
 };
 
 export function isSearch(dependencies) {

@@ -2,7 +2,7 @@
 
 <template>
   <div class="action-item">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 

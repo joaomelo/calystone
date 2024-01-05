@@ -1,5 +1,5 @@
 import { AUTH_STATUSES, authStatus } from "@lib";
-import { goSignIn, goOutline } from "@view";
+import { goOutline, goSignIn } from "@view";
 import { default as PageSolve } from "./page-solve.vue";
 
 const name = "page-solve";

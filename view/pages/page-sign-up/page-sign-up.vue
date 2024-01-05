@@ -14,7 +14,10 @@ const { task, payload } = useSignUp();
     :link-text="t('frame-sign.sign-in')"
   >
     <template #form>
-      <form-base :error="task.error" @submit="task.run">
+      <form-base
+        :error="task.error"
+        @submit="task.run"
+      >
         <template #default>
           <input-text
             id="input-email"

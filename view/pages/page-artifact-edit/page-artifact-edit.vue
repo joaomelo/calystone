@@ -1,6 +1,6 @@
 <script setup>
 import { useI18n } from "@lib";
-import { FrameDashboard } from "@view/frames";
+import { FrameDashboard } from "@view/smart";
 import FormEdit from "./form-edit.vue";
 
 defineProps({

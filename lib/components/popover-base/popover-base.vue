@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted, toValue } from "vue";
+import { onMounted, ref, toValue, watch } from "vue";
 import { place } from "./place";
 
 const props = defineProps({
@@ -33,10 +33,11 @@ watch(
   (modelValue) => {
     if (modelValue) {
       show();
-    } else {
+    }
+    else {
       popover.value.hidePopover();
     }
-  }
+  },
 );
 const handleUpdate = ({ newState }) => {
   const modelValue = newState === "open";
@@ -63,8 +64,13 @@ const show = () => {
 };
 </script>
 <template>
-  <div ref="popover" class="popover-base" popover @toggle="handleUpdate">
-    <slot></slot>
+  <div
+    ref="popover"
+    class="popover-base"
+    popover
+    @toggle="handleUpdate"
+  >
+    <slot />
   </div>
 </template>
 <style scoped>

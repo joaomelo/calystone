@@ -11,7 +11,7 @@ import { FrameDashboard, goOutline } from "@view";
 const { t, i18n } = useI18n();
 const dependencies = useDependencies();
 
-const handleI18n = (locale) => i18n.updateLocale(locale);
+const handleI18n = locale => i18n.updateLocale(locale);
 const handleDone = () => goOutline(dependencies);
 </script>
 <template>
@@ -27,7 +27,10 @@ const handleDone = () => goOutline(dependencies);
         />
       </template>
       <template #buttons>
-        <button-base :label="t('page-preferences.done')" type="submit" />
+        <button-base
+          :label="t('page-preferences.done')"
+          type="submit"
+        />
       </template>
     </form-base>
   </frame-dashboard>

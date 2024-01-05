@@ -7,7 +7,11 @@ defineProps({
 </script>
 <template>
   <div class="text-alert">
-    <visual-icon v-if="icon" :name="icon" class="text-alert-icon" />
+    <visual-icon
+      v-if="icon"
+      :name="icon"
+      class="text-alert-icon"
+    />
     <span>
       {{ text }}
     </span>

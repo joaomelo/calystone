@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <button class="button-veil">
-    <slot></slot>
+    <slot />
   </button>
 </template>
 <style scoped>

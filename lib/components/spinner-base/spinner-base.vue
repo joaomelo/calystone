@@ -4,8 +4,11 @@ defineProps({
 });
 </script>
 <template>
-  <div v-if="show" class="spinner-base">
-    <div class="spinner-base-shape"></div>
+  <div
+    v-if="show"
+    class="spinner-base"
+  >
+    <div class="spinner-base-shape" />
   </div>
 </template>
 <style scoped>

@@ -30,9 +30,16 @@ const { handlers, classes } = useDrag({ value: props.item.value, emit });
     @drop="handlers.drop"
     @dragend="handlers.end"
   >
-    <slot name="item" v-bind="item"></slot>
+    <slot
+      name="item"
+      v-bind="item"
+    />
   </div>
-  <tooltip-base v-if="item.tooltip" :anchor="item.value" :text="item.tooltip" />
+  <tooltip-base
+    v-if="item.tooltip"
+    :anchor="item.value"
+    :text="item.tooltip"
+  />
 </template>
 <style scoped>
 .list-item {

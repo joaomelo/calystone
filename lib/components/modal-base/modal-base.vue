@@ -17,19 +17,23 @@ watch(
     if (!dialog.value) return;
     if (show) {
       dialog.value.showModal();
-    } else {
+    }
+    else {
       dialog.value.close();
     }
-  }
+  },
 );
 </script>
 <template>
   <dialog ref="dialog">
     <div>
-      <slot></slot>
+      <slot />
     </div>
     <div class="model-base-buttons">
-      <slot name="buttons" :close="close"></slot>
+      <slot
+        name="buttons"
+        :close="close"
+      />
     </div>
   </dialog>
 </template>

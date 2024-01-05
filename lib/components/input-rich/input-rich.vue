@@ -1,15 +1,15 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { drawSelection, EditorView, keymap } from "@codemirror/view";
 import { EditorState } from "@codemirror/state";
-import { defaultKeymap, historyKeymap, history } from "@codemirror/commands";
+import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import {
   bracketMatching,
   defaultHighlightStyle,
   indentOnInput,
   syntaxHighlighting,
 } from "@codemirror/language";
-import { closeBrackets, autocompletion } from "@codemirror/autocomplete";
+import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
 import { markdown } from "@codemirror/lang-markdown";
 import { InputWrapper } from "../input-wrapper";
 
@@ -65,13 +65,17 @@ watch(
       },
     });
     editorView.update([update]);
-  }
+  },
 );
 </script>
 <template>
   <input-wrapper>
     <template #default="{ id }">
-      <div :id="id" ref="parent" class="parent"></div>
+      <div
+        :id="id"
+        ref="parent"
+        class="parent"
+      />
     </template>
   </input-wrapper>
 </template>

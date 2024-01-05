@@ -1,4 +1,4 @@
-import { useDependencies, currentUser, truncate } from "@lib";
+import { currentUser, truncate, useDependencies } from "@lib";
 
 export function useEmail() {
   const { auth } = useDependencies();

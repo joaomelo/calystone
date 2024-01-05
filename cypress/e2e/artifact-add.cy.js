@@ -1,4 +1,4 @@
-import { signUpPage, outlinePage } from "./shared";
+import { outlinePage, signUpPage } from "./shared";
 
 describe("artifact add", () => {
   beforeEach(() => {

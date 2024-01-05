@@ -9,13 +9,16 @@ defineProps({
 </script>
 
 <template>
-  <div v-if="isFinished(artifact)" class="outline-item-status">
+  <div
+    v-if="isFinished(artifact)"
+    class="item-status"
+  >
     {{ artifact.status }}
   </div>
 </template>
 
 <style scoped>
-.outline-item-status {
+.item-status {
   font-size: var(--font-size-10);
   color: var(--color-content-30);
 }

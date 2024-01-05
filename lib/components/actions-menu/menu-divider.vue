@@ -1,6 +1,6 @@
 <script setup></script>
 <template>
-  <hr class="actions-divider" />
+  <hr class="actions-divider">
 </template>
 
 <style scoped>

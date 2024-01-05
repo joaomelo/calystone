@@ -1,6 +1,6 @@
-import { mutate, currentUser } from "@lib";
+import { currentUser, mutate } from "@lib";
 import { identifyLastOrder } from "@body";
-import { parseParent, parseContent } from "./parse";
+import { parseContent, parseParent } from "./parse";
 import { ARTIFACT_STATUSES } from "./statuses";
 
 export function addArtifact(dependencies, payload) {

@@ -1,5 +1,5 @@
 export const pageSearch = {
-  en: {
+  "en": {
     search: "search",
     focus: "focus",
     edit: "edit",

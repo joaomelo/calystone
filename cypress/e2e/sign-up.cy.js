@@ -1,4 +1,4 @@
-import { signUpPage, signInPage, outlinePage } from "./shared";
+import { outlinePage, signInPage, signUpPage } from "./shared";
 
 describe("sign up", () => {
   beforeEach(() => cy.clearData());

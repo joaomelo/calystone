@@ -19,11 +19,19 @@ const props = defineProps({
 const inputId = computed(() => `${props.id}-input`);
 </script>
 <template>
-  <fieldset :id="id" class="input-wrapper" :class="{ inline }">
-    <label v-if="label" :for="inputId" :class="{ inline }">
+  <fieldset
+    :id="id"
+    class="input-wrapper"
+    :class="{ inline }"
+  >
+    <label
+      v-if="label"
+      :for="inputId"
+      :class="{ inline }"
+    >
       {{ label }}
     </label>
-    <slot :id="inputId"></slot>
+    <slot :id="inputId" />
   </fieldset>
 </template>
 

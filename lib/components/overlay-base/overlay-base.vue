@@ -10,7 +10,7 @@ defineProps({
 </script>
 <template>
   <div class="overlay-base">
-    <slot></slot>
+    <slot />
     <template v-if="show">
       <div class="overlay-base-film">
         <spinner-base :show="show" />

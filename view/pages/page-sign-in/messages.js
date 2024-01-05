@@ -1,5 +1,5 @@
 export const pageSignIn = {
-  en: {
+  "en": {
     "no-account": "don't have an account?",
   },
   "pt-br": {

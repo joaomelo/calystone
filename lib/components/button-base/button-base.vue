@@ -21,11 +21,21 @@ defineProps({
 });
 </script>
 <template>
-  <button class="button-base" :type="type" :disabled="disabled || busy">
+  <button
+    class="button-base"
+    :type="type"
+    :disabled="disabled || busy"
+  >
     <div v-if="busy">
-      <spinner-base :show="busy" class="button-base-spinner" />
+      <spinner-base
+        :show="busy"
+        class="button-base-spinner"
+      />
     </div>
-    <div class="button-base-content" :class="{ busy }">
+    <div
+      class="button-base-content"
+      :class="{ busy }"
+    >
       {{ label }}
     </div>
   </button>

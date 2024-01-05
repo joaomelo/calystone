@@ -8,7 +8,7 @@ import {
   FirestoreSelector,
   I18n,
 } from "@lib";
-import { messages, createRouter } from "@view";
+import { createRouter, messages } from "@view";
 import App from "./app.vue";
 
 export function initApp(elementId) {
@@ -46,26 +46,27 @@ function createConnectionFromEnv() {
   if (import.meta.env.VITE_SERVER_PLATFORM === "emulators") {
     console.info("using firebase emulators");
     if (
-      typeof import.meta.env.VITE_PROJECT_ID !== "string" ||
-      typeof import.meta.env.VITE_API_KEY !== "string" ||
-      typeof import.meta.env.VITE_APP_ID !== "string"
+      typeof import.meta.env.VITE_PROJECT_ID !== "string"
+      || typeof import.meta.env.VITE_API_KEY !== "string"
+      || typeof import.meta.env.VITE_APP_ID !== "string"
     ) {
       throw new Error(
-        "One or more of the environment variables for the emulators connection where not loaded properly"
+        "One or more of the environment variables for the emulators connection where not loaded properly",
       );
     }
-  } else {
+  }
+  else {
     if (
-      typeof import.meta.env.VITE_PROJECT_ID !== "string" ||
-      typeof import.meta.env.VITE_API_KEY !== "string" ||
-      typeof import.meta.env.VITE_APP_ID !== "string" ||
-      typeof import.meta.env.VITE_AUTH_DOMAIN !== "string" ||
-      typeof import.meta.env.VITE_STORAGE_BUCKET !== "string" ||
-      typeof import.meta.env.VITE_MESSAGING_SENDER_ID !== "string" ||
-      typeof import.meta.env.VITE_MEASUREMENT_ID !== "string"
+      typeof import.meta.env.VITE_PROJECT_ID !== "string"
+      || typeof import.meta.env.VITE_API_KEY !== "string"
+      || typeof import.meta.env.VITE_APP_ID !== "string"
+      || typeof import.meta.env.VITE_AUTH_DOMAIN !== "string"
+      || typeof import.meta.env.VITE_STORAGE_BUCKET !== "string"
+      || typeof import.meta.env.VITE_MESSAGING_SENDER_ID !== "string"
+      || typeof import.meta.env.VITE_MEASUREMENT_ID !== "string"
     ) {
       throw new Error(
-        "One or more of the environment variables for the service connection where not loaded properly"
+        "One or more of the environment variables for the service connection where not loaded properly",
       );
     }
   }

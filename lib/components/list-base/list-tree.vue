@@ -21,7 +21,7 @@ const props = defineProps({
 defineEmits(["drag"]);
 
 const { collapse, collapseForDragStart, collapseForDragEnd } = useCollapse(
-  toRef(props, "root")
+  toRef(props, "root"),
 );
 </script>
 <template>
@@ -36,20 +36,29 @@ const { collapse, collapseForDragStart, collapseForDragEnd } = useCollapse(
         @drag="$emit('drag', $event)"
       >
         <template #item="slotProps">
-          <slot name="item" v-bind="slotProps"></slot>
+          <slot
+            name="item"
+            v-bind="slotProps"
+          />
         </template>
       </list-item>
     </div>
     <template v-if="collapse === COLLAPSE_STATUSES.OPEN">
       <div class="list-tree-children">
-        <template v-for="child in root.children" :key="child.value">
+        <template
+          v-for="child in root.children"
+          :key="child.value"
+        >
           <list-tree
             :root="child"
             :draggable="draggable"
             @drag="$emit('drag', $event)"
           >
             <template #item="slotProps">
-              <slot name="item" v-bind="slotProps"></slot>
+              <slot
+                name="item"
+                v-bind="slotProps"
+              />
             </template>
           </list-tree>
         </template>

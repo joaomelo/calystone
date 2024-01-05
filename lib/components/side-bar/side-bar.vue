@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { ButtonVeil } from "../button-veil";
 import { VisualIcon } from "../visual-icon";
 
@@ -7,7 +7,7 @@ const props = defineProps({
   modelValue: {
     type: String,
     required: true,
-    validator: (value) => ["fixed", "open", "closed"].includes(value),
+    validator: value => ["fixed", "open", "closed"].includes(value),
   },
 });
 const emit = defineEmits(["update:modelValue"]);
@@ -26,24 +26,37 @@ watch(
     if (value === "fixed") return;
     if (value === "open") {
       sideBar.value.showPopover();
-    } else {
+    }
+    else {
       sideBar.value.hidePopover();
     }
   },
   {
     flush: "post",
-  }
+  },
 );
 
 const handleClick = () => emit("update:modelValue", "closed");
 </script>
 <template>
-  <aside ref="sideBar" :popover="popover" class="side-bar" @toggle="handleToggle">
+  <aside
+    ref="sideBar"
+    :popover="popover"
+    class="side-bar"
+    @toggle="handleToggle"
+  >
     <div class="side-bar-container">
-      <button-veil v-if="modelValue === 'open'" class="side-bar-close" @click="handleClick">
-        <visual-icon name="close" size="var(--size-30)" />
+      <button-veil
+        v-if="modelValue === 'open'"
+        class="side-bar-close"
+        @click="handleClick"
+      >
+        <visual-icon
+          name="close"
+          size="var(--size-30)"
+        />
       </button-veil>
-      <slot></slot>
+      <slot />
     </div>
   </aside>
 </template>

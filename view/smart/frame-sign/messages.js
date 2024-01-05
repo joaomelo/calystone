@@ -1,14 +1,14 @@
 export const frameSign = {
-  en: {
+  "en": {
     "sign-in": "sing in",
     "sign-up": "sing up",
-    email: "email",
-    password: "password",
+    "email": "email",
+    "password": "password",
   },
   "pt-br": {
     "sign-in": "entrar",
     "sign-up": "criar conta",
-    email: "email",
-    password: "senha",
+    "email": "email",
+    "password": "senha",
   },
 };

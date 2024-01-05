@@ -21,7 +21,10 @@ const { t } = useI18n();
 const { save, back, payload } = useEdit(props.artifactId);
 </script>
 <template>
-  <form-base :error="save.error" @submit="save.run">
+  <form-base
+    :error="save.error"
+    @submit="save.run"
+  >
     <template #default>
       <input-text
         id="input-name"

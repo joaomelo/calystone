@@ -12,7 +12,10 @@ const { d } = useI18n();
 </script>
 
 <template>
-  <div v-if="artifact.start || artifact.end" class="outline-item-dates">
+  <div
+    v-if="artifact.start || artifact.end"
+    class="item-dates"
+  >
     <span v-if="artifact.start">
       {{ d(artifact.start) }}
     </span>
@@ -24,7 +27,7 @@ const { d } = useI18n();
 </template>
 
 <style scoped>
-.outline-item-dates {
+.item-dates {
   font-size: var(--font-size-10);
   color: var(--color-content-30);
 }

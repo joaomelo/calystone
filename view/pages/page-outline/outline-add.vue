@@ -19,7 +19,10 @@ const { task, payload } = useTask((dependencies, payload) => {
 }, reset);
 </script>
 <template>
-  <form-base inline @submit="task.run">
+  <form-base
+    inline
+    @submit="task.run"
+  >
     <template #default>
       <input-text
         id="input-name"

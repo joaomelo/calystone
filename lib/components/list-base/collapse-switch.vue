@@ -12,22 +12,26 @@ const char = computed(() =>
   props.modelValue === COLLAPSE_STATUSES.FLAT
     ? "•"
     : props.modelValue === COLLAPSE_STATUSES.OPEN
-    ? "▼"
-    : "►"
+      ? "▼"
+      : "►",
 );
 const collapsable = computed(() => props.modelValue !== COLLAPSE_STATUSES.FLAT);
 
 const handleClick = () => {
   if (props.modelValue === COLLAPSE_STATUSES.FLAT) return;
-  const newValue =
-    props.modelValue === COLLAPSE_STATUSES.OPEN
+  const newValue
+    = props.modelValue === COLLAPSE_STATUSES.OPEN
       ? COLLAPSE_STATUSES.CLOSED
       : COLLAPSE_STATUSES.OPEN;
   emit("update:modelValue", newValue);
 };
 </script>
 <template>
-  <div class="collapse-symbol" :class="{ collapsable }" @click="handleClick">
+  <div
+    class="collapse-symbol"
+    :class="{ collapsable }"
+    @click="handleClick"
+  >
     {{ char }}
   </div>
 </template>

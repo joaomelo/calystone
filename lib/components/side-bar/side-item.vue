@@ -17,7 +17,10 @@ const action = computed(() => onClick && !props.active);
 const content = computed(() => !onClick);
 </script>
 <template>
-  <div class="side-item" :class="{ action, content, active }">
+  <div
+    class="side-item"
+    :class="{ action, content, active }"
+  >
     {{ text }}
   </div>
 </template>

@@ -1,5 +1,5 @@
 export const frameDashboard = {
-  en: {
+  "en": {
     "sign-out": "sign out",
   },
   "pt-br": {

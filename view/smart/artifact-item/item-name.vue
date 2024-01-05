@@ -1,5 +1,5 @@
 <script setup>
-import { computed, toValue } from "vue";
+import { computed } from "vue";
 import { useDependencies } from "@lib";
 import { editArtifact, isFinished } from "@body";
 
@@ -15,7 +15,7 @@ const dependencies = useDependencies();
 const finished = computed(() => isFinished(props.artifact));
 
 const edit = (name) => {
-  const { id, name: current } = toValue(props.artifact);
+  const { id, name: current } = props.artifact;
   if (name === current) return;
   editArtifact(dependencies, { id, name });
 };
@@ -23,12 +23,12 @@ const handleBlur = (e) => {
   const text = e.target.textContent;
   edit(text);
 };
-const handleEnter = (e) => e.target.blur();
+const handleEnter = e => e.target.blur();
 </script>
 
 <template>
   <div
-    class="outline-item-name"
+    class="item-name"
     :class="{ finished }"
     contenteditable="plaintext-only"
     @blur="handleBlur"
@@ -39,12 +39,12 @@ const handleEnter = (e) => e.target.blur();
 </template>
 
 <style scoped>
-.outline-item-name {
+.item-name {
   flex-grow: 1;
   outline: none;
 }
 
-.outline-item-name.finished {
+.item-name.finished {
   color: var(--color-content-50);
   text-decoration: line-through;
 }

@@ -1,6 +1,6 @@
 <script setup>
 import { FrameBase } from "../frame-base";
-import { useSideBarState, useIsAtLeastLarge } from "@lib";
+import { useIsAtLeastLarge, useSideBarState } from "@lib";
 import FrameSide from "./frame-side.vue";
 import FrameTop from "./frame-top.vue";
 
@@ -14,7 +14,10 @@ const sideBarState = useSideBarState(isLarge);
 <template>
   <frame-base>
     <template #default>
-      <div class="frame-dashboard" :class="{ large: isLarge }">
+      <div
+        class="frame-dashboard"
+        :class="{ large: isLarge }"
+      >
         <frame-side v-model="sideBarState" />
         <div>
           <frame-top
@@ -22,7 +25,7 @@ const sideBarState = useSideBarState(isLarge);
             :title="title"
             class="frame-dashboard-top"
           />
-          <slot></slot>
+          <slot />
         </div>
       </div>
     </template>

@@ -19,10 +19,10 @@ export function moveArtifact(dependencies, { id, parentId, order }) {
 
 export function moveManifests({ parentId, id, list, order }) {
   const upwards = list.filter(
-    (artifact) =>
-      artifact.parentId === parentId &&
-      artifact.order >= order &&
-      artifact.id !== id
+    artifact =>
+      artifact.parentId === parentId
+      && artifact.order >= order
+      && artifact.id !== id,
   );
 
   const base = {

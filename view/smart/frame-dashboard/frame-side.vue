@@ -1,6 +1,6 @@
 <script setup>
 import { name, version } from "@main/../package.json";
-import { useI18n, SideBar, SideSection, SideItem, useDependencies } from "@lib";
+import { SideBar, SideItem, SideSection, useDependencies, useI18n } from "@lib";
 import { goOutline, goPreferences, goSearch } from "@view";
 import { useSignOut } from "./use-sign-out";
 import { useEmail } from "./use-email";

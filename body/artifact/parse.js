@@ -1,4 +1,4 @@
-import { isId, asDate, appError } from "@lib";
+import { appError, asDate, isId } from "@lib";
 
 export function parseParent(payload) {
   const { parentId = null } = payload;

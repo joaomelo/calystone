@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <div class="frame-base">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 <style scoped>

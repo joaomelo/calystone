@@ -1,4 +1,4 @@
-import { mutate, extractId } from "@lib";
+import { extractId, mutate } from "@lib";
 import { parseContent } from "./parse";
 
 export function editArtifact(dependencies, payload) {

@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue";
-import { useDependencies, CrumbsBase } from "@lib";
+import { CrumbsBase, useDependencies } from "@lib";
 import { listAscendants } from "@body";
 import { goOutline } from "./navigation";
 
@@ -22,8 +22,11 @@ const crumbs = computed(() => {
   }));
 });
 
-const handleCrumb = (value) => goOutline(dependencies, value);
+const handleCrumb = value => goOutline(dependencies, value);
 </script>
 <template>
-  <crumbs-base :crumbs="crumbs" @crumb="handleCrumb" />
+  <crumbs-base
+    :crumbs="crumbs"
+    @crumb="handleCrumb"
+  />
 </template>

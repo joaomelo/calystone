@@ -7,9 +7,14 @@ import {
   pageSignUp,
   pageSolve,
 } from "@view/pages";
-import { frameDashboard, frameSign } from "@view/frames";
+import {
+  artifactItem,
+  frameDashboard,
+  frameSign,
+} from "@view/smart";
 
 export const messages = {
+  "artifact-item": artifactItem,
   "frame-dashboard": frameDashboard,
   "frame-sign": frameSign,
   "page-artifact-edit": pageArtifactEdit,
