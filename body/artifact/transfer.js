@@ -1,10 +1,10 @@
 import { mutate } from "@lib";
-import { identifyLastOrder } from "@body";
+import { identifyLastArtifactsOrder } from "@body";
 
 export function transferArtifact(dependencies, { id, parentId = null }) {
   if (!id) throw new Error("artifact transfer requires a id to perform");
 
-  const order = identifyLastOrder(dependencies, parentId);
+  const order = identifyLastArtifactsOrder(dependencies, parentId);
   const data = { id, parentId, order: order + 1 };
 
   const { mutator } = dependencies;
