@@ -1,7 +1,7 @@
 <script setup>
 import { name, version } from "@main/../package.json";
 import { SideBar, SideItem, SideSection, useDependencies, useI18n } from "@lib";
-import { goOutline, goPreferences, goSearch } from "@view";
+import { goOutline, goPreferences, goSearch, goTags } from "@view";
 import { useSignOut } from "./use-sign-out";
 import { useEmail } from "./use-email";
 
@@ -34,6 +34,10 @@ const email = useEmail();
       <side-item
         :text="t('page-search.search')"
         @click="() => goSearch(dependencies)"
+      />
+      <side-item
+        :text="t('page-tags.tags')"
+        @click="() => goTags(dependencies)"
       />
       <side-item
         :text="t('page-preferences.preferences')"

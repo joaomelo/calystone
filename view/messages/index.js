@@ -6,6 +6,7 @@ import {
   pageSignIn,
   pageSignUp,
   pageSolve,
+  pageTags,
 } from "@view/pages";
 import {
   artifactItem,
@@ -24,4 +25,5 @@ export const messages = {
   "page-sign-in": pageSignIn,
   "page-sign-up": pageSignUp,
   "page-solve": pageSolve,
+  "page-tags": pageTags,
 };

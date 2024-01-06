@@ -6,6 +6,7 @@ import {
   signInRoute,
   signUpRoute,
   solveRoute,
+  tagsRoute,
 } from "@view/pages";
 
 export const routes = [
@@ -18,6 +19,7 @@ export const routes = [
   signInRoute,
   signUpRoute,
   solveRoute,
+  tagsRoute,
 
   { path: "/:pathMatch(.*)*", redirect: solveRoute.path },
 ];
