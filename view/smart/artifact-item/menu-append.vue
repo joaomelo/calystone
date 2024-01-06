@@ -11,7 +11,7 @@ const props = defineProps({
 
 const dependencies = useDependencies();
 const { t } = useI18n();
-const handleAppend = () => addArtifact(dependencies, { parentId: props.artifact.id });
+const handleAppend = () => addArtifact(dependencies, { parentId: props.artifact.id, name: null });
 </script>
 
 <template>

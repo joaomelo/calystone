@@ -6,39 +6,60 @@ describe("artifact edit", () => {
     signUpPage.signUpAuto();
   });
 
-  it("edit artifact name in the outline", () => {
-    const parentName = "task 1";
-    outlinePage.add(parentName);
-    outlinePage.appendUnder(parentName);
+  describe("happy path", () => {
+    it("edit artifact name in the outline", () => {
+      const parentName = "task 1";
+      outlinePage.add(parentName);
+      outlinePage.appendUnder(parentName);
 
-    const name = "task 1.1";
-    outlinePage.listItemChildOf(parentName).type(`${name}{enter}`);
+      const name = "task 1.1";
+      outlinePage.listItemChildOf(parentName).type(`${name}{enter}`);
 
-    outlinePage.listItem(name);
+      outlinePage.listItem(name);
+    });
+
+    it("edit artifact name in edit page", () => {
+      const name = "task 1";
+      outlinePage.add(name);
+      outlinePage.edit(name);
+
+      const newName = "edited task";
+      editPage.inputName().clear().type(newName);
+      editPage.buttonSave().click();
+
+      outlinePage.listItem(newName);
+    });
+
+    it("edit artifact dates", () => {
+      const name = "task 1";
+      outlinePage.add(name);
+      outlinePage.edit(name);
+
+      const isoDate = "2023-12-01";
+      editPage.inputStart().type(isoDate);
+      editPage.inputEnd().type(isoDate);
+      editPage.buttonSave().click();
+
+      outlinePage.listItemDates(name);
+    });
   });
 
-  it("edit artifact name in edit page", () => {
-    const name = "task 1";
-    outlinePage.add(name);
-    outlinePage.edit(name);
+  describe("alternatives paths", () => {
+    it("inline editing does only affects name", () => {
+      const name = "task 1";
+      outlinePage.add(name);
+      outlinePage.edit(name);
 
-    const newName = "edited task";
-    editPage.inputName().clear().type(newName);
-    editPage.buttonSave().click();
+      const isoDate = "2023-12-01";
+      editPage.inputStart().type(isoDate);
+      editPage.inputEnd().type(isoDate);
 
-    outlinePage.listItem(newName);
-  });
+      editPage.buttonSave().click();
 
-  it("edit artifact dates", () => {
-    const name = "task 1";
-    outlinePage.add(name);
-    outlinePage.edit(name);
+      const newName = "edited task";
+      outlinePage.listItem(name).clear().type(`${newName}{enter}`);
 
-    const isoDate = "2023-12-01";
-    editPage.inputStart().type(isoDate);
-    editPage.inputEnd().type(isoDate);
-    editPage.buttonSave().click();
-
-    outlinePage.listItemDates(name);
+      outlinePage.listItemDates(newName);
+    });
   });
 });

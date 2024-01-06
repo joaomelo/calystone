@@ -16,7 +16,7 @@ function finishArtifact(dependencies, { idOrArtifact, status }) {
   const manifests = subjectedArtifacts.map(({ id }) => ({
     method: "put",
     name: "artifacts",
-    payload: { id, status },
+    data: { id, status },
   }));
   const { mutator } = dependencies;
   return mutate(mutator, manifests);

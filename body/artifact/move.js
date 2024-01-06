@@ -33,14 +33,14 @@ export function moveManifests({ parentId, id, list, order }) {
   const manifests = [
     {
       ...base,
-      payload: { id, parentId, order },
+      data: { id, parentId, order },
     },
   ];
 
   upwards.forEach((upward) => {
     manifests.push({
       ...base,
-      payload: { id: upward.id, order: upward.order + 1 },
+      data: { id: upward.id, order: upward.order + 1 },
     });
   });
 

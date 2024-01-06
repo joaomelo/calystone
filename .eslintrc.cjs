@@ -4,6 +4,7 @@ const customized = stylistic.configs.customize({
   indent: 2,
   quotes: 'double',
   semi: true,
+  'object-property-newline': true
 })
 
 module.exports = {
@@ -21,6 +22,9 @@ module.exports = {
   plugins: ['@stylistic'],
   rules: {
     ...customized.rules,    
+    '@stylistic/object-property-newline': ['error', { 
+      allowAllPropertiesOnSameLine: true
+    }],    
     "vue/component-definition-name-casing": ["error", "kebab-case"],
     'no-duplicate-imports': 'error',
     "sort-imports": ["error", {

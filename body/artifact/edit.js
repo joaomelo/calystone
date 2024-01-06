@@ -1,20 +1,25 @@
 import { extractId, mutate } from "@lib";
-import { parseContent } from "./parse";
+import { atLeastOneField, parseDates } from "./parse";
 
 export function editArtifact(dependencies, payload) {
-  const parsed = parse(payload);
-  const { mutator } = dependencies;
-  return mutate(mutator, { name: "artifacts", payload: parsed, method: "put" });
-}
+  atLeastOneField(payload);
 
-function parse(payload) {
   const id = extractId(payload);
-  const { name, notes, start, end } = parseContent(payload);
-  return {
-    id,
-    name,
-    notes,
-    start,
-    end,
-  };
+  const data = { id };
+
+  if (payload.name !== undefined) data.name = payload.name;
+  if (payload.notes !== undefined) data.notes = payload.notes;
+
+  if (payload.start !== undefined || payload.end !== undefined) {
+    const { start, end } = parseDates(payload);
+    data.start = start;
+    data.end = end;
+  }
+
+  const { mutator } = dependencies;
+  return mutate(mutator, {
+    name: "artifacts",
+    method: "put",
+    data,
+  });
 }

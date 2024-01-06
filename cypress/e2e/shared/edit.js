@@ -5,11 +5,16 @@ export const editPage = {
   inputName,
   inputStart,
   inputEnd,
+  inputNotes,
   buttonSave,
 };
 
 function inputName() {
   return cy.get("#input-name-input");
+}
+
+function inputNotes() {
+  return cy.get("#input-notes-input");
 }
 
 function inputStart() {
