@@ -1,5 +1,6 @@
-import { useTask } from "@lib";
 import { ignite } from "@body";
+import { useTask } from "@lib";
+
 import { goStart } from "./navigation";
 
 export function useSolve() {

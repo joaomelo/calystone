@@ -1,5 +1,5 @@
-import { useDependencies, useTask } from "@lib";
 import { editArtifact, getArtifact } from "@body";
+import { useDependencies, useTask } from "@lib";
 import { goBack } from "@view";
 
 export function useEdit(artifactId) {

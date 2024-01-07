@@ -1,5 +1,6 @@
 <script setup>
 import { toRef } from "vue";
+
 import { COLLAPSE_STATUSES, useCollapse } from "./collapse";
 import CollapseSwitch from "./collapse-switch.vue";
 import ListItem from "./list-item.vue";

@@ -1,6 +1,7 @@
 <script setup>
-import { FrameBase } from "../frame-base";
 import { useIsAtLeastLarge, useSideBarState } from "@lib";
+
+import { FrameBase } from "../frame-base";
 import FrameSide from "./frame-side.vue";
 import FrameTop from "./frame-top.vue";
 

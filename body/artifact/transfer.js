@@ -1,5 +1,5 @@
-import { mutate } from "@lib";
 import { identifyLastArtifactsOrder } from "@body";
+import { mutate } from "@lib";
 
 export function transferArtifact(dependencies, { id, parentId = null }) {
   if (!id) throw new Error("artifact transfer requires a id to perform");

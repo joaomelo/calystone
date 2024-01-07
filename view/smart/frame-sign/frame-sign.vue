@@ -1,5 +1,6 @@
 <script setup>
 import { TextHeading } from "@lib";
+
 import { FrameBase } from "../frame-base";
 
 defineProps({

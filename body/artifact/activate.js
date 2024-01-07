@@ -1,5 +1,6 @@
-import { mutate } from "@lib";
 import { listAscendants } from "@body";
+import { mutate } from "@lib";
+
 import { ARTIFACT_STATUSES } from "./statuses";
 
 export function activateArtifact(dependencies, idOrArtifact) {

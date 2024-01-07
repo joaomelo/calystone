@@ -1,7 +1,9 @@
 <script setup>
 import { onMounted } from "vue";
-import { useI18n } from "@lib";
+
 import { FrameBase } from "@view";
+import { useI18n } from "@lib";
+
 import { useSolve } from "./use-solve";
 
 const { t } = useI18n();

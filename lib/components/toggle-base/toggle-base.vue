@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from "vue";
+
 import { ButtonVeil } from "../button-veil";
 import { VisualIcon } from "../visual-icon";
 

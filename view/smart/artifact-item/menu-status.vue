@@ -1,7 +1,8 @@
 <script setup>
 import { computed } from "vue";
-import { MenuItem, useDependencies, useI18n } from "@lib";
+
 import { activateArtifact, cancelArtifact, completeArtifact, isActive } from "@body";
+import { MenuItem, useDependencies, useI18n } from "@lib";
 
 const props = defineProps({
   artifact: {

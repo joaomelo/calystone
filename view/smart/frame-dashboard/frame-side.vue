@@ -1,9 +1,10 @@
 <script setup>
+import { goOutline, goPreferences, goSearch, goTags } from "@view";
 import { name, version } from "@main/../package.json";
 import { SideBar, SideItem, SideSection, useDependencies, useI18n } from "@lib";
-import { goOutline, goPreferences, goSearch, goTags } from "@view";
-import { useSignOut } from "./use-sign-out";
+
 import { useEmail } from "./use-email";
+import { useSignOut } from "./use-sign-out";
 
 defineProps({
   modelValue: {

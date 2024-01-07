@@ -1,7 +1,9 @@
 <script setup>
 import { computed } from "vue";
+
 import { CrumbsBase, useDependencies } from "@lib";
 import { listAscendants } from "@body";
+
 import { goOutline } from "./navigation";
 
 const props = defineProps({

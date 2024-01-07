@@ -1,6 +1,7 @@
 <script setup>
-import { useI18n } from "@lib";
 import { FrameDashboard } from "@view/smart";
+import { useI18n } from "@lib";
+
 import SearchBar from "./search-bar.vue";
 import SearchItem from "./search-item.vue";
 import SearchList from "./search-list.vue";

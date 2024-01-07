@@ -1,16 +1,13 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
+
+import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
+import { bracketMatching, defaultHighlightStyle, indentOnInput, syntaxHighlighting } from "@codemirror/language";
+import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import { drawSelection, EditorView, keymap } from "@codemirror/view";
 import { EditorState } from "@codemirror/state";
-import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
-import {
-  bracketMatching,
-  defaultHighlightStyle,
-  indentOnInput,
-  syntaxHighlighting,
-} from "@codemirror/language";
-import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
 import { markdown } from "@codemirror/lang-markdown";
+
 import { InputWrapper } from "../input-wrapper";
 
 const props = defineProps({

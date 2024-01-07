@@ -1,10 +1,11 @@
 <script setup>
 import { computed, ref } from "vue";
 import { createId } from "@lib";
+
 import { ButtonVeil } from "../button-veil";
-import { VisualIcon } from "../visual-icon";
 import { PopoverBase } from "../popover-base";
 import { validateOptionOrOptions } from "../options";
+import { VisualIcon } from "../visual-icon";
 
 const props = defineProps({
   id: {

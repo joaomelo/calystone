@@ -1,18 +1,5 @@
-import {
-  pageArtifactEdit,
-  pageOutline,
-  pagePreferences,
-  pageSearch,
-  pageSignIn,
-  pageSignUp,
-  pageSolve,
-  pageTags,
-} from "@view/pages";
-import {
-  artifactItem,
-  frameDashboard,
-  frameSign,
-} from "@view/smart";
+import { artifactItem, frameDashboard, frameSign } from "@view/smart";
+import { pageArtifactEdit, pageOutline, pagePreferences, pageSearch, pageSignIn, pageSignUp, pageSolve, pageTags } from "@view/pages";
 
 export const messages = {
   "artifact-item": artifactItem,

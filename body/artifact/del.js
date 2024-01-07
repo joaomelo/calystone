@@ -1,5 +1,5 @@
-import { mutate } from "@lib";
 import { listDescendants } from "@body";
+import { mutate } from "@lib";
 
 export async function delArtifact(dependencies, idOrArtifact) {
   const subjectArtifacts = listDescendants(dependencies, idOrArtifact);

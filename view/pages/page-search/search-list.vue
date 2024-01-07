@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from "vue";
+
 import { ListBase, truncate, useDependencies } from "@lib";
 import { searchArtifacts } from "@body";
 

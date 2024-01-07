@@ -1,6 +1,6 @@
 <script setup>
-import { useI18n } from "@lib";
 import { isFinished } from "@body";
+import { useI18n } from "@lib";
 defineProps({
   artifact: {
     type: Object,

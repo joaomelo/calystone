@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from "vue";
+
 import { COLLAPSE_STATUSES } from "./collapse";
 
 const props = defineProps({
