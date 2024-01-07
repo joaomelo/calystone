@@ -1,10 +1,11 @@
 <script setup>
 import { computed } from "vue";
+import { createId } from "@lib";
 
 const props = defineProps({
   id: {
     type: String,
-    required: true,
+    default: null,
   },
   label: {
     type: String,
@@ -16,11 +17,12 @@ const props = defineProps({
   },
 });
 
-const inputId = computed(() => `${props.id}-input`);
+const wrapperId = computed(() => props.id || createId());
+const inputId = computed(() => `${wrapperId.value}-input`);
 </script>
 <template>
   <fieldset
-    :id="id"
+    :id="wrapperId"
     class="input-wrapper"
     :class="{ inline }"
   >

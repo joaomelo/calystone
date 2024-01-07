@@ -1,16 +1,6 @@
 import { appError, asDate, isId } from "@lib";
 
-export function atLeastOneField(payload) {
-  const contentFields = ["name", "notes", "start", "end"];
-  const hasMinimalContent = contentFields.some(field => payload[field] !== undefined);
-  if (!hasMinimalContent) {
-    appError({
-      code: "AT_LEAST_ONE_FIELD",
-      message: `payload needs data or "null" for at least one of the artifact's content fields: ${contentFields.join(", ")}`,
-      meta: { payload },
-    });
-  }
-}
+export const contentFields = ["name", "notes", "start", "end"];
 
 export function parseParent(payload) {
   const { parentId = null } = payload;

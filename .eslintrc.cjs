@@ -29,7 +29,7 @@ module.exports = {
     'no-duplicate-imports': 'error',
     "sort-imports": ["error", {
       "ignoreCase": true,
-      "ignoreDeclarationSort": true,
+      "ignoreDeclarationSort": false,
       "ignoreMemberSort": false,
       "memberSyntaxSortOrder": ["multiple", "single", "all", "none" ],
       "allowSeparatedGroups": true

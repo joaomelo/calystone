@@ -1,10 +1,11 @@
-import { currentUser, mutate } from "@lib";
+import { atLeastOneField, currentUser, mutate } from "@lib";
 import { identifyLastArtifactsOrder } from "@body";
-import { atLeastOneField, parseDates, parseParent } from "./parse";
+
+import { contentFields, parseDates, parseParent } from "./parse";
 import { ARTIFACT_STATUSES } from "./statuses";
 
 export function addArtifact(dependencies, payload) {
-  atLeastOneField(payload);
+  atLeastOneField(payload, contentFields);
 
   const parentId = parseParent(payload);
   const status = ARTIFACT_STATUSES.ACTIVE;

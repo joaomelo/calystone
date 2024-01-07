@@ -1,10 +1,9 @@
 <script setup>
-import { editArtifact, isFinished } from "@body";
 import { InputCamo, useDependencies } from "@lib";
-import { computed } from "vue";
+import { editTag } from "@body";
 
 const props = defineProps({
-  artifact: {
+  tag: {
     type: Object,
     required: true,
   },
@@ -12,19 +11,17 @@ const props = defineProps({
 
 const dependencies = useDependencies();
 
-const finished = computed(() => isFinished(props.artifact));
 const handleUpdate = (name) => {
-  const { id, name: current } = props.artifact;
+  const { id, name: current } = props.tag;
   if (name === current) return;
-  editArtifact(dependencies, { id, name });
+  editTag(dependencies, { id, name });
 };
 </script>
 
 <template>
   <input-camo
     class="item-name"
-    :class="{ finished }"
-    :model-value="artifact.name"
+    :model-value="tag.name"
     @update:model-value="handleUpdate"
   />
 </template>
@@ -32,10 +29,5 @@ const handleUpdate = (name) => {
 <style scoped>
 .item-name {
   flex-grow: 1;
-}
-
-.item-name.finished {
-  color: var(--color-content-50);
-  text-decoration: line-through;
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from "vue";
 import { ActionsMenu, useDependencies } from "@lib";
+import { computed } from "vue";
 import { getArtifact } from "@body";
 import ItemDates from "./item-dates.vue";
 import ItemName from "./item-name.vue";

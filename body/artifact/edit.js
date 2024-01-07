@@ -1,8 +1,9 @@
-import { extractId, mutate } from "@lib";
-import { atLeastOneField, parseDates } from "./parse";
+import { atLeastOneField, extractId, mutate } from "@lib";
+
+import { contentFields, parseDates } from "./parse";
 
 export function editArtifact(dependencies, payload) {
-  atLeastOneField(payload);
+  atLeastOneField(payload, contentFields);
 
   const id = extractId(payload);
   const data = { id };

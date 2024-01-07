@@ -1,8 +1,13 @@
-import { currentUser, mutate } from "@lib";
+import { atLeastOneField, currentUser, mutate } from "@lib";
 import { identifyLastTagsOrder } from "@body";
 
-export function addTag(dependencies, name = null) {
+import { contentFields } from "./parse";
+
+export function addTag(dependencies, payload) {
+  atLeastOneField(payload, contentFields);
   const order = identifyLastTagsOrder(dependencies) + 1;
+
+  const { name = null } = payload;
 
   const { auth } = dependencies;
   const { id: userId } = currentUser(auth);

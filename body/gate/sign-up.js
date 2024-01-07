@@ -1,10 +1,9 @@
-import { currentUser, signUp as signUpBase } from "@lib";
-import { openArtifacts } from "@body";
+import { signUp as signUpBase } from "@lib";
+
+import { ignite } from "./ignite";
 
 export async function signUp(dependencies, payload) {
   const { auth } = dependencies;
   await signUpBase(auth, payload);
-
-  const { id } = currentUser(auth);
-  await openArtifacts(dependencies, id);
+  await ignite(dependencies);
 }

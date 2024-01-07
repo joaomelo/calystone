@@ -5,7 +5,7 @@ import { addTag } from "@body";
 const { t } = useI18n();
 
 const reset = () => ({ name: null });
-const { task, payload } = useTask((dependencies, payload) => addTag(dependencies, payload.name), reset);
+const { task, payload } = useTask((dependencies, payload) => addTag(dependencies, payload), reset);
 </script>
 <template>
   <form-base

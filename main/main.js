@@ -1,14 +1,8 @@
-import { createApp } from "vue";
-import { name, version } from "@main/../package.json";
-import {
-  Dependencies,
-  FirebaseAuth,
-  FirebaseDriver,
-  FirestoreMutator,
-  FirestoreSelector,
-  I18n,
-} from "@lib";
 import { createRouter, messages } from "@view";
+import { Dependencies, FirebaseAuth, FirebaseDriver, FirestoreMutator, FirestoreSelector, I18n } from "@lib";
+import { name, version } from "@main/../package.json";
+import { createApp } from "vue";
+
 import App from "./app.vue";
 
 export function initApp(elementId) {

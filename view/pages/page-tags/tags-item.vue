@@ -1,18 +1,32 @@
 <script setup>
-import { MenuDivider } from "@lib";
-import { ArtifactItem, MenuAppend, MenuDelete, MenuEdit, MenuFocus, MenuStatus } from "@view/smart";
+import { computed } from "vue";
+import { getTag } from "@body";
+import { useDependencies } from "@lib";
+
+// import ItemActions from "./item-actions.vue";
+import ItemName from "./item-name.vue";
+
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+});
+
+const dependencies = useDependencies();
+const tag = computed(() => getTag(dependencies, props.id));
 </script>
 
 <template>
-  <artifact-item>
-    <template #actions="artifact">
-      <menu-status :artifact="artifact" />
-      <menu-divider />
-      <menu-focus :artifact="artifact" />
-      <menu-divider />
-      <menu-append :artifact="artifact" />
-      <menu-edit :artifact="artifact" />
-      <menu-delete :artifact="artifact" />
-    </template>
-  </artifact-item>
+  <div class="tags-item">
+    <item-name :tag="tag" />
+    <!-- <item-actions :tag="tag" /> -->
+  </div>
 </template>
+<style scoped>
+.tags-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--size-15);
+}
+</style>
