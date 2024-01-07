@@ -9,7 +9,7 @@ const { t } = useI18n();
 </script>
 <template>
   <frame-dashboard :title="t('page-tags.tags')">
-    <tags-add class="frame-dashboard-add" />
+    <tags-add />
     <tags-list>
       <template #item="item">
         <tags-item :id="item.value" />
@@ -17,9 +17,3 @@ const { t } = useI18n();
     </tags-list>
   </frame-dashboard>
 </template>
-
-<style scoped>
-.frame-dashboard-add {
-  margin-bottom: var(--size-25);
-}
-</style>

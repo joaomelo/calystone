@@ -23,12 +23,8 @@ const id = computed(() => props.parentId || null);
     <outline-crumbs
       v-if="id"
       :id="id"
-      class="frame-dashboard-crumbs"
     />
-    <outline-add
-      :parent-id="id"
-      class="frame-dashboard-add"
-    />
+    <outline-add :parent-id="id" />
     <outline-items :parent-id="id">
       <template #item="item">
         <outline-item :id="item.value" />
@@ -36,10 +32,3 @@ const id = computed(() => props.parentId || null);
     </outline-items>
   </frame-dashboard>
 </template>
-
-<style scoped>
-.frame-dashboard-crumbs,
-.frame-dashboard-add {
-  margin-bottom: var(--size-25);
-}
-</style>

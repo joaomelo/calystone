@@ -19,11 +19,10 @@ const sideBarState = useSideBarState(isLarge);
         :class="{ large: isLarge }"
       >
         <frame-side v-model="sideBarState" />
-        <div>
+        <div class="frame-dashboard-content">
           <frame-top
             v-model="sideBarState"
             :title="title"
-            class="frame-dashboard-top"
           />
           <slot />
         </div>
@@ -42,7 +41,9 @@ const sideBarState = useSideBarState(isLarge);
   grid-template-columns: max-content 1fr;
 }
 
-.frame-dashboard-top {
-  margin-block-end: var(--size-25);
+.frame-dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-25);
 }
 </style>

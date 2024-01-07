@@ -16,10 +16,7 @@ const { t } = useI18n();
 </script>
 <template>
   <frame-dashboard :title="t('page-search.search')">
-    <search-bar
-      :term="term"
-      class="page-search-bar"
-    />
+    <search-bar :term="term" />
     <search-list :term="term">
       <template #item="item">
         <search-item :id="item.value" />
@@ -27,8 +24,3 @@ const { t } = useI18n();
     </search-list>
   </frame-dashboard>
 </template>
-<style scoped>
-.page-search-bar {
-  margin-bottom: var(--size-25);
-}
-</style>
