@@ -9,9 +9,9 @@ import { ArtifactItem, MenuAppend, MenuDelete, MenuEdit, MenuFocus, MenuStatus }
       <menu-status :artifact="artifact" />
       <menu-divider />
       <menu-focus :artifact="artifact" />
-      <menu-divider />
       <menu-append :artifact="artifact" />
       <menu-edit :artifact="artifact" />
+      <menu-divider />
       <menu-delete :artifact="artifact" />
     </template>
   </artifact-item>
