@@ -9,6 +9,7 @@ export function addArtifact(dependencies, payload) {
 
   const parentId = parseParent(payload);
   const status = ARTIFACT_STATUSES.ACTIVE;
+  const tags = [];
   const order = identifyLastArtifactsOrder(dependencies, parentId) + 1;
   const { name = null, notes = null } = payload;
   const { end, start } = parseDates(payload);
@@ -25,6 +26,7 @@ export function addArtifact(dependencies, payload) {
     parentId,
     start,
     status,
+    tags,
     userId,
   };
 
