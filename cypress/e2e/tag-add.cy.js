@@ -6,7 +6,7 @@ describe("tag add", () => {
     signUpPage.signUpAuto();
   });
 
-  it("creates an tag from the tags page", () => {
+  it("creates a tag from the tags page", () => {
     const name = "my tag";
     tagsPage.add(name);
 
