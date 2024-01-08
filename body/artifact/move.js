@@ -1,23 +1,23 @@
 import { listArtifacts } from "@body";
 import { mutate } from "@lib";
 
-export function moveArtifact(dependencies, { id, parentId, order }) {
+export function moveArtifact(dependencies, { id, order, parentId }) {
   if (!id) throw new Error("artifact move requires a id to perform");
 
   const list = listArtifacts(dependencies);
 
   const manifests = moveManifests({
     id,
-    parentId,
     list,
     order,
+    parentId,
   });
 
   const { mutator } = dependencies;
   return mutate(mutator, manifests);
 }
 
-export function moveManifests({ parentId, id, list, order }) {
+export function moveManifests({ id, list, order, parentId }) {
   const upwards = list.filter(
     artifact =>
       artifact.parentId === parentId
@@ -33,7 +33,7 @@ export function moveManifests({ parentId, id, list, order }) {
   const manifests = [
     {
       ...base,
-      data: { id, parentId, order },
+      data: { id, order, parentId },
     },
   ];
 

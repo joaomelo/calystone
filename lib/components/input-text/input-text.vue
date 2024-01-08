@@ -4,17 +4,17 @@ import { vFocus } from "@lib";
 import { InputWrapper } from "../input-wrapper";
 
 defineProps({
-  modelValue: {
-    type: String,
-    default: null,
-  },
   autofocus: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  modelValue: {
+    default: null,
+    type: String,
   },
   type: {
-    type: String,
     default: "text",
+    type: String,
   },
 });
 const emit = defineEmits(["update:modelValue"]);

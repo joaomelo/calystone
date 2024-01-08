@@ -2,8 +2,8 @@ import { sign } from "./sign";
 
 export const signUpPage = {
   ...sign,
-  path,
   buttonSignUp,
+  path,
   signUp,
   signUpAuto,
 };

@@ -8,7 +8,7 @@ import {
 } from "@lib";
 import { FrameDashboard, goOutline } from "@view";
 
-const { t, i18n } = useI18n();
+const { i18n, t } = useI18n();
 const dependencies = useDependencies();
 
 const handleI18n = locale => i18n.updateLocale(locale);
@@ -28,7 +28,7 @@ const handleDone = () => goOutline(dependencies);
       </template>
       <template #buttons>
         <button-base
-          :label="t('page-preferences.done')"
+          :label="t('shared-operations.done')"
           type="submit"
         />
       </template>

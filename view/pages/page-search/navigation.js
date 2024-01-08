@@ -3,10 +3,10 @@ import { default as PageSearch } from "./page-search.vue";
 const name = "page-search";
 
 export const searchRoute = {
-  path: `/${name}`,
-  name,
   component: PageSearch,
   meta: { intra: true },
+  name,
+  path: `/${name}`,
   props: route => ({ term: route.query.term }),
 };
 

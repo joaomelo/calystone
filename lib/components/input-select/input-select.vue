@@ -1,22 +1,22 @@
 <script setup>
-import { computed } from "vue";
 import { vFocus } from "@lib";
+import { computed } from "vue";
 
-import { asOptions } from "../options";
 import { InputWrapper } from "../input-wrapper";
+import { asOptions } from "../options";
 
 const props = defineProps({
-  modelValue: {
-    type: String,
-    default: null,
-  },
   autofocus: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  modelValue: {
+    default: null,
+    type: String,
   },
   options: {
-    type: Array,
     default: () => [],
+    type: Array,
   },
 });
 const emit = defineEmits(["update:modelValue"]);

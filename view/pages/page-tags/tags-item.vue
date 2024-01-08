@@ -1,15 +1,15 @@
 <script setup>
-import { computed } from "vue";
 import { getTag } from "@body";
 import { useDependencies } from "@lib";
+import { computed } from "vue";
 
-// import ItemActions from "./item-actions.vue";
+import ItemActions from "./item-actions.vue";
 import ItemName from "./item-name.vue";
 
 const props = defineProps({
   id: {
-    type: String,
     required: true,
+    type: String,
   },
 });
 
@@ -20,7 +20,7 @@ const tag = computed(() => getTag(dependencies, props.id));
 <template>
   <div class="tags-item">
     <item-name :tag="tag" />
-    <!-- <item-actions :tag="tag" /> -->
+    <item-actions :tag="tag" />
   </div>
 </template>
 <style scoped>

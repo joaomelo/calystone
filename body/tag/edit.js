@@ -12,8 +12,8 @@ export function editTag(dependencies, payload) {
 
   const { mutator } = dependencies;
   return mutate(mutator, {
-    name: "tags",
-    method: "put",
     data,
+    method: "put",
+    name: "tags",
   });
 }

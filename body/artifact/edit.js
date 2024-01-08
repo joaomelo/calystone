@@ -12,15 +12,15 @@ export function editArtifact(dependencies, payload) {
   if (payload.notes !== undefined) data.notes = payload.notes;
 
   if (payload.start !== undefined || payload.end !== undefined) {
-    const { start, end } = parseDates(payload);
+    const { end, start } = parseDates(payload);
     data.start = start;
     data.end = end;
   }
 
   const { mutator } = dependencies;
   return mutate(mutator, {
-    name: "artifacts",
-    method: "put",
     data,
+    method: "put",
+    name: "artifacts",
   });
 }

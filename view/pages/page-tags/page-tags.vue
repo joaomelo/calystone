@@ -1,6 +1,5 @@
 <script setup>
 import { useI18n } from "@lib";
-
 import { FrameDashboard } from "@view/smart";
 
 import TagsAdd from "./tags-add.vue";

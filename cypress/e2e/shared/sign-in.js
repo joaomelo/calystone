@@ -2,8 +2,8 @@ import { sign } from "./sign";
 
 export const signInPage = {
   ...sign,
-  path,
   buttonSignIn,
+  path,
 };
 
 function path() {

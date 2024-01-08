@@ -1,21 +1,21 @@
 <script setup>
-import { computed, ref } from "vue";
 import { createId } from "@lib";
+import { computed, ref } from "vue";
 
 import { ButtonVeil } from "../button-veil";
-import { PopoverBase } from "../popover-base";
 import { validateOptionOrOptions } from "../options";
+import { PopoverBase } from "../popover-base";
 import { VisualIcon } from "../visual-icon";
 
 const props = defineProps({
-  id: {
-    type: String,
-    default: null,
-  },
   actions: {
-    type: Array,
     default: () => [],
+    type: Array,
     validator: validateOptionOrOptions,
+  },
+  id: {
+    default: null,
+    type: String,
   },
 });
 

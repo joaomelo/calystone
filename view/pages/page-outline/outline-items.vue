@@ -1,21 +1,20 @@
 <script setup>
-import { computed } from "vue";
-
 import { hoistArtifact, listArtifacts, lowerArtifact, transferArtifact } from "@body";
 import { ListBase, sort, treeify, truncate, useDependencies } from "@lib";
+import { computed } from "vue";
 
 const props = defineProps({
   parentId: {
-    type: String,
     default: null,
+    type: String,
   },
 });
 
 const dependencies = useDependencies();
 
 const map = ({ id, notes }) => ({
-  value: id,
   tooltip: truncate(notes, 100),
+  value: id,
 });
 const items = computed(() => {
   const list = listArtifacts(dependencies);
@@ -25,10 +24,10 @@ const items = computed(() => {
   const normalizedParentId = props.parentId || null;
   const isRoot = a => a.parentId === normalizedParentId;
 
-  return treeify(sorted, { map, isRoot });
+  return treeify(sorted, { isRoot, map });
 });
 
-const handleDrag = ({ target, source, section }) => {
+const handleDrag = ({ section, source, target }) => {
   if (target === source) return;
 
   if (section === "middle") {

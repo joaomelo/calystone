@@ -3,16 +3,16 @@ import { ButtonsPanel, OverlayBase, TextAlert } from "@lib";
 
 defineProps({
   busy: {
-    type: Boolean,
     default: false,
+    type: Boolean,
   },
   error: {
-    type: String,
     default: null,
+    type: String,
   },
   inline: {
-    type: Boolean,
     default: false,
+    type: Boolean,
   },
 });
 const emit = defineEmits(["submit"]);

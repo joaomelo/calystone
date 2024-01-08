@@ -5,20 +5,20 @@ import { FrameBase } from "../frame-base";
 
 defineProps({
   heading: {
-    type: String,
     required: true,
-  },
-  question: {
     type: String,
-    required: true,
-  },
-  linkTo: {
-    type: String,
-    required: true,
   },
   linkText: {
-    type: String,
     required: true,
+    type: String,
+  },
+  linkTo: {
+    required: true,
+    type: String,
+  },
+  question: {
+    required: true,
+    type: String,
   },
 });
 </script>

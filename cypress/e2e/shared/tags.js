@@ -2,13 +2,13 @@ import { dashboard } from "./dashboard";
 
 export const tagsPage = {
   ...dashboard,
-  inputName,
-  buttonAdd,
-  listItem,
-  listItemMenu,
   add,
+  buttonAdd,
   del,
   focus,
+  inputName,
+  listItem,
+  listItemMenu,
 };
 
 function inputName() {

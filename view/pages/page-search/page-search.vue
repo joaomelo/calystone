@@ -1,6 +1,6 @@
 <script setup>
-import { FrameDashboard } from "@view/smart";
 import { useI18n } from "@lib";
+import { FrameDashboard } from "@view/smart";
 
 import SearchBar from "./search-bar.vue";
 import SearchItem from "./search-item.vue";
@@ -8,8 +8,8 @@ import SearchList from "./search-list.vue";
 
 defineProps({
   term: {
-    type: String,
     default: null,
+    type: String,
   },
 });
 

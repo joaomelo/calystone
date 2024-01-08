@@ -1,13 +1,13 @@
 <script setup>
-import { FrameDashboard } from "@view/smart";
 import { useI18n } from "@lib";
+import { FrameDashboard } from "@view/smart";
 
 import FormEdit from "./form-edit.vue";
 
 defineProps({
   artifactId: {
-    type: String,
     required: true,
+    type: String,
   },
 });
 

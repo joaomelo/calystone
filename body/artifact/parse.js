@@ -15,7 +15,7 @@ export function parseParent(payload) {
 }
 
 export function parseDates(payload) {
-  const { start: startUser = null, end: endUser = null } = payload;
+  const { end: endUser = null, start: startUser = null } = payload;
 
   const start = asDate(startUser);
 
@@ -23,5 +23,5 @@ export function parseDates(payload) {
   if (start && !end) end = start;
   if (start > end) end = start;
 
-  return { start, end };
+  return { end, start };
 }

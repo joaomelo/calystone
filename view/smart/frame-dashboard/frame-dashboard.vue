@@ -6,7 +6,7 @@ import FrameSide from "./frame-side.vue";
 import FrameTop from "./frame-top.vue";
 
 defineProps({
-  title: { type: String, default: null },
+  title: { default: null, type: String },
 });
 
 const isLarge = useIsAtLeastLarge();

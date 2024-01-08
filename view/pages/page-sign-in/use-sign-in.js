@@ -1,6 +1,6 @@
-import { goStart } from "@view";
 import { signIn } from "@body";
 import { useTask } from "@lib";
+import { goStart } from "@view";
 
 export function useSignIn() {
   const reset = () => ({ email: null, password: null });

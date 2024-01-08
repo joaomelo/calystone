@@ -2,7 +2,7 @@
 import { ref, watch } from "vue";
 
 const props = defineProps({
-  show: { type: Boolean, default: false },
+  show: { default: false, type: Boolean },
 });
 
 const dialog = ref();

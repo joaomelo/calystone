@@ -1,11 +1,11 @@
 <script setup>
-import { MenuItem, useDependencies, useI18n } from "@lib";
 import { delArtifact } from "@body";
+import { MenuItem, useDependencies, useI18n } from "@lib";
 
 const props = defineProps({
   artifact: {
-    type: Object,
     required: true,
+    type: Object,
   },
 });
 
@@ -19,6 +19,6 @@ const handleDelete = () => delArtifact(dependencies, props.artifact.id);
     class="menu-delete"
     @click="handleDelete"
   >
-    {{ t("artifact-item.delete") }}
+    {{ t("shared-operations.delete") }}
   </menu-item>
 </template>

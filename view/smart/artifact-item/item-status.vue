@@ -3,8 +3,8 @@ import { isFinished } from "@body";
 import { useI18n } from "@lib";
 defineProps({
   artifact: {
-    type: Object,
     required: true,
+    type: Object,
   },
 });
 const { t } = useI18n();

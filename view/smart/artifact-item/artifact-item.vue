@@ -1,15 +1,16 @@
 <script setup>
+import { getArtifact } from "@body";
 import { ActionsMenu, useDependencies } from "@lib";
 import { computed } from "vue";
-import { getArtifact } from "@body";
+
 import ItemDates from "./item-dates.vue";
 import ItemName from "./item-name.vue";
 import ItemStatus from "./item-status.vue";
 
 const props = defineProps({
   id: {
-    type: String,
     required: true,
+    type: String,
   },
 });
 

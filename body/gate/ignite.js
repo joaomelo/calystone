@@ -1,5 +1,5 @@
-import { AUTH_STATUSES, authStatus, currentUser } from "@lib";
 import { openArtifacts, openTags } from "@body";
+import { AUTH_STATUSES, authStatus, currentUser } from "@lib";
 
 export async function ignite(dependencies) {
   const { auth } = dependencies;

@@ -1,12 +1,12 @@
 <script setup>
 const props = defineProps({
-  modelValue: {
-    type: String,
-    default: null,
-  },
   autofocus: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  modelValue: {
+    default: null,
+    type: String,
   },
 });
 

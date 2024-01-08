@@ -4,8 +4,8 @@ import { goArtifactEdit } from "@view";
 
 const props = defineProps({
   artifact: {
-    type: Object,
     required: true,
+    type: Object,
   },
 });
 

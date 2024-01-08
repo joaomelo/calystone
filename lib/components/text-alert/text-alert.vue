@@ -1,8 +1,8 @@
 <script setup>
 import { VisualIcon } from "@lib";
 defineProps({
-  icon: { type: String, default: null },
-  text: { type: String, default: null },
+  icon: { default: null, type: String },
+  text: { default: null, type: String },
 });
 </script>
 <template>

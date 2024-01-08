@@ -3,10 +3,10 @@ import { default as PagePreferences } from "./page-preferences.vue";
 const name = "page-preferences";
 
 export const preferencesRoute = {
-  path: `/${name}`,
-  name,
   component: PagePreferences,
   meta: { intra: true },
+  name,
+  path: `/${name}`,
 };
 
 export function isPreferences(dependencies) {

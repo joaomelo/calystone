@@ -1,10 +1,11 @@
 <script setup>
 import { ButtonBase, FormBase, InputPassword, InputText, useI18n } from "@lib";
 import { FrameSign } from "@view";
+
 import { useSignUp } from "./use-sign-up";
 
 const { t } = useI18n();
-const { task, payload } = useSignUp();
+const { payload, task } = useSignUp();
 </script>
 <template>
   <frame-sign

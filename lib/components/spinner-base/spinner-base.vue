@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  show: { type: Boolean, default: false },
+  show: { default: false, type: Boolean },
 });
 </script>
 <template>

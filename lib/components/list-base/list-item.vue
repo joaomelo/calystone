@@ -3,18 +3,18 @@ import { TooltipBase } from "../tooltip-base";
 import { useDrag } from "./use-drag";
 
 const props = defineProps({
-  item: {
-    type: Object,
-    default: () => ({}),
-  },
   draggable: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  item: {
+    default: () => ({}),
+    type: Object,
   },
 });
 const emit = defineEmits(["drag", "drag-start", "drag-end"]);
 
-const { handlers, classes } = useDrag({ value: props.item.value, emit });
+const { classes, handlers } = useDrag({ emit, value: props.item.value });
 </script>
 <template>
   <div

@@ -1,11 +1,11 @@
 <script setup>
-import { InputCamo, useDependencies } from "@lib";
 import { editTag } from "@body";
+import { InputCamo, useDependencies } from "@lib";
 
 const props = defineProps({
   tag: {
-    type: Object,
     required: true,
+    type: Object,
   },
 });
 

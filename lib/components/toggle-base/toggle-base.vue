@@ -5,7 +5,7 @@ import { ButtonVeil } from "../button-veil";
 import { VisualIcon } from "../visual-icon";
 
 const props = defineProps({
-  modelValue: { type: String, required: true },
+  modelValue: { required: true, type: String },
 });
 const emit = defineEmits(["update:modelValue"]);
 

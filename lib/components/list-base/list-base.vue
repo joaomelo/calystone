@@ -2,13 +2,13 @@
 import ListTree from "./list-tree.vue";
 
 defineProps({
-  items: {
-    type: Array,
-    default: () => [],
-  },
   draggable: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  items: {
+    default: () => [],
+    type: Array,
   },
 });
 defineEmits(["drag"]);

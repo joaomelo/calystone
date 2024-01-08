@@ -1,6 +1,6 @@
-import { goStart } from "@view";
 import { signOut } from "@body";
 import { useTask } from "@lib";
+import { goStart } from "@view";
 
 export function useSignOut() {
   const { task } = useTask(async (dependencies) => {

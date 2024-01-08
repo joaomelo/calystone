@@ -5,8 +5,8 @@ import { computed } from "vue";
 
 const props = defineProps({
   artifact: {
-    type: Object,
     required: true,
+    type: Object,
   },
 });
 

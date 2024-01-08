@@ -1,12 +1,12 @@
 <script setup>
+import { listTags } from "@body";
 import { ListBase, sort, useDependencies } from "@lib";
 import { computed } from "vue";
-import { listTags } from "@body";
 
 defineProps({
   parentId: {
-    type: String,
     default: null,
+    type: String,
   },
 });
 

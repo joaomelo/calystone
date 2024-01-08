@@ -13,33 +13,21 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["eslint:recommended", "plugin:vue/vue3-recommended", ],
+  extends: ["eslint:recommended", "plugin:perfectionist/recommended-natural", "plugin:vue/vue3-recommended", ],
+  plugins: ['@stylistic'],
   parser: "vue-eslint-parser",
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ['@stylistic'],
   rules: {
-    ...customized.rules,    
-    '@stylistic/object-property-newline': ['error', { 
-      allowAllPropertiesOnSameLine: true
-    }],    
-    "vue/component-definition-name-casing": ["error", "kebab-case"],
     'no-duplicate-imports': 'error',
-    "sort-imports": ["error", {
-      "ignoreCase": true,
-      "ignoreDeclarationSort": false,
-      "ignoreMemberSort": false,
-      "memberSyntaxSortOrder": ["multiple", "single", "all", "none" ],
-      "allowSeparatedGroups": true
-    }],    
-    semi: ["error", "always"],
-    "no-console": [
-      "warn",
-      {
-        allow: ["warn", "error", "info"],
-      },
-    ],
+    'semi': ["error", "always"],
+    "no-console": [ "warn", { allow: ["warn", "error", "info"] } ],
+    ...customized.rules,    
+    '@stylistic/object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],    
+    // vue plugin already has a standard way to sort that considers the attribute type like if it is an event or a id definition
+    'perfectionist/sort-vue-attributes': 'off',
+    "vue/component-definition-name-casing": ["error", "kebab-case"],
   },
 };

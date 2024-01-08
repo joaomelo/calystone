@@ -3,8 +3,8 @@ import { useI18n } from "@lib";
 
 defineProps({
   artifact: {
-    type: Object,
     required: true,
+    type: Object,
   },
 });
 

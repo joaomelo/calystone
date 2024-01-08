@@ -1,13 +1,14 @@
 import { AUTH_STATUSES, authStatus } from "@lib";
 import { goOutline, goSignIn } from "@view";
+
 import { default as PageSolve } from "./page-solve.vue";
 
 const name = "page-solve";
 
 export const solveRoute = {
-  path: `/${name}`,
-  name,
   component: PageSolve,
+  name,
+  path: `/${name}`,
 };
 
 export function goSolve(dependencies) {
@@ -16,7 +17,7 @@ export function goSolve(dependencies) {
 }
 
 export async function goStart(dependencies) {
-  const { start: startPath, router, auth } = dependencies;
+  const { auth, router, start: startPath } = dependencies;
 
   const status = await authStatus(auth);
 

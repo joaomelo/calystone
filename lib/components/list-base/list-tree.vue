@@ -6,22 +6,22 @@ import CollapseSwitch from "./collapse-switch.vue";
 import ListItem from "./list-item.vue";
 
 const props = defineProps({
-  root: {
-    type: Object,
-    default: () => ({}),
-  },
   draggable: {
-    type: Boolean,
     default: false,
+    type: Boolean,
   },
   editable: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  root: {
+    default: () => ({}),
+    type: Object,
   },
 });
 defineEmits(["drag"]);
 
-const { collapse, collapseForDragStart, collapseForDragEnd } = useCollapse(
+const { collapse, collapseForDragEnd, collapseForDragStart } = useCollapse(
   toRef(props, "root"),
 );
 </script>

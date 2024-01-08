@@ -4,8 +4,8 @@ import { computed } from "vue";
 
 const props = defineProps({
   crumbs: {
-    type: Array,
     required: true,
+    type: Array,
     validator: validateOptionOrOptions,
   },
 });

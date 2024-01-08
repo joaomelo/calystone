@@ -2,21 +2,21 @@
 import { SpinnerBase } from "../spinner-base";
 
 defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    default: "button",
-  },
   busy: {
-    type: Boolean,
     default: false,
+    type: Boolean,
   },
   disabled: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  label: {
+    required: true,
+    type: String,
+  },
+  type: {
+    default: "button",
+    type: String,
   },
 });
 </script>

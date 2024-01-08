@@ -1,13 +1,12 @@
 <script setup>
-import { computed } from "vue";
-
 import { activateArtifact, cancelArtifact, completeArtifact, isActive } from "@body";
 import { MenuItem, useDependencies, useI18n } from "@lib";
+import { computed } from "vue";
 
 const props = defineProps({
   artifact: {
-    type: Object,
     required: true,
+    type: Object,
   },
 });
 
@@ -26,20 +25,20 @@ const handleCancel = () => cancelArtifact(dependencies, props.artifact.id);
     class="menu-activate"
     @click="handleActivate"
   >
-    {{ t("artifact-item.activate") }}
+    {{ t("shared-operations.activate") }}
   </menu-item>
   <menu-item
     v-if="!showActivate"
     class="menu-complete"
     @click="handleComplete"
   >
-    {{ t("artifact-item.complete") }}
+    {{ t("shared-operations.complete") }}
   </menu-item>
   <menu-item
     v-if="!showActivate"
     class="menu-cancel"
     @click="handleCancel"
   >
-    {{ t("artifact-item.cancel") }}
+    {{ t("shared-operations.cancel") }}
   </menu-item>
 </template>

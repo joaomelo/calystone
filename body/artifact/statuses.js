@@ -1,7 +1,7 @@
 export const ARTIFACT_STATUSES = {
   ACTIVE: "active",
-  COMPLETED: "completed",
   CANCELLED: "cancelled",
+  COMPLETED: "completed",
 };
 
 export function isActive({ status }) {

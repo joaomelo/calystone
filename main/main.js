@@ -1,6 +1,6 @@
-import { createRouter, messages } from "@view";
 import { Dependencies, FirebaseAuth, FirebaseDriver, FirestoreMutator, FirestoreSelector, I18n } from "@lib";
 import { name, version } from "@main/../package.json";
+import { createRouter, messages } from "@view";
 import { createApp } from "vue";
 
 import App from "./app.vue";
@@ -24,11 +24,11 @@ export function initApp(elementId) {
   const mutator = new FirestoreMutator(driver.firestore);
 
   const dependencies = new Dependencies({
-    start,
-    router,
     auth,
-    selector,
     mutator,
+    router,
+    selector,
+    start,
   });
   window.$dependencies = dependencies;
   app.use(dependencies);
@@ -66,13 +66,13 @@ function createConnectionFromEnv() {
   }
 
   return {
-    serverPlatform: import.meta.env.VITE_SERVER_PLATFORM,
-    projectId: import.meta.env.VITE_PROJECT_ID,
     apiKey: import.meta.env.VITE_API_KEY,
     appId: import.meta.env.VITE_APP_ID,
     authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
     measurementId: import.meta.env.VITE_MEASUREMENT_ID,
+    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+    projectId: import.meta.env.VITE_PROJECT_ID,
+    serverPlatform: import.meta.env.VITE_SERVER_PLATFORM,
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
   };
 }

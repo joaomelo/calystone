@@ -1,15 +1,16 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from "vue";
+
 import { PopoverBase } from "../popover-base";
 
 const props = defineProps({
-  text: {
-    type: String,
-    default: null,
-  },
   anchor: {
-    type: String,
     required: true,
+    type: String,
+  },
+  text: {
+    default: null,
+    type: String,
   },
 });
 

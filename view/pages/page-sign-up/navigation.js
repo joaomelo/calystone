@@ -3,10 +3,10 @@ import { default as PageSignUp } from "./page-sign-up.vue";
 const name = "page-sign-up";
 
 export const signUpRoute = {
-  path: "/page-sign-up",
-  name,
   component: PageSignUp,
   meta: { external: true },
+  name,
+  path: "/page-sign-up",
 };
 
 export function goSignUp(dependencies) {

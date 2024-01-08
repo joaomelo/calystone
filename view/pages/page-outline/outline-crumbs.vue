@@ -1,15 +1,14 @@
 <script setup>
-import { computed } from "vue";
-
-import { CrumbsBase, useDependencies } from "@lib";
 import { listAscendants } from "@body";
+import { CrumbsBase, useDependencies } from "@lib";
+import { computed } from "vue";
 
 import { goOutline } from "./navigation";
 
 const props = defineProps({
   id: {
-    type: String,
     required: true,
+    type: String,
   },
 });
 
@@ -18,9 +17,9 @@ const crumbs = computed(() => {
   const ascendants = listAscendants(dependencies, props.id);
   const last = ascendants.length - 1;
   return ascendants.map(({ id, name }, i) => ({
-    value: id,
-    text: name,
     inactive: i == last,
+    text: name,
+    value: id,
   }));
 });
 

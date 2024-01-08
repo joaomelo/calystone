@@ -3,8 +3,8 @@ import { SpinnerBase } from "@lib";
 
 defineProps({
   show: {
-    type: Boolean,
     default: false,
+    type: Boolean,
   },
 });
 </script>

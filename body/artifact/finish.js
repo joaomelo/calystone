@@ -15,9 +15,9 @@ function finishArtifact(dependencies, { idOrArtifact, status }) {
   const potentialArtifacts = listDescendants(dependencies, idOrArtifact);
   const subjectedArtifacts = potentialArtifacts.filter(a => isActive(a));
   const manifests = subjectedArtifacts.map(({ id }) => ({
+    data: { id, status },
     method: "put",
     name: "artifacts",
-    data: { id, status },
   }));
   const { mutator } = dependencies;
   return mutate(mutator, manifests);

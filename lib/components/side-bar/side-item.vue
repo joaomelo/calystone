@@ -2,13 +2,13 @@
 import { computed, useAttrs } from "vue";
 
 const props = defineProps({
-  text: {
-    type: String,
-    required: true,
-  },
   active: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  text: {
+    required: true,
+    type: String,
   },
 });
 

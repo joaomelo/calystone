@@ -1,11 +1,11 @@
 <script setup>
-import { ButtonBase, FormBase, InputText, useI18n, useTask } from "@lib";
 import { addTag } from "@body";
+import { ButtonBase, FormBase, InputText, useI18n, useTask } from "@lib";
 
 const { t } = useI18n();
 
 const reset = () => ({ name: null });
-const { task, payload } = useTask((dependencies, payload) => addTag(dependencies, payload), reset);
+const { payload, task } = useTask((dependencies, payload) => addTag(dependencies, payload), reset);
 </script>
 <template>
   <form-base
@@ -24,7 +24,7 @@ const { task, payload } = useTask((dependencies, payload) => addTag(dependencies
       <button-base
         id="button-add"
         :busy="task.busy"
-        :label="t('page-tags.add')"
+        :label="t('shared-operations.add')"
         type="submit"
       />
     </template>

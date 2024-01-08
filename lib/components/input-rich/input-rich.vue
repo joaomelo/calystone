@@ -1,19 +1,18 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
-
 import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
-import { bracketMatching, defaultHighlightStyle, indentOnInput, syntaxHighlighting } from "@codemirror/language";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
-import { drawSelection, EditorView, keymap } from "@codemirror/view";
-import { EditorState } from "@codemirror/state";
 import { markdown } from "@codemirror/lang-markdown";
+import { bracketMatching, defaultHighlightStyle, indentOnInput, syntaxHighlighting } from "@codemirror/language";
+import { EditorState } from "@codemirror/state";
+import { EditorView, drawSelection, keymap } from "@codemirror/view";
+import { onMounted, ref, watch } from "vue";
 
 import { InputWrapper } from "../input-wrapper";
 
 const props = defineProps({
   modelValue: {
-    type: String,
     default: "",
+    type: String,
   },
 });
 const emit = defineEmits(["update:modelValue"]);
@@ -23,6 +22,7 @@ const parent = ref(null);
 let editorView = null;
 onMounted(() => {
   const initialState = EditorState.create({
+    doc: props.modelValue,
     extensions: [
       EditorView.lineWrapping,
       history(),
@@ -41,7 +41,6 @@ onMounted(() => {
         }
       }),
     ],
-    doc: props.modelValue,
   });
 
   editorView = new EditorView({
@@ -57,8 +56,8 @@ watch(
     const update = editorView.state.update({
       changes: {
         from: 0,
-        to: editorView.state.doc.length,
         insert: newValue,
+        to: editorView.state.doc.length,
       },
     });
     editorView.update([update]);

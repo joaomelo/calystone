@@ -2,11 +2,11 @@ import { dashboard } from "./dashboard";
 
 export const editPage = {
   ...dashboard,
-  inputName,
-  inputStart,
-  inputEnd,
-  inputNotes,
   buttonSave,
+  inputEnd,
+  inputName,
+  inputNotes,
+  inputStart,
 };
 
 function inputName() {

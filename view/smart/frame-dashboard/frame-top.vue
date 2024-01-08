@@ -1,10 +1,10 @@
 <script setup>
-import { computed } from "vue";
 import { ToggleBase } from "@lib";
+import { computed } from "vue";
 
 const props = defineProps({
-  modelValue: { type: String, required: true },
-  title: { type: String, default: null },
+  modelValue: { required: true, type: String },
+  title: { default: null, type: String },
 });
 defineEmits(["update:modelValue"]);
 

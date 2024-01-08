@@ -3,11 +3,11 @@ import { default as PageArtifactEdit } from "./page-artifact-edit.vue";
 const name = "page-artifact-edit";
 
 export const artifactEditRoute = {
-  path: `/${name}/:artifactId`,
-  name,
   component: PageArtifactEdit,
-  props: true,
   meta: { intra: true },
+  name,
+  path: `/${name}/:artifactId`,
+  props: true,
 };
 
 export function isArtifactEdit(dependencies) {

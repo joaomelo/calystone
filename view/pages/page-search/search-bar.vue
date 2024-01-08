@@ -1,13 +1,12 @@
 <script setup>
-import { reactive } from "vue";
-
 import { ButtonBase, FormBase, InputText, useDependencies, useI18n } from "@lib";
 import { goSearch } from "@view";
+import { reactive } from "vue";
 
 const props = defineProps({
   term: {
-    type: String,
     default: null,
+    type: String,
   },
 });
 

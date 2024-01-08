@@ -1,13 +1,14 @@
 <script setup>
 import { computed, ref, watch } from "vue";
+
 import { ButtonVeil } from "../button-veil";
 import { VisualIcon } from "../visual-icon";
 
 const props = defineProps({
   modelValue: {
-    type: String,
     required: true,
-    validator: value => ["fixed", "open", "closed"].includes(value),
+    type: String,
+    validator: value => ["closed", "fixed", "open"].includes(value),
   },
 });
 const emit = defineEmits(["update:modelValue"]);

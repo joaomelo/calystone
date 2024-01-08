@@ -4,8 +4,8 @@ import { goOutline } from "@view";
 
 const props = defineProps({
   artifact: {
-    type: Object,
     required: true,
+    type: Object,
   },
 });
 
@@ -19,6 +19,6 @@ const handleFocus = () => goOutline(dependencies, props.artifact.id);
     class="menu-focus"
     @click="handleFocus"
   >
-    {{ t("artifact-item.focus") }}
+    {{ t("shared-operations.focus") }}
   </menu-item>
 </template>

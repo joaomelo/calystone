@@ -1,23 +1,24 @@
 <script setup>
 import { onMounted, ref, toValue, watch } from "vue";
+
 import { place } from "./place";
 
 const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    default: false,
-  },
   anchor: {
-    type: String,
     required: true,
-  },
-  inline: {
     type: String,
-    default: "center",
   },
   block: {
-    type: String,
     default: "center",
+    type: String,
+  },
+  inline: {
+    default: "center",
+    type: String,
+  },
+  modelValue: {
+    default: false,
+    type: Boolean,
   },
 });
 const emit = defineEmits(["update:modelValue"]);
@@ -52,11 +53,11 @@ const show = () => {
 
   popoverEl.showPopover();
 
-  const { top, left } = place({
+  const { left, top } = place({
     anchor: anchorEl,
-    popover: popoverEl,
-    inline: props.inline,
     block: props.block,
+    inline: props.inline,
+    popover: popoverEl,
   });
 
   popoverEl.style.setProperty("--popover-base-top", `${top}px`);

@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from "vue";
-import { FrameDashboard } from "@view/smart";
 import { useI18n } from "@lib";
+import { FrameDashboard } from "@view/smart";
+import { computed } from "vue";
 
 import OutlineAdd from "./outline-add.vue";
 import OutlineCrumbs from "./outline-crumbs.vue";
@@ -10,8 +10,8 @@ import OutlineItems from "./outline-items.vue";
 
 const props = defineProps({
   parentId: {
-    type: String,
     default: null,
+    type: String,
   },
 });
 const { t } = useI18n();

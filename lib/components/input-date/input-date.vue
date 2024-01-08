@@ -5,13 +5,13 @@ import { computed } from "vue";
 import { InputWrapper } from "../input-wrapper";
 
 const props = defineProps({
-  modelValue: {
-    type: Date,
-    default: null,
-  },
   autofocus: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  modelValue: {
+    default: null,
+    type: Date,
   },
 });
 const emit = defineEmits(["update:modelValue"]);

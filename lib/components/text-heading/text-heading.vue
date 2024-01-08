@@ -1,8 +1,8 @@
 <script setup>
 defineProps({
   clipped: {
-    type: Boolean,
     default: false,
+    type: Boolean,
   },
 });
 </script>

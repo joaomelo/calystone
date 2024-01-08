@@ -1,12 +1,12 @@
 <script setup>
 defineProps({
   name: {
-    type: String,
     required: true,
+    type: String,
   },
   size: {
-    type: String,
     default: "var(--size-35)",
+    type: String,
   },
 });
 </script>

@@ -1,17 +1,17 @@
 <script setup>
-import { MenuItem, useDependencies, useI18n } from "@lib";
 import { addArtifact } from "@body";
+import { MenuItem, useDependencies, useI18n } from "@lib";
 
 const props = defineProps({
   artifact: {
-    type: Object,
     required: true,
+    type: Object,
   },
 });
 
 const dependencies = useDependencies();
 const { t } = useI18n();
-const handleAppend = () => addArtifact(dependencies, { parentId: props.artifact.id, name: null });
+const handleAppend = () => addArtifact(dependencies, { name: null, parentId: props.artifact.id });
 </script>
 
 <template>
@@ -19,6 +19,6 @@ const handleAppend = () => addArtifact(dependencies, { parentId: props.artifact.
     class="menu-append"
     @click="handleAppend"
   >
-    {{ t("artifact-item.append") }}
+    {{ t("shared-operations.append") }}
   </menu-item>
 </template>

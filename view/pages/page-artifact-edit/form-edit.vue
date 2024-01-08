@@ -4,21 +4,22 @@ import {
   FormBase,
   InputDate,
   InputRich,
-  InputsPanel,
   InputText,
+  InputsPanel,
   useI18n,
 } from "@lib";
+
 import { useEdit } from "./use-edit";
 
 const props = defineProps({
   artifactId: {
-    type: String,
     required: true,
+    type: String,
   },
 });
 
 const { t } = useI18n();
-const { save, back, payload } = useEdit(props.artifactId);
+const { back, payload, save } = useEdit(props.artifactId);
 </script>
 <template>
   <form-base
@@ -54,12 +55,12 @@ const { save, back, payload } = useEdit(props.artifactId);
       <button-base
         id="button-save"
         type="submit"
-        :label="t('page-artifact-edit.save')"
+        :label="t('shared-operations.save')"
         :busy="save.busy"
       />
       <button-base
         id="button-cancel"
-        :label="t('page-artifact-edit.cancel')"
+        :label="t('shared-operations.cancel')"
         @click="back"
       />
     </template>

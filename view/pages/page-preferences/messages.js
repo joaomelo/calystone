@@ -1,12 +1,10 @@
 export const pagePreferences = {
   "en": {
-    preferences: "preferences",
     locale: "locale",
-    done: "done",
+    preferences: "preferences",
   },
   "pt-br": {
-    preferences: "preferências",
     locale: "idioma",
-    done: "pronto",
+    preferences: "preferências",
   },
 };

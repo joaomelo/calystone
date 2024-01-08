@@ -1,19 +1,19 @@
 <script setup>
-import { computed } from "vue";
 import { createId } from "@lib";
+import { computed } from "vue";
 
 const props = defineProps({
   id: {
-    type: String,
     default: null,
-  },
-  label: {
     type: String,
-    default: null,
   },
   inline: {
-    type: Boolean,
     default: false,
+    type: Boolean,
+  },
+  label: {
+    default: null,
+    type: String,
   },
 });
 

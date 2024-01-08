@@ -1,13 +1,12 @@
 <script setup>
-import { computed } from "vue";
-
-import { ListBase, truncate, useDependencies } from "@lib";
 import { searchArtifacts } from "@body";
+import { ListBase, truncate, useDependencies } from "@lib";
+import { computed } from "vue";
 
 const props = defineProps({
   term: {
-    type: String,
     default: null,
+    type: String,
   },
 });
 
@@ -15,8 +14,8 @@ const dependencies = useDependencies();
 const searched = computed(() => {
   const searched = searchArtifacts(dependencies, props.term);
   return searched.map(({ id, notes }) => ({
-    value: id,
     tooltip: truncate(notes, 100),
+    value: id,
   }));
 });
 </script>
