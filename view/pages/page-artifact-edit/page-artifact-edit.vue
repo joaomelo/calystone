@@ -14,7 +14,7 @@ defineProps({
 const { t } = useI18n();
 </script>
 <template>
-  <frame-dashboard :title="t('page-artifact-edit.edit')">
+  <frame-dashboard :title="t('shared-operations.edit')">
     <form-edit :artifact-id="artifactId" />
   </frame-dashboard>
 </template>

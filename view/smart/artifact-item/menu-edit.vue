@@ -19,6 +19,6 @@ const handleEdit = () => goArtifactEdit(dependencies, props.artifact.id);
     class="menu-edit"
     @click="handleEdit"
   >
-    {{ t("artifact-item.edit") }}
+    {{ t("shared-operations.edit") }}
   </menu-item>
 </template>
