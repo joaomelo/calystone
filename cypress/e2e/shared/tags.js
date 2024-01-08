@@ -7,13 +7,15 @@ export const tagsPage = {
   del,
   focus,
   inputName,
+  itemMenu,
   listItem,
-  listItemMenu,
+  menuDelete,
 };
 
 function inputName() {
   return cy.get("#input-name input");
 }
+
 function buttonAdd() {
   return cy.get("#button-add");
 }
@@ -23,8 +25,12 @@ function listItem(name) {
   return cy.contains(".item-name", strictlyText).parent();
 }
 
-function listItemMenu(name) {
+function itemMenu(name) {
   return listItem(name).find(".actions-menu");
+}
+
+function menuDelete(name) {
+  return itemMenu(name).find(".menu-delete");
 }
 
 function add(name) {
@@ -34,6 +40,6 @@ function add(name) {
 }
 
 function del(name) {
-  listItemMenu(name).click();
-  return listItemMenu(name).find(".menu-delete").click();
+  itemMenu(name).click();
+  return menuDelete(name).click();
 }
