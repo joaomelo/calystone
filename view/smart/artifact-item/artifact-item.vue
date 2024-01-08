@@ -21,8 +21,8 @@ const artifact = computed(() => getArtifact(dependencies, props.id));
 <template>
   <div class="artifact-item">
     <item-name :artifact="artifact" />
-    <item-status :artifact="artifact" />
     <item-dates :artifact="artifact" />
+    <item-status :artifact="artifact" />
     <actions-menu>
       <slot
         name="actions"
