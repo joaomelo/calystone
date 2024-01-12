@@ -1,4 +1,4 @@
-export const artifactItem = {
+export const artifact = {
   "en": {
     cancelled: "cancelled",
     completed: "completed",

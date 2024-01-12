@@ -8,11 +8,12 @@ export function addTag(dependencies, payload) {
   const order = identifyLastTagsOrder(dependencies) + 1;
 
   const { name = null } = payload;
+  const { artifactsIds = [] } = payload;
 
   const { auth } = dependencies;
   const { id: userId } = currentUser(auth);
 
-  const tag = { name, order, userId };
+  const tag = { artifactsIds, name, order, userId };
 
   const { mutator } = dependencies;
   return mutate(mutator, {

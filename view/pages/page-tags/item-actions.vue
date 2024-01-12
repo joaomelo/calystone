@@ -21,7 +21,7 @@ const handleDelete = () => delTag(dependencies, props.tag.id);
       class="item-actions-delete"
       @click="handleDelete"
     >
-      {{ t("shared-operations.delete") }}
+      {{ t("shared-actions.delete") }}
     </menu-item>
   </actions-menu>
 </template>

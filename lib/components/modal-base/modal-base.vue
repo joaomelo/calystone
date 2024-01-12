@@ -1,21 +1,19 @@
 <script setup>
 import { ref, watch } from "vue";
 
-const props = defineProps({
-  show: { default: false, type: Boolean },
+import { ButtonsPanel } from "../buttons-panel";
+
+const model = defineModel({
+  required: true,
+  type: Boolean,
 });
 
 const dialog = ref();
 
-const close = () => {
-  if (dialog.value) dialog.value.close();
-};
-
 watch(
-  () => props.show,
-  (show) => {
-    if (!dialog.value) return;
-    if (show) {
+  () => model.value,
+  (value) => {
+    if (value) {
       dialog.value.showModal();
     }
     else {
@@ -25,24 +23,23 @@ watch(
 );
 </script>
 <template>
-  <dialog ref="dialog">
+  <dialog
+    ref="dialog"
+    class="modal-base"
+  >
     <div>
       <slot />
     </div>
-    <div class="model-base-buttons">
-      <slot
-        name="buttons"
-        :close="close"
-      />
-    </div>
+    <buttons-panel>
+      <slot name="buttons" />
+    </buttons-panel>
   </dialog>
 </template>
 
 <style scoped>
-.model-base-buttons {
-  margin-top: var(--size-15);
+.model-base {
   display: flex;
-  justify-content: end;
+  flex-direction: column;
   gap: var(--size-15);
 }
 </style>

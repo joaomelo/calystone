@@ -11,8 +11,6 @@ export function editArtifact(dependencies, payload) {
   if (payload.name !== undefined) data.name = payload.name;
   if (payload.notes !== undefined) data.notes = payload.notes;
 
-  if (Array.isArray(payload.tags)) data.tags = payload.tags;
-
   if (payload.start !== undefined || payload.end !== undefined) {
     const { end, start } = parseDates(payload);
     data.start = start;

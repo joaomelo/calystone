@@ -24,7 +24,7 @@ const { payload, task } = useTask((dependencies, payload) => addTag(dependencies
       <button-base
         id="button-add"
         :busy="task.busy"
-        :label="t('shared-operations.add')"
+        :label="t('shared-actions.add')"
         type="submit"
       />
     </template>

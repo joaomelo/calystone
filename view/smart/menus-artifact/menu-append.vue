@@ -1,6 +1,6 @@
 <script setup>
+import { addArtifact } from "@body";
 import { MenuItem, useDependencies, useI18n } from "@lib";
-import { goOutline } from "@view";
 
 const props = defineProps({
   artifact: {
@@ -11,14 +11,14 @@ const props = defineProps({
 
 const dependencies = useDependencies();
 const { t } = useI18n();
-const handleFocus = () => goOutline(dependencies, props.artifact.id);
+const handleAppend = () => addArtifact(dependencies, { name: null, parentId: props.artifact.id });
 </script>
 
 <template>
   <menu-item
-    class="menu-focus"
-    @click="handleFocus"
+    class="menu-append"
+    @click="handleAppend"
   >
-    {{ t("shared-operations.focus") }}
+    {{ t("shared-actions.append") }}
   </menu-item>
 </template>

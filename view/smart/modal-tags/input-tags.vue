@@ -17,7 +17,7 @@ const options = allTags.map(({ id, name }) => ({ text: name, value: id }));
   <input-multiselect
     id="input-tags"
     v-model="model"
-    :label="t('page-tags.tags')"
+    :label="t('tags.tags')"
     :options="options"
   />
 </template>

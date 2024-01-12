@@ -37,7 +37,7 @@ const email = useEmail();
         @click="() => goSearch(dependencies)"
       />
       <side-item
-        :text="t('page-tags.tags')"
+        :text="t('tags.tags')"
         @click="() => goTags(dependencies)"
       />
       <side-item

@@ -1,7 +1,6 @@
 <script setup>
 import { ButtonBase, FormBase, InputDate, InputRich, InputText, InputsPanel, useI18n } from "@lib";
 
-import InputTags from "./input-tags.vue";
 import { useEdit } from "./use-edit";
 
 const props = defineProps({
@@ -26,7 +25,6 @@ const { back, payload, save } = useEdit(props.artifactId);
         :label="t('page-artifact-edit.name')"
         autofocus
       />
-      <input-tags v-model="payload.tags" />
       <inputs-panel>
         <input-date
           id="input-start"
@@ -49,12 +47,12 @@ const { back, payload, save } = useEdit(props.artifactId);
       <button-base
         id="button-save"
         type="submit"
-        :label="t('shared-operations.save')"
+        :label="t('shared-actions.save')"
         :busy="save.busy"
       />
       <button-base
         id="button-cancel"
-        :label="t('shared-operations.cancel')"
+        :label="t('shared-actions.cancel')"
         @click="back"
       />
     </template>

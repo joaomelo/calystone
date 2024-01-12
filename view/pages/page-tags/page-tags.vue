@@ -9,7 +9,7 @@ import TagsItems from "./tags-items.vue";
 const { t } = useI18n();
 </script>
 <template>
-  <frame-dashboard :title="t('page-tags.tags')">
+  <frame-dashboard :title="t('tags.tags')">
     <tags-add />
     <tags-items>
       <template #item="item">

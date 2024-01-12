@@ -3,9 +3,10 @@ import { getArtifact } from "@body";
 import { ActionsMenu, useDependencies } from "@lib";
 import { computed } from "vue";
 
-import ItemDates from "./item-dates.vue";
-import ItemName from "./item-name.vue";
-import ItemStatus from "./item-status.vue";
+import ArtifactDates from "./artifact-dates.vue";
+import ArtifactName from "./artifact-name.vue";
+import ArtifactStatus from "./artifact-status.vue";
+import ArtifactTags from "./artifact-tags.vue";
 
 const props = defineProps({
   id: {
@@ -20,9 +21,10 @@ const artifact = computed(() => getArtifact(dependencies, props.id));
 
 <template>
   <div class="artifact-item">
-    <item-name :artifact="artifact" />
-    <item-dates :artifact="artifact" />
-    <item-status :artifact="artifact" />
+    <artifact-name :artifact="artifact" />
+    <artifact-tags :artifact="artifact" />
+    <artifact-dates :artifact="artifact" />
+    <artifact-status :artifact="artifact" />
     <actions-menu>
       <slot
         name="actions"

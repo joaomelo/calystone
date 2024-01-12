@@ -1,10 +1,12 @@
-import { pageArtifactEdit, pageOutline, pagePreferences, pageSearch, pageSignIn, pageSignUp, pageSolve, pageTags } from "@view/pages";
-import { artifactItem, frameDashboard, frameSign } from "@view/smart";
+import { pageArtifactEdit, pageOutline, pagePreferences, pageSearch, pageSignIn, pageSignUp, pageSolve } from "@view/pages";
+import { frameDashboard, frameSign } from "@view/smart";
 
-import { sharedOperations } from "./operations";
+import { artifact } from "./artifact";
+import { sharedActions } from "./shared-actions";
+import { tags } from "./tags";
 
 export const messages = {
-  "artifact-item": artifactItem,
+  artifact,
   "frame-dashboard": frameDashboard,
   "frame-sign": frameSign,
   "page-artifact-edit": pageArtifactEdit,
@@ -14,6 +16,6 @@ export const messages = {
   "page-sign-in": pageSignIn,
   "page-sign-up": pageSignUp,
   "page-solve": pageSolve,
-  "page-tags": pageTags,
-  "shared-operations": sharedOperations,
+  "shared-actions": sharedActions,
+  tags,
 };

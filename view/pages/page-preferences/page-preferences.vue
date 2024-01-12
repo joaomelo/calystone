@@ -28,7 +28,7 @@ const handleDone = () => goOutline(dependencies);
       </template>
       <template #buttons>
         <button-base
-          :label="t('shared-operations.done')"
+          :label="t('shared-actions.done')"
           type="submit"
         />
       </template>

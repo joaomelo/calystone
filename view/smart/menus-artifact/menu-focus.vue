@@ -1,6 +1,6 @@
 <script setup>
-import { delArtifact } from "@body";
 import { MenuItem, useDependencies, useI18n } from "@lib";
+import { goOutline } from "@view";
 
 const props = defineProps({
   artifact: {
@@ -11,14 +11,14 @@ const props = defineProps({
 
 const dependencies = useDependencies();
 const { t } = useI18n();
-const handleDelete = () => delArtifact(dependencies, props.artifact.id);
+const handleFocus = () => goOutline(dependencies, props.artifact.id);
 </script>
 
 <template>
   <menu-item
-    class="menu-delete"
-    @click="handleDelete"
+    class="menu-focus"
+    @click="handleFocus"
   >
-    {{ t("shared-operations.delete") }}
+    {{ t("shared-actions.focus") }}
   </menu-item>
 </template>

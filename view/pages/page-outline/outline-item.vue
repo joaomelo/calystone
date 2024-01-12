@@ -1,18 +1,19 @@
 <script setup>
 import { MenuDivider } from "@lib";
-import { ArtifactItem, MenuAppend, MenuDelete, MenuEdit, MenuFocus, MenuStatus } from "@view/smart";
+import { ItemArtifact, MenuAppend, MenuDelete, MenuEdit, MenuFocus, MenuStatus, MenuTags } from "@view/smart";
 </script>
 
 <template>
-  <artifact-item>
+  <item-artifact>
     <template #actions="artifact">
       <menu-status :artifact="artifact" />
       <menu-divider />
       <menu-focus :artifact="artifact" />
       <menu-append :artifact="artifact" />
       <menu-edit :artifact="artifact" />
+      <menu-tags :artifact="artifact" />
       <menu-divider />
       <menu-delete :artifact="artifact" />
     </template>
-  </artifact-item>
+  </item-artifact>
 </template>

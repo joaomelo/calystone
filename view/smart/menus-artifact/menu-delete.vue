@@ -1,5 +1,5 @@
 <script setup>
-import { addArtifact } from "@body";
+import { delArtifact } from "@body";
 import { MenuItem, useDependencies, useI18n } from "@lib";
 
 const props = defineProps({
@@ -11,14 +11,14 @@ const props = defineProps({
 
 const dependencies = useDependencies();
 const { t } = useI18n();
-const handleAppend = () => addArtifact(dependencies, { name: null, parentId: props.artifact.id });
+const handleDelete = () => delArtifact(dependencies, props.artifact.id);
 </script>
 
 <template>
   <menu-item
-    class="menu-append"
-    @click="handleAppend"
+    class="menu-delete"
+    @click="handleDelete"
   >
-    {{ t("shared-operations.append") }}
+    {{ t("shared-actions.delete") }}
   </menu-item>
 </template>

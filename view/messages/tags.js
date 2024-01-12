@@ -1,4 +1,4 @@
-export const pageTags = {
+export const tags = {
   "en": {
     tags: "tags",
   },

@@ -19,6 +19,7 @@ const { t } = useI18n();
 // vue router coerces the parentId param to an empty string when the correct value should be null
 const id = computed(() => props.parentId || null);
 </script>
+
 <template>
   <frame-dashboard :title="t('page-outline.outline')">
     <outline-crumbs
