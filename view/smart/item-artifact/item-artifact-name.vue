@@ -30,10 +30,6 @@ const handleUpdate = (name) => {
 </template>
 
 <style scoped>
-.item-name {
-  flex-grow: 1;
-}
-
 .item-name.finished {
   color: var(--color-content-50);
   text-decoration: line-through;

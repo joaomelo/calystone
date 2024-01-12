@@ -1,5 +1,5 @@
 <script setup>
-import { ButtonBase, FormBase, InputDate, InputRich, InputText, InputsPanel, useI18n } from "@lib";
+import { ButtonBase, FormBase, InputDate, InputRich, InputText, PanelResponsive, useI18n } from "@lib";
 
 import { useEdit } from "./use-edit";
 
@@ -25,7 +25,7 @@ const { back, payload, save } = useEdit(props.artifactId);
         :label="t('page-artifact-edit.name')"
         autofocus
       />
-      <inputs-panel>
+      <panel-responsive>
         <input-date
           id="input-start"
           v-model="payload.start"
@@ -36,7 +36,7 @@ const { back, payload, save } = useEdit(props.artifactId);
           v-model="payload.end"
           :label="t('page-artifact-edit.date-end')"
         />
-      </inputs-panel>
+      </panel-responsive>
       <input-rich
         id="input-notes"
         v-model="payload.notes"

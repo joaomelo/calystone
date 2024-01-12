@@ -1,12 +1,12 @@
 <script setup>
 import { getArtifact } from "@body";
-import { ActionsMenu, useDependencies } from "@lib";
+import { ActionsMenu, PanelResponsive, useDependencies } from "@lib";
 import { computed } from "vue";
 
-import ArtifactDates from "./artifact-dates.vue";
-import ArtifactName from "./artifact-name.vue";
-import ArtifactStatus from "./artifact-status.vue";
-import ArtifactTags from "./artifact-tags.vue";
+import ItemArtifactDates from "./item-artifact-dates.vue";
+import ItemArtifactName from "./item-artifact-name.vue";
+import ItemArtifactStatus from "./item-artifact-status.vue";
+import ItemArtifactTags from "./item-artifact-tags.vue";
 
 const props = defineProps({
   id: {
@@ -21,10 +21,17 @@ const artifact = computed(() => getArtifact(dependencies, props.id));
 
 <template>
   <div class="artifact-item">
-    <artifact-name :artifact="artifact" />
-    <artifact-tags :artifact="artifact" />
-    <artifact-dates :artifact="artifact" />
-    <artifact-status :artifact="artifact" />
+    <panel-responsive class="artifact-item-content">
+      <item-artifact-name
+        :artifact="artifact"
+        class="artifact-item-content-name"
+      />
+      <div class="artifact-item-content-details">
+        <item-artifact-tags :artifact="artifact" />
+        <item-artifact-dates :artifact="artifact" />
+        <item-artifact-status :artifact="artifact" />
+      </div>
+    </panel-responsive>
     <actions-menu>
       <slot
         name="actions"
@@ -40,4 +47,20 @@ const artifact = computed(() => getArtifact(dependencies, props.id));
   align-items: baseline;
   gap: var(--size-15);
 }
+
+.artifact-item-content {
+  flex-grow: 1;
+}
+
+.artifact-item-content-name {
+  flex-grow: 1;
+}
+
+.artifact-item-content-details {
+  display: flex;
+  align-items: baseline;
+  justify-content: start;
+  gap: var(--size-15);
+}
+
 </style>

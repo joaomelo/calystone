@@ -15,16 +15,18 @@ const tags = computed(() => listTagsOf(dependencies, props.artifact.id));
 </script>
 
 <template>
-  <chip-base
-    v-for="tag in tags"
-    :key="tag.id"
-    :text="tag.name"
-  />
+  <div class="item-artifact-tags">
+    <chip-base
+      v-for="tag in tags"
+      :key="tag.id"
+      :text="tag.name"
+    />
+  </div>
 </template>
 
 <style scoped>
-.item-status {
-  font-size: var(--font-size-10);
-  color: var(--color-content-30);
+.item-artifact-tags {
+  display: flex;
+  gap: var(--size-05);
 }
 </style>
