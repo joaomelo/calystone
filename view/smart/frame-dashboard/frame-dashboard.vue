@@ -34,12 +34,13 @@ const sideBarState = useSideBarState(isLarge);
 <style scoped>
 .frame-dashboard {
   display: grid;
-  grid-template-columns: 1fr;
+  /* the minmax prevents content inside the frame dashboard grid to blow its width away. https://css-tricks.com/preventing-a-grid-blowout/  */
+  grid-template-columns: minmax(0, 1fr);
   column-gap: var(--size-40);
 }
 
 .frame-dashboard.large {
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: max-content minmax(0, 1fr);
 }
 
 .frame-dashboard-content {

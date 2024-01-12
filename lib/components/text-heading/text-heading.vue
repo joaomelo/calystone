@@ -23,7 +23,6 @@ defineProps({
 .clipped {
   overflow: hidden;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 </style>
