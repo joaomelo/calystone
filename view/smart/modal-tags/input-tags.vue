@@ -1,6 +1,6 @@
 <script setup>
 import { listTags } from "@body";
-import { InputMultiselect, useDependencies, useI18n } from "@lib";
+import { InputMultiselect, useDependencies } from "@lib";
 
 const model = defineModel({
   required: true,
@@ -8,7 +8,6 @@ const model = defineModel({
 });
 
 const dependencies = useDependencies();
-const { t } = useI18n();
 
 const allTags = listTags(dependencies);
 const options = allTags.map(({ id, name }) => ({ text: name, value: id }));
@@ -17,7 +16,6 @@ const options = allTags.map(({ id, name }) => ({ text: name, value: id }));
   <input-multiselect
     id="input-tags"
     v-model="model"
-    :label="t('tags.tags')"
     :options="options"
   />
 </template>

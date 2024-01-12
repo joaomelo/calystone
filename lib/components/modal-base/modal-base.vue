@@ -1,8 +1,6 @@
 <script setup>
 import { ref, watch } from "vue";
 
-import { ButtonsPanel } from "../buttons-panel";
-
 const model = defineModel({
   required: true,
   type: Boolean,
@@ -30,16 +28,14 @@ watch(
     <div>
       <slot />
     </div>
-    <buttons-panel>
-      <slot name="buttons" />
-    </buttons-panel>
   </dialog>
 </template>
 
 <style scoped>
-.model-base {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-15);
+.modal-base {
+  border: var(--size-00) solid var(--color-surface-50);
+  min-width: var(--size-60);
+  padding-block: var(--size-20);
+  padding-inline: var(--size-20);
 }
 </style>

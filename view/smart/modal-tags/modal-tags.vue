@@ -1,6 +1,6 @@
 <script setup>
 import { alignTagsFor, listTagsOf } from "@body";
-import { ButtonBase, ModalBase, useDependencies } from "@lib";
+import { ButtonBase, FormBase, ModalBase, TextHeading, useDependencies, useI18n } from "@lib";
 import { onMounted, ref } from "vue";
 
 import InputTags from "./input-tags.vue";
@@ -17,6 +17,7 @@ const props = defineProps({
 });
 
 const dependencies = useDependencies();
+const { t } = useI18n();
 
 const tagsIds = ref([]);
 onMounted(() => {
@@ -34,19 +35,34 @@ const handleSave = () => {
 </script>
 
 <template>
-  <modal-base v-model="show">
-    <template #default>
-      <input-tags v-model="tagsIds" />
-    </template>
-    <template #buttons>
-      <button-base
-        label="cancel"
-        @click="show = false"
-      />
-      <button-base
-        label="save"
-        @click="handleSave"
-      />
-    </template>
+  <modal-base
+    v-model="show"
+    class="modal-tags"
+  >
+    <text-heading class="modal-tags-heading">
+      {{ t('tags.tags') }}
+    </text-heading>
+    <form-base @submit="handleSave">
+      <template #default>
+        <input-tags v-model="tagsIds" />
+      </template>
+      <template #buttons>
+        <button-base
+          :label="t('shared-actions.save')"
+          type="submit"
+          @click="handleSave"
+        />
+        <button-base
+          :label="t('shared-actions.cancel')"
+          @click="show = false"
+        />
+      </template>
+    </form-base>
   </modal-base>
 </template>
+
+<style scoped>
+.modal-tags-heading {
+  margin-bottom: var(--size-20);
+}
+</style>
