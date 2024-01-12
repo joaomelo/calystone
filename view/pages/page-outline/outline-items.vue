@@ -1,6 +1,6 @@
 <script setup>
 import { hoistArtifact, listArtifacts, lowerArtifact, transferArtifact } from "@body";
-import { ListBase, sort, treeify, truncate, useDependencies } from "@lib";
+import { ListBase, treeify, truncate, useDependencies } from "@lib";
 import { computed } from "vue";
 
 const props = defineProps({
@@ -18,13 +18,12 @@ const map = ({ id, notes }) => ({
 });
 const items = computed(() => {
   const list = listArtifacts(dependencies);
-  const sorted = sort(list, "order");
 
   // some use cases provide the parentId as an empty string and that need to be updated to null
   const normalizedParentId = props.parentId || null;
   const isRoot = a => a.parentId === normalizedParentId;
 
-  return treeify(sorted, { isRoot, map });
+  return treeify(list, { isRoot, map });
 });
 
 const handleDrag = ({ section, source, target }) => {

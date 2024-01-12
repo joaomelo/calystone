@@ -5,6 +5,7 @@ export async function openArtifacts(dependencies, userId) {
 
   await openSelect(selector, {
     name: "artifacts",
+    orderBy: "order",
     where: [
       {
         field: "userId",

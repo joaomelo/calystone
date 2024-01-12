@@ -11,7 +11,6 @@ const props = defineProps({
 });
 
 const dependencies = useDependencies();
-
 const tags = computed(() => listTagsOf(dependencies, props.artifact.id));
 </script>
 

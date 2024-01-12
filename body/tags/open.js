@@ -5,6 +5,7 @@ export async function openTags(dependencies, userId) {
 
   await openSelect(selector, {
     name: "tags",
+    orderBy: "order",
     where: [
       {
         field: "userId",

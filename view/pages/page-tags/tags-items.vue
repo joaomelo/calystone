@@ -1,6 +1,6 @@
 <script setup>
 import { listTags } from "@body";
-import { ListBase, sort, useDependencies } from "@lib";
+import { ListBase, useDependencies } from "@lib";
 import { computed } from "vue";
 
 defineProps({
@@ -14,8 +14,7 @@ const dependencies = useDependencies();
 
 const items = computed(() => {
   const tags = listTags(dependencies);
-  const sorted = sort(tags, "order");
-  const items = sorted.map(({ id }) => ({ value: id }));
+  const items = tags.map(({ id }) => ({ value: id }));
   return items;
 });
 </script>
