@@ -17,5 +17,6 @@ const options = allTags.map(({ id, name }) => ({ text: name, value: id }));
     id="input-tags"
     v-model="model"
     :options="options"
+    rows="10"
   />
 </template>

@@ -18,6 +18,10 @@ const props = defineProps({
     default: () => [],
     type: Array,
   },
+  rows: {
+    default: "5",
+    type: String,
+  },
 });
 const emit = defineEmits(["update:modelValue"]);
 
@@ -40,6 +44,7 @@ const value = computed({
       v-focus="autofocus"
       class="input-multiselect"
       multiple
+      :size="rows"
     >
       <option
         v-for="option in normalizedOptions"

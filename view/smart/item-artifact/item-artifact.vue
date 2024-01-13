@@ -57,6 +57,8 @@ const artifact = computed(() => getArtifact(dependencies, props.id));
 }
 
 .artifact-item-content-details {
+  flex-shrink: 0;
+
   display: flex;
   align-items: baseline;
   justify-content: start;
