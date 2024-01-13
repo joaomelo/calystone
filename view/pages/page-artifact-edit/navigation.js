@@ -10,11 +10,6 @@ export const artifactEditRoute = {
   props: true,
 };
 
-export function isArtifactEdit(dependencies) {
-  const { router } = dependencies;
-  return router.currentRoute.value.name === name;
-}
-
 export async function goArtifactEdit(dependencies, artifactId) {
   const { router } = dependencies;
   return router.push({ name, params: { artifactId } });

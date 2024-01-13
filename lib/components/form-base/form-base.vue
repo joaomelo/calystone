@@ -1,5 +1,5 @@
 <script setup>
-import { ButtonsPanel, OverlayBase, TextAlert } from "@lib";
+import { OverlayBase, PanelResponsive, TextAlert } from "@lib";
 
 defineProps({
   busy: {
@@ -33,9 +33,9 @@ const handleSubmit = () => emit("submit");
         />
         <slot />
       </div>
-      <buttons-panel>
+      <panel-responsive reverse>
         <slot name="buttons" />
-      </buttons-panel>
+      </panel-responsive>
     </form>
   </overlay-base>
 </template>

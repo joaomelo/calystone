@@ -1,4 +1,4 @@
-import { pageArtifactEdit, pageOutline, pagePreferences, pageSearch, pageSignIn, pageSignUp, pageSolve } from "@view/pages";
+import { pageOutline, pagePreferences, pageSearch, pageSignIn, pageSignUp, pageSolve } from "@view/pages";
 import { frameDashboard, frameSign } from "@view/smart";
 
 import { artifact } from "./artifact";
@@ -9,7 +9,6 @@ export const messages = {
   artifact,
   "frame-dashboard": frameDashboard,
   "frame-sign": frameSign,
-  "page-artifact-edit": pageArtifactEdit,
   "page-outline": pageOutline,
   "page-preferences": pagePreferences,
   "page-search": pageSearch,
