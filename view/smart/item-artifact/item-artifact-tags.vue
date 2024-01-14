@@ -20,6 +20,7 @@ const tags = computed(() => listTagsOf(dependencies, props.artifact.id));
       v-for="tag in tags"
       :key="tag.id"
       :text="tag.name"
+      :data-test="`tag-${tag.name}`"
     />
   </div>
 </template>

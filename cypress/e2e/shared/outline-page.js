@@ -2,22 +2,23 @@ import { dashboard } from "./dashboard";
 
 export const outlinePage = {
   ...dashboard,
-  activate,
   add,
-  appendUnder,
   buttonAdd,
-  cancel,
-  complete,
   crumb,
-  edit,
-  focus,
+  detailsTag,
   inputName,
   listItem,
   listItemCancelledTag,
   listItemChildOf,
   listItemCompletedTag,
   listItemDates,
-  listItemMenu,
+  listItemMenuActivate,
+  listItemMenuAppendUnder,
+  listItemMenuCancel,
+  listItemMenuComplete,
+  listItemMenuEdit,
+  listItemMenuFocus,
+  listItemMenuTags,
 };
 
 function inputName() {
@@ -30,10 +31,6 @@ function buttonAdd() {
 function listItem(name) {
   const strictlyText = new RegExp("^" + name + "$");
   return cy.contains(".item-name", strictlyText).parents(".artifact-item");
-}
-
-function listItemMenu(name) {
-  return listItem(name).find(".actions-menu");
 }
 
 function listItemDates(name) {
@@ -65,32 +62,45 @@ function add(name) {
   return buttonAdd().click();
 }
 
-function focus(name) {
+function listItemMenu(name) {
+  return listItem(name).find(".actions-menu");
+}
+
+function listItemMenuTags(name) {
+  listItemMenu(name).click();
+  return listItemMenu(name).find(".menu-tags").click();
+}
+
+function listItemMenuFocus(name) {
   listItemMenu(name).click();
   return listItemMenu(name).find(".menu-focus").click();
 }
 
-function complete(name) {
+function listItemMenuComplete(name) {
   listItemMenu(name).click();
   return listItemMenu(name).find(".menu-complete").click();
 }
 
-function cancel(name) {
+function listItemMenuCancel(name) {
   listItemMenu(name).click();
   return listItemMenu(name).find(".menu-cancel").click();
 }
 
-function activate(name) {
+function listItemMenuActivate(name) {
   listItemMenu(name).click();
   return listItemMenu(name).find(".menu-activate").click();
 }
 
-function appendUnder(name) {
+function listItemMenuAppendUnder(name) {
   listItemMenu(name).click();
   return listItemMenu(name).find(".menu-append").click();
 }
 
-function edit(name) {
+function listItemMenuEdit(name) {
   listItemMenu(name).click();
   return listItemMenu(name).find(".menu-edit").click();
+}
+
+function detailsTag(tagName) {
+  return cy.getBySel(`tag-${tagName}`);
 }

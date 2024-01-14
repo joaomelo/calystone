@@ -9,31 +9,31 @@ describe("artifact status from the outline", () => {
     signUpPage.signUpAuto();
 
     outlinePage.add(parentName);
-    outlinePage.appendUnder(parentName);
+    outlinePage.listItemMenuAppendUnder(parentName);
     outlinePage.listItemChildOf(parentName).type(`${childName}{enter}`);
   });
 
   it("completes artifact descendants", () => {
-    outlinePage.complete(parentName);
+    outlinePage.listItemMenuComplete(parentName);
 
     outlinePage.listItemCompletedTag(parentName);
     outlinePage.listItemCompletedTag(childName);
   });
 
   it("cancels an artifact descendants", () => {
-    outlinePage.cancel(parentName);
+    outlinePage.listItemMenuCancel(parentName);
 
     outlinePage.listItemCancelledTag(parentName);
     outlinePage.listItemCancelledTag(childName);
   });
 
   it("reactivates artifact ascendants after their finished", () => {
-    outlinePage.complete(childName);
-    outlinePage.cancel(parentName);
+    outlinePage.listItemMenuComplete(childName);
+    outlinePage.listItemMenuCancel(parentName);
     outlinePage.listItemCancelledTag(parentName);
     outlinePage.listItemCompletedTag(childName);
 
-    outlinePage.activate(childName);
+    outlinePage.listItemMenuActivate(childName);
 
     outlinePage.listItemCancelledTag(parentName).should("not.exist");
     outlinePage.listItemCompletedTag(childName).should("not.exist");

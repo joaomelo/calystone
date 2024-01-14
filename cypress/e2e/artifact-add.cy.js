@@ -16,7 +16,7 @@ describe("artifact add", () => {
   it("creates an artifact while focused", () => {
     const parentName = "task 1";
     outlinePage.add(parentName);
-    outlinePage.focus(parentName);
+    outlinePage.listItemMenuFocus(parentName);
 
     const name = "task 1.1";
     outlinePage.add(name);
@@ -28,7 +28,7 @@ describe("artifact add", () => {
     const parentName = "task 1";
     outlinePage.add(parentName);
 
-    outlinePage.appendUnder(parentName);
+    outlinePage.listItemMenuAppendUnder(parentName);
 
     outlinePage.listItemChildOf(parentName);
   });

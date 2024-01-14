@@ -10,7 +10,7 @@ describe("artifact edit", () => {
     it("edit artifact name in the outline", () => {
       const parentName = "task 1";
       outlinePage.add(parentName);
-      outlinePage.appendUnder(parentName);
+      outlinePage.listItemMenuAppendUnder(parentName);
 
       const name = "task 1.1";
       outlinePage.listItemChildOf(parentName).type(`${name}{enter}`);
@@ -21,7 +21,7 @@ describe("artifact edit", () => {
     it("edit artifact name in edit page", () => {
       const name = "task 1";
       outlinePage.add(name);
-      outlinePage.edit(name);
+      outlinePage.listItemMenuEdit(name);
 
       const newName = "edited task";
       editPage.inputName().clear().type(newName);
@@ -33,7 +33,7 @@ describe("artifact edit", () => {
     it("edit artifact dates", () => {
       const name = "task 1";
       outlinePage.add(name);
-      outlinePage.edit(name);
+      outlinePage.listItemMenuEdit(name);
 
       const isoDate = "2023-12-01";
       editPage.inputStart().type(isoDate);
@@ -48,7 +48,7 @@ describe("artifact edit", () => {
     it("inline editing does only affects name", () => {
       const name = "task 1";
       outlinePage.add(name);
-      outlinePage.edit(name);
+      outlinePage.listItemMenuEdit(name);
 
       const isoDate = "2023-12-01";
       editPage.inputStart().type(isoDate);

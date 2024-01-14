@@ -48,11 +48,13 @@ const handleSave = () => {
       </template>
       <template #buttons>
         <button-base
+          id="button-save"
           :label="t('shared-actions.save')"
           type="submit"
           @click="handleSave"
         />
         <button-base
+          id="button-cancel"
           :label="t('shared-actions.cancel')"
           @click="show = false"
         />

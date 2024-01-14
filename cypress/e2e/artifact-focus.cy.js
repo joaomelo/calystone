@@ -8,7 +8,7 @@ describe("artifacts focus", () => {
 
     const name = "task 1";
     outlinePage.add(name);
-    outlinePage.focus(name);
+    outlinePage.listItemMenuFocus(name);
 
     outlinePage.crumb(name);
   });
