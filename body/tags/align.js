@@ -20,18 +20,23 @@ export function alignTagsFor(dependencies, { artifactId, tagsIds }) {
     });
 
   currentTags.forEach((currentTag) => {
+    // if this current tag of the artifact is not present in the list of new tags for the artifact then it should be updated.
     if (!newTagsIds.includes(currentTag.id)) {
-      const artifactsIds = currentTag
-        .artifactsIds
-        .filter(id => id !== artifactId);
+      // the tag will need a manifest that updates its artifacts to exclude the one in case
+      const artifactsIds = Array.isArray(currentTag.artifactsIds)
+        ? currentTag.artifactsIds.filter(id => id !== artifactId)
+        : [];
       pushToManifest(currentTag.id, artifactsIds);
     }
   });
 
   newTags.forEach((newTag) => {
+    // if the new tag for the artifact is not already present in the current list of tags linked to the artifact it should be updated
     if (!currentTagsIds.includes(newTag.id)) {
-      const artifactsIds = newTag
-        .artifactsIds.concat(artifactId);
+      // the tag will need a manifest that updates its artifacts to include the one in case
+      const artifactsIds = Array.isArray(newTag.artifactsIds)
+        ? newTag.artifactsIds.concat(artifactId)
+        : [artifactId];
       pushToManifest(newTag.id, artifactsIds);
     }
   });
