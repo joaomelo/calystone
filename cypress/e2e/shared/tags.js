@@ -30,7 +30,7 @@ function itemMenu(name) {
 }
 
 function menuDelete(name) {
-  return itemMenu(name).find(".menu-delete");
+  return itemMenu(name).find(".item-actions-delete");
 }
 
 function add(name) {

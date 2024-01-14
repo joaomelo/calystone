@@ -29,18 +29,22 @@ const email = useEmail();
     </side-section>
     <side-section>
       <side-item
+        id="side-outline"
         :text="t('page-outline.outline')"
         @click="() => goOutline(dependencies)"
       />
       <side-item
+        id="side-search"
         :text="t('page-search.search')"
         @click="() => goSearch(dependencies)"
       />
       <side-item
+        id="side-tags"
         :text="t('tags.tags')"
         @click="() => goTags(dependencies)"
       />
       <side-item
+        id="side-preferences"
         :text="t('page-preferences.preferences')"
         @click="() => goPreferences(dependencies)"
       />

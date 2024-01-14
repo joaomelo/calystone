@@ -4,6 +4,7 @@ describe("tag delete", () => {
   beforeEach(() => {
     cy.clearData();
     signUpPage.signUpAuto();
+    tagsPage.sideTags().click();
   });
 
   it("deletes a tag from the tags page", () => {

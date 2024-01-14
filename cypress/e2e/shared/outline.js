@@ -29,7 +29,7 @@ function buttonAdd() {
 
 function listItem(name) {
   const strictlyText = new RegExp("^" + name + "$");
-  return cy.contains(".item-name", strictlyText).parent();
+  return cy.contains(".item-name", strictlyText).parents(".artifact-item");
 }
 
 function listItemMenu(name) {
