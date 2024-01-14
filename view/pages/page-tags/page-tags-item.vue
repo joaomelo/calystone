@@ -3,8 +3,8 @@ import { getTag } from "@body";
 import { useDependencies } from "@lib";
 import { computed } from "vue";
 
-import ItemActions from "./item-actions.vue";
-import ItemName from "./item-name.vue";
+import PageTagsItemActions from "./page-tags-item-actions.vue";
+import PageTagsItemName from "./page-tags-item-name.vue";
 
 const props = defineProps({
   id: {
@@ -18,13 +18,13 @@ const tag = computed(() => getTag(dependencies, props.id));
 </script>
 
 <template>
-  <div class="tags-item">
-    <item-name :tag="tag" />
-    <item-actions :tag="tag" />
+  <div class="page-tags-item">
+    <page-tags-item-name :tag="tag" />
+    <page-tags-item-actions :tag="tag" />
   </div>
 </template>
 <style scoped>
-.tags-item {
+.page-tags-item {
   display: flex;
   align-items: baseline;
   gap: var(--size-15);

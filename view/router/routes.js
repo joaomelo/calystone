@@ -6,6 +6,7 @@ import {
   signInRoute,
   signUpRoute,
   solveRoute,
+  tagArtifactsRoute,
   tagsRoute,
 } from "@view/pages";
 
@@ -19,6 +20,7 @@ export const routes = [
   signInRoute,
   signUpRoute,
   solveRoute,
+  tagArtifactsRoute,
   tagsRoute,
 
   { path: "/:pathMatch(.*)*", redirect: solveRoute.path },

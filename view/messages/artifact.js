@@ -1,5 +1,7 @@
 export const artifact = {
   "en": {
+    "artifact": "artifact",
+    "artifacts": "artifacts",
     "cancelled": "cancelled",
     "completed": "completed",
     "date-end": "end date",
@@ -9,6 +11,8 @@ export const artifact = {
 
   },
   "pt-br": {
+    "artifact": "artefato",
+    "artifacts": "artefatos",
     "cancelled": "cancelado",
     "completed": "concluído",
     "date-end": "data final",

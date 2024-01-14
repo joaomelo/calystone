@@ -20,14 +20,14 @@ const handleUpdate = (name) => {
 
 <template>
   <input-camo
-    class="item-name"
+    class="page-tags-item-name"
     :model-value="tag.name"
     @update:model-value="handleUpdate"
   />
 </template>
 
 <style scoped>
-.item-name {
+.page-tags-item-name {
   flex-grow: 1;
 }
 </style>
