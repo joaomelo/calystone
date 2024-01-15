@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
 
-import { listArtifacts } from "./list";
+import { listArtifacts } from "./artifacts";
 
 export function searchArtifacts(dependencies, term) {
   const artifacts = listArtifacts(dependencies);
