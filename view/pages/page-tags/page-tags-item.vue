@@ -18,7 +18,10 @@ const tag = computed(() => getTag(dependencies, props.id));
 </script>
 
 <template>
-  <div class="page-tags-item">
+  <div
+    class="page-tags-item"
+    :data-test="`tag-${tag.name}`"
+  >
     <page-tags-item-name :tag="tag" />
     <page-tags-item-actions :tag="tag" />
   </div>

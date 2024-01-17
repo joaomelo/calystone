@@ -38,6 +38,7 @@ const handleSave = () => {
   <modal-base
     v-model="show"
     class="modal-tags"
+    :data-test="show ? 'modal-tags-show' : undefined"
   >
     <text-heading class="modal-tags-heading">
       {{ t('tags.tags') }}
@@ -48,13 +49,13 @@ const handleSave = () => {
       </template>
       <template #buttons>
         <button-base
-          id="button-save"
+          data-test="button-save"
           :label="t('shared-actions.save')"
           type="submit"
           @click="handleSave"
         />
         <button-base
-          id="button-cancel"
+          data-test="button-cancel"
           :label="t('shared-actions.cancel')"
           @click="show = false"
         />

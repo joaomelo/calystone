@@ -19,7 +19,7 @@ const handleDelete = () => delTag(dependencies, props.tag.id);
 </script>
 
 <template>
-  <actions-menu>
+  <actions-menu data-test="actions">
     <menu-item
       data-test="artifacts"
       @click="handleArtifacts"

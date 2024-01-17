@@ -34,6 +34,7 @@ describe("tags link", () => {
 
     outlinePage.listItemMenuTags(task);
     tagsModal.link(tagOne);
+    outlinePage.detailsTag(tagOne).should("exist");
 
     outlinePage.listItemMenuTags(task);
     tagsModal.link([]);

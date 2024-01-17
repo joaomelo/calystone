@@ -1,4 +1,5 @@
 import { dashboard } from "./dashboard";
+import { dt } from "./data-test";
 
 export const outlinePage = {
   ...dashboard,
@@ -102,5 +103,5 @@ function listItemMenuEdit(name) {
 }
 
 function detailsTag(tagName) {
-  return cy.getBySel(`tag-${tagName}`);
+  return cy.get(dt(`tag-${tagName}`));
 }
