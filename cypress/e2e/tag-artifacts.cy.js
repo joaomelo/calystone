@@ -29,4 +29,26 @@ describe("tags artifacts", () => {
     cy.contains(taskOne);
     cy.contains(taskTwo);
   });
+
+  it("tag artifacts page is reachable from tags chips", () => {
+    const myTag = "my tag";
+    tagsPage.add(myTag);
+
+    tagsPage.sideOutline().click();
+    const taskOne = "task one";
+    const taskTwo = "task two";
+    outlinePage.add(taskOne);
+    outlinePage.add(taskTwo);
+
+    outlinePage.listItemMenuTags(taskOne);
+    tagsModal.link(myTag);
+
+    outlinePage.listItemMenuTags(taskTwo);
+    tagsModal.link(myTag);
+
+    outlinePage.detailsTag(taskOne, myTag).click();
+
+    cy.contains(taskOne);
+    cy.contains(taskTwo);
+  });
 });

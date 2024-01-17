@@ -20,8 +20,8 @@ describe("tags link", () => {
     outlinePage.listItemMenuTags(task);
     tagsModal.link([tagOne, tagTwo]);
 
-    outlinePage.detailsTag(tagOne);
-    outlinePage.detailsTag(tagTwo);
+    outlinePage.detailsTag(task, tagOne);
+    outlinePage.detailsTag(task, tagTwo);
   });
 
   it("unlinks previous linked tag from artifact", () => {
@@ -34,11 +34,11 @@ describe("tags link", () => {
 
     outlinePage.listItemMenuTags(task);
     tagsModal.link(tagOne);
-    outlinePage.detailsTag(tagOne).should("exist");
+    outlinePage.detailsTag(task, tagOne).should("exist");
 
     outlinePage.listItemMenuTags(task);
     tagsModal.link([]);
 
-    outlinePage.detailsTag(tagOne).should("not.exist");
+    outlinePage.detailsTag(task, tagOne).should("not.exist");
   });
 });

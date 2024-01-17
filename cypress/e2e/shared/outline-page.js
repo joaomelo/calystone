@@ -102,6 +102,6 @@ function listItemMenuEdit(name) {
   return listItemMenu(name).find(".menu-edit").click();
 }
 
-function detailsTag(tagName) {
-  return cy.get(dt(`tag-${tagName}`));
+function detailsTag(artifactName, tagName) {
+  return listItem(artifactName).find(dt(`tag-${tagName}`));
 }
