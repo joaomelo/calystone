@@ -26,7 +26,10 @@ const items = computed(() => {
 
 <template>
   <frame-dashboard :title="tag.name">
-    <list-base :items="items">
+    <list-base
+      :items="items"
+      :draggable="{ top: true, middle: false, bottom: true}"
+    >
       <template #item="item">
         <item-artifact :id="item.value">
           <template #actions="artifact">

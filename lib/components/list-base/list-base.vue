@@ -1,10 +1,12 @@
 <script setup>
+import { isDragConfiguration } from "./drag-configuration";
 import ListTree from "./list-tree.vue";
 
 defineProps({
   draggable: {
     default: false,
-    type: Boolean,
+    type: [Boolean, Object],
+    validator: isDragConfiguration,
   },
   items: {
     default: () => [],

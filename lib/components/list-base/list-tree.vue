@@ -3,12 +3,14 @@ import { toRef } from "vue";
 
 import { COLLAPSE_STATUSES, useCollapse } from "./collapse";
 import CollapseSwitch from "./collapse-switch.vue";
+import { isDragConfiguration } from "./drag-configuration";
 import ListItem from "./list-item.vue";
 
 const props = defineProps({
   draggable: {
     default: false,
-    type: Boolean,
+    type: [Boolean, Object],
+    validator: isDragConfiguration,
   },
   editable: {
     default: false,

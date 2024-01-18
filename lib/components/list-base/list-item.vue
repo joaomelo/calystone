@@ -1,11 +1,13 @@
 <script setup>
 import { TooltipBase } from "../tooltip-base";
-import { useDrag } from "./use-drag";
+import { isDragConfiguration, normalizeDragConfiguration } from "./drag-configuration";
+import { useDrag } from "./drag-use";
 
 const props = defineProps({
   draggable: {
     default: false,
-    type: Boolean,
+    type: [Boolean, Object],
+    validator: isDragConfiguration,
   },
   item: {
     default: () => ({}),
@@ -14,7 +16,11 @@ const props = defineProps({
 });
 const emit = defineEmits(["drag", "drag-start", "drag-end"]);
 
-const { classes, handlers } = useDrag({ emit, value: props.item.value });
+const { classes, handlers } = useDrag({
+  draggable: normalizeDragConfiguration(props.draggable),
+  emit,
+  value: props.item.value,
+});
 </script>
 <template>
   <div
@@ -22,7 +28,7 @@ const { classes, handlers } = useDrag({ emit, value: props.item.value });
     :id="item.value"
     class="list-item"
     :class="classes"
-    :draggable="draggable"
+    :draggable="!!draggable"
     @dragstart="handlers.start"
     @dragenter="handlers.enter"
     @dragleave="handlers.leave"
