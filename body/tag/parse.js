@@ -1,1 +1,1 @@
-export const contentFields = ["name"];
+export const contentFields = ["name", "artifactsIds"];

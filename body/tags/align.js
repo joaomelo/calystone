@@ -1,6 +1,7 @@
 import { arrayAdd, arrayDel, mutate } from "@lib";
 
-import { listTags, listTagsOf } from "./list";
+import { listTags } from "./tags";
+import { listTagsOf } from "./tags-of";
 
 export function alignTagsFor(dependencies, { artifactId, tagsIds }) {
   const manifests = alignTagsForManifests(dependencies, { artifactId, tagsIds });
