@@ -1,4 +1,4 @@
-import { listTags } from "./tags";
+import { listTags } from "./list-tags";
 
 export function listTagsOf(dependencies, artifactId) {
   const allTags = listTags(dependencies);

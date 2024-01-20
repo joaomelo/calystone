@@ -1,6 +1,6 @@
 import { arrayAdd, arrayDel, mutate } from "@lib";
 
-import { listTags } from "./tags";
+import { listTags } from "./list-tags";
 import { listTagsOf } from "./tags-of";
 
 export function alignTagsFor(dependencies, { artifactId, tagsIds }) {

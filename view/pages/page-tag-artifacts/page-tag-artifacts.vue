@@ -32,7 +32,7 @@ const handleDrag = useHandleDrag(toRef(props, "tagId"));
   <frame-dashboard :title="tag.name">
     <list-base
       :items="items"
-      draggable
+      :draggable="{ top: true, bottom: true, middle: false }"
       @drag="handleDrag"
     >
       <template #item="item">

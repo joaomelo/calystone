@@ -3,6 +3,8 @@ import { listTags } from "@body";
 import { ListBase, useDependencies } from "@lib";
 import { computed } from "vue";
 
+import { useHandleDrag } from "./use-handle-drag";
+
 defineProps({
   parentId: {
     default: null,
@@ -11,16 +13,16 @@ defineProps({
 });
 
 const dependencies = useDependencies();
+const items = computed(() => listTags(dependencies)
+  .map(({ id }) => ({ value: id })));
 
-const items = computed(() => {
-  const tags = listTags(dependencies);
-  const items = tags.map(({ id }) => ({ value: id }));
-  return items;
-});
+const handleDrag = useHandleDrag();
 </script>
 <template>
   <list-base
     :items="items"
+    :draggable="{ top: true, bottom: true, middle: false }"
+    @drag="handleDrag"
   >
     <template #item="slotProps">
       <slot

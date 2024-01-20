@@ -1,6 +1,6 @@
 import { mutate } from "@lib";
 
-import { getTag } from "./get";
+import { getTag } from "./get-tag";
 import { orderOfArtifactOnTag } from "./order";
 
 export function moveArtifactOnTag(dependencies, { artifactId, order, tagId }) {
@@ -17,7 +17,7 @@ export function moveArtifactOnTag(dependencies, { artifactId, order, tagId }) {
   }
   if (originalOrder === order) return;
 
-  // if the original order is small the target one we have to correct the target, since after splicing the element from its original position will affect the target index
+  // if the original order is smaller than the target order we have to correct the target, since after splicing the element from its original position will affect the target index
   const newOrder = originalOrder > order
     ? order
     : order - 1;

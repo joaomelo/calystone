@@ -9,7 +9,6 @@ export function useHandleDrag(tagIdReference) {
     const referenceId = target;
     switch (section) {
       case "top": return hoistArtifactOnTag(dependencies, { hoistedId: source, referenceId, tagId });
-      case "middle": return hoistArtifactOnTag(dependencies, { hoistedId: source, referenceId, tagId });
       case "bottom": return lowerArtifactOnTag(dependencies, { loweredId: source, referenceId, tagId });
     }
   };

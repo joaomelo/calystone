@@ -1,4 +1,4 @@
-import { moveArtifactOnTag } from "./move";
+import { moveArtifactOnTag } from "./move-artifact-tag";
 import { orderOfArtifactOnTag } from "./order";
 
 export function lowerArtifactOnTag(dependencies, { loweredId, referenceId, tagId }) {
