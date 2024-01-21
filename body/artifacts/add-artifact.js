@@ -1,4 +1,4 @@
-import { identifyLastArtifactsOrder } from "@body";
+import { getLastOrder } from "@body";
 import { atLeastOneField, currentUser, mutate } from "@lib";
 
 import { ARTIFACT_STATUSES } from "./artifact-statuses";
@@ -9,7 +9,7 @@ export function addArtifact(dependencies, payload) {
 
   const parentId = parseParent(payload);
   const status = ARTIFACT_STATUSES.ACTIVE;
-  const order = identifyLastArtifactsOrder(dependencies, parentId) + 1;
+  const order = getLastOrder(dependencies, parentId) + 1;
   const { name = null, notes = null } = payload;
   const { end, start } = parseDates(payload);
 

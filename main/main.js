@@ -1,4 +1,5 @@
-import { Dependencies, FirebaseAuth, FirebaseDriver, FirestoreMutator, FirestoreSelector, I18n } from "@lib";
+import { Artifacts } from "@body";
+import { Dependencies, FirebaseAuthAdapter, FirebaseDriver, FirestoreMutatorAdapter, FirestoreSelectorAdapter, I18n } from "@lib";
 import { name, version } from "@main/../package.json";
 import { createRouter, messages } from "@view";
 import { createApp } from "vue";
@@ -19,11 +20,14 @@ export function initApp(elementId) {
 
   const connection = createConnectionFromEnv();
   const driver = new FirebaseDriver(connection);
-  const auth = new FirebaseAuth(driver.auth);
-  const selector = new FirestoreSelector(driver.firestore);
-  const mutator = new FirestoreMutator(driver.firestore);
+  const auth = new FirebaseAuthAdapter(driver.auth);
+  const selector = new FirestoreSelectorAdapter(driver.firestore);
+  const mutator = new FirestoreMutatorAdapter(driver.firestore);
+
+  const artifacts = new Artifacts();
 
   const dependencies = new Dependencies({
+    artifacts,
     auth,
     mutator,
     router,

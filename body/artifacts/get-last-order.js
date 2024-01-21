@@ -1,6 +1,6 @@
 import { listArtifacts } from "./list-artifacts";
 
-export function identifyLastArtifactsOrder(dependencies, parentId = null) {
+export function getLastOrder(dependencies, parentId = null) {
   const artifacts = listArtifacts(dependencies);
   const children = artifacts.filter(a => a.parentId === parentId);
   const lastOrder = children.reduce((acc, child) => {

@@ -1,5 +1,4 @@
 <script setup>
-import { addArtifact } from "@body";
 import { ButtonBase, FormBase, InputText, useI18n, useTask } from "@lib";
 
 const props = defineProps({
@@ -12,10 +11,12 @@ const props = defineProps({
 const { t } = useI18n();
 
 const reset = () => ({ name: null, parentId: null });
+
 const { payload, task } = useTask((dependencies, payload) => {
-  // a navigation like focus maybe happened after reset was called
+  const { artifacts } = dependencies;
+  // a navigation that changes the parentId maybe happened after reset was called
   payload.parentId = props.parentId;
-  return addArtifact(dependencies, payload);
+  return artifacts.add(payload);
 }, reset);
 </script>
 <template>
