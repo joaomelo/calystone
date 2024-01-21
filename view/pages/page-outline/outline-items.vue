@@ -1,5 +1,5 @@
 <script setup>
-import { hoistArtifact, listArtifacts, lowerArtifact, transferArtifact } from "@body";
+import { placeArtifactBefore, listArtifacts, placeArtifactAfter, transferArtifact } from "@body";
 import { ListBase, treeify, truncate, useDependencies } from "@lib";
 import { computed } from "vue";
 
@@ -37,14 +37,14 @@ const handleDrag = ({ section, source, target }) => {
   }
 
   if (section === "top") {
-    hoistArtifact(dependencies, {
+    placeArtifactBefore(dependencies, {
       id: source,
       siblingId: target,
     });
   }
 
   if (section === "bottom") {
-    lowerArtifact(dependencies, {
+    placeArtifactAfter(dependencies, {
       id: source,
       siblingId: target,
     });

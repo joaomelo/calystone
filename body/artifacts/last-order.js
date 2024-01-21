@@ -1,4 +1,4 @@
-import { listArtifacts } from "@body";
+import { listArtifacts } from "./list-artifacts";
 
 export function identifyLastArtifactsOrder(dependencies, parentId = null) {
   const artifacts = listArtifacts(dependencies);

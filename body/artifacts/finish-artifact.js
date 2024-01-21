@@ -1,7 +1,7 @@
 import { listDescendants } from "@body";
 import { mutate } from "@lib";
 
-import { ARTIFACT_STATUSES, isActive } from "./statuses";
+import { ARTIFACT_STATUSES, isActive } from "./artifact-statuses";
 
 export function completeArtifact(dependencies, idOrArtifact) {
   return finishArtifact(dependencies, { idOrArtifact, status: ARTIFACT_STATUSES.COMPLETED });

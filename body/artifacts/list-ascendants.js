@@ -1,6 +1,6 @@
 import { ancestify, extractId } from "@lib";
 
-import { listArtifacts } from "./artifacts";
+import { listArtifacts } from "./list-artifacts";
 
 export function listAscendants(dependencies, idOrArtifact) {
   const list = listArtifacts(dependencies);

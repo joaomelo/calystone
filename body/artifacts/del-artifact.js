@@ -1,5 +1,7 @@
-import { alignTagsForManifests, listDescendants } from "@body";
+import { alignTagsForManifests } from "@body";
 import { mutate } from "@lib";
+
+import { listDescendants } from "./list-descendants";
 
 export async function delArtifact(dependencies, artifactId) {
   const manifests = [];

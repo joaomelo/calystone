@@ -3,7 +3,7 @@ import { mutate } from "@lib";
 import { getTag } from "./get-tag";
 import { orderOfArtifactOnTag } from "./order";
 
-export function moveArtifactOnTag(dependencies, { artifactId, order, tagId }) {
+export function moveArtifactInTag(dependencies, { artifactId, order, tagId }) {
   const tag = getTag(dependencies, tagId);
   const maxIndex = tag.artifactsIds.length;
 

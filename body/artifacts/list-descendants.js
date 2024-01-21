@@ -1,6 +1,6 @@
 import { extractId, flatTree, treeify } from "@lib";
 
-import { listArtifacts } from "./artifacts";
+import { listArtifacts } from "./list-artifacts";
 
 export function listDescendants(dependencies, idOrArtifact) {
   const allArtifacts = listArtifacts(dependencies);

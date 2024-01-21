@@ -1,8 +1,8 @@
 import { identifyLastArtifactsOrder } from "@body";
 import { atLeastOneField, currentUser, mutate } from "@lib";
 
+import { ARTIFACT_STATUSES } from "./artifact-statuses";
 import { contentFields, parseDates, parseParent } from "./parse";
-import { ARTIFACT_STATUSES } from "./statuses";
 
 export function addArtifact(dependencies, payload) {
   atLeastOneField(payload, contentFields);

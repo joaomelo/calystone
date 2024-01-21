@@ -1,7 +1,7 @@
-import { listAscendants } from "@body";
 import { mutate } from "@lib";
 
-import { ARTIFACT_STATUSES } from "./statuses";
+import { ARTIFACT_STATUSES } from "./artifact-statuses";
+import { listAscendants } from "./list-ascendants";
 
 export function activateArtifact(dependencies, idOrArtifact) {
   const artifacts = listAscendants(dependencies, idOrArtifact);

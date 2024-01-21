@@ -1,8 +1,8 @@
 import { getArtifact } from "@body";
 
-import { moveArtifact } from "./move";
+import { moveArtifact } from "./move-artifact";
 
-export function hoistArtifact(dependencies, { id, siblingId }) {
+export function placeArtifactBefore(dependencies, { id, siblingId }) {
   const { order, parentId } = getArtifact(dependencies, siblingId);
   return moveArtifact(dependencies, { id, order, parentId });
 }

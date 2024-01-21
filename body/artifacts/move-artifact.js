@@ -1,5 +1,6 @@
-import { listArtifacts } from "@body";
 import { mutate } from "@lib";
+
+import { listArtifacts } from "./list-artifacts";
 
 export function moveArtifact(dependencies, { id, order, parentId }) {
   if (!id) throw new Error("artifact move requires a id to perform");
