@@ -1,11 +1,11 @@
 <script setup>
-import { useDependencies } from "@lib";
-import { goSolve } from "@view";
-import { onMounted } from "vue";
+// import { useDependencies } from "@lib";
+// import { onMounted } from "vue";
 
-const dependencies = useDependencies();
-onMounted(() => goSolve(dependencies));
+// const { display } = useDependencies();
+// onMounted(() => display.open());
 </script>
 <template>
-  <router-view />
+  <!-- <router-view /> -->
+  <div>app</div>
 </template>

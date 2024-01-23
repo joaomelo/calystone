@@ -1,4 +1,4 @@
-export const artifact = {
+export const artifacts = {
   "en": {
     "artifact": "artifact",
     "artifacts": "artifacts",

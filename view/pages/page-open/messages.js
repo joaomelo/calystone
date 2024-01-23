@@ -1,4 +1,4 @@
-export const pageSolve = {
+export const pageOpen = {
   "en": {
     prepare: "please, wait while prepare your session",
   },

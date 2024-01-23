@@ -1,4 +1,4 @@
-export const sharedActions = {
+export const actions = {
   "en": {
     activate: "activate",
     add: "add",
