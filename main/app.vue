@@ -1,11 +1,10 @@
 <script setup>
-// import { useDependencies } from "@lib";
-// import { onMounted } from "vue";
+import { useDependencies } from "@lib";
+import { onMounted } from "vue";
 
-// const { display } = useDependencies();
-// onMounted(() => display.open());
+const { display } = useDependencies();
+onMounted(() => display.solve());
 </script>
 <template>
-  <!-- <router-view /> -->
-  <div>app</div>
+  <router-view />
 </template>

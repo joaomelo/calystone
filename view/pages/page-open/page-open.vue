@@ -1,20 +1,22 @@
 <script setup>
-// import { useI18n } from "@lib";
+import { useI18n } from "@lib";
 // import { FrameBase } from "@view";
-// import { onMounted } from "vue";
+import { onMounted } from "vue";
 
-// import { useSolve } from "./use-solve";
+const { t } = useI18n();
 
-// const { t } = useI18n();
-// const { task } = useSolve();
-
-// onMounted(() => task.run());
+onMounted(async () => {
+  // se nao logado v á para sign up
+  // se logado, abra os dados e depois de abrir os dados va para start
+  console.log("mounted");
+  //   await ignite(dependencies);
+  //   await goStart(dependencies);
+});
 </script>
 <template>
   <!-- <frame-base> -->
   <div class="page-open">
-    open
-    <!-- {{ t("page-solve.prepare") }} -->
+    {{ t("page-open.prepare") }}
   </div>
   <!-- </frame-base> -->
 </template>

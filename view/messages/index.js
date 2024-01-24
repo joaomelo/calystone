@@ -1,4 +1,4 @@
-import { pageOpen } from "@view/pages";
+import { pageOpen, pageSolve } from "@view/pages";
 // import { frameDashboard, frameSign } from "@view/smart";
 
 import { actions } from "./actions";
@@ -16,5 +16,6 @@ export const messages = {
   artifacts,
   // "page-sign-up": pageSignUp,
   "page-open": pageOpen,
+  "page-solve": pageSolve,
   tags,
 };

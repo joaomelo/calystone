@@ -1,10 +1,15 @@
-import { createRouter as createVueRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
-import { routeOpen, routes } from "./routes";
+import { routeOpen, routeSolve, routes } from "./routes";
 
 export class Display {
-  router = createVueRouter({ history: createWebHistory(), routes });
-  start = window.location.pathname;
+  gatekeeper;
+  router = createRouter({ history: createWebHistory(), routes });
+  startPath = window.location.pathname;
+
+  constructor({ gatekeeper }) {
+    this.gatekeeper = gatekeeper;
+  }
 
   install(app) {
     app.use(this.router);
@@ -12,5 +17,17 @@ export class Display {
 
   open() {
     this.router.push({ name: routeOpen.name });
+  }
+
+  signUp() {
+    console.log("signUp");
+  }
+
+  async solve() {
+    this.router.push({ name: routeSolve.name });
+  }
+
+  start() {
+    console.log("start");
   }
 }

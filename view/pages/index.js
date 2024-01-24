@@ -5,5 +5,6 @@
 // export * from "./page-sign-in";
 // export * from "./page-sign-up";
 export * from "./page-open";
+export * from "./page-solve";
 // export * from "./page-tag-artifacts";
 // export * from "./page-tags";
