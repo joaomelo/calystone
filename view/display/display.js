@@ -1,33 +1,21 @@
-import { createRouter, createWebHistory } from "vue-router";
-
-import { routeOpen, routeSolve, routes } from "./routes";
+import { Helmsman } from "./helmsman";
 
 export class Display {
-  gatekeeper;
-  router = createRouter({ history: createWebHistory(), routes });
-  startPath = window.location.pathname;
-
-  constructor({ gatekeeper }) {
-    this.gatekeeper = gatekeeper;
-  }
+  helmsman = new Helmsman();
 
   install(app) {
-    app.use(this.router);
+    app.use(this.helmsman.router);
   }
 
-  open() {
-    this.router.push({ name: routeOpen.name });
+  mounted() {
+    return this.helmsman.solve();
   }
 
-  signUp() {
-    console.log("signUp");
+  signedIn() {
+    return this.helmsman.start();
   }
 
-  async solve() {
-    this.router.push({ name: routeSolve.name });
-  }
-
-  start() {
-    console.log("start");
+  signedOut() {
+    return this.helmsman.signIn();
   }
 }

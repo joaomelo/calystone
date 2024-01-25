@@ -1,14 +1,15 @@
 <script setup>
-import { ButtonBase, FormBase, InputPassword, InputText, useI18n } from "@lib";
-import { FrameSign } from "@view";
+// import { ButtonBase, FormBase, InputPassword, InputText, useI18n } from "@lib";
+// import { FrameSign } from "@view";
 
-import { useSignIn } from "./use-sign-in";
+// import { useSignIn } from "./use-sign-in";
 
-const { t } = useI18n();
-const { payload, task } = useSignIn();
+// const { t } = useI18n();
+// const { payload, task } = useSignIn();
 </script>
 <template>
-  <frame-sign
+  <div>sing in</div>
+  <!-- <frame-sign
     :heading="t('frame-sign.sign-in')"
     :question="t('page-sign-in.no-account')"
     link-to="/page-sign-up"
@@ -42,5 +43,5 @@ const { payload, task } = useSignIn();
         </template>
       </form-base>
     </template>
-  </frame-sign>
+  </frame-sign> -->
 </template>

@@ -9,10 +9,10 @@ const { display, gatekeeper } = useDependencies();
 onMounted(async () => {
   const status = await gatekeeper.solveStatus();
   if (status === AUTH_STATUSES.SIGNED_IN) {
-    display.open();
+    display.signedIn();
   }
   else {
-    display.signUp();
+    display.signedOut();
   }
 });
 </script>
