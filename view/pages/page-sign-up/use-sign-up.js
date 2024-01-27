@@ -1,11 +1,11 @@
-import { signUp } from "@body";
-import { useTask } from "@lib";
-import { goStart } from "@view";
+import { useDependencies, useTask } from "@lib";
 
 export function useSignUp() {
+  const { display, gatekeeper } = useDependencies();
   const reset = () => ({ email: null, password: null });
-  return useTask(async (dependencies, payload) => {
-    await signUp(dependencies, payload);
-    goStart(dependencies);
+  const { payload, task } = useTask(async (payload) => {
+    await gatekeeper.signUp(payload);
+    await display.signedIn();
   }, reset);
+  return { payload, signUp: task };
 }

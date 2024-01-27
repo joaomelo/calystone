@@ -12,7 +12,7 @@ export class Display {
   }
 
   signedIn() {
-    return this.helmsman.start();
+    return this.helmsman.open();
   }
 
   signedOut() {

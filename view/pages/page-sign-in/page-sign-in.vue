@@ -1,47 +1,46 @@
 <script setup>
-// import { ButtonBase, FormBase, InputPassword, InputText, useI18n } from "@lib";
-// import { FrameSign } from "@view";
+import { ButtonBase, FormBase, InputPassword, InputText, useI18n } from "@lib";
+import { FrameSign } from "@view/smart";
 
-// import { useSignIn } from "./use-sign-in";
+import { useSignIn } from "./use-sign-in";
 
-// const { t } = useI18n();
-// const { payload, task } = useSignIn();
+const { t } = useI18n();
+const { payload, signIn } = useSignIn();
 </script>
 <template>
-  <div>sing in</div>
-  <!-- <frame-sign
-    :heading="t('frame-sign.sign-in')"
+  <frame-sign
+    :heading="t('auth.sign-in')"
     :question="t('page-sign-in.no-account')"
-    link-to="/page-sign-up"
-    :link-text="t('frame-sign.sign-up')"
+    link-to="/sign-up"
+    :link-text="t('auth.sign-up')"
   >
     <template #form>
       <form-base
-        :error="task.error"
-        @submit="task.run"
+        :error="signIn.error"
+        @submit="signIn.run"
       >
         <template #default>
           <input-text
             id="input-email"
             v-model="payload.email"
-            :label="t('frame-sign.email')"
+            :label="t('auth.email')"
             autofocus
           />
           <input-password
             id="input-password"
             v-model="payload.password"
-            :label="t('frame-sign.password')"
+            :label="t('auth.password')"
           />
         </template>
         <template #buttons>
           <button-base
             id="button-sign-in"
-            :label="t('frame-sign.sign-in')"
-            :busy="task.busy"
+            :label="t('auth.sign-in')"
+            :busy="signIn.busy"
             type="submit"
           />
         </template>
       </form-base>
     </template>
-  </frame-sign> -->
+  </frame-sign>
 </template>
