@@ -21,20 +21,20 @@ const { payload, signIn } = useSignIn();
       >
         <template #default>
           <input-text
-            id="input-email"
             v-model="payload.email"
+            data-test="email"
             :label="t('auth.email')"
             autofocus
           />
           <input-password
-            id="input-password"
             v-model="payload.password"
+            data-test="password"
             :label="t('auth.password')"
           />
         </template>
         <template #buttons>
           <button-base
-            id="button-sign-in"
+            data-test="sign-in"
             :label="t('auth.sign-in')"
             :busy="signIn.busy"
             type="submit"

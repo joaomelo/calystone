@@ -1,34 +1,18 @@
 <script setup>
-import { useI18n } from "@lib";
-// import { FrameBase } from "@view";
+import { useDependencies, useI18n } from "@lib";
+import { FrameMessage } from "@view/smart";
 import { onMounted } from "vue";
 
 const { t } = useI18n();
+const { display, gatekeeper } = useDependencies();
 
 onMounted(async () => {
-  // se nao logado v á para sign up
-  // se logado, abra os dados e depois de abrir os dados va para start
-  console.log("mounted");
-  //   await ignite(dependencies);
-  //   await goStart(dependencies);
+  await gatekeeper.open();
+  display.opened();
 });
 </script>
 <template>
-  <!-- <frame-base> -->
-  <div class="page-open">
+  <frame-message>
     {{ t("page-open.prepare") }}
-  </div>
-  <!-- </frame-base> -->
+  </frame-message>
 </template>
-<style scoped>
-.page-open {
-  flex-grow: 1;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: var(--font-size-15);
-  text-align: center;
-}
-</style>

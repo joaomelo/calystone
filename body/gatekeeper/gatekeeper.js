@@ -1,8 +1,24 @@
 export class Gatekeeper {
+  artifacts;
   auth;
+  tags;
 
-  constructor({ auth }) {
+  constructor({ artifacts, auth, tags }) {
     this.auth = auth;
+    this.artifacts = artifacts;
+    this.tags = tags;
+  }
+
+  close() {
+    this.artifacts.close();
+    this.tags.close();
+  }
+
+  open() {
+    const { id: userId } = this.auth.solveUser();
+    const artifactsPromise = this.artifacts.open(userId);
+    const tagsPromise = this.tags.open(userId);
+    return Promise.all([artifactsPromise, tagsPromise]);
   }
 
   signIn(payload) {
@@ -10,9 +26,7 @@ export class Gatekeeper {
   }
 
   signOut() {
-    // closeArtifacts(dependencies);
-    // closeTags(dependencies);
-
+    this.close();
     return this.auth.signOut();
   }
 
