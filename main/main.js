@@ -1,5 +1,5 @@
-import { Artifacts, Gatekeeper } from "@body";
-import { Dependencies, FirebaseAuthAdapter, FirebaseDriver, FirestoreMutatorAdapter, FirestoreSelectorAdapter, I18n } from "@lib";
+import { Artifacts, Gatekeeper, Tags } from "@body";
+import { Dependencies, FirebaseAuthAdapter, FirebaseDriver, FirestoreMutatorAdapter, FirestoreSelectorAdapter, I18n, Mutator, Selector } from "@lib";
 import { name, version } from "@main/../package.json";
 import { Display, messages } from "@view";
 import { createApp } from "vue";
@@ -17,19 +17,28 @@ export function initApp(elementId) {
   const connection = createConnectionFromEnv();
   const driver = new FirebaseDriver(connection);
   const auth = new FirebaseAuthAdapter(driver.auth);
-  const selector = new FirestoreSelectorAdapter(driver.firestore);
-  const mutator = new FirestoreMutatorAdapter(driver.firestore);
+  const selectorAdapter = new FirestoreSelectorAdapter(driver.firestore);
+  const selector = new Selector(selectorAdapter);
+  const mutatorAdapter = new FirestoreMutatorAdapter(driver.firestore);
+  const mutator = new Mutator(mutatorAdapter);
 
-  const artifacts = new Artifacts({ auth, mutator, selector });
-  const gatekeeper = new Gatekeeper({ auth });
+  const gatekeeper = new Gatekeeper(auth);
+  const artifacts = new Artifacts({ mutator, selector });
+  const tags = new Tags({ mutator, selector });
 
-  const display = new Display({ gatekeeper });
+  gatekeeper.artifacts = artifacts;
+  gatekeeper.tags = tags;
+  tags.gatekeeper = gatekeeper;
+  artifacts.gatekeeper = gatekeeper;
+
+  const display = new Display();
   app.use(display);
 
   const dependencies = new Dependencies({
     artifacts,
     display,
     gatekeeper,
+    tags,
   });
   window.$dependencies = dependencies;
   app.use(dependencies);

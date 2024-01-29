@@ -3,10 +3,8 @@ export class Gatekeeper {
   auth;
   tags;
 
-  constructor({ artifacts, auth, tags }) {
+  constructor(auth) {
     this.auth = auth;
-    this.artifacts = artifacts;
-    this.tags = tags;
   }
 
   close() {
@@ -15,9 +13,8 @@ export class Gatekeeper {
   }
 
   open() {
-    const { id: userId } = this.auth.solveUser();
-    const artifactsPromise = this.artifacts.open(userId);
-    const tagsPromise = this.tags.open(userId);
+    const artifactsPromise = this.artifacts.open();
+    const tagsPromise = this.tags.open();
     return Promise.all([artifactsPromise, tagsPromise]);
   }
 
@@ -36,5 +33,10 @@ export class Gatekeeper {
 
   solveStatus() {
     return this.auth.solveStatus();
+  }
+
+  solveUserId() {
+    const user = this.auth.solveUser();
+    return user.id;
   }
 }

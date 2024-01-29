@@ -32,7 +32,7 @@ export const routeSignIn = {
 const routeOpenName = "open";
 export const routeOpen = {
   component: PageOpen,
-  meta: { access: "internal" },
+  meta: { access: "transition" },
   name: routeOpenName,
   path: `/${routeOpenName}`,
 };

@@ -1,4 +1,4 @@
-export class Artifacts {
+export class Tags {
   gatekeeper;
   mutator;
   selector;
@@ -8,7 +8,7 @@ export class Artifacts {
 
     this.selector = selector;
     this.selector.set({
-      name: "artifacts",
+      name: "tags",
       orderBy: "order",
       wheres: [
         {
@@ -29,6 +29,6 @@ export class Artifacts {
   }
 
   select() {
-    return this.selector.get("artifacts");
+    return this.selector.get("tags");
   }
 }

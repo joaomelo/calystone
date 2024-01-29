@@ -11,6 +11,10 @@ export class Display {
     return this.helmsman.solve();
   }
 
+  opened() {
+    return this.helmsman.start();
+  }
+
   signedIn() {
     return this.helmsman.open();
   }
