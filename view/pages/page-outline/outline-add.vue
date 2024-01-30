@@ -36,7 +36,7 @@ const { payload, task } = useTask((dependencies, payload) => {
       <button-base
         id="button-add"
         :busy="task.busy"
-        :label="t('shared-actions.add')"
+        :label="t('shared.add')"
         type="submit"
       />
     </template>

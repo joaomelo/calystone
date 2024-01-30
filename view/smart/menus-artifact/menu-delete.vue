@@ -19,6 +19,6 @@ const handleDelete = () => delArtifact(dependencies, props.artifact.id);
     class="menu-delete"
     @click="handleDelete"
   >
-    {{ t("shared-actions.delete") }}
+    {{ t("shared.delete") }}
   </menu-item>
 </template>

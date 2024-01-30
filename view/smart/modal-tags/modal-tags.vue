@@ -41,7 +41,7 @@ const handleSave = () => {
     :data-test="show ? 'modal-tags-show' : undefined"
   >
     <text-heading class="modal-tags-heading">
-      {{ t('tags.tags') }}
+      {{ t('shared.tags') }}
     </text-heading>
     <form-base @submit="handleSave">
       <template #default>
@@ -50,13 +50,13 @@ const handleSave = () => {
       <template #buttons>
         <button-base
           data-test="button-save"
-          :label="t('shared-actions.save')"
+          :label="t('shared.save')"
           type="submit"
           @click="handleSave"
         />
         <button-base
           data-test="button-cancel"
-          :label="t('shared-actions.cancel')"
+          :label="t('shared.cancel')"
           @click="show = false"
         />
       </template>

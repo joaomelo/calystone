@@ -4,20 +4,20 @@ import { FrameMessage } from "@view/smart";
 import { onMounted } from "vue";
 
 const { t } = useI18n();
-const { display, gatekeeper } = useDependencies();
+const { helmsman, gatekeeper } = useDependencies();
 
 onMounted(async () => {
   const status = await gatekeeper.solveStatus();
   if (status === AUTH_STATUSES.SIGNED_IN) {
-    display.signedIn();
+    helmsman.open();
   }
   else {
-    display.signedOut();
+    helmsman.signIn();
   }
 });
 </script>
 <template>
   <frame-message>
-    {{ t("page-solve.wait") }}
+    {{ t("shared.wait") }}
   </frame-message>
 </template>

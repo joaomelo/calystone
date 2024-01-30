@@ -2,8 +2,8 @@
 import { useDependencies } from "@lib";
 import { onMounted } from "vue";
 
-const { display } = useDependencies();
-onMounted(() => display.mounted());
+const { helmsman } = useDependencies();
+onMounted(() => helmsman.solve());
 </script>
 <template>
   <router-view />

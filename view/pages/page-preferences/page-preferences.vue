@@ -15,12 +15,12 @@ const handleI18n = locale => i18n.updateLocale(locale);
 const handleDone = () => goOutline(dependencies);
 </script>
 <template>
-  <frame-dashboard :title="t('page-preferences.preferences')">
+  <frame-dashboard :title="t('shared.preferences')">
     <form-base @submit="handleDone">
       <template #default>
         <input-select
           id="input-locale"
-          :label="t('page-preferences.locale')"
+          :label="t('shared.locale')"
           :model-value="i18n.locale"
           :options="i18n.supported"
           @update:model-value="handleI18n"
@@ -28,7 +28,7 @@ const handleDone = () => goOutline(dependencies);
       </template>
       <template #buttons>
         <button-base
-          :label="t('shared-actions.done')"
+          :label="t('shared.done')"
           type="submit"
         />
       </template>

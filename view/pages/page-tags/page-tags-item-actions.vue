@@ -24,13 +24,13 @@ const handleDelete = () => delTag(dependencies, props.tag.id);
       data-test="artifacts"
       @click="handleArtifacts"
     >
-      {{ t("artifact.artifacts") }}
+      {{ t("shared.artifacts") }}
     </menu-item>
     <menu-item
       data-test="delete"
       @click="handleDelete"
     >
-      {{ t("shared-actions.delete") }}
+      {{ t("shared.delete") }}
     </menu-item>
   </actions-menu>
 </template>

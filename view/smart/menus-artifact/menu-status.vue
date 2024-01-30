@@ -25,20 +25,20 @@ const handleCancel = () => cancelArtifact(dependencies, props.artifact.id);
     class="menu-activate"
     @click="handleActivate"
   >
-    {{ t("shared-actions.activate") }}
+    {{ t("shared.activate") }}
   </menu-item>
   <menu-item
     v-if="!showActivate"
     class="menu-complete"
     @click="handleComplete"
   >
-    {{ t("shared-actions.complete") }}
+    {{ t("shared.complete") }}
   </menu-item>
   <menu-item
     v-if="!showActivate"
     class="menu-cancel"
     @click="handleCancel"
   >
-    {{ t("shared-actions.cancel") }}
+    {{ t("shared.cancel") }}
   </menu-item>
 </template>

@@ -1,2 +1,1 @@
-export * from "./navigation";
-export * from "./messages";
+export { default as PageOutline } from "./page-outline.vue";

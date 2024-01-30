@@ -14,21 +14,25 @@ export class Artifacts {
         {
           field: "userId",
           operator: "==",
-          value: () => this.gatekeeper.solveUserId(),
+          value: () => this.gatekeeper.user.id,
         },
       ],
     });
   }
 
+  close() {
+    return this.select.close();
+  }
+
   list() {
-    return this.select().list();
+    return this.select.list();
   }
 
   open() {
-    return this.select().open();
+    return this.select.open();
   }
 
-  select() {
+  get select() {
     return this.selector.get("artifacts");
   }
 }

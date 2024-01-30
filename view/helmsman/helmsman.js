@@ -1,17 +1,32 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import { routeOpen, routeSignIn, routeSignUp, routeSolve, routes } from "./routes";
+import {
+  routeOpen,
+  routeOutline,
+  routeSignIn,
+  routeSignUp,
+  routeSolve,
+  routes,
+} from "./routes";
 
 export class Helmsman {
   router = createRouter({ history: createWebHistory(), routes });
   startPath = window.location.pathname;
 
+  install(app) {
+    app.use(this.router);
+  }
+
   open() {
     this.router.push({ name: routeOpen.name });
   }
 
-  outline() {
-    console.log("outline");
+  outline(parentId = null) {
+    this.router.push({ name: routeOutline.name, params: { parentId } });
+  }
+
+  preferences() {
+    console.log("preferences");
   }
 
   return() {
@@ -20,6 +35,10 @@ export class Helmsman {
     return backRoute.meta.access === "internal"
       ? this.router.back()
       : this.outline();
+  }
+
+  search() {
+    console.log("search");
   }
 
   signIn() {
@@ -39,5 +58,9 @@ export class Helmsman {
     return startRoute.meta.access === "internal"
       ? this.router.push(startRoute)
       : this.outline();
+  }
+
+  tags() {
+    return console.log("tags");
   }
 }

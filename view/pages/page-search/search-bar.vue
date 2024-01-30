@@ -30,7 +30,7 @@ const handleSearch = () => goSearch(dependencies, search.term);
     </template>
     <template #buttons>
       <button-base
-        :label="t('page-search.search')"
+        :label="t('shared.search')"
         type="submit"
       />
     </template>

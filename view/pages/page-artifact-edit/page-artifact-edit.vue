@@ -23,7 +23,7 @@ const { payload, task } = useTask(async (dependencies, payload) => {
 </script>
 
 <template>
-  <frame-dashboard :title="t('shared-actions.edit')">
+  <frame-dashboard :title="t('shared.edit')">
     <form-base
       :error="task.error"
       @submit="task.run"
@@ -32,37 +32,37 @@ const { payload, task } = useTask(async (dependencies, payload) => {
         <input-text
           id="input-name"
           v-model="payload.name"
-          :label="t('artifact.name')"
+          :label="t('shared.name')"
           autofocus
         />
         <panel-responsive equal>
           <input-date
             id="input-start"
             v-model="payload.start"
-            :label="t('artifact.date-start')"
+            :label="t('shared.date-start')"
           />
           <input-date
             id="input-end"
             v-model="payload.end"
-            :label="t('artifact.date-end')"
+            :label="t('shared.date-end')"
           />
         </panel-responsive>
         <input-rich
           id="input-notes"
           v-model="payload.notes"
-          :label="t('artifact.notes')"
+          :label="t('shared.notes')"
         />
       </template>
       <template #buttons>
         <button-base
           id="button-save"
           type="submit"
-          :label="t('shared-actions.save')"
+          :label="t('shared.save')"
           :busy="task.busy"
         />
         <button-base
           id="button-cancel"
-          :label="t('shared-actions.cancel')"
+          :label="t('shared.cancel')"
           @click="back"
         />
       </template>

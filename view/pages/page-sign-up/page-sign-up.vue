@@ -2,17 +2,17 @@
 import { ButtonBase, FormBase, InputPassword, InputText, useI18n } from "@lib";
 import { FrameSign } from "@view/smart";
 
-import { useSignUp } from "./use-sign-up";
+import { useSignUp } from "./page-sign-up-use";
 
 const { t } = useI18n();
 const { payload, signUp } = useSignUp();
 </script>
 <template>
   <frame-sign
-    :heading="t('auth.sign-up')"
-    :question="t('page-sign-up.have-account')"
+    :heading="t('shared.sign-up')"
+    :question="t('shared.have-account')"
     link-to="/sign-in"
-    :link-text="t('auth.sign-in')"
+    :link-text="t('shared.sign-in')"
   >
     <template #form>
       <form-base
@@ -23,19 +23,19 @@ const { payload, signUp } = useSignUp();
           <input-text
             v-model="payload.email"
             data-test="email"
-            :label="t('auth.email')"
+            :label="t('shared.email')"
             autofocus
           />
           <input-password
             v-model="payload.password"
             data-test="password"
-            :label="t('auth.password')"
+            :label="t('shared.password')"
           />
         </template>
         <template #buttons>
           <button-base
             data-test="sign-up"
-            :label="t('auth.sign-up')"
+            :label="t('shared.sign-up')"
             :busy="signUp.busy"
             type="submit"
           />

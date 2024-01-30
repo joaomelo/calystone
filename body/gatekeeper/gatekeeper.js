@@ -35,8 +35,7 @@ export class Gatekeeper {
     return this.auth.solveStatus();
   }
 
-  solveUserId() {
-    const user = this.auth.solveUser();
-    return user.id;
+  get user() {
+    return this.auth.solveUser();
   }
 }

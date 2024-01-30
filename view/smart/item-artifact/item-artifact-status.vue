@@ -16,7 +16,7 @@ const { t } = useI18n();
     class="item-status"
     :class="artifact.status"
   >
-    {{ t(`artifact.${artifact.status}`) }}
+    {{ t(`shared.${artifact.status}`) }}
   </div>
 </template>
 

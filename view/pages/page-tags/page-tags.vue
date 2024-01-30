@@ -9,7 +9,7 @@ import PageTagsItems from "./page-tags-items.vue";
 const { t } = useI18n();
 </script>
 <template>
-  <frame-dashboard :title="t('tags.tags')">
+  <frame-dashboard :title="t('shared.tags')">
     <page-tags-add />
     <page-tags-items>
       <template #item="item">

@@ -1,28 +1,29 @@
 <script setup>
 import { useI18n } from "@lib";
 import { FrameDashboard } from "@view/smart";
-import { computed } from "vue";
+// import { computed } from "vue";
 
-import OutlineAdd from "./outline-add.vue";
-import OutlineCrumbs from "./outline-crumbs.vue";
-import OutlineItem from "./outline-item.vue";
-import OutlineItems from "./outline-items.vue";
+// // import OutlineAdd from "./outline-add.vue";
+// // import OutlineCrumbs from "./outline-crumbs.vue";
+// // import OutlineItem from "./outline-item.vue";
+// // import OutlineItems from "./outline-items.vue";
 
-const props = defineProps({
-  parentId: {
-    default: null,
-    type: String,
-  },
-});
+// const props = defineProps({
+//   parentId: {
+//     default: null,
+//     type: String,
+//   },
+// });
 const { t } = useI18n();
 
 // vue router coerces the parentId param to an empty string when the correct value should be null
-const id = computed(() => props.parentId || null);
+// const id = computed(() => props.parentId || null);
 </script>
 
 <template>
-  <frame-dashboard :title="t('page-outline.outline')">
-    <outline-crumbs
+  <frame-dashboard :title="t('shared.outline')">
+    outline
+    <!-- <outline-crumbs
       v-if="id"
       :id="id"
     />
@@ -31,6 +32,6 @@ const id = computed(() => props.parentId || null);
       <template #item="item">
         <outline-item :id="item.value" />
       </template>
-    </outline-items>
+    </outline-items> -->
   </frame-dashboard>
 </template>

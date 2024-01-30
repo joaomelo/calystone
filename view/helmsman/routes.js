@@ -1,5 +1,6 @@
 import {
   PageOpen,
+  PageOutline,
   PageSignIn,
   PageSignUp,
   PageSolve,
@@ -37,13 +38,23 @@ export const routeOpen = {
   path: `/${routeOpenName}`,
 };
 
+const routeOutlineName = "outline";
+export const routeOutline = {
+  component: PageOutline,
+  meta: { access: "internal" },
+  name: routeOutlineName,
+  path: `/${routeOutlineName}/:parentId?`,
+  props: true,
+};
+
 export const routes = [
   { path: "/", redirect: routeSolve.path },
 
   routeOpen,
-  routeSolve,
-  routeSignUp,
+  routeOutline,
   routeSignIn,
+  routeSignUp,
+  routeSolve,
 
   { path: "/:pathMatch(.*)*", redirect: routeSolve.path },
 ];

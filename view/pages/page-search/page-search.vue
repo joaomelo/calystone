@@ -16,7 +16,7 @@ defineProps({
 const { t } = useI18n();
 </script>
 <template>
-  <frame-dashboard :title="t('page-search.search')">
+  <frame-dashboard :title="t('shared.search')">
     <search-bar :term="term" />
     <search-list :term="term">
       <template #item="item">

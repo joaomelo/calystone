@@ -4,15 +4,15 @@ import { FrameMessage } from "@view/smart";
 import { onMounted } from "vue";
 
 const { t } = useI18n();
-const { display, gatekeeper } = useDependencies();
+const { helmsman, gatekeeper } = useDependencies();
 
 onMounted(async () => {
   await gatekeeper.open();
-  display.opened();
+  helmsman.start();
 });
 </script>
 <template>
   <frame-message>
-    {{ t("page-open.prepare") }}
+    {{ t("shared.prepare") }}
   </frame-message>
 </template>

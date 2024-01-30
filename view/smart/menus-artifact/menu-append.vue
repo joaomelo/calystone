@@ -19,6 +19,6 @@ const handleAppend = () => addArtifact(dependencies, { name: null, parentId: pro
     class="menu-append"
     @click="handleAppend"
   >
-    {{ t("shared-actions.append") }}
+    {{ t("shared.append") }}
   </menu-item>
 </template>

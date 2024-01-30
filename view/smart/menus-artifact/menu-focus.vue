@@ -19,6 +19,6 @@ const handleFocus = () => goOutline(dependencies, props.artifact.id);
     class="menu-focus"
     @click="handleFocus"
   >
-    {{ t("shared-actions.focus") }}
+    {{ t("shared.focus") }}
   </menu-item>
 </template>

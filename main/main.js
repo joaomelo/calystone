@@ -1,7 +1,7 @@
 import { Artifacts, Gatekeeper, Tags } from "@body";
 import { Dependencies, FirebaseAuthAdapter, FirebaseDriver, FirestoreMutatorAdapter, FirestoreSelectorAdapter, I18n, Mutator, Selector } from "@lib";
 import { name, version } from "@main/../package.json";
-import { Display, messages } from "@view";
+import { Helmsman, messages } from "@view";
 import { createApp } from "vue";
 
 import App from "./app.vue";
@@ -31,13 +31,13 @@ export function initApp(elementId) {
   tags.gatekeeper = gatekeeper;
   artifacts.gatekeeper = gatekeeper;
 
-  const display = new Display();
-  app.use(display);
+  const helmsman = new Helmsman();
+  app.use(helmsman);
 
   const dependencies = new Dependencies({
     artifacts,
-    display,
     gatekeeper,
+    helmsman,
     tags,
   });
   window.$dependencies = dependencies;

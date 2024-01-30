@@ -22,7 +22,7 @@ const handleTags = () => showModal.value = true;
     class="menu-tags"
     @click="handleTags"
   >
-    {{ t("tags.tags") }}
+    {{ t("shared.tags") }}
   </menu-item>
   <teleport to="body">
     <modal-tags

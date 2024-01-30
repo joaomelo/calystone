@@ -24,10 +24,19 @@ module.exports = {
     'no-duplicate-imports': 'error',
     'semi': ["error", "always"],
     "no-console": [ "warn", { allow: ["warn", "error", "info"] } ],
+
     ...customized.rules,    
     '@stylistic/object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],    
+    '@stylistic/object-curly-newline': ["error", {
+      "ObjectExpression": { "consistent": true },
+      "ObjectPattern": { "consistent": true },
+      "ImportDeclaration": { "consistent": true },
+      "ExportDeclaration": { "consistent": true }
+    }],
+
     // vue plugin already has a standard way to sort that considers the attribute type like if it is an event or a id definition
     'perfectionist/sort-vue-attributes': 'off',
+
     "vue/component-definition-name-casing": ["error", "kebab-case"],
   },
 };
