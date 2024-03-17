@@ -1,0 +1,179 @@
+:root,
+::backdrop {
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-gray-10: #f8f9fa;
+  --color-gray-20: #f1f3f5;
+  --color-gray-30: #dee2e6;
+  --color-gray-40: #ced4da;
+  --color-gray-50: #adb5bd;
+  --color-gray-60: #495057;
+  --color-gray-70: #212529;
+
+  --color-red-10: #fff5f5;
+  --color-red-20: #ffe3e3;
+  --color-red-30: #ffa8a8;
+  --color-red-40: #ff8787;
+  --color-red-50: #ff6b6b;
+  --color-red-60: #f03e3e;
+  --color-red-70: #c92a2a;
+
+  --color-pink-10: #fff0f6;
+  --color-pink-20: #ffdeeb;
+  --color-pink-30: #faa2c1;
+  --color-pink-40: #f783ac;
+  --color-pink-50: #f06595;
+  --color-pink-60: #d6336c;
+  --color-pink-70: #a61e4d;
+
+  --color-grape-10: #f8f0fc;
+  --color-grape-20: #f3d9fa;
+  --color-grape-30: #e599f7;
+  --color-grape-40: #da77f2;
+  --color-grape-50: #cc5de8;
+  --color-grape-60: #ae3ec9;
+  --color-grape-70: #862e9c;
+
+  --color-violet-10: #f3f0ff;
+  --color-violet-20: #e5dbff;
+  --color-violet-30: #b197fc;
+  --color-violet-40: #9775fa;
+  --color-violet-50: #845ef7;
+  --color-violet-60: #7048e8;
+  --color-violet-70: #5f3dc4;
+
+  --color-indigo-10: #edf2ff;
+  --color-indigo-20: #dbe4ff;
+  --color-indigo-30: #91a7ff;
+  --color-indigo-40: #748ffc;
+  --color-indigo-50: #5c7cfa;
+  --color-indigo-60: #4263eb;
+  --color-indigo-70: #364fc7;
+
+  --color-blue-10: #e7f5ff;
+  --color-blue-20: #d0ebff;
+  --color-blue-30: #74c0fc;
+  --color-blue-40: #4dabf7;
+  --color-blue-50: #339af0;
+  --color-blue-60: #1c7ed6;
+  --color-blue-70: #1864ab;
+
+  --color-cyan-10: #e3fafc;
+  --color-cyan-20: #c5f6fa;
+  --color-cyan-30: #66d9e8;
+  --color-cyan-40: #3bc9db;
+  --color-cyan-50: #22b8cf;
+  --color-cyan-60: #1098ad;
+  --color-cyan-70: #0b7285;
+
+  --color-teal-10: #e6fcf5;
+  --color-teal-20: #c3fae8;
+  --color-teal-30: #63e6be;
+  --color-teal-40: #38d9a9;
+  --color-teal-50: #20c997;
+  --color-teal-60: #0ca678;
+  --color-teal-70: #087f5b;
+
+  --color-green-10: #ebfbee;
+  --color-green-20: #d3f9d8;
+  --color-green-30: #8ce99a;
+  --color-green-40: #69db7c;
+  --color-green-50: #51cf66;
+  --color-green-60: #37b24d;
+  --color-green-70: #2b8a3e;
+
+  --color-lime-10: #f4fce3;
+  --color-lime-20: #e9fac8;
+  --color-lime-30: #c0eb75;
+  --color-lime-40: #a9e34b;
+  --color-lime-50: #94d82d;
+  --color-lime-60: #74b816;
+  --color-lime-70: #5c940d;
+
+  --color-yellow-10: #fff9db;
+  --color-yellow-20: #fff3bf;
+  --color-yellow-30: #ffe066;
+  --color-yellow-40: #ffd43b;
+  --color-yellow-50: #fcc419;
+  --color-yellow-60: #f59f00;
+  --color-yellow-70: #e67700;
+
+  --color-orange-10: #fff4e6;
+  --color-orange-20: #ffe8cc;
+  --color-orange-30: #ffc078;
+  --color-orange-40: #ffa94d;
+  --color-orange-50: #ff922b;
+  --color-orange-60: #f76707;
+  --color-orange-70: #d9480f;
+}
+
+:root,
+::backdrop {
+  --color-surface-10: var(--color-white);
+  --color-surface-20: var(--color-gray-10);
+  --color-surface-30: var(--color-gray-20);
+  --color-surface-40: var(--color-gray-30);
+  --color-surface-50: var(--color-gray-40);
+  --color-surface-60: var(--color-gray-50);
+  --color-surface-70: var(--color-gray-60);
+  --color-surface-80: var(--color-gray-70);
+  --color-surface-90: var(--color-black);
+
+  --color-content-10: var(--color-black);
+  --color-content-20: var(--color-gray-70);
+  --color-content-30: var(--color-gray-60);
+  --color-content-40: var(--color-gray-50);
+  --color-content-50: var(--color-gray-40);
+  --color-content-60: var(--color-gray-30);
+  --color-content-70: var(--color-gray-20);
+  --color-content-80: var(--color-gray-10);
+  --color-content-90: var(--color-white);
+}
+
+:root,
+::backdrop {
+  --size-00: 1px;
+  --size-05: 2px;
+  --size-10: 4px;
+  --size-15: 6px;
+  --size-20: 8px;
+  --size-25: 12px;
+  --size-30: 16px;
+  --size-35: 24px;
+  --size-40: 32px;
+  --size-45: 48px;
+  --size-50: 64px;
+  --size-55: 96px;
+  --size-60: 128px;
+  --size-65: 192px;
+  --size-70: 256px;
+  --size-75: 384px;
+  --size-80: 512px;
+  --size-85: 768px;
+  --size-90: 1024px;
+}
+
+:root,
+::backdrop {
+  --screen-sm: 0px;
+  --screen-md: var(--size-80);
+  --screen-lg: var(--size-85);
+  --screen-xg: var(--size-90);
+}
+
+:root,
+::backdrop {
+  --font-size-10: 12px;
+  --font-size-15: 18px;
+  --font-size-20: 24px;
+  --font-size-25: 36px;
+  --font-size-30: 48px;
+  --font-size-35: 72px;
+  --font-size-40: 96px;
+
+  --font-weight-10: 100;
+  --font-weight-20: 400;
+  --font-weight-30: 700;
+  --font-weight-40: 900;
+}

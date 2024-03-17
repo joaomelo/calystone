@@ -1,0 +1,63 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+html,
+body {
+  min-height: 100vh;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+html,
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  line-height: 1;
+  vertical-align: baseline;
+  overflow-wrap: break-word;
+}
+
+input,
+button,
+textarea,
+select,
+fieldset {
+  font: inherit;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.firebase-emulator-warning {
+  display: none;
+}
