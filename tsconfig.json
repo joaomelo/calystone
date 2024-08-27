@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "strict": true,
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "paths": {
+      "@data/*": [
+        "./data/*"
+      ],
+      "@display/*": [
+        "./display/*"
+      ],
+      "@lib/*": [
+        "./lib/*"
+      ],
+      "@main/*": [
+        "./main/*"
+      ]
+    },
+    "outDir": "./dist",
+    "rootDir": "./",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "./main/**/*",
+    "./data/**/*",
+    "./display/**/*",
+    "./lib/**/*",
+    "eslint.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "./dist"
+  ]
+}
