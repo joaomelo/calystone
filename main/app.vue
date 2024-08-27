@@ -1,10 +1,11 @@
 <script setup>
-import { useDependencies } from "@lib";
-import { onMounted } from "vue";
+// import { useDependencies } from "@lib";
+// import { onMounted } from "vue";
 
-const { helmsman } = useDependencies();
-onMounted(() => helmsman.solve());
+// const { helmsman } = useDependencies();
+// onMounted(() => helmsman.solve());
 </script>
 <template>
-  <router-view />
+  <div>app.vue</div>
+  <!-- <router-view /> -->
 </template>

@@ -1,15 +1,9 @@
 import { Artifacts, Gatekeeper, Tags } from "@body";
 import { Dependencies, FirebaseAuthAdapter, FirebaseDriver, FirestoreMutatorAdapter, FirestoreSelectorAdapter, I18n, Mutator, Selector } from "@lib";
-import { name, version } from "@main/../package.json";
 import { Helmsman, messages } from "@view";
-import { createApp } from "vue";
-
-import App from "./app.vue";
 
 export function initApp(elementId) {
-  console.info(`${name} v${version}`);
 
-  const app = createApp(App);
 
   const i18n = new I18n({ locale: navigator.language, messages });
   app.use(i18n);
@@ -42,8 +36,6 @@ export function initApp(elementId) {
   });
   window.$dependencies = dependencies;
   app.use(dependencies);
-
-  app.mount(elementId);
 }
 
 function createConnectionFromEnv() {
