@@ -22,7 +22,7 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const normalizedOptions = computed(() => asOptions(props.options));
-const handleUpdate = event => emit("update:modelValue", event?.target?.value);
+const handleUpdate = event => { emit("update:modelValue", event?.target?.value); };
 </script>
 <template>
   <input-wrapper>

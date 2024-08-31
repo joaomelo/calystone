@@ -16,7 +16,7 @@ defineProps({
   },
 });
 const emit = defineEmits(["submit"]);
-const handleSubmit = () => emit("submit");
+const handleSubmit = () => { emit("submit"); };
 </script>
 <template>
   <overlay-base :show="busy">

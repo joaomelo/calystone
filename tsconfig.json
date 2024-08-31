@@ -1,16 +1,24 @@
 {
   "compilerOptions": {
+    "noEmit": true,
     "allowJs": true,
     "target": "ESNext",
+    "useDefineForClassFields": true,
     "module": "ESNext",
     "lib": [
       "DOM",
+      "DOM.Iterable",
       "ESNext"
     ],
+    "noImplicitThis": true,
     "strict": true,
-    "moduleResolution": "Node",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",    
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
@@ -37,8 +45,10 @@
     "./data/**/*",
     "./display/**/*",
     "./lib/**/*",
+    "./tests/**/*",
     "eslint.config.js",
-    "tailwind.config.js"
+    "vite.config.ts",
+    "cypress.config.js"
   ],
   "exclude": [
     "node_modules",

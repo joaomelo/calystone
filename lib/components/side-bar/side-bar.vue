@@ -37,7 +37,7 @@ watch(
   },
 );
 
-const handleClick = () => emit("update:modelValue", "closed");
+const handleClick = () => { emit("update:modelValue", "closed"); };
 </script>
 <template>
   <aside

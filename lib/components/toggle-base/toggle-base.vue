@@ -11,7 +11,7 @@ const emit = defineEmits(["update:modelValue"]);
 
 const icon = computed(() => (props.modelValue === "open" ? "close" : "menu"));
 const handleToggle = () =>
-  emit("update:modelValue", props.modelValue === "open" ? "closed" : "open");
+  { emit("update:modelValue", props.modelValue === "open" ? "closed" : "open"); };
 </script>
 <template>
   <button-veil @click="handleToggle">

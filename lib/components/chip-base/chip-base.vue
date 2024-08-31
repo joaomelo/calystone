@@ -8,7 +8,7 @@ defineProps({
 });
 
 const attrs = useAttrs();
-const actionable = computed(() => !!attrs?.onClick);
+const actionable = computed(() => !!attrs.onClick);
 </script>
 
 <template>

@@ -1,28 +1,13 @@
-import eslint from "@eslint/js";
+import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import perfectionist from "eslint-plugin-perfectionist";
 import pluginVue from "eslint-plugin-vue";
+import { resolve } from "path";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  {
-    languageOptions: {
-      ecmaVersion: "latest",
-      globals: {
-        console: "readonly",
-        document: "readonly",
-        window: "readonly",
-      },
-      parserOptions: {
-        allowDefaultProject: true,
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-      sourceType: "module",
-    },
-  },
-
-  eslint.configs.recommended,
+  // javascript
+  js.configs.recommended,
   {
     rules: {
       "no-console": ["warn", { allow: ["warn", "error", "info"] }],
@@ -30,6 +15,7 @@ export default tseslint.config(
     }
   },
 
+  // typescript
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
@@ -39,10 +25,12 @@ export default tseslint.config(
     }
   },
 
+  // vue
+  ...pluginVue.configs["flat/recommended"],
+
+  //style linters
   {
-    plugins: {
-      "@stylistic": stylistic
-    },
+    plugins: { "@stylistic": stylistic },
     rules: {
       "@stylistic/indent": ["error", 2],
       "@stylistic/object-curly-newline": [
@@ -58,8 +46,7 @@ export default tseslint.config(
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": ["error", "always"],
     }
-  },
-
+  },  
   perfectionist.configs["recommended-natural"],
   {
     rules: {
@@ -68,5 +55,19 @@ export default tseslint.config(
     }
   },
 
-  ...pluginVue.configs["flat/recommended"],
+  // language settings
+  {
+    // this line tells eslint to link the typescript service with all file types used by the project
+    files: ["**/*.vue", "**/*.ts", "**/*.js"],
+    languageOptions: {
+      parserOptions: {
+        extraFileExtensions: [".vue"],
+        parser: "@typescript-eslint/parser",
+        project: [resolve(import.meta.dirname, "./tsconfig.json")],
+        projectService: true,
+        sourceType: "module",
+        tsconfigRootDir: resolve(import.meta.dirname)
+      },
+    },
+  },  
 );

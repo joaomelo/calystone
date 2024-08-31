@@ -32,7 +32,7 @@ export class Helmsman {
   return() {
     const backPath = this.router.options.history.state.back;
     const backRoute = this.router.resolve(backPath);
-    return backRoute.meta.access === "internal"
+    backRoute.meta.access === "internal"
       ? this.router.back()
       : this.outline();
   }
@@ -61,6 +61,6 @@ export class Helmsman {
   }
 
   tags() {
-    return console.log("tags");
+    console.log("tags");
   }
 }

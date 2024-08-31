@@ -1,8 +1,9 @@
 import vue from "@vitejs/plugin-vue";
-import { URL, fileURLToPath } from "node:url";
+import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
+import checker from "vite-plugin-checker";
 
-const pathTo = path => fileURLToPath(new URL(path, import.meta.url));
+const pathTo = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
 export default defineConfig(() => {
   return {
@@ -13,7 +14,16 @@ export default defineConfig(() => {
       sourcemap: true,
     },
     envDir: "../",
-    plugins: [vue()],
+    plugins: [
+      vue(),
+      checker({
+        eslint: {
+          lintCommand: "eslint",
+          useFlatConfig: true
+        },
+        vueTsc: true,        
+      })
+    ],
     publicDir: "../assets",
     resolve: {
       alias: {
