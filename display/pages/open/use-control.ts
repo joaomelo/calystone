@@ -1,4 +1,4 @@
-export function useOpen() {
+export function useControl() {
   return {
     data: {},
     dispatch: () => null

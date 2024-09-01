@@ -1,5 +1,5 @@
 {
-  "name": "calystone",
+  "name": "outline",
   "version": "0.28.1",
   "main": "src/index.html",
   "type": "module",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joaomelo/calystone.git"
+    "url": "git+https://github.com/joaomelo/outline.git"
   },
   "author": "joão melo <j@melo.plus> (https://joao.melo.plus)",
   "dependencies": {
