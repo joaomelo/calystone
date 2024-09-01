@@ -2,19 +2,18 @@
 import { FrameFocus } from "@display/widgets";
 import { ButtonBase } from "@lib";
 
-// import { useControl } from "./use-control";
+import { useControl } from "./use-control";
 
-// const { data, dispacth } = useControl();
-// console.log(data, dispacth);
+const control = useControl();
 
-function handleOpen() {
-  console.log("open");
+async function handleOpen() {
+  const handle = await showDirectoryPicker();
+  control.dispatch.open({ handle });
 }
 
 function handleConnect() {
-  console.log("connect");
+  control.dispatch.connect();
 }
-
 </script>
 <template>
   <FrameFocus>

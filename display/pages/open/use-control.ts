@@ -1,6 +1,18 @@
 export function useControl() {
-  return {
-    data: {},
-    dispatch: () => null
+  const control = {
+    dispatch: {
+      connect,
+      open,
+    }
   };
+
+  return control;
+}
+
+function open(handle: FileSystemDirectoryHandle) {
+  console.log(handle);
+}
+
+function connect() {
+  console.log("connect");
 }

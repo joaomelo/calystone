@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import perfectionist from "eslint-plugin-perfectionist";
 import pluginVue from "eslint-plugin-vue";
+import globals from "globals";
 import { resolve } from "path";
 import tseslint from "typescript-eslint";
 
@@ -22,7 +23,8 @@ export default tseslint.config(
     rules: {
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off"
     }
   },
 
@@ -61,6 +63,9 @@ export default tseslint.config(
     // this line tells eslint to link the typescript service with all file types used by the project
     files: ["**/*.vue", "**/*.ts", "**/*.js"],
     languageOptions: {
+      globals: {
+        ...globals.browser
+      },
       parserOptions: {
         extraFileExtensions: [".vue"],
         parser: "@typescript-eslint/parser",
@@ -68,7 +73,7 @@ export default tseslint.config(
         projectService: true,
         sourceType: "module",
         tsconfigRootDir: resolve(import.meta.dirname)
-      },
+      }      
     },
   },  
 );
