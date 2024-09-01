@@ -4,10 +4,7 @@
 
 // const { helmsman } = useDependencies();
 // onMounted(() => helmsman.solve());
-console.log("teste");
-
 </script>
 <template>
-  <div>app.vue</div>
-  <!-- <router-view /> -->
+  <router-view />
 </template>

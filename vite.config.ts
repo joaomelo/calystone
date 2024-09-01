@@ -21,7 +21,10 @@ export default defineConfig(() => {
           lintCommand: "eslint",
           useFlatConfig: true
         },
-        vueTsc: true,        
+        overlay: {
+          initialIsOpen: false
+        },
+        vueTsc: true
       })
     ],
     publicDir: "../assets",
