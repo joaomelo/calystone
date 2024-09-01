@@ -1,5 +1,5 @@
 <script setup>
-import { placeArtifactBefore, listArtifacts, placeArtifactAfter, transferArtifact } from "@body";
+import { listArtifacts, placeArtifactAfter, placeArtifactBefore, transferArtifact } from "@body";
 import { ListBase, treeify, truncate, useDependencies } from "@lib";
 import { computed } from "vue";
 

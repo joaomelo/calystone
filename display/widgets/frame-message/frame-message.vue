@@ -1,12 +1,12 @@
 <script setup>
-import { FrameBase } from "../frame-base";
+import { FrameFocus } from "../frame-focus";
 </script>
 <template>
-  <frame-base>
+  <frame-focus>
     <div class="frame-message">
       <slot />
     </div>
-  </frame-base>
+  </frame-focus>
 </template>
 <style scoped>
 .frame-message {

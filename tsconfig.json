@@ -33,7 +33,19 @@
       ],
       "@main/*": [
         "./main/*"
-      ]
+      ],
+      "@data": [
+        "./data/index"
+      ],
+      "@display": [
+        "./display/index"
+      ],
+      "@lib": [
+        "./lib/index"
+      ],
+      "@main": [
+        "./main/index"
+      ],
     },
     "outDir": "./dist",
     "rootDir": "./",
@@ -48,7 +60,8 @@
     "./tests/**/*",
     "eslint.config.js",
     "vite.config.ts",
-    "cypress.config.js"
+    "cypress.config.js",
+    "global.d.ts"
   ],
   "exclude": [
     "node_modules",

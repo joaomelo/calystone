@@ -1,4 +1,4 @@
-import { createRouter } from "@display/router";
+import { createRouter } from "@display"; // this will also import the css styles
 import { name, version } from "@main/../package.json";
 import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
@@ -13,12 +13,6 @@ export function initApp(elementId: string) {
 
   app.use(PrimeVue, {
     theme: {
-      options: {
-        cssLayer: {
-          name: "primevue",
-          order: "tailwind-base, primevue, tailwind-utilities"
-        }
-      },
       preset: Aura
     }
   });

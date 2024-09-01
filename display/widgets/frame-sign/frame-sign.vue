@@ -1,7 +1,7 @@
 <script setup>
 import { TextHeading } from "@lib";
 
-import { FrameBase } from "../frame-base";
+import { FrameFocus } from "../frame-focus";
 
 defineProps({
   heading: {
@@ -23,7 +23,7 @@ defineProps({
 });
 </script>
 <template>
-  <frame-base>
+  <frame-focus>
     <div class="frame-auth">
       <text-heading class="frame-auth-title">
         calystone
@@ -43,7 +43,7 @@ defineProps({
         </router-link>
       </div>
     </div>
-  </frame-base>
+  </frame-focus>
 </template>
 <style scoped>
 .frame-auth {

@@ -4,7 +4,7 @@ import { FrameMessage } from "@view/smart";
 import { onMounted } from "vue";
 
 const { t } = useI18n();
-const { helmsman, gatekeeper } = useDependencies();
+const { gatekeeper, helmsman } = useDependencies();
 
 onMounted(async () => {
   const status = await gatekeeper.solveStatus();

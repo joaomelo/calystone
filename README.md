@@ -14,7 +14,9 @@ The composables will return either or both a reactive data object and a dispatch
 
 ### Styles
 
-Tailwind is used more to have a **consistent design token system** than to have its utility classes. If pure css is needed to layout that can be done in style scoped sections.
+Styles are guided by design tokens that came from the Prime Vue UI library (mainly colors) and from the Open Props library (mainly sizes).
+
+The project uses vanilla CSS with design tokens coming from custom properties. The project does not use utility classes even when available. That is way open props is used instead of TailwindCss.
 
 ## Data
 

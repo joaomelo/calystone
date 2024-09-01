@@ -6,8 +6,8 @@ export function useHandleDrag() {
   return ({ section, source, target }) => {
     const payload = { referenceId: target, sourceId: source };
     switch (section) {
-      case "top": return placeTagBefore(dependencies, payload);
       case "bottom": return placeTagAfter(dependencies, payload);
+      case "top": return placeTagBefore(dependencies, payload);
     }
   };
 }

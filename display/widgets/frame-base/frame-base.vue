@@ -1,4 +1,5 @@
-<script setup></script>
+<script setup lang="ts">
+</script>
 <template>
   <div class="frame-base">
     <slot />
@@ -6,18 +7,7 @@
 </template>
 <style scoped>
 .frame-base {
-  flex-grow: 1;
-
-  max-width: var(--size-85);
   min-height: 100vh;
-  margin: auto;
-
-  padding-block: var(--size-25);
-  padding-inline: var(--size-30);
-
-  background-color: var(--color-surface-10);
-
-  display: flex;
-  flex-direction: column;
+  background-color: var(--p-surface-100);
 }
 </style>
