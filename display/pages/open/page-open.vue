@@ -8,7 +8,7 @@ const control = useControl();
 
 async function handleOpen() {
   const handle = await showDirectoryPicker();
-  control.dispatch.open({ handle });
+  control.dispatch.open(handle);
 }
 
 function handleConnect() {
