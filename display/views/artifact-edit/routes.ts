@@ -1,10 +1,10 @@
-import type { DefineComponent } from "vue";
+import type { RouteRecordRaw } from "vue-router";
 
 import { PageOpen } from "@display/pages";
 
 const routeOpenName = "open";
-export const routeOpen = {
-  component: PageOpen as DefineComponent,
+export const routeOpen: RouteRecordRaw = {
+  component: PageOpen,
   name: routeOpenName,
   path: `/${routeOpenName}`,
 };

@@ -2,15 +2,48 @@
 
 ## Display
 
-### Pages and Composables
+The display layer takes care of the app UI. The main elements are routes, controls, pages and widgets.
 
-Pages no nothing about the app structure. They receive pure reactive data in the format they need. Transformations must happen before. They will foward user gestures as events to be proccessed by someone else.
+```mermaid
+graph TD;
+  subgraph display
+    subgraph views
+      subgraph A
+        routeA-->controlA;
+        controlA-->pageA;
+      end
+      subgraph B
+        routeB-->controlB;
+        controlB-->pageB;
+      end      
+    end
+    subgraph widgets
+      widgetX;
+    end
+  end
+  controlA-->data;
+  controlB-->data;
+  pageA-->widgetX;
+  pageB-->widgetX;
+```
 
-Every page has companion composable that will access the global state to transform and pass it to its views and also know about data functions and convert view events to proper data function calls.
+### Views
 
-This function are better than have control logic outside vue components. If the logic is the router or any non vue level it will loose the reactivity engine responsiviness.
+The top of the display vertical structure start at the route level. Routes are objects that define the SPA display entry points. The shape of the route objects are defined by the vue-router library API.
 
-The composables will return either or both a reactive data object and a dispatch function to process the event and returns nothing.
+The route will render a control component. The control component is the only level in the display module that knows about the app state. Controls are able to read from data and dispatch commands to it.
+
+Every route and control are followed by a page component. Pages are what the user see in the end. They know nothing the app state. All data they need they receive as props and every signal they send is done by events.
+
+They receive and send data in the shape they need. Transformations must happen at the control leve before.
+
+This three component structure easy maintence. Routes are a SPA tech requirement and are kept as simple as possible to reduce dependency. Pages are complex structures worried only about the UI requirements and only change by that motivation. Controls carry the burden of translating interfaces between display and data.
+
+Route, control and page are kept together inside the view folder divided by subfolder with the route names.
+
+### Widgets
+
+They are pages piecies reused by more than one page. They obey the same restriction as page components.
 
 ### Styles
 
