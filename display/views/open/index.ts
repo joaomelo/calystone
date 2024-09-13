@@ -1,1 +1,1 @@
-export { default as PageOpen } from "./page-open.vue";
+export * from "./route-open";

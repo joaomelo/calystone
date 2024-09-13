@@ -1,18 +1,24 @@
-export function useControl() {
-  const control = {
-    dispatch: {
-      connect,
-      open,
-    }
-  };
+<script setup lang="ts">
+import { useRouter } from "vue-router";
 
-  return control;
-}
+import { routeConnect } from "../connect";
+import { routeOutline } from "../outline";
+import PageOpen from "./page-open.vue";
 
-function open(handle: FileSystemDirectoryHandle) {
+const router = useRouter();
+
+function handleOpen(handle: FileSystemDirectoryHandle) {
   console.log(handle);
+  void router.push({ name: routeOutline.name });
 }
 
-function connect() {
-  console.log("connect");
+function handleConnect() {
+  void router.push({ name: routeConnect.name });
 }
+</script>
+<template>
+  <PageOpen
+    @open="handleOpen"
+    @connect="handleConnect"
+  />
+</template>

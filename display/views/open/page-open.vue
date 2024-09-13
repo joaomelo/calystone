@@ -3,19 +3,20 @@ import { useI18n } from "@display/i18n";
 import { FrameFocus } from "@display/widgets";
 import { ButtonBase } from "@lib";
 
-import { useControl } from "./use-control";
+const emit = defineEmits<{
+  connect: [],
+  open: [handle: FileSystemDirectoryHandle],
+}>();
 
 const { t } = useI18n();
 
-const control = useControl();
-
 async function handleOpen() {
   const handle = await showDirectoryPicker();
-  control.dispatch.open(handle);
+  emit("open", handle);
 }
 
 function handleConnect() {
-  control.dispatch.connect();
+  emit("connect");
 }
 </script>
 <template>

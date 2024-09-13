@@ -1,6 +1,6 @@
-<script setup>
-import { useI18n } from "@lib";
-import { FrameDashboard } from "@view/smart";
+<script setup lang="ts">
+// import { useI18n } from "@lib";
+// import { FrameDashboard } from "@view/smart";
 // import { computed } from "vue";
 
 // // import OutlineAdd from "./outline-add.vue";
@@ -14,14 +14,15 @@ import { FrameDashboard } from "@view/smart";
 //     type: String,
 //   },
 // });
-const { t } = useI18n();
+// const { t } = useI18n();
 
 // vue router coerces the parentId param to an empty string when the correct value should be null
 // const id = computed(() => props.parentId || null);
 </script>
 
 <template>
-  <frame-dashboard :title="t('shared.outline')">
+  <div>
+    <!-- <frame-dashboard :title="t('shared.outline')"> -->
     outline
     <!-- <outline-crumbs
       v-if="id"
@@ -33,5 +34,6 @@ const { t } = useI18n();
         <outline-item :id="item.value" />
       </template>
     </outline-items> -->
-  </frame-dashboard>
+  <!-- </frame-dashboard> -->
+  </div>
 </template>
