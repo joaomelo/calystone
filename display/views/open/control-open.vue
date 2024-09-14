@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { createFileSystem } from "@data";
 import { useRouter } from "vue-router";
 
 import { routeConnect } from "../connect";
@@ -8,7 +9,7 @@ import PageOpen from "./page-open.vue";
 const router = useRouter();
 
 function handleOpen(handle: FileSystemDirectoryHandle) {
-  console.log(handle);
+  const fileSystem = createFileSystem(handle);
   void router.push({ name: routeOutline.name });
 }
 
