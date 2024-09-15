@@ -36,7 +36,14 @@ export default tseslint.config(
     plugins: { "@stylistic": stylistic },
     rules: {
       "@stylistic/indent": ["error", 2],
-      "@stylistic/lines-between-class-members": ["error", "always"],
+      "@stylistic/lines-between-class-members": ["error", 
+        {
+          enforce: [
+            { blankLine: "always", next: "method", prev: "*" }
+          ],
+          "exceptAfterSingleLine": true
+        },        
+      ],
       "@stylistic/object-curly-newline": [
         "error",
         {

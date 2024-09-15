@@ -7,5 +7,9 @@ export abstract class Source {
     return this.artifacts;
   }
 
+  replace(artifacts: Artifact[]) {
+    this.artifacts = artifacts;
+  }
+
   abstract refresh(): Promise<void>;
 }

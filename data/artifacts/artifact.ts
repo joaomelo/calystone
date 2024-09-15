@@ -1,7 +1,18 @@
-type Type = "directory" | "file";
+type Kind = "directory" | "file";
 
-export interface Artifact {
+export class Artifact {
   readonly name: string;
-  readonly parent: Artifact | null;
-  readonly type: Type;
+  readonly kind: Kind;
+  readonly parent?: Artifact;
+  readonly children: Artifact[] = [];
+
+  constructor(name: string, type: Kind, parent?: Artifact) {
+    this.name = name;
+    this.kind = type;
+
+    if (parent) {
+      this.parent = parent;
+      parent.children.push(this);
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import { Source } from "../source";
+import { loadArtifacts } from "./load-artifacts";
 
 export class FileSystem extends Source {
   private rootHandle: FileSystemDirectoryHandle;
@@ -8,11 +9,8 @@ export class FileSystem extends Source {
     this.rootHandle = rootHandle;
   }
 
-  refresh(): Promise<void> {
-    this.artifacts.push(
-      { name: "other", parent: null, type: "directory" },
-      { name: "another", parent: null, type: "directory" },
-    );
-    return Promise.resolve();
+  async refresh() {
+    const artifacts = await loadArtifacts(this.rootHandle);
+    this.replace(artifacts);
   }
 };
