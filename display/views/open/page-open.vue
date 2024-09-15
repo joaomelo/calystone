@@ -4,7 +4,7 @@ import { FrameFocus } from "@display/widgets";
 import { ButtonBase } from "@lib";
 
 const emit = defineEmits<{
-  connect: [],
+  "go-connect": [],
   open: [handle: FileSystemDirectoryHandle],
 }>();
 
@@ -15,8 +15,8 @@ async function handleOpen() {
   emit("open", handle);
 }
 
-function handleConnect() {
-  emit("connect");
+function handleGoConnect() {
+  emit("go-connect");
 }
 </script>
 <template>
@@ -28,7 +28,7 @@ function handleConnect() {
     <p>or</p>
     <ButtonBase
       :label="t('connect')"
-      @click="handleConnect"
+      @click="handleGoConnect"
     />
   </FrameFocus>
 </template>

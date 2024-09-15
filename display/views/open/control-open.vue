@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createFileSystem } from "@data";
+import { FileSystem, useStore } from "@data";
 import { useRouter } from "vue-router";
 
 import { routeConnect } from "../connect";
@@ -7,19 +7,22 @@ import { routeOutline } from "../outline";
 import PageOpen from "./page-open.vue";
 
 const router = useRouter();
+const store = useStore();
 
 function handleOpen(handle: FileSystemDirectoryHandle) {
-  const fileSystem = createFileSystem(handle);
+  const fileSystem = new FileSystem(handle);
+  store.defineSource(fileSystem);
+
   void router.push({ name: routeOutline.name });
 }
 
-function handleConnect() {
+function handleGoConnect() {
   void router.push({ name: routeConnect.name });
 }
 </script>
 <template>
   <PageOpen
     @open="handleOpen"
-    @connect="handleConnect"
+    @go-connect="handleGoConnect"
   />
 </template>
