@@ -1,8 +1,7 @@
-import { type Source } from "../source";
+import { Source } from "../source";
 
-export class WebRtc implements Source{
-
-  listRoots(): string[] {
-    return [];
+export class WebRtc extends Source{
+  refresh(): Promise<void> {
+    return Promise.resolve();
   }
 };

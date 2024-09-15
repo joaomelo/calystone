@@ -1,13 +1,18 @@
-import { type Source } from "../source";
+import { Source } from "../source";
 
-export class FileSystem implements Source{
-  private root: FileSystemDirectoryHandle;
+export class FileSystem extends Source {
+  private rootHandle: FileSystemDirectoryHandle;
 
-  constructor(root: FileSystemDirectoryHandle) {
-    this.root = root;
+  constructor(rootHandle: FileSystemDirectoryHandle) {
+    super();
+    this.rootHandle = rootHandle;
   }
 
-  listRoots(): string[] {
-    return [];
+  refresh(): Promise<void> {
+    this.artifacts.push(
+      { name: "other", parent: null, type: "directory" },
+      { name: "another", parent: null, type: "directory" },
+    );
+    return Promise.resolve();
   }
 };

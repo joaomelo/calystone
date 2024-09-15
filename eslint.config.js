@@ -36,6 +36,7 @@ export default tseslint.config(
     plugins: { "@stylistic": stylistic },
     rules: {
       "@stylistic/indent": ["error", 2],
+      "@stylistic/lines-between-class-members": ["error", "always"],
       "@stylistic/object-curly-newline": [
         "error",
         {
@@ -45,6 +46,7 @@ export default tseslint.config(
           ObjectPattern: { consistent: true },
         },
       ],
+      "@stylistic/object-curly-spacing": ["error", "always"],
       "@stylistic/object-property-newline": ["error", { allowAllPropertiesOnSameLine: true }],
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": ["error", "always"],

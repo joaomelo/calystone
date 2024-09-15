@@ -14,4 +14,11 @@ export class Store {
   install(app: App) {
     installStore(this, app);
   }
+
+  retrieveSource() {
+    if (this.source === null) {
+      throw new Error("Source is not defined");
+    }
+    return this.source;
+  }
 }

@@ -1,71 +1,11 @@
 {
-  "compilerOptions": {
-    "noEmit": true,
-    "allowJs": false,
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
-    "noImplicitThis": true,
-    "strict": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "moduleResolution": "Bundler",
-    "esModuleInterop": true,
-    "skipLibCheck": false,
-    "jsx": "preserve",
-    "jsxImportSource": "vue",    
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./",
-    "paths": {
-      "@data/*": [
-        "./data/*"
-      ],
-      "@display/*": [
-        "./display/*"
-      ],
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@main/*": [
-        "./main/*"
-      ],
-      "@data": [
-        "./data/index"
-      ],
-      "@display": [
-        "./display/index"
-      ],
-      "@lib": [
-        "./lib/index"
-      ],
-      "@main": [
-        "./main/index"
-      ],
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
     },
-    "outDir": "./dist",
-    "rootDir": "./",
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": [
-    "./main/**/*",
-    "./data/**/*",
-    "./display/**/*",
-    "./lib/**/*",
-    "./tests/**/*",
-    "eslint.config.js",
-    "vite.config.ts",
-    "cypress.config.js",
-    "global.d.ts",
-    "**/*.vue"
-  ],
-  "exclude": [
-    "node_modules",
-    "./dist"
+    {
+      "path": "./tsconfig.configs.json"
+    }
   ]
 }

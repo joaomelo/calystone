@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "noEmit": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "isolatedModules": true,
+    "strictNullChecks": true
+  },
+  "include": [
+    "*.config.*",
+  ],
+  "exclude": [
+    "node_modules",
+    "./dist"
+  ]  
+}
