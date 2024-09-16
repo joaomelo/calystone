@@ -53,12 +53,19 @@ The project uses vanilla CSS with design tokens coming from custom properties. T
 
 ## Data
 
+### Patterns
+
+No classes. Promote complexity with excessive abstraction.
+
+Data is centralized in a global object.
+
+### Artifacts Representation
+
+Every artifact gains a UUID and its parent UUID upon retriaval this is done to decouple it from other istances and make manipulation freer.
+
 ### Store
 
-- Reads from the media layer.
-- Cache data. 
-- Control policies to auto update data.
-- Pass commands to the media layer to update the persistence.
+- keeps reactive data to use in views. computations should be done in controls combining computed with data function. global store stores the basic raw data inside reactive constructs
 
 ### Media
 

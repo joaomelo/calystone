@@ -1,3 +1,3 @@
 export * from "./artifacts";
-export * from "./sources";
+export * from "./file-system";
 export * from "./store";

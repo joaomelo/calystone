@@ -4,7 +4,7 @@ import { type Store } from "./store";
 
 const key: InjectionKey<Store> = Symbol("store");
 
-export function installStore(store: Store, app: App) {
+export function provideStore(store: Store, app: App) {
   app.provide(key, store);
 }
 

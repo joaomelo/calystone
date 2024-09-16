@@ -4,7 +4,6 @@ import { FrameFocus } from "@display/widgets";
 import { ButtonBase } from "@lib";
 
 const emit = defineEmits<{
-  "go-connect": [],
   open: [handle: FileSystemDirectoryHandle],
 }>();
 
@@ -14,21 +13,12 @@ async function handleOpen() {
   const handle = await showDirectoryPicker();
   emit("open", handle);
 }
-
-function handleGoConnect() {
-  emit("go-connect");
-}
 </script>
 <template>
   <FrameFocus>
     <ButtonBase
       :label="t('open-dir')"
       @click="handleOpen"
-    />
-    <p>or</p>
-    <ButtonBase
-      :label="t('connect')"
-      @click="handleGoConnect"
     />
   </FrameFocus>
 </template>
