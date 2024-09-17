@@ -1,18 +1,7 @@
-type Kind = "directory" | "file";
+import { type Handle } from "@data/handles";
 
-export class Artifact {
-  readonly name: string;
-  readonly kind: Kind;
-  readonly parent?: Artifact;
-  readonly children: Artifact[] = [];
-
-  constructor(name: string, type: Kind, parent?: Artifact) {
-    this.name = name;
-    this.kind = type;
-
-    if (parent) {
-      this.parent = parent;
-      parent.children.push(this);
-    }
-  }
-}
+export interface Artifact {
+  handle: Handle,
+  id: string,
+  parentId?: string,
+};

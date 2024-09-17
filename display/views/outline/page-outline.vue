@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Entry } from "@data";
+import { type Artifact } from "@data";
 // import { useI18n } from "@lib";
 // import { FrameDashboard } from "@view/smart";
 // import { computed } from "vue";
@@ -10,11 +10,11 @@ import { type Entry } from "@data";
 // // import OutlineItems from "./outline-items.vue";
 
 interface Props {
-  entries: Map<string, Entry>;
+  artifacts: Map<string, Artifact>;
   parentId?: string;
 }
 
-const { entries } = defineProps<Props>();
+const { artifacts } = defineProps<Props>();
 
 // const { t } = useI18n();
 
@@ -23,7 +23,7 @@ const { entries } = defineProps<Props>();
 <template>
   <div>
     <!-- <frame-dashboard :title="t('shared.outline')"> -->
-    <pre> {{ entries }}</pre>
+    <pre> {{ artifacts }}</pre>
     <!-- <outline-crumbs
       v-if="id"
       :id="id"

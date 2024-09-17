@@ -1,11 +1,11 @@
-import  { type Entry } from "@data/file-system";
+import  { type Artifact } from "@data/artifacts";
 import { reactive } from "vue";
 
 import { type Store } from "./store";
 
 export function createStore(): Store {
   return {
-    entries: reactive(new Map<string, Entry>()),
+    artifacts: reactive(new Map<string, Artifact>()),
     rootHandle: undefined
   };
 }

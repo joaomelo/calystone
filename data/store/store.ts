@@ -1,7 +1,7 @@
-import { type Entry } from "@data/file-system";
+import { type Artifact } from "@data/artifacts";
 import { type Reactive } from "vue";
 
 export interface Store {
-  readonly entries: Reactive<Map<string, Entry>>;
+  readonly artifacts: Reactive<Map<string, Artifact>>;
   rootHandle?: FileSystemDirectoryHandle;
 }

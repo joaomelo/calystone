@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createEntriesFrom, loadHandlesOf, useStore } from "@data";
+import { createArtifacts, loadHandlesOf, useStore } from "@data";
 import { routeOpen } from "@display/views/open";
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
@@ -23,15 +23,13 @@ const store = useStore();
 onMounted(async () => {
   const { rootHandle } = store;
   if (!rootHandle) return router.push(routeOpen.path);
-
-  const handles = await loadHandlesOf(rootHandle);
-  const entries = createEntriesFrom(handles);
-  entries.forEach(entry => store.entries.set(entry.id, entry));
+  const entries = await createArtifacts(loadHandlesOf(rootHandle));
+  entries.forEach(entry => store.artifacts.set(entry.id, entry));
 });
 </script>
 <template>
   <PageOutline
-    :entries="store.entries"
+    :artifacts="store.artifacts"
     :parent-id="safeParentId"
   />
 </template>
