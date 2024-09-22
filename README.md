@@ -36,52 +36,46 @@ Make the app moves. Transforma state from `data` to the format needed by `displa
 
 ## Display
 
-The display layer takes care of the app UI. The main sublayers are routes, controls, pages and widgets.
+The display layer takes care of the app UI. The main sublayers are `routes`, `views` and `widgets`.
 
 ```mermaid
-graph TD;
-  subgraph display
-    subgraph views
-      subgraph A
-        routeA-->controlA;
-        routeA-->controlX;
-        controlA-->pageA;
-        controlX-->frameX;
-      end
-      subgraph B
-        routeB-->controlB;
-        controlB-->pageB;
-      end      
-    end
-    subgraph widgets
-      widgetX;
-    end
+graph LR;
+  subgraph router
+    routeA;
+    routeB;
   end
-  controlA-->data;
-  controlB-->data;
-  pageA-->widgetX;
-  pageB-->widgetX;
+  subgraph views
+    pageX;
+    pageY;
+    frameW;
+  end
+  subgraph widgets
+    widgetP;
+  end
+  routeA --> pageX
+  routeA --> frameW
+  routeB --> pageY
+  pageX --> widgetP
+  frameW --> widgetP
 ```
 
-### Views
+### Routes
 
 The top of the display vertical structure start at the route level. Routes are objects that define the SPA display entry points. The shape of the route objects are defined by the vue-router library API.
 
-The route will render um or more control components. The control component is the only level in the display module that knows about the app overall state. Controls are able to read from data and dispatch commands to it.
+The route will render one or more view components. It can render a frame for a shared layout and then render the corresponding page.
 
-The route can combine controls from layout and specific features. Complex displays with multiple independent views can also be built with multiple controls also.
+### Views
 
-Every control is followed by a page component. Pages are what the user see in the end. They know nothing about the app state. All data they need they receive as props and every signal they send is done by events.
+Views are what the user see in the end. They know nothing about the app state. All data they need is received as props and every signal they send is done by events.
 
-They receive and send data in the shape they need. Transformations must happen at the control leve before.
+They receive and send data in the shape they need. Transformations must happen at the control level.
 
-This three component structure easy maintence. Routes are a SPA tech requirement and are kept as simple as possible to reduce dependency. Pages are complex structures worried only about the UI requirements and only change by that motivation. Controls carry the burden of translating interfaces between display and data.
-
-Route, control and page are kept together inside the view folder divided by subfolder with the route names.
+Views can be complex structures but will always worry only about the UI requirements and only change by that motivation. Controls carry the burden of translating interfaces between display and data.
 
 ### Widgets
 
-They are pages piecies reused by more than one page. They obey the same restriction as page components.
+They are view piecies reused by more than one page. They obey the same restriction as page components.
 
 ### Styles
 
@@ -97,26 +91,19 @@ No classes. Promote complexity with excessive abstraction.
 
 Data is centralized in a global object.
 
-## Domain
-
-Domain is a small module that represent the most universal data types related to the bussiness logic. This type are very simple and are meant to unify the basic understating of the app amog modules.
-
-These types are not meant to be flexible are adapt to very needs. The point here is simplicity and communality. Other modules will extedend themselves from the basic domain to futher implement their capacities.
-
 ### Artifacts Representation
 
 Every artifact gains a UUID and its parent UUID upon retriaval this is done to decouple it from other istances and make manipulation freer.
 
 ### Store
 
-- keeps reactive data to use in views. computations should be done in controls combining computed with data function. global store stores the basic raw data inside reactive constructs
+keeps reactive data to use in views. computations should be done in controls combining computed with data function. global store stores the basic raw data inside reactive constructs
 
-### Media
+## Domain
 
-- Process calls to persists data
-- Process calls to read data
+Domain is a small module that represent the most universal data types related to the bussiness logic. This type are very simple and are meant to unify the basic understating of the app amog modules.
 
-There are three implementations of the media interface: FileSystemMedia for primary machines, WebRtcMedia for connected machines like mobile and MemoryMedia (for testing).
+These types are not meant to be flexible are adapt to very needs. The point here is simplicity and communality. Other modules will extedend themselves from the basic domain to futher implement their capacities.
 
 ## Lib
 

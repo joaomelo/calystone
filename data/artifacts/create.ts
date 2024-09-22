@@ -1,7 +1,5 @@
-import { type Handle } from "@data/handles";
+import { type Artifact, type Handle } from "@domain";
 import { createId } from "@lib";
-
-import { type Artifact } from "./artifact";
 
 export function createArtifact(handle: Handle, parentId?: string): Artifact {
   const id = createId();

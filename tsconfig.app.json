@@ -22,6 +22,9 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
+      "@domain/*": [
+        "./domain/*"
+      ],
       "@data/*": [
         "./data/*"
       ],
@@ -33,6 +36,9 @@
       ],
       "@main/*": [
         "./main/*"
+      ],
+      "@domain": [
+        "./domain/index"
       ],
       "@data": [
         "./data/index"
@@ -55,6 +61,7 @@
   "include": [
     "./main/**/*",
     "./data/**/*",
+    "./domain/**/*",
     "./display/**/*",
     "./lib/**/*",
     "./tests/**/*",

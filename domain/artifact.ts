@@ -1,4 +1,4 @@
-import { type Handle } from "@data/handles";
+import { type Handle } from "./handle";
 
 export interface Artifact {
   handle: Handle,

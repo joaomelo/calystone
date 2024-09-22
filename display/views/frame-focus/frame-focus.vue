@@ -5,7 +5,7 @@ import LocaleSwitch from "./locale-switch.vue";
   <div class="frame-focus">
     <div class="frame-focus-content">
       <div class="frame-focus-content-controls">
-        <slot />
+        <router-view />
       </div>
       <LocaleSwitch />
     </div>

@@ -32,6 +32,7 @@ export default defineConfig(() => {
       alias: {
         "@data": pathTo("./data"),
         "@display": pathTo("./display"),
+        "@domain": pathTo("./domain"),
         "@lib": pathTo("./lib"),
         "@main": pathTo("./main"),
       },

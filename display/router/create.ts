@@ -1,14 +1,23 @@
-import { routeOpen, routeOutline } from "@display/views";
+import { FrameFocus, PageOpen } from "@display/views";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 export function createRouter() {
   const routes = [
-    { path: "/", redirect: routeOpen.path },
+    { path: "/", redirect: { name: "open" } },
 
-    routeOpen,
-    routeOutline,
+    {
+      children: [
+        {
+          component: PageOpen,
+          name: "open",
+          path: "open"
+        },
+      ],
+      component: FrameFocus,
+      path: "/out"
+    },
 
-    { path: "/:pathMatch(.*)*", redirect: routeOpen.path },
+    { path: "/:pathMatch(.*)*", redirect: { name: "open" } },
   ];
 
   const router = createVueRouter({ history: createWebHistory(), routes });

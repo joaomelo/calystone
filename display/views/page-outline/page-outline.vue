@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { type Artifact } from "@data";
-import { useI18n } from "@display/i18n";
-import { FrameDashboard } from "@display/widgets";
+// import { useI18n } from "@display/i18n";
 // import { FrameDashboard } from "@view/smart";
 // import { computed } from "vue";
 
@@ -17,14 +16,13 @@ interface Props {
 
 const { artifacts } = defineProps<Props>();
 
-const { t } = useI18n();
+// const { t } = useI18n();
 
 </script>
 
 <template>
   <div>
-    <FrameDashboard :title="t('outline')">
-      <pre> {{ artifacts }}</pre>
+    <pre> {{ artifacts }}</pre>
     <!-- <outline-crumbs
       v-if="id"
       :id="id"
@@ -35,6 +33,5 @@ const { t } = useI18n();
         <outline-item :id="item.value" />
       </template>
     </outline-items> -->
-    </FrameDashboard>
   </div>
 </template>

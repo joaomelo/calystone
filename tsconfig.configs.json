@@ -5,7 +5,9 @@
     "noImplicitThis": true,
     "strict": true,
     "isolatedModules": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
   },
   "include": [
     "*.config.*",
