@@ -1,9 +1,8 @@
-<script setup>
-import { useIsAtLeastLarge, useSideBarState } from "@lib";
+<script setup lang="ts">
+// import { useIsAtLeastLarge, useSideBarState } from "@lib";
 
-import { FrameFocus } from "../frame-focus";
-import FrameSide from "./frame-side.vue";
-import FrameTop from "./frame-top.vue";
+// import FrameTop from "./frame-top.vue";
+import DashboardNavigation from "./dashboard-navigation.vue";
 
 defineProps({
   title: {
@@ -12,28 +11,27 @@ defineProps({
   },
 });
 
-const isLarge = useIsAtLeastLarge();
-const sideBarState = useSideBarState(isLarge);
+// const isLarge = useIsAtLeastLarge();
+const isLarge = false;
+// const sideBarState = useSideBarState(isLarge);
 </script>
 <template>
-  <frame-focus>
-    <template #default>
-      <div
-        class="frame-dashboard"
-        :class="{ large: isLarge }"
-      >
-        <frame-side v-model="sideBarState" />
+  <div
+    class="frame-dashboard"
+    :class="{ large: isLarge }"
+  >
+    <DashboardNavigation />
+    <!-- <frame-side v-model="sideBarState" />
         <div class="frame-dashboard-content">
           <frame-top
             v-model="sideBarState"
             :title="title"
-          />
-          <slot />
-        </div>
-      </div>
-    </template>
-  </frame-focus>
+          /> -->
+    <slot />
+    <!-- </div> -->
+  </div>
 </template>
+
 <style scoped>
 .frame-dashboard {
   display: grid;

@@ -1,19 +1,23 @@
 <script setup lang="ts">
-import { FrameBase } from "../frame-base";
 import LocaleSwitch from "./locale-switch.vue";
 </script>
 <template>
-  <FrameBase>
-    <div class="frame-focus">
-      <div class="frame-focus-content">
+  <div class="frame-focus">
+    <div class="frame-focus-content">
+      <div class="frame-focus-content-controls">
         <slot />
       </div>
       <LocaleSwitch />
     </div>
-  </FrameBase>
+  </div>
 </template>
 <style scoped>
 .frame-focus {
+  min-height: 100vh;
+  background-color: var(--p-surface-100);
+}
+
+.frame-focus-content {
   min-height: 100vh;
   max-width: var(--size-15);
   margin: auto;
@@ -26,7 +30,7 @@ import LocaleSwitch from "./locale-switch.vue";
   background-color: var(--p-surface-0);
 }
 
-.frame-focus-content {
+.frame-focus-content-controls {
   flex-grow: 1;
   display: flex;
   flex-direction: column;

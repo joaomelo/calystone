@@ -1,25 +1,27 @@
 <script setup>
-import { SideBar, SideItem, SideSection, useDependencies, useI18n } from "@lib";
-import { name, version } from "@main/../package.json";
+import { SideBar } from "@lib";
+// import { SideBar, SideItem, SideSection, useDependencies, useI18n } from "@lib";
+// import { name, version } from "@main/../package.json";
 
-import { useEmail } from "./frame-side-email";
-import { useSignOut } from "./frame-side-sign-out";
+// import { useEmail } from "./frame-side-email";
+// import { useSignOut } from "./frame-side-sign-out";
 
-defineProps({
-  modelValue: {
-    required: true,
-    type: String,
-  },
-});
-defineEmits(["update:modelValue"]);
+// defineProps({
+//   modelValue: {
+//     required: true,
+//     type: String,
+//   },
+// });
+// defineEmits(["update:modelValue"]);
 
-const { helmsman } = useDependencies();
-const { t } = useI18n();
-const signOut = useSignOut();
-const email = useEmail();
+// const { helmsman } = useDependencies();
+// const { t } = useI18n();
+// const signOut = useSignOut();
+// const email = useEmail();
 </script>
 <template>
-  <side-bar
+  <SideBar>sidebar</SideBar>
+  <!-- <side-bar
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
   >
@@ -59,5 +61,5 @@ const email = useEmail();
     <side-section>
       <side-item :text="`v${version}`" />
     </side-section>
-  </side-bar>
+  </side-bar> -->
 </template>

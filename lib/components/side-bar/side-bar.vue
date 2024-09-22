@@ -1,46 +1,49 @@
-<script setup>
-import { computed, ref, watch } from "vue";
+<script setup lang="ts">
+// import { computed, ref, watch } from "vue";
 
-import { ButtonVeil } from "../button-veil";
-import { VisualIcon } from "../visual-icon";
+// import { ButtonVeil } from "../button-veil";
+// import { VisualIcon } from "../visual-icon";
 
-const props = defineProps({
-  modelValue: {
-    required: true,
-    type: String,
-    validator: value => ["closed", "fixed", "open"].includes(value),
-  },
-});
-const emit = defineEmits(["update:modelValue"]);
+// const props = defineProps({
+//   modelValue: {
+//     required: true,
+//     type: String,
+//     validator: value => ["closed", "fixed", "open"].includes(value),
+//   },
+// });
+// const emit = defineEmits(["update:modelValue"]);
 
-const popover = computed(() => (props.modelValue === "fixed" ? undefined : "auto"));
+// const popover = computed(() => (props.modelValue === "fixed" ? undefined : "auto"));
 
-const sideBar = ref();
-const handleToggle = ({ newState }) => {
-  if (newState !== props.modelValue) {
-    emit("update:modelValue", newState);
-  }
-};
-watch(
-  () => props.modelValue,
-  (value) => {
-    if (value === "fixed") return;
-    if (value === "open") {
-      sideBar.value.showPopover();
-    }
-    else {
-      sideBar.value.hidePopover();
-    }
-  },
-  {
-    flush: "post",
-  },
-);
+// const sideBar = ref();
+// const handleToggle = ({ newState }) => {
+//   if (newState !== props.modelValue) {
+//     emit("update:modelValue", newState);
+//   }
+// };
+// watch(
+//   () => props.modelValue,
+//   (value) => {
+//     if (value === "fixed") return;
+//     if (value === "open") {
+//       sideBar.value.showPopover();
+//     }
+//     else {
+//       sideBar.value.hidePopover();
+//     }
+//   },
+//   {
+//     flush: "post",
+//   },
+// );
 
-const handleClick = () => { emit("update:modelValue", "closed"); };
+// const handleClick = () => { emit("update:modelValue", "closed"); };
 </script>
 <template>
-  <aside
+  <div class="side-bar">
+    <slot />
+  </div>
+  <!-- <aside
     ref="sideBar"
     :popover="popover"
     class="side-bar"
@@ -59,7 +62,7 @@ const handleClick = () => { emit("update:modelValue", "closed"); };
       </button-veil>
       <slot />
     </div>
-  </aside>
+  </aside> -->
 </template>
 <style scoped>
 .side-bar {

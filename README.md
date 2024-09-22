@@ -1,8 +1,42 @@
 # Architecture
 
+## Layers
+
+```mermaid
+---
+title: main components
+---
+graph TD
+  main
+  subgraph core
+    direction LR
+    domain
+    display
+    control
+    data
+  end
+  lib
+  main --> core
+  main --> lib
+  core --> lib
+  display --> domain
+  control --> domain
+  control --> display
+  control --> data
+  data --> domain
+```
+
+## Main
+
+Starts the applicaton, initializes app level state and stablish runtime dependencies.
+
+## Control
+
+Make the app moves. Transforma state from `data` to the format needed by `display` and convert events from `display` in action calls to `data`.
+
 ## Display
 
-The display layer takes care of the app UI. The main elements are routes, controls, pages and widgets.
+The display layer takes care of the app UI. The main sublayers are routes, controls, pages and widgets.
 
 ```mermaid
 graph TD;
@@ -10,7 +44,9 @@ graph TD;
     subgraph views
       subgraph A
         routeA-->controlA;
+        routeA-->controlX;
         controlA-->pageA;
+        controlX-->frameX;
       end
       subgraph B
         routeB-->controlB;
@@ -31,9 +67,11 @@ graph TD;
 
 The top of the display vertical structure start at the route level. Routes are objects that define the SPA display entry points. The shape of the route objects are defined by the vue-router library API.
 
-The route will render a control component. The control component is the only level in the display module that knows about the app state. Controls are able to read from data and dispatch commands to it.
+The route will render um or more control components. The control component is the only level in the display module that knows about the app overall state. Controls are able to read from data and dispatch commands to it.
 
-Every route and control are followed by a page component. Pages are what the user see in the end. They know nothing the app state. All data they need they receive as props and every signal they send is done by events.
+The route can combine controls from layout and specific features. Complex displays with multiple independent views can also be built with multiple controls also.
+
+Every control is followed by a page component. Pages are what the user see in the end. They know nothing about the app state. All data they need they receive as props and every signal they send is done by events.
 
 They receive and send data in the shape they need. Transformations must happen at the control leve before.
 
@@ -59,6 +97,12 @@ No classes. Promote complexity with excessive abstraction.
 
 Data is centralized in a global object.
 
+## Domain
+
+Domain is a small module that represent the most universal data types related to the bussiness logic. This type are very simple and are meant to unify the basic understating of the app amog modules.
+
+These types are not meant to be flexible are adapt to very needs. The point here is simplicity and communality. Other modules will extedend themselves from the basic domain to futher implement their capacities.
+
 ### Artifacts Representation
 
 Every artifact gains a UUID and its parent UUID upon retriaval this is done to decouple it from other istances and make manipulation freer.
@@ -73,3 +117,9 @@ Every artifact gains a UUID and its parent UUID upon retriaval this is done to d
 - Process calls to read data
 
 There are three implementations of the media interface: FileSystemMedia for primary machines, WebRtcMedia for connected machines like mobile and MemoryMedia (for testing).
+
+## Lib
+
+Everything that don't need to be aware of bussiness rules (domain) and don't need runtime state goes here. All lib components also don't are aware of each others.
+
+Big lib means easy to mainting app.

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useI18n } from "@display/i18n";
 import { InputSelectButton } from "@lib";
 
