@@ -27,7 +27,7 @@ const isLarge = false;
             v-model="sideBarState"
             :title="title"
           /> -->
-    <slot />
+    <router-view />
     <!-- </div> -->
   </div>
 </template>

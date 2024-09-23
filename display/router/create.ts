@@ -1,4 +1,4 @@
-import { FrameFocus, PageOpen } from "@display/views";
+import { FrameDashboard, FrameFocus, PageOpen, PageOutline } from "@display/views";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 export function createRouter() {
@@ -15,6 +15,19 @@ export function createRouter() {
       ],
       component: FrameFocus,
       path: "/out"
+    },
+
+    {
+      children: [
+        {
+          component: PageOutline,
+          meta: { access: "internal" },
+          name: "outline",
+          path: "outline",
+        }
+      ],
+      component: FrameDashboard,
+      path: "/in"
     },
 
     { path: "/:pathMatch(.*)*", redirect: { name: "open" } },
