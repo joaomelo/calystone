@@ -1,4 +1,4 @@
-import  { type Artifact } from "@data/artifacts";
+import  { type Artifact } from "@domain";
 import { reactive } from "vue";
 
 import { type Store } from "./store";
