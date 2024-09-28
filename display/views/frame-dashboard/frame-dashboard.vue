@@ -2,7 +2,7 @@
 // import { useIsAtLeastLarge, useSideBarState } from "@lib";
 
 // import FrameTop from "./frame-top.vue";
-import DashboardNavigation from "./dashboard-navigation.vue";
+// import DashboardNavigation from "./dashboard-navigation.vue";
 
 defineProps({
   title: {
@@ -20,7 +20,8 @@ const isLarge = false;
     class="frame-dashboard"
     :class="{ large: isLarge }"
   >
-    <DashboardNavigation />
+    frame-dashboard
+    <!-- <DashboardNavigation /> -->
     <!-- <frame-side v-model="sideBarState" />
         <div class="frame-dashboard-content">
           <frame-top

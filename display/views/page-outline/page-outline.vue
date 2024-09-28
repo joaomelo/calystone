@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Artifact } from "@data";
+import { type Artifact } from "@domain";
 // import { useI18n } from "@display/i18n";
 // import { FrameDashboard } from "@view/smart";
 // import { computed } from "vue";
@@ -14,7 +14,7 @@ interface Props {
   parentId?: string;
 }
 
-const { artifacts } = defineProps<Props>();
+const { artifacts = [] } = defineProps<Props>();
 
 // const { t } = useI18n();
 

@@ -39,27 +39,23 @@ graph LR;
     routeA --> controlW;
     routeA --> routeA1 --> controlX;
     routeA --> routeA2 --> controlY;
-    routeB --> controlU;
+    routeB
   end
   subgraph views
     pageX;
     pageY;
     frameW;
-    pageU1;
-    pageU2;
+    pageU;
   end
   controlW --> frameW;
   controlX --> pageX;
   controlY --> pageY;
-  controlU --> pageU1;
-  controlU --> pageU2;
+  routeB --> pageU
 ```
 
 The top of the control structure starts at the route level. Routes are objects that define the SPA display entry points available to the user. The shape of the route objects are defined by the vue-router library API.
 
-The route will render a zero or one control components. Routes can have children route to enable control/view nesting. It can render a control for a frame in case of a shared layout and then a child route with the corresponding main page.
-
-Although uncommon, controls can also combine views to mount complex experiencies like muilti-step pages that need to share. 
+The route will render a zero or one control or view component. Routes can have children routes to enable control/view nesting. It can render a control for a frame in case of a shared layout and then a child route with the corresponding main page.
 
 ## Display
 

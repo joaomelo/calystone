@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { createArtifacts, loadHandlesOf, useStore } from "@data";
-import { routeOpen } from "@display/views/open";
+import { PageOutline } from "@display";
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-
-import PageOutline from "./page-outline.vue";
 
 interface Props {
   parentId?: string;
@@ -22,7 +20,7 @@ const store = useStore();
 
 onMounted(async () => {
   const { rootHandle } = store;
-  if (!rootHandle) return router.push(routeOpen.path);
+  if (!rootHandle) return router.push({ name: "open" });
   const entries = await createArtifacts(loadHandlesOf(rootHandle));
   entries.forEach(entry => store.artifacts.set(entry.id, entry));
 });

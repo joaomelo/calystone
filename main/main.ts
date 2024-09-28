@@ -1,4 +1,5 @@
-import { createI18n, createRouter } from "@display"; // this will also apply the css styles
+import { createI18n } from "@display"; // this will also apply the css styles
+import { createRouter } from "@control";
 import { createStore, provideStore } from "@data";
 import { name, version } from "@main/../package.json";
 import Aura from "@primevue/themes/aura";

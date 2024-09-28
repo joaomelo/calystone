@@ -1,5 +1,9 @@
-import { FrameDashboard, FrameFocus, PageOpen, PageOutline } from "@display/views";
+import { FrameFocus } from "@display";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
+
+import { ControlDashboard } from "../control-dashboard";
+import { ControlOpen } from "../control-open";
+import { ControlOutline } from "../control-outline";
 
 export function createRouter() {
   const routes = [
@@ -7,11 +11,7 @@ export function createRouter() {
 
     {
       children: [
-        {
-          component: PageOpen,
-          name: "open",
-          path: "open"
-        },
+        { component: ControlOpen, name: "open", path: "open" },
       ],
       component: FrameFocus,
       path: "/out"
@@ -19,14 +19,9 @@ export function createRouter() {
 
     {
       children: [
-        {
-          component: PageOutline,
-          meta: { access: "internal" },
-          name: "outline",
-          path: "outline",
-        }
+        { component: ControlOutline, meta: { access: "internal" }, name: "outline", path: "outline" }
       ],
-      component: FrameDashboard,
+      component: ControlDashboard,
       path: "/in"
     },
 

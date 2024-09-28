@@ -22,36 +22,18 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "@domain/*": [
-        "./domain/*"
-      ],
-      "@data/*": [
-        "./data/*"
-      ],
-      "@display/*": [
-        "./display/*"
-      ],
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@main/*": [
-        "./main/*"
-      ],
-      "@domain": [
-        "./domain/index"
-      ],
-      "@data": [
-        "./data/index"
-      ],
-      "@display": [
-        "./display/index"
-      ],
-      "@lib": [
-        "./lib/index"
-      ],
-      "@main": [
-        "./main/index"
-      ],
+      "@control": [ "./control/index" ],
+      "@control/*": [ "./control/*" ],
+      "@data": [ "./data/index" ],
+      "@data/*": [ "./data/*" ],
+      "@display": [ "./display/index" ],
+      "@display/*": [ "./display/*" ],
+      "@domain": [ "./domain/index" ],
+      "@domain/*": [ "./domain/*" ],
+      "@lib": [ "./lib/index" ],
+      "@lib/*": [ "./lib/*" ],
+      "@main": [ "./main/index" ],
+      "@main/*": [ "./main/*" ],
     },
     "outDir": "./dist",
     "rootDir": "./",
@@ -59,11 +41,12 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "./main/**/*",
+    "./control/**/*",
     "./data/**/*",
-    "./domain/**/*",
     "./display/**/*",
+    "./domain/**/*",
     "./lib/**/*",
+    "./main/**/*",
     "./tests/**/*",
     "global.d.ts",
     "**/*.vue"
