@@ -2,10 +2,9 @@
 
 ## Layers
 
+The arrows represent wich modules depends on. In that case the control module depends on the view module but the view knows nothing about the control.
+
 ```mermaid
----
-title: main components
----
 graph TD
   main
   subgraph core
@@ -32,18 +31,42 @@ Starts the applicaton, initializes app level state and stablish runtime dependen
 
 ## Control
 
-Make the app moves. Transforma state from `data` to the format needed by `display` and convert events from `display` in action calls to `data`.
-
-## Display
-
-The display layer takes care of the app UI. The main sublayers are `routes`, `views` and `widgets`.
+Make the app data moves to attend the user signals. It transforms state from `data` to the format needed by `display` and convert events triggered by the user in `display` into action calls to `data`.
 
 ```mermaid
 graph LR;
   subgraph router
-    routeA;
-    routeB;
+    routeA --> controlW;
+    routeA --> routeA1 --> controlX;
+    routeA --> routeA2 --> controlY;
+    routeB --> controlU;
   end
+  subgraph views
+    pageX;
+    pageY;
+    frameW;
+    pageU1;
+    pageU2;
+  end
+  controlW --> frameW;
+  controlX --> pageX;
+  controlY --> pageY;
+  controlU --> pageU1;
+  controlU --> pageU2;
+```
+
+The top of the control structure starts at the route level. Routes are objects that define the SPA display entry points available to the user. The shape of the route objects are defined by the vue-router library API.
+
+The route will render a zero or one control components. Routes can have children route to enable control/view nesting. It can render a control for a frame in case of a shared layout and then a child route with the corresponding main page.
+
+Although uncommon, controls can also combine views to mount complex experiencies like muilti-step pages that need to share. 
+
+## Display
+
+The display layer takes care of the app UI. The main sublayers are `views` and `widgets`.
+
+```mermaid
+graph LR;
   subgraph views
     pageX;
     pageY;
@@ -52,18 +75,9 @@ graph LR;
   subgraph widgets
     widgetP;
   end
-  routeA --> pageX
-  routeA --> frameW
-  routeB --> pageY
   pageX --> widgetP
   frameW --> widgetP
 ```
-
-### Routes
-
-The top of the display vertical structure start at the route level. Routes are objects that define the SPA display entry points. The shape of the route objects are defined by the vue-router library API.
-
-The route will render one or more view components. It can render a frame for a shared layout and then render the corresponding page.
 
 ### Views
 
