@@ -30,6 +30,7 @@ export default defineConfig(() => {
     publicDir: "../assets",
     resolve: {
       alias: {
+        "@control": pathTo("./control"),
         "@data": pathTo("./data"),
         "@display": pathTo("./display"),
         "@domain": pathTo("./domain"),

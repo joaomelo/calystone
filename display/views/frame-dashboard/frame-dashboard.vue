@@ -10,17 +10,18 @@ defineProps({
     type: String,
   },
 });
-
-// const isLarge = useIsAtLeastLarge();
-const isLarge = false;
-// const sideBarState = useSideBarState(isLarge);
 </script>
 <template>
-  <div
-    class="frame-dashboard"
-    :class="{ large: isLarge }"
-  >
-    frame-dashboard
+  <div class="frame-dashboard">
+    <nav class="frame-dashboard-top">
+      outline
+    </nav>
+    <aside class="frame-dashboard-side">
+      a
+    </aside>
+    <main class="frame-dashboard-main">
+      <router-view />
+    </main>
     <!-- <DashboardNavigation /> -->
     <!-- <frame-side v-model="sideBarState" />
         <div class="frame-dashboard-content">
@@ -28,26 +29,32 @@ const isLarge = false;
             v-model="sideBarState"
             :title="title"
           /> -->
-    <router-view />
+    
     <!-- </div> -->
   </div>
 </template>
 
 <style scoped>
 .frame-dashboard {
+  height: 100vh;
   display: grid;
-  /* the minmax prevents content inside the frame dashboard grid to blow its width away. https://css-tricks.com/preventing-a-grid-blowout/  */
-  grid-template-columns: minmax(0, 1fr);
-  column-gap: var(--size-40);
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "top top"
+    "side main";
+  overflow: hidden;
 }
 
-.frame-dashboard.large {
-  grid-template-columns: max-content minmax(0, 1fr);
+.frame-dashboard .frame-dashboard-top {
+  grid-area: top;
 }
 
-.frame-dashboard-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-25);
+.frame-dashboard .frame-dashboard-side {
+  grid-area: side;
+}
+
+.frame-dashboard .frame-dashboard-main {
+  grid-area: main;
 }
 </style>

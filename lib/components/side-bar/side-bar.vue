@@ -40,9 +40,9 @@
 // const handleClick = () => { emit("update:modelValue", "closed"); };
 </script>
 <template>
-  <div class="side-bar">
+  <aside class="side-bar">
     <slot />
-  </div>
+  </aside>
   <!-- <aside
     ref="sideBar"
     :popover="popover"

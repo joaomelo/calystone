@@ -20,7 +20,7 @@ import { SideBar } from "@lib";
 // const email = useEmail();
 </script>
 <template>
-  <SideBar />
+  <SideBar>sidebar</SideBar>
   <!-- <side-bar
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"

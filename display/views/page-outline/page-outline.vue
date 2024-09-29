@@ -14,7 +14,7 @@ interface Props {
   parentId?: string;
 }
 
-const { artifacts = [] } = defineProps<Props>();
+const { artifacts } = defineProps<Props>();
 
 // const { t } = useI18n();
 
