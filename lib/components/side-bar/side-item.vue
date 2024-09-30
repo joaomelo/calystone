@@ -1,7 +1,7 @@
-<script setup>
-import { computed, useAttrs } from "vue";
+<script setup lang="ts">
+// import { computed, useAttrs } from "vue";
 
-const props = defineProps({
+defineProps({
   active: {
     default: false,
     type: Boolean,
@@ -12,21 +12,18 @@ const props = defineProps({
   },
 });
 
-const { onClick } = useAttrs();
-const action = computed(() => onClick && !props.active);
-const content = computed(() => !onClick);
+// const { onClick } = useAttrs();
+// const action = computed(() => onClick && !props.active);
+// const content = computed(() => !onClick);
 </script>
 <template>
-  <div
-    class="side-item"
-    :class="{ action, content, active }"
-  >
+  <li class="side-item">
     {{ text }}
-  </div>
+  </li>
 </template>
 
 <style scoped>
-.side-item {
+/* .side-item {
   padding-block: var(--size-15);
   padding-inline: var(--size-30);
 }
@@ -45,5 +42,5 @@ const content = computed(() => !onClick);
 
 .side-item.active {
   text-decoration: underline;
-}
+} */
 </style>

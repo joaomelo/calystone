@@ -41,7 +41,12 @@
 </script>
 <template>
   <aside class="side-bar">
-    <slot />
+    <ul class="side-bar-items">
+      <slot name="default" />
+    </ul>
+    <ul class="side-bar-items">
+      <slot name="bottom" />
+    </ul>
   </aside>
   <!-- <aside
     ref="sideBar"
@@ -66,33 +71,19 @@
 </template>
 <style scoped>
 .side-bar {
-  margin: 0;
-  border: 0;
-}
+  border-right: var(--border-size-1) solid var(--p-surface-100);
 
-.side-bar:popover-open {
-  top: 0;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  padding-block-start: var(--size-20);
-  padding-inline: var(--size-30);
-}
+  padding-block: var(--size-4);
+  padding-inline: var(--size-2);
 
-.side-bar::backdrop {
-  background-color: var(--color-surface-70);
-  opacity: 0.9;
-}
-
-.side-bar-container {
   display: flex;
   flex-direction: column;
-  gap: var(--size-35);
+  justify-content: space-between;
 }
 
-.side-bar-close {
-  position: absolute;
-  top: var(--size-05);
-  right: var(--size-05);
+.side-bar-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
 }
 </style>

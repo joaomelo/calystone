@@ -8,10 +8,11 @@ html,
 body {
   min-height: 100vh;
   font-family: var(--font-industrial);
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
-html,
-body,
 p,
 h1,
 h2,
@@ -22,20 +23,11 @@ h6 {
   padding: 0;
   margin: 0;
   border: 0;
+  max-width: 65ch;
   line-height: 1.5;
   vertical-align: baseline;
   overflow-wrap: break-word;
-  -webkit-font-smoothing: antialiased;  
-}
-
-
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -47,16 +39,29 @@ h6 {
   text-wrap: balance;
 }
 
-p,
-li,
-figcaption {
+p {
   text-wrap: pretty;
-  max-width: 65ch;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
 }
 
 button {
@@ -69,9 +74,4 @@ textarea,
 select,
 fieldset {
   font: inherit;
-}
-
-ul[role='list'],
-ol[role='list'] {
-  list-style: none;
 }

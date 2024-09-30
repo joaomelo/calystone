@@ -1,5 +1,5 @@
 <script setup>
-// import { SideBar } from "@lib";
+import { SideBar, SideItem } from "@lib";
 // import { SideBar, SideItem, SideSection, useDependencies, useI18n } from "@lib";
 // import { name, version } from "@main/../package.json";
 
@@ -20,9 +20,17 @@
 // const email = useEmail();
 </script>
 <template>
-  <aside class="frame-dashboard-side">
-    a
-  </aside>
+  <SideBar>
+    <template #default>
+      <SideItem text="outline" />
+      <SideItem text="tags" />
+      <SideItem text="search" />
+      <SideItem text="preferences" />
+    </template>
+    <template #bottom>
+      <SideItem text="exit" />
+    </template>
+  </SideBar>
 
 <!-- <side-bar
     :model-value="modelValue"
