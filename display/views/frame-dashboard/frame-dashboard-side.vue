@@ -1,5 +1,5 @@
 <script setup>
-import { SideBar } from "@lib";
+// import { SideBar } from "@lib";
 // import { SideBar, SideItem, SideSection, useDependencies, useI18n } from "@lib";
 // import { name, version } from "@main/../package.json";
 
@@ -20,8 +20,11 @@ import { SideBar } from "@lib";
 // const email = useEmail();
 </script>
 <template>
-  <SideBar />
-  <!-- <side-bar
+  <aside class="frame-dashboard-side">
+    a
+  </aside>
+
+<!-- <side-bar
     :model-value="modelValue"
     @update:model-value="$emit('update:modelValue', $event)"
   >

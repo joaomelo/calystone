@@ -1,25 +1,12 @@
 <script setup lang="ts">
-// import { useIsAtLeastLarge, useSideBarState } from "@lib";
-
-// import DashboardNavigation from "./dashboard-navigation.vue";
+import FrameDashboardSide from "./frame-dashboard-side.vue";
 </script>
 <template>
   <div class="frame-dashboard">
-    <aside class="frame-dashboard-side">
-      a
-    </aside>
-    <main class="frame-dashboard-main">
+    <FrameDashboardSide />
+    <main>
       <router-view />
     </main>
-    <!-- <DashboardNavigation /> -->
-    <!-- <frame-side v-model="sideBarState" />
-        <div class="frame-dashboard-content">
-          <frame-top
-            v-model="sideBarState"
-            :title="title"
-          /> -->
-    
-    <!-- </div> -->
   </div>
 </template>
 
@@ -27,23 +14,7 @@
 .frame-dashboard {
   height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr;
   grid-template-columns: auto 1fr;
-  grid-template-areas:
-    "top top"
-    "side main";
   overflow: hidden;
-}
-
-.frame-dashboard .frame-dashboard-top {
-  grid-area: top;
-}
-
-.frame-dashboard .frame-dashboard-side {
-  grid-area: side;
-}
-
-.frame-dashboard .frame-dashboard-main {
-  grid-area: main;
 }
 </style>
