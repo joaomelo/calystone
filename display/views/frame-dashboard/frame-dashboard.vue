@@ -1,22 +1,10 @@
 <script setup lang="ts">
 // import { useIsAtLeastLarge, useSideBarState } from "@lib";
 
-import FrameDashboardTop from "./frame-dashboard-top.vue";
 // import DashboardNavigation from "./dashboard-navigation.vue";
-
-defineProps({
-  title: {
-    default: null,
-    type: String,
-  },
-});
 </script>
 <template>
   <div class="frame-dashboard">
-    <FrameDashboardTop
-      class="frame-dashboard-top"
-      :title="title"
-    />
     <aside class="frame-dashboard-side">
       a
     </aside>

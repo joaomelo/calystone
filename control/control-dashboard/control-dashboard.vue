@@ -2,5 +2,5 @@
 import { FrameDashboard } from "@display";
 </script>
 <template>
-  <FrameDashboard title="calystone" />
+  <FrameDashboard />
 </template>
