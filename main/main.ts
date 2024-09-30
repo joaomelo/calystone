@@ -4,6 +4,7 @@ import { createStore, provideStore } from "@data";
 import { name, version } from "@main/../package.json";
 import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
+import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
 
 import App from "./app.vue";
@@ -18,6 +19,7 @@ export function initApp(elementId: string) {
       preset: Aura
     }
   });
+  app.directive("tooltip", Tooltip);
 
   const router = createRouter();
   app.use(router);

@@ -22,13 +22,28 @@ import { SideBar, SideItem } from "@lib";
 <template>
   <SideBar>
     <template #default>
-      <SideItem text="outline" />
-      <SideItem text="tags" />
-      <SideItem text="search" />
-      <SideItem text="preferences" />
+      <SideItem
+        tooltip="outline"
+        icon="list-check"
+      />
+      <SideItem
+        icon="tags"
+        tooltip="tags"
+      />
+      <SideItem
+        icon="search"
+        tooltip="search"
+      />
+      <SideItem
+        icon="cog"
+        tooltip="preferences"
+      />
     </template>
     <template #bottom>
-      <SideItem text="exit" />
+      <SideItem
+        icon="sign-out"
+        tooltip="exit"
+      />
     </template>
   </SideBar>
 
