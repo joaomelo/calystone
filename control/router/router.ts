@@ -19,7 +19,12 @@ export function createRouter() {
 
     {
       children: [
-        { component: ControlOutline, meta: { access: "internal" }, name: "outline", path: "outline" }
+        { 
+          component: ControlOutline, 
+          meta: { access: "internal" }, 
+          name: "outline", 
+          path: "outline" 
+        }
       ],
       component: ControlDashboard,
       path: "/in"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import { useIsAtLeastLarge, useSideBarState } from "@lib";
 
-// import FrameTop from "./frame-top.vue";
+import FrameDashboardTop from "./frame-dashboard-top.vue";
 // import DashboardNavigation from "./dashboard-navigation.vue";
 
 defineProps({
@@ -13,9 +13,10 @@ defineProps({
 </script>
 <template>
   <div class="frame-dashboard">
-    <nav class="frame-dashboard-top">
-      outline
-    </nav>
+    <FrameDashboardTop
+      class="frame-dashboard-top"
+      :title="title"
+    />
     <aside class="frame-dashboard-side">
       a
     </aside>
