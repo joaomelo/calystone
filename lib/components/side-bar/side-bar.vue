@@ -1,43 +1,21 @@
 <script setup lang="ts">
-// import { computed, ref, watch } from "vue";
+import { computed } from "vue";
 
-// import { ButtonVeil } from "../button-veil";
-// import { VisualIcon } from "../visual-icon";
+import { provideProvider } from "./provider";
 
-// const props = defineProps({
-//   modelValue: {
-//     required: true,
-//     type: String,
-//     validator: value => ["closed", "fixed", "open"].includes(value),
-//   },
-// });
-// const emit = defineEmits(["update:modelValue"]);
+const { active } = defineProps<{
+  active: string
+}>();
+const emit = defineEmits<{
+  "update:active": [active: string]
+}>();
 
-// const popover = computed(() => (props.modelValue === "fixed" ? undefined : "auto"));
+const reactiveActive = computed(() => active);
 
-// const sideBar = ref();
-// const handleToggle = ({ newState }) => {
-//   if (newState !== props.modelValue) {
-//     emit("update:modelValue", newState);
-//   }
-// };
-// watch(
-//   () => props.modelValue,
-//   (value) => {
-//     if (value === "fixed") return;
-//     if (value === "open") {
-//       sideBar.value.showPopover();
-//     }
-//     else {
-//       sideBar.value.hidePopover();
-//     }
-//   },
-//   {
-//     flush: "post",
-//   },
-// );
-
-// const handleClick = () => { emit("update:modelValue", "closed"); };
+provideProvider({
+  active: reactiveActive,
+  "update:active": (value: string) => { emit("update:active", value); }
+});
 </script>
 <template>
   <aside class="side-bar">
@@ -48,26 +26,6 @@
       <slot name="bottom" />
     </ul>
   </aside>
-  <!-- <aside
-    ref="sideBar"
-    :popover="popover"
-    class="side-bar"
-    @toggle="handleToggle"
-  >
-    <div class="side-bar-container">
-      <button-veil
-        v-if="modelValue === 'open'"
-        class="side-bar-close"
-        @click="handleClick"
-      >
-        <visual-icon
-          name="close"
-          size="var(--size-30)"
-        />
-      </button-veil>
-      <slot />
-    </div>
-  </aside> -->
 </template>
 <style scoped>
 .side-bar {

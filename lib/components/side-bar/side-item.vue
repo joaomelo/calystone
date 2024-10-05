@@ -1,20 +1,28 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, toValue } from "vue";
 
-interface Props {
-  active?: boolean,
+import { useProvider } from "./provider";
+
+
+const { icon, id, title } = defineProps<{
   icon: string
-  tooltip?: string,
-}
-
-const { icon, tooltip } = defineProps<Props>();
+  id: string,
+  title: string,
+}>();
 
 const iconClass = computed(() => `pi pi-${icon}`);
+
+const provider = useProvider();
+function handleClick() {
+  provider["update:active"](id);
+}
 </script>
 <template>
   <li
-    v-tooltip="{ value: tooltip, showDelay: 500 }"
+    v-tooltip="{ value: title, showDelay: 500 }"
     class="side-item"
+    :class="{ active: toValue(provider.active) === id }"
+    @click="handleClick"
   >
     <i
       :class="iconClass"
@@ -38,5 +46,9 @@ const iconClass = computed(() => `pi pi-${icon}`);
 
 .side-item-icon {
   font-size: var(--font-size-4);
+}
+
+.side-item.active {
+  color: goldenrod;
 }
 </style>

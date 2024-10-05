@@ -1,9 +1,21 @@
 <script setup lang="ts">
+import { type Activity } from "@domain";
+
 import FrameDashboardSide from "./frame-dashboard-side.vue";
+
+defineProps<{
+  active: Activity
+}>();
+defineEmits<{
+  "update:active": [active: Activity]
+}>();
 </script>
 <template>
   <div class="frame-dashboard">
-    <FrameDashboardSide />
+    <FrameDashboardSide
+      :active="active"
+      @update:active="$emit('update:active', $event)"
+    />
     <main>
       <router-view />
     </main>
