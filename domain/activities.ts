@@ -6,6 +6,8 @@ export const ACTIVITIES = {
   TAGS: "tags"
 } as const;
 
+export const DEFAULT_ACTIVITY = ACTIVITIES.OUTLINE;
+
 export type Activity = typeof ACTIVITIES[keyof typeof ACTIVITIES];
 
 export function isActivity(id: string): id is Activity {

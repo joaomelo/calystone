@@ -1,12 +1,16 @@
-import { type UnwrapRef } from "vue";
+import { createArtifacts } from "@data/artifacts";
+import { loadHandlesOf } from "@data/handles";
 
 import { type Store } from "./store";
 
-export function setRoot(handle: UnwrapRef<Store["root"]>, store: Store) {
+export async function setRoot(handle: FileSystemDirectoryHandle, store: Store) {
   store.root.value = handle;
   store.artifacts.clear();
+  const artifacts = await createArtifacts(loadHandlesOf(handle));
+  artifacts.forEach(artifact => store.artifacts.set(artifact.id, artifact));
 }
 
 export function clearRoot(store: Store) {
-  setRoot(undefined, store);
+  store.root.value = undefined;
+  store.artifacts.clear();
 }

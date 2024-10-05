@@ -1,5 +1,5 @@
 import { FrameFocus } from "@display";
-import { ACTIVITIES } from "@domain";
+import { ACTIVITIES, DEFAULT_ACTIVITY } from "@domain";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 import { ControlDashboard } from "../control-dashboard";
@@ -11,7 +11,7 @@ import { ControlTags } from "../control-tags";
 
 export function createRouter() {
   const routes = [
-    { path: "/", redirect: { name: ACTIVITIES.OPEN } },
+    { path: "/", redirect: { name: DEFAULT_ACTIVITY } },
 
     {
       children: [
@@ -32,7 +32,7 @@ export function createRouter() {
       path: "/in"
     },
 
-    { path: "/:pathMatch(.*)*", redirect: { name: ACTIVITIES.OPEN } },
+    { path: "/:pathMatch(.*)*", redirect: { name: DEFAULT_ACTIVITY } },
   ];
 
   const router = createVueRouter({ history: createWebHistory(), routes });

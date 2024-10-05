@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { createArtifacts, loadHandlesOf, useStore } from "@data";
+import { useStore } from "@data";
 import { PageOutline } from "@display";
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 
 const { parentId } = defineProps<{
   parentId?: string;
@@ -13,13 +13,6 @@ const store = useStore();
 const safeParentId = computed<string | undefined>(() => {
   if (parentId === "") return undefined;
   return parentId;
-});
-
-onMounted(async () => {
-  const { root } = store;
-  if (!root.value) return;
-  const entries = await createArtifacts(loadHandlesOf(root.value));
-  entries.forEach(entry => store.artifacts.set(entry.id, entry));
 });
 </script>
 <template>
