@@ -1,0 +1,1 @@
+export { default as ControlTags } from "./control-tags.vue";

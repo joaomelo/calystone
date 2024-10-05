@@ -15,6 +15,7 @@
   "done": "done",
   "edit": "edit",
   "email": "email",
+  "exit": "exit",
   "focus": "focus",
   "have-account": "already have an account?",
   "locale": "locale",
@@ -30,7 +31,6 @@
   "save": "save",
   "search": "search",
   "sign-in": "sing in",
-  "sign-out": "sign out",
   "sign-up": "sing up",
   "tags": "tags",
   "wait": "please, wait while we try to recover your previous session"

@@ -1,0 +1,1 @@
+export { default as ControlPreferences } from "./control-preferences.vue";

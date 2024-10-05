@@ -15,6 +15,7 @@
   "done": "pronto",
   "edit": "editar",
   "email": "email",
+  "exit": "sair",
   "focus": "focar",
   "have-account": "já tem uma conta?",
   "locale": "idioma",
@@ -30,7 +31,6 @@
   "save": "salvar",
   "search": "buscar",
   "sign-in": "entrar",
-  "sign-out": "sair",
   "sign-up": "criar conta",
   "tags": "rótulos",
   "wait": "por favor, aguarde enquanto tentamos recuperar sua sessão anterior"

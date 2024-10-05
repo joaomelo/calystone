@@ -1,21 +1,22 @@
-<script setup>
-import {
-  ButtonBase,
-  FormBase,
-  InputSelect,
-  useDependencies,
-  useI18n,
-} from "@lib";
-import { FrameDashboard, goOutline } from "@view";
+<script setup lang="ts">
+// import {
+//   ButtonBase,
+//   FormBase,
+//   InputSelect,
+//   useDependencies,
+//   useI18n,
+// } from "@lib";
+// import { FrameDashboard, goOutline } from "@view";
 
-const { i18n, t } = useI18n();
-const dependencies = useDependencies();
+// const { i18n, t } = useI18n();
+// const dependencies = useDependencies();
 
-const handleI18n = locale => i18n.updateLocale(locale);
-const handleDone = () => goOutline(dependencies);
+// const handleI18n = locale => i18n.updateLocale(locale);
+// const handleDone = () => goOutline(dependencies);
 </script>
 <template>
-  <frame-dashboard :title="t('shared.preferences')">
+  <div>preferences</div>
+  <!-- <frame-dashboard :title="t('shared.preferences')">
     <form-base @submit="handleDone">
       <template #default>
         <input-select
@@ -33,5 +34,5 @@ const handleDone = () => goOutline(dependencies);
         />
       </template>
     </form-base>
-  </frame-dashboard>
+  </frame-dashboard> -->
 </template>

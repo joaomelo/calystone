@@ -1,48 +1,33 @@
-<script setup>
+<script setup lang="ts">
+import { useI18n } from "@display/i18n";
 import { SideBar, SideItem } from "@lib";
-// import { SideBar, SideItem, SideSection, useDependencies, useI18n } from "@lib";
-// import { name, version } from "@main/../package.json";
 
-// import { useEmail } from "./frame-side-email";
-// import { useSignOut } from "./frame-side-sign-out";
-
-// defineProps({
-//   modelValue: {
-//     required: true,
-//     type: String,
-//   },
-// });
-// defineEmits(["update:modelValue"]);
-
-// const { helmsman } = useDependencies();
-// const { t } = useI18n();
-// const signOut = useSignOut();
-// const email = useEmail();
+const { t } = useI18n();
 </script>
 <template>
-  <SideBar>
+  <SideBar :active="t('outline')">
     <template #default>
       <SideItem
-        tooltip="outline"
+        :title="t('outline')"
         icon="list-check"
       />
       <SideItem
         icon="tags"
-        tooltip="tags"
+        :title="t('tags')"
       />
       <SideItem
         icon="search"
-        tooltip="search"
+        :title="t('search')"
       />
       <SideItem
         icon="cog"
-        tooltip="preferences"
+        :title="t('preferences')"
       />
     </template>
     <template #bottom>
       <SideItem
         icon="sign-out"
-        tooltip="exit"
+        :title="t('exit')"
       />
     </template>
   </SideBar>
