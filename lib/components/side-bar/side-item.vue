@@ -13,7 +13,9 @@ const { icon, id, title } = defineProps<{
 const iconClass = computed(() => `pi pi-${icon}`);
 
 const provider = useProvider();
+const isActive = computed(() => id === toValue(provider.active));
 function handleClick() {
+  if (isActive.value) return;
   provider["update:active"](id);
 }
 </script>
@@ -21,7 +23,7 @@ function handleClick() {
   <li
     v-tooltip="{ value: title, showDelay: 500 }"
     class="side-item"
-    :class="{ active: toValue(provider.active) === id }"
+    :class="{ active: isActive }"
     @click="handleClick"
   >
     <i
@@ -37,18 +39,14 @@ function handleClick() {
 }
 
 .side-item:hover {
-  background-color: var(--color-surface-30);
+  color: var(--p-primary-400);
 }
 
 .side-item.active {
-  text-decoration: underline;
+  color: var(--p-primary-500);
 }
 
 .side-item-icon {
   font-size: var(--font-size-4);
-}
-
-.side-item.active {
-  color: goldenrod;
 }
 </style>
