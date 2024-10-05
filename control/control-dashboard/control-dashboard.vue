@@ -1,11 +1,23 @@
 <script setup lang="ts">
+import { clearRoot, useStore } from "@data";
 import { FrameDashboard } from "@display";
 import { ACTIVITIES, type Activity, isActivity } from "@domain";
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
+const store = useStore();
+
+watch(
+  () => store.root,
+  (root) => {
+    if (root.value === undefined) {
+      void router.push({ name: ACTIVITIES.OPEN });
+    }
+  },
+  { immediate: true }
+);
 
 const active = computed(() => {
   if (!route.name) return ACTIVITIES.OUTLINE;
@@ -15,6 +27,10 @@ const active = computed(() => {
 });
 
 function handleUpdateActive(name: Activity) {
+  if (name === ACTIVITIES.OPEN) {
+    clearRoot(store);
+    return;
+  }
   void router.push({ name });
 }
 </script>

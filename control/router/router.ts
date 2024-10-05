@@ -1,4 +1,5 @@
 import { FrameFocus } from "@display";
+import { ACTIVITIES } from "@domain";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 import { ControlDashboard } from "../control-dashboard";
@@ -10,11 +11,11 @@ import { ControlTags } from "../control-tags";
 
 export function createRouter() {
   const routes = [
-    { path: "/", redirect: { name: "open" } },
+    { path: "/", redirect: { name: ACTIVITIES.OPEN } },
 
     {
       children: [
-        { component: ControlOpen, name: "open", path: "open" },
+        { component: ControlOpen, ...nameAndPath(ACTIVITIES.OPEN) },
       ],
       component: FrameFocus,
       path: "/out"
@@ -22,38 +23,22 @@ export function createRouter() {
 
     {
       children: [
-        { 
-          component: ControlOutline, 
-          meta: { access: "internal" }, 
-          name: "outline", 
-          path: "outline" 
-        },
-        { 
-          component: ControlPreferences, 
-          meta: { access: "internal" }, 
-          name: "preferences", 
-          path: "preferences" 
-        },
-        { 
-          component: ControlSearch, 
-          meta: { access: "internal" }, 
-          name: "search", 
-          path: "search" 
-        },
-        { 
-          component: ControlTags, 
-          meta: { access: "internal" }, 
-          name: "tags", 
-          path: "tags" 
-        }
+        { component: ControlOutline, ...nameAndPath(ACTIVITIES.OUTLINE) },
+        { component: ControlPreferences, ...nameAndPath(ACTIVITIES.PREFERENCES) },
+        { component: ControlSearch, ...nameAndPath(ACTIVITIES.SEARCH) },
+        { component: ControlTags, ...nameAndPath(ACTIVITIES.TAGS) }
       ],
       component: ControlDashboard,
       path: "/in"
     },
 
-    { path: "/:pathMatch(.*)*", redirect: { name: "open" } },
+    { path: "/:pathMatch(.*)*", redirect: { name: ACTIVITIES.OPEN } },
   ];
 
   const router = createVueRouter({ history: createWebHistory(), routes });
   return router;
+}
+
+function nameAndPath(base: string) {
+  return { name: base, path: base };
 }

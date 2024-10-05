@@ -2,12 +2,12 @@
 import { createArtifacts, loadHandlesOf, useStore } from "@data";
 import { PageOutline } from "@display";
 import { computed, onMounted } from "vue";
-import { useRouter } from "vue-router";
 
-interface Props {
+const { parentId } = defineProps<{
   parentId?: string;
-}
-const { parentId } = defineProps<Props>();
+}>();
+
+const store = useStore();
 
 // vue router coerces the parentId param to an empty string when the correct value should be null or undefined
 const safeParentId = computed<string | undefined>(() => {
@@ -15,13 +15,10 @@ const safeParentId = computed<string | undefined>(() => {
   return parentId;
 });
 
-const router = useRouter();
-const store = useStore();
-
 onMounted(async () => {
-  const { rootHandle } = store;
-  if (!rootHandle) return router.push({ name: "open" });
-  const entries = await createArtifacts(loadHandlesOf(rootHandle));
+  const { root } = store;
+  if (!root.value) return;
+  const entries = await createArtifacts(loadHandlesOf(root.value));
   entries.forEach(entry => store.artifacts.set(entry.id, entry));
 });
 </script>
