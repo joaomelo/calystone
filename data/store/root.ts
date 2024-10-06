@@ -1,12 +1,14 @@
 import { createArtifacts } from "@data/artifacts";
-import { loadHandlesOf } from "@data/handles";
+import { loadHandlesOf } from "@lib";
 
 import { type Store } from "./store";
 
 export async function setRoot(handle: FileSystemDirectoryHandle, store: Store) {
   store.root.value = handle;
   store.artifacts.clear();
-  const artifacts = await createArtifacts(loadHandlesOf(handle));
+
+  const handles = await loadHandlesOf(handle);
+  const artifacts = createArtifacts(handles);
   artifacts.forEach(artifact => store.artifacts.set(artifact.id, artifact));
 }
 

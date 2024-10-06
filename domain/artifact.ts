@@ -1,7 +1,7 @@
-import { type Handle } from "./handle";
+import { type Handle, type Id } from "@lib";
 
 export interface Artifact {
   handle: Handle,
-  id: string,
-  parentId?: string,
+  id: Id,
+  parentId?: Id,
 };

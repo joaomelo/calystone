@@ -1,4 +1,4 @@
-import { type Handle } from "@domain";
+import { type Handle } from "./handle";
 
 export async function loadHandlesOf(source: FileSystemDirectoryHandle): Promise<Handle[]> {
   const handles: Handle[] = [];

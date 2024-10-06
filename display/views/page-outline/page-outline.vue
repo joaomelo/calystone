@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { type Artifact } from "@domain";
+import { type TreeNode } from "@lib";
+import { type MaybeRefOrGetter } from "vue";
 // import { useI18n } from "@display/i18n";
 // import { FrameDashboard } from "@view/smart";
 // import { computed } from "vue";
@@ -9,12 +11,9 @@ import { type Artifact } from "@domain";
 // // import OutlineItem from "./outline-item.vue";
 // // import OutlineItems from "./outline-items.vue";
 
-interface Props {
-  artifacts: Map<string, Artifact>;
-  parentId?: string;
-}
-
-const { artifacts } = defineProps<Props>();
+const { artifacts } = defineProps<{
+  artifacts: MaybeRefOrGetter<TreeNode<Artifact>[]>;
+}>();
 
 // const { t } = useI18n();
 
