@@ -1,4 +1,4 @@
-import { clone } from "../objects";
+import { clone } from "@joaomelo/objects";
 
 type MaybeArray<T> = null | T | T[] | undefined;
 
