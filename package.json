@@ -1,25 +1,32 @@
 {
   "name": "calystone",
   "version": "0.28.1",
-  "main": "src/index.html",
+  "license": "MIT",
+  "description": "self management system based on your file system",
+  "keywords": [
+    "local-first",
+    "todo",
+    "file-system"
+  ],
   "type": "module",
-  "scripts": {
-    "start": "npm run dev",
-    "dev": "vite",
-    "test": "npm run lint && npm run test:unit && npm run test:e2e:run",
-    "test:unit": "vitest run",
-    "test:e2e:open": "concurrently -s \"first\" -k \"npm run dev\" \"npm run dev:ready && cypress open --e2e --browser chrome\"",
-    "test:e2e:run": "concurrently -s \"first\" -k \"npm run dev\" \"npm run dev:ready && cypress run --e2e\"",
-    "lint": "eslint --fix",
-    "build": "vite build",
-    "deploy": "firebase deploy",
-    "release": "release-it --ci --verbose"
-  },
+  "main": "main/index.html",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/joaomelo/calystone.git"
   },
   "author": "joão melo <j@melo.plus> (https://joao.melo.plus)",
+  "scripts": {
+    "start": "npm run dev",
+    "test": "concurrently -s \"first\" -k \"npm run dev\" \"vitest\" \"cypress open --e2e --browser chrome\"",
+    "release": "npm run lint && npm run test && release-it --ci --verbose",
+    "dev": "vite",
+    "test:run": "npm run test:unit && npm run test:e2e:run",
+    "test:run:unit": "vitest run",
+    "test:run:e2e": "concurrently -s \"first\" -k \"npm run dev\" \"cypress run --e2e\"",
+    "lint": "eslint",
+    "build": "vite build",
+    "readme": "readme"
+  },
   "dependencies": {
     "@codemirror/autocomplete": "^6.11.1",
     "@codemirror/commands": "^6.3.2",
@@ -27,7 +34,9 @@
     "@codemirror/language": "^6.9.3",
     "@codemirror/state": "^6.3.3",
     "@codemirror/view": "^6.22.3",
+    "@joaomelo/css": "^0.2.1",
     "@joaomelo/objects": "^0.0.8",
+    "@joaomelo/trees": "^0.1.2",
     "@primevue/themes": "^4.0.5",
     "fuse.js": "^7.0.0",
     "lodash.clonedeep": "^4.5.0",
@@ -41,6 +50,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
+    "@joaomelo/lint": "^0.2.2",
+    "@joaomelo/readme": "^1.0.1",
     "@release-it/conventional-changelog": "^8.0.1",
     "@stylistic/eslint-plugin": "^2.8.0",
     "@types/eslint__js": "^8.42.3",

@@ -1,7 +1,8 @@
 {
   "git": {
     "tagName": "v${version}",
-    "commitMessage": "chore[no ci]: release v${version}"
+    "commitMessage": "chore[no ci]: release v${version}",
+    "addUntrackedFiles": true
   },
   "npm": {
     "skipChecks": true,
@@ -12,9 +13,14 @@
   },
   "plugins": {
     "@release-it/conventional-changelog": {
-      "preset": {
-        "name": "conventionalcommits"
+      "preset": "conventionalcommits",
+      "infile": "CHANGELOG.md",
+      "parserOpts": {
+        "mergePattern": "^merge pull request #(\\d+) from (.*)$"
       }
     }
+  },
+  "hooks": {
+    "after:bump": ["npm run readme"]
   }
 }

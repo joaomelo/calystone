@@ -1,6 +1,4 @@
-# calystone
-
-self management system based on your file system
+{{{name}}} {{description}}
 
 # Architecture
 
