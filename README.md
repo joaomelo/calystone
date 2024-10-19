@@ -1,6 +1,6 @@
-# calystone
+# Calystone
 
-self management system based on your file system
+Self management system based on your file system.
 
 # Architecture
 

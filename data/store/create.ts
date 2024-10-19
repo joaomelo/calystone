@@ -1,4 +1,4 @@
-import  { type Artifact } from "@domain";
+import { type Artifact } from "@domain";
 import { type Id, treeify } from "@lib";
 import { computed, reactive, ref } from "vue";
 

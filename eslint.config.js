@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import perfectionist from "eslint-plugin-perfectionist";
@@ -7,6 +9,8 @@ import { resolve } from "path";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
+  { ignores: ["dist", ".legacy"] },
+
   // javascript
   js.configs.recommended,
   {
@@ -19,15 +23,6 @@ export default tseslint.config(
   // typescript
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
-  {
-    rules: {
-      "@typescript-eslint/no-unnecessary-condition": "off",
-      "@typescript-eslint/no-unsafe-argument": "off",
-      "@typescript-eslint/no-unsafe-assignment": "off",
-      "@typescript-eslint/no-unsafe-call": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off"
-    }
-  },
 
   // vue
   ...pluginVue.configs["flat/recommended"],
@@ -65,6 +60,7 @@ export default tseslint.config(
       "@stylistic/operator-linebreak": ["error", "before"],
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": ["error", "always"],
+      "@stylistic/type-generic-spacing": ["error"]
     }
   },  
   perfectionist.configs["recommended-natural"],
