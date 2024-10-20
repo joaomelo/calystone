@@ -32,9 +32,5 @@ import LocaleSwitch from "./locale-switch.vue";
 
 .frame-focus-content-controls {
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 </style>
