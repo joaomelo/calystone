@@ -1,6 +1,6 @@
 <script setup>
-import { getTag } from "@body";
-import { useDependencies } from "@lib";
+import { getTag } from "@/body";
+import { useDependencies } from "@/lib";
 import { computed } from "vue";
 
 import PageTagsItemActions from "./page-tags-item-actions.vue";

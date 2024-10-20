@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type Artifact } from "@domain";
-import { type TreeNode } from "@lib";
+import { type Artifact } from "@/domain";
+import { type TreeNode } from "@/lib";
 import { type MaybeRefOrGetter } from "vue";
-// import { useI18n } from "@display/i18n";
-// import { FrameDashboard } from "@view/smart";
+// import { useI18n } from "@/display/i18n";
+// import { FrameDashboard } from "@/view/smart";
 // import { computed } from "vue";
 
 // // import OutlineAdd from "./outline-add.vue";

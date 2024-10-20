@@ -1,7 +1,7 @@
-import { createI18n } from "@display"; // this will also apply the css styles
-import { createRouter } from "@control";
-import { createStore, provideStore } from "@data";
-import { name, version } from "@main/../package.json";
+import { createI18n } from "@/display"; // this will also apply the css styles
+import { name, version } from "@/../package.json";
+import { createRouter } from "@/control";
+import { createStore, provideStore } from "@/data";
 import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
@@ -10,8 +10,11 @@ import { createApp } from "vue";
 import App from "./app.vue";
 
 export function initApp(elementId: string) {
+  if (typeof name !== "string" || typeof version!== "string") throw new Error("Invalid package.json");
+
   console.info(`${name} v${version}`);
 
+  
   const app = createApp(App);
 
   app.use(PrimeVue, {

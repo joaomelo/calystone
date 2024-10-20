@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { clearRoot, useStore } from "@data";
-import { FrameDashboard } from "@display";
-import { ACTIVITIES, type Activity, DEFAULT_ACTIVITY, isActivity } from "@domain";
+import { clearRoot, useStore } from "@/data";
+import { FrameDashboard } from "@/display";
+import { ACTIVITIES, type Activity, DEFAULT_ACTIVITY, isActivity } from "@/domain";
 import { computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 

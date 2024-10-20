@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// import { useI18n } from "@lib";
-// import { FrameDashboard } from "@view/smart";
+// import { useI18n } from "@/lib";
+// import { FrameDashboard } from "@/view/smart";
 
 // import PageTagsAdd from "./page-tags-add.vue";
 // import PageTagsItem from "./page-tags-item.vue";

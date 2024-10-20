@@ -1,6 +1,6 @@
 <script setup>
-import { editTag } from "@body";
-import { InputCamo, useDependencies } from "@lib";
+import { editTag } from "@/body";
+import { InputCamo, useDependencies } from "@/lib";
 
 const props = defineProps({
   tag: {

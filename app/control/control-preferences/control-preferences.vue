@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PagePreferences } from "@display";
+import { PagePreferences } from "@/display";
 </script>
 <template>
   <PagePreferences />

@@ -1,6 +1,6 @@
 <script setup>
-import { delTag } from "@body";
-import { ActionsMenu, MenuItem, useDependencies, useI18n } from "@lib";
+import { delTag } from "@/body";
+import { ActionsMenu, MenuItem, useDependencies, useI18n } from "@/lib";
 
 import { goTagArtifacts } from "../page-tag-artifacts";
 

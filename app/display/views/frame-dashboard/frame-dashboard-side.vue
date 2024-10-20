@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useI18n } from "@display/i18n";
-import { ACTIVITIES, type Activity, isActivity } from "@domain";
-import { SideBar, SideItem } from "@lib";
+import { useI18n } from "@/display/i18n";
+import { ACTIVITIES, type Activity, isActivity } from "@/domain";
+import { SideBar, SideItem } from "@/lib";
 
 defineProps<{
   active: Activity

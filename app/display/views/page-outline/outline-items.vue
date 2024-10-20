@@ -1,6 +1,6 @@
 <script setup>
-import { listArtifacts, placeArtifactAfter, placeArtifactBefore, transferArtifact } from "@body";
-import { ListBase, treeify, truncate, useDependencies } from "@lib";
+import { listArtifacts, placeArtifactAfter, placeArtifactBefore, transferArtifact } from "@/body";
+import { ListBase, treeify, truncate, useDependencies } from "@/lib";
 import { computed } from "vue";
 
 const props = defineProps({

@@ -1,5 +1,5 @@
-import { FrameFocus } from "@display";
-import { ACTIVITIES, DEFAULT_ACTIVITY } from "@domain";
+import { FrameFocus } from "@/display";
+import { ACTIVITIES, DEFAULT_ACTIVITY } from "@/domain";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 import { ControlDashboard } from "../control-dashboard";

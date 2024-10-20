@@ -1,6 +1,6 @@
 <script setup>
-import { addTag } from "@body";
-import { ButtonBase, FormBase, InputText, useI18n, useTask } from "@lib";
+import { addTag } from "@/body";
+import { ButtonBase, FormBase, InputText, useI18n, useTask } from "@/lib";
 
 const { t } = useI18n();
 

@@ -1,6 +1,6 @@
 <script setup>
-import { listTags } from "@body";
-import { ListBase, useDependencies } from "@lib";
+import { listTags } from "@/body";
+import { ListBase, useDependencies } from "@/lib";
 import { computed } from "vue";
 
 import { useHandleDrag } from "./use-handle-drag";

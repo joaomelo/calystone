@@ -1,4 +1,4 @@
-import { type Handle, type Id } from "@lib";
+import { type Handle, type Id } from "@/lib";
 
 export interface Artifact {
   handle: Handle,

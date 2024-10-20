@@ -5,8 +5,8 @@
 //   InputSelect,
 //   useDependencies,
 //   useI18n,
-// } from "@lib";
-// import { FrameDashboard, goOutline } from "@view";
+// } from "@/lib";
+// import { FrameDashboard, goOutline } from "@/view";
 
 // const { i18n, t } = useI18n();
 // const dependencies = useDependencies();

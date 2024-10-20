@@ -1,6 +1,6 @@
 <script setup>
-import { searchArtifacts } from "@body";
-import { ListBase, truncate, useDependencies } from "@lib";
+import { searchArtifacts } from "@/body";
+import { ListBase, truncate, useDependencies } from "@/lib";
 import { computed } from "vue";
 
 const props = defineProps({

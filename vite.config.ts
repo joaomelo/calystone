@@ -1,20 +1,22 @@
 import vue from "@vitejs/plugin-vue";
+import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 
 const root = "./app/main";
-const pathBasedOnProject = (path: string) => "../../" + path;
-const pathsBasedOnProject = (paths: string[]) => paths.map(pathBasedOnProject);
+const pathBasedOnRootStartinAtProject = (path: string) => "../../" + path;
+const pathsBasedOnRootStartinAtProject = (paths: string[]) => paths.map(pathBasedOnRootStartinAtProject);
+const pathBasedOnCofingStartingAtProject = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
 export default defineConfig(() => {
   return {
     build: {
       assetsDir: ".",
       emptyOutDir: true,
-      outDir: pathBasedOnProject("dist"),
+      outDir: pathBasedOnRootStartinAtProject("dist"),
       sourcemap: true,
     },
-    envDir: pathBasedOnProject(""),
+    envDir: pathBasedOnRootStartinAtProject(""),
     plugins: [
       vue(),
       checker({
@@ -28,10 +30,10 @@ export default defineConfig(() => {
         vueTsc: true
       })
     ],
-    publicDir: pathBasedOnProject("app/display/assets"),
+    publicDir: pathBasedOnRootStartinAtProject("app/display/assets"),
     resolve: {
       alias: {
-        "@": "./app",
+        "@": pathBasedOnCofingStartingAtProject("app"),
       },
     },
     root,
@@ -40,8 +42,8 @@ export default defineConfig(() => {
       strictPort: true,
     },
     test: {
-      exclude: pathsBasedOnProject(["node_modules/**", ".legacy/**", "e2e/**"]),
-      include: pathsBasedOnProject(["app/**/*.test.ts"]),
+      exclude: pathsBasedOnRootStartinAtProject(["node_modules/**", ".legacy/**", "e2e/**"]),
+      include: pathsBasedOnRootStartinAtProject(["app/**/*.test.ts"]),
     },
   };
 });

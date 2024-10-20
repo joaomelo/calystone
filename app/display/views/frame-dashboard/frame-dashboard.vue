@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Activity } from "@domain";
+import { type Activity } from "@/domain";
 
 import FrameDashboardSide from "./frame-dashboard-side.vue";
 

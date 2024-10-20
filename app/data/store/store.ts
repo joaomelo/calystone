@@ -1,5 +1,5 @@
-import { type Artifact } from "@domain";
-import { type Id, type TreeNode } from "@lib";
+import { type Artifact } from "@/domain";
+import { type Id, type TreeNode } from "@/lib";
 import { type ComputedRef, type Reactive, type Ref } from "vue";
 
 export interface Store {

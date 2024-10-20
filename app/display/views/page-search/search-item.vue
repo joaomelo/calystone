@@ -1,5 +1,5 @@
 <script setup>
-import { ItemArtifact, MenuEdit, MenuFocus } from "@view/smart";
+import { ItemArtifact, MenuEdit, MenuFocus } from "@/view/smart";
 </script>
 
 <template>

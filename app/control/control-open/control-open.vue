@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { setRoot, useStore } from "@data";
-import { PageOpen } from "@display";
-import { DEFAULT_ACTIVITY } from "@domain";
+import { setRoot, useStore } from "@/data";
+import { PageOpen } from "@/display";
+import { DEFAULT_ACTIVITY } from "@/domain";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

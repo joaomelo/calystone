@@ -1,6 +1,6 @@
 <script setup>
-import { listAscendants } from "@body";
-import { CrumbsBase, useDependencies } from "@lib";
+import { listAscendants } from "@/body";
+import { CrumbsBase, useDependencies } from "@/lib";
 import { computed } from "vue";
 
 import { goOutline } from "./navigation";

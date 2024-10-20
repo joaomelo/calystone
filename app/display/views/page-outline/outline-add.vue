@@ -1,5 +1,5 @@
 <script setup>
-import { ButtonBase, FormBase, InputText, useI18n, useTask } from "@lib";
+import { ButtonBase, FormBase, InputText, useI18n, useTask } from "@/lib";
 
 const props = defineProps({
   parentId: {

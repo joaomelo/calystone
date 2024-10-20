@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from "vue-router";
 
-import { PageOpen } from "@display/pages";
+import { PageOpen } from "@/display/pages";
 
 const routeOpenName = "open";
 export const routeOpen: RouteRecordRaw = {

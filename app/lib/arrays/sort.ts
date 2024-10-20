@@ -1,4 +1,4 @@
-import { clone } from "@joaomelo/objects";
+import { clone } from "@/lib/objects";
 
 import type { MaybeArray } from "./maybe-array";
 

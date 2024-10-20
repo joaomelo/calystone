@@ -1,5 +1,5 @@
-import { placeTagAfter, placeTagBefore } from "@body";
-import { useDependencies } from "@lib";
+import { placeTagAfter, placeTagBefore } from "@/body";
+import { useDependencies } from "@/lib";
 
 export function useHandleDrag() {
   const dependencies = useDependencies();

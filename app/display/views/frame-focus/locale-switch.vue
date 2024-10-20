@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from "@display/i18n";
-import { InputSelectButton } from "@lib";
+import { useI18n } from "@/display/i18n";
+import { InputSelectButton } from "@/lib";
 
 const { availableLocales, locale } = useI18n();
 

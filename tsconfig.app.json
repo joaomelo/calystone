@@ -2,11 +2,12 @@
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./app",
+    "baseUrl": "./",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "preserveSymlinks": false,    
     "jsxImportSource": "vue",
     "lib": [
       "DOM",
@@ -19,7 +20,6 @@
     "noImplicitThis": true,
     "outDir": "./dist",
     "paths": {
-      "@": [ "./app/index" ],
       "@/*": [ "./app/*" ],
     },
     "resolveJsonModule": true,
@@ -37,7 +37,6 @@
   ],
   "include": [
     "./app/**/*",
-    "global.d.ts",
     "**/*.vue"
   ]
 }

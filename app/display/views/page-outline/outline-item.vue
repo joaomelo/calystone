@@ -1,6 +1,6 @@
 <script setup>
-import { MenuDivider } from "@lib";
-import { ItemArtifact, MenuAppend, MenuDelete, MenuEdit, MenuFocus, MenuStatus, MenuTags } from "@view/smart";
+import { MenuDivider } from "@/lib";
+import { ItemArtifact, MenuAppend, MenuDelete, MenuEdit, MenuFocus, MenuStatus, MenuTags } from "@/view/smart";
 </script>
 
 <template>
