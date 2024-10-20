@@ -1,12 +1,16 @@
+import { resolve } from "path";
+import globals from "globals";
+import js from "@eslint/js";
+import mochaPlugin from "eslint-plugin-mocha";
+import perfectionist from "eslint-plugin-perfectionist";
+import pluginChaiFriendly from "eslint-plugin-chai-friendly";
+import pluginCypress from "eslint-plugin-cypress/flat";
+import pluginVue from "eslint-plugin-vue";
+import stylistic from "@stylistic/eslint-plugin";
+import tseslint from "typescript-eslint";
+
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import js from "@eslint/js";
-import stylistic from "@stylistic/eslint-plugin";
-import perfectionist from "eslint-plugin-perfectionist";
-import pluginVue from "eslint-plugin-vue";
-import globals from "globals";
-import { resolve } from "path";
-import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   { ignores: ["dist", ".legacy"] },
@@ -70,6 +74,11 @@ export default tseslint.config(
       "perfectionist/sort-vue-attributes": "off",
     }
   },
+
+  // tests
+  pluginCypress.configs.recommended,  
+  mochaPlugin.configs.flat.recommended,
+  pluginChaiFriendly.configs.recommendedFlat,
 
   // language settings
   {
