@@ -6,14 +6,14 @@
     "strict": true,
     "isolatedModules": true,
     "strictNullChecks": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
   },
   "include": [
     "*.config.*",
   ],
   "exclude": [
     "node_modules",
-    "./dist"
+    "./dist",
   ]  
 }

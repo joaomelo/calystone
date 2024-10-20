@@ -1,45 +1,74 @@
 {
   "compilerOptions": {
-    "noEmit": true,
     "allowJs": false,
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
     "lib": [
       "DOM",
       "DOM.Iterable",
       "ESNext"
     ],
-    "noImplicitThis": true,
-    "strict": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
+    "module": "ESNext",
     "moduleResolution": "Bundler",
-    "esModuleInterop": true,
-    "skipLibCheck": false,
-    "jsx": "preserve",
-    "jsxImportSource": "vue",    
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./",
-    "paths": {
-      "@control": [ "./control/index" ],
-      "@control/*": [ "./control/*" ],
-      "@data": [ "./data/index" ],
-      "@data/*": [ "./data/*" ],
-      "@display": [ "./display/index" ],
-      "@display/*": [ "./display/*" ],
-      "@domain": [ "./domain/index" ],
-      "@domain/*": [ "./domain/*" ],
-      "@lib": [ "./lib/index" ],
-      "@lib/*": [ "./lib/*" ],
-      "@main": [ "./main/index" ],
-      "@main/*": [ "./main/*" ],
-    },
+    "noEmit": true,
+    "noImplicitThis": true,
     "outDir": "./dist",
-    "rootDir": "./",
+    "paths": {
+      "@control": [
+        "./control/index"
+      ],
+      "@control/*": [
+        "./control/*"
+      ],
+      "@data": [
+        "./data/index"
+      ],
+      "@data/*": [
+        "./data/*"
+      ],
+      "@display": [
+        "./display/index"
+      ],
+      "@display/*": [
+        "./display/*"
+      ],
+      "@domain": [
+        "./domain/index"
+      ],
+      "@domain/*": [
+        "./domain/*"
+      ],
+      "@lib": [
+        "./lib/index"
+      ],
+      "@lib/*": [
+        "./lib/*"
+      ],
+      "@main": [
+        "./main/index"
+      ],
+      "@main/*": [
+        "./main/*"
+      ]
+    },
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "rootDir": "./",
+    "skipLibCheck": false,
+    "strict": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true
   },
+  "exclude": [
+    "node_modules",
+    "./dist",
+    "./e2e"
+  ],
   "include": [
     "./control/**/*",
     "./data/**/*",
@@ -50,9 +79,5 @@
     "./tests/**/*",
     "global.d.ts",
     "**/*.vue"
-  ],
-  "exclude": [
-    "node_modules",
-    "./dist"
-  ]  
+  ]
 }

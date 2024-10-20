@@ -1,12 +1,12 @@
-import { resolve } from "path";
-import globals from "globals";
 import js from "@eslint/js";
-import mochaPlugin from "eslint-plugin-mocha";
-import perfectionist from "eslint-plugin-perfectionist";
+import stylistic from "@stylistic/eslint-plugin";
 import pluginChaiFriendly from "eslint-plugin-chai-friendly";
 import pluginCypress from "eslint-plugin-cypress/flat";
+import mochaPlugin from "eslint-plugin-mocha";
+import perfectionist from "eslint-plugin-perfectionist";
 import pluginVue from "eslint-plugin-vue";
-import stylistic from "@stylistic/eslint-plugin";
+import globals from "globals";
+import { resolve } from "path";
 import tseslint from "typescript-eslint";
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */

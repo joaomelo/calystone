@@ -1,12 +1,24 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true,
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "types": ["cypress"],
-    "outDir": "./dist/e2e",
-    "rootDir": "./tests/e2e"
+    "lib": [
+      "ES2019",
+      "DOM"
+    ],
+    "module": "ES2015",
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "rootDir": "./e2e",
+    "strict": true,
+    "target": "ES2015",
+    "types": [
+      "cypress",
+      "node"
+    ]
   },
-  "include": ["./e2e/**/*.ts"]
+  "include": [
+    "./e2e/**/*.ts"
+  ]
 }

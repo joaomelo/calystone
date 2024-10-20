@@ -17,15 +17,15 @@
   "author": "joão melo <j@melo.plus> (https://joao.melo.plus)",
   "scripts": {
     "start": "npm run dev",
-    "test": "concurrently -s \"first\" -k \"npm run dev\" \"vitest\" \"cypress open --e2e --browser chrome\"",
-    "release": "npm run lint && npm run test && release-it --ci --verbose",
     "dev": "vite",
+    "test:watch:unit": "vitest",
+    "test:watch:e2e": "concurrently -s \"first\" -k \"npm run dev\" \"cypress open --e2e --browser chrome\"",
     "test:run": "npm run test:unit && npm run test:e2e:run",
     "test:run:unit": "vitest run",
     "test:run:e2e": "concurrently -s \"first\" -k \"npm run dev\" \"cypress run --e2e\"",
     "lint": "eslint",
     "build": "vite build",
-    "readme": "readme"
+    "release": "npm run lint && npm run test && release-it --ci --verbose"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.11.1",

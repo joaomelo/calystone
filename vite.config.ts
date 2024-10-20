@@ -44,7 +44,8 @@ export default defineConfig(() => {
       strictPort: true,
     },
     test: {
-      include: ["../**/*.test.js"],
+      exclude: ["../node_modules/**", "../.legacy/**", "../e2e/**"],
+      include: ["../**/*.test.ts"],
     },
   };
 });
