@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
+    "baseUrl": "./app",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
@@ -19,42 +19,8 @@
     "noImplicitThis": true,
     "outDir": "./dist",
     "paths": {
-      "@control": [
-        "./control/index"
-      ],
-      "@control/*": [
-        "./control/*"
-      ],
-      "@data": [
-        "./data/index"
-      ],
-      "@data/*": [
-        "./data/*"
-      ],
-      "@display": [
-        "./display/index"
-      ],
-      "@display/*": [
-        "./display/*"
-      ],
-      "@domain": [
-        "./domain/index"
-      ],
-      "@domain/*": [
-        "./domain/*"
-      ],
-      "@lib": [
-        "./lib/index"
-      ],
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@main": [
-        "./main/index"
-      ],
-      "@main/*": [
-        "./main/*"
-      ]
+      "@": [ "./app/index" ],
+      "@/*": [ "./app/*" ],
     },
     "resolveJsonModule": true,
     "rootDir": "./",
@@ -70,13 +36,7 @@
     "./e2e"
   ],
   "include": [
-    "./control/**/*",
-    "./data/**/*",
-    "./display/**/*",
-    "./domain/**/*",
-    "./lib/**/*",
-    "./main/**/*",
-    "./tests/**/*",
+    "./app/**/*",
     "global.d.ts",
     "**/*.vue"
   ]
