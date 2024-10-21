@@ -11,6 +11,7 @@ import tseslint from "typescript-eslint";
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 export default tseslint.config(
   { ignores: ["dist", ".legacy"] },
@@ -27,6 +28,11 @@ export default tseslint.config(
   // typescript
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
+  {
+    rules: {
+      "@typescript-eslint/no-unsafe-call": "off"
+    }
+  },
 
   // vue
   ...pluginVue.configs["flat/recommended"],
@@ -75,11 +81,6 @@ export default tseslint.config(
     }
   },
 
-  // tests
-  pluginCypress.configs.recommended,  
-  mochaPlugin.configs.flat.recommended,
-  pluginChaiFriendly.configs.recommendedFlat,
-
   // language settings
   {
     // this line tells eslint to link the typescript service with all file types used by the project
@@ -98,4 +99,17 @@ export default tseslint.config(
       }      
     },
   },  
+
+  // only for e2e tests
+  {
+    files: ["e2e/**/*.ts", "e2e/**/*.js"],
+    plugins: {
+      chaiFriendly: pluginChaiFriendly,
+      cypress: pluginCypress,
+      mocha: mochaPlugin
+    },
+    ...pluginCypress.configs.recommended,
+    ...mochaPlugin.configs.flat.recommended,
+    ...pluginChaiFriendly.configs.recommendedFlat,
+  },
 );
