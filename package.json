@@ -20,7 +20,7 @@
     "dev": "vite",
     "test:watch:unit": "vitest",
     "test:watch:e2e": "concurrently -s \"first\" -k \"npm run dev\" \"cypress open --e2e --browser chrome\"",
-    "test:run": "npm run test:unit && npm run test:e2e:run",
+    "test:run": "npm run test:run:unit && npm run test:run:e2e",
     "test:run:unit": "vitest run",
     "test:run:e2e": "concurrently -s \"first\" -k \"npm run dev\" \"cypress run --e2e\"",
     "lint": "eslint",
