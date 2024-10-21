@@ -25,7 +25,7 @@
     "test:run:e2e": "concurrently -s \"first\" -k \"npm run dev\" \"cypress run --e2e\"",
     "lint": "eslint",
     "build": "vite build",
-    "release": "npm run lint && npm run test && release-it --ci --verbose"
+    "release": "npm run lint && npm run test && release-it --ci --verbose && npm run build"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.11.1",
