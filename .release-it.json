@@ -19,8 +19,5 @@
         "mergePattern": "^merge pull request #(\\d+) from (.*)$"
       }
     }
-  },
-  "hooks": {
-    "after:bump": ["npm run readme"]
   }
 }
