@@ -1,4 +1,4 @@
-import { createI18n } from "@/display"; // this will also apply the css styles
+import { createI18n } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
 import { createRouter } from "@/control";
 import { createStore, provideStore } from "@/data";
