@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import { type Artifact } from "@/domain";
-import { type TreeNode } from "@/lib";
-import { type MaybeRefOrGetter } from "vue";
+import { type Id, type Tree, TreeBase } from "@/lib";
+import { type ComputedRef } from "vue";
 
 const { artifacts } = defineProps<{
-  artifacts: MaybeRefOrGetter<TreeNode<Artifact>[]>;
+  artifacts: ComputedRef<Tree<Id, Artifact>>;
 }>();
-
-
 </script>
 
 <template>
-  <div>
-    <pre> {{ artifacts }}</pre>
-  </div>
+  <TreeBase
+    :tree="artifacts"
+  />
 </template>
