@@ -1,7 +1,7 @@
 import { createI18n } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
 import { createRouter } from "@/control";
-import { createStore, provideStore } from "@/data";
+import { createStore, provideStore } from "@/domain";
 import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";

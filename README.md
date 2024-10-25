@@ -92,6 +92,8 @@ Its has as concise as possible reactive state and function to allow state mutati
 
 These types are not meant to be flexible are adapt to every needs. The point here is simplicity and communality. Other modules will extedend themselves from the domain to futher implement their needs.
 
+When adding something to the domain ask yourself, does the domain really need this? or this is for `control` or `display` convenience? if so, create the capability there.
+
 ## Utils
 
 Language or technology helpers that don't need to be aware of bussiness rules and don't need runtime state goes here. Utils only knows about utils and nothing else.

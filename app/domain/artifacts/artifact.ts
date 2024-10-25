@@ -1,7 +1,23 @@
-import { type Handle, type Id } from "@/lib";
+import { type Id } from "@/domain/ids";
 
-export interface Artifact {
-  handle: Handle,
-  id: Id,
-  parentId?: Id,
+export type Artifact = Directory | File;
+
+interface File extends Base {
+  content: Promise<Blob>,
+  type: "file",
 };
+
+interface Directory extends Base {
+  content?: never,
+  type: "directory",
+};
+
+interface Base {
+  id: Id,
+  name: string,
+  parentId?: Id,
+  type: Type,
+};
+
+type Type = "directory" | "file";
+

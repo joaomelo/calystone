@@ -1,4 +1,4 @@
-import { createArtifacts } from "@/data/artifacts";
+import { createArtifacts } from "@/domain/artifacts";
 import { loadHandlesOf } from "@/lib";
 
 import { type Store } from "./store";
