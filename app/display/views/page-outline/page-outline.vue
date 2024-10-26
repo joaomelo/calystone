@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ScrollPanel, SplitterPanels, TreeArtifacts } from "@/display/widgets";
+import { ScrollPanel, SplitterPanel, TreeArtifacts } from "@/display/widgets";
 import { type Artifact } from "@/domain";
 import { type Tree } from "@/utils";
 import { type MaybeRefOrGetter } from "vue";
@@ -10,7 +10,7 @@ const { artifacts } = defineProps<{
 </script>
 
 <template>
-  <SplitterPanels class="page-outline">
+  <SplitterPanel class="page-outline">
     <template #start>
       <ScrollPanel class="page-outline-start">
         <TreeArtifacts
@@ -21,7 +21,7 @@ const { artifacts } = defineProps<{
     <template #end>
       <pre>content</pre>
     </template>
-  </SplitterPanels>
+  </SplitterPanel>
 </template>
 <style scoped>
 .page-outline {
