@@ -1,13 +1,6 @@
-import { FrameFocus } from "@/display";
-import { ACTIVITIES, DEFAULT_ACTIVITY } from "@/domain";
+import { ControlDashboard,ControlOpen,ControlOutline,ControlPreferences,ControlSearch,ControlTags } from "@/control/controls";
+import { ACTIVITIES, DEFAULT_ACTIVITY, FrameFocus } from "@/display";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
-
-import { ControlDashboard } from "../control-dashboard";
-import { ControlOpen } from "../control-open";
-import { ControlOutline } from "../control-outline";
-import { ControlPreferences } from "../control-preferences";
-import { ControlSearch } from "../control-search";
-import { ControlTags } from "../control-tags";
 
 export function createRouter() {
   const routes = [

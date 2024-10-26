@@ -64,7 +64,27 @@ The route will render a zero or one control or view component. Routes can have c
 
 ## Display
 
-The display layer takes care of the app UI. The main sublayers are `views`,  `widgets` and `components`.
+The display layer takes care of the app UI. The main sublayers are `views` and  `widgets`.
+
+```mermaid
+graph LR;
+  subgraph views
+    pageX;
+    frameW;
+    pageY;
+  end
+  subgraph widgets
+    widgetA
+    widgetB
+  end
+  subgraph lib
+    component
+  end
+  pageX --> widgetA;
+  frameW --> widgetA;
+  pageY --> widgetB;
+  widgetB --> component
+```
 
 ### Views
 
@@ -78,6 +98,8 @@ Views can be complex structures but will always worry only about the UI requirem
 
 They are shared resources used by more than one view or other widgets. They obey the same restriction as page components.
 
+Widgets are also used to function as single entry points for outside dependencies for the UI. Like if some button from a UI library is used in the app, for example. On that case, the button should be imported in a proxy ButtonBase widget and then used in pages, even if for a single page.
+
 ### Styles
 
 Styles are guided by design tokens that came from the Prime Vue UI library (mainly colors) and from the Open Props library (mainly sizes).
@@ -88,9 +110,9 @@ The project uses vanilla CSS with design tokens coming from custom properties. T
 
 Domain is the bussiness logic running in a vacum without care about `controls` or `views`.
 
-Its has as concise as possible reactive state and function to allow state mutation asserting business rules.
+Its has as concise as possible reactive state and methos to allow state mutation asserting business rules.
 
-These types are not meant to be flexible are adapt to every needs. The point here is simplicity and communality. Other modules will extedend themselves from the domain to futher implement their needs.
+These types are not meant to be flexible or adapt to every needs of the UI. The point here is simplicity and communality. Other modules will extedend upon the domain to futher implement their needs.
 
 When adding something to the domain ask yourself, does the domain really need this? or this is for `control` or `display` convenience? if so, create the capability there.
 

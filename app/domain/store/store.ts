@@ -1,19 +1,20 @@
-import { type Artifact } from "@/domain/artifacts";
-import { type Id, type Tree } from "@/lib";
-import { type Id, treeify } from "@/lib";
-import { type ComputedRef, type Reactive, type Ref } from "vue";
-import { computed, reactive, ref } from "vue";
+import { Artifacts } from "@/domain/artifacts";
+import { type App, inject, type InjectionKey } from "vue";
 
+const key: InjectionKey<Store> = Symbol("store");
 
-export interface Store {
-  readonly artifacts: Reactive<Map<Id, Artifact>>;
-  root: Ref<FileSystemDirectoryHandle | undefined>;
-}
+export class Store {
+  public readonly artifacts = new Artifacts();
 
-export function createStore(): Store {
-  const artifacts = reactive(new Map<Id, Artifact>());
-  return {
-    artifacts,
-    root: ref(),
-  };
+  static use() {
+    const maybeStore = inject(key);
+    if (!maybeStore) {
+      throw new Error("store was not provided during initialization");
+    }
+    return maybeStore;    
+  }
+
+  install(app: App) {
+    app.provide(key, this);
+  }
 }

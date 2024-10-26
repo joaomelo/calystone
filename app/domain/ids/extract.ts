@@ -1,4 +1,4 @@
-import { asArray } from "@/lib/arrays";
+import { asArray } from "@/utils";
 
 import { type Id, isId } from "./id";
 import { type WithId } from "./with-id";

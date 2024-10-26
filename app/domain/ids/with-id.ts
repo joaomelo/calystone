@@ -1,4 +1,4 @@
-import { isObjectLike } from "@/lib/objects";
+import { isObjectLike } from "@/utils";
 
 import { type Id, isId } from "./id";
 

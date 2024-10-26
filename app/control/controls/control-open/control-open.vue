@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { DEFAULT_ACTIVITY, PageOpen } from "@/display";
-import { setRoot, useStore } from "@/domain";
+import { FileSystemSource, Store } from "@/domain";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const store = useStore();
+const store = Store.use();
 
 function handleOpen(handle: FileSystemDirectoryHandle) {
-  void setRoot(handle, store);
+  const source = new FileSystemSource(handle);
+  void store.artifacts.stream(source);
   void router.push({ name: DEFAULT_ACTIVITY });
 }
 </script>

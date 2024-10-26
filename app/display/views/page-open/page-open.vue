@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "@/display/i18n";
-import { ButtonBase } from "@/lib";
+import { ButtonBase } from "@/display/widgets";
 
 const emit = defineEmits<{
   open: [handle: FileSystemDirectoryHandle],
