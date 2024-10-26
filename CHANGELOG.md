@@ -1,5 +1,12 @@
 
 
+## [0.30.0](https://github.com/joaomelo/calystone/compare/v0.29.4...v0.30.0) (2024-10-26)
+
+
+### Features
+
+* outline shows full directory in tree data structure ([0731dfd](https://github.com/joaomelo/calystone/commit/0731dfd60d5a20367d31b81629da3e6fe6294a2b))
+
 ## [0.29.4](https://github.com/joaomelo/calystone/compare/v0.29.3...v0.29.4) (2024-10-26)
 
 ## [0.29.3](https://github.com/joaomelo/calystone/compare/v0.29.2...v0.29.3) (2024-10-22)
