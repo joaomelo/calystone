@@ -1,6 +1,6 @@
 import { type Artifact } from "@/domain/artifact";
-import { type Id } from "@/domain/ids";
 import { type Source } from "@/domain/source";
+import { type Id } from "@/utils";
 import { reactive, ref } from "vue";
 
 export class Artifacts {

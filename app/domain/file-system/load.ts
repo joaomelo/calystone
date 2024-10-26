@@ -1,5 +1,5 @@
 import { type Artifact } from "@/domain/artifact";
-import { createId, type Id } from "@/domain/ids";
+import { createId, type Id } from "@/utils";
 
 export async function* fileSystemSourceLoad(handle: FileSystemDirectoryHandle, parentId?: Id): AsyncGenerator<Artifact> {
   for await (const entry of handle.values()) {

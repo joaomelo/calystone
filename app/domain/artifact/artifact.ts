@@ -1,4 +1,4 @@
-import { type Id } from "@/domain/ids";
+import { type Id } from "@/utils";
 
 export type Artifact = Directory | File;
 
