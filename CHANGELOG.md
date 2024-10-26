@@ -1,5 +1,12 @@
 
 
+## [0.31.0](https://github.com/joaomelo/calystone/compare/v0.30.0...v0.31.0) (2024-10-26)
+
+
+### Features
+
+* arquivos são exibidos em formato de arvore ([330c0df](https://github.com/joaomelo/calystone/commit/330c0df6305c45622c1f11b37d1ccb4b20ad3d50))
+
 ## [0.30.0](https://github.com/joaomelo/calystone/compare/v0.29.4...v0.30.0) (2024-10-26)
 
 
