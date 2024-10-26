@@ -1,5 +1,12 @@
 
 
+## [0.32.0](https://github.com/joaomelo/calystone/compare/v0.31.0...v0.32.0) (2024-10-26)
+
+
+### Features
+
+* outline now has scroll and panels ([ff2e782](https://github.com/joaomelo/calystone/commit/ff2e782622d8028a2cc7af81eae4facdb0f42217))
+
 ## [0.31.0](https://github.com/joaomelo/calystone/compare/v0.30.0...v0.31.0) (2024-10-26)
 
 
