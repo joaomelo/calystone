@@ -1,8 +1,8 @@
-import { nodedify, type Tree, type TreeNode, type TreeNodeItem } from "./tree";
+import { nodedify, type Tree, type TreeNode } from "./tree";
 
-export function treeify<Id, Item extends TreeNodeItem<Id>>(items: Map<Id, Item>): Tree<Id, Item> {
-  const lookup = new Map<Id, TreeNode<Id, Item>>();
-  const tree: Tree<Id, Item> = [];
+export function treeify<Id, Item extends InputItem<Id>>(items: Map<Id, Item>): Tree<Item> {
+  const lookup = new Map<Id, TreeNode<Item>>();
+  const tree: Tree<Item> = [];
 
   items.forEach((item, id) => {
     const node = assertNode(id, item);
@@ -26,9 +26,14 @@ export function treeify<Id, Item extends TreeNodeItem<Id>>(items: Map<Id, Item>)
     if (maybeNode) {
       return maybeNode;
     } else {
-      const node = nodedify<Id, Item>(value);
+      const node = nodedify<Item>(value);
       lookup.set(id, node);
       return node;
     }
   }
+}
+
+interface InputItem<Id> {
+  id: Id,
+  parentId?: Id;
 }

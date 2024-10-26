@@ -1,16 +1,13 @@
-export type Tree<Id, Item extends TreeNodeItem<Id>> = TreeNode<Id, Item>[];
+export type Tree<Item extends TreeNodeItem> = TreeNode<Item>[];
 
-export interface TreeNode<Id, Item extends TreeNodeItem<Id>> {
-  children: TreeNode<Id, Item>[];
+export interface TreeNode<Item extends TreeNodeItem> {
+  children: TreeNode<Item>[];
   item: Item;
 }
 
-export interface TreeNodeItem<Id> {
-  id: Id,
-  parentId?: Id;
-}
+export type TreeNodeItem = object;
 
-export function nodedify<Id, Item extends TreeNodeItem<Id>>(item: Item): TreeNode<Id, Item> {
+export function nodedify<Item extends TreeNodeItem>(item: Item): TreeNode<Item> {
   return {
     children: [],
     item

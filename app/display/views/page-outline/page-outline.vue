@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { TreeArtifacts } from "@/display/widgets";
-import { type Artifact, type Id, type Tree } from "@/domain";
+import { type Artifact } from "@/domain";
+import { type Tree } from "@/utils";
 import { type MaybeRefOrGetter } from "vue";
 
 const { artifacts } = defineProps<{
-  artifacts: MaybeRefOrGetter<Tree<Id, Artifact>>;
+  artifacts: MaybeRefOrGetter<Tree<Artifact>>;
 }>();
 </script>
 

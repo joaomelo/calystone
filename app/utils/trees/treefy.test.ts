@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { type TreeNodeItem } from "./tree";
 import { treeify } from "./treeify";
 
-interface MockItem extends TreeNodeItem<number> {
+interface MockItem {
   id: number;
   name: string;
+  parentId?: number;
 }
 
 describe("treeify", () => {

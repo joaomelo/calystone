@@ -1,20 +1,21 @@
 import { describe, expect, it } from "vitest";
 
 import { mapTree } from "./map";
-import { type Tree, type TreeNodeItem } from "./tree";
+import { type Tree } from "./tree";
 
-interface MockItem extends TreeNodeItem<number> {
+interface MockItem {
+  id: number;
   name: string;
 }
 
-interface MappedMockItem extends TreeNodeItem<number> {
+interface MappedMockItem {
   isMapped: boolean;
   name: string;
 }
 
 describe("mapTree", () => {
   it("should map each item in the tree using the provided map function", () => {
-    const tree: Tree<number, MockItem> = [
+    const tree: Tree<MockItem> = [
       {
         children: [
           {
@@ -55,7 +56,7 @@ describe("mapTree", () => {
   });
 
   it("should handle an empty tree", () => {
-    const tree: Tree<number, MockItem> = [];
+    const tree: Tree<MockItem> = [];
     const mapItem = (item: MockItem): MappedMockItem => ({
       ...item,
       isMapped: true

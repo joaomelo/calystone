@@ -1,31 +1,26 @@
 import { type Tree, type TreeNode, type TreeNodeItem } from "./tree";
 
 export function mapTree<
-  Id, 
-  Item extends TreeNodeItem<Id>, 
-  MappedItem extends TreeNodeItem<Id>
+  Item extends TreeNodeItem, 
+  MappedItem extends TreeNodeItem
 >(
-  tree: Tree<Id, Item>, 
-  mapItem: MapItem<Id, Item, MappedItem> 
-): Tree<Id, MappedItem> {
+  tree: Tree<Item>, 
+  mapItem: MapItem<Item, MappedItem> 
+): Tree<MappedItem> {
   return tree.map(node => mapNode(node, mapItem));
 }
 
 function mapNode<
-  Id, 
-  Item extends TreeNodeItem<Id>,
-  MappedItem extends TreeNodeItem<Id>, 
+  Item extends TreeNodeItem,
+  MappedItem extends TreeNodeItem, 
 >(
-  node: TreeNode<Id, Item>,
-  map: MapItem<Id, Item, MappedItem>
-): TreeNode<Id, MappedItem> {
+  node: TreeNode<Item>,
+  map: MapItem<Item, MappedItem>
+): TreeNode<MappedItem> {
   const item = map(node.item);
   const children = node.children.map(child => mapNode(child, map));
   return { children, item };
 }
 
-type MapItem<
-  Id, 
-  Item extends TreeNodeItem<Id>, 
-  MappedItem extends TreeNodeItem<Id>,
-> = (item: Item) => MappedItem;
+type MapItem< Item extends TreeNodeItem, MappedItem extends TreeNodeItem> = 
+  (item: Item) => MappedItem;
