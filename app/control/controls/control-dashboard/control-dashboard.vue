@@ -9,7 +9,7 @@ const router = useRouter();
 const store = Store.use();
 
 watch(
-  () => !store.artifacts.hasSource,
+  () => store.artifacts.source.value === undefined,
   (isEmpty) => {
     if (isEmpty) {
       void router.push({ name: ACTIVITIES.OPEN });

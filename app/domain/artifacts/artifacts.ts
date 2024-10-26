@@ -1,31 +1,23 @@
 import { type Artifact } from "@/domain/artifact";
 import { type Id } from "@/domain/ids";
 import { type Source } from "@/domain/source";
-import { type Reactive, reactive } from "vue";
+import { reactive, ref } from "vue";
 
 export class Artifacts {
-  private source?: Source;
-  public readonly hash: Reactive<Map<Id, Artifact>>;
-
-  constructor() {
-    this.hash = reactive(new Map<Id, Artifact>());
-  }
+  public readonly hash = reactive(new Map<Id, Artifact>());
+  public readonly source = ref<Source | undefined>();
 
   close(): void {
-    this.source = undefined;
+    this.source.value = undefined;
     this.hash.clear();
   }
 
   async stream(source: Source) {
     this.close();
-    this.source = source;
+    this.source.value = source;
     
     for await (const artifact of source.load()) {
       this.hash.set(artifact.id, artifact);
     }
-  }
-
-  get hasSource() {
-    return !!this.source;
   }
 }

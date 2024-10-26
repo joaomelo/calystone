@@ -13,10 +13,10 @@ defineEmits<{
 <template>
   <div class="frame-dashboard">
     <FrameDashboardSide
-      :active="activity"
-      @update:active="$emit('update:activity', $event)"
+      :activity="activity"
+      @update:activity="$emit('update:activity', $event)"
     />
-    <main>
+    <main class="frame-dashboard-main">
       <router-view />
     </main>
   </div>
@@ -28,5 +28,10 @@ defineEmits<{
   display: grid;
   grid-template-columns: auto 1fr;
   overflow: hidden;
+}
+
+.frame-dashboard-main {
+  /* no scrolling configuration is set to allow router views to decide de best strategy */
+  max-height: 100vh;
 }
 </style>
