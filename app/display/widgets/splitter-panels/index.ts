@@ -1,0 +1,1 @@
+export { default as SplitterPanels } from "./splitter-panels.vue";
