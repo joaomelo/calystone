@@ -1,5 +1,12 @@
 
 
+## [0.33.0](https://github.com/joaomelo/calystone/compare/v0.32.0...v0.33.0) (2024-10-26)
+
+
+### Features
+
+* splitter gets a thinner gutter ([8b61ce6](https://github.com/joaomelo/calystone/commit/8b61ce62be233b237b084d8701fc8253b3d7ccbb))
+
 ## [0.32.0](https://github.com/joaomelo/calystone/compare/v0.31.0...v0.32.0) (2024-10-26)
 
 
