@@ -3,11 +3,13 @@ import type { Artifact } from "@/domain";
 import type { Tree, TreeNode } from "@/utils";
 import type { TreeNode as TreeNodePrime } from "primevue/treenode";
 
+import ProgressBar from "primevue/progressbar";
 import PrimeVueTree from "primevue/tree";
-import { computed, type MaybeRefOrGetter, toValue } from "vue";
+import { computed, toValue } from "vue";
 
 const { artifacts } = defineProps<{
-  artifacts: MaybeRefOrGetter<Tree<Artifact>>;
+  artifacts: Tree<Artifact>;
+  isLoading: boolean;
 }>();
 
 const value = computed(() => toValue(artifacts).map(mapNode));
@@ -27,8 +29,24 @@ function mapArtifact(artifact: Artifact) {
 }
 </script>
 <template>
-  <PrimeVueTree 
-    selection-mode="single" 
-    :value
-  />
+  <div class="tree-artifacts">
+    <ProgressBar
+      v-if="isLoading"
+      mode="indeterminate"
+    />
+    <PrimeVueTree 
+      selection-mode="single"
+      :value
+    />
+  </div>
 </template>
+<style scoped>
+.tree-artifacts {
+  position: relative;
+}
+
+.tree-artifacts :deep(.p-progressbar) {
+  border-radius: 0;
+  height: var(--border-size-2);
+}
+</style>

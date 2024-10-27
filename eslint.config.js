@@ -40,7 +40,10 @@ export default tseslint.config(
   {
     plugins: { "@stylistic": stylistic },
     rules: {
+      "@stylistic/comma-spacing": ["error", { "after": true, "before": false }],
       "@stylistic/indent": ["error", 2],
+      "@stylistic/key-spacing": "error",
+      "@stylistic/keyword-spacing": "error",
       "@stylistic/lines-between-class-members": [
         "error", 
         {
@@ -69,9 +72,11 @@ export default tseslint.config(
       "@stylistic/operator-linebreak": ["error", "before"],
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": ["error", "always"],
+      "@stylistic/space-infix-ops": "error",
       "@stylistic/type-generic-spacing": ["error"]
     }
-  },  
+  },
+
   perfectionist.configs["recommended-natural"],
   {
     rules: {

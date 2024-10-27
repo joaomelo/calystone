@@ -1,6 +1,5 @@
-import { createI18n } from "@/display"; // this will also apply the css styles as a side effect
+import { createI18n, createRouter } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
-import { createRouter } from "@/control";
 import { Store } from "@/domain";
 import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
@@ -10,7 +9,7 @@ import { createApp } from "vue";
 import App from "./app.vue";
 
 export function initApp(elementId: string) {
-  if (typeof name !== "string" || typeof version!== "string") throw new Error("Invalid package.json");
+  if (typeof name !== "string" || typeof version !== "string") throw new Error("Invalid package.json");
 
   console.info(`${name} v${version}`);
 

@@ -1,20 +1,36 @@
 <script setup lang="ts">
-import { type Activity } from "@/display/activities";
+import type { Activity } from "@/display/activities";
+
+import { ACTIVITIES, useCurrentActivity } from "@/display/activities";
+import { Store } from "@/domain";
+import { watchEffect } from "vue";
+import { useRouter } from "vue-router";
 
 import FrameDashboardSide from "./frame-dashboard-side.vue";
 
-defineProps<{
-  activity: Activity
-}>();
-defineEmits<{
-  "update:activity": [activity: Activity]
-}>();
+const router = useRouter();
+const store = Store.use();
+const currentActivity = useCurrentActivity();
+
+watchEffect(() => {
+  if (store.artifacts.source === undefined) {
+    void router.push({ name: ACTIVITIES.OPEN });
+  }
+});
+
+function handleUpdateActivity(newActivity: Activity) {
+  if (newActivity === ACTIVITIES.OPEN) {
+    store.artifacts.close();
+    return;
+  }
+  void router.push({ name: newActivity });
+}
 </script>
 <template>
   <div class="frame-dashboard">
     <FrameDashboardSide
-      :activity="activity"
-      @update:activity="$emit('update:activity', $event)"
+      :activity="currentActivity"
+      @update:activity="handleUpdateActivity"
     />
     <main>
       <router-view />

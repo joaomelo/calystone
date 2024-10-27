@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ScrollPanel, SplitterPanel, TreeArtifacts } from "@/display/widgets";
-import { type Artifact } from "@/domain";
-import { type Tree } from "@/utils";
-import { type MaybeRefOrGetter } from "vue";
+import { Store } from "@/domain";
+import { treeify } from "@/utils";
+import { computed } from "vue";
 
-const { artifacts } = defineProps<{
-  artifacts: MaybeRefOrGetter<Tree<Artifact>>;
-}>();
+const store = Store.use();
+const artifacts = computed(() => treeify(store.artifacts.hash));
 </script>
 
 <template>
@@ -15,6 +14,7 @@ const { artifacts } = defineProps<{
       <ScrollPanel class="page-outline-start">
         <TreeArtifacts
           :artifacts="artifacts"
+          :is-loading="true"
         />
       </ScrollPanel>
     </template>

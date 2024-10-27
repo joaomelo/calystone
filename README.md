@@ -15,90 +15,72 @@ graph TD
     direction LR
     domain
     display
-    control
   end
   utils
   main --> core
   main --> utils
   core --> utils
   display --> domain
-  control --> domain
-  control --> display
 ```
 
 ## Design strategies
 
-Nothing in this app, even utils, is coded to be used in other apps or libs. this kind of design bring complexity. This app code has to be as focuses as possible. Complexity is added only when indispensible to achive some app known and present goal.
+Nothing in this app, even utils, is coded with a mindset to be later used in other apps or libs. this kind of design bring complexity. This app code has to be as focuses as possible. Complexity is added only when indispensible to achive some app known and present goal.
 
 ## Main
 
 Starts the applicaton, initializes app level state and stablish runtime dependencies.
 
-## Control
+## Display
 
-Make the app data move to attend the user signals. It transforms state from `domain` to the format needed by `display` and convert events triggered by the user in `display` into action calls to `domain`.
+Make the app move. It grabs and transform state from `domain` and show it to the user, then captures events triggered by the user ans translates them into funtion or method calls to `domain`.
 
 ```mermaid
 graph LR;
   subgraph router
-    routeA --> controlW;
-    routeA --> routeA1 --> controlX;
-    routeA --> routeA2 --> controlY;
+    routeA --> routeA1;
+    routeA --> routeA2;
     routeB
   end
   subgraph views
-    pageX;
-    pageY;
     frameW;
+    pageX;
     pageU;
   end
-  controlW --> frameW;
-  controlX --> pageX;
-  controlY --> pageY;
-  routeB --> pageU
-```
-
-The top of the control structure starts at the route level. Routes are objects that define the SPA display entry points available to the user. The shape of the route objects are defined by the vue-router library API.
-
-The route will render a zero or one control or view component. Routes can have children routes to enable control/view nesting. It can render a control for a frame in case of a shared layout and then a child route with the corresponding main page.
-
-## Display
-
-The display layer takes care of the app UI. The main sublayers are `views` and  `widgets`.
-
-```mermaid
-graph LR;
-  subgraph views
-    pageX;
-    frameW;
-    pageY;
-  end
   subgraph widgets
-    widgetA
-    widgetB
+    widgetN
+    widgetM
   end
-  subgraph lib
+  subgraph external
     component
   end
-  pageX --> widgetA;
-  frameW --> widgetA;
-  pageY --> widgetB;
-  widgetB --> component
+
+  routeA1 --> frameW;
+  routeA2 --> pageX;
+  routeB --> pageU
+  pageX --> widgetN
+  frameW --> widgetN;
+  pageU --> widgetM;
+  widgetM --> component
 ```
+
+### Routes
+
+The top structure starts at the route level. Routes are objects that define the entry points available to the user. The shape of the route objects are defined by the vue-router library API.
+
+The route will render zero or one view component. Routes can have children routes to enable view nesting. It can render a control for a frame in case of a shared layout and then a child route with the corresponding main page.
 
 ### Views
 
-Views are what the user see in the end. They know nothing about the app state. All domain they need is received as props and every signal they send is done by events.
+Views are what the user see in the end. They access the domain via a central construct called Store. All data they need they grab from the store user signals are convert to calls to the store inner methods.
 
-They receive and send domain in the shape they need. Transformations must happen at the control level.
-
-Views can be complex structures but will always worry only about the UI requirements and only change by that motivation. Controls carry the burden of translating interfaces between display and domain.
+Views can be complex structures in order to deal with data orchestrations. They can abstract its capacities into subcomponets or composables to streamline code.
 
 ### Widgets
 
-They are shared resources used by more than one view or other widgets. They obey the same restriction as page components.
+They are shared resources (components and composables) used by more than one view or other widgets.
 
-Widgets are also used to function as single entry points for outside dependencies for the UI. Like if some button from a UI library is used in the app, for example. On that case, the button should be imported in a proxy ButtonBase widget and then used in pages, even if for a single page.
+Widgets are also used to function as single entry points for outside UI dependencies. Like if some button from a UI library is used in the app, for example. On that case, the button should be imported in a proxy ButtonBase widget and then used in pages, even if for a single page.
 
 ### Styles
 
@@ -108,13 +90,13 @@ The project uses vanilla CSS with design tokens coming from custom properties. T
 
 ## Domain
 
-Domain is the bussiness logic running in a vacum without care about `controls` or `views`.
+Domain is the bussiness logic running in a vacum without care about `views`.
 
-Its has as concise as possible reactive state and methos to allow state mutation asserting business rules.
+Its has as concise as possible properties and methods to allow state mutation, asserting business rules, and exposing essencial data to the view.
 
-These types are not meant to be flexible or adapt to every needs of the UI. The point here is simplicity and communality. Other modules will extedend upon the domain to futher implement their needs.
+These types are not meant to be flexible or adapt to every needs of the UI. The point here is simplicity and communality. Views will extedend upon the domain to reach their needs.
 
-When adding something to the domain ask yourself, does the domain really need this? or this is for `control` or `display` convenience? if so, create the capability there.
+When adding something to the domain ask yourself, does the domain doesn't already expose this? if so, create the capability in the consumer.
 
 ## Utils
 

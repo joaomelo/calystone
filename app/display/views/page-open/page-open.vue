@@ -1,17 +1,19 @@
 <script setup lang="ts">
+import { DEFAULT_ACTIVITY } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { ButtonBase } from "@/display/widgets";
+import { FileSystemSource, Store } from "@/domain";
+import { useRouter } from "vue-router";
 
-const emit = defineEmits<{
-  open: [handle: FileSystemDirectoryHandle],
-}>();
-
+const router = useRouter();
+const store = Store.use();
 const { t } = useI18n();
-
 
 async function handleOpen() {
   const handle = await showDirectoryPicker();
-  emit("open", handle);
+  const source = new FileSystemSource(handle);
+  void store.artifacts.load(source);
+  void router.push({ name: DEFAULT_ACTIVITY });
 }
 </script>
 <template>

@@ -10,6 +10,7 @@ export const DEFAULT_ACTIVITY = ACTIVITIES.OUTLINE;
 
 export type Activity = typeof ACTIVITIES[keyof typeof ACTIVITIES];
 
-export function isActivity(id: string): id is Activity {
-  return Object.values(ACTIVITIES).includes(id as Activity);
+export function isActivity(maybeActivity: unknown): maybeActivity is Activity {
+  if (typeof maybeActivity !== "string") return false;
+  return Object.values(ACTIVITIES).includes(maybeActivity as Activity);
 }
