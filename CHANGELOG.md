@@ -1,5 +1,12 @@
 
 
+## [0.33.1](https://github.com/joaomelo/calystone/compare/v0.33.0...v0.33.1) (2024-10-27)
+
+
+### Bug Fixes
+
+* alter type import syntax to avoid vitejs problem ([83a026c](https://github.com/joaomelo/calystone/commit/83a026cc4887bc8a94d3d4495ce987607487cd82))
+
 ## [0.33.0](https://github.com/joaomelo/calystone/compare/v0.32.0...v0.33.0) (2024-10-26)
 
 
