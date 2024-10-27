@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { type Artifact } from "@/domain";
-import { type Tree, type TreeNode } from "@/utils";
+import type { Artifact } from "@/domain";
+import type { Tree, TreeNode } from "@/utils";
+import type { TreeNode as TreeNodePrime } from "primevue/treenode";
+
 import PrimeVueTree from "primevue/tree";
-import { type TreeNode as TreeNodePrime } from "primevue/treenode";
 import { computed, type MaybeRefOrGetter, toValue } from "vue";
 
 const { artifacts } = defineProps<{
