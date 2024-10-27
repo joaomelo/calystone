@@ -21,7 +21,6 @@ export default tseslint.config(
   {
     rules: {
       "no-console": ["warn", { allow: ["warn", "error", "info"] }],
-      "no-duplicate-imports": "error",
     }
   },
 
