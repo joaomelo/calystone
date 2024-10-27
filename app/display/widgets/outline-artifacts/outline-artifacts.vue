@@ -7,6 +7,8 @@ import ProgressBar from "primevue/progressbar";
 import PrimeVueTree from "primevue/tree";
 import { computed, toValue } from "vue";
 
+import { ScrollPanel } from "../scroll-panel";
+
 const { artifacts } = defineProps<{
   artifacts: Tree<Artifact>;
   isLoading: boolean;
@@ -29,23 +31,27 @@ function mapArtifact(artifact: Artifact) {
 }
 </script>
 <template>
-  <div class="tree-artifacts">
+  <div class="outline-artifacts">
     <ProgressBar
       v-if="isLoading"
       mode="indeterminate"
     />
-    <PrimeVueTree 
-      selection-mode="single"
-      :value
-    />
+    <ScrollPanel class="outline-artifacts-scroll">
+      <PrimeVueTree 
+        selection-mode="single"
+        :value
+      />
+    </ScrollPanel>
   </div>
 </template>
 <style scoped>
-.tree-artifacts {
-  position: relative;
+.outline-artifacts,
+.outline-artifacts-scroll {
+  /* this will contain the component between the height boundaries of its parent  */
+  height: 100%;
 }
 
-.tree-artifacts :deep(.p-progressbar) {
+.outline-artifacts :deep(.p-progressbar) {
   border-radius: 0;
   height: var(--border-size-2);
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ScrollPanel, SplitterPanel, TreeArtifacts } from "@/display/widgets";
+import { OutlineArtifacts, SplitterPanel } from "@/display/widgets";
 import { Store } from "@/domain";
 import { treeify } from "@/utils";
 import { computed } from "vue";
@@ -11,12 +11,11 @@ const artifacts = computed(() => treeify(store.artifacts.hash));
 <template>
   <SplitterPanel class="page-outline">
     <template #start>
-      <ScrollPanel class="page-outline-start">
-        <TreeArtifacts
-          :artifacts="artifacts"
-          :is-loading="true"
-        />
-      </ScrollPanel>
+      <OutlineArtifacts
+        :artifacts="artifacts"
+        :is-loading="true"
+        class="page-outline-start"
+      />
     </template>
     <template #end>
       <pre>content</pre>
@@ -25,10 +24,6 @@ const artifacts = computed(() => treeify(store.artifacts.hash));
 </template>
 <style scoped>
 .page-outline {
-  height: 100vh;
-}
-
-.page-outline-start {
   height: 100vh;
 }
 </style>
