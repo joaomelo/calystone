@@ -1,5 +1,7 @@
 
 
+## [0.33.2](https://github.com/joaomelo/calystone/compare/v0.33.1...v0.33.2) (2024-10-27)
+
 ## [0.33.1](https://github.com/joaomelo/calystone/compare/v0.33.0...v0.33.1) (2024-10-27)
 
 
