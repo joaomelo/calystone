@@ -23,13 +23,13 @@ const value = computed(() => artifacts.map(mapNode));
 const selectedKey = ref(null);
 watchEffect(() => {
   if (!isObjectLike(selectedKey.value)) {
-    emit("selected", null);
+    emit("selected");
     return;
   }
 
   const keys = Object.keys(selectedKey.value);
   if (keys.length === 0) {
-    emit("selected", null);
+    emit("selected");
     return;
   }
 

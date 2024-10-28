@@ -1,0 +1,1 @@
+export { default as EditorArtifact } from "./editor-artifact.vue";

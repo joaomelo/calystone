@@ -1,11 +1,20 @@
 <script setup lang="ts">
-import { OutlineArtifacts, SplitterPanel } from "@/display/widgets";
+import type { Artifact } from "@/domain";
+import type { Id } from "@/utils";
+
+import { EditorArtifact, OutlineArtifacts, SplitterPanel } from "@/display/widgets";
 import { Store } from "@/domain";
 import { treeify } from "@/utils";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 const store = Store.use();
 const artifacts = computed(() => treeify(store.artifacts.hash));
+const artifact = ref<Artifact>();
+
+function handleSelected(id?: Id) {
+  const maybeArtifact = store.artifacts.hash.get(id);
+  artifact.value = maybeArtifact ?? undefined;
+}
 </script>
 
 <template>
@@ -15,10 +24,11 @@ const artifacts = computed(() => treeify(store.artifacts.hash));
         :artifacts="artifacts"
         :is-loading="store.artifacts.isLoading"
         class="page-outline-start"
+        @selected="handleSelected"
       />
     </template>
     <template #end>
-      <pre>content</pre>
+      <EditorArtifact :artifact />
     </template>
   </SplitterPanel>
 </template>
