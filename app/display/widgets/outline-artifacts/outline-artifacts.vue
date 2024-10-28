@@ -1,34 +1,40 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
-import type { Tree, TreeNode } from "@/utils";
-import type { TreeNode as TreeNodePrime } from "primevue/treenode";
+import type { Tree } from "@/utils";
 
+import { isObjectLike } from "@/utils";
 import ProgressBar from "primevue/progressbar";
 import PrimeVueTree from "primevue/tree";
-import { computed, toValue } from "vue";
+import { computed, ref, watchEffect } from "vue";
 
 import { ScrollPanel } from "../scroll-panel";
+import { mapNode } from "./map-node";
 
 const { artifacts } = defineProps<{
   artifacts: Tree<Artifact>;
   isLoading: boolean;
 }>();
+const emit = defineEmits<{
+  selected: [id: typeof Artifact["id"]]
+}>();
 
-const value = computed(() => toValue(artifacts).map(mapNode));
+const value = computed(() => artifacts.map(mapNode));
 
-function mapNode(node: TreeNode<Artifact>): TreeNodePrime {
-  const item = mapArtifact(node.item);
-  const children = node.children.map(mapNode);
-  return { ...item, children };
-}
+const selectedKey = ref(null);
+watchEffect(() => {
+  if (!isObjectLike(selectedKey.value)) {
+    emit("selected", null);
+    return;
+  }
 
-function mapArtifact(artifact: Artifact) {
-  return {
-    icon: artifact.type === "file" ? "pi pi-file" : "pi pi-folder",
-    key: artifact.id,
-    label: artifact.name,
-  };
-}
+  const keys = Object.keys(selectedKey.value);
+  if (keys.length === 0) {
+    emit("selected", null);
+    return;
+  }
+
+  emit("selected", keys[0]);
+});
 </script>
 <template>
   <div class="outline-artifacts">
@@ -37,7 +43,8 @@ function mapArtifact(artifact: Artifact) {
       mode="indeterminate"
     />
     <ScrollPanel class="outline-artifacts-scroll">
-      <PrimeVueTree 
+      <PrimeVueTree
+        v-model:selectionKeys="selectedKey"
         selection-mode="single"
         :value
       />
