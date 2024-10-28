@@ -13,7 +13,7 @@ const artifacts = computed(() => treeify(store.artifacts.hash));
     <template #start>
       <OutlineArtifacts
         :artifacts="artifacts"
-        :is-loading="true"
+        :is-loading="store.artifacts.isLoading"
         class="page-outline-start"
       />
     </template>
