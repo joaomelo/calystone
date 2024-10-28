@@ -1,5 +1,12 @@
 
 
+## [0.36.0](https://github.com/joaomelo/calystone/compare/v0.35.0...v0.36.0) (2024-10-28)
+
+
+### Features
+
+* folder loading does not block the ui ([c93335d](https://github.com/joaomelo/calystone/commit/c93335daf231dc05749aedc248db14ff2954d91f))
+
 ## [0.35.0](https://github.com/joaomelo/calystone/compare/v0.34.0...v0.35.0) (2024-10-28)
 
 
