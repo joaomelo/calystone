@@ -2,7 +2,6 @@ import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
-import vueDevTools from "vite-plugin-vue-devtools";
 
 const root = "./app/main";
 const pathBasedOnRootStartinAtProject = (path: string) => "../../" + path;
@@ -30,7 +29,6 @@ export default defineConfig(() => {
         },
         vueTsc: true
       }),
-      vueDevTools(),
     ],
     publicDir: pathBasedOnRootStartinAtProject("app/display/assets"),
     resolve: {
