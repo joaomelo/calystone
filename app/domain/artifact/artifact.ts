@@ -3,7 +3,7 @@ import { type Id } from "@/utils";
 export type Artifact = Directory | File;
 
 interface File extends Base {
-  get content(): Promise<Blob>,
+  fetch(): Promise<Blob>,
   type: "file",
 };
 

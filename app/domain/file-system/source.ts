@@ -1,7 +1,7 @@
 import { type Artifact } from "@/domain/artifact";
 import { type Source } from "@/domain/source";
 
-import { fileSystemSourceLoad } from "./load";
+import { load } from "./load";
 
 export class FileSystemSource implements Source { 
   private readonly rootHandle: FileSystemDirectoryHandle;
@@ -11,6 +11,6 @@ export class FileSystemSource implements Source {
   }
 
   load(): AsyncGenerator<Artifact> {
-    return fileSystemSourceLoad(this.rootHandle);
+    return load(this.rootHandle);
   }
 }
