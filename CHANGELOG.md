@@ -1,5 +1,13 @@
 
 
+## [0.37.0](https://github.com/joaomelo/calystone/compare/v0.36.0...v0.37.0) (2024-10-28)
+
+
+### Features
+
+* outline is able to provide feedback about selected artifact ([de376c0](https://github.com/joaomelo/calystone/commit/de376c0c92103402a8589ad57289837d321d3695))
+* outline page is able to switch between editors ([cd062f9](https://github.com/joaomelo/calystone/commit/cd062f975ec237692bd4263493a43370d628e95a))
+
 ## [0.36.0](https://github.com/joaomelo/calystone/compare/v0.35.0...v0.36.0) (2024-10-28)
 
 
