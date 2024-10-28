@@ -1,5 +1,12 @@
 
 
+## [0.35.0](https://github.com/joaomelo/calystone/compare/v0.34.0...v0.35.0) (2024-10-28)
+
+
+### Features
+
+* loading feedback becomes realistic ([44395c6](https://github.com/joaomelo/calystone/commit/44395c68259f7b8760b71acbd5e0bbe9092a8765))
+
 ## [0.34.0](https://github.com/joaomelo/calystone/compare/v0.33.2...v0.34.0) (2024-10-27)
 
 
