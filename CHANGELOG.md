@@ -1,5 +1,12 @@
 
 
+## [0.38.0](https://github.com/joaomelo/calystone/compare/v0.37.0...v0.38.0) (2024-10-28)
+
+
+### Features
+
+* outline page shows proper content for empty selection ([2848e2e](https://github.com/joaomelo/calystone/commit/2848e2e9dab73b2561ae0b7c725dd8c81e8258cd))
+
 ## [0.37.0](https://github.com/joaomelo/calystone/compare/v0.36.0...v0.37.0) (2024-10-28)
 
 
