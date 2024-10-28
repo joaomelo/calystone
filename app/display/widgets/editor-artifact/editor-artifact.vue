@@ -20,5 +20,8 @@ const editor = computed(() => {
 
 </script>
 <template>
-  <component :is="editor" />
+  <component
+    :is="editor"
+    :artifact
+  />
 </template>

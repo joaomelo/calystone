@@ -1,5 +1,21 @@
 <script setup lang="ts">
+import { useI18n } from "@/display/i18n";
+const { t } = useI18n();
 </script>
 <template>
-  <div>editor empty</div>
+  <div class="editor-empty">
+    {{ t('select') }}
+  </div>
 </template>
+<style scoped>
+.editor-empty {
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+
+  padding: var(--size-3);
+
+  text-align: center;
+}
+</style>
