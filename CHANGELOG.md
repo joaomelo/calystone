@@ -1,5 +1,12 @@
 
 
+## [0.34.0](https://github.com/joaomelo/calystone/compare/v0.33.2...v0.34.0) (2024-10-27)
+
+
+### Features
+
+* the outline progress bar is fixed ([706b4fd](https://github.com/joaomelo/calystone/commit/706b4fd1377ceae33ebea8a4b62a0a4d27595415))
+
 ## [0.33.2](https://github.com/joaomelo/calystone/compare/v0.33.1...v0.33.2) (2024-10-27)
 
 ## [0.33.1](https://github.com/joaomelo/calystone/compare/v0.33.0...v0.33.1) (2024-10-27)
