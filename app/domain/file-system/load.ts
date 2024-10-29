@@ -4,9 +4,9 @@ import type { Id } from "@/utils";
 import { createId, idle } from "@/utils";
 
 export async function* load(handle: FileSystemDirectoryHandle, parentId?: Id): AsyncGenerator<Artifact> {
-  
+
   for await (const entry of handle.values()) {
-    await idle();    
+    await idle();
 
     const base = {
       id: createId(),
@@ -32,4 +32,3 @@ export async function* load(handle: FileSystemDirectoryHandle, parentId?: Id): A
     }
   }
 }
-

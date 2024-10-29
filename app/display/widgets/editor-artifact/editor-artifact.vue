@@ -17,7 +17,6 @@ const editor = computed(() => {
   return EditorFile;
 });
 
-
 </script>
 <template>
   <component

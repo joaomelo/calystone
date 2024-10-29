@@ -7,4 +7,4 @@ export const messages = {
 };
 
 export type MessageSchema = typeof en;
-export type AvailableLocales = keyof typeof messages; 
+export type AvailableLocales = keyof typeof messages;

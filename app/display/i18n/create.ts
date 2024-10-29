@@ -7,13 +7,13 @@ export function createI18n() {
 
   const supported = Object.keys(messages);
   const maybeLocale = attemptLocaleMatch(navigator.language, supported);
-  
+
   const i18n = createVueI18n<[MessageSchema], AvailableLocales>({
     fallbackLocale: "en",
     legacy: false,
     locale: maybeLocale ?? "en",
     messages
   });
-  
+
   return i18n;
 }

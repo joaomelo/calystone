@@ -9,18 +9,18 @@ describe("extract", () => {
       const id = createId();
       expect(extractId(id)).toBe(id);
     });
-  
+
     it("should return the id property if passed an object with id", () => {
       const withId = { id: createId() };
       expect(extractId(withId)).toBe(withId.id);
     });
   });
-  
+
   describe("extractIds", () => {
     it("should extract an array of Ids from an array of Ids or WithIds", () => {
       const expectedIds = [createId(), createId()];
       const ids = [expectedIds[0], { id: expectedIds[1] }];
       expect(extractIds(ids)).toEqual(expectedIds);
     });
-  });  
+  });
 });

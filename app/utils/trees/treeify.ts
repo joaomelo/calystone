@@ -6,7 +6,7 @@ export function treeify<Id, Item extends InputItem<Id>>(items: Map<Id, Item>): T
 
   items.forEach((item, id) => {
     const node = assertNode(id, item);
-    
+
     const { parentId } = item;
     if (parentId === undefined) {
       tree.push(node);
@@ -14,7 +14,7 @@ export function treeify<Id, Item extends InputItem<Id>>(items: Map<Id, Item>): T
     else {
       const parentItem = items.get(parentId);
       if (!parentItem) throw new Error("parent item not found in items input");
-      const parentNode = assertNode(parentId, parentItem);  
+      const parentNode = assertNode(parentId, parentItem);
       parentNode.children.push(node);
     }
   });

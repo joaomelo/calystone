@@ -3,7 +3,6 @@ import { computed, toValue } from "vue";
 
 import { useProvider } from "./provider";
 
-
 const { icon, id, title } = defineProps<{
   icon: string
   id: string,

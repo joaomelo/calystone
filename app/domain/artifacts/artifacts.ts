@@ -1,6 +1,6 @@
-import { type Artifact } from "@/domain/artifact";
-import { type Source } from "@/domain/source";
-import { type Id } from "@/utils";
+import type { Artifact } from "@/domain/artifact";
+import type { Source } from "@/domain/source";
+import type { Id } from "@/utils";
 
 export class Artifacts {
   public readonly hash = new Map<Id, Artifact>();

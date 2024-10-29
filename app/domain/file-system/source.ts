@@ -3,7 +3,7 @@ import { type Source } from "@/domain/source";
 
 import { load } from "./load";
 
-export class FileSystemSource implements Source { 
+export class FileSystemSource implements Source {
   private readonly rootHandle: FileSystemDirectoryHandle;
 
   constructor(rootHandle: FileSystemDirectoryHandle) {

@@ -6,7 +6,7 @@ export default defineConfig({
     baseUrl: "http://localhost:8081",
     experimentalRunAllSpecs: true,
     specPattern: "e2e/specs/**/*.cy.ts",
-    supportFile: false,    
+    supportFile: false,
   },
   fixturesFolder: "e2e/fixtures",
   screenshotsFolder: "e2e/screenshots",

@@ -1,4 +1,3 @@
-
 export function attemptLocaleMatch(maybeLocale: string, supported: string[]) {
   if (!maybeLocale) return null;
 

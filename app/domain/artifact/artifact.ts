@@ -20,4 +20,3 @@ interface Base {
 };
 
 type Type = "directory" | "file";
-

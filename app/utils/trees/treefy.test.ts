@@ -35,21 +35,21 @@ describe("treeify", () => {
 
     const tree = treeify(items);
 
-    expect(tree.length).toBe(2); 
+    expect(tree.length).toBe(2);
     expect(tree[0].item.id).toBe(1);
-    expect(tree[0].children.length).toBe(2); 
+    expect(tree[0].children.length).toBe(2);
     expect(tree[0].children[0].item.id).toBe(2);
     expect(tree[0].children[1].item.id).toBe(3);
 
     expect(tree[1].item.id).toBe(4);
-    expect(tree[1].children.length).toBe(1); 
+    expect(tree[1].children.length).toBe(1);
     expect(tree[1].children[0].item.id).toBe(5);
   });
 
   it("should throw an error if a parent is not found in the items map", () => {
     const items = new Map<number, MockItem>([
       [1, { id: 1, name: "Parent 1" }],
-      [2, { id: 2, name: "Child 1", parentId: 99 }] 
+      [2, { id: 2, name: "Child 1", parentId: 99 }]
     ]);
 
     expect(() => treeify(items)).toThrow("parent item not found in items input");

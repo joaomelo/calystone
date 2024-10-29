@@ -13,7 +13,6 @@ export function initApp(elementId: string) {
 
   console.info(`${name} v${version}`);
 
-  
   const app = createApp(App);
 
   app.use(PrimeVue, {

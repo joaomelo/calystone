@@ -45,19 +45,21 @@ export default tseslint.config(
       "@stylistic/key-spacing": "error",
       "@stylistic/keyword-spacing": "error",
       "@stylistic/lines-between-class-members": [
-        "error", 
+        "error",
         {
           enforce: [
             { blankLine: "always", next: "method", prev: "*" }
           ],
-        }, 
-        { 
+        },
+        {
           exceptAfterOverload: true,
           exceptAfterSingleLine: true
         },
       ],
       "@stylistic/multiline-ternary": ["error", "always-multiline"],
       "@stylistic/no-multi-spaces": "error",
+      "@stylistic/no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 0, "maxEOF": 0 }],
+      "@stylistic/no-trailing-spaces": "error",
       "@stylistic/object-curly-newline": [
         "error",
         {
@@ -100,9 +102,9 @@ export default tseslint.config(
         projectService: true,
         sourceType: "module",
         tsconfigRootDir: resolve(import.meta.dirname)
-      }      
+      }
     },
-  },  
+  },
 
   // only for e2e tests
   {

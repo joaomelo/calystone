@@ -1,8 +1,9 @@
-import { extractId, flatTree, treeify } from "@lib";
+import type { Artifact } from "@/domain/artifact";
+import type { Id } from "@/utils";
 
-import { listArtifacts } from "./list-artifacts";
+type ArtifactOrId = Artifact | Id;
 
-export function listDescendants(dependencies, idOrArtifact) {
+export function listDescendants(artifactOrId: ArtifactOrId, idOrArtifact) {
   const allArtifacts = listArtifacts(dependencies);
   const id = extractId(idOrArtifact);
   const isRoot = a => extractId(a) === id;

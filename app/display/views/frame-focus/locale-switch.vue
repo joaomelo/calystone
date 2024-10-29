@@ -5,7 +5,7 @@ import { InputSelectButton } from "@/display/widgets";
 const { availableLocales, locale } = useI18n();
 
 </script>
-<template> 
+<template>
   <div class="locale-switch">
     <InputSelectButton
       v-model="locale"

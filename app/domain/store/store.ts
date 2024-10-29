@@ -11,7 +11,7 @@ export class Store {
     if (!maybeStore) {
       throw new Error("store was not provided during initialization");
     }
-    return maybeStore;    
+    return maybeStore;
   }
 
   install(app: App) {

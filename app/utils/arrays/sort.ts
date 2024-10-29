@@ -5,7 +5,7 @@ import type { MaybeArray } from "./maybe-array";
 import { asArray } from "./as-array";
 
 export function sort<T, K extends keyof T>(
-  maybeArray: MaybeArray<T>, 
+  maybeArray: MaybeArray<T>,
   field: K & (T[K] extends Date | number | string ? K : never)
 ): T[] {
   const sorted = clone(asArray(maybeArray));
@@ -20,4 +20,3 @@ export function sort<T, K extends keyof T>(
     return flag;
   });
 }
-
