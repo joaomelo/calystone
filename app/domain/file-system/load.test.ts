@@ -1,5 +1,4 @@
-import type { Artifact } from "@/domain/artifact";
-
+import { Artifact, Directory, File } from "@/domain/artifact";
 import { describe, expect, it, vi } from "vitest";
 
 import { load } from "./load";
@@ -20,6 +19,12 @@ interface MockFileSystemDirectoryHandle {
   values: () => AsyncIterableIterator<MockDirectoryEntry | MockFileEntry>;
 }
 
+async function* createAsyncIterable<T>(items: T[]): AsyncIterableIterator<T> {
+  for await (const item of items) {
+    yield item;
+  }
+}
+
 describe("load function", () => {
   it("should yield artifacts for files", async () => {
     const mockFileEntry: MockFileEntry = {
@@ -29,7 +34,7 @@ describe("load function", () => {
     };
 
     const mockRootHandle: MockFileSystemDirectoryHandle = {
-      values: vi.fn().mockResolvedValue([mockFileEntry][Symbol.iterator]()),
+      values: () => createAsyncIterable([mockFileEntry]),
     };
 
     const artifacts: Artifact[] = [];
@@ -38,19 +43,19 @@ describe("load function", () => {
     }
 
     expect(artifacts).toHaveLength(1);
+    expect(artifacts[0]).toBeInstanceOf(File);
     expect(artifacts[0].name).toBe(mockFileEntry.name);
-    expect(artifacts[0].type).toBe(mockFileEntry.kind);
   });
 
   it("should yield artifacts for directories", async () => {
     const mockDirectoryEntry: MockDirectoryEntry = {
       kind: "directory",
       name: "sub-dir",
-      values: vi.fn().mockResolvedValue([][Symbol.iterator]()),
+      values: () => createAsyncIterable([]),
     };
 
     const mockRootHandle: MockFileSystemDirectoryHandle = {
-      values: vi.fn().mockResolvedValue([mockDirectoryEntry][Symbol.iterator]()),
+      values: () => createAsyncIterable([mockDirectoryEntry]),
     };
 
     const artifacts: Artifact[] = [];
@@ -59,8 +64,8 @@ describe("load function", () => {
     }
 
     expect(artifacts).toHaveLength(1);
+    expect(artifacts[0]).toBeInstanceOf(Directory);
     expect(artifacts[0].name).toBe(mockDirectoryEntry.name);
-    expect(artifacts[0].type).toBe(mockDirectoryEntry.kind);
   });
 
   it("should handle nested directories", async () => {
@@ -73,11 +78,11 @@ describe("load function", () => {
     const mockNestedDirectoryEntry: MockDirectoryEntry = {
       kind: "directory",
       name: "nested",
-      values: vi.fn().mockResolvedValue([mockFileEntry][Symbol.iterator]()),
+      values: () => createAsyncIterable([mockFileEntry]),
     };
 
     const mockRootHandle: MockFileSystemDirectoryHandle = {
-      values: vi.fn().mockResolvedValue([mockNestedDirectoryEntry][Symbol.iterator]()),
+      values: () => createAsyncIterable([mockNestedDirectoryEntry]),
     };
 
     const artifacts: Artifact[] = [];
@@ -87,8 +92,8 @@ describe("load function", () => {
 
     expect(artifacts).toHaveLength(2);
     expect(artifacts[0].name).toBe(mockNestedDirectoryEntry.name);
-    expect(artifacts[0].type).toBe(mockNestedDirectoryEntry.kind);
+    expect(artifacts[0]).toBeInstanceOf(Directory);
     expect(artifacts[1].name).toBe(mockFileEntry.name);
-    expect(artifacts[1].type).toBe(mockFileEntry.kind);
+    expect(artifacts[1]).toBeInstanceOf(File);
   });
 });

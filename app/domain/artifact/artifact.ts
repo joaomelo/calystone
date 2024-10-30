@@ -1,22 +1,31 @@
-import { type Id } from "@/utils";
+import type { Id } from "@/utils";
 
-export type Artifact = Directory | File;
+import { createId } from "@/utils";
 
-interface File extends Base {
-  fetch(): Promise<Blob>,
-  type: "file",
-};
+export interface Parent {
+  adopt(child: Artifact): void;
+  path(): string;
+}
 
-interface Directory extends Base {
-  content?: never,
-  type: "directory",
-};
+export abstract class Artifact {
+  public readonly id: Id;
+  public name: string;
+  public parent?: Parent;
 
-interface Base {
-  id: Id,
-  name: string,
-  parentId?: Id,
-  type: Type,
-};
+  constructor(name: string, parent?: Parent) {
+    this.id = createId();
+    this.name = name;
+    this.affiliate(parent);
+  }
 
-type Type = "directory" | "file";
+  affiliate(parent? : Parent) {
+    if (parent) {
+      this.parent = parent;
+      this.parent.adopt(this);
+    }
+  }
+
+  path(): string {
+    return this.parent ? `${this.parent.path()}/${this.name}` : this.name;
+  }
+}

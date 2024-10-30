@@ -42,8 +42,10 @@ export default defineConfig(() => {
       strictPort: true,
     },
     test: {
+      environment: "jsdom",
       exclude: pathsBasedOnRootStartinAtProject(["node_modules/**", ".legacy/**", "e2e/**"]),
       include: pathsBasedOnRootStartinAtProject(["app/**/*.test.ts"]),
+      setupFiles: pathBasedOnRootStartinAtProject("vitest.setup.ts"),
     },
   };
 });

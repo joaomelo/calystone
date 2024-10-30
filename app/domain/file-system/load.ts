@@ -1,34 +1,19 @@
-import type { Artifact } from "@/domain/artifact";
-import type { Id } from "@/utils";
+import { Artifact, Directory, File } from "@/domain/artifact";
+import { idle } from "@/utils";
 
-import { createId, idle } from "@/utils";
-
-export async function* load(handle: FileSystemDirectoryHandle, parentId?: Id): AsyncGenerator<Artifact> {
+export async function* load(handle: FileSystemDirectoryHandle, parent?: Directory): AsyncGenerator<Artifact> {
 
   for await (const entry of handle.values()) {
     await idle();
 
-    const base = {
-      id: createId(),
-      name: entry.name,
-      parentId,
-    };
-
     if (entry.kind === "file") {
-      const artifact: Artifact = {
-        ...base,
-        fetch: () => entry.getFile(),
-        type: entry.kind,
-      };
-      yield artifact;
+      const fetch = () => entry.getFile();
+      const file = new File(entry.name, fetch, parent);
+      yield file;
     } else {
-      const artifact: Artifact = {
-        ...base,
-        type: entry.kind,
-      };
-      yield artifact;
-
-      yield* load(entry, base.id);
+      const directory = new Directory(entry.name, parent);
+      yield directory;
+      yield* load(entry, directory);
     }
   }
 }
