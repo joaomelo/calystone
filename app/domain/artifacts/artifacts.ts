@@ -10,6 +10,7 @@ export class Artifacts {
 
   close(): void {
     this.source = undefined;
+    this.roots.length = 0;
     this.index.clear();
   }
 
