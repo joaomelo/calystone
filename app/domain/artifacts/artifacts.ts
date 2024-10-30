@@ -3,10 +3,9 @@ import type { Source } from "@/domain/source";
 import type { Id } from "@/utils";
 
 export class Artifacts {
-  private readonly index = new Map<Id, Artifact>();
-  private readonly roots: Artifact[] = [];
-
+  public readonly index = new Map<Id, Artifact>();
   public isLoading = false;
+  public readonly roots: Artifact[] = [];
   public source: Source | undefined;
 
   close(): void {

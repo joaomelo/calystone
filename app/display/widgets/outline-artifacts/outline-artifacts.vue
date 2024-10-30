@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
-import type { Tree } from "@/utils";
 
 import { isObjectLike } from "@/utils";
 import ProgressBar from "primevue/progressbar";
@@ -8,17 +7,17 @@ import PrimeVueTree from "primevue/tree";
 import { computed, ref, watchEffect } from "vue";
 
 import { ScrollPanel } from "../scroll-panel";
-import { mapNode } from "./map-node";
+import { convert } from "./convert";
 
 const { artifacts } = defineProps<{
-  artifacts: Tree<Artifact>;
+  artifacts: Artifact[];
   isLoading: boolean;
 }>();
 const emit = defineEmits<{
   selected: [id: typeof Artifact["id"]]
 }>();
 
-const value = computed(() => artifacts.map(mapNode));
+const value = computed(() => artifacts.map(convert));
 
 const selectedKey = ref(null);
 watchEffect(() => {

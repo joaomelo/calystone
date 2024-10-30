@@ -4,11 +4,9 @@ import type { Id } from "@/utils";
 
 import { EditorArtifact, OutlineArtifacts, SplitterPanel } from "@/display/widgets";
 import { Store } from "@/domain";
-import { treeify } from "@/utils";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 const store = Store.use();
-const artifacts = computed(() => treeify(store.artifacts.index));
 const artifact = ref<Artifact>();
 
 function handleSelected(id?: Id) {
@@ -21,7 +19,7 @@ function handleSelected(id?: Id) {
   <SplitterPanel class="page-outline">
     <template #start>
       <OutlineArtifacts
-        :artifacts="artifacts"
+        :artifacts="store.artifacts.roots"
         :is-loading="store.artifacts.isLoading"
         class="page-outline-start"
         @selected="handleSelected"
