@@ -3,13 +3,15 @@ import type { Source } from "@/domain/source";
 import type { Id } from "@/utils";
 
 export class Artifacts {
-  public readonly hash = new Map<Id, Artifact>();
+  private readonly index = new Map<Id, Artifact>();
+  private readonly roots: Artifact[] = [];
+
   public isLoading = false;
   public source: Source | undefined;
 
   close(): void {
     this.source = undefined;
-    this.hash.clear();
+    this.index.clear();
   }
 
   async load(source: Source) {
@@ -19,7 +21,10 @@ export class Artifacts {
     this.source = source;
 
     for await (const artifact of source.load()) {
-      this.hash.set(artifact.id, artifact);
+      this.index.set(artifact.id, artifact);
+      if (!artifact.parent) {
+        this.roots.push(artifact);
+      }
     }
 
     this.isLoading = false;

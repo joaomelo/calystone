@@ -8,11 +8,11 @@ import { treeify } from "@/utils";
 import { computed, ref } from "vue";
 
 const store = Store.use();
-const artifacts = computed(() => treeify(store.artifacts.hash));
+const artifacts = computed(() => treeify(store.artifacts.index));
 const artifact = ref<Artifact>();
 
 function handleSelected(id?: Id) {
-  const maybeArtifact = store.artifacts.hash.get(id);
+  const maybeArtifact = store.artifacts.index.get(id);
   artifact.value = maybeArtifact ?? undefined;
 }
 </script>
