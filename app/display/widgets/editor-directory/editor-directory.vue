@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import type { Artifact } from "@/domain";
-
 import { useI18n } from "@/display/i18n";
+import { Directory } from "@/domain";
 
 const { artifact } = defineProps<{
-  artifact: Artifact;
+  artifact: Directory;
 }>();
 
 const { t } = useI18n();
 </script>
 <template>
   <div class="editor-empty">
-    {{ t('directory') }} {{ artifact.name }}
+    <p><b>{{ t('directory') }}</b>: {{ artifact.name }}</p>
+    <p><b>path</b>: {{ artifact.path() }}</p>
+    <p><b>items</b>: {{ artifact.count() }}</p>
   </div>
 </template>
 <style scoped>
