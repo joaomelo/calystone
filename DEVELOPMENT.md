@@ -88,7 +88,15 @@ The project uses vanilla CSS with design tokens coming from custom properties. T
 
 Domain is the bussiness logic running in a vacum without care about `views`.
 
-Its has as concise as possible properties and methods to allow state mutation, asserting business rules, and exposing essencial data to the view.
+### Separeta state from logic
+
+One should note use classes to express the domain. Data strucutures should by defines by types and located in a central object. Data transformation should be done by functions that will receive this data store as a whole or only the necessary to know properties.
+
+This is due to facilitate the building of reactive user interfaces taking advantage of the reactive constructus of any of the modern UI frameworks. They do not deal well with classes, specially but no limited deep object relationshipgs.
+
+### Be simple and let upper layers carry some load
+
+The domain has a concise as possible properties and methods to allow state mutation, asserting business rules, and exposing essencial data to the top layers.
 
 These types are not meant to be flexible or adapt to every needs of the UI. The point here is simplicity and communality. Views will extedend upon the domain to reach their needs.
 

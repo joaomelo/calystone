@@ -3,16 +3,19 @@ import type { Parent } from "./artifact";
 import { Artifact } from "./artifact";
 
 export class Directory extends Artifact implements Parent {
-  public readonly children: Artifact[] = [];
+  public readonly children = new Set<Artifact>();
 
   adopt(child: Artifact) {
-    this.children.push(child);
+    this.children.add(child);
   }
 
   count(): number {
-    return this.children.reduce(
-      (count, child) => child instanceof Directory ? count + child.count() : count,
-      this.children.length
-    );
+    let count = this.children.size;
+    this.children.forEach((child) => {
+      if (child instanceof Directory) {
+        count += child.count();
+      }
+    });
+    return count;
   }
 };

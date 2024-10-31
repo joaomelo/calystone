@@ -4,10 +4,12 @@ import type { Id } from "@/utils";
 
 import { EditorArtifact, OutlineArtifacts, SplitterPanel } from "@/display/widgets";
 import { Store } from "@/domain";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const store = Store.use();
 const artifact = ref<Artifact>();
+
+const artifacts = computed(() => Array.from(store.artifacts.roots));
 
 function handleSelected(id?: Id) {
   const maybeArtifact = store.artifacts.index.get(id);
@@ -19,7 +21,7 @@ function handleSelected(id?: Id) {
   <SplitterPanel class="page-outline">
     <template #start>
       <OutlineArtifacts
-        :artifacts="store.artifacts.roots"
+        :artifacts="artifacts"
         :is-loading="store.artifacts.isLoading"
         class="page-outline-start"
         @selected="handleSelected"
