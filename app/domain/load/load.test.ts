@@ -1,4 +1,7 @@
-import { Artifact, Directory, File } from "@/domain/artifact";
+import type { Artifact } from "@/domain/artifact";
+
+import { isDirectory } from "@/domain/directory";
+import { isFile } from "@/domain/file";
 import { describe, expect, it, vi } from "vitest";
 
 import { load } from "./load";
@@ -43,8 +46,8 @@ describe("load function", () => {
     }
 
     expect(artifacts).toHaveLength(1);
-    expect(artifacts[0]).toBeInstanceOf(File);
     expect(artifacts[0].name).toBe(mockFileEntry.name);
+    expect(isFile(artifacts[0])).toBeTruthy();
   });
 
   it("should yield artifacts for directories", async () => {
@@ -64,8 +67,8 @@ describe("load function", () => {
     }
 
     expect(artifacts).toHaveLength(1);
-    expect(artifacts[0]).toBeInstanceOf(Directory);
     expect(artifacts[0].name).toBe(mockDirectoryEntry.name);
+    expect(isDirectory(artifacts[0])).toBeTruthy();
   });
 
   it("should handle nested directories", async () => {
@@ -92,8 +95,8 @@ describe("load function", () => {
 
     expect(artifacts).toHaveLength(2);
     expect(artifacts[0].name).toBe(mockNestedDirectoryEntry.name);
-    expect(artifacts[0]).toBeInstanceOf(Directory);
+    expect(isDirectory(artifacts[0])).toBeTruthy();
     expect(artifacts[1].name).toBe(mockFileEntry.name);
-    expect(artifacts[1]).toBeInstanceOf(File);
+    expect(isFile(artifacts[1])).toBeTruthy();
   });
 });

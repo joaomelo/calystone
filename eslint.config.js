@@ -29,6 +29,14 @@ export default tseslint.config(
   ...tseslint.configs.stylisticTypeChecked,
   {
     rules: {
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          disallowTypeAnnotations: true,
+          fixStyle: "separate-type-imports",
+          prefer: "type-imports",
+        },
+      ],
       "@typescript-eslint/no-unsafe-call": "off"
     }
   },

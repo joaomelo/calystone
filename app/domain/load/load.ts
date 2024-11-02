@@ -1,4 +1,8 @@
-import { Artifact, Directory, File } from "@/domain/artifact";
+import type { Artifact } from "@/domain/artifact";
+import type { Directory } from "@/domain/directory";
+
+import { createDirectory } from "@/domain/directory";
+import { createFile } from "@/domain/file";
 import { idle } from "@/utils";
 
 export async function* load(handle: FileSystemDirectoryHandle, parent?: Directory): AsyncGenerator<Artifact> {
@@ -8,10 +12,10 @@ export async function* load(handle: FileSystemDirectoryHandle, parent?: Director
 
     if (entry.kind === "file") {
       const fetch = () => entry.getFile();
-      const file = new File(entry.name, fetch, parent);
+      const file = createFile(entry.name, fetch, parent);
       yield file;
     } else {
-      const directory = new Directory(entry.name, parent);
+      const directory = createDirectory(entry.name, parent);
       yield directory;
       yield* load(entry, directory);
     }
