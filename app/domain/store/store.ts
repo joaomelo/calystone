@@ -5,6 +5,7 @@ const key: InjectionKey<Store> = Symbol("store");
 
 export class Store {
   public readonly artifacts = new Artifacts();
+  connection;
 
   static use() {
     const maybeStore = inject(key);
