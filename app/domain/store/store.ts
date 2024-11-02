@@ -1,21 +1,31 @@
-import { Artifacts } from "@/domain/artifacts";
-import { type App, inject, type InjectionKey } from "vue";
+import type { Artifacts, Source } from "@/domain";
+import type { App, InjectionKey } from "vue";
+
+import { createArtifacts, createSource } from "@/domain";
+import { inject, reactive } from "vue";
 
 const key: InjectionKey<Store> = Symbol("store");
 
-export class Store {
-  public readonly artifacts = new Artifacts();
-  connection;
+export interface Store {
+  artifacts: Artifacts;
+  install(app: App): void;
+  source: Source;
+}
 
-  static use() {
-    const maybeStore = inject(key);
-    if (!maybeStore) {
-      throw new Error("store was not provided during initialization");
-    }
-    return maybeStore;
-  }
+export function createStore(): Store {
+  return {
+    artifacts: reactive(createArtifacts()),
+    install(app: App) {
+      app.provide(key, this);
+    },
+    source: reactive(createSource())
+  };
+}
 
-  install(app: App) {
-    app.provide(key, this);
+export function useStore() {
+  const maybeStore = inject(key);
+  if (!maybeStore) {
+    throw new Error("store was not provided during initialization");
   }
+  return maybeStore;
 }

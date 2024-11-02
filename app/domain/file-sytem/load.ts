@@ -5,19 +5,8 @@ import { createDirectory } from "@/domain/directory";
 import { createFile } from "@/domain/file";
 import { idle } from "@/utils";
 
-import type { ActiveConnection } from "./connection";
-
-export async function* load(connection: ActiveConnection): AsyncGenerator<Artifact> {
-  connection.status = "loading";
-  try {
-    yield* loadHandle(connection.root);
-  } finally {
-    connection.status = "open";
-  }
-}
-
-async function* loadHandle(handle: FileSystemDirectoryHandle, parent?: Directory): AsyncGenerator<Artifact> {
-  for await (const entry of handle.values()) {
+export async function* loadFileSytem(root: FileSystemDirectoryHandle, parent?: Directory): AsyncGenerator<Artifact> {
+  for await (const entry of root.values()) {
     await idle();
 
     if (entry.kind === "file") {
@@ -27,7 +16,7 @@ async function* loadHandle(handle: FileSystemDirectoryHandle, parent?: Directory
     } else {
       const directory = createDirectory(entry.name, parent);
       yield directory;
-      yield* loadHandle(entry, directory);
+      yield* loadFileSytem(entry, directory);
     }
   }
 }

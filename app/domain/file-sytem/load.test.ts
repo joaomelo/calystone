@@ -4,9 +4,7 @@ import { isDirectory } from "@/domain/directory";
 import { isFile } from "@/domain/file";
 import { describe, expect, it, vi } from "vitest";
 
-import type { ActiveConnection } from "./connection";
-
-import { load } from "./load";
+import { loadFileSytem } from "./load";
 
 interface MockFileEntry {
   getFile: () => Promise<Blob>;
@@ -22,11 +20,6 @@ interface MockDirectoryEntry {
 
 interface MockFileSystemDirectoryHandle {
   values: () => AsyncIterableIterator<MockDirectoryEntry | MockFileEntry>;
-}
-
-interface MockActiveConnection {
-  root: MockFileSystemDirectoryHandle;
-  status: "loading" | "open";
 }
 
 async function* createAsyncIterable<T>(items: T[]): AsyncIterableIterator<T> {
@@ -47,13 +40,8 @@ describe("load function", () => {
       values: () => createAsyncIterable([mockFileEntry]),
     };
 
-    const mockConnection: MockActiveConnection = {
-      root: mockRootHandle,
-      status: "open",
-    };
-
     const artifacts: Artifact[] = [];
-    for await (const artifact of load(mockConnection as ActiveConnection)) {
+    for await (const artifact of loadFileSytem(mockRootHandle as unknown as FileSystemDirectoryHandle)) {
       artifacts.push(artifact);
     }
 
@@ -73,13 +61,8 @@ describe("load function", () => {
       values: () => createAsyncIterable([mockDirectoryEntry]),
     };
 
-    const mockConnection: MockActiveConnection = {
-      root: mockRootHandle,
-      status: "open",
-    };
-
     const artifacts: Artifact[] = [];
-    for await (const artifact of load(mockConnection as ActiveConnection)) {
+    for await (const artifact of loadFileSytem(mockRootHandle as unknown as FileSystemDirectoryHandle)) {
       artifacts.push(artifact);
     }
 
@@ -105,13 +88,8 @@ describe("load function", () => {
       values: () => createAsyncIterable([mockNestedDirectoryEntry]),
     };
 
-    const mockConnection: MockActiveConnection = {
-      root: mockRootHandle,
-      status: "open",
-    };
-
     const artifacts: Artifact[] = [];
-    for await (const artifact of load(mockConnection as ActiveConnection)) {
+    for await (const artifact of loadFileSytem(mockRootHandle as unknown as FileSystemDirectoryHandle)) {
       artifacts.push(artifact);
     }
 
