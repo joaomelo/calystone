@@ -2,25 +2,25 @@
 import type { Activity } from "@/display/activities";
 
 import { ACTIVITIES, useCurrentActivity } from "@/display/activities";
-import { Store } from "@/domain";
+import { resetStore, useStore } from "@/domain";
 import { watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
 import FrameDashboardSide from "./frame-dashboard-side.vue";
 
 const router = useRouter();
-const store = Store.use();
+const store = useStore();
 const currentActivity = useCurrentActivity();
 
 watchEffect(() => {
-  if (store.artifacts.source === undefined) {
+  if (store.source.status === "closed") {
     void router.push({ name: ACTIVITIES.OPEN });
   }
 });
 
 function handleUpdateActivity(newActivity: Activity) {
   if (newActivity === ACTIVITIES.OPEN) {
-    store.artifacts.close();
+    resetStore(store);
     return;
   }
   void router.push({ name: newActivity });
