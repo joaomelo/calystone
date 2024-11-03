@@ -1,5 +1,13 @@
 
 
+## [0.39.0](https://github.com/joaomelo/calystone/compare/v0.38.2...v0.39.0) (2024-11-03)
+
+
+### Features
+
+* file editor show size and type ([d313380](https://github.com/joaomelo/calystone/commit/d313380c21aa5ae3b5bb82521a4279bf73671a0d))
+* removes redundant info ([5ac9e04](https://github.com/joaomelo/calystone/commit/5ac9e04e953fca5a668eb932eb52fe23a045d479))
+
 ## [0.38.2](https://github.com/joaomelo/calystone/compare/v0.38.1...v0.38.2) (2024-11-03)
 
 ## [0.38.1](https://github.com/joaomelo/calystone/compare/v0.38.0...v0.38.1) (2024-11-03)
