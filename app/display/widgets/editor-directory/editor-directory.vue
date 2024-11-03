@@ -12,8 +12,7 @@ const { t } = useI18n();
 </script>
 <template>
   <div>
-    <p><b>{{ t('directory') }}</b>: {{ artifact.name }}</p>
-    <p><b>{{ t('path') }}</b>: {{ path(artifact) }}</p>
     <p><b>{{ t('items') }}</b>: {{ count(artifact) }}</p>
+    <p><b>{{ t('path') }}</b>: {{ path(artifact) }}</p>
   </div>
 </template>
