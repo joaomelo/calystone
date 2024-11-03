@@ -5,3 +5,4 @@ export * from "./file";
 export * from "./file-sytem";
 export * from "./source";
 export * from "./store";
+export * from "./synapse";

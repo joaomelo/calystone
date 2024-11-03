@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
 
-import { Directory } from "@/domain";
+import { isDirectory, isFile } from "@/domain";
 import { computed } from "vue";
 
 import { EditorDirectory } from "../editor-directory";
@@ -13,11 +13,10 @@ const { artifact } = defineProps<{
 }>();
 
 const editor = computed(() => {
-  if (!artifact) return EditorEmpty;
-  if (artifact instanceof Directory) return EditorDirectory;
-  return EditorFile;
+  if (isDirectory(artifact)) return EditorDirectory;
+  if (isFile(artifact)) return EditorFile;
+  return EditorEmpty;
 });
-
 </script>
 <template>
   <component

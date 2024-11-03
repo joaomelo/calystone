@@ -3,17 +3,17 @@ import type { Artifact } from "@/domain";
 import type { Id } from "@/utils";
 
 import { EditorArtifact, OutlineArtifacts, SplitterPanel } from "@/display/widgets";
-import { Store } from "@/domain";
+import { useStore } from "@/domain";
+import { selectRoots } from "@/domain";
 import { computed, ref } from "vue";
 
-const store = Store.use();
-const artifact = ref<Artifact>();
-
-const artifacts = computed(() => Array.from(store.artifacts.roots));
+const store = useStore();
+const artifact = ref<Artifact | undefined>();
+const rootArtifacts = computed(() => selectRoots(store.artifacts));
+const isLoading = computed(() => store.source.status === "loading");
 
 function handleSelected(id?: Id) {
-  const maybeArtifact = store.artifacts.index.get(id);
-  artifact.value = maybeArtifact ?? undefined;
+  artifact.value = id ? store.artifacts.get(id) : undefined;
 }
 </script>
 
@@ -21,8 +21,8 @@ function handleSelected(id?: Id) {
   <SplitterPanel class="page-outline">
     <template #start>
       <OutlineArtifacts
-        :artifacts="artifacts"
-        :is-loading="store.artifacts.isLoading"
+        :artifacts="rootArtifacts"
+        :is-loading="isLoading"
         class="page-outline-start"
         @selected="handleSelected"
       />

@@ -1,19 +1,12 @@
 import type { Artifact } from "@/domain";
-import type { TreeNode as TreeNodePrime } from "primevue/treenode";
+import type { TreeNode } from "primevue/treenode";
 
-import { Directory } from "@/domain";
+import { isDirectory } from "@/domain";
 
-export function convert(artifact: Artifact): TreeNodePrime {
-
-  const isDirectory = artifact instanceof Directory;
-
+export function convert(artifact: Artifact): TreeNode {
   const key = artifact.id;
   const label = artifact.name;
-  const icon = isDirectory ? "pi pi-folder" : "pi pi-file";
-
-  const children = isDirectory
-    ? Array.from(artifact.children).map(convert)
-    : [];
-
+  const icon = isDirectory(artifact) ? "pi pi-folder" : "pi pi-file";
+  const children = isDirectory(artifact) ? artifact.children.map(convert) : [];
   return { children, icon, key, label };
 }

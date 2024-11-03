@@ -2,7 +2,7 @@
 import type { Activity } from "@/display/activities";
 
 import { ACTIVITIES, useCurrentActivity } from "@/display/activities";
-import { resetStore, useStore } from "@/domain";
+import { reset, useStore } from "@/domain";
 import { watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
@@ -20,7 +20,7 @@ watchEffect(() => {
 
 function handleUpdateActivity(newActivity: Activity) {
   if (newActivity === ACTIVITIES.OPEN) {
-    resetStore(store);
+    reset(store.artifacts, store.source);
     return;
   }
   void router.push({ name: newActivity });

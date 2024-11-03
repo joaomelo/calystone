@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
+import type { Id } from "@/utils";
 
-import { isObjectLike } from "@/utils";
+import { isId, isObjectLike } from "@/utils";
 import ProgressBar from "primevue/progressbar";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref, watchEffect } from "vue";
@@ -14,7 +15,7 @@ const { artifacts } = defineProps<{
   isLoading: boolean;
 }>();
 const emit = defineEmits<{
-  selected: [id: typeof Artifact["id"]]
+  selected: [id: Id | undefined];
 }>();
 
 const value = computed(() => artifacts.map(convert));
@@ -22,13 +23,13 @@ const value = computed(() => artifacts.map(convert));
 const selectedKey = ref(null);
 watchEffect(() => {
   if (!isObjectLike(selectedKey.value)) {
-    emit("selected");
+    emit("selected", undefined);
     return;
   }
 
   const keys = Object.keys(selectedKey.value);
-  if (keys.length === 0) {
-    emit("selected");
+  if (!isId(keys[0])) {
+    emit("selected", undefined);
     return;
   }
 
