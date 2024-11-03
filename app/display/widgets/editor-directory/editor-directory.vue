@@ -17,9 +17,3 @@ const { t } = useI18n();
     <p><b>{{ t('items') }}</b>: {{ count(artifact) }}</p>
   </div>
 </template>
-<style scoped>
-.editor-directory {
-  height: 100%;
-  padding: var(--size-3);
-}
-</style>

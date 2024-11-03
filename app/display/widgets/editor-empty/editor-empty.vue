@@ -10,12 +10,8 @@ const { t } = useI18n();
 <style scoped>
 .editor-empty {
   height: 100%;
-
   display: grid;
   place-items: center;
-
-  padding: var(--size-3);
-
   text-align: center;
 }
 </style>

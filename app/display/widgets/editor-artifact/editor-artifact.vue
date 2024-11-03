@@ -19,8 +19,16 @@ const editor = computed(() => {
 });
 </script>
 <template>
-  <component
-    :is="editor"
-    :artifact
-  />
+  <div class="editor-artifact">
+    <component
+      :is="editor"
+      :artifact
+    />
+  </div>
 </template>
+<style scoped>
+.editor-artifact {
+  height: 100%;
+  padding: var(--size-3);
+}
+</style>
