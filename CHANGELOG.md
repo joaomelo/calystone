@@ -1,5 +1,12 @@
 
 
+## [0.38.1](https://github.com/joaomelo/calystone/compare/v0.38.0...v0.38.1) (2024-11-03)
+
+
+### Bug Fixes
+
+* clear roots list upon exit ([53c19be](https://github.com/joaomelo/calystone/commit/53c19be2a7ba77cd42f9cc4a93543cc6da7967fa))
+
 ## [0.38.0](https://github.com/joaomelo/calystone/compare/v0.37.0...v0.38.0) (2024-10-28)
 
 
