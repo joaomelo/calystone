@@ -1,4 +1,4 @@
-globalThis.requestIdleCallback = (callback: IdleRequestCallback, options?: IdleRequestOptions) => {
+globalThis.requestIdleCallback = (callback: IdleRequestCallback) => {
   const start = Date.now();
   return window.setTimeout(() => {
     callback({
