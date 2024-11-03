@@ -11,7 +11,7 @@ const { artifact } = defineProps<{
 const { t } = useI18n();
 </script>
 <template>
-  <div class="editor-directory">
+  <div>
     <p><b>{{ t('directory') }}</b>: {{ artifact.name }}</p>
     <p><b>{{ t('path') }}</b>: {{ path(artifact) }}</p>
     <p><b>{{ t('items') }}</b>: {{ count(artifact) }}</p>
