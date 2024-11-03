@@ -36,6 +36,8 @@
   "select": "quando você selecionar um artefato na hierarquia, suas informações serão mostradas aqui",
   "sign-in": "entrar",
   "sign-up": "criar conta",
+  "size": "tamanho",
   "tags": "rótulos",
+  "type": "tipo",
   "wait": "por favor, aguarde enquanto tentamos recuperar sua sessão anterior"
 }

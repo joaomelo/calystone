@@ -36,6 +36,8 @@
   "select": "when you select an artifact on the outline, its details will show here",
   "sign-in": "sing in",
   "sign-up": "sing up",
+  "size": "size",
   "tags": "tags",
+  "type": "type",
   "wait": "please, wait while we try to recover your previous session"
 }
