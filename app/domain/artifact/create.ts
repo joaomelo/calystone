@@ -1,19 +1,14 @@
-import type { Directory } from "@/domain/directory";
+import type { Id } from "@/utils";
 
-import { affiliate } from "@/domain/directory";
 import { createId } from "@/utils";
 
 import type { Artifact } from "./artifact";
 
-export function createArtifact(name: string, parent? : Directory): Artifact {
+export function createArtifact(name: string, parentId? : Id) {
   const artifact: Artifact = {
     id: createId(),
-    name: name
+    name,
+    parentId,
   };
-
-  if (parent) {
-    affiliate(parent, artifact);
-  }
-
   return artifact;
 }
