@@ -2,13 +2,17 @@
 import type { Directory } from "@/domain";
 
 import { useI18n } from "@/display/i18n";
-import { count, path } from "@/domain";
+import { createCount, createPath } from "@/domain";
+
+import { useWithArtifacts } from "../use-with-artifacts";
 
 const { artifact } = defineProps<{
   artifact: Directory;
 }>();
 
 const { t } = useI18n();
+const count = useWithArtifacts(createCount);
+const path = useWithArtifacts(createPath);
 </script>
 <template>
   <div>

@@ -19,7 +19,7 @@ export function createIsId(id: Id) {
   return (artifact: Artifact) => artifact.id === id;
 }
 
-export function createIsChildren(parentOrId: Artifact | Id) {
+export function isChildrenWith(parentOrId: Artifact | Id) {
   const id = extractId(parentOrId);
   return (artifact: Artifact) => artifact.parentId === id;
 }

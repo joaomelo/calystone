@@ -5,3 +5,4 @@ export * from "./outline-artifacts";
 export * from "./scroll-panel";
 export * from "./side-bar";
 export * from "./splitter-panel";
+export * from "./use-with-artifacts";

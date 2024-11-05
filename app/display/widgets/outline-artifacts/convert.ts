@@ -1,7 +1,7 @@
 import type { Artifact, Artifacts } from "@/domain";
 import type { TreeNode } from "primevue/treenode";
 
-import { createIsChildren, isDirectory, list } from "@/domain";
+import { isChildrenWith, isDirectory, list } from "@/domain";
 
 export function convert(artifacts: Artifacts, artifact: Artifact): TreeNode {
   const key = artifact.id;
@@ -10,7 +10,7 @@ export function convert(artifacts: Artifacts, artifact: Artifact): TreeNode {
   if (!isDirectory(artifact)) return { children: [], icon: "pi pi-file", key, label };
 
   const children = list(artifacts)
-    .filter(createIsChildren(artifact.id))
+    .filter(isChildrenWith(artifact.id))
     .map((child: Artifact) => convert(artifacts, child));
 
   return { children, icon: "pi pi-folder", key, label };

@@ -2,27 +2,31 @@
 import type { File } from "@/domain";
 
 import { useI18n } from "@/display/i18n";
-import { path } from "@/domain";
+import { createPath } from "@/domain";
 import { filesize } from "filesize";
 import { ref, watchEffect } from "vue";
+
+import { useWithArtifacts } from "../use-with-artifacts";
 
 const { artifact } = defineProps<{
   artifact: File;
 }>();
 
+const path = useWithArtifacts(createPath);
 const { t } = useI18n();
 
 const size = ref("calculating...");
 const type = ref("calculating...");
 
 watchEffect(() => {
-  artifact.fetch().then(blob => {
-    size.value = filesize(blob.size);
-    type.value = blob.type;
-  }).catch(() => {
-    size.value = "error";
-    type.value = "error";
-  });
+  artifact.fetch()
+    .then(blob => {
+      size.value = filesize(blob.size);
+      type.value = blob.type;
+    }).catch(() => {
+      size.value = "error";
+      type.value = "error";
+    });
 });
 </script>
 <template>
