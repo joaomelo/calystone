@@ -3,7 +3,7 @@ import type { Artifact } from "@/domain";
 import type { Id } from "@/utils";
 
 import { EditorArtifact, OutlineArtifacts, SplitterPanel } from "@/display/widgets";
-import { useStore } from "@/domain";
+import { getOrThrow, useStore } from "@/domain";
 import { computed, ref } from "vue";
 
 const store = useStore();
@@ -11,7 +11,7 @@ const artifact = ref<Artifact | undefined>();
 const isLoading = computed(() => store.source.status === "loading");
 
 function handleSelected(id?: Id) {
-  artifact.value = id ? store.artifacts.get(id) : undefined;
+  artifact.value = id ? getOrThrow(store.artifacts, id) : undefined;
 }
 </script>
 
