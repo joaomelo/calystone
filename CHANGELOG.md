@@ -1,5 +1,12 @@
 
 
+## [0.39.2](https://github.com/joaomelo/calystone/compare/v0.39.1...v0.39.2) (2024-11-05)
+
+
+### Bug Fixes
+
+* editor are sync with functionalized api ([a03d7e5](https://github.com/joaomelo/calystone/commit/a03d7e538de26bde226de7179f7da68cd8d6b1f8))
+
 ## [0.39.1](https://github.com/joaomelo/calystone/compare/v0.39.0...v0.39.1) (2024-11-05)
 
 
