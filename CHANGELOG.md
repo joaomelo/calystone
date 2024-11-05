@@ -1,5 +1,12 @@
 
 
+## [0.39.1](https://github.com/joaomelo/calystone/compare/v0.39.0...v0.39.1) (2024-11-05)
+
+
+### Bug Fixes
+
+* outline is properly loaded ([beb57ba](https://github.com/joaomelo/calystone/commit/beb57bab39c288b26e435bba586dcb7138b683a0))
+
 ## [0.39.0](https://github.com/joaomelo/calystone/compare/v0.38.2...v0.39.0) (2024-11-03)
 
 
