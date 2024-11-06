@@ -2,13 +2,16 @@ import type { Id } from "@/utils";
 
 import { createArtifact } from "@/domain/artifact";
 
-import type { Fetch, File } from "./file";
+import type { File } from "./file";
 
-export function createFile(name: string, fetch: Fetch, parentId?: Id) {
+export function createFile(data: FileData, parentId?: Id) {
+  const { name, ...rest } = data;
   const file: File = {
     ...createArtifact(name, parentId),
-    fetch,
+    ...rest,
     kind: "file",
   };
   return file;
 }
+
+type FileData = Pick<File, "fetch" | "lastModified" | "mime" | "name" | "size">;

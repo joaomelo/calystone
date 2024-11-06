@@ -4,7 +4,7 @@ import { isDirectory } from "@/domain/directory";
 import { isFile } from "@/domain/file";
 import { describe, expect, it, vi } from "vitest";
 
-import { loadFileSytem } from "./load";
+import { loadFileSystem } from "./load";
 
 interface MockFileEntry {
   getFile: () => Promise<Blob>;
@@ -41,7 +41,7 @@ describe("load function", () => {
     };
 
     const artifacts: Artifact[] = [];
-    for await (const artifact of loadFileSytem(mockRootHandle as unknown as FileSystemDirectoryHandle)) {
+    for await (const artifact of loadFileSystem(mockRootHandle as unknown as FileSystemDirectoryHandle)) {
       artifacts.push(artifact);
     }
 
@@ -62,7 +62,7 @@ describe("load function", () => {
     };
 
     const artifacts: Artifact[] = [];
-    for await (const artifact of loadFileSytem(mockRootHandle as unknown as FileSystemDirectoryHandle)) {
+    for await (const artifact of loadFileSystem(mockRootHandle as unknown as FileSystemDirectoryHandle)) {
       artifacts.push(artifact);
     }
 
@@ -89,7 +89,7 @@ describe("load function", () => {
     };
 
     const artifacts: Artifact[] = [];
-    for await (const artifact of loadFileSytem(mockRootHandle as unknown as FileSystemDirectoryHandle)) {
+    for await (const artifact of loadFileSystem(mockRootHandle as unknown as FileSystemDirectoryHandle)) {
       artifacts.push(artifact);
     }
 
