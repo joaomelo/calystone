@@ -19,10 +19,6 @@ graph TD
   display --> domain
 ```
 
-## Design strategies
-
-Nothing in this app, even utils, is coded with a mindset to be later used in other apps or libs. this kind of design bring complexity. This app code has to be as focuses as possible. Complexity is added only when indispensible to achive some app known and present goal.
-
 ## Main
 
 Starts the applicaton, initializes app level state and stablish runtime dependencies.
@@ -90,7 +86,7 @@ Domain is the bussiness logic running in a vacum without care about `views`.
 
 ### Separeta state from logic
 
-One should note use classes to express the domain. Data strucutures should by defines by types and located in a central object. Data transformation should be done by functions that will receive this data store as a whole or only the necessary to know properties.
+One should not use classes to express the domain. Data strucutures should be defined by types and located in a central object. Data transformation should be done by functions that will receive this data store as a whole or only the necessary to know properties.
 
 This is due to facilitate the building of reactive user interfaces taking advantage of the reactive constructus of any of the modern UI frameworks. They do not deal well with classes, specially but no limited deep object relationshipgs.
 
@@ -105,3 +101,21 @@ When adding something to the domain ask yourself, does the domain doesn't alread
 ## Utils
 
 Language or technology helpers that don't need to be aware of bussiness rules and don't need runtime state goes here. Utils only knows about utils and nothing else.
+
+# Design strategies
+
+## Avoid uncertain use of complexity
+
+Nothing in this app, even utils, is coded with a mindset to be later used in other apps or libs. this kind of design bring complexity. This app code has to be as focuses as possible. Complexity is added only when indispensible to achive some app known and present goal.
+
+## Small functions
+
+Functions should be as small as possible. They should do one thing and have preferably a single input and two at most. 
+
+[How small should a function be? - Robert C. Martin (Uncle Bob)](https://www.youtube.com/watch?v=rXjf8eiGsSI).
+
+## Don't Unit Testing Everything
+
+No need to unit test every function and also no need to worry about the testing emcompassing inner structures. Tests should focus on verifying modules outcomes with none to litte mocking. Inner modules functions can change at will with side effecting multiple tests.
+
+[There is No Such Thing as a Unit Test](https://dev.to/awwsmm/there-is-no-such-thing-as-a-unit-test-50j3)
