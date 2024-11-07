@@ -1,5 +1,18 @@
 
 
+## [0.40.0](https://github.com/joaomelo/calystone/compare/v0.39.2...v0.40.0) (2024-11-07)
+
+
+### Features
+
+* improved mime detection ([8785e12](https://github.com/joaomelo/calystone/commit/8785e1214d0b19ae6e8bb8c9134f106ad8d8a459))
+* load file lift more data from the system during load ([6e6c530](https://github.com/joaomelo/calystone/commit/6e6c5304deef3d97eb34e0f1fea8d78b1c345f53))
+
+
+### Bug Fixes
+
+* editor file updted to new file type signature ([e55bf41](https://github.com/joaomelo/calystone/commit/e55bf417f152ea3dc28011ac8f4b2103f97ef16b))
+
 ## [0.39.2](https://github.com/joaomelo/calystone/compare/v0.39.1...v0.39.2) (2024-11-05)
 
 
