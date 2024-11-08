@@ -1,5 +1,12 @@
 
 
+## [0.41.0](https://github.com/joaomelo/calystone/compare/v0.40.0...v0.41.0) (2024-11-08)
+
+
+### Features
+
+* artifact editor is able to detect the correct editor based on a switch logic ([61a7025](https://github.com/joaomelo/calystone/commit/61a7025f4fc59c611e292c703bd310ff66bcacaf))
+
 ## [0.40.0](https://github.com/joaomelo/calystone/compare/v0.39.2...v0.40.0) (2024-11-07)
 
 
