@@ -21,13 +21,24 @@ const editor: Component = computed(() => {
   const specializedSwitch = switchs.find((s) => s.isCompatible(artifact));
   return specializedSwitch?.component ?? EditorEmpty;
 });
+
+// key is important to force the component to be recreated when the artifact changes and the inner editor is async. without key, editor text, for example, does not update the text content.
+const key = computed(() => artifact?.id ?? "empty");
 </script>
 <template>
   <div class="editor-artifact">
-    <component
-      :is="editor"
-      :artifact
-    />
+    <Suspense>
+      <template #default>
+        <component
+          :is="editor"
+          :key
+          :artifact
+        />
+      </template>
+      <template #fallback>
+        Loading...
+      </template>
+    </Suspense>
   </div>
 </template>
 <style scoped>
