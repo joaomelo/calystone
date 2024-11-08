@@ -1,5 +1,12 @@
 
 
+## [0.42.0](https://github.com/joaomelo/calystone/compare/v0.41.0...v0.42.0) (2024-11-08)
+
+
+### Features
+
+* text editor is able to show text ([d34d0e9](https://github.com/joaomelo/calystone/commit/d34d0e98e203f5fdc9da4a21a393a7a00fd9bedd))
+
 ## [0.41.0](https://github.com/joaomelo/calystone/compare/v0.40.0...v0.41.0) (2024-11-08)
 
 
