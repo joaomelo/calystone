@@ -1,21 +1,25 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
+import type { Component } from "vue";
 
-import { isDirectory, isFile } from "@/domain";
 import { computed } from "vue";
 
-import { EditorDirectory } from "../editor-directory";
+import type { EditorSwitch } from "../editor-switch";
+
+import { directorySwitch } from "../editor-directory";
 import { EditorEmpty } from "../editor-empty";
-import { EditorFile } from "../editor-file";
+import { fileSwitch } from "../editor-file";
+import { textSwitch } from "../editor-text";
 
 const { artifact } = defineProps<{
   artifact?: Artifact;
 }>();
 
-const editor = computed(() => {
-  if (isDirectory(artifact)) return EditorDirectory;
-  if (isFile(artifact)) return EditorFile;
-  return EditorEmpty;
+// switches order matters since the first compatible switch will be used, so the most specific should be first.
+const switchs: EditorSwitch[] = [directorySwitch, textSwitch, fileSwitch];
+const editor: Component = computed(() => {
+  const specializedSwitch = switchs.find((s) => s.isCompatible(artifact));
+  return specializedSwitch?.component ?? EditorEmpty;
 });
 </script>
 <template>
