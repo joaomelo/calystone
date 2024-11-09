@@ -44,6 +44,5 @@ const key = computed(() => artifact?.id ?? "empty");
 <style scoped>
 .editor-artifact {
   height: 100%;
-  padding: var(--size-3);
 }
 </style>

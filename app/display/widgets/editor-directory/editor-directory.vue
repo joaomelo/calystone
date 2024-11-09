@@ -15,8 +15,14 @@ const count = useWithArtifacts(createCount);
 const path = useWithArtifacts(createPath);
 </script>
 <template>
-  <div>
+  <div class="editor-directory">
     <p><b>{{ t('items') }}</b>: {{ count(artifact) }}</p>
     <p><b>{{ t('path') }}</b>: {{ path(artifact) }}</p>
   </div>
 </template>
+<style scoped>
+.editor-directory {
+  height: 100%;
+  padding: var(--size-3);
+}
+</style>
