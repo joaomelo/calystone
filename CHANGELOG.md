@@ -1,5 +1,17 @@
 
 
+## [0.43.0](https://github.com/joaomelo/calystone/compare/v0.42.0...v0.43.0) (2024-11-09)
+
+
+### Features
+
+* is able to show text content in editor ui ([00168de](https://github.com/joaomelo/calystone/commit/00168debbfed9b91a4672692bf5d1b16e3381323))
+
+
+### Bug Fixes
+
+* type declaration ([cee2465](https://github.com/joaomelo/calystone/commit/cee2465f8237d9be69746aa1bd4405b3844c3e3c))
+
 ## [0.42.0](https://github.com/joaomelo/calystone/compare/v0.41.0...v0.42.0) (2024-11-08)
 
 
