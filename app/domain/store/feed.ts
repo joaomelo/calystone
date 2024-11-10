@@ -1,4 +1,4 @@
-import { loadMedia } from "@/domain/media";
+import { loadMedia } from "@/domain/operations";
 
 import type { Store } from "./store";
 

@@ -1,6 +1,6 @@
 import type { Store } from "./store";
 
-export function reset(store: Store) {
+export function resetStore(store: Store) {
   store.nodes.clear();
   store.media.value = undefined;
 };

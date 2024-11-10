@@ -13,6 +13,16 @@ export interface Store {
   nodes: Nodes;
 }
 
+export function createStore(): Store {
+  return {
+    install(app: App) {
+      app.provide(key, this);
+    },
+    media: ref<Media>(),
+    nodes: reactive(createNodes())
+  };
+}
+
 export function useStore() {
   const maybeStore = inject(key);
   if (!maybeStore) {
