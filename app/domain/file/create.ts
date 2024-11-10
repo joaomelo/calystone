@@ -4,9 +4,9 @@ import { createArtifact } from "@/domain/artifact";
 
 import type { File } from "./file";
 
-export function createFile(data: FileData, parentId?: Id) {
+export function createFile<MediaResources>(data: FileData<MediaResources>, parentId?: Id) {
   const { name, ...rest } = data;
-  const file: File = {
+  const file: File<MediaResources> = {
     ...createArtifact(name, parentId),
     ...rest,
     kind: "file",
@@ -14,4 +14,4 @@ export function createFile(data: FileData, parentId?: Id) {
   return file;
 }
 
-type FileData = Pick<File, "fetch" | "lastModified" | "mime" | "name" | "size">;
+type FileData<MediaResources> = Pick<File<MediaResources>, "lastModified" | "media" | "mime" | "name" | "size">;

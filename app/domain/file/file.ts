@@ -1,11 +1,9 @@
 import type { Artifact } from "@/domain/artifact";
 
-export interface File extends Artifact {
-  fetch: Fetch;
+export interface File<MediaResources> extends Artifact {
   kind: "file";
   lastModified: number;
+  media: MediaResources
   mime: string;
   size: number;
 }
-
-export type Fetch = () => Promise<ArrayBuffer>;
