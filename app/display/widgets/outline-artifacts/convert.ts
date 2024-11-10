@@ -1,7 +1,7 @@
 import type { Node, Nodes } from "@/domain";
 import type { TreeNode } from "primevue/treenode";
 
-import { isChildrenWith, isDirectory, list } from "@/domain";
+import { createIsChildrenOf, isDirectory, list } from "@/domain";
 
 export function convert(nodes: Nodes, node: Node): TreeNode {
   const key = node.id;
@@ -10,7 +10,7 @@ export function convert(nodes: Nodes, node: Node): TreeNode {
   if (!isDirectory(node)) return { children: [], icon: "pi pi-file", key, label };
 
   const children = list(nodes)
-    .filter(isChildrenWith(node.id))
+    .filter(createIsChildrenOf(node.id))
     .map((child: Node) => convert(nodes, child));
 
   return { children, icon: "pi pi-folder", key, label };
