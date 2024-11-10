@@ -5,20 +5,20 @@ import { useI18n } from "@/display/i18n";
 import { createPath } from "@/domain";
 import { filesize } from "filesize";
 
-import { useWithArtifacts } from "../use-with-artifacts";
+import { useWithNodes } from "../use-with-nodes";
 
-const { artifact } = defineProps<{
-  artifact: File;
+const { node } = defineProps<{
+  node: File;
 }>();
 
-const path = useWithArtifacts(createPath);
+const path = useWithNodes(createPath);
 const { t } = useI18n();
 </script>
 <template>
   <div class="editor-file">
-    <p><b>type</b>: {{ artifact.mime }}</p>
-    <p><b>size</b>: {{ filesize(artifact.size) }}</p>
-    <p><b>{{ t('path') }}</b>: {{ path(artifact) }}</p>
+    <p><b>type</b>: {{ node.mime }}</p>
+    <p><b>size</b>: {{ filesize(node.size) }}</p>
+    <p><b>{{ t('path') }}</b>: {{ path(node) }}</p>
   </div>
 </template>
 <style scoped>

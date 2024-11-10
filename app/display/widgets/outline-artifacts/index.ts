@@ -1,1 +1,1 @@
-export { default as OutlineArtifacts } from "./outline-artifacts.vue";
+export { default as OutlineNodes } from "./outline-nodes.vue";

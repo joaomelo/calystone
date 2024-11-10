@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import type { Artifact } from "@/domain";
+import type { Node } from "@/domain";
 import type { Id } from "@/utils";
 
-import { EditorArtifact, OutlineArtifacts, SplitterPanel } from "@/display/widgets";
+import { EditorNode, OutlineNodes, SplitterPanel } from "@/display/widgets";
 import { getOrThrow, useStore } from "@/domain";
 import { computed, ref } from "vue";
 
 const store = useStore();
-const artifact = ref<Artifact | undefined>();
-const isLoading = computed(() => store.source.status === "loading");
+const node = ref<Node | undefined>();
+const isLoading = computed(() => store.media.status === "loading");
 
 function handleSelected(id?: Id) {
-  artifact.value = id ? getOrThrow(store.artifacts, id) : undefined;
+  node.value = id ? getOrThrow(store.nodes, id) : undefined;
 }
 </script>
 
 <template>
   <SplitterPanel class="page-outline">
     <template #start>
-      <OutlineArtifacts
-        :artifacts="store.artifacts"
+      <OutlineNodes
+        :nodes="store.nodes"
         :is-loading="isLoading"
         class="page-outline-start"
         @selected="handleSelected"
       />
     </template>
     <template #end>
-      <EditorArtifact :artifact />
+      <EditorNode :node />
     </template>
   </SplitterPanel>
 </template>

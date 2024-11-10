@@ -1,7 +1,7 @@
-import type { Artifact } from "@/domain";
+import type { Node } from "@/domain";
 import type { Component } from "vue";
 
 export interface EditorSwitch {
   component: Component,
-  isCompatible: (artifact?: Artifact) => boolean
+  isCompatible: (node?: Node) => boolean
 };

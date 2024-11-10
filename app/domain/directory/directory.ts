@@ -1,5 +1,5 @@
-import type { Artifact } from "@/domain/artifact";
+import type { Node } from "@/domain/node";
 
-export interface Directory extends Artifact {
+export interface Directory extends Node {
   kind: "directory";
 };

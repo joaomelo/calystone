@@ -2,20 +2,20 @@
 import { DEFAULT_ACTIVITY } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { ButtonBase } from "@/display/widgets";
-import { feed, loadFileSystem, openSource, useStore } from "@/domain";
+import { feed, loadFileSystem, openMedia, useStore } from "@/domain";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const store = useStore();
 const { t } = useI18n();
 
-async function handleOpenFileSystem() {
+async function handleOpenFileSystemAccess() {
   const root = await showDirectoryPicker();
 
   // in the future we can have load functions for things like dropbox or webRTC
-  openSource(store.source, () => loadFileSystem(root));
+  openMedia(store.media, () => loadFileSystem(root));
 
-  void feed(store.artifacts, store.source);
+  void feed(store.nodes, store.media);
   void router.push({ name: DEFAULT_ACTIVITY });
 }
 </script>
@@ -27,7 +27,7 @@ async function handleOpenFileSystem() {
     <ButtonBase
       :label="t('open-dir')"
       size="large"
-      @click="handleOpenFileSystem"
+      @click="handleOpenFileSystemAccess"
     />
   </div>
 </template>

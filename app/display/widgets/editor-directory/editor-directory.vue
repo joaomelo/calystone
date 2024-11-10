@@ -4,20 +4,20 @@ import type { Directory } from "@/domain";
 import { useI18n } from "@/display/i18n";
 import { createCount, createPath } from "@/domain";
 
-import { useWithArtifacts } from "../use-with-artifacts";
+import { useWithNodes } from "../use-with-nodes";
 
-const { artifact } = defineProps<{
-  artifact: Directory;
+const { node } = defineProps<{
+  node: Directory;
 }>();
 
 const { t } = useI18n();
-const count = useWithArtifacts(createCount);
-const path = useWithArtifacts(createPath);
+const count = useWithNodes(createCount);
+const path = useWithNodes(createPath);
 </script>
 <template>
   <div class="editor-directory">
-    <p><b>{{ t('items') }}</b>: {{ count(artifact) }}</p>
-    <p><b>{{ t('path') }}</b>: {{ path(artifact) }}</p>
+    <p><b>{{ t('items') }}</b>: {{ count(node) }}</p>
+    <p><b>{{ t('path') }}</b>: {{ path(node) }}</p>
   </div>
 </template>
 <style scoped>

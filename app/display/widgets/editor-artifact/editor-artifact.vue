@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Artifact } from "@/domain";
+import type { Node } from "@/domain";
 import type { Component } from "vue";
 
 import { computed } from "vue";
@@ -11,28 +11,28 @@ import { EditorEmpty } from "../editor-empty";
 import { fileSwitch } from "../editor-file";
 import { textSwitch } from "../editor-text";
 
-const { artifact } = defineProps<{
-  artifact?: Artifact;
+const { node } = defineProps<{
+  node?: Node;
 }>();
 
 // switches order matters since the first compatible switch will be used, so the most specific should be first.
 const switchs: EditorSwitch[] = [directorySwitch, textSwitch, fileSwitch];
 const editor: Component = computed(() => {
-  const specializedSwitch = switchs.find((s) => s.isCompatible(artifact));
+  const specializedSwitch = switchs.find((s) => s.isCompatible(node));
   return specializedSwitch?.component ?? EditorEmpty;
 });
 
-// key is important to force the component to be recreated when the artifact changes and the inner editor is async. without key, editor text, for example, does not update the text content.
-const key = computed(() => artifact?.id ?? "empty");
+// key is important to force the component to be recreated when the node changes and the inner editor is async. without key, editor text, for example, does not update the text content.
+const key = computed(() => node?.id ?? "empty");
 </script>
 <template>
-  <div class="editor-artifact">
+  <div class="editor-node">
     <Suspense>
       <template #default>
         <component
           :is="editor"
           :key
-          :artifact
+          :node
         />
       </template>
       <template #fallback>
@@ -42,7 +42,7 @@ const key = computed(() => artifact?.id ?? "empty");
   </div>
 </template>
 <style scoped>
-.editor-artifact {
+.editor-node {
   height: 100%;
 }
 </style>

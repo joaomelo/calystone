@@ -6,13 +6,13 @@ import { onMounted, ref } from "vue";
 
 import CodeMirror from "./code-mirror.vue";
 
-const { artifact } = defineProps<{
-  artifact: FileText;
+const { node } = defineProps<{
+  node: FileText;
 }>();
 
 const text = ref("");
 onMounted(async () => {
-  text.value = await fetchText(artifact);
+  text.value = await fetchText(node);
 });
 
 function handleUpdate(value: string) {

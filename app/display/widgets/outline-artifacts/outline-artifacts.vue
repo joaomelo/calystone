@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Artifact, Artifacts } from "@/domain";
+import type { Node, Nodes } from "@/domain";
 import type { Id } from "@/utils";
 
 import { isRoot, list } from "@/domain";
@@ -11,18 +11,18 @@ import { computed, ref, watchEffect } from "vue";
 import { ScrollPanel } from "../scroll-panel";
 import { convert } from "./convert";
 
-const { artifacts } = defineProps<{
+const { nodes } = defineProps<{
   // is important to use the reactive top-most data structure here to trigger the reactivity, passing a array of root objects will not secure ui updates.
-  artifacts: Artifacts;
+  nodes: Nodes;
   isLoading: boolean;
 }>();
 const emit = defineEmits<{
   selected: [id: Id | undefined];
 }>();
 
-const value = computed(() => list(artifacts)
+const value = computed(() => list(nodes)
   .filter(isRoot)
-  .map((artifact: Artifact) => convert(artifacts, artifact))
+  .map((node: Node) => convert(nodes, node))
 );
 
 const selectedKey = ref(null);
@@ -42,12 +42,12 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <div class="outline-artifacts">
+  <div class="outline-nodes">
     <ProgressBar
       v-if="isLoading"
       mode="indeterminate"
     />
-    <ScrollPanel class="outline-artifacts-scroll">
+    <ScrollPanel class="outline-nodes-scroll">
       <PrimeVueTree
         v-model:selectionKeys="selectedKey"
         selection-mode="single"
@@ -57,13 +57,13 @@ watchEffect(() => {
   </div>
 </template>
 <style scoped>
-.outline-artifacts,
-.outline-artifacts-scroll {
+.outline-nodes,
+.outline-nodes-scroll {
   /* this will contain the component between the height boundaries of its parent  */
   height: 100%;
 }
 
-.outline-artifacts :deep(.p-progressbar) {
+.outline-nodes :deep(.p-progressbar) {
   border-radius: 0;
   height: var(--border-size-2);
 }

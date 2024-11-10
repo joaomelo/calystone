@@ -1,24 +1,25 @@
-import type { Artifacts, Source } from "@/domain";
-import type { App, InjectionKey } from "vue";
+import type { Media } from "@/domain/media";
+import type { Nodes } from "@/domain/nodes";
+import type { App, InjectionKey, Ref } from "vue";
 
-import { createArtifacts, createSource } from "@/domain";
-import { inject, reactive } from "vue";
+import { createNodes } from "@/domain/nodes";
+import { inject, reactive, ref } from "vue";
 
 const key: InjectionKey<Store> = Symbol("store");
 
 export interface Store {
-  artifacts: Artifacts;
   install(app: App): void;
-  source: Source;
+  media: Ref<Media | undefined>;
+  nodes: Nodes;
 }
 
 export function createStore(): Store {
   return {
-    artifacts: reactive(createArtifacts()),
     install(app: App) {
       app.provide(key, this);
     },
-    source: reactive(createSource())
+    media: ref<Media>(),
+    nodes: reactive(createNodes())
   };
 }
 

@@ -1,1 +1,1 @@
-export { default as EditorArtifact } from "./editor-artifact.vue";
+export { default as EditorNode } from "./editor-node.vue";

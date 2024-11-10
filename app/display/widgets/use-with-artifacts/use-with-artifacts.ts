@@ -1,10 +1,10 @@
-import type { Artifacts } from "@/domain";
+import type { Nodes } from "@/domain";
 
 import { useStore } from "@/domain";
 
-type WithArtifacts<T> = (artifacts: Artifacts) => T;
+type WithNodes<T> = (nodes: Nodes) => T;
 
-export function useWithArtifacts<T>(withArtifacts: WithArtifacts<T>) {
-  const { artifacts } = useStore();
-  return withArtifacts(artifacts);
+export function useWithNodes<T>(withNodes: WithNodes<T>) {
+  const { nodes } = useStore();
+  return withNodes(nodes);
 }
