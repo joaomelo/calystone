@@ -1,7 +1,7 @@
 import type { Node } from "@/domain/node";
 import type { Nodes } from "@/domain/nodes";
 
-import { isChildrenWith } from "@/domain/node";
+import { createIsChildrenOf } from "@/domain/node";
 import { list } from "@/domain/nodes";
 
 import type { Directory } from "./directory";
@@ -10,7 +10,7 @@ import { isDirectory } from "./is";
 
 export function createCount(nodes: Nodes) {
   const count = (directory: Directory): number => {
-    const children = list(nodes).filter(isChildrenWith(directory));
+    const children = list(nodes).filter(createIsChildrenOf(directory));
     if (children.length === 0) return 0;
 
     return children.reduce(
