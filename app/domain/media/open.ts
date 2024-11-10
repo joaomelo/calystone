@@ -1,7 +1,8 @@
-import type { Media } from "./media";
-import type { MediaResources } from "./resources";
+import type { SourceResources } from "@/domain/source";
 
-export function openMedia<Resources extends MediaResources>(resources: Resources): Media<Resources> {
+import type { Media } from "./media";
+
+export function openMedia<Resources extends SourceResources>(resources: Resources): Media<Resources> {
   return {
     resources: resources,
     status: "idle"
