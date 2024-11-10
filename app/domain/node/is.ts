@@ -19,7 +19,7 @@ export function createIsId(id: Id) {
   return (node: Node) => node.id === id;
 }
 
-export function isChildrenWith(parentOrId: Id | Node) {
+export function createIsChildrenOf(parentOrId: Id | Node) {
   const id = extractId(parentOrId);
   return (node: Node) => node.parentId === id;
 }
