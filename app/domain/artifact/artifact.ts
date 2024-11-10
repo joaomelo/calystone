@@ -1,10 +1,10 @@
-import type { MediaResources } from "@/domain/media";
 import type { Node } from "@/domain/node";
+import type { SourceResources } from "@/domain/source";
 
-export interface Artifact<Resources extends MediaResources> extends Node {
+export interface Artifact<ArtifactResources extends SourceResources> extends Node {
   kind: "artifact";
   lastModified: number;
   mime: string;
-  resources: Resources
+  resources: ArtifactResources
   size: number;
 }
