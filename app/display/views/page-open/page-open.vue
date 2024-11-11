@@ -2,7 +2,7 @@
 import { DEFAULT_ACTIVITY } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { ButtonBase } from "@/display/widgets";
-import { feed, loadFileSystem, openConnection, useStore } from "@/domain";
+import { createFsaConnection, feedStore, useStore } from "@/domain";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -11,11 +11,7 @@ const { t } = useI18n();
 
 async function handleOpenFsa() {
   const root = await showDirectoryPicker();
-
-  // in the future we can have load functions for things like dropbox or webRTC
-  openConnection(store.connection, () => loadFileSystem(root));
-
-  void feed(store.nodes, store.connection);
+  void feedStore(store, createFsaConnection(root));
   void router.push({ name: DEFAULT_ACTIVITY });
 }
 </script>

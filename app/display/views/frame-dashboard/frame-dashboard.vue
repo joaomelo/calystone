@@ -2,7 +2,7 @@
 import type { Activity } from "@/display/activities";
 
 import { ACTIVITIES, useCurrentActivity } from "@/display/activities";
-import { reset, useStore } from "@/domain";
+import { resetStore, useStore } from "@/domain";
 import { watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
@@ -13,14 +13,14 @@ const store = useStore();
 const currentActivity = useCurrentActivity();
 
 watchEffect(() => {
-  if (store.connection.status === "closed") {
+  if (!store.connection.value) {
     void router.push({ name: ACTIVITIES.OPEN });
   }
 });
 
 function handleUpdateActivity(newActivity: Activity) {
   if (newActivity === ACTIVITIES.OPEN) {
-    reset(store.nodes, store.connection);
+    resetStore(store);
     return;
   }
   void router.push({ name: newActivity });

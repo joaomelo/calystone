@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FileText } from "@/domain";
+import type { TextArtifact } from "@/domain";
 
 import { fetchText } from "@/domain";
 import { onMounted, ref } from "vue";
@@ -7,7 +7,7 @@ import { onMounted, ref } from "vue";
 import CodeMirror from "./code-mirror.vue";
 
 const { node } = defineProps<{
-  node: FileText;
+  node: TextArtifact;
 }>();
 
 const text = ref("");
