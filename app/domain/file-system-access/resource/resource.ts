@@ -2,11 +2,11 @@ import type { SourceResources } from "@/domain/source";
 
 import { isSourceResources } from "@/domain/source";
 
-export interface FileSystemAccessResources extends SourceResources {
+export interface FsaResources extends SourceResources {
   source: "file-system-access"
 }
 
-export function isFileSystemAccessResources(resources: unknown):resources is FileSystemAccessResources
+export function isFsaResources(resources: unknown):resources is FsaResources
 {
   if (!isSourceResources(resources)) return false;
   return resources.source === "file-system-access";

@@ -1,13 +1,13 @@
-import type { FileSystemAccessResources } from "../resource";
+import type { FsaResources } from "../resource";
 
-import { isFileSystemAccessResources } from "../resource";
+import { isFsaResources } from "../resource";
 
-export interface FileSystemAccessArtifactResources extends FileSystemAccessResources {
+export interface FsaArtifactResources extends FsaResources {
   file: File
   handle: FileSystemFileHandle,
 }
 
-export function isFileSystemAccessArtifactResources(resources: unknown): resources is FileSystemAccessArtifactResources {
-  if (!isFileSystemAccessResources(resources)) return false;
+export function isFsaArtifactResources(resources: unknown): resources is FsaArtifactResources {
+  if (!isFsaResources(resources)) return false;
   return "file" in resources && "handle" in resources;
 }

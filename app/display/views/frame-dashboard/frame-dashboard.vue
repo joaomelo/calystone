@@ -13,14 +13,14 @@ const store = useStore();
 const currentActivity = useCurrentActivity();
 
 watchEffect(() => {
-  if (store.media.status === "closed") {
+  if (store.connection.status === "closed") {
     void router.push({ name: ACTIVITIES.OPEN });
   }
 });
 
 function handleUpdateActivity(newActivity: Activity) {
   if (newActivity === ACTIVITIES.OPEN) {
-    reset(store.nodes, store.media);
+    reset(store.nodes, store.connection);
     return;
   }
   void router.push({ name: newActivity });

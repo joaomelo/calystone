@@ -8,7 +8,7 @@ import { computed, ref } from "vue";
 
 const store = useStore();
 const node = ref<Node | undefined>();
-const isLoading = computed(() => store.media.status === "loading");
+const isLoading = computed(() => store.connection.status === "loading");
 
 function handleSelected(id?: Id) {
   node.value = id ? getOrThrow(store.nodes, id) : undefined;

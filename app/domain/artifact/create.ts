@@ -7,9 +7,9 @@ import type { Artifact } from "./artifact";
 
 import { solveMime } from "./mime";
 
-export function createArtifact<ArtifactResources extends SourceResources>(data: ArtifactData<ArtifactResources>, parentId?: Id) {
+export function createArtifact<Resources extends SourceResources>(data: ArtifactData<Resources>, parentId?: Id) {
   const { name, ...rest } = data;
-  const artifact: Artifact<ArtifactResources> = {
+  const artifact: Artifact<Resources> = {
     ...createNode(name, parentId),
     ...rest,
     kind: "artifact",
@@ -18,4 +18,4 @@ export function createArtifact<ArtifactResources extends SourceResources>(data: 
   return artifact;
 }
 
-type ArtifactData<ArtifactResources extends SourceResources> = Pick<Artifact<ArtifactResources>, "lastModified" | "name" | "resources" | "size">;
+type ArtifactData<Resources extends SourceResources> = Pick<Artifact<Resources>, "lastModified" | "name" | "resources" | "size">;

@@ -2,13 +2,13 @@ import type { Artifact } from "@/domain/artifact";
 
 import { isArtifact } from "@/domain/artifact";
 
-import type { FileSystemAccessArtifactResources } from "./resource";
+import type { FsaArtifactResources } from "./resource";
 
-import { isFileSystemAccessArtifactResources } from "./resource";
+import { isFsaArtifactResources } from "./resource";
 
-export type FileSystemAccessArtifact = Artifact<FileSystemAccessArtifactResources>;
+export type FsaArtifact = Artifact<FsaArtifactResources>;
 
-export function isFileSystemAccessArtifact(artifact: unknown): artifact is FileSystemAccessArtifact {
+export function isFsaArtifact(artifact: unknown): artifact is FsaArtifact {
   if (!isArtifact(artifact)) return false;
-  return isFileSystemAccessArtifactResources(artifact.resources);
+  return isFsaArtifactResources(artifact.resources);
 }

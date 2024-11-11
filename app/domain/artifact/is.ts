@@ -1,4 +1,4 @@
-import type { SourceResources } from "@/domain/media";
+import type { SourceResources } from "@/domain/connection";
 
 import { isNode } from "@/domain/node";
 
