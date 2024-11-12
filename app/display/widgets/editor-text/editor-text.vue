@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
 
-import { fetchArtifactText, isText } from "@/domain";
+import { fetchArtifactText, isText, postArtifactText } from "@/domain";
 import { onMounted, ref } from "vue";
 
 import CodeMirror from "./code-mirror.vue";
@@ -16,9 +16,8 @@ onMounted(async () => {
   text.value = await fetchArtifactText(node);
 });
 
-function handleUpdate(value: string) {
-  // save to artifact
-  console.log(value);
+async function handleUpdate(newText: string) {
+  await postArtifactText(node, newText);
 }
 </script>
 <template>
