@@ -1,9 +1,10 @@
 import type { Id } from "@/utils";
 
+import { createNode } from "@/domain/nodes/node";
+
 import type { Artifact } from "./artifact";
 
-import { createNode } from "../node";
-import { solveMime } from "./mime";
+import { solveMime } from "../mime";
 
 export function createArtifact(data: ArtifactData, parentId?: Id) {
   const { name, ...rest } = data;

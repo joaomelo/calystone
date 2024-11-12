@@ -1,1 +1,2 @@
-export * from "./fetch";
+export * from "./content";
+export * from "./text";

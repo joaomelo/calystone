@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TextArtifact } from "@/domain";
 
-import { fetchText } from "@/domain";
+import { fetchArtifactText } from "@/domain";
 import { onMounted, ref } from "vue";
 
 import CodeMirror from "./code-mirror.vue";
@@ -12,7 +12,7 @@ const { node } = defineProps<{
 
 const text = ref("");
 onMounted(async () => {
-  text.value = await fetchText(node);
+  text.value = await fetchArtifactText(node);
 });
 
 function handleUpdate(value: string) {
