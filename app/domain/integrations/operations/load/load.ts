@@ -1,14 +1,14 @@
-import type { ConnectionUnion } from "@/domain/specializations";
+import type { Connection } from "@/domain/sources";
 
 import { isFsaConnection, loadFsa } from "@/domain/specializations";
 
-export async function* loadConnection(connection: ConnectionUnion) {
+export async function* loadConnection(connection: Connection) {
   let load;
 
   if (isFsaConnection(connection)) {
     load = loadFsa;
   } else {
-    throw new Error("a connection must be provided");
+    throw new Error("a connection with source resources must be provided");
   }
 
   connection.status = "busy";

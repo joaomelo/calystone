@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import type { TextArtifact } from "@/domain";
+import type { Artifact } from "@/domain";
 
-import { fetchArtifactText } from "@/domain";
+import { fetchArtifactText, isText } from "@/domain";
 import { onMounted, ref } from "vue";
 
 import CodeMirror from "./code-mirror.vue";
 
 const { node } = defineProps<{
-  node: TextArtifact;
+  node: Artifact;
 }>();
 
 const text = ref("");
 onMounted(async () => {
+  if (!isText(node)) throw new Error("the artifact must have text content");
   text.value = await fetchArtifactText(node);
 });
 

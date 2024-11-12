@@ -1,1 +1,1 @@
-export { default as EditorNode } from "./editor-node.vue";
+export * from "./switch";

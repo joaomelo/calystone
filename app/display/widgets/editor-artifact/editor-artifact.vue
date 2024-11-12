@@ -1,48 +1,29 @@
 <script setup lang="ts">
-import type { Node } from "@/domain";
-import type { Component } from "vue";
+import type { Artifact } from "@/domain";
 
-import { computed } from "vue";
+import { useI18n } from "@/display/i18n";
+import { createPath } from "@/domain";
+import { filesize } from "filesize";
 
-import type { EditorSwitch } from "../editor-switch";
-
-import { directorySwitch } from "../editor-directory";
-import { EditorEmpty } from "../editor-empty";
-import { fileSwitch } from "../editor-file";
-import { textSwitch } from "../editor-text";
+import { useWithNodes } from "../use-with-nodes";
 
 const { node } = defineProps<{
-  node?: Node;
+  node: Artifact;
 }>();
 
-// switches order matters since the first compatible switch will be used, so the most specific should be first.
-const switchs: EditorSwitch[] = [directorySwitch, textSwitch, fileSwitch];
-const editor: Component = computed(() => {
-  const specializedSwitch = switchs.find((s) => s.isCompatible(node));
-  return specializedSwitch?.component ?? EditorEmpty;
-});
-
-// key is important to force the component to be recreated when the node changes and the inner editor is async. without key, editor text, for example, does not update the text content.
-const key = computed(() => node?.id ?? "empty");
+const path = useWithNodes(createPath);
+const { t } = useI18n();
 </script>
 <template>
-  <div class="editor-node">
-    <Suspense>
-      <template #default>
-        <component
-          :is="editor"
-          :key
-          :node
-        />
-      </template>
-      <template #fallback>
-        Loading...
-      </template>
-    </Suspense>
+  <div class="editor-artifact">
+    <p><b>{{ t('type') }}</b>: {{ node.mime }}</p>
+    <p><b>{{ t('size') }}</b>: {{ filesize(node.size) }}</p>
+    <p><b>{{ t('path') }}</b>: {{ path(node) }}</p>
   </div>
 </template>
 <style scoped>
-.editor-node {
+.editor-artifact {
   height: 100%;
+  padding: var(--size-3);
 }
 </style>

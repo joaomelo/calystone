@@ -3,5 +3,7 @@ import type { Component } from "vue";
 
 export interface EditorSwitch {
   component: Component,
-  isCompatible: (node?: Node) => boolean
+  isCompatible: IsCompatible
 };
+
+export type IsCompatible = (node?: Node) => boolean;
