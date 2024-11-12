@@ -2,30 +2,22 @@
 import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import { markdown } from "@codemirror/lang-markdown";
-import {
-  bracketMatching,
-  defaultHighlightStyle,
-  indentOnInput,
-  syntaxHighlighting,
-} from "@codemirror/language";
-import {
-  highlightSelectionMatches,
-} from "@codemirror/search";
+import { bracketMatching, defaultHighlightStyle, indentOnInput, syntaxHighlighting } from "@codemirror/language";
+import { highlightSelectionMatches, } from "@codemirror/search";
 import { EditorState } from "@codemirror/state";
-import {
-  drawSelection,
-  EditorView,
-  highlightActiveLine,
-  highlightActiveLineGutter,
-  keymap,
-  lineNumbers,
-} from "@codemirror/view";
+import { drawSelection, EditorView, highlightActiveLine, highlightActiveLineGutter, keymap, lineNumbers, } from "@codemirror/view";
+import { debounce } from "lodash-es";
 import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
 
 const model = defineModel<string>();
 
 const codeMirrorElement = useTemplateRef("codeMirror");
 let editorView: EditorView;
+
+// will emit updates to the model after 1 second of inactivity
+const handleUpdate = debounce((text: string) => {
+  model.value = text;
+}, 1000);
 
 onMounted(() => {
   if (!codeMirrorElement.value) return;
@@ -49,7 +41,7 @@ onMounted(() => {
       markdown(),
       EditorView.updateListener.of((v) => {
         if (v.docChanged) {
-          model.value = editorView.state.doc.toString();
+          handleUpdate(editorView.state.doc.toString());
         }
       }),
     ],
