@@ -4,7 +4,7 @@ import { createArtifact } from "@/domain/nodes";
 
 import type { FsaArtifact } from "../artifact";
 
-export async function loadFile(handle: FileSystemFileHandle, parentId?: Id): Promise<FsaArtifact> {
+export async function loadArtifact(handle: FileSystemFileHandle, parentId?: Id): Promise<FsaArtifact> {
   const file = await handle.getFile();
 
   const data = {

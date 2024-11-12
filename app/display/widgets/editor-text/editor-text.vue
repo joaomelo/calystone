@@ -17,7 +17,7 @@ onMounted(async () => {
 });
 
 function handleUpdate(value: string) {
-  // save to file
+  // save to artifact
   console.log(value);
 }
 </script>
