@@ -2,7 +2,7 @@
 import { DEFAULT_ACTIVITY } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { ButtonBase } from "@/display/widgets";
-import { createFsaConnection, feedStore, useStore } from "@/domain";
+import { createFsaConnection, connectStore, useStore } from "@/domain";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -11,7 +11,7 @@ const { t } = useI18n();
 
 async function handleOpenFsa() {
   const root = await showDirectoryPicker();
-  void feedStore(store, createFsaConnection(root));
+  void connectStore(store, createFsaConnection(root));
   void router.push({ name: DEFAULT_ACTIVITY });
 }
 </script>
