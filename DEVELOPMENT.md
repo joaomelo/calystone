@@ -114,7 +114,7 @@ Functions should be as small as possible. They should do one thing and have pref
 
 [How small should a function be? - Robert C. Martin (Uncle Bob)](https://www.youtube.com/watch?v=rXjf8eiGsSI).
 
-## Don't Unit Testing Everything
+## Test Modules not Files
 
 No need to unit test every function and also no need to worry about the testing emcompassing inner structures. Tests should focus on verifying modules outcomes with none to litte mocking. Inner modules functions can change at will with side effecting multiple tests.
 
