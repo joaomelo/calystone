@@ -27,21 +27,6 @@ function handleUpdateActive(active: string) {
         :title="t(ACTIVITIES.OUTLINE)"
         icon="list-check"
       />
-      <SideItem
-        :id="ACTIVITIES.TAGS"
-        icon="tags"
-        :title="t(ACTIVITIES.TAGS)"
-      />
-      <SideItem
-        :id="ACTIVITIES.SEARCH"
-        icon="search"
-        :title="t(ACTIVITIES.SEARCH)"
-      />
-      <SideItem
-        :id="ACTIVITIES.PREFERENCES"
-        icon="cog"
-        :title="t(ACTIVITIES.PREFERENCES)"
-      />
     </template>
     <template #bottom>
       <SideItem
