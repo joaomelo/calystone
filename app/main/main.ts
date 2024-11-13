@@ -1,7 +1,6 @@
-import { createI18n, createRouter } from "@/display"; // this will also apply the css styles as a side effect
+import { createI18n, createRouter, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
 import { createStore } from "@/domain";
-import Aura from "@primevue/themes/aura";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -17,7 +16,8 @@ export function initApp(elementId: string) {
 
   app.use(PrimeVue, {
     theme: {
-      preset: Aura
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      preset: ThemePreset
     }
   });
   app.directive("tooltip", Tooltip);
