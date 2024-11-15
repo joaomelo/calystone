@@ -1,4 +1,4 @@
-import type { ConnectionUnion } from "@/domain/specializations";
+import type { Connection } from "@/domain/sources";
 import type { App } from "vue";
 
 import { createNodes } from "@/domain/nodes";
@@ -10,7 +10,7 @@ import { key } from "./key";
 
 export function createStore(): Store {
   return {
-    connection: ref<ConnectionUnion | undefined>(),
+    connection: ref<Connection | undefined>(),
     install(app: App) {
       app.provide(key, this);
     },
