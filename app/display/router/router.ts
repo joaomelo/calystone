@@ -1,18 +1,12 @@
 import { ACTIVITIES, DEFAULT_ACTIVITY } from "@/display/activities";
-import { FrameDashboard, FrameFocus, PageOpen, PageOutline, PagePreferences, PageSearch, PageTags } from "@/display/views";
+import { FrameDashboard, PageOpen, PageOutline, PagePreferences, PageSearch, PageTags } from "@/display/views";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 export function createRouter() {
   const routes = [
     { path: "/", redirect: { name: DEFAULT_ACTIVITY } },
 
-    {
-      children: [
-        { component: PageOpen, ...nameAndPath(ACTIVITIES.OPEN) },
-      ],
-      component: FrameFocus,
-      path: "/out"
-    },
+    { component: PageOpen, name: ACTIVITIES.OPEN, path: `/${ACTIVITIES.OPEN}` },
 
     {
       children: [

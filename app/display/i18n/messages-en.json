@@ -15,6 +15,17 @@
   "edit": "edit",
   "email": "email",
   "exit": "exit",
+  "features": {
+    "data-ownership": "Total Data Ownership",
+    "data-ownership-description": "Your files, your control. No data tracking, no cloud storage. Everything stays on your machine.",
+    "description": "An open-source self-management app built on your file system.",
+    "open-source": "Open-source",
+    "open-source-description": "Explore the open-source project at GitHub.",
+    "note-taking": "Effortless Note-Taking",
+    "note-taking-description": "Edit notes quickly, using the familiar structure of your projects and life areas.",
+    "title": "Welcome to Calystone",
+    "warning": "Calystone is in early development, and we can't guarantee stability or full functionality at this stage."
+  },
   "focus": "focus",
   "have-account": "already have an account?",
   "items": "items",
