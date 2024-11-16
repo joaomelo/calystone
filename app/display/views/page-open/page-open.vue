@@ -43,6 +43,7 @@ async function handleOpenFsa() {
               <i18n-t
                 keypath="features.open-source-description"
                 tag="p"
+                scope="global"
               >
                 <a
                   href="https://github.com/joaomelo/calystone"
