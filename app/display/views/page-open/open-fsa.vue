@@ -2,18 +2,18 @@
 import { DEFAULT_ACTIVITY } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { ButtonBase, TextMessage } from "@/display/widgets";
-import { checkFsaSupport, connectStore, createFsaConnection, useStore } from "@/domain";
+import { checkFsaSupport, createFsaConnection, Store } from "@/domain";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const store = useStore();
+const store = Store.use();
 const { t } = useI18n();
 
 const isSupported = checkFsaSupport();
 
 async function handleOpenFsa() {
   const root = await showDirectoryPicker();
-  void connectStore(store, createFsaConnection(root));
+  void store.connect(createFsaConnection(root));
   void router.push({ name: DEFAULT_ACTIVITY });
 }
 </script>

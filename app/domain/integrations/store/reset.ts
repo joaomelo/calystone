@@ -1,6 +1,6 @@
 import type { Store } from "./store";
 
-export function resetStore(store: Store) {
+export function reset(store: Store) {
   store.nodes.clear();
   store.connection.value = undefined;
 };

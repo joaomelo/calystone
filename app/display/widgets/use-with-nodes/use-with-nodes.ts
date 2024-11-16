@@ -1,10 +1,10 @@
 import type { Nodes } from "@/domain";
 
-import { useStore } from "@/domain";
+import { Store } from "@/domain";
 
 type WithNodes<T> = (nodes: Nodes) => T;
 
 export function useWithNodes<T>(withNodes: WithNodes<T>) {
-  const { nodes } = useStore();
+  const { nodes } = Store.use();
   return withNodes(nodes);
 }

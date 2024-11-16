@@ -1,6 +1,6 @@
-import type { Resources } from "@/domain/sources";
+import type { Resources } from "@/domain/connection";
 
-import { isResources } from "@/domain/sources";
+import { isResources } from "@/domain/connection";
 
 export interface FsaResources extends Resources{
   source: "file-system-access"

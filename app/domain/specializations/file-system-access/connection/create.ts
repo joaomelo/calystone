@@ -1,4 +1,4 @@
-import { createConnection } from "@/domain/sources";
+import { createConnection } from "@/domain/connection";
 
 import type { FsaConnection } from "./connection";
 

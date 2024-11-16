@@ -1,6 +1,6 @@
-import type { Connection } from "@/domain/sources";
+import type { Connection } from "@/domain/connection";
 
-import { isConnection } from "@/domain/sources";
+import { isConnection } from "@/domain/connection";
 
 import type { FsaConnectionResources } from "./resource";
 

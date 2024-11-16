@@ -1,4 +1,4 @@
-import type { Connection } from "@/domain/sources";
+import type { Connection } from "@/domain/connection";
 
 import { isFsaConnection, loadFsa } from "@/domain/specializations";
 

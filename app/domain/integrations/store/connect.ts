@@ -1,13 +1,16 @@
-import type { Connection } from "@/domain/sources";
+import type { Connection } from "@/domain/";
 
 import type { Store } from "./store";
 
-import { loadConnection } from "../operations";
-
-export async function connectStore(store: Store, connection: Connection) {
-  store.connection.value = connection;
-  store.nodes.clear();
-  for await (const node of loadConnection(store.connection.value)) {
-    store.nodes.set(node.id, node);
+export async function connect(store: Store, connection: Connection) {
+  store.status.value = "busy";
+  try {
+    store.connection.value = connection;
+    store.nodes.clear();
+    for await (const node of connection.load()) {
+      store.nodes.set(node.id, node);
+    }
+  } finally {
+    store.status.value = "idle";
   }
 }

@@ -3,12 +3,12 @@ import type { Node } from "@/domain";
 import type { Id } from "@/utils";
 
 import { EditorNode, OutlineNodes, SplitterPanel } from "@/display/widgets";
-import { getOrThrow, useStore } from "@/domain";
+import { getOrThrow, Store } from "@/domain";
 import { computed, ref } from "vue";
 
-const store = useStore();
+const store = Store.use();
 const node = ref<Node | undefined>();
-const isLoading = computed(() => store.connection.status === "loading");
+const isLoading = computed(() => store.status.value === "busy");
 
 function handleSelected(id?: Id) {
   node.value = id ? getOrThrow(store.nodes, id) : undefined;

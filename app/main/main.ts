@@ -1,6 +1,6 @@
 import { createI18n, createRouter, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
-import { createStore } from "@/domain";
+import { Store } from "@/domain";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -28,7 +28,7 @@ export function initApp(elementId: string) {
   const i18n = createI18n();
   app.use(i18n);
 
-  const store = createStore();
+  const store = new Store();
   window.$store = store;
   app.use(store);
 

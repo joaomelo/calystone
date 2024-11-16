@@ -2,14 +2,14 @@
 import type { Activity } from "@/display/activities";
 
 import { ACTIVITIES, useCurrentActivity } from "@/display/activities";
-import { resetStore, useStore } from "@/domain";
+import { Store } from "@/domain";
 import { watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
 import FrameDashboardSide from "./frame-dashboard-side.vue";
 
 const router = useRouter();
-const store = useStore();
+const store = Store.use();
 const currentActivity = useCurrentActivity();
 
 watchEffect(() => {
@@ -20,7 +20,7 @@ watchEffect(() => {
 
 function handleUpdateActivity(newActivity: Activity) {
   if (newActivity === ACTIVITIES.OPEN) {
-    resetStore(store);
+    store.reset();
     return;
   }
   void router.push({ name: newActivity });
