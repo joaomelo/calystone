@@ -1,0 +1,1 @@
+export { default as CardPanel } from "./card-panel.vue";

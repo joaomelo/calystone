@@ -1,21 +1,27 @@
 <script setup lang="ts">
+import { CardPanel } from "@/display/widgets";
+
 import AppFeatures from "./app-features.vue";
 import LocaleSwitch from "./locale-switch.vue";
 import OpenFsa from "./open-fsa.vue";
 </script>
 <template>
   <div class="page-open">
-    <div class="page-open-panels">
-      <div class="page-open-panels-start">
-        <AppFeatures />
-      </div>
-      <div class="page-open-panels-end">
-        <div class="page-open-controls-actions">
-          <OpenFsa />
+    <CardPanel>
+      <template #content>
+        <div class="page-open-panels">
+          <div class="page-open-panels-start">
+            <AppFeatures />
+          </div>
+          <div class="page-open-panels-end">
+            <div class="page-open-controls-actions">
+              <OpenFsa />
+            </div>
+            <LocaleSwitch />
+          </div>
         </div>
-        <LocaleSwitch />
-      </div>
-    </div>
+      </template>
+    </CardPanel>
   </div>
 </template>
 <style scoped>
@@ -28,9 +34,7 @@ import OpenFsa from "./open-fsa.vue";
 }
 
 .page-open-panels {
-  margin: auto;
   display: flex;
-  background-color: var(--p-surface-0);
 }
 
 .page-open-panels>* {
