@@ -1,5 +1,12 @@
 
 
+## [0.45.2](https://github.com/joaomelo/calystone/compare/v0.45.1...v0.45.2) (2024-11-16)
+
+
+### Bug Fixes
+
+* supress unecessary translation warning ([15ed2d8](https://github.com/joaomelo/calystone/commit/15ed2d80e9aaa79cce4deae9a242aeccef6530de))
+
 ## [0.45.1](https://github.com/joaomelo/calystone/compare/v0.45.0...v0.45.1) (2024-11-16)
 
 ## [0.45.0](https://github.com/joaomelo/calystone/compare/v0.44.0...v0.45.0) (2024-11-16)
