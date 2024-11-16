@@ -40,7 +40,15 @@ async function handleOpenFsa() {
             </li>
             <li>
               <h2>{{ t('features.open-source') }}</h2>
-              <p>{{ t('features.open-source-description') }}</p>
+              <i18n-t
+                keypath="features.open-source-description"
+                tag="p"
+              >
+                <a
+                  href="https://github.com/joaomelo/calystone"
+                  target="_blank"
+                >GitHub</a>
+              </i18n-t>
             </li>
           </ul>
         </div>
