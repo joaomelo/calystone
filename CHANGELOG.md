@@ -1,5 +1,13 @@
 
 
+## [0.46.1](https://github.com/joaomelo/calystone/compare/v0.46.0...v0.46.1) (2024-11-16)
+
+
+### Bug Fixes
+
+* correctly process dark mode ([1321e2d](https://github.com/joaomelo/calystone/commit/1321e2de90c258e35db28af69383ed367a240d97))
+* proper set border in page panel ([27e1140](https://github.com/joaomelo/calystone/commit/27e1140837b48251f1e12ab6f9b5c97d9a600d67))
+
 ## [0.46.0](https://github.com/joaomelo/calystone/compare/v0.45.2...v0.46.0) (2024-11-16)
 
 
