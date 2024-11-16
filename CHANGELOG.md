@@ -1,5 +1,23 @@
 
 
+## [0.44.0](https://github.com/joaomelo/calystone/compare/v0.43.1...v0.44.0) (2024-11-15)
+
+
+### Features
+
+* consegue salvar texto em arquivo ([3ef1e4a](https://github.com/joaomelo/calystone/commit/3ef1e4a935e6b3c65f6e42954d6674e3bbc5b4ff))
+* open page has app features ([e5b01cd](https://github.com/joaomelo/calystone/commit/e5b01cdae4107588dd72051f8c9702ebde34c7ab))
+* removes unused features from sidebar ([629013c](https://github.com/joaomelo/calystone/commit/629013c740750b37a2d4204802861c0b7d1d3742))
+* text editor wait for inactivity to emit new text upwards ([f979ff4](https://github.com/joaomelo/calystone/commit/f979ff46cb3c9f37c9e368bcc54877544b8de1b6))
+
+
+### Bug Fixes
+
+* correct wrong use of connection type ([5787603](https://github.com/joaomelo/calystone/commit/57876030ad36633fe4c3cc6f25504fc935d72502))
+* text of source type ([8b87109](https://github.com/joaomelo/calystone/commit/8b8710938cc9b26a813ca56fecced574c694bb0a))
+* update function name ([b448780](https://github.com/joaomelo/calystone/commit/b44878023a5fac8a4e1b2a9a480650ba1f920824))
+* update to correct function name ([395d2e2](https://github.com/joaomelo/calystone/commit/395d2e267fd9e22dd5c6e637a248f795bfd58ca2))
+
 ## [0.43.1](https://github.com/joaomelo/calystone/compare/v0.43.0...v0.43.1) (2024-11-09)
 
 ## [0.43.0](https://github.com/joaomelo/calystone/compare/v0.42.0...v0.43.0) (2024-11-09)
