@@ -6,10 +6,10 @@ import OpenFsa from "./open-fsa.vue";
 <template>
   <div class="page-open">
     <div class="page-open-panels">
-      <div>
+      <div class="page-open-panels-start">
         <AppFeatures />
       </div>
-      <div class="page-open-controls">
+      <div class="page-open-panels-end">
         <div class="page-open-controls-actions">
           <OpenFsa />
         </div>
@@ -39,7 +39,11 @@ import OpenFsa from "./open-fsa.vue";
   padding-inline: var(--size-6);
 }
 
-.page-open-controls {
+.page-open-panels-start {
+  border-inline-end: var(--border-size-1) solid var(--p-primary-200);
+}
+
+.page-open-panels-end {
   display: flex;
   flex-direction: column;
 }

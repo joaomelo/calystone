@@ -45,7 +45,6 @@ const { t } = useI18n();
   display: flex;
   flex-direction: column;
   gap: var(--size-4);
-  border-inline-end: var(--border-size-1) solid var(--p-primary-200);
 
   & ul {
     margin-inline-start: var(--size-3);
