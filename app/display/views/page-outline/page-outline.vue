@@ -4,7 +4,6 @@ import type { Id } from "@/utils";
 
 import { Store } from "@/display/store";
 import { EditorNode, OutlineNodes, SplitterPanel } from "@/display/widgets";
-import { getOrThrow } from "@/domain";
 import { computed, ref } from "vue";
 
 const store = Store.use();
@@ -12,7 +11,7 @@ const node = ref<Node | undefined>();
 const isLoading = computed(() => store.status.value === "busy");
 
 function handleSelected(id?: Id) {
-  node.value = id ? getOrThrow(store.nodes, id) : undefined;
+  node.value = id ? store.nodes.getOrThrow(id) : undefined;
 }
 </script>
 

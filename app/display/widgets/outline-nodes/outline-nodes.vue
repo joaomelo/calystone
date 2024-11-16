@@ -2,7 +2,7 @@
 import type { Node, Nodes } from "@/domain";
 import type { Id } from "@/utils";
 
-import { isRoot, list } from "@/domain";
+import { isRoot } from "@/domain";
 import { isId, isObjectLike } from "@/utils";
 import ProgressBar from "primevue/progressbar";
 import PrimeVueTree from "primevue/tree";
@@ -20,7 +20,7 @@ const emit = defineEmits<{
   selected: [id: Id | undefined];
 }>();
 
-const value = computed(() => list(nodes)
+const value = computed(() => nodes.list()
   .filter(isRoot)
   .map((node: Node) => convert(nodes, node))
 );

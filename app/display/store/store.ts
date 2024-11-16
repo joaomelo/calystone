@@ -1,8 +1,7 @@
 import type { Connection } from "@/domain/connection";
-import type { Nodes } from "@/domain/nodes";
 import type { App, Ref } from "vue";
 
-import { createNodes } from "@/domain/nodes";
+import { Nodes } from "@/domain/nodes";
 import { reactive, ref } from "vue";
 
 import type { Status } from "./status";
@@ -14,7 +13,7 @@ import { useStore } from "./use";
 
 export class Store {
   connection: Ref<Connection | undefined> = ref();
-  nodes: Nodes = reactive(createNodes());
+  nodes: Nodes = reactive(new Nodes());
   status: Ref<Status> = ref("idle");
 
   static use(): Store {

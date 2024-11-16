@@ -2,22 +2,19 @@
 import type { Directory } from "@/domain";
 
 import { useI18n } from "@/display/i18n";
-import { createCount, createPath } from "@/domain";
-
-import { useWithNodes } from "../use-with-nodes";
+import { Store } from "@/display/store";
 
 const { node } = defineProps<{
   node: Directory;
 }>();
 
 const { t } = useI18n();
-const count = useWithNodes(createCount);
-const path = useWithNodes(createPath);
+const { nodes } = Store.use();
 </script>
 <template>
   <div class="editor-directory">
-    <p><b>{{ t('items') }}</b>: {{ count(node) }}</p>
-    <p><b>{{ t('path') }}</b>: {{ path(node) }}</p>
+    <p><b>{{ t('items') }}</b>: {{ nodes.descendants(node).length }}</p>
+    <p><b>{{ t('path') }}</b>: {{ nodes.path(node) }}</p>
   </div>
 </template>
 <style scoped>
