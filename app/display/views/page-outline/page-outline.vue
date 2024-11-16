@@ -2,8 +2,9 @@
 import type { Node } from "@/domain";
 import type { Id } from "@/utils";
 
+import { Store } from "@/display/store";
 import { EditorNode, OutlineNodes, SplitterPanel } from "@/display/widgets";
-import { getOrThrow, Store } from "@/domain";
+import { getOrThrow } from "@/domain";
 import { computed, ref } from "vue";
 
 const store = Store.use();

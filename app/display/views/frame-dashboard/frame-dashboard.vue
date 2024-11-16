@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Activity } from "@/display/activities";
 
+import { Store } from "@/display";
 import { ACTIVITIES, useCurrentActivity } from "@/display/activities";
-import { Store } from "@/domain";
 import { watchEffect } from "vue";
 import { useRouter } from "vue-router";
 

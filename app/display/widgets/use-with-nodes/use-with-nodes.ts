@@ -1,6 +1,6 @@
 import type { Nodes } from "@/domain";
 
-import { Store } from "@/domain";
+import { Store } from "@/display/store";
 
 type WithNodes<T> = (nodes: Nodes) => T;
 

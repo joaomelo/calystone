@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { DEFAULT_ACTIVITY } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
+import { Store } from "@/display/store";
 import { ButtonBase, TextMessage } from "@/display/widgets";
-import { checkFsaSupport, createFsaConnection, Store } from "@/domain";
+import { checkFsaSupport, createFsaConnection } from "@/domain";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

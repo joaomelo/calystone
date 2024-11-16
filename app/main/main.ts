@@ -1,6 +1,6 @@
 import { createI18n, createRouter, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
-import { Store } from "@/domain";
+import { Store } from "@/display";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
