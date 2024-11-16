@@ -1,5 +1,12 @@
 
 
+## [0.45.0](https://github.com/joaomelo/calystone/compare/v0.44.0...v0.45.0) (2024-11-16)
+
+
+### Features
+
+* offers project link at open source description ([e888299](https://github.com/joaomelo/calystone/commit/e8882997d65d46817e81a4c87ff1f4f4eb85ba4f))
+
 ## [0.44.0](https://github.com/joaomelo/calystone/compare/v0.43.1...v0.44.0) (2024-11-15)
 
 
