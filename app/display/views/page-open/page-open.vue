@@ -2,6 +2,7 @@
 import { CardPanel } from "@/display/widgets";
 
 import AppFeatures from "./app-features.vue";
+import EarlyDevelopment from "./early-development.vue";
 import LocaleSwitch from "./locale-switch.vue";
 import OpenFsa from "./open-fsa.vue";
 </script>
@@ -14,6 +15,7 @@ import OpenFsa from "./open-fsa.vue";
             <AppFeatures />
           </div>
           <div class="page-open-panels-end">
+            <EarlyDevelopment />
             <div class="page-open-controls-actions">
               <OpenFsa />
             </div>

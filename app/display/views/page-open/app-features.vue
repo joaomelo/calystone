@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from "@/display/i18n";
-import { TextMessage } from "@/display/widgets";
 
 const { t } = useI18n();
 </script>
 <template>
   <div class="app-features">
-    <TextMessage severity="warn">
-      {{ t('features.warning') }}
-    </TextMessage>
     <div>
       <h1>{{ t('features.title') }}</h1>
       <p>{{ t('features.description') }}</p>

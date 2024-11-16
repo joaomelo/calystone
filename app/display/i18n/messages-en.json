@@ -23,9 +23,9 @@
     "note-taking-description": "Edit notes quickly, using the familiar structure you already organized on your directories and files.",
     "open-source": "Open-source",
     "open-source-description": "Explore the open-source project at {0}.",
-    "title": "Welcome to Calystone",
-    "warning": "Calystone is in early development, and we can't guarantee stability or full functionality at this stage."
+    "title": "Welcome to Calystone"
   },
+  "early-development": "Calystone is in early development, and we can't guarantee stability or full functionality at this stage.",
   "focus": "focus",
   "fsa-not-supported": "This app relies on a browser feature called the File System API. Although it's a web standard, it isn't supported by your current browser.",
   "have-account": "already have an account?",
