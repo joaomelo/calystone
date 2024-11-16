@@ -56,7 +56,7 @@ async function handleOpenFsa() {
       <div class="page-open-controls">
         <div class="page-open-controls-action">
           <ButtonBase
-            :label="t('open-dir')"
+            :label="t('open-files')"
             size="large"
             @click="handleOpenFsa"
           />
