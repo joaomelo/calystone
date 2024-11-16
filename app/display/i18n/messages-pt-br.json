@@ -27,6 +27,7 @@
     "warning": "O Calystone está em desenvolvimento inicial, e não podemos garantir estabilidade ou funcionalidade total nesta fase."
   },
   "focus": "focar",
+  "fsa-not-supported": "Este aplicativo depende de um recurso do navegador chamado File System API. Embora seja um padrão web, ele ainda não é suportado pelo seu navegador atual.",  
   "have-account": "já tem uma conta?",
   "items": "itens",
   "loading": "carregando",
