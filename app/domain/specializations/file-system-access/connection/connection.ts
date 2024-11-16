@@ -1,17 +1,16 @@
-import type { Connection } from "@/domain/connection";
+import { Connection } from "@/domain/connection";
 
-import { isConnection } from "@/domain/connection";
+import { load } from "../load";
 
-import type { FsaConnectionResources } from "./resource";
+export class FsaConnection extends Connection {
+  root: FileSystemDirectoryHandle;
 
-import { isFsaConnectionResources } from "./resource";
+  constructor(root: FileSystemDirectoryHandle) {
+    super();
+    this.root = root;
+  }
 
-export interface FsaConnection extends Connection {
-  resources: FsaConnectionResources;
-}
-
-export function isFsaConnection(connection: unknown): connection is FsaConnection {
-  if (!isConnection(connection)) return false;
-  if (!("resources" in connection)) return false;
-  return isFsaConnectionResources(connection.resources);
+  async *load() {
+    yield* load(this.root);
+  }
 }
