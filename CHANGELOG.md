@@ -1,5 +1,12 @@
 
 
+## [0.46.0](https://github.com/joaomelo/calystone/compare/v0.45.2...v0.46.0) (2024-11-16)
+
+
+### Features
+
+* is able to react to browsers that do not support the file system api ([9fed46b](https://github.com/joaomelo/calystone/commit/9fed46bd1ffdc3d34da615094c36414bc12cb248))
+
 ## [0.45.2](https://github.com/joaomelo/calystone/compare/v0.45.1...v0.45.2) (2024-11-16)
 
 
