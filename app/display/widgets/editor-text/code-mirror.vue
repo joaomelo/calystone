@@ -16,7 +16,9 @@ let editorView: EditorView;
 
 // will emit updates to the model after 1 second of inactivity
 const handleUpdate = debounce((text: string) => {
-  model.value = text;
+  if (text !== model.value) {
+    model.value = text;
+  }
 }, 1000);
 
 onMounted(() => {

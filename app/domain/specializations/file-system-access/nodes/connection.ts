@@ -1,8 +1,8 @@
-import { Connection } from "@/domain/connection";
+import { NodesConnection } from "@/domain/nodes";
 
-import { load } from "../load";
+import { load } from "./load";
 
-export class FsaConnection extends Connection {
+export class FsaNodesConnection extends NodesConnection {
   root: FileSystemDirectoryHandle;
 
   constructor(root: FileSystemDirectoryHandle) {

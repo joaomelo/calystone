@@ -1,2 +1,2 @@
 export * from "./artifact";
-export * from "./mime";
+export * from "./connection";

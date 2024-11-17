@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { Node, Nodes } from "@/domain";
+import type { Nodes } from "@/domain";
 import type { Id } from "@/utils";
 
-import { isRoot } from "@/domain";
 import { isId, isObjectLike } from "@/utils";
 import ProgressBar from "primevue/progressbar";
 import PrimeVueTree from "primevue/tree";
@@ -21,8 +20,8 @@ const emit = defineEmits<{
 }>();
 
 const value = computed(() => nodes.list()
-  .filter(isRoot)
-  .map((node: Node) => convert(nodes, node))
+  .filter(n => n.root())
+  .map((node) => convert(nodes, node))
 );
 
 const selectedKey = ref(null);

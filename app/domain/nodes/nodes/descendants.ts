@@ -2,10 +2,9 @@ import type { Id } from "@/utils";
 
 import { extractId } from "@/utils";
 
-import type { Directory } from "../directory/directory";
 import type { Node } from "../node";
 
-import { isDirectory } from "../directory/is";
+import { Directory } from "../directory";
 import { children } from "./children";
 
 export function descendants(nodes: Node[], parentOrId: Directory | Id): Node[] {
@@ -16,7 +15,7 @@ export function descendants(nodes: Node[], parentOrId: Directory | Id): Node[] {
 
   return next.reduce(
     (acc, child) =>
-      (isDirectory(child))
+      (child instanceof Directory)
         ? acc.concat(descendants(nodes, child))
         : acc,
     next

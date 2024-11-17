@@ -3,16 +3,17 @@ import type { Id } from "@/utils";
 import { extractId } from "@/utils";
 
 import type { Node } from "../node/node";
-import type { Nodes } from "../nodes";
 
-export function path(nodes: Nodes, nodeOrId: Id | Node): string{
+import { getOrThrow } from "./get";
+
+export function path(nodeOrId: Id | Node, nodes: Map<Id, Node>): string{
   const id = extractId(nodeOrId);
-  const node = nodes.getOrThrow(id);
+  const node = getOrThrow(id, nodes);
 
   const basePath = `/${node.name}`;
   if (!node.parentId) return basePath;
 
-  const parent = nodes.getOrThrow(node.parentId);
+  const parent = getOrThrow(node.parentId, nodes);
 
-  return `${path(nodes, parent)}${basePath}`;
+  return `${path(parent, nodes)}${basePath}`;
 }

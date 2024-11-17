@@ -1,5 +1,16 @@
-export type Mime = string;
+import type { Type } from "./type";
 
-export function isMime(value: unknown): value is Mime {
-  return typeof value === "string";
+import { solve } from "./solve";
+import { type } from "./type";
+
+export class Mime {
+  private mime: string;
+
+  constructor(name: string) {
+    this.mime = solve(name);
+  }
+
+  type(): Type {
+    return type(this.mime);
+  };
 }

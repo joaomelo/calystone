@@ -1,5 +1,5 @@
-import type { Node } from "../node";
+import { Node } from "../node";
 
-export interface Directory extends Node {
-  kind: "directory";
+export class Directory extends Node {
+  readonly kind = "directory";
 };

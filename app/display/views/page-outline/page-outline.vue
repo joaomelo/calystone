@@ -4,14 +4,13 @@ import type { Id } from "@/utils";
 
 import { Store } from "@/display/store";
 import { EditorNode, OutlineNodes, SplitterPanel } from "@/display/widgets";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
-const store = Store.use();
+const { nodes } = Store.use();
 const node = ref<Node | undefined>();
-const isLoading = computed(() => store.status.value === "busy");
 
 function handleSelected(id?: Id) {
-  node.value = id ? store.nodes.getOrThrow(id) : undefined;
+  node.value = id ? nodes.getOrThrow(id) : undefined;
 }
 </script>
 
@@ -19,8 +18,8 @@ function handleSelected(id?: Id) {
   <SplitterPanel class="page-outline">
     <template #start>
       <OutlineNodes
-        :nodes="store.nodes"
-        :is-loading="isLoading"
+        :nodes="nodes"
+        :is-loading="nodes.loading"
         class="page-outline-start"
         @selected="handleSelected"
       />

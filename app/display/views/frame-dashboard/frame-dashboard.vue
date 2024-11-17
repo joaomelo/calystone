@@ -9,18 +9,18 @@ import { useRouter } from "vue-router";
 import FrameDashboardSide from "./frame-dashboard-side.vue";
 
 const router = useRouter();
-const store = Store.use();
+const { nodes } = Store.use();
 const currentActivity = useCurrentActivity();
 
 watchEffect(() => {
-  if (!store.connection.value) {
+  if (!nodes.connection) {
     void router.push({ name: ACTIVITIES.OPEN });
   }
 });
 
 function handleUpdateActivity(newActivity: Activity) {
   if (newActivity === ACTIVITIES.OPEN) {
-    store.reset();
+    nodes.disconnect();
     return;
   }
   void router.push({ name: newActivity });
