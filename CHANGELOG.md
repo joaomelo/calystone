@@ -1,5 +1,12 @@
 
 
+## [0.47.0](https://github.com/joaomelo/calystone/compare/v0.46.4...v0.47.0) (2024-11-18)
+
+
+### Features
+
+* loads first levels dir first allowing user to see the whole structure first ([bb31fe5](https://github.com/joaomelo/calystone/commit/bb31fe5425c0e3db03e3d3feda714282fc3808e6))
+
 ## [0.46.4](https://github.com/joaomelo/calystone/compare/v0.46.3...v0.46.4) (2024-11-17)
 
 ## [0.46.3](https://github.com/joaomelo/calystone/compare/v0.46.2...v0.46.3) (2024-11-16)
