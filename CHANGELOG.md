@@ -1,5 +1,7 @@
 
 
+## [0.46.4](https://github.com/joaomelo/calystone/compare/v0.46.3...v0.46.4) (2024-11-17)
+
 ## [0.46.3](https://github.com/joaomelo/calystone/compare/v0.46.2...v0.46.3) (2024-11-16)
 
 ## [0.46.2](https://github.com/joaomelo/calystone/compare/v0.46.1...v0.46.2) (2024-11-16)
