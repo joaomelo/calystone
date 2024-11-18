@@ -6,20 +6,34 @@ import { idle } from "@/utils";
 
 import { FsaArtifactConnection } from "../artifact";
 
-export async function* load(entry: FileSystemDirectoryHandle, parentId?: Id): AsyncGenerator<Node> {
-  for await (const child of entry.values()) {
-    await idle();
+export async function* load(rootHandle: FileSystemDirectoryHandle): AsyncGenerator<Node> {
+  const parentsToLoad: ParentToLoad[] = [{ parentHandle: rootHandle }];
 
-    if (child.kind === "file") {
-      const artifact = await loadArtifact(child, parentId);
-      yield artifact;
-    } else {
-      const directory = new Directory(child.name, parentId);
-      yield directory;
-      yield* load(child, directory.id);
+  // will traverse the parent Handle using breadth-first search (BFS) approach. This way, the user can quickly see the first levels of the file system.
+  while (parentsToLoad.length > 0) {
+    const parentToLoad = parentsToLoad.shift();
+    if (!parentToLoad) continue;
+
+    const { parentHandle, parentId } = parentToLoad;
+    for await (const child of parentHandle.values()) {
+      await idle();
+
+      if (child.kind === "file") {
+        const artifact = await loadArtifact(child, parentId);
+        yield artifact;
+      } else {
+        const directory = new Directory(child.name, parentId);
+        yield directory;
+        parentsToLoad.push({ parentHandle: child, parentId: directory.id });
+      }
     }
   }
 }
+
+interface ParentToLoad {
+  parentHandle: FileSystemDirectoryHandle;
+  parentId?: Id;
+};
 
 export async function loadArtifact(handle: FileSystemFileHandle, parentId?: Id): Promise<Artifact> {
   const file = await handle.getFile();
