@@ -52,5 +52,8 @@
   "size": "tamanho",
   "tags": "rótulos",
   "type": "tipo",
-  "wait": "por favor, aguarde enquanto tentamos recuperar sua sessão anterior"
+  "wait": "por favor, aguarde enquanto tentamos recuperar sua sessão anterior",
+  "errors": { 
+    "unable-open-directory": "Não foi possível abrir o diretório"
+  }
 }

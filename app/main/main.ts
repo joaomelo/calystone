@@ -1,4 +1,4 @@
-import { createI18n, createRouter, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
+import { createI18n, createRouter, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
 import { Store } from "@/display";
 import PrimeVue from "primevue/config";
@@ -20,6 +20,7 @@ export function initApp(elementId: string) {
       preset: ThemePreset
     }
   });
+  app.use(ToastService);
   app.directive("tooltip", Tooltip);
 
   const router = createRouter();

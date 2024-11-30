@@ -52,5 +52,8 @@
   "size": "size",
   "tags": "tags",
   "type": "type",
-  "wait": "please, wait while we try to recover your previous session"
+  "wait": "please, wait while we try to recover your previous session",
+  "errors": { 
+    "unable-open-directory": "Unable to open directory"
+  }
 }
