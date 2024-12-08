@@ -9,16 +9,17 @@ import { drawSelection, EditorView, highlightActiveLine, highlightActiveLineGutt
 import { debounce } from "lodash-es";
 import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
 
-const model = defineModel<string>();
+import { areTextEqual } from "./text-equality";
+
+const model = defineModel<string>({ required: true });
 
 const codeMirrorElement = useTemplateRef("codeMirror");
 let editorView: EditorView;
 
 // will emit updates to the model after 1 second of inactivity
-const handleUpdate = debounce((text: string) => {
-  if (text !== model.value) {
-    model.value = text;
-  }
+const handleEditorChange = debounce((editorText: string) => {
+  if (areTextEqual(editorText, model.value)) return;
+  model.value = editorText;
 }, 1000);
 
 onMounted(() => {
@@ -43,7 +44,7 @@ onMounted(() => {
       markdown(),
       EditorView.updateListener.of((v) => {
         if (v.docChanged) {
-          handleUpdate(editorView.state.doc.toString());
+          handleEditorChange(editorView.state.doc.toString());
         }
       }),
     ],
@@ -62,7 +63,8 @@ onUnmounted(() => {
 watch(
   () => model.value,
   (newContent) => {
-    if (newContent === editorView.state.doc.toString()) return;
+    if (areTextEqual(newContent, editorView.state.doc.toString())) return;
+
     const update = editorView.state.update({
       changes: {
         from: 0,
