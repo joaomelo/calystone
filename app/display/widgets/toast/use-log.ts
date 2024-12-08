@@ -4,15 +4,18 @@ import { Severity } from "@/utils";
 import { useToast } from "primevue/usetoast";
 
 export function useLogToast() {
-  const toast = useToast();
-  return (severity: Severity, message: string, detail: string) => {
-    toast.add({
+  const primeToast = useToast();
+  const toast = (severity: Severity, message: string, detail: string) => {
+    primeToast.add({
       detail,
       life: 5000,
       severity: convertSeverityToPrime(severity),
       summary: message,
     });
   };
+
+  return { Severity, toast };
+
 }
 
 type PrimeSeverity = Exclude<ToastMessageOptions["severity"], undefined>;

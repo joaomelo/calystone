@@ -2,15 +2,15 @@
 import { DEFAULT_ACTIVITY } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
-import { ButtonBase, TextMessage, useLogToast } from "@/display/widgets";
+import { ButtonBase, TextMessage, useExceptionToast } from "@/display/widgets";
 import { checkFsaSupport, FsaNodesConnection } from "@/domain";
-import { Severity } from "@/utils";
+import { Exception } from "@/utils";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const { nodes } = Store.use();
 const { t } = useI18n();
-const toast = useLogToast();
+const toast = useExceptionToast();
 
 const isSupported = checkFsaSupport();
 
@@ -21,8 +21,8 @@ async function handleOpenFsa() {
     void nodes.connect(connection);
     void router.push({ name: DEFAULT_ACTIVITY });
   } catch (error) {
-    const detail = error instanceof Error ? error.message : String(error);
-    toast(Severity.Error, t("errors.unable-open-directory"), detail);
+    const exception = new Exception("unable-open-directory", error);
+    toast(exception);
   }
 }
 </script>
