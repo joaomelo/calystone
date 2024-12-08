@@ -21,7 +21,7 @@ async function handleOpenFsa() {
     void nodes.connect(connection);
     void router.push({ name: DEFAULT_ACTIVITY });
   } catch (error) {
-    const exception = new Exception("unable-open-directory", error);
+    const exception = new Exception("UNABLE_OPEN_DIRECTORY", error);
     toast(exception);
   }
 }

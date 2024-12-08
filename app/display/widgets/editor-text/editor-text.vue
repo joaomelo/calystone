@@ -27,7 +27,7 @@ async function handleUpdate(newText: string) {
   try {
     await node.post(content);
   } catch (error) {
-    const exception = new Exception("unable-post-content", error);
+    const exception = new Exception("UNABLE_POST_CONTENT", error);
     toast(exception);
   }
 }

@@ -54,7 +54,7 @@
   "type": "type",
   "wait": "please, wait while we try to recover your previous session",
   "errors": { 
-    "unable-open-directory": "Unable to open directory",
-    "unable-post-content": "Unable to save content to file"
+    "UNABLE_OPEN_DIRECTORY": "Unable to open directory",
+    "UNABLE_POST_CONTENT": "Unable to save content to file"
   }
 }
