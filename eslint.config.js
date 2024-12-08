@@ -90,6 +90,7 @@ export default tseslint.config(
   perfectionist.configs["recommended-natural"],
   {
     rules: {
+      "perfectionist/sort-interfaces": "off",
       // vue plugin already has a standard way to sort that considers the attribute type like if it is an event or a id definition
       "perfectionist/sort-vue-attributes": "off",
     }
