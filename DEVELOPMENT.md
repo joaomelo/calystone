@@ -102,6 +102,8 @@ When adding something to the domain ask yourself, does the domain doesn't alread
 
 Language or technology helpers that don't need to be aware of bussiness rules and don't need runtime state goes here. Utils only knows about utils and nothing else.
 
+Avoid creating utils. If a string function is needed in only one place, keep the function there. This make the need clear and the design simple. Utils should be a evolution of such features when they are cleary needed by multiple modules.
+
 # Design strategies
 
 ## Avoid uncertain use of complexity
