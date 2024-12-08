@@ -1,10 +1,11 @@
+import type { Source } from "@/domain/content";
+
+import { Mime } from "@/domain/content";
 import { Node } from "@/domain/nodes/node";
 
 import type { ArtifactConnection } from "../connection";
 
-import { Mime } from "../mime";
-
-export class Artifact extends Node {
+export class Artifact extends Node implements Source {
   private connection: ArtifactConnection;
   private content?: ArrayBuffer;
   readonly lastModified: number;

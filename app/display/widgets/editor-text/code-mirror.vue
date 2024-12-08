@@ -6,7 +6,6 @@ import { bracketMatching, defaultHighlightStyle, indentOnInput, syntaxHighlighti
 import { highlightSelectionMatches, } from "@codemirror/search";
 import { EditorState } from "@codemirror/state";
 import { drawSelection, EditorView, highlightActiveLine, highlightActiveLineGutter, keymap, lineNumbers, } from "@codemirror/view";
-import { debounce } from "lodash-es";
 import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
 
 import { areTextEqual } from "./text-equality";
@@ -15,12 +14,6 @@ const model = defineModel<string>({ required: true });
 
 const codeMirrorElement = useTemplateRef("codeMirror");
 let editorView: EditorView;
-
-// will emit updates to the model after 1 second of inactivity
-const handleEditorChange = debounce((editorText: string) => {
-  if (areTextEqual(editorText, model.value)) return;
-  model.value = editorText;
-}, 1000);
 
 onMounted(() => {
   if (!codeMirrorElement.value) return;
@@ -44,7 +37,10 @@ onMounted(() => {
       markdown(),
       EditorView.updateListener.of((v) => {
         if (v.docChanged) {
-          handleEditorChange(editorView.state.doc.toString());
+          const editorText = editorView.state.doc.toString();
+          if (areTextEqual(editorText, model.value)) return;
+
+          model.value = editorText;
         }
       }),
     ],
