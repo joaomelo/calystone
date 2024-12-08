@@ -13,9 +13,4 @@ export class Exception extends Error {
     this.cause = cause;
     Error.captureStackTrace(this, Exception);
   }
-
-  static throw(code: string, cause: unknown, severity?: Severity) {
-    const exception = new Exception(code, cause, severity);
-    throw exception;
-  }
 }
