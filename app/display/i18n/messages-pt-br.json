@@ -54,6 +54,7 @@
   "type": "tipo",
   "wait": "por favor, aguarde enquanto tentamos recuperar sua sessão anterior",
   "errors": { 
-    "unable-open-directory": "Não foi possível abrir o diretório"
+    "unable-open-directory": "Não foi possível abrir o diretório",
+    "unable-post-content": "Não foi possível salvar o conteúdo no arquivo"    
   }
 }
