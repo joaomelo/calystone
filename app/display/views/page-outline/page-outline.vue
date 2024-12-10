@@ -13,13 +13,11 @@ function handleSelected(id?: Id) {
   node.value = id ? nodes.getOrThrow(id) : undefined;
 }
 </script>
-
 <template>
   <SplitterPanel class="page-outline">
     <template #start>
       <OutlineNodes
         :nodes="nodes"
-        :is-loading="nodes.loading"
         class="page-outline-start"
         @selected="handleSelected"
       />

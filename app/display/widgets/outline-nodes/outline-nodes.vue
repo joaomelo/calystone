@@ -3,7 +3,6 @@ import type { Nodes } from "@/domain";
 import type { Id } from "@/utils";
 
 import { isId, isObjectLike } from "@/utils";
-import ProgressBar from "primevue/progressbar";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref, watchEffect } from "vue";
 
@@ -11,9 +10,7 @@ import { ScrollPanel } from "../scroll-panel";
 import { convert } from "./convert";
 
 const { nodes } = defineProps<{
-  isLoading: boolean;
-  // is important to use the reactive top-most data structure here to trigger the reactivity, passing a array of root objects will not secure ui updates.
-  nodes: Nodes;
+  nodes: Nodes; // is important to use the reactive top-most data structure here to trigger the reactivity, passing a array of root objects will not secure ui updates.
 }>();
 const emit = defineEmits<{
   selected: [id: Id | undefined];
@@ -42,10 +39,6 @@ watchEffect(() => {
 </script>
 <template>
   <div class="outline-nodes">
-    <ProgressBar
-      v-if="isLoading"
-      mode="indeterminate"
-    />
     <ScrollPanel class="outline-nodes-scroll">
       <PrimeVueTree
         v-model:selectionKeys="selectedKey"
