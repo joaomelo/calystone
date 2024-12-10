@@ -1,5 +1,5 @@
-import { Severity } from "../severities";
 import { Exception } from "./exception";
+import { Severity } from "./severities";
 
 export function throwException(code: string, cause: unknown, severity?: Severity) {
   const exception = new Exception(code, cause, severity);
