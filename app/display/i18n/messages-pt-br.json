@@ -12,8 +12,13 @@
   "delete": "excluir",
   "directory": "diretório",
   "done": "pronto",
+  "early-development": "O Calystone está em desenvolvimento inicial, e não podemos garantir estabilidade ou funcionalidade total nesta fase.",
   "edit": "editar",
   "email": "email",
+  "errors": {
+    "UNABLE_OPEN_DIRECTORY": "Não foi possível abrir o diretório",
+    "UNABLE_POST_CONTENT": "Não foi possível salvar o conteúdo no arquivo"
+  },
   "exit": "sair",
   "features": {
     "data-ownership": "Propriedade Total dos Dados",
@@ -25,9 +30,8 @@
     "open-source-description": "Explore o projeto de código aberto no GitHub.",
     "title": "Bem-vindo ao Calystone"
   },
-  "early-development": "O Calystone está em desenvolvimento inicial, e não podemos garantir estabilidade ou funcionalidade total nesta fase.",
   "focus": "focar",
-  "fsa-not-supported": "Este aplicativo depende de um recurso do navegador chamado File System API. Embora seja um padrão web, ele ainda não é suportado pelo seu navegador atual.",  
+  "fsa-not-supported": "Este aplicativo depende de um recurso do navegador chamado File System API. Embora seja um padrão web, ele ainda não é suportado pelo seu navegador atual.",
   "have-account": "já tem uma conta?",
   "items": "itens",
   "loading": "carregando",
@@ -44,6 +48,7 @@
   "path": "caminho",
   "preferences": "preferências",
   "prepare": "por favor, aguarde enquanto preparamos sua sessão",
+  "reload": "recarregar",
   "save": "salvar",
   "search": "buscar",
   "select": "quando você selecionar um artefato na hierarquia, suas informações serão mostradas aqui",
@@ -52,9 +57,5 @@
   "size": "tamanho",
   "tags": "rótulos",
   "type": "tipo",
-  "wait": "por favor, aguarde enquanto tentamos recuperar sua sessão anterior",
-  "errors": { 
-    "UNABLE_OPEN_DIRECTORY": "Não foi possível abrir o diretório",
-    "UNABLE_POST_CONTENT": "Não foi possível salvar o conteúdo no arquivo"    
-  }
+  "wait": "por favor, aguarde enquanto tentamos recuperar sua sessão anterior"
 }

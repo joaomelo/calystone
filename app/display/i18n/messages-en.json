@@ -12,8 +12,13 @@
   "delete": "delete",
   "directory": "directory",
   "done": "done",
+  "early-development": "Calystone is in early development, and we can't guarantee stability or full functionality at this stage.",
   "edit": "edit",
   "email": "email",
+  "errors": {
+    "UNABLE_OPEN_DIRECTORY": "Unable to open directory",
+    "UNABLE_POST_CONTENT": "Unable to save content to file"
+  },
   "exit": "exit",
   "features": {
     "data-ownership": "Total Data Ownership",
@@ -25,7 +30,6 @@
     "open-source-description": "Explore the open-source project at {0}.",
     "title": "Welcome to Calystone"
   },
-  "early-development": "Calystone is in early development, and we can't guarantee stability or full functionality at this stage.",
   "focus": "focus",
   "fsa-not-supported": "This app relies on a browser feature called the File System API. Although it's a web standard, it isn't supported by your current browser.",
   "have-account": "already have an account?",
@@ -44,6 +48,7 @@
   "path": "path",
   "preferences": "preferences",
   "prepare": "please, wait while prepare your session",
+  "reload": "reload",
   "save": "save",
   "search": "search",
   "select": "when you select an node on the outline, its details will show here",
@@ -52,9 +57,5 @@
   "size": "size",
   "tags": "tags",
   "type": "type",
-  "wait": "please, wait while we try to recover your previous session",
-  "errors": { 
-    "UNABLE_OPEN_DIRECTORY": "Unable to open directory",
-    "UNABLE_POST_CONTENT": "Unable to save content to file"
-  }
+  "wait": "please, wait while we try to recover your previous session"
 }
