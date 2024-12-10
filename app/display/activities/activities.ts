@@ -2,8 +2,9 @@ export const ACTIVITIES = {
   OPEN: "open",
   OUTLINE: "outline",
   PREFERENCES: "preferences",
+  RELOAD: "reload",
   SEARCH: "search",
-  TAGS: "tags"
+  TAGS: "tags",
 } as const;
 
 export const DEFAULT_ACTIVITY = ACTIVITIES.OUTLINE;
