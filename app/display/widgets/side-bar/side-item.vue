@@ -3,18 +3,17 @@ import { computed, toValue } from "vue";
 
 import { useProvider } from "./provider";
 
-const { icon, id, title } = defineProps<{
+const { disabled = false, icon, id, title } = defineProps<{
+  disabled?: boolean
   icon: string
   id: string,
   title: string,
 }>();
 
-const iconClass = computed(() => `pi pi-${icon}`);
-
 const provider = useProvider();
-const isActive = computed(() => id === toValue(provider.active));
+const active = computed(() => id === toValue(provider.active));
 function handleClick() {
-  if (isActive.value) return;
+  if (active.value || disabled) return;
   provider["update:active"](id);
 }
 </script>
@@ -22,23 +21,23 @@ function handleClick() {
   <li
     v-tooltip="{ value: title, showDelay: 500 }"
     class="side-item"
-    :class="{ active: isActive }"
+    :class="{ active, disabled }"
     @click="handleClick"
   >
     <i
-      :class="iconClass"
+      :class="icon"
       class="side-item-icon"
     />
   </li>
 </template>
 
 <style scoped>
-.side-item {
+.side-item:not(.disabled):not(.active) {
   cursor: pointer;
-}
 
-.side-item:hover {
-  color: var(--p-primary-400);
+  &:hover {
+    color: var(--p-primary-400);
+  }
 }
 
 .side-item.active {
