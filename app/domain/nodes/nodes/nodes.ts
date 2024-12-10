@@ -1,5 +1,7 @@
 import type { Id } from "@/utils";
 
+import { throwCritical } from "@/utils";
+
 import type { Directory } from "../directory";
 import type { Node } from "../node";
 import type { NodesConnection } from "./connection";
@@ -19,16 +21,8 @@ export class Nodes {
   }
 
   async connect(connection: NodesConnection): Promise<void> {
-    this.loading = true;
-    try {
-      this.connection = connection;
-      this.hash.clear();
-      for await (const node of connection.load()) {
-        this.hash.set(node.id, node);
-      }
-    } finally {
-      this.loading = false;
-    }
+    this.connection = connection;
+    return this.load();
   }
 
   descendants(parentOrId: Directory | Id): Node[] {
@@ -46,6 +40,23 @@ export class Nodes {
 
   list(): Node[] {
     return Array.from(this.hash.values());
+  }
+
+  async load(): Promise<void> {
+    if (!this.connection){
+      throwCritical("UNABLE_TO_LOAD_NODES_WITHOUT_CONNECTION", "nodes must have a connection before the load method can be called");
+      return;
+    }
+
+    this.loading = true;
+    try {
+      this.hash.clear();
+      for await (const node of this.connection.load()) {
+        this.hash.set(node.id, node);
+      }
+    } finally {
+      this.loading = false;
+    }
   }
 
   path(nodeOrId: Id | Node): string {
