@@ -34,6 +34,10 @@ export class Nodes {
     this.hash.clear();
   }
 
+  get(id: Id): Node | undefined {
+    return this.hash.get(id);
+  }
+
   getOrThrow(id: Id): Node {
     return getOrThrow(id, this.hash);
   }

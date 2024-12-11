@@ -10,7 +10,7 @@ const { nodes } = Store.use();
 const node = ref<Node | undefined>();
 
 function handleSelected(id?: Id) {
-  node.value = id ? nodes.getOrThrow(id) : undefined;
+  node.value = id ? nodes.get(id) : undefined;
 }
 </script>
 <template>
