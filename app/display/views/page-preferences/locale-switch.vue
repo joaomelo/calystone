@@ -2,7 +2,7 @@
 import { useI18n } from "@/display/i18n";
 import { InputSelectButton } from "@/display/widgets";
 
-const { availableLocales, locale } = useI18n();
+const { availableLocales, locale, t } = useI18n();
 
 </script>
 <template>
@@ -10,13 +10,7 @@ const { availableLocales, locale } = useI18n();
     <InputSelectButton
       v-model="locale"
       :options="availableLocales"
+      :label="t('language')"
     />
   </div>
 </template>
-<style scoped>
-.locale-switch {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
