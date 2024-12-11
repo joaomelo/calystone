@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Nodes } from "@/domain";
-import type { Id } from "@/utils";
+import type { Id } from "@/domain";
 
-import { isId, isObjectLike } from "@/utils";
+import { isId, isObjectLike } from "@/domain";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref, watchEffect } from "vue";
 

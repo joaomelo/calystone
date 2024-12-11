@@ -1,8 +1,7 @@
-import type { Node } from "@/domain/nodes";
-import type { Id } from "@/utils";
+import type { Id, Node } from "@/domain/nodes";
 
+import { idle } from "@/domain/lang";
 import { Artifact, Directory } from "@/domain/nodes";
-import { idle } from "@/utils";
 
 import { FsaArtifactConnection } from "../artifact";
 

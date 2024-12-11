@@ -12,10 +12,7 @@ graph TD
     domain
     display
   end
-  utils
   main --> core
-  main --> utils
-  core --> utils
   display --> domain
 ```
 
@@ -82,13 +79,13 @@ The project uses vanilla CSS with design tokens coming from custom properties. T
 
 ## Domain
 
-Domain is the bussiness logic running in a vacum without care about `views`.
+Domain is the app logic running in a vacum without care about `views`.
 
 ### Separeta state from logic
 
-One should not use classes to express the domain. Data strucutures should be defined by types and located in a central object. Data transformation should be done by functions that will receive this data store as a whole or only the necessary to know properties.
+Computation logic should be isolated in pure function whenever possible, even if they will be used to enable classes methods.
 
-This is due to facilitate the building of reactive user interfaces taking advantage of the reactive constructus of any of the modern UI frameworks. They do not deal well with classes, specially but no limited deep object relationshipgs.
+This isolation avoid big classes files that are hard to read, avoid side effects in state that are hard to locate and makes testing easier.
 
 ### Be simple and let upper layers carry some load
 
@@ -98,17 +95,19 @@ These types are not meant to be flexible or adapt to every needs of the UI. The 
 
 When adding something to the domain ask yourself, does the domain doesn't already expose this? if so, create the capability in the consumer.
 
-## Utils
+## Domain is the last mile
 
-Language or technology helpers that don't need to be aware of bussiness rules and don't need runtime state goes here. Utils only knows about utils and nothing else.
+If some logic is reused everywhere the domain is the place to put it. We don't have a utils folder.
 
-Avoid creating utils. If a string function is needed in only one place, keep the function there. This make the need clear and the design simple. Utils should be a evolution of such features when they are cleary needed by multiple modules.
+This is intentional to disincentiveze generic lib features. Everything should be written to attend the current needs and the package mindset is considered bad design.
+
+If some utility function is needed in only one place, keep that function there no in the domain. It should be moved to the domain only when multiple top-level modules require it.
 
 # Design strategies
 
 ## Avoid uncertain use of complexity
 
-Nothing in this app, even utils, is coded with a mindset to be later used in other apps or libs. this kind of design bring complexity. This app code has to be as focuses as possible. Complexity is added only when indispensible to achive some app known and present goal.
+Nothing in this app, even utilities like features, is coded with a mindset to be later used in other apps or libs. this kind of design bring complexity. This app code has to be as focuses as possible. Some capability is added only when indispensible to achive some app known and present goal.
 
 ## Small functions
 

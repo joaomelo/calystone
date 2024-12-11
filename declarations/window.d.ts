@@ -1,4 +1,4 @@
-import { type Store } from "@/domain";
+import { type Store } from "@/display";
 
 declare global {
   interface Window {

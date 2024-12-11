@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Node } from "@/domain";
-import type { Id } from "@/utils";
+import type { Id } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorNode, OutlineNodes, SplitterPanel } from "@/display/widgets";

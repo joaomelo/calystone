@@ -1,5 +1,4 @@
-import type { Id } from "@/utils";
-
+import type { Id } from "../ids";
 import type { Node } from "../node";
 
 export function getOrThrow(id: Id, nodes: Map<Id, Node>) {

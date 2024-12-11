@@ -1,4 +1,4 @@
-import type { Exception } from "@/utils";
+import type { Exception } from "@/domain";
 
 import { useI18n } from "@/display/i18n";
 

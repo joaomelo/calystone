@@ -1,4 +1,4 @@
-import { isObjectLike } from "@/utils";
+import { isObjectLike } from "@/domain/lang";
 
 import { type Id, isId } from "./id";
 

@@ -4,7 +4,7 @@ import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { ButtonBase, TextMessage, useExceptionToast } from "@/display/widgets";
 import { checkFsaSupport, FsaNodesConnection } from "@/domain";
-import { Exception } from "@/utils";
+import { Exception } from "@/domain";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

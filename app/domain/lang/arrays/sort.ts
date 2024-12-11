@@ -1,7 +1,6 @@
-import { clone } from "@/utils/objects";
-
 import type { MaybeArray } from "./maybe-array";
 
+import { clone } from "../objects";
 import { asArray } from "./as-array";
 
 export function sort<T, K extends keyof T>(

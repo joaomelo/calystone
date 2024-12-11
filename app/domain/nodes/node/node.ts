@@ -1,7 +1,6 @@
-import type { Id } from "@/utils";
+import type { Id } from "../ids";
 
-import { createId } from "@/utils";
-import { extractId } from "@/utils";
+import { createId, extractId } from "../ids";
 
 export class Node {
   id: Id;

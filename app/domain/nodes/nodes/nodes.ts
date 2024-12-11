@@ -1,8 +1,7 @@
-import type { Id } from "@/utils";
-
-import { throwCritical } from "@/utils";
+import { throwCritical } from "@/domain/lang";
 
 import type { Directory } from "../directory";
+import type { Id } from "../ids";
 import type { Node } from "../node";
 import type { NodesConnection } from "./connection";
 

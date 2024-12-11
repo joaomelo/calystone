@@ -1,9 +1,7 @@
-import type { Id } from "@/utils";
-
-import { extractId } from "@/utils";
-
+import type { Id } from "../ids";
 import type { Node } from "../node/node";
 
+import { extractId } from "../ids";
 import { getOrThrow } from "./get";
 
 export function path(nodeOrId: Id | Node, nodes: Map<Id, Node>): string{
