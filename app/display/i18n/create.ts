@@ -1,19 +1,24 @@
+import { toValue, watch } from "vue";
 import { createI18n as createVueI18n } from "vue-i18n";
 
-import { attemptLocaleMatch } from "./match";
-import { type AvailableLocales, messages, type MessageSchema } from "./messages";
+import type { AvailableLocales, MessageSchema } from "./messages";
+
+import { loadLocale, saveLocale } from "./locale";
+import { Locales } from "./locales";
+import { messages } from "./messages";
 
 export function createI18n() {
 
-  const supported = Object.keys(messages);
-  const maybeLocale = attemptLocaleMatch(navigator.language, supported);
+  const locale = loadLocale();
 
   const i18n = createVueI18n<[MessageSchema], AvailableLocales>({
-    fallbackLocale: "en",
+    fallbackLocale: Locales.default,
     legacy: false,
-    locale: maybeLocale ?? "en",
+    locale,
     messages
   });
+
+  watch(() => toValue(i18n.global.locale), saveLocale);
 
   return i18n;
 }
