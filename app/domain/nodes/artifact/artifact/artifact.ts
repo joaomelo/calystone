@@ -1,4 +1,6 @@
 import type { Source } from "@/domain/content";
+import type { Id } from "@/domain/nodes/ids";
+import type { Nodes } from "@/domain/nodes/nodes";
 
 import { Mime } from "@/domain/content";
 import { Node } from "@/domain/nodes/node";
@@ -12,12 +14,12 @@ export class Artifact extends Node implements Source {
   readonly mime: Mime;
   readonly size: number;
 
-  constructor(data: ArtifactData, connection: ArtifactConnection) {
-    super(data.name, data.parentId);
-    this.lastModified = data.lastModified;
-    this.size = data.size;
+  constructor({ connection, lastModified, name, nodes, parentId, size }: Options) {
+    super({ name, nodes, parentId });
+    this.lastModified = lastModified;
+    this.size = size;
     this.connection = connection;
-    this.mime = new Mime(data.name);
+    this.mime = new Mime(name);
   }
 
   async fetch(): Promise<ArrayBuffer> {
@@ -33,4 +35,11 @@ export class Artifact extends Node implements Source {
   };
 }
 
-type ArtifactData = Pick<Artifact, "lastModified" | "name" | "parentId" | "size">;
+interface Options {
+  lastModified: number;
+  name: string;
+  parentId?: Id;
+  size: number;
+  connection: ArtifactConnection;
+  nodes: Nodes;
+};

@@ -17,7 +17,7 @@ const isSupported = checkFsaSupport();
 async function handleOpenFsa() {
   try {
     const root = await showDirectoryPicker();
-    const connection = new FsaNodesConnection(root);
+    const connection = new FsaNodesConnection({ nodes, root });
     void nodes.connect(connection);
     void router.push({ name: DEFAULT_ACTIVITY });
   } catch (error) {

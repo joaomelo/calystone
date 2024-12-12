@@ -4,13 +4,13 @@ import { solve } from "./solve";
 import { type } from "./type";
 
 export class Mime {
-  private mime: string;
+  readonly media: string;
 
   constructor(name: string) {
-    this.mime = solve(name);
+    this.media = solve(name);
   }
 
   type(): Type {
-    return type(this.mime);
+    return type(this.media);
   };
 }

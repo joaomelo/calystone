@@ -18,7 +18,7 @@ const emit = defineEmits<{
 
 const value = computed(() => nodes.list()
   .filter(n => n.root())
-  .map((node) => convert(nodes, node))
+  .map(convert)
 );
 
 const selectedKey = ref(null);

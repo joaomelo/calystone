@@ -1,29 +1,41 @@
-import type { Id, Node } from "@/domain/nodes";
+import type { Id, Node, Nodes } from "@/domain/nodes";
 
 import { idle } from "@/domain/lang";
 import { Artifact, Directory } from "@/domain/nodes";
 
 import { FsaArtifactConnection } from "../artifact";
 
-export async function* load(rootHandle: FileSystemDirectoryHandle): AsyncGenerator<Node> {
-  const parentsToLoad: ParentToLoad[] = [{ parentHandle: rootHandle }];
+export async function* load({ nodes, root }: Options): AsyncGenerator<Node> {
+  const parentsToLoad: ParentToLoad[] = [{ parentHandle: root }];
 
-  // will traverse the parent Handle using breadth-first search (BFS) approach. This way, the user can quickly see the first levels of the file system.
+  // will traverse the parent handle using breadth-first search (BFS) approach. this way, the user can quickly see the first levels of the file system in the ui.
   while (parentsToLoad.length > 0) {
     const parentToLoad = parentsToLoad.shift();
     if (!parentToLoad) continue;
 
     const { parentHandle, parentId } = parentToLoad;
-    for await (const child of parentHandle.values()) {
+    for await (const handle of parentHandle.values()) {
       await idle();
 
-      if (child.kind === "file") {
-        const artifact = await loadArtifact(child, parentId);
+      const nodeData = {
+        name: handle.name,
+        nodes,
+        parentId: parentId,
+      };
+
+      if (handle.kind === "file") {
+        const file = await handle.getFile();
+        const artifact = new Artifact({
+          connection: new FsaArtifactConnection(handle),
+          lastModified: file.lastModified,
+          size: file.size,
+          ...nodeData
+        });
         yield artifact;
       } else {
-        const directory = new Directory(child.name, parentId);
+        const directory = new Directory(nodeData);
         yield directory;
-        parentsToLoad.push({ parentHandle: child, parentId: directory.id });
+        parentsToLoad.push({ parentHandle: handle, parentId: directory.id });
       }
     }
   }
@@ -34,16 +46,7 @@ interface ParentToLoad {
   parentId?: Id;
 };
 
-export async function loadArtifact(handle: FileSystemFileHandle, parentId?: Id): Promise<Artifact> {
-  const file = await handle.getFile();
-
-  const data = {
-    lastModified: file.lastModified,
-    name: file.name,
-    parentId: parentId,
-    size: file.size,
-  };
-
-  const connection = new FsaArtifactConnection(handle);
-  return new Artifact(data, connection);
+interface Options {
+  nodes: Nodes;
+  root: FileSystemDirectoryHandle;
 }
