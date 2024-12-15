@@ -103,7 +103,9 @@ This is intentional to disincentiveze generic lib features. Everything should be
 
 If some utility function is needed in only one place, keep that function there no in the domain. It should be moved to the domain only when multiple top-level modules require it.
 
-# Design strategies
+# Design choices
+
+These are not general design claims for the community. These are local desicions applicable only to these apps. Do not interpret this decisions as something we believe should be done for other apps.
 
 ## Avoid uncertain use of complexity
 
@@ -120,3 +122,7 @@ Functions should be as small as possible. They should do one thing and have pref
 No need to unit test every function and also no need to worry about the testing emcompassing inner structures. Tests should focus on verifying modules outcomes with none to litte mocking. Inner modules functions can change at will with side effecting multiple tests.
 
 [There is No Such Thing as a Unit Test](https://dev.to/awwsmm/there-is-no-such-thing-as-a-unit-test-50j3)
+
+## Do not use global stores
+
+Global store incentivise black holes modules that aim to solve many problems.This creates unintended dependencies. Expose every bit of state carefully by atomic exposure.
