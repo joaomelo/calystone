@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { ACTIVITIES, isActivity, useCurrentActivity } from "@/display/activities";
+import { activities, isActivity, useActivity } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
-import { Store } from "@/display/store";
 import { SideBar, SideItem } from "@/display/widgets";
+import { useNodes } from "@/domain";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 const { t } = useI18n();
-const { nodes } = Store.use();
-const activity = useCurrentActivity();
+const nodes = useNodes();
+const activity = useActivity();
+
 const router = useRouter();
 
-const refresh = computed(() => nodes.loading
+const refresh = computed(() => nodes.value.loading
   ? { disabled: true, icon: "pi pi-spin pi-spinner", title: "loading" }
   : { disabled: false, icon: "pi pi-sync", title: "reload" }
 );
@@ -20,13 +21,13 @@ function handleUpdateActive(active: string) {
   if (!isActivity(active)) return;
   if (active === activity.value) return;
 
-  if (active === ACTIVITIES.OPEN) {
-    nodes.disconnect();
+  if (active === activities.open) {
+    nodes.value.disconnect();
     return;
   }
 
-  if (active === ACTIVITIES.RELOAD) {
-    void nodes.load();
+  if (active === activities.reload) {
+    void nodes.value.load();
     return;
   }
 
@@ -40,25 +41,25 @@ function handleUpdateActive(active: string) {
   >
     <template #default>
       <SideItem
-        :id="ACTIVITIES.OUTLINE"
-        :title="t(ACTIVITIES.OUTLINE)"
+        :id="activities.outline"
+        :title="t(activities.outline)"
         icon="pi pi-list-check"
       />
       <SideItem
-        :id="ACTIVITIES.PREFERENCES"
+        :id="activities.preferences"
         icon="pi pi-cog"
-        :title="t(ACTIVITIES.PREFERENCES)"
+        :title="t(activities.preferences)"
       />
     </template>
     <template #bottom>
       <SideItem
-        :id="ACTIVITIES.RELOAD"
+        :id="activities.reload"
         :icon="refresh.icon"
         :title="t(refresh.title)"
         :disabled="refresh.disabled"
       />
       <SideItem
-        :id="ACTIVITIES.OPEN"
+        :id="activities.open"
         icon="pi pi-sign-out"
         :title="t('exit')"
       />

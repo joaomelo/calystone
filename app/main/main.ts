@@ -1,6 +1,6 @@
-import { createI18n, createRouter, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
+import { ActivityStore, createI18n, createRouter, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
-import { Store } from "@/display";
+import { NodesStore } from "@/domain";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -26,12 +26,14 @@ export function initApp(elementId: string) {
   const router = createRouter();
   app.use(router);
 
+  const nodesStore = new NodesStore();
+  app.use(nodesStore);
+
+  const activityStore = new ActivityStore(router);
+  app.use(activityStore);
+
   const i18n = createI18n();
   app.use(i18n);
-
-  const store = new Store();
-  window.$store = store;
-  app.use(store);
 
   app.mount(elementId);
 }

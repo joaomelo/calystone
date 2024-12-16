@@ -1,13 +1,17 @@
-export function attemptLocaleMatch(maybeLocale: string, supported: string[]) {
-  if (!maybeLocale) return null;
+import type { Locale } from "./locales";
 
-  const lowered = maybeLocale.toLowerCase();
-  let newLocale = null;
-  for (const attempt of supported) {
-    if (lowered.includes(attempt) || attempt.includes(lowered)) {
-      newLocale = attempt;
+import { defaultLocale, locales } from "./locales";
+
+export function matchLocale(unknownLocale: unknown): Locale {
+  const maybeLocale = typeof unknownLocale === "string" ? unknownLocale : navigator.language;
+  const maybeLower = maybeLocale.toLowerCase();
+
+  let newLocale: Locale = defaultLocale;
+  for (const locale of locales) {
+    if (maybeLower.includes(locale) || locale.includes(maybeLower)) {
+      newLocale = locale;
     }
-    if (lowered === attempt) break;
+    if (maybeLower === locale) break;
   }
 
   return newLocale;

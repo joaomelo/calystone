@@ -9,6 +9,6 @@ export class TextCodec extends Codec<string> {
   }
 
   encode(content: string): ArrayBuffer {
-    return this.encoder.encode(content).buffer;
+    return this.encoder.encode(content).buffer as ArrayBuffer;
   }
 }

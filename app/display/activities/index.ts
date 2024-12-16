@@ -1,2 +1,2 @@
 export * from "./activities";
-export * from "./use";
+export * from "./store";

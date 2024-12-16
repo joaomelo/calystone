@@ -3,14 +3,20 @@ import { throwCritical } from "@/domain/lang";
 import type { Id } from "../ids";
 import type { Node } from "../node";
 import type { NodesConnection } from "./connection";
+import type { Ignore } from "./ignore";
 
 import { getOrThrow } from "./get";
 
 export class Nodes {
+
   connection?: NodesConnection;
   readonly hash = new Map<Id, Node>();
-  ignore = [];
+  ignore: Ignore = [];
   loading = false;
+
+  constructor(ignore: Ignore) {
+    this.ignore = ignore;
+  }
 
   async connect(connection: NodesConnection): Promise<void> {
     this.connection = connection;
