@@ -1,11 +1,12 @@
-import type { Id } from "@/domain/nodes/ids";
 import type { Nodes } from "@/domain/nodes/nodes";
+
+import type { DirectoryData } from "./data";
 
 import { Node } from "../node";
 
 export class Directory extends Node {
-  constructor({ name, nodes, parentId }: Options) {
-    super({ name, nodes, parentId });
+  constructor({ id, name, nodes, parentId }: Options) {
+    super({ id, name, nodes, parentId });
   }
 
   children(): Node[] {
@@ -17,8 +18,4 @@ export class Directory extends Node {
   }
 };
 
-interface Options {
-  name: string,
-  nodes: Nodes,
-  parentId?: Id
-};
+type Options = { nodes: Nodes } & DirectoryData;

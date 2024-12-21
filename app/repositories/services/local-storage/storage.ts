@@ -1,7 +1,7 @@
 type StorageKey = string;
 type As<T> = (data: unknown) => T;
 
-export class Storage<T> {
+export class LocalStorage<T> {
   as: As<T>;
   storageKey: StorageKey;
 

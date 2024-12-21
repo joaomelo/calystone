@@ -1,8 +1,8 @@
 import type { Directory } from "../directory";
 import type { Id } from "../ids";
 import type { Nodes } from "../nodes";
+import type { NodeData } from "./data";
 
-import { createId } from "../ids";
 import { descendantOf } from "./descendants";
 import { path } from "./path";
 
@@ -12,8 +12,8 @@ export class Node {
   readonly nodes: Nodes;
   readonly parentId?: Id;
 
-  constructor({ name, nodes, parentId }: Options) {
-    this.id = createId();
+  constructor({ id, name, nodes, parentId }: Options) {
+    this.id = id;
     this.name = name;
     this.parentId = parentId;
     this.nodes = nodes;
@@ -45,8 +45,4 @@ export class Node {
   }
 }
 
-interface Options {
-  name: string,
-  nodes: Nodes,
-  parentId?: Id
-};
+type Options = { nodes: Nodes } & NodeData;
