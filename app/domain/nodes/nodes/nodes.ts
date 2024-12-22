@@ -10,14 +10,15 @@ import type { NodesRepository } from "./repository";
 
 export class Nodes {
 
-  readonly hash = new Map<Id, Node>();
-  ignore?: Ignore;
+  readonly hash: Map<Id, Node>;
+  readonly ignore: Ignore;
   loading = false;
-  repository?: NodesRepository;
+  readonly repository: NodesRepository;
 
-  disconnect(): void {
-    this.repository = undefined;
-    this.hash.clear();
+  constructor({ ignore, repository }: Options) {
+    this.repository = repository;
+    this.ignore = ignore;
+    this.hash = new Map();
   }
 
   get(id: Id): Node | undefined {
@@ -37,14 +38,6 @@ export class Nodes {
   }
 
   async load(): Promise<void> {
-    if (!this.repository){
-      throwCritical("UNABLE_TO_LOAD_NODES_WITHOUT_REPOSITORY", "nodes must have a connection before the load method can be called");
-    }
-
-    if (!this.ignore){
-      throwCritical("UNABLE_TO_LOAD_NODES_WITHOUT_IGNORE", "nodes must have a ignore definition before the load method can be called");
-    }
-
     this.loading = true;
     try {
       this.hash.clear();
@@ -60,3 +53,8 @@ export class Nodes {
     }
   }
 }
+
+interface Options {
+  ignore: Ignore;
+  repository: NodesRepository;
+};

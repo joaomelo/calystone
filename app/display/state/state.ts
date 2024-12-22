@@ -12,10 +12,10 @@ import { useState } from "./use";
 export class State {
   activity: ComputedRef<Activity>;
   ignore: Ref<Ignore>;
-  nodes: Ref<Nodes>;
+  nodes: Ref<Nodes | undefined>;
 
-  constructor({ ignore, nodes, router }: Options) {
-    this.nodes = ref(nodes);
+  constructor({ ignore, router }: Options) {
+    this.nodes = ref();
     this.ignore = ref(ignore);
     this.activity = computed(() => solveRouterActivity(router));
   }
@@ -27,10 +27,13 @@ export class State {
   install(app: App) {
     app.provide(key, this);
   }
+
+  update(nodes?: Nodes) {
+    this.nodes.value = nodes;
+  }
 }
 
 interface Options {
-  nodes: Nodes;
   ignore: Ignore;
   router: Router
 };
