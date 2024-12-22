@@ -28,7 +28,7 @@ export class State {
     app.provide(key, this);
   }
 
-  update(nodes?: Nodes) {
+  updateNodes(nodes?: Nodes) {
     this.nodes.value = nodes;
   }
 }

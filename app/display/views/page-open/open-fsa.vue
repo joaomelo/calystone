@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { defaultActivity } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
+import { State } from "@/display/state";
 import { ButtonBase, TextMessage, useExceptionToast } from "@/display/widgets";
-import { useNodes } from "@/domain";
-import { checkFsaSupport, FsaNodesRepository } from "@/domain";
-import { Exception } from "@/domain";
+import { Exception, Nodes } from "@/domain";
+import { checkFsaSupport, FsaNodesRepository } from "@/repositories";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const nodes = useNodes();
+const state = State.use();
 const { t } = useI18n();
 const toast = useExceptionToast();
 
@@ -17,8 +17,13 @@ const isSupported = checkFsaSupport();
 async function handleOpenFsa() {
   try {
     const root = await showDirectoryPicker();
-    const connection = new FsaNodesRepository({ nodes: nodes.value, root });
-    void nodes.value.connect(connection);
+    const repository = new FsaNodesRepository(root);
+    const ignore = state.ignore.value;
+    const nodes = new Nodes({ ignore, repository });
+    void nodes.load();
+
+    state.updateNodes(nodes);
+
     void router.push({ name: defaultActivity });
   } catch (error) {
     const exception = new Exception("UNABLE_OPEN_DIRECTORY", error);
