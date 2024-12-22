@@ -10,16 +10,15 @@ import { ScrollPanel } from "../scroll-panel";
 import { convert } from "./convert";
 
 const { nodes } = defineProps<{
-  nodes: Nodes; // is important to use the reactive top-most data structure here to trigger the reactivity, passing a array of root objects will not secure ui updates.
+  nodes?: Nodes; // is important to use the reactive top-most data structure here to trigger the reactivity, passing a array of root objects will not secure ui updates.
 }>();
 const emit = defineEmits<{
   selected: [id: Id | undefined];
 }>();
 
-const value = computed(() => nodes.list()
-  .filter(n => n.root())
-  .map(convert)
-);
+const value = nodes
+  ? computed(() => nodes.list().filter(n => n.root()).map(convert))
+  : ref([]);
 
 const selectedKey = ref(null);
 watchEffect(() => {

@@ -1,32 +1,34 @@
 <script setup lang="ts">
 import { activities, isActivity } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
-import { State } from "@/display/state";
+import { Store } from "@/display/store";
 import { SideBar, SideItem } from "@/display/widgets";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 const { t } = useI18n();
-const state = State.use();
+const state = Store.use();
 
 const router = useRouter();
 
-const refresh = computed(() => state.nodes.value?.loading
-  ? { disabled: true, icon: "pi pi-spin pi-spinner", title: "loading" }
-  : { disabled: false, icon: "pi pi-sync", title: "reload" }
-);
+const refresh = computed(() => {
+  const value = state.nodes.loading
+    ? { disabled: true, icon: "pi pi-spin pi-spinner", title: "loading" }
+    : { disabled: false, icon: "pi pi-sync", title: "reload" };
+  return value;
+});
 
 function handleUpdateActive(active: string) {
   if (!isActivity(active)) return;
-  if (active === state.activity.value) return;
+  if (active === state.activity) return;
 
   if (active === activities.open) {
-    state.updateNodes(undefined);
+    state.nodes.disconnect();
     return;
   }
 
   if (active === activities.reload) {
-    void state.nodes.value?.load();
+    void state.nodes.load();
     return;
   }
 
@@ -35,7 +37,7 @@ function handleUpdateActive(active: string) {
 </script>
 <template>
   <SideBar
-    :active="state.activity.value"
+    :active="state.activity"
     @update:active="handleUpdateActive"
   >
     <template #default>

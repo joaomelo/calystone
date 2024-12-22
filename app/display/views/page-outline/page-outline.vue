@@ -2,22 +2,22 @@
 import type { Node } from "@/domain";
 import type { Id } from "@/domain";
 
+import { Store } from "@/display/store";
 import { EditorNode, OutlineNodes, SplitterPanel } from "@/display/widgets";
-import { useNodes } from "@/domain";
 import { ref } from "vue";
 
-const nodes = useNodes();
+const state = Store.use();
 const node = ref<Node | undefined>();
 
 function handleSelected(id?: Id) {
-  node.value = id ? nodes.value.get(id) : undefined;
+  node.value = id ? state.nodes.get(id) : undefined;
 }
 </script>
 <template>
   <SplitterPanel class="page-outline">
     <template #start>
       <OutlineNodes
-        :nodes="nodes"
+        :nodes="state.nodes"
         class="page-outline-start"
         @selected="handleSelected"
       />

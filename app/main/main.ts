@@ -1,6 +1,6 @@
-import { createI18n, createRouter, State, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
+import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
-import { Ignore } from "@/domain";
+import { Ignore, Nodes } from "@/domain";
 import { LocalStorageIgnoreRepository } from "@/repositories";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
@@ -30,7 +30,10 @@ export function initApp(elementId: string) {
   const ignoreRepository = new LocalStorageIgnoreRepository();
   const ignore = new Ignore(ignoreRepository);
 
-  const state = new State({ ignore, router });
+  const nodes = new Nodes(ignore);
+
+  const state = new Store({ ignore, nodes, router });
+  window.$state = state;
   app.use(state);
 
   const i18n = createI18n();

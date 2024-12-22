@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { activities } from "@/display/activities";
-import { State } from "@/display/state";
+import { Store } from "@/display/store";
 import { watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
 import FrameDashboardSide from "./frame-dashboard-side.vue";
 
 const router = useRouter();
-const { nodes } = State.use();
+const state = Store.use();
 
 watchEffect(() => {
-  if (!nodes.value) {
+  if (!state.connected) {
     void router.push({ name: activities.open });
   }
 });

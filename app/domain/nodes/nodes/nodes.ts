@@ -13,12 +13,21 @@ export class Nodes {
   readonly hash: Map<Id, Node>;
   readonly ignore: Ignore;
   loading = false;
-  readonly repository: NodesRepository;
+  repository?: NodesRepository;
 
-  constructor({ ignore, repository }: Options) {
-    this.repository = repository;
+  constructor(ignore: Ignore) {
     this.ignore = ignore;
     this.hash = new Map();
+  }
+
+  async connect(repository: NodesRepository): Promise<void> {
+    this.repository = repository;
+    return this.load();
+  }
+
+  disconnect(): void {
+    this.repository = undefined;
+    this.hash.clear();
   }
 
   get(id: Id): Node | undefined {
@@ -38,23 +47,22 @@ export class Nodes {
   }
 
   async load(): Promise<void> {
+    if (!this.repository){
+      throwCritical("NO_REPOSITORY", "nodes must have a repository before the load method can be called");
+    }
+
     this.loading = true;
     try {
       this.hash.clear();
       for await (const data of this.repository.loadNodesData(this.ignore)) {
-        await idle();
         const node: Node = (isArtifactData(data))
           ? new Artifact({ nodes: this, ...data })
           : new Directory({ nodes: this, ...data });
         this.hash.set(data.id, node);
+        await idle();
       }
     } finally {
       this.loading = false;
     }
   }
 }
-
-interface Options {
-  ignore: Ignore;
-  repository: NodesRepository;
-};
