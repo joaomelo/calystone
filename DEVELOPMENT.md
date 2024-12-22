@@ -11,9 +11,12 @@ graph TD
     direction LR
     domain
     display
+    repositories
   end
   main --> core
   display --> domain
+  display --> repositories
+  repositories --> domain
 ```
 
 ## Main
@@ -79,7 +82,7 @@ The project uses vanilla CSS with design tokens coming from custom properties. T
 
 ## Domain
 
-Domain is the app logic running in a vacum without care about `views`.
+Domain is the app logic running in a vacum without care about `views` and just with bare interfaces for `repositories`.
 
 ### Separeta state from logic
 
@@ -102,6 +105,10 @@ If some logic is reused everywhere the domain is the place to put it. We don't h
 This is intentional to disincentiveze generic lib features. Everything should be written to attend the current needs and the package mindset is considered bad design.
 
 If some utility function is needed in only one place, keep that function there no in the domain. It should be moved to the domain only when multiple top-level modules require it.
+
+## Repositories
+
+Repositories is the module with the logic to persist and recover real data for medias like the file system and the local storage. It also provides services utilities for things like checking if the user browser supports the repository technology.
 
 # Design choices
 

@@ -1,2 +1,2 @@
 export * from "./activities";
-export * from "./store";
+export * from "./router";

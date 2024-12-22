@@ -1,4 +1,4 @@
-import { Storage } from "@/domain";
+import { LocalStorage } from "@/repositories";
 import { watch } from "vue";
 import { createI18n as createVueI18n } from "vue-i18n";
 
@@ -10,7 +10,7 @@ import { matchLocale } from "./match";
 import { messages } from "./messages";
 
 export function createI18n() {
-  const localeStorage = new Storage("locale", matchLocale);
+  const localeStorage = new LocalStorage("locale", matchLocale);
   const locale = localeStorage.load();
 
   const i18n = createVueI18n<[MessageSchema], Locale, false>({

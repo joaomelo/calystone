@@ -3,7 +3,7 @@ import type { Pattern } from "./pattern";
 import type { IgnoreRepository } from "./repository";
 
 export class Ignore implements Matcher {
-  private pattern: Pattern = [];
+  pattern: Pattern = [];
   repository: IgnoreRepository;
 
   constructor(repository: IgnoreRepository) {
