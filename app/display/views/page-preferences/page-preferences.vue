@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import LocaleSwitch from "./locale-switch.vue";
+import InputIgnore from "./input-ignore.vue";
+import InputLocale from "./input-locale.vue";
 </script>
 <template>
   <div class="page-preferences">
-    <LocaleSwitch />
+    <InputLocale />
+    <InputIgnore />
   </div>
 </template>
 <style scoped>
