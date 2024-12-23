@@ -33,6 +33,7 @@
   "focus": "focar",
   "fsa-not-supported": "Este aplicativo depende de um recurso do navegador chamado File System API. Embora seja um padrão web, ele ainda não é suportado pelo seu navegador atual.",
   "ignore": "ignorar",
+  "ignore-info": "Use o campo de entrada para listar os padrões que devem ser ignorados para arquivos e pastas. Cada linha representa um padrão glob (por exemplo, \"*.jpg\" ou \"arquivados/\"). Qualquer arquivo ou pasta que corresponder a esse padrão será ignorado de forma recursiva. Isso torna o carregamento mais rápido e organiza a visualização. Para mais informações sobre como criar padrões glob, consulte este guia na {0}.",
   "items": "itens",
   "language": "idioma",
   "loading": "carregando",

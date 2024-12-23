@@ -18,7 +18,15 @@ const model = defineModel({ type: String });
         v-model="model"
         :allow-empty="false"
         :rows="rows"
+        class="input-textarea"
+        fluid
       />
     </template>
   </InputWrapper>
 </template>
+<style scoped>
+.input-textarea {
+  resize: none;
+  height: 100%;
+}
+</style>

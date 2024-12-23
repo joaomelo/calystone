@@ -33,6 +33,7 @@
   "focus": "focus",
   "fsa-not-supported": "This app relies on a browser feature called the File System API. Although it's a web standard, it isn't supported by your current browser.",
   "ignore": "ignore",
+  "ignore-info": "Use the input to list the patterns to ignore for files and folders. Each line represents a single glob pattern (e.g., \"*.jpg\" or \"archive/\"). Any file or folder matching that pattern will be skipped recursively. This makes loading faster and keeps the outline uncluttered. For more information on crafting glob patterns, see this article at {0}.",
   "items": "items",
   "language": "language",
   "loading": "loading",

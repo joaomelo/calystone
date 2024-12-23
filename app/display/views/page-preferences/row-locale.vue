@@ -6,6 +6,7 @@ const { availableLocales, locale, t } = useI18n();
 
 </script>
 <template>
+  <span />
   <InputSelectButton
     v-model="locale"
     :options="availableLocales"
