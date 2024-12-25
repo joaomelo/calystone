@@ -1,8 +1,9 @@
-import type { Matcher } from "./matcher";
+import { minimatch } from "minimatch";
+
 import type { Pattern } from "./pattern";
 import type { IgnoreRepository } from "./repository";
 
-export class Ignore implements Matcher {
+export class Ignore {
   pattern: Pattern = [];
   repository: IgnoreRepository;
 
@@ -10,15 +11,13 @@ export class Ignore implements Matcher {
     this.repository = repository;
   }
 
+  ignores(path: string) {
+    return this.pattern.some((pattern) => minimatch(path, pattern));
+  }
+
   async load() {
     this.pattern = await this.repository.loadPattern();
     return this.pattern;
-  }
-
-  match(path: string) {
-    // return this.pattern.some(pattern => path.match(pattern));
-    this.pattern.forEach(pattern => { console.log(path, pattern); });
-    return false;
   }
 
   async update(patterns: string[]) {

@@ -40,6 +40,7 @@
     "fuse.js": "^7.0.0",
     "lodash-es": "^4.17.21",
     "mime": "^4.0.4",
+    "minimatch": "^10.0.1",
     "open-props": "^1.7.6",
     "primeicons": "^7.0.0",
     "primevue": "^4.0.5",

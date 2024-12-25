@@ -1,19 +1,20 @@
-import type { Id, LoadNodeData, Matcher } from "@/domain";
+import type { Id, Ignore, LoadNodeData } from "@/domain";
 
 import { createId } from "@/domain";
 
-export async function* loadNodesData(root: FileSystemDirectoryHandle, ignore: Matcher): AsyncGenerator<Load> {
-  const parentsToLoad: ParentToLoad[] = [{ handle: root, path: "/" }];
+export async function* loadNodesData(root: FileSystemDirectoryHandle, ignore: Ignore): AsyncGenerator<Load> {
+  const parentsToLoad: ParentToLoad[] = [{ handle: root, path: "" }];
 
   // will traverse the parent handle using breadth-first search (BFS) approach. this way, the user can quickly see the first levels of the file system in the ui.
   while (parentsToLoad.length > 0) {
+
     const parentToLoad = parentsToLoad.shift();
     if (!parentToLoad) continue;
 
     for await (const handle of parentToLoad.handle.values()) {
-
       const path = `${parentToLoad.path}/${handle.name}`;
-      if (ignore.match(path)) continue;
+
+      if (ignore.ignores(path)) continue;
 
       const node = {
         id: createId(),
