@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { activities } from "@/display/activities";
 import { Store } from "@/display/store";
-import { watchEffect } from "vue";
+import { watch } from "vue";
 import { useRouter } from "vue-router";
 
 import FrameDashboardSide from "./frame-dashboard-side.vue";
@@ -9,11 +9,17 @@ import FrameDashboardSide from "./frame-dashboard-side.vue";
 const router = useRouter();
 const state = Store.use();
 
-watchEffect(() => {
-  if (!state.connected) {
-    void router.push({ name: activities.open });
+watch(
+  () => state.nodes.repository,
+  (hasRepository) => {
+    if (!hasRepository) {
+      void router.push({ name: activities.open });
+    }
+  },
+  {
+    immediate: true
   }
-});
+);
 
 </script>
 <template>
