@@ -15,7 +15,7 @@ export class Store {
   constructor({ ignore, nodes, router }: Options) {
     this.state = reactive({
       activity: computed(() => solveRouterActivity(router)),
-      connected: computed(( ) => !!nodes.repository),
+      connected: computed(() => !!nodes.repository),
       ignore,
       nodes: nodes
     });

@@ -6,5 +6,6 @@ export function isPattern(value: unknown): value is Pattern {
 
 export function asPattern(value: unknown): Pattern {
   if (isPattern(value)) return value;
+  if (typeof value === "string") return value.split("\n");
   return [];
 }

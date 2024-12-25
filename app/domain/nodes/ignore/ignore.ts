@@ -16,7 +16,9 @@ export class Ignore implements Matcher {
   }
 
   match(path: string) {
-    return this.pattern.some(pattern => path.match(pattern));
+    // return this.pattern.some(pattern => path.match(pattern));
+    this.pattern.forEach(pattern => { console.log(path, pattern); });
+    return false;
   }
 
   async update(patterns: string[]) {

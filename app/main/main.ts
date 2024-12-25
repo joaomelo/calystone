@@ -29,6 +29,7 @@ export function initApp(elementId: string) {
 
   const ignoreRepository = new LocalStorageIgnoreRepository();
   const ignore = new Ignore(ignoreRepository);
+  void ignore.load();
 
   const nodes = new Nodes(ignore);
 
