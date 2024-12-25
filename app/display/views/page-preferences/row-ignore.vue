@@ -21,9 +21,9 @@ const ignore = computed({
       scope="global"
     >
       <a
-        href="https://en.wikipedia.org/wiki/Glob_(programming)"
+        href="https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html"
         target="_blank"
-      >Wikepedia</a>
+      >Pattern Matching</a>
     </i18n-t>
   </TextMessage>
   <InputTextarea
