@@ -32,6 +32,7 @@ async function handleOpenFsa() {
       :label="t('open-files')"
       size="large"
       :disabled="!isSupported"
+      data-test="button-open-fsa"
       @click="handleOpenFsa"
     />
     <TextMessage
