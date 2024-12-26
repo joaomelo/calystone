@@ -1,4 +1,4 @@
-import type { Id, LoadNodeData, Matcher, NodesRepository } from "@/domain";
+import type { Id, Ignore, LoadNodeData, NodesRepository } from "@/domain";
 
 import { fetchArtifactContent } from "./fetch";
 import { fileOrThrow } from "./file-or-throw";
@@ -18,7 +18,7 @@ export class FsaNodesRepository implements NodesRepository {
     return fetchArtifactContent(handle);
   }
 
-  async *loadNodesData(ignore: Matcher): AsyncGenerator<LoadNodeData> {
+  async *loadNodesData(ignore: Ignore): AsyncGenerator<LoadNodeData> {
     this.handles.clear();
 
     for await (const loadData of loadNodesData(this.root, ignore)) {
