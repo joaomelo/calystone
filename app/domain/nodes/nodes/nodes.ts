@@ -2,7 +2,7 @@ import type { Id } from "@/domain/nodes/ids";
 import type { Ignore } from "@/domain/nodes/ignore";
 import type { Node } from "@/domain/nodes/node";
 
-import { idle, throwCritical } from "@/domain/lang";
+import { throwCritical } from "@/domain/lang";
 import { Artifact, isArtifactData } from "@/domain/nodes/artifact";
 import { Directory } from "@/domain/nodes/directory";
 
@@ -59,7 +59,6 @@ export class Nodes {
           ? new Artifact({ nodes: this, ...data })
           : new Directory({ nodes: this, ...data });
         this.hash.set(data.id, node);
-        await idle();
       }
     } finally {
       this.loading = false;
