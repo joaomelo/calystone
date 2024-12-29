@@ -1,5 +1,5 @@
 import type { Activity } from "@/display/activities";
-import type { Ignore, Nodes } from "@/domain";
+import type { Nodes } from "@/domain";
 import type { App, Reactive } from "vue";
 import type { Router } from "vue-router";
 
@@ -9,14 +9,23 @@ import { solveRouterActivity } from "../activities";
 import { key } from "./key";
 import { useStore } from "./use";
 
+type State = Reactive<{
+  activity: Activity;
+  nodes: Nodes
+}>;
+
+interface Options {
+  router: Router
+  nodes: Nodes
+};
+
 export class Store {
   state: State;
 
-  constructor({ ignore, nodes, router }: Options) {
+  constructor({ nodes, router }: Options) {
     this.state = reactive({
       activity: computed(() => solveRouterActivity(router)),
-      ignore,
-      nodes: nodes
+      nodes
     });
   }
 
@@ -29,15 +38,3 @@ export class Store {
     app.provide(key, this);
   }
 }
-
-type State = Reactive<{
-  activity: Activity;
-  ignore: Ignore;
-  nodes: Nodes
-}>;
-
-interface Options {
-  ignore: Ignore;
-  router: Router
-  nodes: Nodes
-};

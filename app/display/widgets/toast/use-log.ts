@@ -1,6 +1,6 @@
 import type { ToastMessageOptions } from "primevue/toast";
 
-import { Severity } from "@/domain";
+import { Severity } from "@/utils";
 import { useToast } from "primevue/usetoast";
 
 export function useLogToast() {

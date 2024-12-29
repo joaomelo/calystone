@@ -1,4 +1,4 @@
-import { FrameDashboard, PageOpen, PageOutline, PagePreferences, PageSearch, PageTags } from "@/display/views";
+import { FrameDashboard, PageOpen, PageOutline, PageSearch, PageTags } from "@/display/views";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 import { activities, defaultActivity } from "../activities";
@@ -12,7 +12,6 @@ export function createRouter() {
     {
       children: [
         { component: PageOutline, ...nameAndPath(activities.outline) },
-        { component: PagePreferences, ...nameAndPath(activities.preferences) },
         { component: PageSearch, ...nameAndPath(activities.search) },
         { component: PageTags, ...nameAndPath(activities.tags) }
       ],

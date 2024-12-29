@@ -3,8 +3,8 @@ import { defaultActivity } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { ButtonBase, TextMessage, useExceptionToast } from "@/display/widgets";
-import { Exception } from "@/domain";
 import { checkFsaSupport, FsaNodesRepository } from "@/repositories";
+import { Exception } from "@/utils";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

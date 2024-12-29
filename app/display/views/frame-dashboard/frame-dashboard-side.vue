@@ -46,11 +46,6 @@ function handleUpdateActive(active: string) {
         :title="t(activities.outline)"
         icon="pi pi-list-check"
       />
-      <SideItem
-        :id="activities.preferences"
-        icon="pi pi-cog"
-        :title="t(activities.preferences)"
-      />
     </template>
     <template #bottom>
       <SideItem

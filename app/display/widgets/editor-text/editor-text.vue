@@ -2,7 +2,7 @@
 import type { Artifact } from "@/domain";
 
 import { TextCodec } from "@/domain";
-import { Exception, throwCritical } from "@/domain";
+import { Exception, throwCritical } from "@/utils";
 import { debounce } from "lodash-es";
 import { onMounted, ref } from "vue";
 

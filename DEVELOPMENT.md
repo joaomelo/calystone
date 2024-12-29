@@ -13,10 +13,13 @@ graph TD
     display
     repositories
   end
+  utils
   main --> core
   display --> domain
   display --> repositories
   repositories --> domain
+  main --> utils
+  core --> utils
 ```
 
 ## Main
@@ -98,17 +101,15 @@ These types are not meant to be flexible or adapt to every needs of the UI. The 
 
 When adding something to the domain ask yourself, does the domain doesn't already expose this? if so, create the capability in the consumer.
 
-## Domain is the last mile
-
-If some logic is reused everywhere the domain is the place to put it. We don't have a utils folder.
-
-This is intentional to disincentiveze generic lib features. Everything should be written to attend the current needs and the package mindset is considered bad design.
-
-If some utility function is needed in only one place, keep that function there no in the domain. It should be moved to the domain only when multiple top-level modules require it.
-
 ## Repositories
 
 Repositories is the module with the logic to persist and recover real data for medias like the file system and the local storage. It also provides services utilities for things like checking if the user browser supports the repository technology.
+
+## Utils
+
+Here resides features used by multiple modules that cares no business logic. 
+
+Be aware that generic lib features are considered bad design. Everything should be written to attend the current needs.
 
 # Design choices
 

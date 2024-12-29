@@ -2,7 +2,8 @@
 import type { Nodes } from "@/domain";
 import type { Id } from "@/domain";
 
-import { isId, isObjectLike } from "@/domain";
+import { isId } from "@/domain";
+import { isObjectLike } from "@/utils";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref, watchEffect } from "vue";
 

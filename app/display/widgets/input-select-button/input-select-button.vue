@@ -22,3 +22,4 @@ const model = defineModel({ type: String });
     </template>
   </InputWrapper>
 </template>
+<style scoped></style>

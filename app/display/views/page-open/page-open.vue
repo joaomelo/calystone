@@ -3,6 +3,7 @@ import { CardPanel } from "@/display/widgets";
 
 import AppFeatures from "./app-features.vue";
 import EarlyDevelopment from "./early-development.vue";
+import InputLocale from "./input-locale.vue";
 import OpenFsa from "./open-fsa.vue";
 </script>
 <template>
@@ -18,6 +19,7 @@ import OpenFsa from "./open-fsa.vue";
             <div class="page-open-controls-actions">
               <OpenFsa />
             </div>
+            <InputLocale />
           </div>
         </div>
       </template>
