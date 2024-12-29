@@ -14,7 +14,7 @@ export abstract class Codec<T> {
 
   async fetch(): Promise<T> {
     if (!this.artifact.content) {
-      await this.artifact.fetch();
+      await this.artifact.load();
     }
     if (!this.artifact.content) {
       throwCritical("UNABLE_TO_FETCH_ARTIFACT_CONTENT", "the codec was unable to fetch the artifact content");

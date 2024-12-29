@@ -53,7 +53,7 @@ export class Nodes {
   }
 
   async load() {
-    if (!this.repository) throwCritical("NO_REPOSITORY", "nodes must have a repository before the load method can be called");
+    if (!this.repository) throwCritical("NO_REPOSITORY", "nodes does not have a repository");
 
     this.loading = true;
     try {
@@ -61,8 +61,8 @@ export class Nodes {
       const nodesData = await this.repository.openDirectory();
       for (const data of nodesData) {
         const node: Node = data.kind === "artifact"
-          ? new Artifact({ nodes: this, ...data })
-          : new Directory({ nodes: this, ...data });
+          ? new Artifact({ nodes: this, repository: this.repository, ...data })
+          : new Directory({ nodes: this, repository: this.repository, ...data });
         this.hash.set(data.id, node);
       }
     } finally {

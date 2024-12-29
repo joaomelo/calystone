@@ -1,5 +1,4 @@
 import type { Id } from "@/domain/ids";
-import type { Nodes } from "@/domain/nodes";
 
 import { isId } from "@/domain/ids";
 import { isObjectLike } from "@/utils";
@@ -9,10 +8,6 @@ export interface NodeData {
   name: string;
   parentId?: Id;
 }
-
-export type Kind = "artifact" | "directory";
-export type NodeDataAndKind = { kind: Kind } & NodeData;
-export type NodeDataAndNodes = { nodes: Nodes } & NodeData;
 
 export function isNodeData(value: unknown): value is NodeData {
   if (!isObjectLike(value)) return false;
