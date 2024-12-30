@@ -15,6 +15,7 @@
   "early-development": "Calystone is in early development, and we can't guarantee stability or full functionality at this stage.",
   "edit": "edit",
   "email": "email",
+  "empty": "When you select an node on the outline, its details will show here.",
   "errors": {
     "UNABLE_OPEN_DIRECTORY": "Unable to open directory",
     "UNABLE_POST_CONTENT": "Unable to save content to file"
@@ -38,24 +39,19 @@
   "language": "language",
   "loading": "loading",
   "name": "name",
-  "no-account": "don't have an account?",
   "node": "node",
   "nodes": "nodes",
+  "not-loaded": "Please, wait a moment while this node is loaded.",
   "notes": "notes",
   "open-files": "open files",
   "or": "or",
   "outline": "outline",
   "path": "path",
   "preferences": "preferences",
-  "prepare": "please, wait while prepare your session",
   "reload": "reload",
   "save": "save",
   "search": "search",
-  "select": "when you select an node on the outline, its details will show here",
-  "sign-in": "sing in",
-  "sign-up": "sing up",
   "size": "size",
   "tags": "tags",
-  "type": "type",
-  "wait": "please, wait while we try to recover your previous session"
+  "type": "type"
 }

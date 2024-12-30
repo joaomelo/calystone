@@ -3,7 +3,7 @@ import type { Node } from "@/domain";
 import type { Id } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorNode, OutlineNodes, SplitterPanel } from "@/display/widgets";
+import { EditorSwitcher, OutlineNodes, SplitterPanel } from "@/display/widgets";
 import { ref } from "vue";
 
 const state = Store.use();
@@ -23,7 +23,7 @@ function handleSelected(id?: Id) {
       />
     </template>
     <template #end>
-      <EditorNode :node />
+      <EditorSwitcher :node />
     </template>
   </SplitterPanel>
 </template>

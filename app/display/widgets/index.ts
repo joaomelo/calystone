@@ -1,6 +1,6 @@
 export * from "./button-base";
 export * from "./card-panel";
-export * from "./editor-node";
+export * from "./editor-switcher";
 export * from "./input-select-button";
 export * from "./input-textarea";
 export * from "./outline-nodes";

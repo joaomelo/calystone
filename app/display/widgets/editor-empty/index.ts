@@ -1,1 +1,0 @@
-export { default as EditorEmpty } from "./editor-empty.vue";

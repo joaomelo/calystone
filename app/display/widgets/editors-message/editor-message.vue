@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import { useI18n } from "@/display/i18n";
+defineProps<{
+  message: string;
+}>();
 const { t } = useI18n();
 </script>
 <template>
-  <div class="editor-empty">
-    {{ t('select') }}
+  <div class="editor-message">
+    {{ t(message) }}
   </div>
 </template>
 <style scoped>
-.editor-empty {
+.editor-message {
   height: 100%;
   display: grid;
   place-items: center;
   text-align: center;
+  padding: var(--size-3);
 }
 </style>

@@ -9,8 +9,8 @@ import type { EditorSwitch } from "../editor-switch";
 
 import { artifactSwitch } from "../editor-artifact";
 import { directorySwitch } from "../editor-directory";
-import { EditorEmpty } from "../editor-empty";
 import { textSwitch } from "../editor-text";
+import { emptySwitch, notLoadedSwitch } from "../editors-message";
 
 const { node } = defineProps<{
   node?: Node;
@@ -19,10 +19,10 @@ const { node } = defineProps<{
 const { t } = useI18n();
 
 // switches order matters since the first compatible switch will be used, so the most specific should be first.
-const switchs: EditorSwitch[] = [directorySwitch, textSwitch, artifactSwitch];
+const switchs: EditorSwitch[] = [emptySwitch, notLoadedSwitch, directorySwitch, textSwitch, artifactSwitch];
 const editor: Component = computed(() => {
   const specializedSwitch = switchs.find((s) => s.isCompatible(node));
-  return specializedSwitch?.component ?? EditorEmpty;
+  return specializedSwitch?.component ?? emptySwitch.component;
 });
 
 // key is important to force the component to be recreated when the node changes and the inner editor is async. without key, editor text, for example, does not update the text content.

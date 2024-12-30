@@ -15,6 +15,7 @@
   "early-development": "O Calystone está em desenvolvimento inicial, e não podemos garantir estabilidade ou funcionalidade total nesta fase.",
   "edit": "editar",
   "email": "email",
+  "empty": "Quando você selecionar um artefato na hierarquia, suas informações serão mostradas aqui.",
   "errors": {
     "UNABLE_OPEN_DIRECTORY": "Não foi possível abrir o diretório",
     "UNABLE_POST_CONTENT": "Não foi possível salvar o conteúdo no arquivo"
@@ -38,24 +39,20 @@
   "language": "idioma",
   "loading": "carregando",
   "name": "nome",
-  "no-account": "não tem uma conta?",
   "node": "artefato",
   "nodes": "artefatos",
+  "not-loaded": "Por favor, aguarde um momento enquanto esse item é carregado.",
   "notes": "notas",
   "open-files": "abrir arquivos",
   "or": "ou",
   "outline": "hierarquia",
   "path": "caminho",
   "preferences": "preferências",
-  "prepare": "por favor, aguarde enquanto preparamos sua sessão",
+  "prepare": "Por favor, aguarde enquanto preparamos sua sessão.",
   "reload": "recarregar",
   "save": "salvar",
   "search": "buscar",
-  "select": "quando você selecionar um artefato na hierarquia, suas informações serão mostradas aqui",
-  "sign-in": "entrar",
-  "sign-up": "criar conta",
   "size": "tamanho",
   "tags": "rótulos",
-  "type": "tipo",
-  "wait": "por favor, aguarde enquanto tentamos recuperar sua sessão anterior"
+  "type": "tipo"
 }
