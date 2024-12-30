@@ -11,10 +11,11 @@ const state = Store.use();
 
 const router = useRouter();
 
+const baseIcon = "bx bx-md";
 const refresh = computed(() => {
   const value = state.nodes.loading
-    ? { disabled: true, icon: "pi pi-spin pi-spinner", title: "loading" }
-    : { disabled: false, icon: "pi pi-sync", title: "reload" };
+    ? { disabled: true, icon: "bx-loader bx-spin", title: "loading" }
+    : { disabled: false, icon: "bx-sync", title: "reload" };
   return value;
 });
 
@@ -44,19 +45,19 @@ function handleUpdateActive(active: string) {
       <SideItem
         :id="activities.outline"
         :title="t(activities.outline)"
-        icon="pi pi-list-check"
+        :icon="`${baseIcon} bx-list-ul`"
       />
     </template>
     <template #bottom>
       <SideItem
         :id="activities.reload"
-        :icon="refresh.icon"
+        :icon="`${baseIcon} ${refresh.icon}`"
         :title="t(refresh.title)"
         :disabled="refresh.disabled"
       />
       <SideItem
         :id="activities.open"
-        icon="pi pi-sign-out"
+        :icon="`${baseIcon} bx-log-out`"
         :title="t('exit')"
       />
     </template>
