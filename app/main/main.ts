@@ -28,9 +28,9 @@ export function initApp(elementId: string) {
 
   const nodes = new Nodes();
 
-  const state = new Store({ nodes, router });
-  window.$state = state;
-  app.use(state);
+  const store = new Store({ nodes, router });
+  window.$store = store;
+  app.use(store);
 
   const i18n = createI18n();
   app.use(i18n);
