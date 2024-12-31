@@ -1,5 +1,5 @@
 import type { Activity } from "@/display/activities";
-import type { Nodes } from "@/domain";
+import type { Configuration, Nodes } from "@/domain";
 import type { App, Reactive } from "vue";
 import type { Router } from "vue-router";
 
@@ -11,21 +11,24 @@ import { useStore } from "./use";
 
 type State = Reactive<{
   activity: Activity;
-  nodes: Nodes
+  configuration: Configuration;
+  nodes: Nodes;
 }>;
 
 interface Options {
-  router: Router
-  nodes: Nodes
+  router: Router;
+  nodes: Nodes;
+  configuration: Configuration;
 };
 
 export class Store {
   state: State;
 
-  constructor({ nodes, router }: Options) {
+  constructor({ configuration, nodes, router }: Options) {
     this.state = reactive({
       activity: computed(() => solveRouterActivity(router)),
-      nodes
+      configuration,
+      nodes,
     });
   }
 

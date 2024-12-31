@@ -21,9 +21,14 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'          
-      - run: npm ci && npm run release
+      - run: npm ci
+      - run: npm run quality
+        env:
+          VITE_ENABLE_MEMORY: true
+      - run: npm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VITE_ENABLE_MEMORY: false
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
