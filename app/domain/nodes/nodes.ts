@@ -1,39 +1,38 @@
-import type { ArtifactData } from "@/domain/artifact";
 import type { Id } from "@/domain/ids";
 import type { Node } from "@/domain/node";
 
-import { Artifact } from "@/domain/artifact";
-import { Directory } from "@/domain/directory";
+import { createNode } from "@/domain/factory";
 import { throwCritical } from "@/utils";
 
 import type { NodesRepository } from "./repository";
 
-export class Nodes {
+import { Scheduler } from "./scheduler";
 
+export class Nodes {
   readonly hash: Map<Id, Node>;
   loading = false;
   repository?: NodesRepository;
+  scheduler: Scheduler;
 
   constructor() {
     this.hash = new Map();
+    this.scheduler = new Scheduler();
   }
 
-  async connect(repository: NodesRepository): Promise<void> {
+  connect(repository: NodesRepository): void {
+    this.disconnect();
     this.repository = repository;
-    await this.load();
+    const data = repository.clearAndfetchRoot();
+    const rootDirectory = createNode({ nodes: this, ...data });
+    this.set(rootDirectory);
+    this.scheduler.schedule(rootDirectory, true);
+    this.scheduler.start();
   }
 
   disconnect(): void {
     this.repository = undefined;
     this.hash.clear();
-  }
-
-  async fetchArtifact(id: Id): Promise<ArtifactData> {
-    if (!this.repository){
-      throwCritical("NO_REPOSITORY", "nodes must have a repository before the load method can be called");
-    }
-    const data = await this.repository.fetchArtifact(id);
-    return data;
+    this.scheduler.stop();
   }
 
   get(id: Id): Node | undefined {
@@ -52,21 +51,12 @@ export class Nodes {
     return Array.from(this.hash.values());
   }
 
-  async load() {
+  repositoryOrThrow(): NodesRepository {
     if (!this.repository) throwCritical("NO_REPOSITORY", "nodes does not have a repository");
+    return this.repository;
+  }
 
-    this.loading = true;
-    try {
-      this.hash.clear();
-      const nodesData = await this.repository.openDirectory();
-      for (const data of nodesData) {
-        const node: Node = data.kind === "artifact"
-          ? new Artifact({ nodes: this, repository: this.repository, ...data })
-          : new Directory({ nodes: this, repository: this.repository, ...data });
-        this.hash.set(data.id, node);
-      }
-    } finally {
-      this.loading = false;
-    }
+  set(node: Node) {
+    this.hash.set(node.id, node);
   }
 }

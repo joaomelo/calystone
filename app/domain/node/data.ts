@@ -1,4 +1,5 @@
 import type { Id } from "@/domain/ids";
+import type { Nodes } from "@/domain/nodes";
 
 import { isId } from "@/domain/ids";
 import { isObjectLike } from "@/utils";
@@ -8,6 +9,8 @@ export interface NodeData {
   name: string;
   parentId?: Id;
 }
+
+export type NodeOptions = { nodes: Nodes } & NodeData;
 
 export function isNodeData(value: unknown): value is NodeData {
   if (!isObjectLike(value)) return false;

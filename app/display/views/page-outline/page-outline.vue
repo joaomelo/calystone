@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { Node } from "@/domain";
-import type { Id } from "@/domain";
+import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher, OutlineNodes, SplitterPanel } from "@/display/widgets";
@@ -11,6 +10,17 @@ const node = ref<Node | undefined>();
 
 function handleSelected(id?: Id) {
   node.value = id ? state.nodes.get(id) : undefined;
+  attemptSchedule(id);
+}
+
+function handleExpanded(id: Id) {
+  attemptSchedule(id);
+}
+
+function attemptSchedule(id?: Id) {
+  if (!id) return;
+  const node = state.nodes.getOrThrow(id);
+  state.nodes.scheduler.schedule(node, true);
 }
 </script>
 <template>
@@ -20,6 +30,7 @@ function handleSelected(id?: Id) {
         :nodes="state.nodes"
         class="page-outline-start"
         @selected="handleSelected"
+        @expanded="handleExpanded"
       />
     </template>
     <template #end>

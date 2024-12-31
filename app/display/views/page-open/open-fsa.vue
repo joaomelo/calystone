@@ -18,7 +18,7 @@ async function handleOpenFsa() {
   try {
     const root = await showDirectoryPicker();
     const repository = new FsaNodesRepository(root);
-    void state.nodes.connect(repository);
+    state.nodes.connect(repository);
     void router.push({ name: defaultActivity });
   } catch (error) {
     const exception = new Exception("UNABLE_OPEN_DIRECTORY", error);

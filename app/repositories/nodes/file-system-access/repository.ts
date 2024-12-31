@@ -1,50 +1,63 @@
-import type { ArtifactData, Id, NodeDataAndKind, NodesRepository } from "@/domain";
+import type { ArtifactData, Id, Kind, NodeDataAndKind, NodesRepository } from "@/domain";
 
-import { throwCritical } from "@/utils";
+import { createId } from "@/domain";
 
-import { fetchArtifact } from "./fetch";
-import { openDirectory } from "./open";
-import { postArtifact } from "./post";
+import { HandlesRegistry } from "./registry";
 
 export class FsaNodesRepository implements NodesRepository {
-  handles = new Map<Id, FileSystemHandle>();
-  root: FileSystemDirectoryHandle;
+  registry: HandlesRegistry;
+  rootData: NodeDataAndKind;
+  rootHandle: FileSystemDirectoryHandle;
 
-  constructor(root: FileSystemDirectoryHandle) {
-    this.root = root;
+  constructor(rootHandle: FileSystemDirectoryHandle) {
+    this.rootData = {
+      id: createId(),
+      kind: "directory",
+      name: rootHandle.name,
+      parentId: undefined
+    };
+    this.rootHandle = rootHandle;
+    this.registry = new HandlesRegistry();
+  }
+
+  private async openDirectoryHandle(parentHandle: FileSystemDirectoryHandle, parentId?: Id) {
+    const childrenData: NodeDataAndKind[] = [];
+    for await (const handle of parentHandle.values()) {
+      const kind: Kind = handle.kind === "file" ? "artifact" : "directory";
+      const id = createId();
+      const childData = { id, kind, name: handle.name, parentId };
+      this.registry.set(id, handle);
+      childrenData.push(childData);
+    }
+    return childrenData;
+  }
+
+  clearAndfetchRoot(): NodeDataAndKind {
+    this.registry.clear();
+    this.registry.set(this.rootData.id, this.rootHandle);
+    return this.rootData;
   }
 
   async fetchArtifact(id: Id): Promise<ArtifactData> {
-    const handle = this.getFileOrThrow(id);
-    return fetchArtifact(handle);
+    const handle = this.registry.fileHandleOrThrow(id);
+    const file: File = await handle.getFile();
+    const content: ArrayBuffer = await file.arrayBuffer();
+    return {
+      content,
+      lastModified: file.lastModified,
+      size: file.size,
+    };
   }
 
-  getDirectoryOrThrow(id: Id): FileSystemDirectoryHandle {
-    const handle = this.getHandleOrThrow(id);
-    if (!(handle instanceof FileSystemDirectoryHandle)) throwCritical("NOT_DIRECTORY_HANDLE", `the handle for the id ${id} is not a directory handle`);
-    return handle;
-  }
-
-  getFileOrThrow(id: Id): FileSystemFileHandle {
-    const handle = this.getHandleOrThrow(id);
-    if (!(handle instanceof FileSystemFileHandle)) throwCritical("NOT_FILE_HANDLE", `the handle for the id ${id} is not a file handle`);
-    return handle;
-  }
-
-  getHandleOrThrow(id: Id): FileSystemHandle {
-    const handle = this.handles.get(id);
-    if (!handle) throwCritical("NO_HANDLE", "the id must correspond to a handle");
-    return handle;
-  }
-
-  async openDirectory(id?: Id): Promise<NodeDataAndKind[]> {
-    if (!id) this.handles.clear();
-    const handle = id ? this.getDirectoryOrThrow(id) : this.root;
-    return openDirectory(handle, id);
+  openDirectory(id: Id): Promise<NodeDataAndKind[]> {
+    const handle = this.registry.directoryHandleOrThrow(id);
+    return this.openDirectoryHandle(handle, id);
   }
 
   async postArtifact(id: Id, content: ArrayBuffer): Promise<void> {
-    const handle = this.getFileOrThrow(id);
-    await postArtifact(handle, content);
+    const handle = this.registry.fileHandleOrThrow(id);
+    const writableStream = await handle.createWritable();
+    await writableStream.write(content);
+    await writableStream.close();
   }
 }

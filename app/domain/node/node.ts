@@ -1,28 +1,26 @@
+import { throwCritical } from "@/utils";
+
 import type { Directory } from "../directory";
 import type { Id } from "../ids";
-import type { Nodes, NodesRepository } from "../nodes";
-import type { NodeData } from "./data";
+import type { Nodes } from "../nodes";
+import type { NodeOptions } from "./data";
 import type { Status } from "./status";
 
 import { descendantOf } from "./descendants";
 import { path } from "./path";
-
-export type Options = { nodes: Nodes, repository: NodesRepository } & NodeData;
 
 export abstract class Node {
   readonly id: Id;
   readonly name: string;
   readonly nodes: Nodes;
   readonly parentId?: Id;
-  readonly repository: NodesRepository;
   status: Status = "unloaded";
 
-  constructor({ id, name, nodes, parentId, repository }: Options) {
+  constructor({ id, name, nodes, parentId }: NodeOptions) {
     this.id = id;
     this.name = name;
     this.parentId = parentId;
     this.nodes = nodes;
-    this.repository = repository;
   }
 
   childrenOf(maybeParent: Directory): boolean {
@@ -38,6 +36,8 @@ export abstract class Node {
   }
 
   async load(): Promise<void> {
+    if (this.status !== "unloaded") throwCritical("NOT_UNLOADED", "load cannot be called on a node that is not unloaded");
+
     this.status = "loading";
     try {
       await this.performLoad();
