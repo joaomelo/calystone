@@ -29,7 +29,7 @@ function handleUpdateActive(active: string) {
   }
 
   if (active === activities.reload) {
-    void state.nodes.load();
+    state.nodes.reconnect();
     return;
   }
 
