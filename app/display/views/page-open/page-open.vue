@@ -19,10 +19,11 @@ const { t } = useI18n();
     <CardPanel>
       <template #content>
         <div class="page-open-panels">
-          <div class="page-open-panels-start">
+          <div class="page-open-panels-features page-open-panels-panel">
             <AppFeatures />
           </div>
-          <div class="page-open-panels-end">
+          <div class="page-open-panels-divider" />
+          <div class="page-open-panels-actions page-open-panels-panel">
             <h2>{{ t('open.title') }}</h2>
             <div class="page-open-controls-actions">
               <OpenMemory v-if="configuration.is('enableMemory')" />
@@ -44,24 +45,44 @@ const { t } = useI18n();
   background-color: var(--p-surface-100);
   display: grid;
   place-items: center;
-  padding: var(--size-6);
+  padding: var(--size-fluid-2);
 }
 
 .page-open-panels {
   display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 }
 
-.page-open-panels>* {
-  flex: 1;
-  padding-block: var(--size-6);
-  padding-inline: var(--size-6);
+.page-open-panels-panel {
+  --padding: var(--size-fluid-2);
+  padding-inline: var(--padding);
+
+  @media (min-width: 768px) {
+    padding-inline: 0;
+  }
 }
 
-.page-open-panels-start {
-  border-inline-end: var(--border-size-1) solid var(--p-primary-200);
+.page-open-panels-divider {
+  --border: var(--border-size-1) solid var(--p-primary-200);
+  --margin: var(--size-fluid-4);
+  flex: 0;
+
+  border-block-start: var(--border);
+  margin-block: var(--margin);
+
+  @media (min-width: 768px) {
+    border-block-start: 0;
+    margin-block: 0;
+    border-inline-start: var(--border);
+    margin-inline: var(--margin);
+  }
 }
 
-.page-open-panels-end {
+.page-open-panels-actions {
   display: flex;
   flex-direction: column;
   text-align: center;
