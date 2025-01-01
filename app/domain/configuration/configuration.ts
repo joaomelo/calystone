@@ -20,7 +20,7 @@ export class Configuration {
     return value ?? defaultValue;
   }
 
-  is(key: Key, value: Value): boolean {
+  is(key: Key, value: Value = true): boolean {
     return this.get(key, null) === value;
   }
 }

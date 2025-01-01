@@ -5,14 +5,14 @@ import { useOpen } from "./use-open";
 const handleOpen = useOpen(() => {
   // const repository = new MemoryNodesRepository(root);
   // state.nodes.connect(repository);
-  throw new Error("open from file system access api not implemented");
+  throw new Error("open memory not implemented");
 });
 </script>
 <template>
   <OpenBase
-    label="open.fsa"
-    data-test="open-fsa"
-    icon="bx bx-hdd"
+    label="open.memory"
+    data-test="open-memory"
+    icon="bx bx-memory-card"
     @open="handleOpen"
   />
 </template>

@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { useI18n } from "@/display/i18n";
+import { Store } from "@/display/store";
 import { CardPanel } from "@/display/widgets";
 
 import AppFeatures from "./app-features.vue";
-import EarlyDevelopment from "./early-development.vue";
 import InputLocale from "./input-locale.vue";
+import OpenDropbox from "./open-dropbox.vue";
 import OpenFsa from "./open-fsa.vue";
+import OpenGoogleDrive from "./open-google-drive.vue";
+import OpenMemory from "./open-memory.vue";
+import OpenOneDrive from "./open-one-drive.vue";
+
+const { configuration } = Store.use();
+const { t } = useI18n();
 </script>
 <template>
   <div class="page-open">
@@ -15,8 +23,12 @@ import OpenFsa from "./open-fsa.vue";
             <AppFeatures />
           </div>
           <div class="page-open-panels-end">
-            <EarlyDevelopment />
+            <h2>{{ t('open.title') }}</h2>
             <div class="page-open-controls-actions">
+              <OpenMemory v-if="configuration.is('enableMemory')" />
+              <OpenGoogleDrive />
+              <OpenOneDrive />
+              <OpenDropbox />
               <OpenFsa />
             </div>
             <InputLocale />
@@ -52,11 +64,14 @@ import OpenFsa from "./open-fsa.vue";
 .page-open-panels-end {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  gap: var(--size-6);
+  justify-content: space-between;
 }
 
 .page-open-controls-actions {
   display: grid;
-  place-items: center;
-  flex: 1
+  gap: var(--size-2);
+  justify-content: center;
 }
 </style>

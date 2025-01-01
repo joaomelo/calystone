@@ -12,29 +12,37 @@
   "delete": "delete",
   "directory": "directory",
   "done": "done",
-  "early-development": "Calystone is in early development, and we can't guarantee stability or full functionality at this stage.",
   "edit": "edit",
   "email": "email",
   "empty": "When you select an node on the outline, its details will show here.",
   "errors": {
-    "UNABLE_OPEN_DIRECTORY": "Unable to open directory",
+    "UNABLE_OPEN": "Unable to open files",
     "UNABLE_POST_CONTENT": "Unable to save content to file"
   },
   "exit": "exit",
   "features": {
-    "data-ownership": "Total Data Ownership",
-    "data-ownership-description": "Your files, your control. No data tracking, no cloud storage. Everything stays on your machine.",
-    "description": "An open-source self-management app built on your file system.",
-    "note-taking": "Effortless Note-Taking",
-    "note-taking-description": "Edit notes quickly, using the familiar structure you already organized on your directories and files.",
-    "open-source": "Open-source",
-    "open-source-description": "Explore the open-source project at {0}.",
-    "title": "Welcome to Calystone"
+    "data-ownership": {
+      "description": "Your files, your control. Calystone not track or store any data about you or your files. Be aware of the policies for any cloud service you choose.",
+      "title": "Flexible Data Ownership"
+    },
+    "early-development": {
+      "description": "Calystone is still evolving, and we can’t guarantee full stability or functionality yet.",
+      "title": "Early Development"
+    },
+    "header": {
+      "description": "An open-source self-management app built around your files.",
+      "title": "Welcome to Calystone"
+    },
+    "note-taking": {
+      "description": "Edit notes quickly using the familiar folder structure you already use.",
+      "title": "Effortless Note-Taking"
+    },
+    "open-source": {
+      "description": "Explore the open-source project at {0}.",
+      "title": "Open-source"
+    }
   },
   "focus": "focus",
-  "fsa-not-supported": "This app relies on a browser feature called the File System API. Although it's a web standard, it isn't supported by your current browser.",
-  "ignore": "ignore",
-  "ignore-info": "Use the input to list the patterns to ignore for files and folders. Each line represents a single glob pattern (e.g., \"*.jpg\" or \"**/archive\"). Any file or folder matching that pattern will be skipped recursively. This makes loading faster and keeps the outline uncluttered. For more information on crafting glob patterns, see this article about {0}.",
   "items": "items",
   "language": "language",
   "loading": "loading",
@@ -43,7 +51,14 @@
   "nodes": "nodes",
   "not-loaded": "Please, wait a moment while this node is loaded.",
   "notes": "notes",
-  "open-files": "open files",
+  "open": {
+    "dropbox": "Dropbox",
+    "fsa": "File System",
+    "google-drive": "Google Drive",
+    "memory": "Memory",
+    "one-drive": "OneDrive",
+    "title": "Access your files using one of the methods below"
+  },
   "or": "or",
   "outline": "outline",
   "path": "path",

@@ -2,5 +2,9 @@
 import Button from "primevue/button";
 </script>
 <template>
-  <Button />
+  <Button>
+    <template #icon>
+      <slot name="icon" />
+    </template>
+  </Button>
 </template>

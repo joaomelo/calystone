@@ -12,29 +12,37 @@
   "delete": "excluir",
   "directory": "diretório",
   "done": "pronto",
-  "early-development": "O Calystone está em desenvolvimento inicial, e não podemos garantir estabilidade ou funcionalidade total nesta fase.",
   "edit": "editar",
   "email": "email",
   "empty": "Quando você selecionar um artefato na hierarquia, suas informações serão mostradas aqui.",
   "errors": {
-    "UNABLE_OPEN_DIRECTORY": "Não foi possível abrir o diretório",
+    "UNABLE_OPEN": "Não foi possível abrir arquivos",
     "UNABLE_POST_CONTENT": "Não foi possível salvar o conteúdo no arquivo"
   },
   "exit": "sair",
   "features": {
-    "data-ownership": "Propriedade Total dos Dados",
-    "data-ownership-description": "Seus arquivos, seu controle. Sem rastreamento de dados, sem armazenamento em nuvem. Tudo permanece na sua máquina.",
-    "description": "Um aplicativo de autogestão de código aberto, baseado no seu sistema de arquivos.",
-    "note-taking": "Tomada de Notas Sem Esforço",
-    "note-taking-description": "Edite notas rapidamente, utilizando a estrutura familiar que você já organizou nos seus diretórios e arquivos.",
-    "open-source": "Código aberto",
-    "open-source-description": "Explore o projeto de código aberto no GitHub.",
-    "title": "Bem-vindo ao Calystone"
+    "data-ownership": {
+      "description": "Seus arquivos, seu controle. O Calystone não rastreia nem armazena nenhum dado sobre você ou seus arquivos. Fique atento às políticas de qualquer serviço de nuvem que você escolher.",
+      "title": "Propriedade de Dados Flexível"
+    },
+    "early-development": {
+      "description": "O Calystone ainda está em evolução, e não podemos garantir estabilidade ou funcionalidade neste momento.",
+      "title": "Desenvolvimento inicial"
+    },
+    "header": {
+      "description": "Um aplicativo de autogestão de código aberto, criado em torno dos seus arquivos.",
+      "title": "Bem-vindo ao Calystone"
+    },
+    "note-taking": {
+      "description": "Edite notas rapidamente, utilizando a estrutura familiar que você já organizou para seus diretórios e arquivos.",
+      "title": "Anotações sem complicações"
+    },
+    "open-source": {
+      "description": "Explore o projeto de código aberto no {0}.",
+      "title": "Código aberto"
+    }
   },
   "focus": "focar",
-  "fsa-not-supported": "Este aplicativo depende de um recurso do navegador chamado File System API. Embora seja um padrão web, ele ainda não é suportado pelo seu navegador atual.",
-  "ignore": "ignorar",
-  "ignore-info": "Use o campo de entrada para listar os padrões que devem ser ignorados para arquivos e pastas. Cada linha representa um padrão glob (por exemplo, \"*.jpg\" ou \"**/arquivados\"). Qualquer arquivo ou pasta que corresponder a esse padrão será ignorado de forma recursiva. Isso torna o carregamento mais rápido e organiza a visualização. Para mais informações sobre como criar padrões glob, consulte este guia na {0}.",
   "items": "itens",
   "language": "idioma",
   "loading": "carregando",
@@ -43,7 +51,14 @@
   "nodes": "artefatos",
   "not-loaded": "Por favor, aguarde um momento enquanto esse item é carregado.",
   "notes": "notas",
-  "open-files": "abrir arquivos",
+  "open": {
+    "dropbox": "Dropbox",
+    "fsa": "File System",
+    "google-drive": "Google Drive",
+    "memory": "Memory",
+    "one-drive": "OneDrive",
+    "title": "Acesse seus arquivos por um dos métodos abaixo"
+  },
   "or": "ou",
   "outline": "hierarquia",
   "path": "caminho",
