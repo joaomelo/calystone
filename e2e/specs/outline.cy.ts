@@ -1,8 +1,11 @@
 import { pageOpen, pageOutline } from "../helpers";
 
-describe("open", function() {
-  it("opens memory outline", function() {
+describe("outline", function() {
+  this.beforeEach(() => {
     pageOpen.macros.openMemory();
+  });
+
+  it("enables lazy directory navigation", function() {
     cy.url().should("include", pageOutline.url());
   });
 });

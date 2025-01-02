@@ -4,4 +4,5 @@ dist-web/
 node_modules/
 .firebase/
 *-debug.log
-cypress/screenshots
+e2e/screenshots/
+e2e/videos/

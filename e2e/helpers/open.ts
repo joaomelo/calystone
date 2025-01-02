@@ -1,5 +1,13 @@
 import { dataTest } from "./data-test";
 
 export const pageOpen = {
-  buttonOpenFsa: () => cy.get(dataTest("button-open-fsa"))
+  macros: {
+    openMemory() {
+      cy.visit("/");
+      pageOpen.selectors.buttonOpenMemory().click();
+    }
+  },
+  selectors: {
+    buttonOpenMemory: () => cy.get(dataTest("open-memory"))
+  }
 };
