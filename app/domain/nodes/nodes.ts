@@ -10,29 +10,26 @@ import { Scheduler } from "./scheduler";
 
 export class Nodes {
   readonly hash: Map<Id, Node>;
-  loading = false;
-  repository?: NodesRepository;
+  repository: NodesRepository;
   scheduler: Scheduler;
 
-  constructor() {
+  constructor(repository: NodesRepository) {
     this.hash = new Map();
     this.scheduler = new Scheduler();
-  }
-
-  connect(repository: NodesRepository): void {
-    this.disconnect();
     this.repository = repository;
-    const data = repository.clearAndfetchRoot();
-    const rootDirectory = createNode({ nodes: this, ...data });
-    this.set(rootDirectory);
-    this.scheduler.schedule(rootDirectory, true);
-    this.scheduler.start();
+    this.boot();
   }
 
-  disconnect(): void {
-    this.repository = undefined;
+  boot(): void {
     this.hash.clear();
     this.scheduler.stop();
+
+    const rootData = this.repository.boot();
+    const rootDirectory = createNode({ nodes: this, ...rootData });
+    this.set(rootDirectory);
+
+    this.scheduler.schedule(rootDirectory, true);
+    this.scheduler.start();
   }
 
   get(id: Id): Node | undefined {
@@ -47,16 +44,6 @@ export class Nodes {
 
   list(): Node[] {
     return Array.from(this.hash.values());
-  }
-
-  reconnect(): void {
-    const repository = this.repositoryOrThrow();
-    this.connect(repository);
-  }
-
-  repositoryOrThrow(): NodesRepository {
-    if (!this.repository) throwCritical("NO_REPOSITORY", "nodes does not have a repository");
-    return this.repository;
   }
 
   set(node: Node) {

@@ -32,7 +32,7 @@ export class FsaNodesRepository implements NodesRepository {
     return childrenData;
   }
 
-  clearAndfetchRoot(): NodeDataAndKind {
+  boot(): NodeDataAndKind {
     this.registry.clear();
     this.registry.set(this.rootData.id, this.rootHandle);
     return this.rootData;

@@ -12,23 +12,24 @@ import { useStore } from "./use";
 type State = Reactive<{
   activity: Activity;
   configuration: Configuration;
-  nodes: Nodes;
+  connected: boolean;
+  nodes?: Nodes;
 }>;
 
 interface Options {
   router: Router;
-  nodes: Nodes;
   configuration: Configuration;
 };
 
 export class Store {
   state: State;
 
-  constructor({ configuration, nodes, router }: Options) {
+  constructor({ configuration, router }: Options) {
     this.state = reactive({
       activity: computed(() => solveRouterActivity(router)),
       configuration,
-      nodes,
+      connected: computed(() => this.state.nodes !== undefined),
+      nodes: undefined,
     });
   }
 

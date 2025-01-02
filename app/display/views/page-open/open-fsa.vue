@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { FsaNodesRepository } from "@/repositories";
+
 import OpenBase from "./open-base.vue";
 import { useOpen } from "./use-open";
 
-const handleOpen = useOpen(() => {
-  // const repository = new MemoryNodesRepository(root);
-  // state.nodes.connect(repository);
-  throw new Error("open from file system access api not implemented");
+const handleOpen = useOpen(async () => {
+  const root = await showDirectoryPicker();
+  const repository = new FsaNodesRepository(root);
+  return repository;
 });
 </script>
 <template>

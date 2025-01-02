@@ -12,10 +12,11 @@ const state = Store.use();
 const router = useRouter();
 
 const baseIcon = "bx bx-md";
+const loading = { disabled: true, icon: "bx-loader bx-spin", title: "loading" };
+const reload = { disabled: false, icon: "bx-sync", title: "reload" };
 const refresh = computed(() => {
-  const value = state.nodes.loading
-    ? { disabled: true, icon: "bx-loader bx-spin", title: "loading" }
-    : { disabled: false, icon: "bx-sync", title: "reload" };
+  if (state.nodes === undefined) return reload;
+  const value = state.nodes.scheduler.loading ? loading : reload;
   return value;
 });
 
@@ -24,12 +25,12 @@ function handleUpdateActive(active: string) {
   if (active === state.activity) return;
 
   if (active === activities.open) {
-    state.nodes.disconnect();
+    state.nodes = undefined;
     return;
   }
 
-  if (active === activities.reload) {
-    state.nodes.reconnect();
+  if (active === activities.reload && state.nodes !== undefined) {
+    state.nodes.boot();
     return;
   }
 

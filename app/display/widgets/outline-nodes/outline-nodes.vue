@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Id, Node } from "@/domain";
 import type { TreeNode } from "primevue/treenode";
+import type { ComputedRef } from "vue";
 
 import { isId } from "@/domain";
 import { isObjectLike } from "@/utils";
@@ -10,22 +11,17 @@ import { computed, ref } from "vue";
 import { ScrollPanel } from "../scroll-panel";
 import { convert } from "./convert";
 
-// the interface makes easier to deal with the vue typescript idiossincrasies. withou it, components that use this one tend to complain about not finding some properties and methods.
-interface NodesLister {
-  list(): Node[]
-}
-
 const { nodes } = defineProps<{
-  nodes?: NodesLister; // is important to use the reactive top-most data structure here to trigger the reactivity, passing a array of root objects will not secure ui updates.
+  nodes: Node[]; // is important to use the reactive data structure with all nodes to trigger the reactivity system. passing a array with only the root objects will not secure ui updates for deeper nodes.
 }>();
 const emit = defineEmits<{
   expanded: [id: Id];
   selected: [id: Id | undefined];
 }>();
 
-const value = nodes
-  ? computed(() => nodes.list().filter(n => n.root()).map(convert))
-  : ref([]);
+const value: ComputedRef<TreeNode[]> = computed(() => {
+  return nodes.filter(n => n.root()).map(convert);
+});
 
 // this is nedeed so the prime vue component can visualy show the selected node
 const selectedKey = ref();

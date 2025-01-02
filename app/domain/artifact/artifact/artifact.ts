@@ -15,8 +15,8 @@ export class Artifact extends Node {
     this.mime = new Mime(options.name);
   }
 
-  protected async performLoad(): Promise<void> {
-    const repository = this.nodes.repositoryOrThrow();
+  async performLoad(): Promise<void> {
+    const repository = this.nodes.repository;
     const data = await repository.fetchArtifact(this.id);
     this.content = data.content;
     this.lastModified = data.lastModified;
@@ -24,7 +24,7 @@ export class Artifact extends Node {
   }
 
   async post(content: ArrayBuffer): Promise<void> {
-    const repository = this.nodes.repositoryOrThrow();
+    const repository = this.nodes.repository;
     this.content = content;
     await repository.postArtifact(this.id, content);
   };

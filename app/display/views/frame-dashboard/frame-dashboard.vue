@@ -10,9 +10,9 @@ const router = useRouter();
 const state = Store.use();
 
 watch(
-  () => state.nodes.repository,
-  (hasRepository) => {
-    if (!hasRepository) {
+  () => state.connected,
+  (connected) => {
+    if (!connected) {
       void router.push({ name: activities.open });
     }
   },
