@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { MemoryNodesRepository } from "@/repositories";
+
 import OpenBase from "./open-base.vue";
 import { useOpen } from "./use-open";
 
 const handleOpen = useOpen(() => {
-  // const repository = new MemoryNodesRepository(root);
-  // state.nodes.connect(repository);
-  throw new Error("open memory not implemented");
+  const repository = new MemoryNodesRepository();
+  return Promise.resolve(repository);
 });
 </script>
 <template>
