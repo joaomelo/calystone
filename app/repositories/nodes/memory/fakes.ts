@@ -4,7 +4,7 @@ import { createId } from "@/domain";
 import { faker } from "@faker-js/faker";
 
 export function fakeArtifactData(): ArtifactData {
-  const textContent = faker.lorem.paragraphs({ max: 10, min: 1 });
+  const textContent = faker.lorem.paragraphs({ max: 5, min: 1 });
   const bytes = new TextEncoder().encode(textContent);
   const content = new ArrayBuffer(bytes.length);
   const view = new Uint8Array(content);
@@ -22,13 +22,13 @@ export function fakeTextArtifact(parentId: Id): NodeDataAndKind {
   return { id: childId, kind, name, parentId };
 }
 
-export function fakeNode(parentId: Id): NodeDataAndKind {
+export function fakeNode(parentId: Id, kind?: Kind): NodeDataAndKind {
   const childId = createId();
-  const kind: Kind = faker.helpers.arrayElement(["artifact", "directory"]);
+  const finalKind: Kind = kind ?? faker.helpers.arrayElement(["artifact", "directory"]);
   const name = kind === "artifact"
     ? faker.system.commonFileName()
     : fakeDirectoryName();
-  return { id: childId, kind, name, parentId };
+  return { id: childId, kind: finalKind, name, parentId };
 }
 
 export function fakeDirectoryName(): string {

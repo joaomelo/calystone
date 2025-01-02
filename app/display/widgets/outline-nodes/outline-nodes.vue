@@ -55,6 +55,7 @@ function resolveKey(node?: TreeNode) {
       <PrimeVueTree
         v-model:selectionKeys="selectedKey"
         selection-mode="single"
+        data-test="nodes-outline-tree"
         :value
         @node-expand="handleNodeExpand"
         @node-select="handleNodeSelect"

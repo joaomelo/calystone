@@ -34,11 +34,19 @@ export class MemoryNodesRepository implements NodesRepository {
   }
 
   openDirectory(id: Id): Promise<NodeDataAndKind[]> {
-    const howManyChildren = faker.helpers.rangeToNumber({ max: 20, min: 5 });
-    const childrenData: NodeDataAndKind[] = [fakeTextArtifact(id)];
+    const childrenData: NodeDataAndKind[] = [];
+
+    // garantees at least one text file and one subdirectory at the root level for e2e testing
+    if (id === this.rootData.id) {
+      childrenData.push(fakeTextArtifact(id));
+      childrenData.push(fakeNode(id, "directory"));
+    }
+
+    const howManyChildren = faker.helpers.rangeToNumber({ max: 3, min: 1 });
     for (let i = 0; i < howManyChildren; i++) {
       childrenData.push(fakeNode(id));
     }
+
     return Promise.resolve(childrenData);
   }
 
