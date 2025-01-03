@@ -11,8 +11,12 @@ const { t } = useI18n();
 </script>
 <template>
   <div class="editor-directory">
-    <p><b>{{ t('items') }}</b>: {{ node.descendants().length }}</p>
-    <p><b>{{ t('path') }}</b>: {{ node.path() }}</p>
+    <p data-test="items">
+      <b>{{ t('items') }}</b>: {{ node.descendants().length }}
+    </p>
+    <p data-test="path">
+      <b>{{ t('path') }}</b>: {{ node.path() }}
+    </p>
   </div>
 </template>
 <style scoped>

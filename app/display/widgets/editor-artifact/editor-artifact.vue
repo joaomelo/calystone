@@ -12,9 +12,18 @@ const { t } = useI18n();
 </script>
 <template>
   <div class="editor-artifact">
-    <p><b>{{ t('type') }}</b>: {{ node.mime.media }}</p>
-    <p><b>{{ t('size') }}</b>: {{ filesize(node.size) }}</p>
-    <p><b>{{ t('path') }}</b>: {{ node.path() }}</p>
+    <p data-test="type">
+      <b>{{ t('type') }}</b>: {{ node.mime.media }}
+    </p>
+    <p
+      v-if="node.size"
+      data-test="size"
+    >
+      <b>{{ t('size') }}</b>: {{ filesize(node.size) }}
+    </p>
+    <p data-test="path">
+      <b>{{ t('path') }}</b>: {{ node.path() }}
+    </p>
   </div>
 </template>
 <style scoped>

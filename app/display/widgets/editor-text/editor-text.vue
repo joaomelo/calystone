@@ -34,6 +34,7 @@ const handleUpdate = debounce(async (newText: string) => {
 </script>
 <template>
   <CodeMirror
+    data-test="editor-text"
     :model-value="text"
     @update:model-value="handleUpdate"
   />
