@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Id, Node } from "@/domain";
+import type { Id, Nodes } from "@/domain";
 import type { TreeNode } from "primevue/treenode";
 import type { ComputedRef } from "vue";
 
@@ -12,7 +12,7 @@ import { ScrollPanel } from "../scroll-panel";
 import { convert } from "./convert";
 
 const { nodes } = defineProps<{
-  nodes: Node[]; // is important to use the reactive data structure with all nodes to trigger the reactivity system. passing a array with only the root objects will not secure ui updates for deeper nodes.
+  nodes: Nodes // is important to use the reactive data structure with all nodes to trigger the reactivity system. passing a array with only the root objects will not secure ui updates for deeper nodes.
 }>();
 const emit = defineEmits<{
   expanded: [id: Id];
@@ -20,7 +20,7 @@ const emit = defineEmits<{
 }>();
 
 const value: ComputedRef<TreeNode[]> = computed(() => {
-  return nodes.filter(n => n.root()).map(convert);
+  return nodes.list().filter(n => n.root()).map(convert);
 });
 
 // this is nedeed so the prime vue component can visualy show the selected node

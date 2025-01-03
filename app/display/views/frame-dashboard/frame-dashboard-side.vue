@@ -7,7 +7,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 const { t } = useI18n();
-const state = Store.use();
+const store = Store.use();
 
 const router = useRouter();
 
@@ -15,22 +15,21 @@ const baseIcon = "bx bx-md";
 const loading = { disabled: true, icon: "bx-loader bx-spin", title: "loading" };
 const reload = { disabled: false, icon: "bx-sync", title: "reload" };
 const refresh = computed(() => {
-  if (state.nodes === undefined) return reload;
-  const value = state.nodes.scheduler.loading ? loading : reload;
+  const value = store.nodes.scheduler.loading ? loading : reload;
   return value;
 });
 
 function handleUpdateActive(active: string) {
   if (!isActivity(active)) return;
-  if (active === state.activity.value) return;
+  if (active === store.activity.value) return;
 
   if (active === activities.open) {
-    state.nodes = undefined;
+    store.nodes.disconnect();
     return;
   }
 
-  if (active === activities.reload && state.nodes !== undefined) {
-    state.nodes.boot();
+  if (active === activities.reload) {
+    store.nodes.reconnect();
     return;
   }
 
@@ -39,7 +38,7 @@ function handleUpdateActive(active: string) {
 </script>
 <template>
   <SideBar
-    :active="state.activity.value"
+    :active="store.activity.value"
     @update:active="handleUpdateActive"
   >
     <template #default>

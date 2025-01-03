@@ -7,10 +7,10 @@ import { useRouter } from "vue-router";
 import FrameDashboardSide from "./frame-dashboard-side.vue";
 
 const router = useRouter();
-const state = Store.use();
+const store = Store.use();
 
 watch(
-  () => state.connected.value,
+  () => store.connected.value,
   (connected) => {
     if (!connected) {
       void router.push({ name: activities.open });

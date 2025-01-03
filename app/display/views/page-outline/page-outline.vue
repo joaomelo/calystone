@@ -3,46 +3,32 @@ import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher, OutlineNodes, SplitterPanel } from "@/display/widgets";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 
-const state = Store.use();
+const store = Store.use();
 const node = ref<Node | undefined>();
-const nodesList = ref<Node[]>([]);
-
-// deep watch was the only way to trigger reactivity on the list of nodes while the nodes are being progressivly loaded
-watch(
-  () => {
-    if (!state.connected.value || state.nodes === undefined) return [];
-    return state.nodes.list();
-  },
-  (nodes) => {
-    nodesList.value = nodes;
-  },
-  { deep: true, immediate: true }
-);
 
 function handleSelected(id?: Id) {
-  if (!id || state.nodes === undefined) return;
-  node.value = state.nodes.get(id);
-  attemptSchedule(id);
+  node.value = findAndUpdate(id);
 }
 
 function handleExpanded(id: Id) {
-  attemptSchedule(id);
+  findAndUpdate(id);
 }
 
-function attemptSchedule(id?: Id) {
-  if (!id || state.nodes === undefined) return;
-  const node = state.nodes.getOrThrow(id);
-  state.nodes.scheduler.schedule(node, true);
+function findAndUpdate(id?: Id) {
+  if (!id || !store.connected.value) return;
+  const node = store.nodes.getOrThrow(id);
+  store.nodes.scheduler.schedule(node, true);
+  return node;
 }
 </script>
 <template>
   <SplitterPanel class="page-outline">
     <template #start>
-      <template v-if="state.nodes !== undefined">
+      <template v-if="store.nodes !== undefined">
         <OutlineNodes
-          :nodes="nodesList"
+          :nodes="store.nodes"
           class="page-outline-start"
           @selected="handleSelected"
           @expanded="handleExpanded"

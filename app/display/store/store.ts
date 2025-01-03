@@ -12,18 +12,20 @@ import { useStore } from "./use";
 interface Options {
   router: Router;
   configuration: Configuration;
+  nodes: Nodes;
 };
 
 export class Store {
   activity: ComputedRef<Activity>;
   configuration: Reactive<Configuration>;
   connected: ComputedRef<boolean>;
-  nodes?: Reactive<Nodes>;
+  nodes: Reactive<Nodes>;
 
-  constructor({ configuration, router }: Options) {
+  constructor({ configuration, nodes, router }: Options) {
     this.activity = computed(() => solveRouterActivity(router));
     this.configuration = reactive(configuration);
-    this.connected = computed(() => this.nodes !== undefined);
+    this.nodes = reactive(nodes);
+    this.connected = computed(() => this.nodes.repository !== undefined);
   }
 
   static use(): Store {
