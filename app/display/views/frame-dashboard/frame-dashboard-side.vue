@@ -22,7 +22,7 @@ const refresh = computed(() => {
 
 function handleUpdateActive(active: string) {
   if (!isActivity(active)) return;
-  if (active === state.activity) return;
+  if (active === state.activity.value) return;
 
   if (active === activities.open) {
     state.nodes = undefined;
@@ -39,7 +39,7 @@ function handleUpdateActive(active: string) {
 </script>
 <template>
   <SideBar
-    :active="state.activity"
+    :active="state.activity.value"
     @update:active="handleUpdateActive"
   >
     <template #default>

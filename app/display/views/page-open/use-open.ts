@@ -5,6 +5,7 @@ import { Store } from "@/display/store";
 import { useExceptionToast } from "@/display/widgets";
 import { Nodes } from "@/domain";
 import { Exception } from "@/utils";
+import { reactive } from "vue";
 import { useRouter } from "vue-router";
 
 type Connect = () => Promise<NodesRepository>;
@@ -17,7 +18,7 @@ export function useOpen(connect: Connect) {
     try {
       const repository = await connect();
       const nodes = new Nodes(repository);
-      state.nodes = nodes;
+      state.nodes = reactive(nodes);
       void router.push({ name: defaultActivity });
     } catch (error) {
       const exception = new Exception("UNABLE_OPEN", error);

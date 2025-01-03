@@ -12,7 +12,7 @@ const nodesList = ref<Node[]>([]);
 // deep watch was the only way to trigger reactivity on the list of nodes while the nodes are being progressivly loaded
 watch(
   () => {
-    if (state.nodes === undefined) return [];
+    if (!state.connected.value || state.nodes === undefined) return [];
     return state.nodes.list();
   },
   (nodes) => {
