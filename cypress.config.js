@@ -9,6 +9,10 @@ export default defineConfig({
     supportFile: false,
   },
   fixturesFolder: "e2e/fixtures",
+  retries: {
+    openMode: 0,
+    runMode: 2,
+  },
   screenshotsFolder: "e2e/screenshots",
   videosFolder: "e2e/videos",
 });

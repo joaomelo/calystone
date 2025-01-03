@@ -16,6 +16,7 @@ export const pageOutline = {
         editor: () => cy.get(dataTest("editor-text")),
       }
     },
+
     tree: {
       artifactOf: (node: Cypress.Chainable) => pageOutline
         .selectors.tree.childrenOf(node)
@@ -36,7 +37,7 @@ export const pageOutline = {
         .selectors.tree.artifactOf(node)
         .filter((_, el) => pageOutline.selectors.tree.labelOf(el).includes(".txt")),
       toogleOf: (node: Cypress.Chainable) => node.find(".p-tree-node-toggle-button"),
-      url: () => "/in/outline",
-    }
+    },
+    url: () => "/in/outline"
   }
 } as const;
