@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MemoryNodesRepository } from "@/repositories";
+import { MemoryNodesRepository } from "@/infra";
 
 import OpenBase from "./open-base.vue";
 import { useOpen } from "./use-open";

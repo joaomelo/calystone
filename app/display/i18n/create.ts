@@ -1,4 +1,4 @@
-import { LocalStorage } from "@/repositories";
+import { LocalStorage } from "@/infra";
 import { watch } from "vue";
 import { createI18n as createVueI18n } from "vue-i18n";
 

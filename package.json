@@ -29,6 +29,7 @@
     "release": "release-it --ci --verbose && npm run build"
   },
   "dependencies": {
+    "@azure/msal-browser": "^3.28.0",
     "@codemirror/autocomplete": "^6.18.2",
     "@codemirror/commands": "^6.7.1",
     "@codemirror/lang-markdown": "^6.3.1",

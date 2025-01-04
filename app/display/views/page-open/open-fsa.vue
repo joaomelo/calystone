@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FsaNodesRepository } from "@/repositories";
+import { FsaNodesRepository } from "@/infra";
 
 import OpenBase from "./open-base.vue";
 import { useOpen } from "./use-open";
