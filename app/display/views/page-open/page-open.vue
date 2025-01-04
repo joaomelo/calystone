@@ -11,7 +11,7 @@ import OpenGoogleDrive from "./open-google-drive.vue";
 import OpenMemory from "./open-memory.vue";
 import OpenOneDrive from "./open-one-drive.vue";
 
-const { configuration } = Store.use();
+const { configuration, fsaService } = Store.use();
 const { t } = useI18n();
 </script>
 <template>
@@ -30,7 +30,7 @@ const { t } = useI18n();
               <OpenGoogleDrive />
               <OpenOneDrive />
               <OpenDropbox />
-              <OpenFsa />
+              <OpenFsa v-if="fsaService.supports()" />
             </div>
             <InputLocale />
           </div>

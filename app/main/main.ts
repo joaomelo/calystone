@@ -1,6 +1,7 @@
 import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
 import { Configuration, Nodes } from "@/domain";
+import { FsaService } from "@/infra";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -33,7 +34,9 @@ export function initApp(elementId: string) {
     version
   });
 
-  const store = new Store({ configuration, nodes, router });
+  const fsaService = new FsaService();
+
+  const store = new Store({ configuration, fsaService, nodes, router });
   window.$store = store;
   app.use(store);
 
