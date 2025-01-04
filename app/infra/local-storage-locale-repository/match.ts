@@ -1,6 +1,6 @@
-import type { Locale } from "./locales";
+import type { Locale } from "@/display";
 
-import { defaultLocale, locales } from "./locales";
+import { defaultLocale, locales } from "@/display";
 
 export function matchLocale(unknownLocale: unknown): Locale {
   const maybeLocale = typeof unknownLocale === "string" ? unknownLocale : navigator.language;

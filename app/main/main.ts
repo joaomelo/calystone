@@ -1,7 +1,7 @@
 import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
 import { name, version } from "@/../package.json";
 import { Configuration, Nodes } from "@/domain";
-import { FsaService } from "@/infra";
+import { FsaService, LocalStorageLocaleRepository } from "@/infra";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -40,7 +40,8 @@ export function initApp(elementId: string) {
   window.$store = store;
   app.use(store);
 
-  const i18n = createI18n();
+  const localeRepository = new LocalStorageLocaleRepository();
+  const i18n = createI18n(localeRepository);
   app.use(i18n);
 
   app.mount(elementId);

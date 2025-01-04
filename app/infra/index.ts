@@ -1,3 +1,4 @@
+export * from "./fsa-nodes-repository";
 export * from "./fsa-service";
-export * from "./local-storage-service";
-export * from "./nodes-repositories";
+export * from "./local-storage-locale-repository";
+export * from "./memory-nodes-repository";
