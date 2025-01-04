@@ -1,9 +1,6 @@
-import type { Client } from "@microsoft/microsoft-graph-client";
-
 import { PublicClientApplication } from "@azure/msal-browser";
 
 export class MsalAuthService {
-  graphClient?: Client;
   msalInstance: PublicClientApplication;
 
   constructor(clientId: string, redirectUri: string) {

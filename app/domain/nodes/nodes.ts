@@ -22,7 +22,7 @@ export class Nodes {
     this.disconnect();
     this.repository = repository;
 
-    const rootData = this.repository.boot();
+    const rootData = this.repository.reset();
     const rootDirectory = createNode({ nodes: this, ...rootData });
     this.set(rootDirectory);
 

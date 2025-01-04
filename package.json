@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@microsoft/microsoft-graph-types": "^2.40.0",
     "@release-it/conventional-changelog": "^8.0.1",
     "@stylistic/eslint-plugin": "^2.8.0",
     "@types/codemirror": "^5.60.15",

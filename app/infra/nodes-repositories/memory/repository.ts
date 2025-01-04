@@ -1,26 +1,22 @@
-import type { ArtifactData, Id, NodeDataAndKind, NodesRepository } from "@/domain";
+import type { ArtifactData, Id, NodeDataAndKind } from "@/domain";
 
 import { createId } from "@/domain";
 import { faker } from "@faker-js/faker";
 
+import { NodesRepositoryBase } from "../repository";
 import { fakeArtifactData, fakeDirectoryName, fakeNode, fakeTextArtifact } from "./fakes";
 
-export class MemoryNodesRepository implements NodesRepository {
-  artifactRegistry: Map<Id, ArtifactData>;
-  rootData: NodeDataAndKind;
+type MemoryMetadata = ArtifactData | undefined;
 
+export class MemoryNodesRepository extends NodesRepositoryBase<MemoryMetadata> {
   constructor() {
-    this.artifactRegistry = new Map();
-    this.rootData = {
+    const rootData: NodeDataAndKind = {
       id: createId(),
       kind: "directory",
       name: fakeDirectoryName(),
       parentId: undefined
     };
-  }
-
-  boot(): NodeDataAndKind {
-    return this.rootData;
+    super(rootData, undefined);
   }
 
   async fetchArtifact(id: Id): Promise<ArtifactData> {
