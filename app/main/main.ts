@@ -29,9 +29,11 @@ export function initApp(elementId: string) {
 
   const nodes = new Nodes();
   const configuration = new Configuration({
+    authRedirectUri: window.location.origin,
     enableMemory: import.meta.env.VITE_ENABLE_MEMORY ?? false,
+    msalClientId: import.meta.env.VITE_MSAL_CLIENT_ID ?? null,
     name,
-    version
+    version,
   });
 
   const fsaService = new FsaService();

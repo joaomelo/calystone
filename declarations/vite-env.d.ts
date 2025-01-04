@@ -1,8 +1,6 @@
 // <reference types="vite/client" />
 
-interface ImportMetaEnv {
-  readonly VITE_ENABLE_MEMORY?: string
-}
+type ImportMetaEnv = Readonly<Record<`VITE_${string}`, boolean | number | string | undefined>>;
 
 interface ImportMeta {
   readonly env: ImportMetaEnv
