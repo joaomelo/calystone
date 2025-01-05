@@ -29,7 +29,7 @@ export class Store {
     this.activity = computed(() => solveRouterActivity(router));
     this.configuration = configuration;
     this.nodes = nodes;
-    this.connected = computed(() => this.nodes.repository !== undefined);
+    this.connected = computed(() => this.nodes.hash.size > 0); // hash is manually set as a reactive property in the nodes class. been so, is the most appropriate property do check for connection status instead of the presence or not of a repository in the nodes instance.
     this.nodesService = nodesService;
   }
 

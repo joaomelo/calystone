@@ -4,6 +4,7 @@ import { computed, toValue } from "vue";
 import { useProvider } from "./provider";
 
 const { disabled = false, icon, id, title } = defineProps<{
+  dataTest: string,
   disabled?: boolean
   icon: string
   id: string,
@@ -22,6 +23,7 @@ function handleClick() {
     v-tooltip="{ value: title, showDelay: 500 }"
     class="side-item"
     :class="{ active, disabled }"
+    :data-test="dataTest"
     @click="handleClick"
   >
     <i

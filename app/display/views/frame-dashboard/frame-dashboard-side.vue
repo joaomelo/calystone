@@ -46,6 +46,7 @@ function handleUpdateActive(active: string) {
         :id="activities.outline"
         :title="t(activities.outline)"
         :icon="`${baseIcon} bx-list-ul`"
+        data-test="outline"
       />
     </template>
     <template #bottom>
@@ -54,11 +55,13 @@ function handleUpdateActive(active: string) {
         :icon="`${baseIcon} ${refresh.icon}`"
         :title="t(refresh.title)"
         :disabled="refresh.disabled"
+        data-test="reload"
       />
       <SideItem
         :id="activities.open"
         :icon="`${baseIcon} bx-log-out`"
         :title="t('exit')"
+        data-test="open"
       />
     </template>
   </SideBar>
