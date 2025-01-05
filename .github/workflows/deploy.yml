@@ -9,6 +9,8 @@ jobs:
   deploy:
     permissions: write-all
     runs-on: ubuntu-latest
+    env:
+      VITE_MSAL_CLIENT_ID: ${{ secrets.VITE_MSAL_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,7 +31,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VITE_ENABLE_MEMORY: false
-          VITE_MSAL_CLIENT_ID: ${{ secrets.VITE_MSAL_CLIENT_ID }}
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
