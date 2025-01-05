@@ -1,17 +1,17 @@
 import type { ArtifactData, Id, NodeDataAndKind } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
-import { createId } from "@/domain";
-import { Client } from "@microsoft/microsoft-graph-client";
+import { Client, ResponseType } from "@microsoft/microsoft-graph-client";
 
-import { NodesRepositoryBase } from "../repository";
+import { BaseNodesRepository } from "../base";
+import { driveItemToNodeData } from "./item-to-node";
 
-export class OneDriveNodesRepository extends NodesRepositoryBase<undefined> {
+export class OneDriveNodesRepository extends BaseNodesRepository<undefined> {
   graphClient: Client;
 
   constructor(accessToken: string) {
     const rootData: NodeDataAndKind = {
-      id: createId(),
+      id: "root", // onedrive convention that will work to retrieve children in url paths
       kind: "directory",
       name: "OneDrive",
       parentId: undefined
@@ -26,49 +26,36 @@ export class OneDriveNodesRepository extends NodesRepositoryBase<undefined> {
   }
 
   async fetchArtifact(id: Id): Promise<ArtifactData> {
-    const handle = this.nodesMetadata.fileHandleOrThrow(id);
-    const file: File = await handle.getFile();
-    const content: ArrayBuffer = await file.arrayBuffer();
+    const fileMetadata = await this.graphClient
+      .api(`/me/drive/items/${id}`)
+      .select("size,lastModifiedDateTime")
+      .get() as { lastModifiedDateTime: string, size: number };
+
+    const response = await this.graphClient
+      .api(`/me/drive/items/${id}/content`)
+      .responseType(ResponseType.ARRAYBUFFER)
+      .get() as { arrayBuffer: () => Promise<ArrayBuffer> };
+
+    const arrayBuffer = await response.arrayBuffer();
+
     return {
-      content,
-      lastModified: file.lastModified,
-      size: file.size,
+      content: arrayBuffer,
+      lastModified: new Date(fileMetadata.lastModifiedDateTime).getTime(),
+      size: fileMetadata.size
     };
   }
 
   async openDirectory(id: Id): Promise<NodeDataAndKind[]> {
     const response = await this.graphClient
       .api(`/me/drive/items/${id}/children`)
-      .get<{ value: DriveItem[] }>();
-    const { value } = response;
-
-    return value.map((item) => {
-      const kind: Kind = item.folder ? "directory" : "artifact";
-
-      return {
-        id: item.id,
-        kind,
-        name: item.name,
-        parentId: item.parentReference?.id as Id,
-      };
-    });
-
-    return {
-      id: item.id as Id,
-      kind,
-      name: item.name,
-      parentId: item.parentReference?.id as Id,
-    };
-
-    return response.value;
-
+      .get() as { value: DriveItem[] };
+    const { value: children } = response;
+    return children.map((child) => driveItemToNodeData(child, id));
   }
 
   async postArtifact(id: Id, content: ArrayBuffer): Promise<void> {
-    const handle = this.nodesMetadata.fileHandleOrThrow(id);
-    const writableStream = await handle.createWritable();
-    await writableStream.write(content);
-    await writableStream.close();
+    await this.graphClient
+      .api(`/me/drive/items/${id}/content`)
+      .put(content);
   }
-
 }

@@ -1,6 +1,6 @@
 import type { ArtifactData } from "@/domain/artifact";
 import type { NodeDataAndKind } from "@/domain/factory";
-import type { Id } from "@/domain/ids";
+import type { Id } from "@/domain/id";
 
 export interface NodesRepository {
   rootData: NodeDataAndKind;

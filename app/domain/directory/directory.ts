@@ -13,7 +13,7 @@ export class Directory extends Node {
   }
 
   async performLoad(): Promise<void> {
-    const repository = this.nodes.repository;
+    const repository = this.nodes.repositoryOrThrow();
     const nodesData = await repository.openDirectory(this.id);
     for (const data of nodesData) {
       const node = createNode({ ...data, nodes: this.nodes });

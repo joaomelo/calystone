@@ -1,4 +1,4 @@
-import type { Id } from "@/domain/ids";
+import type { Id } from "@/domain/id";
 import type { Node } from "@/domain/node";
 
 import { createNode } from "@/domain/factory";
@@ -20,9 +20,11 @@ export class Nodes {
 
   connect(repository: NodesRepository): void {
     this.disconnect();
-    this.repository = repository;
 
-    const rootData = this.repository.reset();
+    this.repository = repository;
+    repository.reset();
+
+    const { rootData } = repository;
     const rootDirectory = createNode({ nodes: this, ...rootData });
     this.set(rootDirectory);
 

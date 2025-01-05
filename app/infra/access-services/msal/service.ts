@@ -1,9 +1,12 @@
 import { PublicClientApplication } from "@azure/msal-browser";
 
-export class MsalAuthService {
+import { BaseAccessService } from "../base";
+
+export class MsalAccessService extends BaseAccessService<string> {
   msalInstance: PublicClientApplication;
 
   constructor(clientId: string, redirectUri: string) {
+    super();
     const msalConfig = {
       auth: {
         authority: "https://login.microsoftonline.com/common",
@@ -18,7 +21,11 @@ export class MsalAuthService {
     this.msalInstance = new PublicClientApplication(msalConfig);
   }
 
-  async signIn() {
+  active() {
+    return true;
+  }
+
+  async performAccess() {
     const request = {
       scopes: ["User.Read", "Files.ReadWrite.All"],
     };

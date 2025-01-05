@@ -1,6 +1,7 @@
 import type { Activity } from "@/display/activities";
-import type { Configuration, Nodes } from "@/domain";
-import type { FsaService } from "@/infra";
+import type { Nodes } from "@/domain";
+import type { NodesService } from "@/infra";
+import type { Configuration } from "@/utils";
 import type { App, ComputedRef, Reactive } from "vue";
 import type { Router } from "vue-router";
 
@@ -14,22 +15,22 @@ interface Options {
   router: Router;
   configuration: Configuration;
   nodes: Nodes;
-  fsaService: FsaService
+  nodesService: NodesService
 };
 
 export class Store {
   activity: ComputedRef<Activity>;
   configuration: Reactive<Configuration>;
   connected: ComputedRef<boolean>;
-  fsaService: FsaService;
   nodes: Reactive<Nodes>;
+  nodesService: NodesService;
 
-  constructor({ configuration, fsaService, nodes, router }: Options) {
+  constructor({ configuration, nodes, nodesService, router }: Options) {
     this.activity = computed(() => solveRouterActivity(router));
     this.configuration = reactive(configuration);
     this.nodes = reactive(nodes);
     this.connected = computed(() => this.nodes.repository !== undefined);
-    this.fsaService = fsaService;
+    this.nodesService = nodesService;
   }
 
   static use(): Store {

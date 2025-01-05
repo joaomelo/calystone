@@ -1,7 +1,7 @@
-import type { Id } from "@/domain/ids";
+import type { Id } from "@/domain/id";
 import type { Nodes } from "@/domain/nodes";
 
-import { isId } from "@/domain/ids";
+import { isId } from "@/domain/id";
 import { isObjectLike } from "@/utils";
 
 export interface NodeData {

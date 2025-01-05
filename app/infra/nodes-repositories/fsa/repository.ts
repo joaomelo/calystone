@@ -3,9 +3,9 @@ import type { ArtifactData, Id, Kind, NodeDataAndKind } from "@/domain";
 import { createId } from "@/domain";
 import { throwCritical } from "@/utils";
 
-import { NodesRepositoryBase } from "../repository";
+import { BaseNodesRepository } from "../base";
 
-export class FsaNodesRepository extends NodesRepositoryBase<FileSystemHandle> {
+export class FsaNodesRepository extends BaseNodesRepository<FileSystemHandle> {
   constructor(rootHandle: FileSystemDirectoryHandle) {
     const rootData: NodeDataAndKind = {
       id: createId(),

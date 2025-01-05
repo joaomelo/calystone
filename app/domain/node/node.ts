@@ -1,7 +1,7 @@
 import { throwCritical } from "@/utils";
 
 import type { Directory } from "../directory";
-import type { Id } from "../ids";
+import type { Id } from "../id";
 import type { Nodes } from "../nodes";
 import type { NodeOptions } from "./data";
 import type { Status } from "./status";

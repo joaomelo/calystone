@@ -1,11 +1,6 @@
 import { Exception } from "./exception";
 import { Severity } from "./severities";
 
-export function throwException(code: string, cause: unknown, severity?: Severity): never {
-  const exception = new Exception(code, cause, severity);
-  throw exception;
-}
-
 export function throwEmergency(code: string, cause: unknown): never {
   throwException(code, cause, Severity.Emergency);
 }
@@ -36,4 +31,9 @@ export function throwInfo(code: string, cause: unknown): never {
 
 export function throwDebug(code: string, cause: unknown): never {
   throwException(code, cause, Severity.Debug);
+}
+
+function throwException(code: string, cause: unknown, severity?: Severity): never {
+  const exception = new Exception(code, cause, severity);
+  throw exception;
 }

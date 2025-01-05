@@ -3,12 +3,12 @@ import type { ArtifactData, Id, NodeDataAndKind } from "@/domain";
 import { createId } from "@/domain";
 import { faker } from "@faker-js/faker";
 
-import { NodesRepositoryBase } from "../repository";
+import { BaseNodesRepository } from "../base";
 import { fakeArtifactData, fakeDirectoryName, fakeNode, fakeTextArtifact } from "./fakes";
 
 type MemoryMetadata = ArtifactData | undefined;
 
-export class MemoryNodesRepository extends NodesRepositoryBase<MemoryMetadata> {
+export class MemoryNodesRepository extends BaseNodesRepository<MemoryMetadata> {
   constructor() {
     const rootData: NodeDataAndKind = {
       id: createId(),
@@ -20,11 +20,11 @@ export class MemoryNodesRepository extends NodesRepositoryBase<MemoryMetadata> {
   }
 
   async fetchArtifact(id: Id): Promise<ArtifactData> {
-    const cachedData = this.artifactRegistry.get(id);
+    const cachedData = this.nodesMetadata.get(id);
     if (cachedData) return Promise.resolve(cachedData);
 
     const data = fakeArtifactData();
-    this.artifactRegistry.set(id, data);
+    this.nodesMetadata.set(id, data);
 
     return Promise.resolve(data);
   }
@@ -52,7 +52,7 @@ export class MemoryNodesRepository extends NodesRepositoryBase<MemoryMetadata> {
       lastModified: Date.now(),
       size: content.byteLength
     };
-    this.artifactRegistry.set(id, data);
+    this.nodesMetadata.set(id, data);
     return Promise.resolve();
   }
 }

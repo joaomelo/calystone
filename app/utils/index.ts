@@ -1,4 +1,5 @@
 export * from "./arrays";
+export * from "./configuration";
 export * from "./exception";
 export * from "./idle";
 export * from "./local-storage";
