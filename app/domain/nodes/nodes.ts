@@ -3,6 +3,7 @@ import type { Node } from "@/domain/node";
 
 import { createNode } from "@/domain/factory";
 import { throwCritical } from "@/utils";
+import { reactive } from "vue";
 
 import type { NodesRepository } from "./repository";
 
@@ -14,7 +15,7 @@ export class Nodes {
   scheduler: Scheduler;
 
   constructor() {
-    this.hash = new Map();
+    this.hash = reactive(new Map());
     this.scheduler = new Scheduler();
   }
 
@@ -25,6 +26,7 @@ export class Nodes {
     repository.reset();
 
     const { rootData } = repository;
+
     const rootDirectory = createNode({ nodes: this, ...rootData });
     this.set(rootDirectory);
 

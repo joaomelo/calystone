@@ -1,4 +1,5 @@
 import { throwCritical } from "@/utils";
+import { reactive } from "vue";
 
 import type { Directory } from "../directory";
 import type { Id } from "../id";
@@ -21,6 +22,7 @@ export abstract class Node {
     this.name = name;
     this.parentId = parentId;
     this.nodes = nodes;
+    return reactive(this);
   }
 
   childrenOf(maybeParent: Directory): boolean {

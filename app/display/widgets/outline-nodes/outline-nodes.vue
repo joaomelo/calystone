@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Id, Nodes } from "@/domain";
 import type { TreeNode } from "primevue/treenode";
-import type { ComputedRef } from "vue";
 
 import { isId } from "@/domain";
 import { isObjectLike } from "@/utils";
@@ -19,9 +18,7 @@ const emit = defineEmits<{
   selected: [id: Id | undefined];
 }>();
 
-const value: ComputedRef<TreeNode[]> = computed(() => {
-  return nodes.list().filter(n => n.root()).map(convert);
-});
+const tree = computed(() => nodes.list().filter(n => n.root()).map(convert));
 
 // this is nedeed so the prime vue component can visualy show the selected node
 const selectedKey = ref();
@@ -56,7 +53,7 @@ function resolveKey(node?: TreeNode) {
         v-model:selectionKeys="selectedKey"
         selection-mode="single"
         data-test="nodes-outline-tree"
-        :value
+        :value="tree"
         @node-expand="handleNodeExpand"
         @node-select="handleNodeSelect"
         @node-unselect="handleNodeUnselect"

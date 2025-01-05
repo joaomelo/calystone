@@ -11,7 +11,6 @@ export class Scheduler {
   async next(): Promise<void> {
     await idle();
     const node = this.queue.shift();
-
     if (node && node.status === "unloaded") {
       this.loading = true;
       try {

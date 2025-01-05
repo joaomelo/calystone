@@ -2,10 +2,10 @@ import type { Activity } from "@/display/activities";
 import type { Nodes } from "@/domain";
 import type { NodesService } from "@/infra";
 import type { Configuration } from "@/utils";
-import type { App, ComputedRef, Reactive } from "vue";
+import type { App, ComputedRef } from "vue";
 import type { Router } from "vue-router";
 
-import { computed, reactive } from "vue";
+import { computed } from "vue";
 
 import { solveRouterActivity } from "../activities";
 import { key } from "./key";
@@ -20,15 +20,15 @@ interface Options {
 
 export class Store {
   activity: ComputedRef<Activity>;
-  configuration: Reactive<Configuration>;
+  configuration: Configuration;
   connected: ComputedRef<boolean>;
-  nodes: Reactive<Nodes>;
+  nodes: Nodes;
   nodesService: NodesService;
 
   constructor({ configuration, nodes, nodesService, router }: Options) {
     this.activity = computed(() => solveRouterActivity(router));
-    this.configuration = reactive(configuration);
-    this.nodes = reactive(nodes);
+    this.configuration = configuration;
+    this.nodes = nodes;
     this.connected = computed(() => this.nodes.repository !== undefined);
     this.nodesService = nodesService;
   }
