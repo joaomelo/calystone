@@ -18,19 +18,19 @@ export class NodesService {
   constructor(nodes: Nodes, configuration: Configuration) {
     this.nodes = nodes;
 
-    const msalClientId = configuration.get("msalClientId");
-    const redirectUri = configuration.get("authRedirectUri");
-    if (typeof msalClientId !== "string") {
-      throwCritical("NO_MSAL_CLIENT_ID", "msal client id is not configured");
-    }
-    if (typeof redirectUri !== "string") {
-      throwCritical("NO_REDIRECT_URI", "auth redirect uri is not configured");
-    }
-
     this.dropbox = new DropboxAccessService();
     this.googleDrive = new GoogleIdentityAccessService();
     this.fsa = new FsaAccessService();
     this.memory = new MemoryAccessService(configuration.is("enableMemory"));
+
+    const msalClientId = configuration.get("msalClientId");
+    if (typeof msalClientId !== "string") {
+      throwCritical("NO_MSAL_CLIENT_ID", "msal client id is not configured");
+    }
+    const redirectUri = configuration.get("authRedirectUri");
+    if (typeof redirectUri !== "string") {
+      throwCritical("NO_REDIRECT_URI", "auth redirect uri is not configured");
+    }
     this.oneDrive = new MsalAccessService(msalClientId, redirectUri);
   }
 
