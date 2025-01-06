@@ -33,7 +33,11 @@ export class MsalAccessService extends BaseAccessService<string> {
     };
     await this.msalInstance.initialize();
     const loginResponse = await this.msalInstance.loginPopup(request);
+    console.log({ loginResponse });
+
     const tokenResponse = await this.msalInstance.acquireTokenSilent(loginResponse);
+    console.log({ tokenResponse });
+
     const { accessToken } = tokenResponse;
     return accessToken;
   }
