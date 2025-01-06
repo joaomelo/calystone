@@ -18,6 +18,8 @@ export class MsalAccessService extends BaseAccessService<string> {
         storeAuthStateInCookie: false,
       }
     };
+    console.log(msalConfig);
+
     this.msalInstance = new PublicClientApplication(msalConfig);
   }
 
