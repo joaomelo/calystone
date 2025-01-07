@@ -4,7 +4,7 @@ import type { EditorSwitch } from "../editor-switch";
 
 import { default as Editorartifact } from "./editor-artifact.vue";
 
-export const artifactSwitch: EditorSwitch = {
+export const editorArtifactSwitch: EditorSwitch = {
   component: Editorartifact,
-  isCompatible: (node) => node instanceof Artifact
+  supports: (content) => content instanceof Artifact
 };

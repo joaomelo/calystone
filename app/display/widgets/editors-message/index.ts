@@ -1,2 +1,1 @@
-export * from "./switch-empty";
-export * from "./switch-not-loaded";
+export * from "./switchs";

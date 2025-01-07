@@ -3,8 +3,8 @@ import type { Directory } from "@/domain";
 
 import { useI18n } from "@/display/i18n";
 
-const { node } = defineProps<{
-  node: Directory;
+const { content } = defineProps<{
+  content: Directory;
 }>();
 
 const { t } = useI18n();
@@ -12,10 +12,10 @@ const { t } = useI18n();
 <template>
   <div class="editor-directory">
     <p data-test="items">
-      <b>{{ t('items') }}</b>: {{ node.descendants().length }}
+      <b>{{ t('items') }}</b>: {{ content.descendants().length }}
     </p>
     <p data-test="path">
-      <b>{{ t('path') }}</b>: {{ node.path() }}
+      <b>{{ t('path') }}</b>: {{ content.path() }}
     </p>
   </div>
 </template>

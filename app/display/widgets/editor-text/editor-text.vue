@@ -2,39 +2,25 @@
 import type { Artifact } from "@/domain";
 
 import { TextCodec } from "@/domain";
-import { Exception, throwCritical } from "@/utils";
+import { throwCritical } from "@/utils";
 import { debounce } from "lodash-es";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 
-import { useExceptionToast } from "../toast";
 import CodeMirror from "./code-mirror.vue";
 
-const { node } = defineProps<{
-  node: Artifact;
+const { content } = defineProps<{
+  content: Artifact;
 }>();
 
-const toast = useExceptionToast();
+if (content.mime.type() !== "text") throwCritical("INVALID_MIME_TYPE_FOR_EDITOR", "the artifact must have text content");
 
-const textCodec = new TextCodec(node);
+const textCodec = new TextCodec(content);
 const text = ref("");
-onMounted(async () => {
-  try {
-    if (node.mime.type() !== "text") throwCritical("INVALID_MIME_TYPE_FOR_EDITOR", "the artifact must have text content");
-    text.value = await textCodec.fetch();
-  } catch (cause) {
-    const exception = new Exception("UNABLE_FETCH_CONTENT", cause);
-    toast(exception);
-  }
-});
+text.value = await textCodec.fetch();
 
 // will save updates to the model after 1 second of inactivity
 const handleUpdate = debounce(async (newText: string) => {
-  try {
-    await textCodec.post(newText);
-  } catch (error) {
-    const exception = new Exception("UNABLE_POST_CONTENT", error);
-    toast(exception);
-  }
+  await textCodec.post(newText);
 }, 1000);
 </script>
 <template>

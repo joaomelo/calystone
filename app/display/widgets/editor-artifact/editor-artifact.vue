@@ -4,8 +4,8 @@ import type { Artifact } from "@/domain";
 import { useI18n } from "@/display/i18n";
 import { filesize } from "filesize";
 
-const { node } = defineProps<{
-  node: Artifact;
+const { content } = defineProps<{
+  content: Artifact;
 }>();
 
 const { t } = useI18n();
@@ -13,16 +13,16 @@ const { t } = useI18n();
 <template>
   <div class="editor-artifact">
     <p data-test="type">
-      <b>{{ t('type') }}</b>: {{ node.mime.media }}
+      <b>{{ t('type') }}</b>: {{ content.mime.media }}
     </p>
     <p
-      v-if="node.size"
+      v-if="content.size"
       data-test="size"
     >
-      <b>{{ t('size') }}</b>: {{ filesize(node.size) }}
+      <b>{{ t('size') }}</b>: {{ filesize(content.size) }}
     </p>
     <p data-test="path">
-      <b>{{ t('path') }}</b>: {{ node.path() }}
+      <b>{{ t('path') }}</b>: {{ content.path() }}
     </p>
   </div>
 </template>
