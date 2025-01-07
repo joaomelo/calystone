@@ -9,7 +9,7 @@ export class Exception extends Error {
     super(code);
     this.code = code;
     this.severity = severity ?? Severity.Error;
-    this.detail = cause instanceof Error ? cause.message : String(cause);
+    this.detail = JSON.stringify(cause);
     this.cause = cause;
     Error.captureStackTrace(this, Exception);
   }

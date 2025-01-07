@@ -18,8 +18,13 @@ const toast = useExceptionToast();
 const textCodec = new TextCodec(node);
 const text = ref("");
 onMounted(async () => {
-  if (node.mime.type() !== "text") throwCritical("INVALID_MIME_TYPE_FOR_EDITOR", "the artifact must have text content");
-  text.value = await textCodec.fetch();
+  try {
+    if (node.mime.type() !== "text") throwCritical("INVALID_MIME_TYPE_FOR_EDITOR", "the artifact must have text content");
+    text.value = await textCodec.fetch();
+  } catch (cause) {
+    const exception = new Exception("UNABLE_FETCH_CONTENT", cause);
+    toast(exception);
+  }
 });
 
 // will save updates to the model after 1 second of inactivity

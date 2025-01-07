@@ -17,7 +17,8 @@
   "empty": "When you select an node on the outline, its details will show here.",
   "errors": {
     "UNABLE_OPEN": "Unable to open files",
-    "UNABLE_POST_CONTENT": "Unable to save content to file"
+    "UNABLE_POST_CONTENT": "Unable to save content to file",
+    "UNABLE_FETCH_CONTENT": "Unable to fetch content from file"
   },
   "exit": "exit",
   "features": {
