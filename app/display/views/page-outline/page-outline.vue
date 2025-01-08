@@ -9,19 +9,21 @@ const store = Store.use();
 const node = ref<Node | undefined>();
 
 function handleSelected(id?: Id) {
-  node.value = findAndUpdate(id);
+  node.value = triggerLoad(id);
 }
 
 function handleExpanded(id: Id) {
-  findAndUpdate(id);
+  triggerLoad(id);
 }
 
-function findAndUpdate(id?: Id) {
-  if (!id || !store.connected.value) return;
-  const node = store.nodes.getOrThrow(id);
-  store.nodes.scheduler.schedule(node, true);
+function triggerLoad(id?: Id) {
+  const node = (id && store.connected.value) ? store.nodes.getOrThrow(id) : undefined;
+  if (node) {
+    void node.load();
+  }
   return node;
 }
+
 </script>
 <template>
   <SplitterPanel class="page-outline">

@@ -7,16 +7,12 @@ import { reactive } from "vue";
 
 import type { NodesRepository } from "./repository";
 
-import { Scheduler } from "./scheduler";
-
 export class Nodes {
   readonly hash: Map<Id, Node>;
   repository?: NodesRepository;
-  scheduler: Scheduler;
 
   constructor() {
     this.hash = reactive(new Map());
-    this.scheduler = new Scheduler();
   }
 
   connect(repository: NodesRepository): void {
@@ -26,17 +22,14 @@ export class Nodes {
     repository.reset();
 
     const { rootData } = repository;
-
     const rootDirectory = createNode({ nodes: this, ...rootData });
-    this.set(rootDirectory);
+    void rootDirectory.load();
 
-    this.scheduler.schedule(rootDirectory, true);
-    this.scheduler.start();
+    this.set(rootDirectory);
   }
 
   disconnect(): void {
     this.repository = undefined;
-    this.scheduler.stop();
     this.hash.clear();
   }
 

@@ -1,4 +1,3 @@
-import { throwCritical } from "@/utils";
 import { reactive } from "vue";
 
 import type { Directory } from "../directory";
@@ -38,14 +37,12 @@ export abstract class Node {
   }
 
   async load(): Promise<void> {
-    if (this.status !== "unloaded") throwCritical("NOT_UNLOADED", "load cannot be called on a node that is not unloaded");
+    // this allows unexpensive calls to load without worring about costly reloads or breaking the state. if needed, a explicit reload logic has to be added.
+    if (this.status !== "unloaded") return;
 
     this.status = "loading";
-    try {
-      await this.performLoad();
-    } finally {
-      this.status = "loaded";
-    }
+    await this.performLoad();
+    this.status = "loaded";
   }
 
   parent(): Node | undefined {

@@ -18,21 +18,24 @@ const { node } = defineProps<{
 const error = ref<Error>();
 watch(() => node, () => error.value = undefined);
 onErrorCaptured((capturedError) => {
+  console.log({ capturedError });
   error.value = capturedError;
   return false;
 });
 
+const content = computed(() => error.value ?? node);
+
 // switches order matters since the first compatible switch will be used, so the most specific should be first.
 const switchs: EditorSwitch[] = [editorEmptySwitch, editorErrorSwitch, editorNotLoadedSwitch, editorDirectorySwitch, editorTextSwitch, editorArtifactSwitch];
 const editor: Component = computed(() => {
-  const specializedSwitch = switchs.find((s) => s.supports(node));
+  console.log({ content: content.value });
+  const specializedSwitch = switchs.find((s) => s.supports(content.value));
+  console.log({ specializedSwitch });
   return specializedSwitch?.component ?? editorEmptySwitch.component;
 });
 
 // key is important to force the component to be recreated when the node changes and the inner editor is async. without key, editor text, for example, does not update the text content.
 const key = computed(() => node?.id ?? "empty");
-
-const content = computed(() => error.value ?? node);
 </script>
 <template>
   <div class="editor-node">
