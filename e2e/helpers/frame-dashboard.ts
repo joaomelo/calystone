@@ -2,6 +2,6 @@ import { dataTest } from "./data-test";
 
 export const frameDashboard = {
   selectors: {
-    open: () => cy.get(dataTest("open"))
+    exit: () => cy.get(dataTest("exit"))
   }
 } as const;

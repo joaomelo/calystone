@@ -17,7 +17,7 @@ function handleUpdateActive(active: string) {
   if (active === store.activity.value) return;
 
   if (active === activities.open) {
-    store.nodes.disconnect();
+    store.nodesService.exit();
     return;
   }
 
@@ -53,7 +53,7 @@ function handleUpdateActive(active: string) {
         :id="activities.open"
         :icon="`${baseIcon} bx-log-out`"
         :title="t('exit')"
-        data-test="open"
+        data-test="exit"
       />
     </template>
   </SideBar>

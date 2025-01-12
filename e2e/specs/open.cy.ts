@@ -10,7 +10,7 @@ describe("open", () => {
   });
 
   it("returns to open page", () => {
-    frameDashboard.selectors.open().click();
+    frameDashboard.selectors.exit().click();
     cy.url().should("include", pageOpen.selectors.url());
   });
 });

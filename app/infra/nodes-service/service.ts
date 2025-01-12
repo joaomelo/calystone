@@ -76,4 +76,8 @@ export class NodesService {
 
     this.nodes.connect(repository);
   }
+
+  exit() {
+    this.nodes.disconnect();
+  }
 }
