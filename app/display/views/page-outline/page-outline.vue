@@ -2,15 +2,17 @@
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorSwitcher, OutlineNodes, SplitterPanel, useErrorToast } from "@/display/widgets";
+import { EditorSwitcher, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
 import { ref } from "vue";
 
 const toast = useErrorToast();
 const store = Store.use();
 const node = ref<Node | undefined>();
+const detail = ref(false);
 
 function handleSelected(id?: Id) {
   node.value = solveNode(id);
+  detail.value = true;
   if (node.value) void triggerLoad(node.value);
 }
 
@@ -34,8 +36,11 @@ async function triggerLoad(node: Node) {
 
 </script>
 <template>
-  <SplitterPanel class="page-outline">
-    <template #start>
+  <MasterDetail
+    v-model="detail"
+    class="page-outline"
+  >
+    <template #master>
       <template v-if="store.nodes !== undefined">
         <OutlineNodes
           :nodes="store.nodes"
@@ -45,10 +50,10 @@ async function triggerLoad(node: Node) {
         />
       </template>
     </template>
-    <template #end>
+    <template #detail>
       <EditorSwitcher :node />
     </template>
-  </SplitterPanel>
+  </MasterDetail>
 </template>
 <style scoped>
 .page-outline {

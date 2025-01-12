@@ -3,6 +3,7 @@ export * from "./card-panel";
 export * from "./editor-switcher";
 export * from "./input-select-button";
 export * from "./input-textarea";
+export * from "./master-detail";
 export * from "./outline-nodes";
 export * from "./scroll-panel";
 export * from "./side-bar";
