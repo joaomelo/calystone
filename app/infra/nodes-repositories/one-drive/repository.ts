@@ -66,8 +66,10 @@ export class OneDriveNodesRepository extends BaseNodesRepository<undefined> {
   }
 
   async postArtifact(id: Id, content: ArrayBuffer): Promise<void> {
+    // graph client expects a node implementation of the arraybuffer and will break if receives the browser one. we need to convert the buffer to a blob to make the request work.
+    const blob = new Blob([content]);
     await this.graphClient
       .api(`/me/drive/items/${id}/content`)
-      .put(content);
+      .put(blob);
   }
 }
