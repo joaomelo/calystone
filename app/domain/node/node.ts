@@ -1,3 +1,4 @@
+import { throwError } from "@/utils";
 import { reactive } from "vue";
 
 import type { Directory } from "../directory";
@@ -41,7 +42,14 @@ export abstract class Node {
     if (this.status !== "unloaded") return;
 
     this.status = "loading";
-    await this.performLoad();
+
+    try {
+      await this.performLoad();
+    } catch (error) {
+      this.status = "unloaded";
+      throwError("CANNOT_LOAD", error);
+    }
+
     this.status = "loaded";
   }
 
