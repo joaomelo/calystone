@@ -20,7 +20,7 @@ const isMobile = useMediaQuery("(max-width: 768px)");
       position="full"
     >
       <template #container="{ closeCallback }">
-        <div class="master-detail-mobile-header">
+        <div class="master-detail-mobile-detail-header">
           <ButtonBase
             icon="bx bx-xs bx-x"
             rounded
@@ -28,7 +28,7 @@ const isMobile = useMediaQuery("(max-width: 768px)");
             @click="closeCallback"
           />
         </div>
-        <div>
+        <div class="master-detail-mobile-detail-content">
           <slot name="detail" />
         </div>
       </template>
@@ -44,16 +44,20 @@ const isMobile = useMediaQuery("(max-width: 768px)");
   </SplitterPanel>
 </template>
 <style scoped>
-.master-detail-mobile-header {
+.master-detail-mobile-detail-header {
   display: flex;
   justify-content: flex-end;
   padding: var(--size-2);
   background-color: var(--p-surface-100);
 }
 
-.master-detail-mobile-header :deep(.p-button) {
+.master-detail-mobile-detail-header :deep(.p-button) {
   --button-size: var(--size-fluid-3);
   height: var(--button-size);
   width: var(--button-size);
+}
+
+.master-detail-mobile-detail-content {
+  height: 100%;
 }
 </style>
