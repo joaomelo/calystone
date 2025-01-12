@@ -5,8 +5,7 @@ import { defaultActivity } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/widgets";
-import { useExceptionToast } from "@/display/widgets";
-import { Exception } from "@/utils";
+import { useErrorToast } from "@/display/widgets";
 import { useRouter } from "vue-router";
 
 const { service } = defineProps<{
@@ -18,7 +17,7 @@ const { service } = defineProps<{
 
 const { t } = useI18n();
 const router = useRouter();
-const toast = useExceptionToast();
+const toast = useErrorToast();
 const { nodesService } = Store.use();
 
 async function handleClick() {
@@ -26,8 +25,7 @@ async function handleClick() {
     await nodesService.bootstrap(service);
     void router.push({ name: defaultActivity });
   } catch (error) {
-    const exception = new Exception("UNABLE_OPEN", error);
-    toast(exception);
+    toast(error);
   }
 }
 

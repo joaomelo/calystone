@@ -1,17 +1,32 @@
-import type { Exception } from "@/utils";
-
 import { useI18n } from "@/display/i18n";
+import { Exception } from "@/utils";
 
-import { useLogToast } from "./use-log";
+import { useToast } from "./use-log";
 
-export function useExceptionToast() {
+export function useErrorToast() {
   const { t } = useI18n();
-  const { toast: toastLog } = useLogToast();
+  const { Severity, toast: baseToast } = useToast();
 
-  const toast = (exception: Exception) => {
-    const message = t(`errors.${exception.code}`);
-    toastLog(exception.severity, message, exception.detail);
+  const errorToast = (error: unknown) => {
+    // every exception is also an error, so this check must come first
+    if (error instanceof Exception) {
+      const message = t(`errors.${error.code}`);
+      baseToast(error.severity, message, error.detail);
+      return;
+    }
+
+    if (error instanceof Error) {
+      baseToast(Severity.Error, error.message);
+      return;
+    }
+
+    if (typeof error === "string") {
+      baseToast(Severity.Error, error);
+      return;
+    }
+
+    baseToast(Severity.Error, String(error));
   };
 
-  return toast;
+  return errorToast;
 }

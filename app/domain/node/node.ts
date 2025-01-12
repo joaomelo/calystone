@@ -47,7 +47,7 @@ export abstract class Node {
       await this.performLoad();
     } catch (error) {
       this.status = "unloaded";
-      throwError("CANNOT_LOAD", error);
+      throwError("UNABLE_LOAD", error);
     }
 
     this.status = "loaded";
@@ -55,7 +55,7 @@ export abstract class Node {
 
   parent(): Node | undefined {
     if (!this.parentId) return;
-    return this.nodes.getOrThrow(this.parentId);
+    return this.nodes.get(this.parentId);
   }
 
   path(): string {

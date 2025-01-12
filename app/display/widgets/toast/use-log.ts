@@ -1,11 +1,11 @@
 import type { ToastMessageOptions } from "primevue/toast";
 
 import { Severity } from "@/utils";
-import { useToast } from "primevue/usetoast";
+import { useToast as usePrimeToast } from "primevue/usetoast";
 
-export function useLogToast() {
-  const primeToast = useToast();
-  const toast = (severity: Severity, message: string, detail: string) => {
+export function useToast() {
+  const primeToast = usePrimeToast();
+  const toast = (severity: Severity, message: string, detail?: string) => {
     primeToast.add({
       detail,
       life: 5000,

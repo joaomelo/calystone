@@ -18,7 +18,8 @@
   "errors": {
     "UNABLE_OPEN": "Não foi possível abrir arquivos",
     "UNABLE_POST_CONTENT": "Não foi possível salvar o conteúdo no arquivo",
-    "UNABLE_FETCH_CONTENT": "Não foi possível carregar o conteúdo do arquivo"
+    "UNABLE_FETCH_CONTENT": "Não foi possível carregar o conteúdo do arquivo",
+    "UNABLE_LOAD": "Não foi possível carregar os dados do item"
   },
   "exit": "sair",
   "features": {

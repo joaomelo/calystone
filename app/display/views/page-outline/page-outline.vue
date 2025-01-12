@@ -2,26 +2,34 @@
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorSwitcher, OutlineNodes, SplitterPanel } from "@/display/widgets";
+import { EditorSwitcher, OutlineNodes, SplitterPanel, useErrorToast } from "@/display/widgets";
 import { ref } from "vue";
 
+const toast = useErrorToast();
 const store = Store.use();
 const node = ref<Node | undefined>();
 
 function handleSelected(id?: Id) {
-  node.value = triggerLoad(id);
+  node.value = solveNode(id);
+  if (node.value) void triggerLoad(node.value);
 }
 
 function handleExpanded(id: Id) {
-  triggerLoad(id);
+  const node = solveNode(id);
+  if (node) void triggerLoad(node);
 }
 
-function triggerLoad(id?: Id) {
-  const node = (id && store.connected.value) ? store.nodes.getOrThrow(id) : undefined;
-  if (node) {
-    void node.load();
-  }
+function solveNode(id?: Id) {
+  const node = (id) ? store.nodes.get(id) : undefined;
   return node;
+}
+
+async function triggerLoad(node: Node) {
+  try {
+    await node.load();
+  } catch (error) {
+    toast(error);
+  }
 }
 
 </script>

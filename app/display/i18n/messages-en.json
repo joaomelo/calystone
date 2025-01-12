@@ -18,7 +18,8 @@
   "errors": {
     "UNABLE_OPEN": "Unable to open files",
     "UNABLE_POST_CONTENT": "Unable to save content to file",
-    "UNABLE_FETCH_CONTENT": "Unable to fetch content from file"
+    "UNABLE_FETCH_CONTENT": "Unable to fetch content from file",
+    "UNABLE_LOAD": "Unable to load node data"
   },
   "exit": "exit",
   "features": {
