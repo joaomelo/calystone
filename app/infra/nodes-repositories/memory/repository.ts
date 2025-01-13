@@ -3,12 +3,12 @@ import type { ArtifactData, Id, NodeDataAndKind } from "@/domain";
 import { createId } from "@/domain";
 import { faker } from "@faker-js/faker";
 
-import { BaseNodesRepository } from "../base";
+import { NodesRepositoryBase } from "../base";
 import { fakeArtifactData, fakeDirectoryName, fakeNode, fakeTextArtifact } from "./fakes";
 
 type MemoryMetadata = ArtifactData | undefined;
 
-export class MemoryNodesRepository extends BaseNodesRepository<MemoryMetadata> {
+export class MemoryNodesRepository extends NodesRepositoryBase<MemoryMetadata> {
   constructor() {
     const rootData: NodeDataAndKind = {
       id: createId(),

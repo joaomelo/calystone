@@ -3,10 +3,10 @@ import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { Client } from "@microsoft/microsoft-graph-client";
 
-import { BaseNodesRepository } from "../base";
+import { NodesRepositoryBase } from "../base";
 import { driveItemToNodeData } from "./item-to-node";
 
-export class OneDriveNodesRepository extends BaseNodesRepository<undefined> {
+export class OneDriveNodesRepository extends NodesRepositoryBase<undefined> {
   graphClient: Client;
 
   constructor(accessToken: string) {

@@ -1,6 +1,6 @@
 import type { ArtifactData, Id, NodeDataAndKind, NodesRepository } from "@/domain";
 
-export abstract class BaseNodesRepository<Metadata> implements NodesRepository {
+export abstract class NodesRepositoryBase<Metadata> implements NodesRepository {
   nodesMetadata: Map<Id, Metadata>;
   rootData: NodeDataAndKind;
   rootMetadata: Metadata;
