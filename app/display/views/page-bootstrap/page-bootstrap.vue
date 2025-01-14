@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Source } from "@/infra";
 
-import { defaultActivity } from "@/display/activities";
+import { activities, defaultActivity } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { onMounted } from "vue";
@@ -16,14 +16,18 @@ const { nodesService } = Store.use();
 const router = useRouter();
 
 onMounted(async () => {
-  await nodesService.bootstrap(source);
+
+  try {
+    await nodesService.bootstrap(source);
+  } catch {
+    void router.push({ name: activities.open });
+    return;
+  }
+
   void router.push({ name: defaultActivity });
 });
 
 </script>
 <template>
-  <div>
-    {{ t("loading") }}...
-    {{ source }}
-  </div>
+  <div>{{ t("loading") }}</div>
 </template>

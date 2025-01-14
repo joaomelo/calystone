@@ -3,7 +3,6 @@ import type { Configuration } from "@/utils";
 import { OneDriveAccess } from "@/infra/access-services";
 import { OneDriveNodesRepository } from "@/infra/nodes-repositories";
 import { OneDriveSupport } from "@/infra/support-services";
-import { throwError } from "@/utils";
 
 import type { SourceSuite } from "./suite";
 
@@ -19,7 +18,8 @@ export class OneDriveSuite implements SourceSuite{
 
   async repository() {
     if (!this.access) {
-      throwError("NO_ACCESS", "OneDrive suite has no access service");
+      // one drive workflow involves redirects. it is necessary to instantiate the access service again before acquiring the token.
+      this.access = new OneDriveAccess(this.configuration);
     }
     const accessToken = await this.access.acquire();
     return new OneDriveNodesRepository(accessToken);
