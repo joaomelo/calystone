@@ -2,12 +2,24 @@ import { FrameDashboard, PageOpen, PageOutline, PageSearch, PageTags } from "@/d
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 import { activities, defaultActivity } from "../activities";
+import PageBootstrap from "../views/page-bootstrap/page-bootstrap.vue";
 
 export function createRouter() {
   const routes = [
     { path: "/", redirect: { name: defaultActivity } },
 
-    { component: PageOpen, name: activities.open, path: `/${activities.open}` },
+    {
+      component: PageOpen,
+      name: activities.open,
+      path: `/${activities.open}`
+    },
+
+    {
+      component: PageBootstrap,
+      name: activities.bootstrap,
+      path: `/${activities.bootstrap}/:source`,
+      props: true
+    },
 
     {
       children: [

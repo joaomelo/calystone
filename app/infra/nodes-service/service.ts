@@ -1,7 +1,7 @@
 import type { Nodes } from "@/domain";
 import type { Configuration } from "@/utils";
 
-import type { Source } from "./suites";
+import type { Source } from "./source";
 
 import { SuitesPortfolio } from "./suites";
 

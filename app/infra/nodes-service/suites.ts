@@ -3,7 +3,7 @@ import type { Configuration } from "@/utils";
 
 import { DropboxSuite, FsaSuite, GoogleDriveSuite, MemorySuite, OneDriveSuite } from "@/infra/source-suites";
 
-export type Source = "dropbox" | "fsa" | "googleDrive" | "memory" | "oneDrive";
+import type { Source } from "./source";
 
 export class SuitesPortfolio {
   dropbox: DropboxSuite;
@@ -26,11 +26,11 @@ export class SuitesPortfolio {
         return this.dropbox;
       case "fsa":
         return this.fsa;
-      case "googleDrive":
+      case "google-drive":
         return this.googleDrive;
       case "memory":
         return this.memory;
-      case "oneDrive":
+      case "one-drive":
         return this.oneDrive;
     }
   }

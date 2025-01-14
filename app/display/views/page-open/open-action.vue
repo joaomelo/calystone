@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { Accesses } from "@/infra";
+import type { Source } from "@/infra";
 
-import { defaultActivity } from "@/display/activities";
+import { activities } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/widgets";
 import { useErrorToast } from "@/display/widgets";
 import { useRouter } from "vue-router";
 
-const { service } = defineProps<{
+const { source } = defineProps<{
   dataTest: string;
   icon: string;
   label: string;
-  service: Accesses;
+  source: Source;
 }>();
 
 const { t } = useI18n();
@@ -22,8 +22,8 @@ const { nodesService } = Store.use();
 
 async function handleClick() {
   try {
-    await nodesService.bootstrap(service);
-    void router.push({ name: defaultActivity });
+    await nodesService.request(source);
+    void router.push({ name: activities.bootstrap, params: { source } });
   } catch (error) {
     toast(error);
   }
@@ -32,7 +32,7 @@ async function handleClick() {
 </script>
 <template>
   <ButtonBase
-    v-if="nodesService.supports(service)"
+    v-if="nodesService.supports(source)"
     :label="t(label)"
     size="large"
     :data-test="dataTest"

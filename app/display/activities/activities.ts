@@ -1,4 +1,5 @@
 export const activities = {
+  bootstrap: "bootstrap",
   open: "open",
   outline: "outline",
   preferences: "preferences",
