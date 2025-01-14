@@ -14,8 +14,8 @@ export class NodesService {
     this.portfolio = new SuitesPortfolio(configuration);
   }
 
-  async bootstrap(name: Source) {
-    const suite = this.portfolio.get(name);
+  async bootstrap(source: Source) {
+    const suite = this.portfolio.get(source);
     const repository = await suite.repository();
     this.nodes.connect(repository);
   }

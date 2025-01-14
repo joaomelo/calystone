@@ -15,6 +15,13 @@ export function createRouter() {
     },
 
     {
+      path: "/transfer-one-drive",
+      redirect: {
+        name: activities.bootstrap,
+        params: { source: "one-drive" }
+      }
+    },
+    {
       component: PageBootstrap,
       name: activities.bootstrap,
       path: `/${activities.bootstrap}/:source`,
