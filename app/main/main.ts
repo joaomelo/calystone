@@ -32,7 +32,7 @@ export function initApp(elementId: string) {
     enableMemory: import.meta.env.VITE_ENABLE_MEMORY ?? false,
     name,
     oneDriveClientId: import.meta.env.VITE_ONE_DRIVE_CLIENT_ID ?? null,
-    oneDriveRedirectUrl: import.meta.env.VITE_ONE_DRIVE_REDIRECT_URL ?? null,
+    oneDriveRedirectUrl: `${window.location.origin}/bootstrap?source=onedrive`,
     version,
   });
   const nodes = new Nodes();

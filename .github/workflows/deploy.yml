@@ -10,7 +10,7 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     env:
-      VITE_MSAL_CLIENT_ID: ${{ secrets.VITE_MSAL_CLIENT_ID }}
+      VITE_ONE_DRIVE_CLIENT_ID: ${{ secrets.VITE_ONE_DRIVE_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v4
         with:
