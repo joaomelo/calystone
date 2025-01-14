@@ -1,75 +1,53 @@
-import type { Nodes, NodesRepository } from "@/domain";
+import type { Nodes, NodesProvider } from "@/domain";
 import type { Configuration } from "@/utils";
 
-import { DropboxAccessService, FsaAccessService, GoogleIdentityAccessService, MemoryAccessService, MsalAccessService } from "@/infra/access-services";
-import { FsaNodesRepository, MemoryNodesRepository, OneDriveNodesRepository } from "@/infra/nodes-repositories";
+import { FsaNodesProvider, MemoryNodesProvider, OneDriveNodesProvider } from "@/infra/nodes-services";
 import { throwCritical } from "@/utils";
 
-export type Service = "dropbox" | "fsa" | "googleDrive" | "memory" | "oneDrive";
+import type { AccessName } from "./accesses";
+
+import { assertsAccessData } from "./access-data";
+import { AccessesPortfolio } from "./accesses";
 
 export class NodesService {
-  dropbox: DropboxAccessService;
-  fsa: FsaAccessService;
-  googleDrive: GoogleIdentityAccessService;
-  memory: MemoryAccessService;
+  accessesPortfolio: AccessesPortfolio;
   nodes: Nodes;
-  oneDrive: MsalAccessService;
 
   constructor(nodes: Nodes, configuration: Configuration) {
     this.nodes = nodes;
-
-    this.dropbox = new DropboxAccessService();
-    this.googleDrive = new GoogleIdentityAccessService();
-    this.fsa = new FsaAccessService();
-    this.memory = new MemoryAccessService(configuration.is("enableMemory"));
-
-    const msalClientId = configuration.get("msalClientId");
-    if (typeof msalClientId !== "string") {
-      throwCritical("NO_MSAL_CLIENT_ID", "msal client id is not configured");
-    }
-    const redirectUri = configuration.get("authRedirectUri");
-    if (typeof redirectUri !== "string") {
-      throwCritical("NO_REDIRECT_URI", "auth redirect uri is not configured");
-    }
-    this.oneDrive = new MsalAccessService(msalClientId, redirectUri);
+    this.accessesPortfolio = new AccessesPortfolio(configuration);
   }
 
-  active(service: Service) {
-    switch (service) {
-      case "dropbox":
-        return this.dropbox.active();
-      case "fsa":
-        return this.fsa.active();
-      case "googleDrive":
-        return this.googleDrive.active();
-      case "memory":
-        return this.memory.active();
-      case "oneDrive":
-        return this.oneDrive.active();
-    }
+  active(name: AccessName) {
+    const access = this.accessesPortfolio.get(name);
+    return access.active();
   }
 
-  async bootstrap(service: Service) {
-    let repository: NodesRepository;
+  async bootstrap(name: AccessName) {
+    let repository: NodesProvider;
 
-    switch (service) {
+    switch (name) {
       case "dropbox":
       case "googleDrive": {
-        throwCritical("SERVICE_NOT_IMPLEMENTED", ` ${service} service is not implemented`);
+        throwCritical("SERVICE_NOT_IMPLEMENTED", ` ${name} service is not implemented`);
         break;
       }
       case "fsa":{
-        const accessData = await this.fsa.access();
-        repository = new FsaNodesRepository(accessData);
+        const accessData = this.fsa.acquire();
+        assertsAccessData(accessData);
+        repository = new FsaNodesProvider(accessData);
         break;
       }
       case "memory": {
-        repository = new MemoryNodesRepository();
+        const accessData = this.memory.acquire();
+        assertsAccessData(accessData);
+        repository = new MemoryNodesProvider(accessData);
         break;
       }
       case "oneDrive": {
-        const accessData = await this.oneDrive.access();
-        repository = new OneDriveNodesRepository(accessData);
+        const accessData = await this.oneDrive.acquire();
+        assertsAccessData(accessData);
+        repository = new OneDriveNodesProvider(accessData);
         break;
       }
     }
@@ -79,5 +57,30 @@ export class NodesService {
 
   exit() {
     this.nodes.disconnect();
+  }
+
+  async request(service: Accesses) {
+    switch (service) {
+      case "dropbox": {
+        this.dropbox.request();
+        return;
+      }
+      case "fsa": {
+        await this.fsa.request();
+        return;
+      }
+      case "googleDrive": {
+        this.googleDrive.request();
+        return;
+      }
+      case "memory": {
+        this.memory.request();
+        return;
+      }
+      case "oneDrive": {
+        await this.oneDrive.request();
+        return;
+      }
+    }
   }
 }

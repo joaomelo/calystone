@@ -29,10 +29,10 @@ export function initApp(elementId: string) {
   app.use(router);
 
   const configuration = new Configuration({
-    authRedirectUri: window.location.origin,
     enableMemory: import.meta.env.VITE_ENABLE_MEMORY ?? false,
-    msalClientId: import.meta.env.VITE_MSAL_CLIENT_ID ?? null,
     name,
+    oneDriveClientId: import.meta.env.VITE_ONE_DRIVE_CLIENT_ID ?? null,
+    oneDriveRedirectUrl: import.meta.env.VITE_ONE_DRIVE_REDIRECT_URL ?? null,
     version,
   });
   const nodes = new Nodes();

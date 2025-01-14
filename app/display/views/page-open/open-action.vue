@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Service } from "@/infra";
+import type { Accesses } from "@/infra";
 
 import { defaultActivity } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
@@ -12,7 +12,7 @@ const { service } = defineProps<{
   dataTest: string;
   icon: string;
   label: string;
-  service: Service;
+  service: Accesses;
 }>();
 
 const { t } = useI18n();
