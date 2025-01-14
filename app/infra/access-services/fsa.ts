@@ -2,7 +2,7 @@ import { throwError } from "@/utils";
 
 import type { AccessService } from "./service";
 
-export class FsaAccessService implements AccessService<FileSystemDirectoryHandle> {
+export class FsaAccess implements AccessService<FileSystemDirectoryHandle> {
   rootHandle?: FileSystemDirectoryHandle;
 
   acquire() {

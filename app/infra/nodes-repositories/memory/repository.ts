@@ -4,16 +4,16 @@ import { createId } from "@/domain";
 import { faker } from "@faker-js/faker";
 
 import { NodesRepositoryBase } from "../base";
-import { fakeArtifactData, fakeDirectoryName, fakeNode, fakeTextArtifact } from "./fakes";
+import { fakeArtifactData, fakeNode, fakeTextArtifact } from "./fakes";
 
 type MemoryMetadata = ArtifactData | undefined;
 
 export class MemoryNodesRepository extends NodesRepositoryBase<MemoryMetadata> {
-  constructor() {
+  constructor(rootDirectoryName: string) {
     const rootData: NodeDataAndKind = {
       id: createId(),
       kind: "directory",
-      name: fakeDirectoryName(),
+      name: rootDirectoryName,
       parentId: undefined
     };
     super(rootData, undefined);

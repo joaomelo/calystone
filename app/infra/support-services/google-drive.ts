@@ -1,6 +1,6 @@
 import type { SupportService } from "./service";
 
-export class GoogleDriveSupportService implements SupportService {
+export class GoogleDriveSupport implements SupportService {
   supports() {
     return false;
   }

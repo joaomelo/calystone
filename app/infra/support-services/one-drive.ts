@@ -2,7 +2,7 @@ import type { Configuration } from "@/utils";
 
 import type { SupportService } from "./service";
 
-export class OneDriveSupportService implements SupportService {
+export class OneDriveSupport implements SupportService {
   hasConfiguration: boolean;
 
   constructor(configuration: Configuration) {

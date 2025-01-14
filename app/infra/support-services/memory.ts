@@ -2,7 +2,7 @@ import type { Configuration } from "@/utils";
 
 import type { SupportService } from "./service";
 
-export class MemorySupportService implements SupportService {
+export class MemorySupport implements SupportService {
   enableMemory: boolean;
 
   constructor(configuration: Configuration) {
