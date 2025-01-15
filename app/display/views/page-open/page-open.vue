@@ -28,7 +28,7 @@ const { t } = useI18n();
 </template>
 <style scoped>
 .page-open {
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--p-surface-100);
   display: grid;
   place-items: center;

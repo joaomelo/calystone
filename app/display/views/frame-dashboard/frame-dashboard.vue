@@ -33,7 +33,8 @@ watch(
 
 <style scoped>
 .frame-dashboard {
-  height: 100vh;
+  /* height is set to a fixed value so the vertical sidebar is always completly visible */
+  height: 100dvh;
   display: grid;
   grid-template-columns: auto 1fr;
   overflow: hidden;
