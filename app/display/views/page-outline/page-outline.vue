@@ -12,7 +12,7 @@ const detail = ref(false);
 
 function handleSelected(id?: Id) {
   node.value = solveNode(id);
-  detail.value = true;
+  detail.value = Boolean(node.value);
   if (node.value) void triggerLoad(node.value);
 }
 
