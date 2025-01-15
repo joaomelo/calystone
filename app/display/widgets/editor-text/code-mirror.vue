@@ -80,8 +80,7 @@ watch(
 </template>
 <style scoped>
 .code-mirror {
-  max-height: 100%;
-  min-height: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: stretch;
@@ -97,7 +96,12 @@ watch(
 
 .code-mirror :deep(.cm-gutters) {
   background-color: revert;
-  border-inline-end-color: var(--p-text-muted-color);
+  border-inline-end-color: var(--p-content-border-color);
+  border-inline-end-style: dashed;
   color: var(--p-text-muted-color);
+}
+
+.code-mirror :deep(.cm-content) {
+  padding-block-start: 0;
 }
 </style>

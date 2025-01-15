@@ -26,27 +26,20 @@ const editor: Component = computed(() => {
 const key = computed(() => node?.id ?? "empty");
 </script>
 <template>
-  <div class="editor-node">
-    <Suspense>
-      <template #default>
-        <component
-          :is="editor"
-          :key
-          :content="node"
-        />
-      </template>
-      <template #fallback>
-        <component
-          :is="editorNotLoadedSwitch.component"
-          :key
-          :content="node"
-        />
-      </template>
-    </Suspense>
-  </div>
+  <Suspense>
+    <template #default>
+      <component
+        :is="editor"
+        :key
+        :content="node"
+      />
+    </template>
+    <template #fallback>
+      <component
+        :is="editorNotLoadedSwitch.component"
+        :key
+        :content="node"
+      />
+    </template>
+  </Suspense>
 </template>
-<style scoped>
-.editor-node {
-  height: 100%;
-}
-</style>

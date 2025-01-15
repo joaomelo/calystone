@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
 
+import { EditorWorkspace } from "@/display/widgets/editor-workspace";
 import { TextCodec } from "@/domain";
 import { throwCritical } from "@/utils";
 import { debounce } from "lodash-es";
@@ -24,9 +25,11 @@ const handleUpdate = debounce(async (newText: string) => {
 }, 1000);
 </script>
 <template>
-  <CodeMirror
-    data-test="editor-text"
-    :model-value="text"
-    @update:model-value="handleUpdate"
-  />
+  <EditorWorkspace>
+    <CodeMirror
+      data-test="editor-text"
+      :model-value="text"
+      @update:model-value="handleUpdate"
+    />
+  </EditorWorkspace>
 </template>
