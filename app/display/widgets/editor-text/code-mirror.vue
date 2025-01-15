@@ -94,4 +94,10 @@ watch(
 .code-mirror :deep(.cm-focused) {
   outline: none;
 }
+
+.code-mirror :deep(.cm-gutters) {
+  background-color: revert;
+  border-inline-end-color: var(--p-text-muted-color);
+  color: var(--p-text-muted-color);
+}
 </style>
