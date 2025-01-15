@@ -21,6 +21,11 @@ function handleExpanded(id: Id) {
   if (node) void triggerLoad(node);
 }
 
+function handleClose() {
+  detail.value = false;
+  node.value = undefined;
+}
+
 function solveNode(id?: Id) {
   const node = (id) ? store.nodes.get(id) : undefined;
   return node;
@@ -51,7 +56,10 @@ async function triggerLoad(node: Node) {
       </template>
     </template>
     <template #detail>
-      <EditorSwitcher :node />
+      <EditorSwitcher
+        :node
+        @close="handleClose"
+      />
     </template>
   </MasterDetail>
 </template>

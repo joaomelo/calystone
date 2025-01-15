@@ -32,6 +32,7 @@ const key = computed(() => node?.id ?? "empty");
         :is="editor"
         :key
         :content="node"
+        v-bind="$attrs"
       />
     </template>
     <template #fallback>
