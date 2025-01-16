@@ -26,15 +26,24 @@ defineEmits<{
   </div>
 </template>
 <style scoped>
-.editor-workspace,
-.editor-workspace-content {
+.editor-workspace {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .editor-workspace-header {
+  flex: 0 0 auto;
+
   & :deep(.p-toolbar) {
     border: none;
     padding: var(--size-1);
   }
+}
+
+.editor-workspace-content {
+  flex: 1 1 auto;
+  overflow: hidden;
 }
 </style>
