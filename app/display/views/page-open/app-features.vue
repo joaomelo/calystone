@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { useI18n } from "@/display/i18n";
+import { Store } from "@/display/store";
 
 const { t } = useI18n();
+const { configuration } = Store.use();
+
+const version = configuration.get("version");
 </script>
 <template>
   <div class="app-features">
@@ -36,6 +40,9 @@ const { t } = useI18n();
         <p>{{ t('features.early-development.description') }}</p>
       </li>
     </ul>
+    <p class="app-features-version">
+      {{ version }}
+    </p>
   </div>
 </template>
 <style scoped>
@@ -49,5 +56,10 @@ const { t } = useI18n();
     flex-direction: column;
     gap: var(--size-3);
   }
+}
+
+.app-features-version {
+  font-size: var(--font-size-00);
+  color: var(--p-text-muted-color);
 }
 </style>
