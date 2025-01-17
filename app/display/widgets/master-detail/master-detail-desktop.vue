@@ -3,21 +3,21 @@ import Splitter from "primevue/splitter";
 import SplitterPanel from "primevue/splitterpanel";
 </script>
 <template>
-  <Splitter class="splitter-panel">
+  <Splitter class="master-detail-desktop">
     <SplitterPanel>
-      <slot name="start" />
+      <slot name="master" />
     </SplitterPanel>
     <SplitterPanel>
-      <slot name="end" />
+      <slot name="detail" />
     </SplitterPanel>
   </Splitter>
 </template>
 <style scoped>
-.splitter-panel {
+.master-detail-desktop {
   border: none;
 }
 
-.splitter-panel :deep(.p-splitter-gutter-handle) {
+.master-detail-desktop :deep(.p-splitter-gutter-handle) {
   /* important was required because a inline style is injected via javascript by the library */
   width: var(--border-size-1) !important
 }

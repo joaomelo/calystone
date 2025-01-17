@@ -1,50 +1,20 @@
 <script setup lang="ts">
-import { SplitterPanel } from "@/display/widgets/splitter-panel";
 import { useMediaQuery } from "@vueuse/core";
-import Drawer from "primevue/drawer";
+import { computed } from "vue";
 
-const visible = defineModel({
-  type: Boolean
-});
+import MasterDetailDesktop from "./master-detail-desktop.vue";
+import MasterDetailMobile from "./master-detail-mobile.vue";
 
 const isMobile = useMediaQuery("(max-width: 768px)");
+const masterDetailComponent = computed(() => isMobile.value ? MasterDetailMobile : MasterDetailDesktop);
 </script>
 <template>
-  <div v-if="isMobile">
-    <div>
-      <slot name="master" />
-    </div>
-    <Drawer
-      v-model:visible="visible"
-      position="full"
-    >
-      <template #container="{ closeCallback }">
-        <div class="master-detail-mobile-detail">
-          <slot
-            name="detail"
-            :close="closeCallback"
-          />
-        </div>
-      </template>
-    </Drawer>
-  </div>
-  <SplitterPanel v-else>
-    <template #start>
+  <component :is="masterDetailComponent">
+    <template #master>
       <slot name="master" />
     </template>
-    <template #end>
+    <template #detail>
       <slot name="detail" />
     </template>
-  </SplitterPanel>
+  </component>
 </template>
-<style scoped>
-.master-detail-mobile-detail-header :deep(.p-button) {
-  --button-size: var(--size-fluid-3);
-  height: var(--button-size);
-  width: var(--button-size);
-}
-
-.master-detail-mobile-detail {
-  height: 100%;
-}
-</style>
