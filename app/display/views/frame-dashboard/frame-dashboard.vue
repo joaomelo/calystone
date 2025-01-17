@@ -35,8 +35,15 @@ watch(
 .frame-dashboard {
   /* height is set to a fixed value so the vertical sidebar is always completly visible */
   height: 100dvh;
+  /* overflow hidden will force child components to offer they vertical scroll */
+  overflow: hidden;
+
   display: grid;
   grid-template-columns: auto 1fr;
-  overflow: hidden;
+
+  & main {
+    height: 100%;
+    overflow: hidden;
+  }
 }
 </style>

@@ -65,6 +65,6 @@ async function triggerLoad(node: Node) {
 </template>
 <style scoped>
 .page-outline {
-  height: 100dvh;
+  height: 100%;
 }
 </style>
