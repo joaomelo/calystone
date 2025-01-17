@@ -27,6 +27,11 @@ const visible = defineModel({
   </div>
 </template>
 <style scoped>
+.master-detail-mobile {
+  height: 100%;
+  overflow: hidden;
+}
+
 .master-detail-mobile-master {
   height: 100%;
   overflow: hidden;
