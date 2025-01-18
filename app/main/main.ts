@@ -30,6 +30,8 @@ export function initApp(elementId: string) {
 
   const configuration = new Configuration({
     enableMemory: import.meta.env.VITE_ENABLE_MEMORY ?? false,
+    googleDriveClientId: import.meta.env.VITE_GOOGLE_DRIVE_CLIENT_ID ?? null,
+    googleDriveRedirectUrl: `${window.location.origin}/transfer-google-drive`,
     name,
     oneDriveClientId: import.meta.env.VITE_ONE_DRIVE_CLIENT_ID ?? null,
     oneDriveRedirectUrl: `${window.location.origin}/transfer-one-drive`,

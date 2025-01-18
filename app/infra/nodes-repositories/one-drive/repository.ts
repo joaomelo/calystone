@@ -49,11 +49,11 @@ export class OneDriveNodesRepository extends NodesRepositoryBase<undefined> {
       };
     };
 
-    const data = await Promise.all([fetchArtifactContent(id), fetchArtifactMetadata(id)]);
+    const [contentData, metadataData] = await Promise.all([fetchArtifactContent(id), fetchArtifactMetadata(id)]);
 
     return {
-      ...data[0],
-      ...data[1]
+      ...contentData,
+      ...metadataData
     };
   }
 
