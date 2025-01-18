@@ -20,7 +20,17 @@ const version = configuration.get("version");
       </li>
       <li>
         <h2>{{ t('features.data-ownership.title') }}</h2>
-        <p>{{ t('features.data-ownership.description') }}</p>
+        <i18n-t
+          keypath="features.data-ownership.description"
+          tag="p"
+          scope="global"
+        >
+          <router-link
+            :to="{ name: 'privacy' }"
+          >
+            {{ t('features.data-ownership.privacy') }}
+          </router-link>
+        </i18n-t>
       </li>
       <li>
         <h2>{{ t('features.open-source.title') }}</h2>

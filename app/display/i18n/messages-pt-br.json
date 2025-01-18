@@ -24,7 +24,8 @@
   "exit": "sair",
   "features": {
     "data-ownership": {
-      "description": "Seus arquivos, seu controle. O Calystone não rastreia nem armazena nenhum dado sobre você ou seus arquivos. Fique atento às políticas de qualquer serviço de nuvem que você escolher.",
+      "description": "Calystone não rastreia nem armazena nenhum dado sobre você ou seus arquivos. Fique atento às políticas de qualquer serviço de nuvem que você escolher. Veja nossa {0} para saber mais.",
+      "privacy": "política de privacidade",
       "title": "Propriedade de Dados Flexível"
     },
     "early-development": {

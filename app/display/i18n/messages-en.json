@@ -24,7 +24,8 @@
   "exit": "exit",
   "features": {
     "data-ownership": {
-      "description": "Your files, your control. Calystone not track or store any data about you or your files. Be aware of the policies for any cloud service you choose.",
+      "description": "Calystone don't track or store any data about you or your files. Be aware of the policies for any cloud service you choose. See our {0} to learn more.",
+      "privacy": "privacy policy",
       "title": "Flexible Data Ownership"
     },
     "early-development": {
