@@ -14,7 +14,7 @@ export class SuitesPortfolio {
 
   constructor(configuration: Configuration) {
     this.dropbox = new DropboxSuite();
-    this.googleDrive = new GoogleDriveSuite();
+    this.googleDrive = new GoogleDriveSuite(configuration);
     this.fsa = new FsaSuite();
     this.memory = new MemorySuite(configuration);
     this.oneDrive = new OneDriveSuite(configuration);

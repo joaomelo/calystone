@@ -1,59 +1,56 @@
 <script setup lang="ts">
-import { activities, isActivity } from "@/display/activities";
+import type { ComputedRef } from "vue";
+
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { SideBar, SideItem } from "@/display/widgets";
-import { useRouter } from "vue-router";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
 const { t } = useI18n();
 const store = Store.use();
 
-const router = useRouter();
+const route = useRoute();
 
 const baseIcon = "bx bx-md";
 
-function handleUpdateActive(active: string) {
-  if (!isActivity(active)) return;
-  if (active === store.activity.value) return;
+const active: ComputedRef<string> = computed(() => {
+  if (typeof route.name === "string") return route.name;
+  return "outline";
+});
 
-  if (active === activities.open) {
-    store.nodesService.exit();
-    return;
-  }
+function handleReload() {
+  store.nodes.reconnect();
+}
 
-  if (active === activities.reload) {
-    store.nodes.reconnect();
-    return;
-  }
-
-  void router.push({ name: active });
+function handleExit() {
+  store.nodesService.exit();
 }
 </script>
 <template>
-  <SideBar
-    :active="store.activity.value"
-    @update:active="handleUpdateActive"
-  >
+  <SideBar :active="active">
     <template #default>
       <SideItem
-        :id="activities.outline"
-        :title="t(activities.outline)"
+        id="outline"
+        :title="t('outline')"
         :icon="`${baseIcon} bx-list-ul`"
         data-test="outline"
       />
     </template>
     <template #bottom>
       <SideItem
-        :id="activities.reload"
+        id="reload"
         :icon="`${baseIcon} bx-sync`"
         :title="t('reload')"
         data-test="reload"
+        @click="handleReload"
       />
       <SideItem
-        :id="activities.open"
+        id="exit"
         :icon="`${baseIcon} bx-log-out`"
         :title="t('exit')"
         data-test="exit"
+        @click="handleExit"
       />
     </template>
   </SideBar>

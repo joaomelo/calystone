@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { activities } from "@/display/activities";
 import { Store } from "@/display/store";
 import { watch } from "vue";
 import { useRouter } from "vue-router";
@@ -13,7 +12,7 @@ watch(
   () => store.connected.value,
   (connected) => {
     if (!connected) {
-      void router.push({ name: activities.open });
+      void router.push({ name: "open" });
     }
   },
   {

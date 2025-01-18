@@ -6,15 +6,9 @@ import { provideProvider } from "./provider";
 const { active } = defineProps<{
   active: string
 }>();
-const emit = defineEmits<{
-  "update:active": [active: string]
-}>();
-
-const reactiveActive = computed(() => active);
 
 provideProvider({
-  active: reactiveActive,
-  "update:active": (value: string) => { emit("update:active", value); }
+  active: computed(() => active),
 });
 </script>
 <template>

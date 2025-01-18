@@ -1,3 +1,5 @@
+import type { Configuration } from "@/utils";
+
 import { GoogleDriveAccess } from "@/infra/access-services";
 import { GoogleDriveNodesRepository } from "@/infra/nodes-repositories";
 import { GoogleDriveSupport } from "@/infra/support-services";
@@ -6,21 +8,28 @@ import type { SourceSuite } from "./suite";
 
 export class GoogleDriveSuite implements SourceSuite {
   access?: GoogleDriveAccess;
+  configuration: Configuration;
   support: GoogleDriveSupport;
 
-  constructor() {
-    this.support = new GoogleDriveSupport();
+  constructor(configuration: Configuration) {
+    this.support = new GoogleDriveSupport(configuration);
+    this.configuration = configuration;
+  }
+
+  accessOrCreate() {
+    if (!this.access) {
+      this.access = new GoogleDriveAccess(this.configuration);
+    }
+    return this.access;
   }
 
   repository() {
-    return new GoogleDriveNodesRepository();
+    const accessToken = this.accessOrCreate().acquire();
+    return new GoogleDriveNodesRepository(accessToken);
   }
 
   request() {
-    if (!this.access) {
-      this.access = new GoogleDriveAccess();
-    }
-    this.access.request();
+    this.accessOrCreate().request();
   }
 
   supports() {

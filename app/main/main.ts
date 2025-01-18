@@ -40,7 +40,7 @@ export function initApp(elementId: string) {
   const nodes = new Nodes();
   const nodesService = new NodesService(nodes, configuration);
 
-  const store = new Store({ configuration, nodes, nodesService, router });
+  const store = new Store({ configuration, nodes, nodesService });
   window.$store = store;
   app.use(store);
 

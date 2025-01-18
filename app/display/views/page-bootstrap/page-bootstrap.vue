@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Source } from "@/infra";
 
-import { activities, defaultActivity } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { onMounted } from "vue";
@@ -16,15 +15,12 @@ const { nodesService } = Store.use();
 const router = useRouter();
 
 onMounted(async () => {
-
   try {
     await nodesService.bootstrap(source);
+    void router.push({ name: "outline" });
   } catch {
-    void router.push({ name: activities.open });
-    return;
+    void router.push({ name: "open" });
   }
-
-  void router.push({ name: defaultActivity });
 });
 
 </script>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Source } from "@/infra";
 
-import { activities } from "@/display/activities";
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/widgets";
@@ -23,7 +22,7 @@ const { nodesService } = Store.use();
 async function handleClick() {
   try {
     await nodesService.request(source);
-    void router.push({ name: activities.bootstrap, params: { source } });
+    void router.push({ name: "bootstrap", params: { source } });
   } catch (error) {
     toast(error);
   }

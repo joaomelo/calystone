@@ -10,12 +10,15 @@ const { disabled = false, icon, id, title } = defineProps<{
   id: string,
   title: string,
 }>();
+const emit = defineEmits<{
+  click: []
+}>();
 
 const provider = useProvider();
 const active = computed(() => id === toValue(provider.active));
 function handleClick() {
   if (active.value || disabled) return;
-  provider["update:active"](id);
+  emit("click");
 }
 </script>
 <template>

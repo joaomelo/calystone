@@ -16,20 +16,20 @@ export class OneDriveSuite implements SourceSuite{
     this.configuration = configuration;
   }
 
-  async repository() {
+  accessOrCreate() {
     if (!this.access) {
-      // one drive workflow involves redirects. it is necessary to instantiate the access service again before acquiring the token.
       this.access = new OneDriveAccess(this.configuration);
     }
-    const accessToken = await this.access.acquire();
+    return this.access;
+  }
+
+  async repository() {
+    const accessToken = await this.accessOrCreate().acquire();
     return new OneDriveNodesRepository(accessToken);
   }
 
   async request() {
-    if (!this.access) {
-      this.access = new OneDriveAccess(this.configuration);
-    }
-    await this.access.request();
+    await this.accessOrCreate().request();
   }
 
   supports() {

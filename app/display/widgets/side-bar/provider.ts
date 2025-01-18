@@ -2,7 +2,6 @@ import { inject, type InjectionKey, type MaybeRefOrGetter, provide } from "vue";
 
 interface Provider {
   active: MaybeRefOrGetter<string>,
-  "update:active": (value: string) => void
 };
 
 export const key = Symbol() as InjectionKey<Provider>;

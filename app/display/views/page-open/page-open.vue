@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from "@/display/i18n";
-import { CardPanel } from "@/display/widgets";
 
 import AppFeatures from "./app-features.vue";
 import InputLocale from "./input-locale.vue";
@@ -9,33 +8,19 @@ const { t } = useI18n();
 </script>
 <template>
   <div class="page-open">
-    <CardPanel>
-      <template #content>
-        <div class="page-open-panels">
-          <div class="page-open-panels-features page-open-panels-panel">
-            <AppFeatures />
-          </div>
-          <div class="page-open-panels-divider" />
-          <div class="page-open-panels-actions page-open-panels-panel">
-            <h2>{{ t('open.title') }}</h2>
-            <OpenActions />
-            <InputLocale />
-          </div>
-        </div>
-      </template>
-    </CardPanel>
+    <div class="page-open-features page-open-panel">
+      <AppFeatures />
+    </div>
+    <div class="page-open-divider" />
+    <div class="page-open-actions page-open-panel">
+      <h2>{{ t('open.title') }}</h2>
+      <OpenActions />
+      <InputLocale />
+    </div>
   </div>
 </template>
 <style scoped>
 .page-open {
-  min-height: 100dvh;
-  background-color: var(--p-surface-100);
-  display: grid;
-  place-items: center;
-  padding: var(--size-fluid-2);
-}
-
-.page-open-panels {
   display: flex;
   flex-direction: column;
 
@@ -44,7 +29,7 @@ const { t } = useI18n();
   }
 }
 
-.page-open-panels-panel {
+.page-open-panel {
   --padding: var(--size-fluid-2);
   padding-inline: var(--padding);
 
@@ -53,7 +38,7 @@ const { t } = useI18n();
   }
 }
 
-.page-open-panels-divider {
+.page-open-divider {
   --border: var(--border-size-1) solid var(--p-primary-200);
   --margin: var(--size-fluid-4);
   flex: 0;
@@ -69,7 +54,7 @@ const { t } = useI18n();
   }
 }
 
-.page-open-panels-actions {
+.page-open-actions {
   display: flex;
   flex-direction: column;
   text-align: center;
