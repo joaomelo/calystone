@@ -38,6 +38,6 @@ export const pageOutline = {
         .filter((_, el) => pageOutline.selectors.tree.labelOf(el).includes(".txt")),
       toogleOf: (node: Cypress.Chainable) => node.find(".p-tree-node-toggle-button"),
     },
-    url: () => "/in/outline"
+    url: () => "/outline"
   }
 } as const;
