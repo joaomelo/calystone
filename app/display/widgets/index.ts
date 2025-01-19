@@ -3,6 +3,7 @@ export * from "./card-panel";
 export * from "./editor-switcher";
 export * from "./frame-card";
 export * from "./frame-dashboard";
+export * from "./frame-text";
 export * from "./input-select-button";
 export * from "./input-textarea";
 export * from "./master-detail";

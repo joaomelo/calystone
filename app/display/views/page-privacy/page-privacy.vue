@@ -1,12 +1,11 @@
 <script setup>
-import { FrameCard } from "@/display/widgets";
+import { FrameText } from "@/display/widgets";
 </script>
 <template>
-  <FrameCard>
-    <h1>Privacy Policy for Calystone</h1>
-
-    <p>Effective Date: 2025-01-18</p>
-
+  <FrameText
+    title="Privacy Policy for Calystone"
+    date="2025-01-18"
+  >
     <h2>Introduction</h2>
     <p>Calystone (“we,” “us,” or “our”) is an open-source self-management app centered around user-controlled files. This Privacy Policy explains how we access, use, store, or share data from users of our application, including data accessed through third-party cloud providers Google Drive, OneDrive and Dropbox (from now on called "file services"), and your local file system.</p>
 
@@ -39,24 +38,5 @@ import { FrameCard } from "@/display/widgets";
 
     <h2>Contact</h2>
     <p>If you have any questions about this Privacy Policy or how Calystone uses your data, please contact us via the project’s GitHub page or other communication channels listed on the homepage.</p>
-
-    <div class="page-privacy-home">
-      <router-link :to="{ name: 'open' }">
-        Back to Home
-      </router-link>
-    </div>
-  </FrameCard>
+  </FrameText>
 </template>
-<style scoped>
-h2 {
-  font-size: var(--font-size-2);
-}
-
-p {
-  margin-block-end: var(--size-3);
-}
-
-.page-privacy-home {
-  text-align: end;
-}
-</style>

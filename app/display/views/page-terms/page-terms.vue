@@ -1,11 +1,11 @@
 <script setup>
-import { FrameCard } from "@/display/widgets";
+import { FrameText } from "@/display/widgets";
 </script>
 <template>
-  <FrameCard>
-    Terms of Service for Calystone
-    Effective Date: January 18, 2025
-
+  <FrameText
+    title="Terms of Service for Calystone"
+    date="2025-01-19"
+  >
     1. Acceptance of Terms
     By accessing or using Calystone (“the App”), you agree to be bound by these Terms of Service (“Terms”). If you do not agree, you may not use Calystone. These Terms apply to all visitors, users, and others who access Calystone.
 
@@ -63,24 +63,5 @@ import { FrameCard } from "@/display/widgets";
 
     11. Contact Information
     If you have any questions about these Terms or Calystone, please reach out via the project’s GitHub page or other communication channels listed on our homepage.
-
-    <div class="page-privacy-home">
-      <router-link :to="{ name: 'open' }">
-        Back to Home
-      </router-link>
-    </div>
-  </FrameCard>
+  </FrameText>
 </template>
-<style scoped>
-h2 {
-  font-size: var(--font-size-2);
-}
-
-p {
-  margin-block-end: var(--size-3);
-}
-
-.page-privacy-home {
-  text-align: end;
-}
-</style>
