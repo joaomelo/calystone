@@ -1,7 +1,8 @@
 <script setup>
+import { FrameCard } from "@/display/widgets";
 </script>
 <template>
-  <div>
+  <FrameCard>
     <h1>Privacy Policy for Calystone</h1>
 
     <p>Effective Date: 2025-01-18</p>
@@ -44,7 +45,7 @@
         Back to Home
       </router-link>
     </div>
-  </div>
+  </FrameCard>
 </template>
 <style scoped>
 h2 {

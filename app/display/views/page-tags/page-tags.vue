@@ -1,5 +1,6 @@
 <script setup lang="ts">
+import { FrameDashboard } from "@/display/widgets";
 </script>
 <template>
-  <div>tags</div>
+  <FrameDashboard>tags</FrameDashboard>
 </template>

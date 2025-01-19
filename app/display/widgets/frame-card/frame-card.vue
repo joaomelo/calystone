@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { CardPanel } from "@/display/widgets";
+import { CardPanel } from "@/display/widgets/card-panel";
 </script>
 <template>
   <div class="frame-card">
     <CardPanel>
       <template #content>
-        <router-view />
+        <slot />
       </template>
     </CardPanel>
   </div>

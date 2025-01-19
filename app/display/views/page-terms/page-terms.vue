@@ -1,7 +1,8 @@
 <script setup>
+import { FrameCard } from "@/display/widgets";
 </script>
 <template>
-  <div>
+  <FrameCard>
     Terms of Service for Calystone
     Effective Date: January 18, 2025
 
@@ -68,7 +69,7 @@
         Back to Home
       </router-link>
     </div>
-  </div>
+  </FrameCard>
 </template>
 <style scoped>
 h2 {

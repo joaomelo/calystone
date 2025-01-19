@@ -2,7 +2,7 @@
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorSwitcher, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
+import { EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
 import { ref } from "vue";
 
 const toast = useErrorToast();
@@ -41,27 +41,29 @@ async function triggerLoad(node: Node) {
 
 </script>
 <template>
-  <MasterDetail
-    v-model="detail"
-    class="page-outline"
-  >
-    <template #master>
-      <template v-if="store.nodes !== undefined">
-        <OutlineNodes
-          :nodes="store.nodes"
-          class="page-outline-start"
-          @selected="handleSelected"
-          @expanded="handleExpanded"
+  <FrameDashboard>
+    <MasterDetail
+      v-model="detail"
+      class="page-outline"
+    >
+      <template #master>
+        <template v-if="store.nodes !== undefined">
+          <OutlineNodes
+            :nodes="store.nodes"
+            class="page-outline-start"
+            @selected="handleSelected"
+            @expanded="handleExpanded"
+          />
+        </template>
+      </template>
+      <template #detail>
+        <EditorSwitcher
+          :node
+          @close="handleClose"
         />
       </template>
-    </template>
-    <template #detail>
-      <EditorSwitcher
-        :node
-        @close="handleClose"
-      />
-    </template>
-  </MasterDetail>
+    </MasterDetail>
+  </FrameDashboard>
 </template>
 <style scoped>
 .page-outline {

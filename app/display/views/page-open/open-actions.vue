@@ -11,6 +11,12 @@ import OpenAction from "./open-action.vue";
       source="memory"
     />
     <OpenAction
+      source="fsa"
+      label="open.fsa"
+      data-test="open-fsa"
+      icon="bx bx-hdd"
+    />
+    <OpenAction
       label="open.google-drive"
       data-test="open-google-drive"
       icon="bx bxl-google"
@@ -27,12 +33,6 @@ import OpenAction from "./open-action.vue";
       data-test="open-dropbox"
       icon="bx bxl-dropbox"
       source="dropbox"
-    />
-    <OpenAction
-      source="fsa"
-      label="open.fsa"
-      data-test="open-fsa"
-      icon="bx bx-hdd"
     />
   </div>
 </template>

@@ -25,7 +25,7 @@ watch(
   <div class="frame-dashboard">
     <FrameDashboardSide />
     <main>
-      <router-view />
+      <slot />
     </main>
   </div>
 </template>

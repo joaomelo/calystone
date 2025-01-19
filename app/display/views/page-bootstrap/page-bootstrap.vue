@@ -3,6 +3,7 @@ import type { Source } from "@/infra";
 
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
+import { FrameCard } from "@/display/widgets";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 
@@ -25,5 +26,7 @@ onMounted(async () => {
 
 </script>
 <template>
-  <div>{{ t("loading") }}</div>
+  <FrameCard>
+    <div>{{ t("loading") }}</div>
+  </FrameCard>
 </template>

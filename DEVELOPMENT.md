@@ -28,17 +28,15 @@ Starts the applicaton, initializes app level state and stablish runtime dependen
 
 ## Display
 
-Make the app move. It grabs and transform state from `domain` and show it to the user, then captures events triggered by the user ans translates them into funtion or method calls to `domain`.
+Make the app moves. It grabs and transform state from `domain` and show it to the user, then captures events triggered by the user ans translates them into calls to `domain`.
 
 ```mermaid
 graph LR;
   subgraph router
-    routeA --> routeA1;
-    routeA --> routeA2;
+    routeA;
     routeB
   end
   subgraph views
-    frameW;
     pageX;
     pageU;
   end
@@ -50,20 +48,23 @@ graph LR;
     component
   end
 
-  routeA1 --> frameW;
-  routeA2 --> pageX;
+  routeA --> pageX;
   routeB --> pageU
   pageX --> widgetN
-  frameW --> widgetN;
   pageU --> widgetM;
+  pageU --> widgetN;
   widgetM --> component
 ```
 
 ### Routes
 
-The top structure starts at the route level. Routes are objects that define the entry points available to the user. The shape of the route objects are defined by the vue-router library API.
+The top structure starts at the route level. Routes are objects that define the entry points available to the user. The shape of the route objects are defined by the vue-router library API. 
 
-The route will render zero or one view component. Routes can have children routes to enable view nesting. It can render a control for a frame in case of a shared layout and then a child route with the corresponding main page.
+The route will render a view component. 
+
+The library supports the concept of nested routes to enable a sort of layout structure. This is not allowed in this app design. This approach couples the route configuration to the component tree and can become a maintence burden. 
+
+Pages should mount their layout inside their own template. They can reuse capabilities by composing the layout with widgets.
 
 ### Views
 

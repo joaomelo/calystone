@@ -1,5 +1,6 @@
 <script setup lang="ts">
+import { FrameDashboard } from "@/display/widgets";
 </script>
 <template>
-  <div>search</div>
+  <FrameDashboard>search</FrameDashboard>
 </template>

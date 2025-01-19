@@ -3,7 +3,7 @@ import type { ComputedRef } from "vue";
 
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
-import { SideBar, SideItem } from "@/display/widgets";
+import { SideBar, SideItem } from "@/display/widgets/side-bar";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
