@@ -16,21 +16,22 @@
   "email": "email",
   "empty": "When you select an node on the outline, its details will show here.",
   "errors": {
-    "UNABLE_OPEN": "Unable to open files",
-    "UNABLE_POST_CONTENT": "Unable to save content to file",
     "UNABLE_FETCH_CONTENT": "Unable to fetch content from file",
-    "UNABLE_LOAD": "Unable to load node data"
+    "UNABLE_LOAD": "Unable to load node data",
+    "UNABLE_OPEN": "Unable to open files",
+    "UNABLE_POST_CONTENT": "Unable to save content to file"
   },
   "exit": "exit",
   "features": {
-    "data-ownership": {
-      "description": "Calystone don't track or store any data about you or your files. Be aware of the policies for any cloud service you choose. See our {0} to learn more.",
-      "privacy": "privacy policy",
-      "title": "Flexible Data Ownership"
+    "continuous-development": {
+      "description": "We are continually working to improve its reliability. Because we can’t guarantee complete accuracy, please use it with care and maintain regular backups of your files. Additionally, by using Calystone, you acknowledge our {0} and agree to use the app responsibly.",
+      "terms": "Terms of Service",
+      "title": "Calystone is an Evolving project"
     },
-    "early-development": {
-      "description": "Calystone is still evolving, and we can’t guarantee full stability or functionality yet.",
-      "title": "Early Development"
+    "data-ownership": {
+      "description": "Calystone doesn't track or store any data about you or your files. Be aware of the policies for any cloud service you choose. See our {0} to learn more.",
+      "privacy": "Privacy Policy",
+      "title": "Flexible Data Ownership"
     },
     "header": {
       "description": "An open-source self-management app built around your files.",
@@ -52,13 +53,13 @@
   "name": "name",
   "node": "node",
   "nodes": "nodes",
-  "not-loaded": "Please, wait a moment while this node is loaded.",
+  "not-loaded": "Please wait a moment while this node is loaded.",
   "notes": "notes",
   "open": {
     "dropbox": "Dropbox",
     "fsa": "File System",
     "google-drive": "Google Drive",
-    "memory": "Memory",
+    "memory": "In-App Memory",
     "one-drive": "OneDrive",
     "title": "Access your files using one of the methods below"
   },

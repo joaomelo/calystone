@@ -1,4 +1,4 @@
-import { FrameCard, FrameDashboard, PageOpen, PageOutline, PagePrivacy, PageSearch, PageTags } from "@/display/views";
+import { FrameCard, FrameDashboard, PageOpen, PageOutline, PagePrivacy, PageSearch, PageTags, PageTerms } from "@/display/views";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 import PageBootstrap from "../views/page-bootstrap/page-bootstrap.vue";
@@ -20,6 +20,7 @@ export function createRouter() {
       children: [
         { component: PageOpen, name: "open", path: "open" },
         { component: PagePrivacy, name: "privacy", path: "privacy" },
+        { component: PageTerms, name: "terms", path: "terms" },
         { component: PageBootstrap, name: "bootstrap", path: "bootstrap/:source", props: true },
 
       ],

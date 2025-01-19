@@ -46,8 +46,18 @@ const version = configuration.get("version");
         </i18n-t>
       </li>
       <li>
-        <h2>{{ t('features.early-development.title') }}</h2>
-        <p>{{ t('features.early-development.description') }}</p>
+        <h2>{{ t('features.continuous-development.title') }}</h2>
+        <i18n-t
+          keypath="features.continuous-development.description"
+          tag="p"
+          scope="global"
+        >
+          <router-link
+            :to="{ name: 'terms' }"
+          >
+            {{ t('features.continuous-development.terms') }}
+          </router-link>
+        </i18n-t>
       </li>
     </ul>
     <p class="app-features-version">

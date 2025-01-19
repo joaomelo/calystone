@@ -1,0 +1,1 @@
+export { default as PageTerms } from "./page-terms.vue";

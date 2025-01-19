@@ -1,6 +1,6 @@
 {
   "activate": "ativar",
-  "add": "novo",
+  "add": "adicionar",
   "append": "acrescentar",
   "cancel": "cancelar",
   "cancelled": "cancelado",
@@ -14,30 +14,31 @@
   "done": "pronto",
   "edit": "editar",
   "email": "email",
-  "empty": "Quando você selecionar um artefato na hierarquia, suas informações serão mostradas aqui.",
+  "empty": "Quando você selecionar um nó na hierarquia, suas informações serão mostradas aqui.",
   "errors": {
-    "UNABLE_OPEN": "Não foi possível abrir arquivos",
-    "UNABLE_POST_CONTENT": "Não foi possível salvar o conteúdo no arquivo",
     "UNABLE_FETCH_CONTENT": "Não foi possível carregar o conteúdo do arquivo",
-    "UNABLE_LOAD": "Não foi possível carregar os dados do item"
+    "UNABLE_LOAD": "Não foi possível carregar os dados do nó",
+    "UNABLE_OPEN": "Não foi possível abrir arquivos",
+    "UNABLE_POST_CONTENT": "Não foi possível salvar o conteúdo no arquivo"
   },
   "exit": "sair",
   "features": {
+    "continuous-development": {
+      "description": "Estamos continuamente trabalhando para melhorar sua confiabilidade. Como não podemos garantir total precisão, use com cuidado e mantenha backups regulares de seus arquivos. Além disso, ao usar o Calystone, você reconhece nossos {0} e concorda em usar o aplicativo de forma responsável.",
+      "terms": "Termos de Serviço",
+      "title": "Calystone é um Projeto em Evolução"
+    },
     "data-ownership": {
       "description": "Calystone não rastreia nem armazena nenhum dado sobre você ou seus arquivos. Fique atento às políticas de qualquer serviço de nuvem que você escolher. Veja nossa {0} para saber mais.",
-      "privacy": "política de privacidade",
+      "privacy": "Política de Privacidade",
       "title": "Propriedade de Dados Flexível"
-    },
-    "early-development": {
-      "description": "O Calystone ainda está em evolução, e não podemos garantir estabilidade ou funcionalidade neste momento.",
-      "title": "Desenvolvimento inicial"
     },
     "header": {
       "description": "Um aplicativo de autogestão de código aberto, criado em torno dos seus arquivos.",
       "title": "Bem-vindo ao Calystone"
     },
     "note-taking": {
-      "description": "Edite notas rapidamente, utilizando a estrutura familiar que você já organizou para seus diretórios e arquivos.",
+      "description": "Edite notas rapidamente, utilizando a estrutura familiar em que você já organiza para seus diretórios e arquivos.",
       "title": "Anotações sem complicações"
     },
     "open-source": {
@@ -50,13 +51,13 @@
   "language": "idioma",
   "loading": "carregando",
   "name": "nome",
-  "node": "artefato",
-  "nodes": "artefatos",
-  "not-loaded": "Por favor, aguarde um momento enquanto esse item é carregado.",
+  "node": "nó",
+  "nodes": "nós",
+  "not-loaded": "Por favor, aguarde um momento enquanto esse nó é carregado.",
   "notes": "notas",
   "open": {
     "dropbox": "Dropbox",
-    "fsa": "File System",
+    "fsa": "Arquivos Locais",
     "google-drive": "Google Drive",
     "memory": "Memory",
     "one-drive": "OneDrive",
@@ -66,7 +67,6 @@
   "outline": "hierarquia",
   "path": "caminho",
   "preferences": "preferências",
-  "prepare": "Por favor, aguarde enquanto preparamos sua sessão.",
   "reload": "recarregar",
   "save": "salvar",
   "search": "buscar",

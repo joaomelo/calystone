@@ -6,3 +6,4 @@ export * from "./page-outline";
 export * from "./page-privacy";
 export * from "./page-search";
 export * from "./page-tags";
+export * from "./page-terms";
