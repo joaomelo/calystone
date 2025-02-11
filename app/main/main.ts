@@ -29,6 +29,8 @@ export function initApp(elementId: string) {
   app.use(router);
 
   const configuration = new Configuration({
+    dropboxClientId: import.meta.env.VITE_DROPBOX_CLIENT_ID ?? null,
+    dropboxRedirectUrl: `${window.location.origin}/transfer-dropbox`,
     enableMemory: import.meta.env.VITE_ENABLE_MEMORY ?? false,
     googleDriveClientId: import.meta.env.VITE_GOOGLE_DRIVE_CLIENT_ID ?? null,
     googleDriveRedirectUrl: `${window.location.origin}/transfer-google-drive`,

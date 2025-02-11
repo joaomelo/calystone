@@ -8,6 +8,10 @@ export function createRouter() {
     { path: "/", redirect: { name: "open" } },
 
     {
+      path: "/transfer-dropbox",
+      redirect: { name: "bootstrap", params: { source: "dropbox" } }
+    },
+    {
       path: "/transfer-one-drive",
       redirect: { name: "bootstrap", params: { source: "one-drive" } }
     },
