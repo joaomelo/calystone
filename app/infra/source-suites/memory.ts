@@ -1,36 +1,23 @@
-import type { Configuration } from "@/utils";
-
-import { MemoryAccess } from "@/infra/access-services";
+import { MemoryAccess, NullAccess } from "@/infra/access-services";
 import { MemoryNodesRepository } from "@/infra/nodes-repositories";
 import { MemorySupport } from "@/infra/support-services";
-import { throwError } from "@/utils";
 
-import type { SourceSuite } from "./suite";
+import { SourceSuiteBase } from "./base";
 
-export class MemorySuite implements SourceSuite {
-  access?: MemoryAccess;
-  support: MemorySupport;
-
-  constructor(configuration: Configuration) {
-    this.support = new MemorySupport(configuration);
+export class MemorySuite extends SourceSuiteBase<string> {
+  constructor({ enabled }: Options) {
+    const support = new MemorySupport({ enabled });
+    const access = support.supports()
+      ? new MemoryAccess()
+      : new NullAccess<string>();
+    super({ access, support });
   }
 
-  repository() {
-    if (!this.access) {
-      throwError("NO_ACCESS", "memory suite has no access service");
-    }
-    const rootDirectoryName = this.access.acquire();
-    return new MemoryNodesRepository(rootDirectoryName);
+  createRepository(options: string) {
+    return new MemoryNodesRepository(options);
   }
+}
 
-  request() {
-    if (!this.access) {
-      this.access = new MemoryAccess();
-    }
-    this.access.request();
-  }
-
-  supports() {
-    return this.support.supports();
-  }
+interface Options {
+  enabled: boolean
 }

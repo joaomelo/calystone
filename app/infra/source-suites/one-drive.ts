@@ -1,38 +1,25 @@
-import type { Configuration } from "@/utils";
-
-import { OneDriveAccess } from "@/infra/access-services";
+import { NullAccess, OneDriveAccess } from "@/infra/access-services";
 import { OneDriveNodesRepository } from "@/infra/nodes-repositories";
-import { OneDriveSupport } from "@/infra/support-services";
+import { CloudSupport } from "@/infra/support-services";
 
-import type { SourceSuite } from "./suite";
+import { SourceSuiteBase } from "./base";
 
-export class OneDriveSuite implements SourceSuite{
-  access?: OneDriveAccess;
-  configuration: Configuration;
-  support: OneDriveSupport;
+export class OneDriveSuite extends SourceSuiteBase<string>{
 
-  constructor(configuration: Configuration) {
-    this.support = new OneDriveSupport(configuration);
-    this.configuration = configuration;
+  constructor({ clientId, redirectUrl }: Options) {
+    const support = new CloudSupport({ clientId, redirectUrl });
+    const access = (support.supports() && clientId && redirectUrl)
+      ? new OneDriveAccess({ clientId, redirectUrl })
+      : new NullAccess<string>();
+    super({ access, support });
   }
 
-  accessOrCreate() {
-    if (!this.access) {
-      this.access = new OneDriveAccess(this.configuration);
-    }
-    return this.access;
-  }
-
-  async repository() {
-    const accessToken = await this.accessOrCreate().acquire();
+  createRepository(accessToken: string) {
     return new OneDriveNodesRepository(accessToken);
   }
+}
 
-  async request() {
-    await this.accessOrCreate().request();
-  }
-
-  supports() {
-    return this.support.supports();
-  }
+interface Options {
+  clientId: string | undefined
+  redirectUrl: string | undefined
 }

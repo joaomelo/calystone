@@ -1,29 +1,25 @@
-import { DropboxAccess } from "@/infra/access-services";
+import { DropboxAccess, NullAccess } from "@/infra/access-services";
 import { DropboxNodesRepository } from "@/infra/nodes-repositories";
-import { DropboxSupport } from "@/infra/support-services";
+import { CloudSupport } from "@/infra/support-services";
 
-import type { SourceSuite } from "./suite";
+import { SourceSuiteBase } from "./base";
 
-export class DropboxSuite implements SourceSuite {
-  access?: DropboxAccess;
-  support: DropboxSupport;
+export class DropboxSuite extends SourceSuiteBase<string> {
 
-  constructor() {
-    this.support = new DropboxSupport();
+  constructor({ clientId, redirectUrl }: Options) {
+    const support = new CloudSupport({ clientId, redirectUrl });
+    const access = (support.supports() && clientId && redirectUrl)
+      ? new DropboxAccess({ clientId, redirectUrl })
+      : new NullAccess<string>();
+    super({ access, support });
   }
 
-  repository() {
-    return new DropboxNodesRepository();
+  createRepository(accessToken: string) {
+    return new DropboxNodesRepository(accessToken);
   }
+}
 
-  request() {
-    if (!this.access) {
-      this.access = new DropboxAccess();
-    }
-    this.access.request();
-  }
-
-  supports() {
-    return this.support.supports();
-  }
+interface Options {
+  clientId: string | undefined
+  redirectUrl: string | undefined
 }

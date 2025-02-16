@@ -1,34 +1,20 @@
-import { FsaAccess } from "@/infra/access-services";
+import { FsaAccess, NullAccess } from "@/infra/access-services";
 import { FsaNodesRepository } from "@/infra/nodes-repositories";
 import { FsaSupport } from "@/infra/support-services";
-import { throwError } from "@/utils";
 
-import type { SourceSuite } from "./suite";
+import { SourceSuiteBase } from "./base";
 
-export class FsaSuite implements SourceSuite{
-  access?: FsaAccess;
-  support: FsaSupport;
+export class FsaSuite extends SourceSuiteBase<FileSystemDirectoryHandle>{
 
   constructor() {
-    this.support = new FsaSupport();
+    const support = new FsaSupport();
+    const access = support.supports()
+      ? new FsaAccess()
+      : new NullAccess<FileSystemDirectoryHandle>();
+    super({ access, support });
   }
 
-  repository() {
-    if (!this.access) {
-      throwError("NO_ACCESS", "Fsa suite has no access service");
-    }
-    const rootHandle = this.access.acquire();
-    return new FsaNodesRepository(rootHandle);
-  }
-
-  async request() {
-    if (!this.access) {
-      this.access = new FsaAccess();
-    }
-    await this.access.request();
-  }
-
-  supports() {
-    return this.support.supports();
+  createRepository(options: FileSystemDirectoryHandle) {
+    return new FsaNodesRepository(options);
   }
 }

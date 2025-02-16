@@ -1,38 +1,24 @@
-import type { Configuration } from "@/utils";
-
-import { GoogleDriveAccess } from "@/infra/access-services";
+import { GoogleDriveAccess, NullAccess } from "@/infra/access-services";
 import { GoogleDriveNodesRepository } from "@/infra/nodes-repositories";
-import { GoogleDriveSupport } from "@/infra/support-services";
+import { CloudSupport } from "@/infra/support-services";
 
-import type { SourceSuite } from "./suite";
+import { SourceSuiteBase } from "./base";
 
-export class GoogleDriveSuite implements SourceSuite {
-  access?: GoogleDriveAccess;
-  configuration: Configuration;
-  support: GoogleDriveSupport;
-
-  constructor(configuration: Configuration) {
-    this.support = new GoogleDriveSupport(configuration);
-    this.configuration = configuration;
+export class GoogleDriveSuite extends SourceSuiteBase<string> {
+  constructor({ clientId, redirectUrl }: Options) {
+    const support = new CloudSupport({ clientId, redirectUrl });
+    const access = (support.supports() && clientId && redirectUrl)
+      ? new GoogleDriveAccess({ clientId, redirectUrl })
+      : new NullAccess<string>();
+    super({ access, support });
   }
 
-  accessOrCreate() {
-    if (!this.access) {
-      this.access = new GoogleDriveAccess(this.configuration);
-    }
-    return this.access;
-  }
-
-  repository() {
-    const accessToken = this.accessOrCreate().acquire();
+  createRepository(accessToken: string) {
     return new GoogleDriveNodesRepository(accessToken);
   }
+}
 
-  request() {
-    this.accessOrCreate().request();
-  }
-
-  supports() {
-    return this.support.supports();
-  }
+interface Options {
+  clientId: string | undefined
+  redirectUrl: string | undefined
 }
