@@ -1,31 +1,29 @@
 import type { ArtifactData, Id, Kind, NodeDataAndKind } from "@/domain";
 
+import { createId } from "@/domain";
 import { throwError } from "@/utils";
 import { Dropbox } from "dropbox";
 
 import { NodesRepositoryBase } from "../base";
 
-export class DropboxNodesRepository extends NodesRepositoryBase<undefined> {
+export class DropboxNodesRepository extends NodesRepositoryBase<string> {
   dropboxClient: Dropbox;
 
   constructor(accessToken: string) {
     const rootLowerPath = "";
     const rootData: NodeDataAndKind = {
-      id: rootLowerPath,
+      id: createId(),
       kind: "directory",
       name: "Dropbox",
       parentId: undefined
     };
-    super({ rootData, rootMetadata: undefined });
+    super({ rootData, rootMetadata: rootLowerPath });
     this.dropboxClient = new Dropbox({ accessToken });
   }
 
   async fetchArtifact(id: Id): Promise<ArtifactData> {
-    if (id === "root") {
-      throwError("DROPBOX_FETCH_ROOT_ARTIFACT", "Cannot fetch artifact for root directory");
-    }
-
-    const response = await this.dropboxClient.filesDownload({ path: id });
+    const path = this.metadataOrThrow(id);
+    const response = await this.dropboxClient.filesDownload({ path });
 
     // if (!("fileBlob" in response.result) || !response.result.fileBlob) {
     //   throwError("DROPBOX_FILE_DOWNLOAD_FAILURE", `No blob was returned when downloading '${id}'`);
@@ -45,19 +43,27 @@ export class DropboxNodesRepository extends NodesRepositoryBase<undefined> {
   }
 
   async openDirectory(id: Id): Promise<NodeDataAndKind[]> {
-    const result = await this.dropboxClient.filesListFolder({ path: id });
+    const path = this.metadataOrThrow(id);
+    const result = await this.dropboxClient.filesListFolder({ path });
+
     const entries = result.result.entries.map((entry) => {
       if (typeof entry.path_lower !== "string") {
         throwError("DROPBOX_UNMOUNTED_NODE", "cannot open dropbox directory with nodes that do not have a path");
       }
 
+      const childId = createId();
+      const childPath = entry.path_lower;
+
+      this.nodesMetadata.set(childId, childPath);
+
       const kind: Kind = entry[".tag"] === "folder" ? "directory" : "artifact";
-      return {
-        id: entry.path_lower,
+      const childData = {
+        id: childId,
         kind,
         name: entry.name,
         parentId: id
       };
+      return childData;
     });
     return entries;
   }
