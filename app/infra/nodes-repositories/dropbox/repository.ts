@@ -25,20 +25,16 @@ export class DropboxNodesRepository extends NodesRepositoryBase<string> {
     const path = this.metadataOrThrow(id);
     const response = await this.dropboxClient.filesDownload({ path });
 
-    // if (!("fileBlob" in response.result) || !response.result.fileBlob) {
-    //   throwError("DROPBOX_FILE_DOWNLOAD_FAILURE", `No blob was returned when downloading '${id}'`);
-    // }
+    if (!("fileBlob" in response.result) || !(response.result.fileBlob instanceof Blob)) {
+      throwError("DROPBOX_FILE_DOWNLOAD_FAILURE", `No blob was returned when downloading '${id}'`);
+    }
 
-    // const content = await response.result.fileBlob.arrayBuffer();
-    const bytes = new TextEncoder().encode("todo");
-    const content = new ArrayBuffer(bytes.length);
-    const view = new Uint8Array(content);
-    view.set(bytes);
-
+    const content = await response.result.fileBlob.arrayBuffer();
     const size = response.result.size;
     const lastModified = response.result.server_modified
       ? new Date(response.result.server_modified).getTime()
-      : 0;
+      : Date.now();
+
     return { content, lastModified, size };
   }
 
@@ -69,10 +65,11 @@ export class DropboxNodesRepository extends NodesRepositoryBase<string> {
   }
 
   async postArtifact(id: Id, content: ArrayBuffer): Promise<void> {
+    const path = this.metadataOrThrow(id);
     await this.dropboxClient.filesUpload({
       contents: content,
       mode: { ".tag": "overwrite" },
-      path: id
+      path
     });
   }
 }
