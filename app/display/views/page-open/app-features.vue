@@ -3,9 +3,9 @@ import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 
 const { t } = useI18n();
-const { configuration } = Store.use();
+const { appData } = Store.use();
 
-const version = configuration.get("version");
+const { version } = appData;
 </script>
 <template>
   <div class="app-features">

@@ -11,7 +11,7 @@ import App from "./app.vue";
 
 export function initApp(elementId: string) {
   if (typeof name !== "string" || typeof version !== "string") throw new Error("Invalid package.json");
-
+  const appData = { name, version };
   console.info(`${name} v${version}`);
 
   const app = createApp(App);
@@ -34,15 +34,13 @@ export function initApp(elementId: string) {
     enableMemory: import.meta.env.VITE_ENABLE_MEMORY ?? false,
     googleDriveClientId: import.meta.env.VITE_GOOGLE_DRIVE_CLIENT_ID ?? null,
     googleDriveRedirectUrl: `${window.location.origin}/transfer-google-drive`,
-    name,
     oneDriveClientId: import.meta.env.VITE_ONE_DRIVE_CLIENT_ID ?? null,
     oneDriveRedirectUrl: `${window.location.origin}/transfer-one-drive`,
-    version,
   });
   const nodes = new Nodes();
   const nodesService = new NodesService(nodes, configuration);
 
-  const store = new Store({ configuration, nodes, nodesService });
+  const store = new Store({ appData, configuration, nodes, nodesService });
   window.$store = store;
   app.use(store);
 
