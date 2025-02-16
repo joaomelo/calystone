@@ -122,7 +122,7 @@ Nothing in this app, even utilities like features, is coded with a mindset to be
 
 ## Small functions
 
-Functions should be as small as possible. They should do one thing and have preferably a single input and two at most. 
+Functions and methods should be as small as possible. They should do one thing and have preferably a single input. They should operate at a single level of abstraction.
 
 [How small should a function be? - Robert C. Martin (Uncle Bob)](https://www.youtube.com/watch?v=rXjf8eiGsSI).
 
@@ -135,3 +135,9 @@ No need to unit test every function and also no need to worry about the testing 
 ## Do not use global stores
 
 Global store incentivise black holes modules that aim to solve many problems.This creates unintended dependencies. Expose every bit of state carefully by atomic exposure.
+
+## Postpone branches and dependencies
+
+If a inner class needs two piece of data to operate, require them at the constructor. Do not accept another class that maybe has the data in it and them create logic to check and throw. If this outer classes changes, now you have to update your inner class too. 
+
+Let the code that constructs the inner class check if the data exists even if it envolves more boilerplate. The code will be easier to understand.
