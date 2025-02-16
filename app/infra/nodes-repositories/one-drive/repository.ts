@@ -16,7 +16,7 @@ export class OneDriveNodesRepository extends NodesRepositoryBase<undefined> {
       name: "OneDrive",
       parentId: undefined
     };
-    super(rootData, undefined);
+    super({ rootData, rootMetadata: undefined });
 
     this.graphClient = Client.init({
       authProvider: (done) => {

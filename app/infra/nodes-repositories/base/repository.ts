@@ -5,7 +5,7 @@ export abstract class NodesRepositoryBase<Metadata> implements NodesRepository {
   rootData: NodeDataAndKind;
   rootMetadata: Metadata;
 
-  constructor(rootData: NodeDataAndKind, rootMetadata: Metadata) {
+  constructor({ rootData, rootMetadata }: Options<Metadata>) {
     this.rootData = rootData;
     this.nodesMetadata = new Map();
     this.rootMetadata = rootMetadata;
@@ -20,4 +20,9 @@ export abstract class NodesRepositoryBase<Metadata> implements NodesRepository {
     this.nodesMetadata.clear();
     this.nodesMetadata.set(this.rootData.id, this.rootMetadata);
   }
+}
+
+interface Options<Metadata> {
+  rootData: NodeDataAndKind;
+  rootMetadata: Metadata;
 }

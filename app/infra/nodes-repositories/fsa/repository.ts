@@ -13,7 +13,7 @@ export class FsaNodesRepository extends NodesRepositoryBase<FileSystemHandle> {
       name: rootHandle.name,
       parentId: undefined
     };
-    super(rootData, rootHandle);
+    super({ rootData, rootMetadata: rootHandle });
   }
 
   private metadataOfDirectoryOrThrow(id: Id): FileSystemDirectoryHandle {

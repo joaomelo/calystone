@@ -15,7 +15,7 @@ export class GoogleDriveNodesRepository extends NodesRepositoryBase<undefined> {
       name: "Google Drive",
       parentId: undefined
     };
-    super(rootData, undefined);
+    super({ rootData, rootMetadata: undefined });
 
     this.authorization = { Authorization: `Bearer ${accessToken}` } ;
   }

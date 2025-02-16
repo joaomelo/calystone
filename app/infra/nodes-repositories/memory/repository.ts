@@ -16,7 +16,7 @@ export class MemoryNodesRepository extends NodesRepositoryBase<MemoryMetadata> {
       name: rootDirectoryName,
       parentId: undefined
     };
-    super(rootData, undefined);
+    super({ rootData, rootMetadata: undefined });
   }
 
   async fetchArtifact(id: Id): Promise<ArtifactData> {
