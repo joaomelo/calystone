@@ -1,21 +1,14 @@
-import type { Configuration } from "@/utils";
-
 import { throwError } from "@/utils";
 
 import type { AccessService } from "./service";
 
 export class GoogleDriveAccess implements AccessService<string> {
-  googleDriveClientId: string;
-  googleDriveRedirectUrl: string;
+  clientId: string;
+  redirectUrl: string;
 
-  constructor(configuration: Configuration) {
-    const googleDriveClientId = configuration.get("googleDriveClientId");
-    const googleDriveRedirectUrl = configuration.get("googleDriveRedirectUrl");
-    if ( typeof googleDriveClientId !== "string" || typeof googleDriveRedirectUrl !== "string" ) {
-      throwError( "GOOGLE_DRIVE_ACCESS_MISSING_CONFIGURATION", "Google drive access service is missing configuration");
-    }
-    this.googleDriveClientId = googleDriveClientId;
-    this.googleDriveRedirectUrl = googleDriveRedirectUrl;
+  constructor({ clientId, redirectUrl }: Options) {
+    this.clientId = clientId;
+    this.redirectUrl = redirectUrl;
   }
 
   acquire() {
@@ -29,12 +22,17 @@ export class GoogleDriveAccess implements AccessService<string> {
 
   request() {
     const params = new URLSearchParams({
-      client_id: this.googleDriveClientId,
+      client_id: this.clientId,
       include_granted_scopes: "true",
-      redirect_uri: this.googleDriveRedirectUrl,
+      redirect_uri: this.redirectUrl,
       response_type: "token",
       scope: "https://www.googleapis.com/auth/drive.file",
     });
     window.location.assign(`https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`);
   }
+}
+
+interface Options {
+  clientId: string;
+  redirectUrl: string;
 }

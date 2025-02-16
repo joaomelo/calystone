@@ -1,27 +1,16 @@
-import type { Configuration } from "@/utils";
-
 import { throwError } from "@/utils";
 import { DropboxAuth } from "dropbox";
 
 import type { AccessService } from "./service";
 
-export class DropboxAccess implements AccessService<void> {
+export class DropboxAccess implements AccessService<string> {
+  auth: DropboxAuth;
   readonly codeVerifierKey = "DBX_CODE_VERIFIER";
-  dropboxAuth: DropboxAuth;
-  dropboxRedirectUrl: string;
+  redirectUrl: string;
 
-  constructor(configuration: Configuration) {
-    const dropboxClientId = configuration.get("dropboxClientId");
-    const dropboxRedirectUrl = configuration.get("dropboxRedirectUrl");
-    if (typeof dropboxClientId !== "string" || typeof dropboxRedirectUrl !== "string") {
-      throwError(
-        "DROPBOX_ACCESS_MISSING_CONFIGURATION",
-        "Dropbox access service is missing configuration."
-      );
-    }
-
-    this.dropboxAuth = new DropboxAuth({ clientId: dropboxClientId });
-    this.dropboxRedirectUrl = dropboxRedirectUrl;
+  constructor({ clientId, redirectUrl }: Options) {
+    this.auth = new DropboxAuth({ clientId });
+    this.redirectUrl = redirectUrl;
   }
 
   async acquire() {
@@ -42,21 +31,23 @@ export class DropboxAccess implements AccessService<void> {
       );
     }
 
-    this.dropboxAuth.setCodeVerifier(storedVerifier);
+    this.auth.setCodeVerifier(storedVerifier);
 
-    const { result } = await this.dropboxAuth.getAccessTokenFromCode(this.dropboxRedirectUrl, code);
+    const { result } = await this.auth.getAccessTokenFromCode(this.redirectUrl, code);
     if (!("access_token" in result) || typeof result.access_token !== "string") {
       throwError(
         "DROPBOX_ACCESS_TOKEN_NOT_FOUND",
         "failed to acquire the dropbox access token"
       );
     }
-    this.dropboxAuth.setAccessToken(result.access_token);
+    this.auth.setAccessToken(result.access_token);
+
+    return result.access_token;
   }
 
   async request() {
-    const authUrl = await this.dropboxAuth.getAuthenticationUrl(
-      this.dropboxRedirectUrl,
+    const authUrl = await this.auth.getAuthenticationUrl(
+      this.redirectUrl,
       undefined,
       "code",
       "offline",
@@ -64,7 +55,12 @@ export class DropboxAccess implements AccessService<void> {
       "none",
       true
     );
-    sessionStorage.setItem(this.codeVerifierKey, this.dropboxAuth.getCodeVerifier());
+    sessionStorage.setItem(this.codeVerifierKey, this.auth.getCodeVerifier());
     window.location.assign(authUrl.valueOf());
   }
+}
+
+interface Options {
+  clientId: string;
+  redirectUrl: string;
 }

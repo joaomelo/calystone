@@ -1,27 +1,21 @@
-import type { Configuration } from "@/utils";
-
 import { throwError } from "@/utils";
 import { PublicClientApplication } from "@azure/msal-browser";
 
 import type { AccessService } from "./service";
 
 export class OneDriveAccess implements AccessService<string> {
+  clientId: string;
   msalInstance: PublicClientApplication;
-  oneDriveClientId: string;
 
-  constructor(configuration: Configuration) {
-    const oneDriveClientId = configuration.get("oneDriveClientId");
-    const oneDriveRedirectUrl = configuration.get("oneDriveRedirectUrl");
-    if (typeof oneDriveClientId !== "string" || typeof oneDriveRedirectUrl !== "string") throwError("ONE_DRIVE_ACCESS_MISSING_CONFIGURATION", "onedrive access service is missing configuration");
-
-    this.oneDriveClientId = oneDriveClientId;
+  constructor({ clientId, redirectUrl }: Options) {
+    this.clientId = clientId;
 
     const msalConfig = {
       auth: {
         authority: "https://login.microsoftonline.com/common",
-        clientId: oneDriveClientId,
+        clientId: clientId,
         navigateToLoginRequestUrl: false,
-        redirectUri: oneDriveRedirectUrl,
+        redirectUri: redirectUrl,
       },
       cache: {
         cacheLocation: "localStorage",
@@ -53,4 +47,9 @@ export class OneDriveAccess implements AccessService<string> {
     };
     await this.msalInstance.loginRedirect(request);
   }
+}
+
+interface Options {
+  clientId: string;
+  redirectUrl: string;
 }
