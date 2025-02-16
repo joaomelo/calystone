@@ -4,9 +4,9 @@ export class CloudSupport implements SupportService {
   clientId: string | undefined;
   redirectUrl: string | undefined;
 
-  constructor(options: Options) {
-    this.clientId = typeof options?.clientId === "string" ? options.clientId : undefined;
-    this.redirectUrl = typeof options?.redirectUrl === "string" ? options.redirectUrl : undefined;;
+  constructor({ clientId, redirectUrl }: Options) {
+    this.clientId = clientId;
+    this.redirectUrl = redirectUrl;
   }
 
   supports() {
@@ -14,7 +14,7 @@ export class CloudSupport implements SupportService {
   }
 }
 
-type Options = {
-  clientId: unknown;
-  redirectUrl: unknown;
-} | undefined;
+interface Options {
+  clientId: string | undefined;
+  redirectUrl: string | undefined;
+};

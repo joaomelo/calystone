@@ -1,17 +1,17 @@
 import type { SupportService } from "./service";
 
 export class MemorySupport implements SupportService {
-  enableMemory: boolean;
+  enabled: boolean;
 
   constructor(options: Options) {
-    this.enableMemory = typeof options?.enableMemory === "boolean" ? options.enableMemory : false;
+    this.enabled = options.enabled;
   }
 
   supports() {
-    return this.enableMemory;
+    return this.enabled;
   }
 }
 
-type Options = {
-  enableMemory: unknown;
-} | undefined;
+interface Options {
+  enabled: boolean;
+}
