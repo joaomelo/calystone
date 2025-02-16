@@ -1,8 +1,9 @@
 import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
+import type { SourcesConfiguration } from "@/infra";
+
 import { name, version } from "@/../package.json";
 import { Nodes } from "@/domain";
 import { LocalStorageLocaleRepository, NodesService } from "@/infra";
-import { Configuration } from "@/utils";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -28,19 +29,27 @@ export function initApp(elementId: string) {
   const router = createRouter();
   app.use(router);
 
-  const configuration = new Configuration({
-    dropboxClientId: import.meta.env.VITE_DROPBOX_CLIENT_ID ?? null,
-    dropboxRedirectUrl: `${window.location.origin}/transfer-dropbox`,
-    enableMemory: import.meta.env.VITE_ENABLE_MEMORY ?? false,
-    googleDriveClientId: import.meta.env.VITE_GOOGLE_DRIVE_CLIENT_ID ?? null,
-    googleDriveRedirectUrl: `${window.location.origin}/transfer-google-drive`,
-    oneDriveClientId: import.meta.env.VITE_ONE_DRIVE_CLIENT_ID ?? null,
-    oneDriveRedirectUrl: `${window.location.origin}/transfer-one-drive`,
-  });
+  const sourcesConfiguration: SourcesConfiguration = {
+    dropbox: {
+      clientId: stringOrUndefined(import.meta.env.VITE_DROPBOX_CLIENT_ID),
+      redirectUrl: `${window.location.origin}/transfer-dropbox`,
+    },
+    googleDrive: {
+      clientId: stringOrUndefined(import.meta.env.VITE_GOOGLE_DRIVE_CLIENT_ID),
+      redirectUrl: `${window.location.origin}/transfer-google-drive`,
+    },
+    memory: {
+      enabled: asBoolean(import.meta.env.VITE_ENABLE_MEMORY)
+    },
+    oneDrive: {
+      clientId: stringOrUndefined(import.meta.env.VITE_ONE_DRIVE_CLIENT_ID),
+      redirectUrl: `${window.location.origin}/transfer-one-drive`,
+    },
+  };
   const nodes = new Nodes();
-  const nodesService = new NodesService(nodes, configuration);
+  const nodesService = new NodesService({ data: sourcesConfiguration, nodes });
 
-  const store = new Store({ appData, configuration, nodes, nodesService });
+  const store = new Store({ appData, nodes, nodesService });
   window.$store = store;
   app.use(store);
 
@@ -49,4 +58,15 @@ export function initApp(elementId: string) {
   app.use(i18n);
 
   app.mount(elementId);
+}
+
+function stringOrUndefined(value: unknown): string | undefined {
+  if (value === undefined || value === null) return undefined;
+  return String(value);
+}
+
+function asBoolean(value: unknown): boolean {
+  if (value === undefined || value === null) return false;
+  if (typeof value === "string" && value === "false") return false;
+  return Boolean(value);
 }
