@@ -1,5 +1,4 @@
 export * from "./arrays";
-export * from "./configuration";
 export * from "./exception";
 export * from "./file-system";
 export * from "./idle";
