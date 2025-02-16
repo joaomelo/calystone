@@ -1,7 +1,6 @@
 import type { Nodes } from "@/domain";
-import type { Configuration } from "@/utils";
 
-import type { Source } from "./source";
+import type { Source, SourcesConfiguration } from "./source";
 
 import { SuitesPortfolio } from "./suites";
 
@@ -9,9 +8,9 @@ export class NodesService {
   nodes: Nodes;
   portfolio: SuitesPortfolio;
 
-  constructor(nodes: Nodes, configuration: Configuration) {
+  constructor({ data, nodes }: Options) {
     this.nodes = nodes;
-    this.portfolio = new SuitesPortfolio(configuration);
+    this.portfolio = new SuitesPortfolio(data);
   }
 
   async bootstrap(source: Source) {
@@ -33,4 +32,9 @@ export class NodesService {
     const suite = this.portfolio.get(source);
     return suite.supports();
   }
+}
+
+interface Options {
+  data: SourcesConfiguration,
+  nodes: Nodes
 }

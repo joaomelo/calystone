@@ -1,9 +1,8 @@
 import type { SourceSuite } from "@/infra/source-suites";
-import type { Configuration } from "@/utils";
 
 import { DropboxSuite, FsaSuite, GoogleDriveSuite, MemorySuite, OneDriveSuite } from "@/infra/source-suites";
 
-import type { Source } from "./source";
+import type { Source, SourcesConfiguration } from "./source";
 
 export class SuitesPortfolio {
   dropbox: DropboxSuite;
@@ -12,12 +11,12 @@ export class SuitesPortfolio {
   memory: MemorySuite;
   oneDrive: OneDriveSuite;
 
-  constructor(configuration: Configuration) {
-    this.dropbox = new DropboxSuite();
-    this.googleDrive = new GoogleDriveSuite(configuration);
+  constructor(options: SourcesConfiguration) {
+    this.memory = new MemorySuite(options.memory);
     this.fsa = new FsaSuite();
-    this.memory = new MemorySuite(configuration);
-    this.oneDrive = new OneDriveSuite(configuration);
+    this.dropbox = new DropboxSuite(options.dropbox);
+    this.googleDrive = new GoogleDriveSuite(options.googleDrive);
+    this.oneDrive = new OneDriveSuite(options.oneDrive);
   }
 
   get(source: Source): SourceSuite {
