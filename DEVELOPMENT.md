@@ -11,13 +11,13 @@ graph TD
     direction LR
     domain
     display
-    repositories
+    infra
   end
   utils
   main --> core
   display --> domain
-  display --> repositories
-  repositories --> domain
+  display --> infra
+  infra --> domain
   main --> utils
   core --> utils
 ```
@@ -86,7 +86,7 @@ The project uses vanilla CSS with design tokens coming from custom properties. T
 
 ## Domain
 
-Domain is the app logic running in a vacum without care about `views` and just with bare interfaces for `repositories`.
+Domain is the app logic running in a vacum without care about `views` and just with bare interfaces for `infra`.
 
 ### Separeta state from logic
 
@@ -102,9 +102,9 @@ These types are not meant to be flexible or adapt to every needs of the UI. The 
 
 When adding something to the domain ask yourself, does the domain doesn't already expose this? if so, create the capability in the consumer.
 
-## Repositories
+## infra
 
-Repositories is the module with the logic to persist and recover real data for medias like the file system and the local storage. It also provides services utilities for things like checking if the user browser supports the repository technology.
+infra is the module with the logic to persist and recover real data for medias like the file system and the local storage. It also provides services utilities for things like checking if the user browser supports the repository technology.
 
 ## Utils
 
