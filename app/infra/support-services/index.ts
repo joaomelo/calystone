@@ -1,6 +1,4 @@
-export * from "./dropbox";
+export * from "./cloud";
 export * from "./fsa";
-export * from "./google-drive";
 export * from "./memory";
-export * from "./one-drive";
 export * from "./service";
