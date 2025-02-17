@@ -26,7 +26,7 @@ export class GoogleDriveAccess implements AccessService<string> {
       include_granted_scopes: "true",
       redirect_uri: this.redirectUrl,
       response_type: "token",
-      scope: "https://www.googleapis.com/auth/drive.file",
+      scope: "https://www.googleapis.com/auth/drive",
     });
     window.location.assign(`https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`);
   }
