@@ -6,7 +6,8 @@ import { NodesRepositoryBase } from "../base";
 
 export class GoogleDriveNodesRepository extends NodesRepositoryBase<undefined> {
   readonly authorization: { Authorization: string } ;
-  readonly baseUrl = "https://www.googleapis.com/drive/v3/files";
+
+  readonly baseUrl = "https://www.googleapis.com";
 
   constructor(accessToken: string) {
     const rootData: NodeDataAndKind = {
@@ -22,7 +23,8 @@ export class GoogleDriveNodesRepository extends NodesRepositoryBase<undefined> {
 
   async fetchArtifact(id: Id): Promise<ArtifactData> {
     const fetchFileContent = async (fileId: Id) => {
-      const response = await fetch(`${this.baseUrl}/${fileId}?alt=media`, { headers: this.authorization });
+      const url = `${this.baseUrl}/drive/v3/files/${fileId}?alt=media`;
+      const response = await fetch(url, { headers: this.authorization });
       if (!response.ok) throwError("GOOGLE_DRIVE_FILE_DOWNLOAD_FAILURE", `failed to download file '${fileId}' content with: ${response.statusText}`);
 
       const content = await response.arrayBuffer();
@@ -30,7 +32,8 @@ export class GoogleDriveNodesRepository extends NodesRepositoryBase<undefined> {
     };
 
     const fetchFileMetadata = async (fileId: string) => {
-      const response = await fetch(`${this.baseUrl}/${fileId}?fields=size,modifiedTime`, { headers: this.authorization });
+      const url = `${this.baseUrl}/drive/v3/files/${fileId}?fields=size,modifiedTime`;
+      const response = await fetch(url, { headers: this.authorization });
       if (!response.ok) throwError("GOOGLE_DRIVE_FILE_METADATA_FAILURE", `failed to fetch metadata for file '${fileId}' with: ${response.statusText}`);
 
       const data = await response.json() as { modifiedTime?: string; size?: string };
@@ -45,7 +48,7 @@ export class GoogleDriveNodesRepository extends NodesRepositoryBase<undefined> {
 
   async openDirectory(id: Id): Promise<NodeDataAndKind[]> {
     const query = `'${id}' in parents and trashed = false`;
-    const url = `${this.baseUrl}?fields=files(id,name,mimeType)&q=${encodeURIComponent(query)}`;
+    const url = `${this.baseUrl}/drive/v3/files?fields=files(id,name,mimeType)&q=${encodeURIComponent(query)}`;
 
     const response = await fetch(url, { headers: this.authorization });
     if (!response.ok) throwError("GOOGLE_DRIVE_LIST_FILES_FAILURE", `failed to list Google Drive files for folder '${id}' with ${response.statusText}`);
@@ -65,7 +68,8 @@ export class GoogleDriveNodesRepository extends NodesRepositoryBase<undefined> {
   }
 
   async postArtifact(id: Id, content: ArrayBuffer): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/${id}?uploadType=media`, {
+    const url = `${this.baseUrl}/upload/drive/v3/files/${id}?uploadType=media`;
+    const response = await fetch(url, {
       body: content,
       headers: {
         ...this.authorization,
@@ -73,6 +77,9 @@ export class GoogleDriveNodesRepository extends NodesRepositoryBase<undefined> {
       },
       method: "PATCH"
     });
-    if (!response.ok) throwError("GOOGLE_DRIVE_UPDATE_FILE_FAILURE", `failed to update file '${id}' with ${response.statusText}`);
+
+    if (!response.ok) {
+      throwError("GOOGLE_DRIVE_UPDATE_FILE_FAILURE", `failed to update file '${id}' with ${response.statusText}`);
+    };
   }
 }
