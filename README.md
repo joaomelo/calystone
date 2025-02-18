@@ -1,6 +1,3 @@
-> [!WARNING]  
-> calystone is in early development and should be used with that in mind.
-
 # Calystone
 
 A web self-management app based on your file system.
