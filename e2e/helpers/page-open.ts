@@ -9,6 +9,6 @@ export const pageOpen = {
   },
   selectors: {
     buttonOpenMemory: () => cy.get(dataTest("open-memory")),
-    url: () => "/open"
+    url: () => "/"
   }
 } as const;
