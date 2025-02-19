@@ -5,7 +5,8 @@ import PageBootstrap from "../views/page-bootstrap/page-bootstrap.vue";
 
 export function createRouter() {
   const routes = [
-    { path: "/", redirect: { name: "open" } },
+    // root path must always represent the welcome componente without redirects to succedd in auto chekcks by file cloud providers. google drive, for example, fail to verify the api access if they perceive a redirect
+    { component: PageOpen, name: "open", path: "/" },
 
     {
       path: "/transfer-dropbox",
@@ -20,7 +21,6 @@ export function createRouter() {
       redirect: { name: "bootstrap", params: { source: "google-drive" } }
     },
 
-    { component: PageOpen, name: "open", path: "/open" },
     { component: PagePrivacy, name: "privacy", path: "/privacy" },
     { component: PageTerms, name: "terms", path: "/terms" },
     { component: PageBootstrap, name: "bootstrap", path: "/bootstrap/:source", props: true },
