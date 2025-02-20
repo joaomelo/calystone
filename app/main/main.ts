@@ -34,10 +34,6 @@ export function initApp(elementId: string) {
       clientId: stringOrUndefined(import.meta.env.VITE_DROPBOX_CLIENT_ID),
       redirectUrl: `${window.location.origin}/transfer-dropbox`,
     },
-    googleDrive: {
-      clientId: stringOrUndefined(import.meta.env.VITE_GOOGLE_DRIVE_CLIENT_ID),
-      redirectUrl: `${window.location.origin}/transfer-google-drive`,
-    },
     memory: {
       enabled: asBoolean(import.meta.env.VITE_ENABLE_MEMORY)
     },

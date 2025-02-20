@@ -15,7 +15,7 @@ export class NodesService {
 
   async bootstrap(source: Source) {
     const suite = this.portfolio.get(source);
-    const repository = await suite.repository();
+    const repository = await suite.createRepository();
     this.nodes.connect(repository);
   }
 
@@ -25,12 +25,12 @@ export class NodesService {
 
   async request(source: Source) {
     const suite = this.portfolio.get(source);
-    await suite.request();
+    await suite.access.request();
   }
 
   supports(source: Source) {
     const suite = this.portfolio.get(source);
-    return suite.supports();
+    return suite.support;
   }
 }
 

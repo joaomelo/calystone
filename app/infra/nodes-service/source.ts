@@ -1,9 +1,8 @@
-export type Source = "dropbox" | "fsa" | "google-drive" | "memory" | "one-drive";
+export type Source = "dropbox" | "fsa" | "memory" | "one-drive";
 
 export interface SourcesConfiguration {
   memory: MemoryConfiguration;
   oneDrive: CloudConfiguration;
-  googleDrive: CloudConfiguration;
   dropbox: CloudConfiguration;
 }
 

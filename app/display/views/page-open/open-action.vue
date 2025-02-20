@@ -31,7 +31,7 @@ async function handleClick() {
 </script>
 <template>
   <ButtonBase
-    v-if="nodesService.supports(source)"
+    v-if="nodesService.supports(source).access()"
     :label="t(label)"
     size="large"
     :data-test="dataTest"

@@ -2,19 +2,19 @@ import { FsaAccess, NullAccess } from "@/infra/access-services";
 import { FsaNodesRepository } from "@/infra/nodes-repositories";
 import { FsaSupport } from "@/infra/support-services";
 
-import { SourceSuiteBase } from "./base";
+import { SourceSuite } from "./suite";
 
-export class FsaSuite extends SourceSuiteBase<FileSystemDirectoryHandle>{
+export class FsaSuite extends SourceSuite<FileSystemDirectoryHandle>{
 
   constructor() {
     const support = new FsaSupport();
-    const access = support.supports()
+    const access = support.access()
       ? new FsaAccess()
       : new NullAccess<FileSystemDirectoryHandle>();
     super({ access, support });
   }
 
-  createRepository(options: FileSystemDirectoryHandle) {
+  performCreateRepository(options: FileSystemDirectoryHandle) {
     return new FsaNodesRepository(options);
   }
 }

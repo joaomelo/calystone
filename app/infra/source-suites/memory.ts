@@ -2,18 +2,18 @@ import { MemoryAccess, NullAccess } from "@/infra/access-services";
 import { MemoryNodesRepository } from "@/infra/nodes-repositories";
 import { MemorySupport } from "@/infra/support-services";
 
-import { SourceSuiteBase } from "./base";
+import { SourceSuite } from "./suite";
 
-export class MemorySuite extends SourceSuiteBase<string> {
+export class MemorySuite extends SourceSuite<string> {
   constructor({ enabled }: Options) {
     const support = new MemorySupport({ enabled });
-    const access = support.supports()
+    const access = support.access()
       ? new MemoryAccess()
       : new NullAccess<string>();
     super({ access, support });
   }
 
-  createRepository(options: string) {
+  performCreateRepository(options: string) {
     return new MemoryNodesRepository(options);
   }
 }

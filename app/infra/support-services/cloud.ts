@@ -1,4 +1,4 @@
-import type { SupportService } from "./service";
+import type { SupportService } from "./support";
 
 export class CloudSupport implements SupportService {
   clientId: string | undefined;
@@ -9,8 +9,16 @@ export class CloudSupport implements SupportService {
     this.redirectUrl = redirectUrl;
   }
 
-  supports() {
+  access() {
     return typeof this.clientId === "string" && typeof this.redirectUrl === "string";
+  }
+
+  renameFile() {
+    return this.access();
+  }
+
+  renameFolder() {
+    return this.access();
   }
 }
 

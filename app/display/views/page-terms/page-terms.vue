@@ -10,11 +10,11 @@ import { FrameText } from "@/display/widgets";
     <p>By accessing or using Calystone (“the App”), you agree to be bound by these Terms of Service (“Terms”). If you do not agree, you may not use Calystone. These Terms apply to all visitors, users, and others who access Calystone.</p>
 
     <h2>Description of Calystone</h2>
-    <p>Calystone is an open-source, self-management application that integrates with the local file systems via the File System Access API and third-party file services (Google Drive, OneDrive, Dropbox, etc.)</p>
+    <p>Calystone is an open-source, self-management application that integrates with the local file systems via the File System Access API and third-party file services (OneDrive and Dropbox)</p>
     <p>Calystone does not have its own backend or database and does not store any personal user data or files on any servers controlled by Calystone.</p>
 
     <h2>Third-Party Services</h2>
-    <p>Calystone may request permissions to read, edit, and save your files when you opt to connect it with third-party cloud services. Use of these third-party services is governed by each provider’s terms and policies (e.g., Google Drive, OneDrive, Dropbox).</p>
+    <p>Calystone may request permissions to read, edit, and save your files when you opt to connect it with third-party cloud services. Use of these third-party services is governed by each provider’s terms and policies (e.g. OneDrive and Dropbox).</p>
     <p>Calystone is not responsible for any actions or omissions by third-party services. Your use of third-party services is at your own risk.</p>
 
     <h2>User Responsibilities</h2>

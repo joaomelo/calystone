@@ -12,7 +12,6 @@ jobs:
     env:
       VITE_ONE_DRIVE_CLIENT_ID: ${{ secrets.VITE_ONE_DRIVE_CLIENT_ID }}
       VITE_DROPBOX_CLIENT_ID: ${{ secrets.VITE_DROPBOX_CLIENT_ID }}
-      VITE_GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_DRIVE_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v4
         with:

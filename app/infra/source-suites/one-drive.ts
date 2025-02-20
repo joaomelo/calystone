@@ -2,19 +2,19 @@ import { NullAccess, OneDriveAccess } from "@/infra/access-services";
 import { OneDriveNodesRepository } from "@/infra/nodes-repositories";
 import { CloudSupport } from "@/infra/support-services";
 
-import { SourceSuiteBase } from "./base";
+import { SourceSuite } from "./suite";
 
-export class OneDriveSuite extends SourceSuiteBase<string>{
+export class OneDriveSuite extends SourceSuite<string>{
 
   constructor({ clientId, redirectUrl }: Options) {
     const support = new CloudSupport({ clientId, redirectUrl });
-    const access = (support.supports() && clientId && redirectUrl)
+    const access = (support.access() && clientId && redirectUrl)
       ? new OneDriveAccess({ clientId, redirectUrl })
       : new NullAccess<string>();
     super({ access, support });
   }
 
-  createRepository(accessToken: string) {
+  performCreateRepository(accessToken: string) {
     return new OneDriveNodesRepository(accessToken);
   }
 }

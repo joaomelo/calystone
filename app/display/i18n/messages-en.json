@@ -58,7 +58,6 @@
   "open": {
     "dropbox": "Dropbox",
     "fsa": "File System",
-    "google-drive": "Google Drive",
     "memory": "In-App Memory",
     "one-drive": "OneDrive",
     "title": "Access your files using one of the methods below"

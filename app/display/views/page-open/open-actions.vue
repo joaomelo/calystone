@@ -17,12 +17,6 @@ import OpenAction from "./open-action.vue";
       icon="bx bx-hdd"
     />
     <OpenAction
-      label="open.google-drive"
-      data-test="open-google-drive"
-      icon="bx bxl-google"
-      source="google-drive"
-    />
-    <OpenAction
       label="open.one-drive"
       data-test="open-one-drive"
       icon="bx bx-cloud"

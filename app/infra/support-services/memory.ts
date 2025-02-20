@@ -1,4 +1,4 @@
-import type { SupportService } from "./service";
+import type { SupportService } from "./support";
 
 export class MemorySupport implements SupportService {
   enabled: boolean;
@@ -7,8 +7,16 @@ export class MemorySupport implements SupportService {
     this.enabled = options.enabled;
   }
 
-  supports() {
+  access(): boolean {
     return this.enabled;
+  }
+
+  renameFile() {
+    return this.access();
+  }
+
+  renameFolder(): boolean {
+    return this.access();
   }
 }
 

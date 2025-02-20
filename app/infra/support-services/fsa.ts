@@ -1,8 +1,16 @@
-import type { SupportService } from "./service";
+import type { SupportService } from "./support";
 
 export class FsaSupport implements SupportService {
-  supports() {
+  access() {
     if (typeof self === "undefined") return false;
     return ("showOpenFilePicker" in self);
+  }
+
+  renameFile() {
+    return this.access();
+  }
+
+  renameFolder(): boolean {
+    return false;
   }
 }
