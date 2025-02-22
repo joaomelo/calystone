@@ -1,4 +1,4 @@
-import { NullAccess, OneDriveAccess } from "@/infra/access-services";
+import { NullAccess, OneDriveAccess } from "@/infra/access-adapters";
 import { OneDriveNodesRepository } from "@/infra/nodes-repositories";
 import { CloudSupport } from "@/infra/support-services";
 

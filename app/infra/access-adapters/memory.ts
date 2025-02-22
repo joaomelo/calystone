@@ -1,8 +1,8 @@
 import { fakeDirectory, throwError } from "@/utils";
 
-import type { AccessService } from "./service";
+import type { AccessAdapter } from "./access";
 
-export class MemoryAccess implements AccessService<string> {
+export class MemoryAccess implements AccessAdapter<string> {
   rootDirectoryName?: string;
 
   acquire() {

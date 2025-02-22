@@ -1,4 +1,4 @@
-import { MemoryAccess, NullAccess } from "@/infra/access-services";
+import { MemoryAccess, NullAccess } from "@/infra/access-adapters";
 import { MemoryNodesRepository } from "@/infra/nodes-repositories";
 import { MemorySupport } from "@/infra/support-services";
 

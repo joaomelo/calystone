@@ -1,9 +1,9 @@
 import { throwError } from "@/utils";
 import { PublicClientApplication } from "@azure/msal-browser";
 
-import type { AccessService } from "./service";
+import type { AccessAdapter } from "./access";
 
-export class OneDriveAccess implements AccessService<string> {
+export class OneDriveAccess implements AccessAdapter<string> {
   clientId: string;
   msalInstance: PublicClientApplication;
 

@@ -1,4 +1,4 @@
-import { DropboxAccess, NullAccess } from "@/infra/access-services";
+import { DropboxAccess, NullAccess } from "@/infra/access-adapters";
 import { DropboxNodesRepository } from "@/infra/nodes-repositories";
 import { CloudSupport } from "@/infra/support-services";
 

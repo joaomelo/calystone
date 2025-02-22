@@ -1,9 +1,9 @@
 import type { NodesRepository } from "@/domain";
-import type { AccessService } from "@/infra/access-services";
+import type { AccessAdapter } from "@/infra/access-adapters";
 import type { SupportService } from "@/infra/support-services";
 
 export abstract class SourceSuite<T> {
-  access: AccessService<T>;
+  access: AccessAdapter<T>;
   support: SupportService;
 
   constructor({ access, support }: Options<T>) {
@@ -21,5 +21,5 @@ export abstract class SourceSuite<T> {
 
 interface Options<T> {
   support: SupportService;
-  access: AccessService<T>;
+  access: AccessAdapter<T>;
 }

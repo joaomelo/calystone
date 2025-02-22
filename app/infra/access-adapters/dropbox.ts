@@ -1,9 +1,9 @@
 import { throwError } from "@/utils";
 import { DropboxAuth } from "dropbox";
 
-import type { AccessService } from "./service";
+import type { AccessAdapter } from "./access";
 
-export class DropboxAccess implements AccessService<string> {
+export class DropboxAccess implements AccessAdapter<string> {
   auth: DropboxAuth;
   readonly codeVerifierKey = "DBX_CODE_VERIFIER";
   redirectUrl: string;

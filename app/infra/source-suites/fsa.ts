@@ -1,4 +1,4 @@
-import { FsaAccess, NullAccess } from "@/infra/access-services";
+import { FsaAccess, NullAccess } from "@/infra/access-adapters";
 import { FsaNodesRepository } from "@/infra/nodes-repositories";
 import { FsaSupport } from "@/infra/support-services";
 
