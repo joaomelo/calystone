@@ -1,10 +1,10 @@
 import type { NodesRepository } from "@/domain";
 import type { AccessAdapter } from "@/infra/access-adapters";
-import type { SupportService } from "@/infra/support-services";
+import type { SupportAdapter } from "@/infra/support-adapters";
 
 export abstract class SourceSuite<T> {
   access: AccessAdapter<T>;
-  support: SupportService;
+  support: SupportAdapter;
 
   constructor({ access, support }: Options<T>) {
     this.support = support;
@@ -20,6 +20,6 @@ export abstract class SourceSuite<T> {
 }
 
 interface Options<T> {
-  support: SupportService;
+  support: SupportAdapter;
   access: AccessAdapter<T>;
 }

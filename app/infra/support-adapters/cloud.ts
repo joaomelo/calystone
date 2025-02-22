@@ -1,6 +1,6 @@
-import type { SupportService } from "./support";
+import type { SupportAdapter } from "./support";
 
-export class CloudSupport implements SupportService {
+export class CloudSupport implements SupportAdapter {
   clientId: string | undefined;
   redirectUrl: string | undefined;
 

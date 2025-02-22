@@ -1,6 +1,6 @@
 import { FsaAccess, NullAccess } from "@/infra/access-adapters";
 import { FsaNodesRepository } from "@/infra/nodes-repositories";
-import { FsaSupport } from "@/infra/support-services";
+import { FsaSupport } from "@/infra/support-adapters";
 
 import { SourceSuite } from "./suite";
 

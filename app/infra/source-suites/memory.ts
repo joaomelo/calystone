@@ -1,6 +1,6 @@
 import { MemoryAccess, NullAccess } from "@/infra/access-adapters";
 import { MemoryNodesRepository } from "@/infra/nodes-repositories";
-import { MemorySupport } from "@/infra/support-services";
+import { MemorySupport } from "@/infra/support-adapters";
 
 import { SourceSuite } from "./suite";
 
