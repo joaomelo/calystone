@@ -4,15 +4,17 @@ import type { Nodes } from "@/domain/nodes";
 import { isId } from "@/domain/id";
 import { isObjectLike } from "@/utils";
 
-export interface NodeData {
+export interface NodeOptions extends NodeDataOptions {
+  nodes: Nodes;
+}
+
+export interface NodeDataOptions {
   id: Id;
   name: string;
   parentId?: Id;
 }
 
-export type NodeOptions = { nodes: Nodes } & NodeData;
-
-export function isNodeData(value: unknown): value is NodeData {
+export function isNodeDataOptions(value: unknown): value is NodeOptions {
   if (!isObjectLike(value)) return false;
 
   if (!("id" in value)) return false;

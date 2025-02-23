@@ -1,14 +1,8 @@
-import { throwError } from "@/utils";
-import { reactive } from "vue";
+import type { Nodes } from "@/domain/nodes";
 
-import type { Directory } from "../directory";
 import type { Id } from "../id";
-import type { Nodes } from "../nodes";
-import type { NodeOptions } from "./data";
+import type { NodeOptions } from "./options";
 import type { Status } from "./status";
-
-import { descendantOf } from "./descendants";
-import { path } from "./path";
 
 export abstract class Node {
   readonly id: Id;
@@ -22,49 +16,42 @@ export abstract class Node {
     this.name = name;
     this.parentId = parentId;
     this.nodes = nodes;
-    return reactive(this);
   }
 
-  childrenOf(maybeParent: Directory): boolean {
-    return this.parentId === maybeParent.id;
-  }
-
-  descendantOf(maybeAscendant: Directory): boolean {
-    return descendantOf(this, maybeAscendant);
-  }
-
-  equal(node: Node): boolean {
-    return this.id === node.id;
-  }
-
-  async load(): Promise<void> {
-    // this allows unexpensive calls to load without worring about costly reloads or breaking the state. if needed, a explicit reload logic has to be added.
-    if (this.status !== "unloaded") return;
-
-    this.status = "loading";
-
-    try {
-      await this.performLoad();
-    } catch (error) {
-      this.status = "unloaded";
-      throwError("UNABLE_LOAD", error);
-    }
-
-    this.status = "loaded";
-  }
-
-  parent(): Node | undefined {
+  getParent(): Node | undefined {
     if (!this.parentId) return;
     return this.nodes.get(this.parentId);
   }
 
-  path(): string {
-    return path(this);
+  isChildOf(parent: Node): boolean {
+    return this.parentId === parent.id;
   }
 
-  abstract performLoad(): Promise<void>;
+  isDescendantOf(ascendant: Node): boolean {
+    let isDescendant = false;
+    let parent = this.getParent();
+    while (parent) {
+      if (parent.isEqualTo(ascendant)) {
+        isDescendant = true;
+        break;
+      }
+      parent = parent.getParent();
+    }
+    return isDescendant;
+  }
 
-  root(): boolean {
+  isEqualTo(node: Node): boolean {
+    return this.id === node.id;
+  }
+
+  isRoot(): boolean {
     return !this.parentId;
+  }
+
+  mountPath(): string {
+    const basePath = `/${this.name}`;
+    const parent = this.getParent();
+    if (!parent) return basePath;
+    return `${parent.mountPath()}${basePath}`;
   }
 }

@@ -1,31 +1,19 @@
-import type { NodeOptions } from "@/domain/node";
-
 import { Node } from "@/domain/node";
+
+import type { ArtifactOptions } from "./options";
 
 import { Mime } from "../mime";
 
 export class Artifact extends Node {
   content?: ArrayBuffer;
-  lastModified?: number;
+  lastModified: number;
   readonly mime: Mime;
-  size?: number;
+  size: number;
 
-  constructor(options: NodeOptions) {
+  constructor({ lastModified, size, ...options }: ArtifactOptions) {
     super(options);
+    this.lastModified = lastModified;
+    this.size = size;
     this.mime = new Mime(options.name);
   }
-
-  async performLoad(): Promise<void> {
-    const repository = this.nodes.repositoryOrThrow();
-    const data = await repository.fetchArtifact(this.id);
-    this.content = data.content;
-    this.lastModified = data.lastModified;
-    this.size = data.size;
-  }
-
-  async post(content: ArrayBuffer): Promise<void> {
-    const repository = this.nodes.repositoryOrThrow();
-    this.content = content;
-    await repository.postArtifact(this.id, content);
-  };
 }
