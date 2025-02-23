@@ -9,14 +9,17 @@ graph TD
   main
   subgraph core
     direction LR
-    domain
     display
+    services
     infra
+    domain
   end
   utils
   main --> core
   display --> domain
-  display --> infra
+  display -.-> services
+  services --> domain
+  services -.-> infra
   infra --> domain
   main --> utils
   core --> utils
@@ -120,9 +123,11 @@ These are not general design claims for the community. These are local desicions
 
 Nothing in this app, even utilities like features, is coded with a mindset to be later used in other apps or libs. this kind of design bring complexity. This app code has to be as focuses as possible. Some capability is added only when indispensible to achive some app known and present goal.
 
-## Small functions
+## Focused classes
 
-Functions and methods should be as small as possible. They should do one thing and have preferably a single input. They should operate at a single level of abstraction.
+Classes should be as single responsability as possible. They should do one thing and operate at a single level of abstraction.
+
+You can create inner classes to isolate related groups of methods like in Hash and Hierarchy examples for the Nodes class.
 
 [How small should a function be? - Robert C. Martin (Uncle Bob)](https://www.youtube.com/watch?v=rXjf8eiGsSI).
 
