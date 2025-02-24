@@ -1,5 +1,7 @@
 import type { ArtifactDataOptions, DirectoryDataOptions, Id } from "@/domain";
 
+export type ArtifactOrDirectoryDataOptions = ArtifactDataOptions | DirectoryDataOptions;
+
 export interface FileSystemAdapter {
   rootData: DirectoryDataOptions;
   reset(): void;
@@ -7,5 +9,3 @@ export interface FileSystemAdapter {
   fetchFileContent(id: Id): Promise<ArrayBuffer>;
   postFileContent(id: Id, content: ArrayBuffer): Promise<void>;
 }
-
-export type ArtifactOrDirectoryDataOptions = ArtifactDataOptions | DirectoryDataOptions;

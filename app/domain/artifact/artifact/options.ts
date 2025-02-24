@@ -3,13 +3,13 @@ import type { Nodes } from "@/domain/nodes";
 
 import { isNodeDataOptions } from "@/domain/node";
 
-export interface ArtifactOptions extends ArtifactDataOptions {
-  nodes: Nodes;
-}
-
 export interface ArtifactDataOptions extends NodeDataOptions {
   lastModified: number;
   size: number;
+}
+
+export interface ArtifactOptions extends ArtifactDataOptions {
+  nodes: Nodes;
 };
 
 export function isArtifactDataOptions(value: unknown): value is ArtifactDataOptions {

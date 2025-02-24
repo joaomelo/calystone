@@ -31,4 +31,8 @@ export class Nodes {
   set(node: Node): void {
     this.map.set(node.id, node);
   }
+
+  size() {
+    return this.map.size;
+  }
 }
