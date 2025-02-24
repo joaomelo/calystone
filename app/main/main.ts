@@ -2,6 +2,7 @@ import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/di
 
 import { name, version } from "@/../package.json";
 import { BaseSourceAdaptersPortfolio } from "@/infra";
+import { SourcesService } from "@/services";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -41,8 +42,9 @@ export function initApp(elementId: string) {
     },
   };
   const sourceAdaptersPortfolio = new BaseSourceAdaptersPortfolio(options);
+  const sourcesService = new SourcesService(sourceAdaptersPortfolio);
 
-  const store = new Store({ appData, sourcesPortfolio });
+  const store = new Store({ appData, service: sourcesService });
   window.$store = store;
   app.use(store);
 

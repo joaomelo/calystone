@@ -1,8 +1,8 @@
 import type { Nodes } from "@/domain";
-import type { NodesService } from "@/infra";
+import type { SourcesService } from "@/services";
 import type { App, ComputedRef } from "vue";
 
-import { computed } from "vue";
+import { computed, reactive } from "vue";
 
 import type { AppData } from "./app-data";
 
@@ -10,21 +10,20 @@ import { key } from "./key";
 import { useStore } from "./use";
 
 interface Options {
-  nodes: Nodes;
-  nodesService: NodesService
+  service: SourcesService
   appData: AppData;
 };
 
 export class Store {
   appData: AppData;
   connected: ComputedRef<boolean>;
-  nodes: Nodes;
-  nodesService: NodesService;
+  nodesSet: Set<Nodes>;
+  service: SourcesService;
 
-  constructor({ appData, nodes, nodesService }: Options) {
-    this.nodes = nodes;
-    this.connected = computed(() => this.nodes.hash.size > 0); // hash is manually set as a reactive property in the nodes class. been so, is the most appropriate property do check for connection status instead of the presence or not of a repository in the nodes instance.
-    this.nodesService = nodesService;
+  constructor({ appData, service }: Options) {
+    this.nodesSet = reactive(new Set());
+    this.connected = computed(() => this.nodesSet.size > 0);
+    this.service = service;
     this.appData = appData;
   }
 
