@@ -28,7 +28,7 @@ export class OneDriveAccess implements AccessAdapter<string> {
   async acquire() {
     await this.msalInstance.initialize();
     const response = await this.msalInstance.handleRedirectPromise();
-    if (!response) throwError("ONE_DRIVE_ACCESS_REDIRECT_WITHOUT_RESPONSE", "the service found no response after it handle the redirect promise");
+    if (!response) throwError("ONE_DRIVE_ACCESS_WITHOUT_RESPONSE", "one drive access found no response to acquire");
 
     const tokenResponse = await this.msalInstance.acquireTokenSilent(response);
     const { accessToken } = tokenResponse;

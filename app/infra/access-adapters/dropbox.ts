@@ -1,3 +1,4 @@
+import { LocalStorage } from "@/utils";
 import { throwError } from "@/utils";
 import { DropboxAuth } from "dropbox";
 
@@ -5,12 +6,15 @@ import type { AccessAdapter } from "./access";
 
 export class DropboxAccess implements AccessAdapter<string> {
   auth: DropboxAuth;
-  readonly codeVerifierKey = "DBX_CODE_VERIFIER";
   redirectUrl: string;
+  storage: LocalStorage<string>;
 
   constructor({ clientId, redirectUrl }: Options) {
     this.auth = new DropboxAuth({ clientId });
     this.redirectUrl = redirectUrl;
+
+    const asString = (data: unknown) => typeof data === "string" ? data : undefined;
+    this.storage = new LocalStorage("DBX_CODE_VERIFIER", asString);
   }
 
   async acquire() {
@@ -23,7 +27,7 @@ export class DropboxAccess implements AccessAdapter<string> {
       );
     }
 
-    const storedVerifier = sessionStorage.getItem(this.codeVerifierKey);
+    const storedVerifier = this.storage.load();
     if (!storedVerifier) {
       throwError(
         "DROPBOX_PKCE_VERIFIER_NOT_FOUND",
@@ -55,7 +59,7 @@ export class DropboxAccess implements AccessAdapter<string> {
       "none",
       true
     );
-    sessionStorage.setItem(this.codeVerifierKey, this.auth.getCodeVerifier());
+    this.storage.save(this.auth.getCodeVerifier());
     window.location.assign(authUrl.valueOf());
   }
 }
