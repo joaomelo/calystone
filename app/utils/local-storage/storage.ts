@@ -1,5 +1,5 @@
 type StorageKey = string;
-type As<T> = (data: unknown) => T;
+type As<T> = (data: unknown) => T | undefined;
 
 export class LocalStorage<T> {
   as: As<T>;
@@ -10,7 +10,7 @@ export class LocalStorage<T> {
     this.as = as;
   }
 
-  load(): T {
+  load(): T | undefined {
     const storedData = localStorage.getItem(this.storageKey);
     if (!storedData) return this.as(undefined);
     try {
