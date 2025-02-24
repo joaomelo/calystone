@@ -17,9 +17,9 @@ graph TD
   utils
   main --> core
   display --> domain
-  display -.-> services
+  display --> services
   services --> domain
-  services -.-> infra
+  infra --> services
   infra --> domain
   main --> utils
   core --> utils
