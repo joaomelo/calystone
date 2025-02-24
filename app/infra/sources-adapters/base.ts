@@ -1,8 +1,11 @@
-import type { AccessAdapter } from "@/infra/access-adapters";
-import type { SourceAdapter, SupportAdapter } from "@/services";
-import type { FileSystemAdapter } from "@/services";
+import type { AccessAdapter, FileSystemAdapter, SourceAdapter, SupportAdapter } from "@/services";
 
-export abstract class BaseSourceAdapter<T> implements SourceAdapter {
+interface Options<T> {
+  support: SupportAdapter;
+  access: AccessAdapter<T>;
+}
+
+export abstract class BaseSourceAdapter<T> implements SourceAdapter<T> {
   access: AccessAdapter<T>;
   support: SupportAdapter;
 
@@ -11,24 +14,19 @@ export abstract class BaseSourceAdapter<T> implements SourceAdapter {
     this.access = access;
   }
 
-  abstract performCreateFileSystemAdapter(options: T): FileSystemAdapter;
+  abstract createFileSystemAdapter(options: T): FileSystemAdapter;
 
-  requestAccess(): Promise<void> | void {
-    return this.access.request();
+  getAccess() {
+    return this.access;
   }
 
-  async resolveFileSystemAdapter(): Promise<FileSystemAdapter> {
+  async getFileSystemAdapter(): Promise<FileSystemAdapter> {
     const options = await this.access.acquire();
-    const fileSystemAdapter = this.performCreateFileSystemAdapter(options);
+    const fileSystemAdapter = this.createFileSystemAdapter(options);
     return fileSystemAdapter;
   }
 
-  resolveSupport(): SupportAdapter {
+  getSupport(): SupportAdapter {
     return this.support;
   }
-}
-
-interface Options<T> {
-  support: SupportAdapter;
-  access: AccessAdapter<T>;
 }

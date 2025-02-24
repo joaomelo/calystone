@@ -4,6 +4,10 @@ import { MemorySupportAdapter } from "@/infra/support-adapters";
 
 import { BaseSourceAdapter } from "./base";
 
+interface Options {
+  enabled: boolean
+}
+
 export class MemorySourceAdapter extends BaseSourceAdapter<string> {
   constructor({ enabled }: Options) {
     const support = new MemorySupportAdapter({ enabled });
@@ -13,11 +17,7 @@ export class MemorySourceAdapter extends BaseSourceAdapter<string> {
     super({ access, support });
   }
 
-  performCreateFileSystemAdapter(options: string) {
+  createFileSystemAdapter(options: string) {
     return new MemoryFileSystemAdapter(options);
   }
-}
-
-interface Options {
-  enabled: boolean
 }

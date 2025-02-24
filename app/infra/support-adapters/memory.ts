@@ -1,5 +1,9 @@
 import type { SupportAdapter } from "@/services";
 
+interface Options {
+  enabled: boolean;
+}
+
 export class MemorySupportAdapter implements SupportAdapter {
   enabled: boolean;
 
@@ -18,8 +22,4 @@ export class MemorySupportAdapter implements SupportAdapter {
   renameFolder(): boolean {
     return this.access();
   }
-}
-
-interface Options {
-  enabled: boolean;
 }

@@ -1,6 +1,6 @@
-import { throwError } from "@/utils";
+import type { AccessAdapter } from "@/services";
 
-import type { AccessAdapter } from "./access";
+import { throwError } from "@/utils";
 
 export class NullAccessAdapter<T> implements AccessAdapter<T> {
 

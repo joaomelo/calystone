@@ -1,4 +1,4 @@
-import type { Source, SourceAdapter, SourceAdaptersPortfolio } from "@/services";
+import type { Source, SourceAdaptersPortfolio } from "@/services";
 
 import { DropboxSourceAdapter, FsaSourceAdapter, MemorySourceAdapter, OneDriveSourceAdapter } from "@/infra/sources-adapters";
 
@@ -17,7 +17,7 @@ export class BaseSourceAdaptersPortfolio implements SourceAdaptersPortfolio {
     this.oneDrive = new OneDriveSourceAdapter(options.oneDrive);
   }
 
-  get(source: Source): SourceAdapter {
+  get(source: Source) {
     switch (source) {
       case "dropbox":
         return this.dropbox;

@@ -1,7 +1,12 @@
+import type { AccessAdapter } from "@/services";
+
 import { throwError } from "@/utils";
 import { PublicClientApplication } from "@azure/msal-browser";
 
-import type { AccessAdapter } from "./access";
+interface Options {
+  clientId: string;
+  redirectUrl: string;
+}
 
 export class OneDriveAccessAdapter implements AccessAdapter<string> {
   clientId: string;
@@ -47,9 +52,4 @@ export class OneDriveAccessAdapter implements AccessAdapter<string> {
     };
     await this.msalInstance.loginRedirect(request);
   }
-}
-
-interface Options {
-  clientId: string;
-  redirectUrl: string;
 }

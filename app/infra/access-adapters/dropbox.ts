@@ -1,8 +1,13 @@
+import type { AccessAdapter } from "@/services";
+
 import { LocalStorage } from "@/utils";
 import { throwError } from "@/utils";
 import { DropboxAuth } from "dropbox";
 
-import type { AccessAdapter } from "./access";
+interface Options {
+  clientId: string;
+  redirectUrl: string;
+}
 
 export class DropboxAccessAdapter implements AccessAdapter<string> {
   auth: DropboxAuth;
@@ -62,9 +67,4 @@ export class DropboxAccessAdapter implements AccessAdapter<string> {
     this.storage.save(this.auth.getCodeVerifier());
     window.location.assign(authUrl.valueOf());
   }
-}
-
-interface Options {
-  clientId: string;
-  redirectUrl: string;
 }

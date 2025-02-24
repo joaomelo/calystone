@@ -4,6 +4,11 @@ import { CloudSupportAdapter } from "@/infra/support-adapters";
 
 import { BaseSourceAdapter } from "./base";
 
+interface Options {
+  clientId: string | undefined
+  redirectUrl: string | undefined
+}
+
 export class OneDriveSourceAdapter extends BaseSourceAdapter<string> {
 
   constructor({ clientId, redirectUrl }: Options) {
@@ -14,12 +19,7 @@ export class OneDriveSourceAdapter extends BaseSourceAdapter<string> {
     super({ access, support });
   }
 
-  performCreateFileSystemAdapter(accessToken: string) {
+  createFileSystemAdapter(accessToken: string) {
     return new OneDriveFileSystemAdapter(accessToken);
   }
-}
-
-interface Options {
-  clientId: string | undefined
-  redirectUrl: string | undefined
 }

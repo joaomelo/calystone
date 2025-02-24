@@ -3,6 +3,11 @@ import type { ArtifactOrDirectoryDataOptions, FileSystemAdapter } from "@/servic
 
 import { throwCritical } from "@/utils";
 
+interface Options<Metadata> {
+  rootData: DirectoryDataOptions;
+  rootMetadata: Metadata;
+}
+
 export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapter {
   nodesMetadata: Map<Id, Metadata>;
   rootData: DirectoryDataOptions;
@@ -31,9 +36,4 @@ export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapt
     this.nodesMetadata.clear();
     this.nodesMetadata.set(this.rootData.id, this.rootMetadata);
   }
-}
-
-interface Options<Metadata> {
-  rootData: DirectoryDataOptions;
-  rootMetadata: Metadata;
 }

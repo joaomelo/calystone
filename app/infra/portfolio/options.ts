@@ -4,11 +4,11 @@ export interface BaseSourceAdaptersPortfolioOptions {
   dropbox: CloudOptions;
 }
 
-interface MemoryOptions {
-  enabled: boolean;
-}
-
 interface CloudOptions {
   clientId: string | undefined;
   redirectUrl: string | undefined;
+}
+
+interface MemoryOptions {
+  enabled: boolean;
 }

@@ -1,4 +1,3 @@
-import type { Nodes } from "@/domain";
 import type { SourcesService } from "@/services";
 import type { App, ComputedRef } from "vue";
 
@@ -17,13 +16,11 @@ interface Options {
 export class Store {
   appData: AppData;
   connected: ComputedRef<boolean>;
-  nodesSet: Set<Nodes>;
   service: SourcesService;
 
   constructor({ appData, service }: Options) {
-    this.nodesSet = reactive(new Set());
-    this.connected = computed(() => this.nodesSet.size > 0);
-    this.service = service;
+    this.service = reactive(service);
+    this.connected = computed(() => false);
     this.appData = appData;
   }
 

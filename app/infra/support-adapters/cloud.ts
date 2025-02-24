@@ -1,5 +1,10 @@
 import type { SupportAdapter } from "@/services";
 
+interface Options {
+  clientId: string | undefined;
+  redirectUrl: string | undefined;
+}
+
 export class CloudSupportAdapter implements SupportAdapter {
   clientId: string | undefined;
   redirectUrl: string | undefined;
@@ -20,9 +25,4 @@ export class CloudSupportAdapter implements SupportAdapter {
   renameFolder() {
     return this.access();
   }
-}
-
-interface Options {
-  clientId: string | undefined;
-  redirectUrl: string | undefined;
 };
