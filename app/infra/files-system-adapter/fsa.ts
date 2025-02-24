@@ -1,15 +1,15 @@
-import type { ArtifactData, Id, Kind, NodeDataAndKind } from "@/domain";
+import type { DirectoryDataOptions, Id } from "@/domain";
+import type { ArtifactOrDirectoryDataOptions } from "@/services";
 
 import { createId } from "@/domain";
 import { throwCritical } from "@/utils";
 
-import { NodesRepositoryBase } from "../base";
+import { FileSystemBaseAdapter } from "./base";
 
-export class FsaNodesRepository extends NodesRepositoryBase<FileSystemHandle> {
+export class FileSystemFsaAdapter extends FileSystemBaseAdapter<FileSystemHandle> {
   constructor(rootHandle: FileSystemDirectoryHandle) {
-    const rootData: NodeDataAndKind = {
+    const rootData: DirectoryDataOptions = {
       id: createId(),
-      kind: "directory",
       name: rootHandle.name,
       parentId: undefined
     };
@@ -17,54 +17,54 @@ export class FsaNodesRepository extends NodesRepositoryBase<FileSystemHandle> {
   }
 
   private metadataOfDirectoryOrThrow(id: Id): FileSystemDirectoryHandle {
-    const handle = this.metadataOfNodeOrThrow(id);
+    const handle = this.metadataOrThrow(id);
     if (!(handle instanceof FileSystemDirectoryHandle)) throwCritical("NOT_DIRECTORY_HANDLE", `the handle for the id ${id} is not a directory handle`);
     return handle;
   }
 
   private metadataOfFileOrThrow(id: Id): FileSystemFileHandle {
-    const handle = this.metadataOfNodeOrThrow(id);
+    const handle = this.metadataOrThrow(id);
     if (!(handle instanceof FileSystemFileHandle)) throwCritical("NOT_FILE_HANDLE", `the handle for the id ${id} is not a file handle`);
     return handle;
   }
 
-  private metadataOfNodeOrThrow(id: Id): FileSystemHandle {
-    const handle = this.nodesMetadata.get(id);
-    if (!handle) throwCritical("NO_HANDLE", "the id must correspond to a handle");
-    return handle;
-  }
-
-  async fetchArtifact(id: Id): Promise<ArtifactData> {
+  async fetchFileContent(id: Id): Promise<ArrayBuffer> {
     const handle = this.metadataOfFileOrThrow(id);
     const file: File = await handle.getFile();
     const content: ArrayBuffer = await file.arrayBuffer();
-    return {
-      content,
-      lastModified: file.lastModified,
-      size: file.size,
-    };
+    return content;
   }
 
-  async openDirectory(id: Id): Promise<NodeDataAndKind[]> {
+  async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
     const handle = this.metadataOfDirectoryOrThrow(id);
+    const childrenData: ArtifactOrDirectoryDataOptions[] = [];
 
-    const childrenData: NodeDataAndKind[] = [];
     for await (const childHandle of handle.values()) {
-      const kind: Kind = childHandle.kind === "file" ? "artifact" : "directory";
+      const { kind, name } = childHandle;
       const childId = createId();
-      const childData = {
+
+      let childData: ArtifactOrDirectoryDataOptions = {
         id: childId,
-        kind,
-        name: childHandle.name,
-        parentId: id
+        name,
+        parentId: id,
       };
+
+      if (kind === "file") {
+        const { lastModified, size } = await childHandle.getFile();
+        childData = {
+          ...childData,
+          lastModified: lastModified,
+          size: size,
+        };
+      }
+
       this.nodesMetadata.set(childId, childHandle);
       childrenData.push(childData);
     }
     return childrenData;
   }
 
-  async postArtifact(id: Id, content: ArrayBuffer): Promise<void> {
+  async postFileContent(id: Id, content: ArrayBuffer): Promise<void> {
     const handle = this.metadataOfFileOrThrow(id);
     const writableStream = await handle.createWritable();
     await writableStream.write(content);
