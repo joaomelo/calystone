@@ -4,9 +4,9 @@ import type { ArtifactOrDirectoryDataOptions } from "@/services";
 import { createId } from "@/domain";
 import { throwCritical } from "@/utils";
 
-import { FileSystemBaseAdapter } from "./base";
+import { BaseFileSystemAdapter } from "./base";
 
-export class FileSystemFsaAdapter extends FileSystemBaseAdapter<FileSystemHandle> {
+export class FsaFileSystemAdapter extends BaseFileSystemAdapter<FileSystemHandle> {
   constructor(rootHandle: FileSystemDirectoryHandle) {
     const rootData: DirectoryDataOptions = {
       id: createId(),

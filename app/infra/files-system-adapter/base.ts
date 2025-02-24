@@ -3,7 +3,7 @@ import type { ArtifactOrDirectoryDataOptions, FileSystemAdapter } from "@/servic
 
 import { throwCritical } from "@/utils";
 
-export abstract class FileSystemBaseAdapter<Metadata> implements FileSystemAdapter {
+export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapter {
   nodesMetadata: Map<Id, Metadata>;
   rootData: DirectoryDataOptions;
   rootMetadata: Metadata;

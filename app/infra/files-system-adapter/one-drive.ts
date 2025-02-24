@@ -6,9 +6,9 @@ import { isId } from "@/domain";
 import { throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
-import { FileSystemBaseAdapter } from "./base";
+import { BaseFileSystemAdapter } from "./base";
 
-export class FileSystemOneDriveAdapter extends FileSystemBaseAdapter<undefined> {
+export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> {
   graphClient: Client;
 
   constructor(accessToken: string) {

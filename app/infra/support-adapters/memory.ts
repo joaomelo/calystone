@@ -1,6 +1,6 @@
-import type { SupportAdapter } from "./support";
+import type { SupportAdapter } from "@/services";
 
-export class MemorySupport implements SupportAdapter {
+export class MemorySupportAdapter implements SupportAdapter {
   enabled: boolean;
 
   constructor(options: Options) {

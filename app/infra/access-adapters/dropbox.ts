@@ -4,7 +4,7 @@ import { DropboxAuth } from "dropbox";
 
 import type { AccessAdapter } from "./access";
 
-export class DropboxAccess implements AccessAdapter<string> {
+export class DropboxAccessAdapter implements AccessAdapter<string> {
   auth: DropboxAuth;
   redirectUrl: string;
   storage: LocalStorage<string>;

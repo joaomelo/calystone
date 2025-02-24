@@ -3,7 +3,7 @@ import { PublicClientApplication } from "@azure/msal-browser";
 
 import type { AccessAdapter } from "./access";
 
-export class OneDriveAccess implements AccessAdapter<string> {
+export class OneDriveAccessAdapter implements AccessAdapter<string> {
   clientId: string;
   msalInstance: PublicClientApplication;
 

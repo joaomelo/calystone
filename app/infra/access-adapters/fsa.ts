@@ -2,7 +2,7 @@ import { throwError } from "@/utils";
 
 import type { AccessAdapter } from "./access";
 
-export class FsaAccess implements AccessAdapter<FileSystemDirectoryHandle> {
+export class FsaAccessAdapter implements AccessAdapter<FileSystemDirectoryHandle> {
   rootHandle?: FileSystemDirectoryHandle;
 
   acquire() {

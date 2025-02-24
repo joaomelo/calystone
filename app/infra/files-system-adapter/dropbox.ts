@@ -5,9 +5,9 @@ import { createId } from "@/domain";
 import { throwError } from "@/utils";
 import { Dropbox } from "dropbox";
 
-import { FileSystemBaseAdapter } from "./base";
+import { BaseFileSystemAdapter } from "./base";
 
-export class FileSystemDropboxAdapter extends FileSystemBaseAdapter<string> {
+export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
   dropboxClient: Dropbox;
 
   constructor(accessToken: string) {

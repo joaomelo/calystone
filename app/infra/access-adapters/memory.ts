@@ -2,7 +2,7 @@ import { fakeDirectory, throwError } from "@/utils";
 
 import type { AccessAdapter } from "./access";
 
-export class MemoryAccess implements AccessAdapter<string> {
+export class MemoryAccessAdapter implements AccessAdapter<string> {
   rootDirectoryName?: string;
 
   acquire() {

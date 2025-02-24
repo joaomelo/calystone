@@ -5,11 +5,11 @@ import { createId } from "@/domain";
 import { fakeDirectory, fakeFile, fakeFileSystemEntry } from "@/utils";
 import { faker } from "@faker-js/faker";
 
-import { FileSystemBaseAdapter } from "./base";
+import { BaseFileSystemAdapter } from "./base";
 
 type MemoryMetadata = ArrayBuffer | undefined;
 
-export class FileSystemMemoryAdapter extends FileSystemBaseAdapter<MemoryMetadata> {
+export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadata> {
   constructor(rootDirectoryName: string) {
     const rootData: DirectoryDataOptions = {
       id: createId(),

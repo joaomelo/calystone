@@ -1,9 +1,7 @@
 import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
-import type { SourcesConfiguration } from "@/infra";
 
 import { name, version } from "@/../package.json";
-import { Nodes } from "@/domain";
-import { LocalStorageLocaleRepository, NodesService } from "@/infra";
+import { BaseSourceAdaptersPortfolio } from "@/infra";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -29,7 +27,7 @@ export function initApp(elementId: string) {
   const router = createRouter();
   app.use(router);
 
-  const sourcesConfiguration: SourcesConfiguration = {
+  const options = {
     dropbox: {
       clientId: stringOrUndefined(import.meta.env.VITE_DROPBOX_CLIENT_ID),
       redirectUrl: `${window.location.origin}/transfer-dropbox`,
@@ -42,15 +40,13 @@ export function initApp(elementId: string) {
       redirectUrl: `${window.location.origin}/transfer-one-drive`,
     },
   };
-  const nodes = new Nodes();
-  const nodesService = new NodesService({ data: sourcesConfiguration, nodes });
+  const sourceAdaptersPortfolio = new BaseSourceAdaptersPortfolio(options);
 
-  const store = new Store({ appData, nodes, nodesService });
+  const store = new Store({ appData, sourcesPortfolio });
   window.$store = store;
   app.use(store);
 
-  const localeRepository = new LocalStorageLocaleRepository();
-  const i18n = createI18n(localeRepository);
+  const i18n = createI18n();
   app.use(i18n);
 
   app.mount(elementId);
