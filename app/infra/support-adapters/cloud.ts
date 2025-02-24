@@ -1,4 +1,4 @@
-import type { SupportAdapter } from "./support";
+import type { SupportAdapter } from "@/services";
 
 export class CloudSupport implements SupportAdapter {
   clientId: string | undefined;

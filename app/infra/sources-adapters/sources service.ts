@@ -2,15 +2,18 @@ import type { Nodes } from "@/domain";
 
 import type { Source, SourcesConfiguration } from "./source";
 
-import { SuitesPortfolio } from "./suites";
+import { ServicesPortfolio } from "./suites";
+import { SourcesSupports } from "./supports";
 
-export class NodesService {
+export class SourcesService {
   nodes: Nodes;
-  portfolio: SuitesPortfolio;
+  portfolio: ServicesPortfolio;
+  supports: SourcesSupports;
 
   constructor({ data, nodes }: Options) {
     this.nodes = nodes;
-    this.portfolio = new SuitesPortfolio(data);
+    this.portfolio = new ServicesPortfolio(data);
+    this.supports = new SourcesSupports(data);
   }
 
   async bootstrap(source: Source) {
@@ -28,9 +31,8 @@ export class NodesService {
     await suite.access.request();
   }
 
-  supports(source: Source) {
-    const suite = this.portfolio.get(source);
-    return suite.support;
+  support(source: Source) {
+    return this.supports.get(source);
   }
 }
 
