@@ -15,9 +15,11 @@ export function convert(node: Node): TreeNode {
 
 function solveChildren(node: Node): Node[] {
   if (!(node instanceof Directory)) return [];
-  if (node.children().length === 0) return [];
 
-  const children = node.children();
+  const children = node.getChildren();
+
+  if (children.length === 0) return [];
+
   children.sort((a: Node, b: Node) => {
     if (a instanceof Directory && b instanceof Artifact) return -1;
     if (a instanceof Artifact && b instanceof Directory) return 1;

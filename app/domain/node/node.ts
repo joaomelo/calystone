@@ -1,5 +1,7 @@
 import type { Nodes } from "@/domain/nodes";
 
+import { reactive } from "vue";
+
 import type { Id } from "../id";
 import type { NodeOptions } from "./options";
 import type { Status } from "./status";
@@ -16,6 +18,9 @@ export abstract class Node {
     this.name = name;
     this.parentId = parentId;
     this.nodes = nodes;
+
+    // unfortunately placing this vue wrapper  was the only way the ui was able to reactively update nodes updates like opening a directory
+    return reactive(this);
   }
 
   getParent(): Node | undefined {
