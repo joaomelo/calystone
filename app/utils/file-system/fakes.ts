@@ -3,9 +3,12 @@ import { faker } from "@faker-js/faker";
 type Kind = typeof kinds[number];
 const kinds = ["file", "directory"] as const;
 
-export function fakeFileSystemEntry(kind?: Kind) {
-  const finalKind: Kind = kind ?? faker.helpers.arrayElement(kinds);
-  return finalKind === "file" ? fakeFile() : fakeDirectory();
+export function fakeDirectory() {
+  const options = faker.system.directoryPath().split("/").filter(Boolean);
+  return {
+    lastModified: faker.date.recent().getTime(),
+    name: faker.helpers.arrayElement(options),
+  };
 }
 
 export function fakeFile(type?: string) {
@@ -20,10 +23,7 @@ export function fakeFile(type?: string) {
   };
 }
 
-export function fakeDirectory() {
-  const options = faker.system.directoryPath().split("/").filter(Boolean);
-  return {
-    lastModified: faker.date.recent().getTime(),
-    name: faker.helpers.arrayElement(options),
-  };
+export function fakeFileSystemEntry(kind?: Kind) {
+  const finalKind: Kind = kind ?? faker.helpers.arrayElement(kinds);
+  return finalKind === "file" ? fakeFile() : fakeDirectory();
 }

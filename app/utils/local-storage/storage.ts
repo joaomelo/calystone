@@ -1,5 +1,5 @@
-type StorageKey = string;
 type As<T> = (data: unknown) => T | undefined;
+type StorageKey = string;
 
 export class LocalStorage<T> {
   as: As<T>;

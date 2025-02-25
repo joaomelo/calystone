@@ -3,21 +3,6 @@ type PerformanceData = Record<string, number[]>;
 
 export let performanceTracker: PerformanceData = {};
 
-export function recordPerformance(label: string) {
-  const start = performance.now();
-  if (!(label in performanceTracker)) {
-    performanceTracker[label] = [];
-  }
-
-  return () => {
-    const end = performance.now();
-    if (!(label in performanceTracker)) {
-      throw new Error(`performance label "${label}" not found.`);
-    }
-    performanceTracker[label].push(end - start);
-  };
-}
-
 export function getPerformanceSummary(): PerformanceSummary {
   const summary: PerformanceSummary = {};
   Object
@@ -31,6 +16,21 @@ export function getPerformanceSummary(): PerformanceSummary {
       };
     });
   return summary;
+}
+
+export function recordPerformance(label: string) {
+  const start = performance.now();
+  if (!(label in performanceTracker)) {
+    performanceTracker[label] = [];
+  }
+
+  return () => {
+    const end = performance.now();
+    if (!(label in performanceTracker)) {
+      throw new Error(`performance label "${label}" not found.`);
+    }
+    performanceTracker[label].push(end - start);
+  };
 }
 
 export function resetPerformanceData() {
