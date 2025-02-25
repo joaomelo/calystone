@@ -1,8 +1,8 @@
-import { throwCritical } from "@/utils";
+import { NullThrower } from "@/utils";
 
 import type { OpenerService } from "./opener";
 
-export class NullOpenerService implements OpenerService{
+export class NullOpenerService extends NullThrower implements OpenerService{
 
   openDirectory(): Promise<void> {
     this.throw();
@@ -10,10 +10,6 @@ export class NullOpenerService implements OpenerService{
 
   openRoots(): Promise<void> {
     this.throw();
-  }
-
-  throw(): never {
-    throwCritical("NULL_IMPLEMENTATION", "null service does not have an implementation");
   }
 
 }
