@@ -2,16 +2,12 @@
 import { Store } from "@/display/store";
 import { EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
 import { Artifact, Directory, type Id, type Node } from "@/domain";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 
 const toast = useErrorToast();
 const { nodes, service } = Store.use();
 const node = ref<Node | undefined>();
 const detail = ref(false);
-
-onMounted(() => {
-  void service.opener.openRoots();
-});
 
 function handleClose() {
   detail.value = false;
