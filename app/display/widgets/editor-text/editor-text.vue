@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
 
+import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/widgets/editor-workspace";
-import { TextCodec } from "@/domain";
 import { throwCritical } from "@/utils";
 import { debounce } from "lodash-es";
 import { ref } from "vue";
@@ -15,13 +15,14 @@ const { content } = defineProps<{
 
 if (content.mime.type() !== "text") throwCritical("INVALID_MIME_TYPE_FOR_EDITOR", "the artifact must have text content");
 
-const textCodec = new TextCodec(content);
+const { service } = Store.use();
+
 const text = ref("");
-text.value = await textCodec.fetch();
+text.value = await service.text.fetch(content);
 
 // will save updates to the model after 1 second of inactivity
-const handleUpdate = debounce(async (newText: string) => {
-  await textCodec.post(newText);
+const handleUpdate = debounce(async (text: string) => {
+  await service.text.post({ artifact: content, text });
 }, 1000);
 </script>
 <template>

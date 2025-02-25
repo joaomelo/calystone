@@ -15,10 +15,10 @@ const { t } = useI18n();
     <template #default>
       <div class="editor-directory">
         <p data-test="path">
-          <b>{{ t('path') }}</b>: {{ content.path() }}
+          <b>{{ t('path') }}</b>: {{ content.mountPath() }}
         </p>
         <p data-test="items">
-          <b>{{ t('items') }}</b>: {{ content.descendants().length }}
+          <b>{{ t('items') }}</b>: {{ content.getDescendants().length }}
         </p>
       </div>
     </template>

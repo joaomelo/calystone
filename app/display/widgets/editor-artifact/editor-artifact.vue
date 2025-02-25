@@ -25,7 +25,7 @@ const { t } = useI18n();
           <b>{{ t('size') }}</b>: {{ filesize(content.size) }}
         </p>
         <p data-test="path">
-          <b>{{ t('path') }}</b>: {{ content.path() }}
+          <b>{{ t('path') }}</b>: {{ content.mountPath() }}
         </p>
       </div>
     </template>
