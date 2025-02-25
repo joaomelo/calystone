@@ -18,7 +18,7 @@ const emit = defineEmits<{
   selected: [id: Id | undefined];
 }>();
 
-const tree = computed(() => nodes.list().filter(n => n.root()).map(convert));
+const tree = computed(() => nodes.list().filter(n => n.isRoot()).map(convert));
 
 // this is nedeed so the prime vue component can visualy show the selected node
 const selectedKey = ref();
@@ -50,7 +50,7 @@ function resolveKey(node?: TreeNode) {
   <div class="outline-nodes">
     <ScrollPanel class="outline-nodes-scroll">
       <PrimeVueTree
-        v-model:selectionKeys="selectedKey"
+        v-model:selection-keys="selectedKey"
         selection-mode="single"
         data-test="nodes-outline-tree"
         :value="tree"

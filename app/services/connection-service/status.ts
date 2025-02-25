@@ -1,6 +1,7 @@
 import type { FileSystemAdapter } from "@/services/adapters";
 
-export type Observer = (status: Value, fileSystemAdapter?: FileSystemAdapter) => void;
+export type Observer = (options: ObserverOptions) => void;
+export type ObserverOptions = { fileSystemAdapter: FileSystemAdapter; value: "connected", } | { value: "disconnected" };
 export type Observers = Set<Observer>;
 export type Value = "connected" | "disconnected";
 
@@ -8,9 +9,9 @@ export class Status {
   value: Value = "disconnected";
   private observers: Observers = new Set();
 
-  next(value: Value, fileSystemAdapter?: FileSystemAdapter) {
-    this.value = value;
-    this.observers.forEach(observer => { observer(value, fileSystemAdapter); });
+  next(options: ObserverOptions) {
+    this.value = options.value;
+    this.observers.forEach(observer => { observer(options); });
   }
 
   subscribe(observer: Observer) {
