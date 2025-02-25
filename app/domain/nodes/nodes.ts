@@ -2,12 +2,14 @@ import type { Id } from "@/domain/id";
 import type { Node } from "@/domain/node";
 
 import { throwCritical } from "@/utils";
+import { reactive } from "vue";
 
 export class Nodes {
   readonly map: Map<Id, Node>;
 
   constructor() {
-    this.map = new Map();
+    // unfortunately placing this vue wrapper was the only way the ui was able to reactively update nodes updates like opening a directory. if trying to make the internal map reactive in the display store level was not enough to make vue able to detect the nodes data updates.
+    this.map = reactive(new Map());
   }
 
   clear(): void {
