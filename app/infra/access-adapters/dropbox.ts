@@ -19,7 +19,7 @@ export class DropboxAccessAdapter implements AccessAdapter<string> {
     this.redirectUrl = redirectUrl;
 
     const asString = (data: unknown) => typeof data === "string" ? data : undefined;
-    this.storage = new LocalStorage("DBX_CODE_VERIFIER", asString);
+    this.storage = new LocalStorage("dropboxCodeVerifier", asString);
   }
 
   async acquire() {

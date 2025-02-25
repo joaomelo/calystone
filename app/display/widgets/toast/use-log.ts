@@ -3,6 +3,8 @@ import type { ToastMessageOptions } from "primevue/toast";
 import { Severity } from "@/utils";
 import { useToast as usePrimeToast } from "primevue/usetoast";
 
+type PrimeSeverity = Exclude<ToastMessageOptions["severity"], undefined>;
+
 export function useToast() {
   const primeToast = usePrimeToast();
   const toast = (severity: Severity, message: string, detail?: string) => {
@@ -17,8 +19,6 @@ export function useToast() {
   return { Severity, toast };
 
 }
-
-type PrimeSeverity = Exclude<ToastMessageOptions["severity"], undefined>;
 function convertSeverityToPrime(severity: Severity): PrimeSeverity {
   switch (severity) {
     case Severity.Alert:

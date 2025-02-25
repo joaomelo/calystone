@@ -6,27 +6,31 @@ interface Options<T> {
 }
 
 export abstract class BaseSourceAdapter<T> implements SourceAdapter<T> {
-  access: AccessAdapter<T>;
-  support: SupportAdapter;
+  accessAdapter: AccessAdapter<T>;
+  fileSystemAdapter?: FileSystemAdapter;
+  supportAdapter: SupportAdapter;
 
   constructor({ access, support }: Options<T>) {
-    this.support = support;
-    this.access = access;
+    this.supportAdapter = support;
+    this.accessAdapter = access;
   }
 
   abstract createFileSystemAdapter(options: T): FileSystemAdapter;
 
   getAccess() {
-    return this.access;
+    return this.accessAdapter;
   }
 
   async getFileSystemAdapter(): Promise<FileSystemAdapter> {
-    const options = await this.access.acquire();
-    const fileSystemAdapter = this.createFileSystemAdapter(options);
-    return fileSystemAdapter;
+    if (this.fileSystemAdapter) return this.fileSystemAdapter;
+
+    const options = await this.accessAdapter.acquire();
+    this.fileSystemAdapter = this.createFileSystemAdapter(options);
+
+    return this.fileSystemAdapter;
   }
 
   getSupport(): SupportAdapter {
-    return this.support;
+    return this.supportAdapter;
   }
 }
