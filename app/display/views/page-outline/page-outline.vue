@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
 import { EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
-import { Directory, type Id, type Node } from "@/domain";
+import { Artifact, Directory, type Id, type Node } from "@/domain";
 import { onMounted, ref } from "vue";
 
 const toast = useErrorToast();
@@ -36,8 +36,12 @@ function solveNode(id?: Id) {
 
 async function triggerOpen(node: Node) {
   try {
-    if (node instanceof Directory && node.status === "unloaded") {
+    if (node instanceof Directory) {
       await service.opener.openDirectory(node);
+    }
+
+    if (node instanceof Artifact && node.mime.type() === "text") {
+      await service.text.fetch(node);
     }
   } catch (error) {
     toast(error);

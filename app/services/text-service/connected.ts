@@ -1,7 +1,7 @@
 import type { Artifact } from "@/domain";
 import type { FileSystemAdapter } from "@/services/adapters";
 
-import { throwError } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 
 import type { TextService } from "./text";
 
@@ -15,6 +15,7 @@ export class ConnectedTextService implements TextService {
   }
 
   async fetch(artifact: Artifact) {
+    if (artifact.mime.type() !== "text") throwCritical("NOT_TEXT_ARTIFACT", "cannot fetch text content if artifact is not of text type");
 
     artifact.status = "loading";
     try {
