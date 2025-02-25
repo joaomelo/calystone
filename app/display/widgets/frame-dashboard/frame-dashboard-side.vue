@@ -23,8 +23,9 @@ function handleExit() {
   service.connection.disconnect();
 }
 
-function handleReload() {
+async function handleReload() {
   service.connection.reconnect();
+  await service.opener.openRoots();
 }
 </script>
 <template>
