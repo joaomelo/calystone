@@ -1,4 +1,4 @@
-export interface BaseSourceAdaptersPortfolioOptions {
+export interface BaseAdaptersPortfolioOptions {
   memory: MemoryOptions;
   oneDrive: CloudOptions;
   dropbox: CloudOptions;

@@ -1,3 +1,3 @@
 export * from "./adapters";
+export * from "./portfolio";
 export * from "./source";
-export * from "./sources-service";

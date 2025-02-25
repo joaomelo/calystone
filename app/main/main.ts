@@ -1,8 +1,7 @@
-import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
-
 import { name, version } from "@/../package.json";
-import { BaseSourceAdaptersPortfolio } from "@/infra";
-import { SourcesService } from "@/services";
+import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
+import { BaseAdaptersPortfolio } from "@/infra";
+import { ServicesPortolfio } from "@/services";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -18,7 +17,7 @@ export function initApp(elementId: string) {
 
   app.use(PrimeVue, {
     theme: {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
       preset: ThemePreset
     }
   });
@@ -41,10 +40,10 @@ export function initApp(elementId: string) {
       redirectUrl: `${window.location.origin}/transfer-one-drive`,
     },
   };
-  const sourceAdaptersPortfolio = new BaseSourceAdaptersPortfolio(options);
-  const sourcesService = new SourcesService(sourceAdaptersPortfolio);
+  const AdaptersPortfolio = new BaseAdaptersPortfolio(options);
+  const servicesPortolfio = new ServicesPortolfio(AdaptersPortfolio);
 
-  const store = new Store({ appData, service: sourcesService });
+  const store = new Store({ appData, service: servicesPortolfio });
   window.$store = store;
   app.use(store);
 
@@ -54,13 +53,13 @@ export function initApp(elementId: string) {
   app.mount(elementId);
 }
 
-function stringOrUndefined(value: unknown): string | undefined {
-  if (value === undefined || value === null) return undefined;
-  return String(value);
-}
-
 function asBoolean(value: unknown): boolean {
   if (value === undefined || value === null) return false;
   if (typeof value === "string" && value === "false") return false;
   return Boolean(value);
+}
+
+function stringOrUndefined(value: unknown): string | undefined {
+  if (typeof value === "string") return value;
+  return undefined;
 }
