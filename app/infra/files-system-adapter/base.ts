@@ -30,7 +30,7 @@ export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapt
 
   abstract openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]>;
 
-  abstract postFileContent(id: Id, content: ArrayBuffer): Promise<void>;
+  abstract postFileContent(options: { content: ArrayBuffer; id: Id, }): Promise<void>;
 
   reset() {
     this.nodesMetadata.clear();

@@ -73,7 +73,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
     return childrenData;
   }
 
-  async postFileContent(id: Id, content: ArrayBuffer): Promise<void> {
+  async postFileContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
     const path = this.metadataOrThrow(id);
     await this.dropboxClient.filesUpload({
       contents: content,

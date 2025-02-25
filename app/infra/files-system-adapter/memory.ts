@@ -50,7 +50,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
     return Promise.resolve(childrenData);
   }
 
-  postFileContent(id: Id, content: ArrayBuffer): Promise<void> {
+  async postFileContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
     this.nodesMetadata.set(id, content);
     return Promise.resolve();
   }

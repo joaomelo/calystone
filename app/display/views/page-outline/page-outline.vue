@@ -20,13 +20,13 @@ function handleClose() {
 
 function handleExpanded(id: Id) {
   const node = solveNode(id);
-  if (node) void triggerLoad(node);
+  if (node) void triggerOpen(node);
 }
 
 function handleSelected(id?: Id) {
   node.value = solveNode(id);
   detail.value = Boolean(node.value);
-  if (node.value) void triggerLoad(node.value);
+  if (node.value) void triggerOpen(node.value);
 }
 
 function solveNode(id?: Id) {
@@ -34,9 +34,9 @@ function solveNode(id?: Id) {
   return node;
 }
 
-async function triggerLoad(node: Node) {
+async function triggerOpen(node: Node) {
   try {
-    if (node instanceof Directory) {
+    if (node instanceof Directory && node.status === "unloaded") {
       await service.opener.openDirectory(node);
     }
   } catch (error) {

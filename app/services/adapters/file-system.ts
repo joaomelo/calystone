@@ -7,5 +7,5 @@ export interface FileSystemAdapter {
   reset(): void;
   openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]>;
   fetchFileContent(id: Id): Promise<ArrayBuffer>;
-  postFileContent(id: Id, content: ArrayBuffer): Promise<void>;
+  postFileContent(options: { content: ArrayBuffer; id: Id, }): Promise<void>;
 }

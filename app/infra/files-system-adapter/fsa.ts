@@ -16,18 +16,6 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<FileSystemHandle
     super({ rootData, rootMetadata: rootHandle });
   }
 
-  private metadataOfDirectoryOrThrow(id: Id): FileSystemDirectoryHandle {
-    const handle = this.metadataOrThrow(id);
-    if (!(handle instanceof FileSystemDirectoryHandle)) throwCritical("NOT_DIRECTORY_HANDLE", `the handle for the id ${id} is not a directory handle`);
-    return handle;
-  }
-
-  private metadataOfFileOrThrow(id: Id): FileSystemFileHandle {
-    const handle = this.metadataOrThrow(id);
-    if (!(handle instanceof FileSystemFileHandle)) throwCritical("NOT_FILE_HANDLE", `the handle for the id ${id} is not a file handle`);
-    return handle;
-  }
-
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {
     const handle = this.metadataOfFileOrThrow(id);
     const file: File = await handle.getFile();
@@ -64,10 +52,22 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<FileSystemHandle
     return childrenData;
   }
 
-  async postFileContent(id: Id, content: ArrayBuffer): Promise<void> {
+  async postFileContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
     const handle = this.metadataOfFileOrThrow(id);
     const writableStream = await handle.createWritable();
     await writableStream.write(content);
     await writableStream.close();
+  }
+
+  private metadataOfDirectoryOrThrow(id: Id): FileSystemDirectoryHandle {
+    const handle = this.metadataOrThrow(id);
+    if (!(handle instanceof FileSystemDirectoryHandle)) throwCritical("NOT_DIRECTORY_HANDLE", `the handle for the id ${id} is not a directory handle`);
+    return handle;
+  }
+
+  private metadataOfFileOrThrow(id: Id): FileSystemFileHandle {
+    const handle = this.metadataOrThrow(id);
+    if (!(handle instanceof FileSystemFileHandle)) throwCritical("NOT_FILE_HANDLE", `the handle for the id ${id} is not a file handle`);
+    return handle;
   }
 }
