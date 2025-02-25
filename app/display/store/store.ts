@@ -1,7 +1,8 @@
+import type { Nodes } from "@/domain";
 import type { ServicesPortolfio } from "@/services";
-import type { App, ComputedRef } from "vue";
+import type { App, Ref } from "vue";
 
-import { computed } from "vue";
+import { reactive, ref } from "vue";
 
 import type { AppData } from "./app-data";
 
@@ -15,13 +16,19 @@ interface Options {
 
 export class Store {
   appData: AppData;
-  connected: ComputedRef<boolean>;
+  connected: Ref<boolean>;
+  nodes: Nodes;
   service: ServicesPortolfio;
 
   constructor({ appData, service }: Options) {
-    this.service = service;
-    this.connected = computed(() => false);
     this.appData = appData;
+    this.service = service;
+    this.nodes = reactive(service.nodes);
+
+    this.connected = ref(false);
+    this.service.connection.status.subscribe(status => {
+      this.connected.value = status === "connected";
+    });
   }
 
   static use(): Store {
