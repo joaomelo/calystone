@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { definePreset } from "@primevue/themes";
 import Aura from "@primevue/themes/aura";
 
