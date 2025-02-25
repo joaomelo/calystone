@@ -1,7 +1,7 @@
-import type { SourcesService } from "@/services";
+import type { ServicesPortolfio } from "@/services";
 import type { App, ComputedRef } from "vue";
 
-import { computed, reactive } from "vue";
+import { computed } from "vue";
 
 import type { AppData } from "./app-data";
 
@@ -9,17 +9,17 @@ import { key } from "./key";
 import { useStore } from "./use";
 
 interface Options {
-  service: SourcesService
+  service: ServicesPortolfio
   appData: AppData;
 };
 
 export class Store {
   appData: AppData;
   connected: ComputedRef<boolean>;
-  service: SourcesService;
+  service: ServicesPortolfio;
 
   constructor({ appData, service }: Options) {
-    this.service = reactive(service);
+    this.service = service;
     this.connected = computed(() => false);
     this.appData = appData;
   }

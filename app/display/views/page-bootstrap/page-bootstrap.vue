@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Source } from "@/infra";
+import type { Source } from "@/services";
 
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
@@ -12,12 +12,12 @@ const { source } = defineProps<{
 }>();
 
 const { t } = useI18n();
-const { nodesService } = Store.use();
+const { service } = Store.use();
 const router = useRouter();
 
 onMounted(async () => {
   try {
-    await nodesService.bootstrap(source);
+    await service.connection.connect(source);
     void router.push({ name: "outline" });
   } catch {
     void router.push({ name: "open" });
