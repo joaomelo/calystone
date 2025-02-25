@@ -1,6 +1,6 @@
 import type { EditorSwitch } from "@/display/widgets/editor-switch";
 
-import { Node } from "@/domain";
+import { Artifact, Node } from "@/domain";
 
 import EditorEmpty from "./editor-empty.vue";
 import EditorNotLoaded from "./editor-not-loaded.vue";
@@ -15,6 +15,8 @@ export const editorEmptySwitch: EditorSwitch = {
 export const editorNotLoadedSwitch: EditorSwitch = {
   component: EditorNotLoaded,
   supports(content) {
-    return content instanceof Node && content.status !== "loaded";
+    if (!(content instanceof Node)) return false;
+    if (content instanceof Artifact && content.mime.type() === "binary") return false;
+    return content.status !== "loaded";
   }
 };
