@@ -8,7 +8,7 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 const { t } = useI18n();
-const store = Store.use();
+const { service } = Store.use();
 
 const route = useRoute();
 
@@ -19,12 +19,12 @@ const active: ComputedRef<string> = computed(() => {
   return "outline";
 });
 
-function handleReload() {
-  store.nodes.reconnect();
+function handleExit() {
+  service.connection.disconnect();
 }
 
-function handleExit() {
-  store.nodesService.exit();
+function handleReload() {
+  service.connection.reconnect();
 }
 </script>
 <template>

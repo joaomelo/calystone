@@ -36,7 +36,7 @@ export class ConnectionService {
     this.reset();
   }
 
-  reconect() {
+  reconnect() {
     const fileSystemAdapter = this.fileSystemAdapter;
     if (!fileSystemAdapter) throwCritical("NO_FILE_SYSTEM_ADAPTER", "the connection must have a file system adapter to reconect");
 
