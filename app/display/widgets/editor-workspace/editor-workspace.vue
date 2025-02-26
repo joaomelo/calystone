@@ -1,22 +1,25 @@
 <script lang="ts" setup>
-import { ToolbuttonClose } from "@/display/widgets/toolbar-buttons";
-import Toolbar from "primevue/toolbar";
+import type { Node } from "@/domain";
 
+import ToolbarWorkspace from "./toolbar-workspace.vue";
+
+const { node } = defineProps<{
+  node: Node;
+}>();
 defineEmits<{
   close: []
+  rename: [node: Node]
 }>();
+
 </script>
 <template>
   <div class="editor-workspace">
     <div class="editor-workspace-header">
-      <Toolbar>
-        <template #start>
-          <slot name="toolbar" />
-        </template>
-        <template #end>
-          <ToolbuttonClose @click="$emit('close')" />
-        </template>
-      </Toolbar>
+      <ToolbarWorkspace
+        :node="node"
+        @close="$emit('close')"
+        @rename="$emit('rename', $event)"
+      />
     </div>
     <div class="editor-workspace-content">
       <slot />

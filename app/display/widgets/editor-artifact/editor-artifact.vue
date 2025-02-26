@@ -12,7 +12,7 @@ const { content } = defineProps<{
 const { t } = useI18n();
 </script>
 <template>
-  <EditorWorkspace>
+  <EditorWorkspace :node="content">
     <template #default>
       <div class="editor-artifact">
         <p data-test="type">

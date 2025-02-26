@@ -26,7 +26,7 @@ const handleUpdate = debounce(async (text: string) => {
 }, 1000);
 </script>
 <template>
-  <EditorWorkspace>
+  <EditorWorkspace :node="content">
     <CodeMirror
       data-test="editor-text"
       :model-value="text"
