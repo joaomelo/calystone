@@ -8,4 +8,6 @@ export interface FileSystemAdapter {
   openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]>;
   fetchFileContent(id: Id): Promise<ArrayBuffer>;
   postFileContent(options: { content: ArrayBuffer; id: Id, }): Promise<void>;
+  renameDirectory(options: { id: Id, name: string }): Promise<void>;
+  renameFile(options: { id: Id, name: string }): Promise<void>;
 }
