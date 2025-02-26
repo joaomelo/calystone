@@ -3,6 +3,6 @@ import ToolbuttonBase from "./toolbutton-base.vue";
 </script>
 <template>
   <ToolbuttonBase
-    icon="bx-x"
+    icon="bxs-rename"
   />
 </template>
