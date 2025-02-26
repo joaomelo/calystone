@@ -24,8 +24,10 @@ export const pageOutline = {
       binaryArtifactOf: (node: Cypress.Chainable) => pageOutline
         .selectors.tree.artifactOf(node)
         .filter((_, el) => !pageOutline.selectors.tree.labelOf(el).includes(".txt")),
-      childrenOf: (node: Cypress.Chainable) => node
-        .find("ul.p-tree-node-children")
+      childrenContainerOf: (node: Cypress.Chainable) => node
+        .find("ul.p-tree-node-children"),
+      childrenOf: (node: Cypress.Chainable) => pageOutline
+        .selectors.tree.childrenContainerOf(node)
         .find("li.p-tree-node"),
       directoryOf: (node: Cypress.Chainable) => pageOutline
         .selectors.tree.childrenOf(node)

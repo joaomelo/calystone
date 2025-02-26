@@ -33,9 +33,12 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
     const childrenData: ArtifactOrDirectoryDataOptions[] = [];
 
     if (id === this.rootData.id) {
-      // garantees at least one text file and one subdirectory at the root level for e2e testing
+      // garantees at least one of the following node types at the root level for e2e testing
       const file = fakeFile("txt");
       childrenData.push({ id: createId(), parentId: id, ...file });
+
+      const binary = fakeFile("exe");
+      childrenData.push({ id: createId(), parentId: id, ...binary });
 
       const directory = fakeDirectory();
       childrenData.push({ id: createId(), parentId: id, ...directory });
