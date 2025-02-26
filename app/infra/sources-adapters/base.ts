@@ -1,5 +1,7 @@
 import type { AccessAdapter, FileSystemAdapter, SourceAdapter, SupportAdapter } from "@/services";
 
+import { throwCritical } from "@/utils";
+
 interface Options<T> {
   support: SupportAdapter;
   access: AccessAdapter<T>;
@@ -21,12 +23,17 @@ export abstract class BaseSourceAdapter<T> implements SourceAdapter<T> {
     return this.accessAdapter;
   }
 
-  async getFileSystemAdapter(): Promise<FileSystemAdapter> {
+  async getOrCreateFileSystemAdapter(): Promise<FileSystemAdapter> {
     if (this.fileSystemAdapter) return this.fileSystemAdapter;
 
     const options = await this.accessAdapter.acquire();
     this.fileSystemAdapter = this.createFileSystemAdapter(options);
 
+    return this.fileSystemAdapter;
+  }
+
+  getOrThrowFileSystemAdapter(): FileSystemAdapter {
+    if (!this.fileSystemAdapter) throwCritical("NO_FILE_SYSTEM_ADAPTER", "the source adapter could not found a file system adapter");
     return this.fileSystemAdapter;
   }
 
