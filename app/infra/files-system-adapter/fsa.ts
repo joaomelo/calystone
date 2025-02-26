@@ -59,6 +59,14 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<FileSystemHandle
     await writableStream.close();
   }
 
+  renameDirectory(): Promise<void> {
+    throwCritical("NOT_IMPLEMENTED", "method not implemented");
+  }
+
+  renameFile(): Promise<void> {
+    throwCritical("NOT_IMPLEMENTED", "method not implemented");
+  }
+
   private metadataOfDirectoryOrThrow(id: Id): FileSystemDirectoryHandle {
     const handle = this.metadataOrThrow(id);
     if (!(handle instanceof FileSystemDirectoryHandle)) throwCritical("NOT_DIRECTORY_HANDLE", `the handle for the id ${id} is not a directory handle`);
@@ -70,4 +78,5 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<FileSystemHandle
     if (!(handle instanceof FileSystemFileHandle)) throwCritical("NOT_FILE_HANDLE", `the handle for the id ${id} is not a file handle`);
     return handle;
   }
+
 }

@@ -2,7 +2,7 @@ import type { DirectoryDataOptions, Id } from "@/domain";
 import type { ArtifactOrDirectoryDataOptions } from "@/services";
 
 import { createId } from "@/domain";
-import { throwError } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 import { Dropbox } from "dropbox";
 
 import { BaseFileSystemAdapter } from "./base";
@@ -80,5 +80,13 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
       mode: { ".tag": "overwrite" },
       path
     });
+  }
+
+  renameDirectory(): Promise<void> {
+    throwCritical("NOT_IMPLEMENTED", "method not implemented");
+  }
+
+  renameFile(): Promise<void> {
+    throwCritical("NOT_IMPLEMENTED", "method not implemented");
   }
 }

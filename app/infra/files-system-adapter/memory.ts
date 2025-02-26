@@ -57,4 +57,12 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
     this.nodesMetadata.set(id, content);
     return Promise.resolve();
   }
+
+  renameDirectory(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  renameFile(): Promise<void> {
+    return Promise.resolve();
+  }
 }

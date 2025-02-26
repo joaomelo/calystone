@@ -3,7 +3,7 @@ import type { ArtifactOrDirectoryDataOptions } from "@/services";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
-import { throwError } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
 import { BaseFileSystemAdapter } from "./base";
@@ -80,5 +80,13 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     await this.graphClient
       .api(`/me/drive/items/${id}/content`)
       .put(blob);
+  }
+
+  renameDirectory(): Promise<void> {
+    throwCritical("NOT_IMPLEMENTED", "method not implemented");
+  }
+
+  renameFile(): Promise<void> {
+    throwCritical("NOT_IMPLEMENTED", "method not implemented");
   }
 }
