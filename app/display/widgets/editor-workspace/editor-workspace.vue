@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ButtonBase } from "@/display/widgets/button-base";
+import { ToolbuttonClose } from "@/display/widgets/toolbar-buttons";
 import Toolbar from "primevue/toolbar";
 
 defineEmits<{
@@ -10,13 +10,11 @@ defineEmits<{
   <div class="editor-workspace">
     <div class="editor-workspace-header">
       <Toolbar>
+        <template #start>
+          <slot name="toolbar" />
+        </template>
         <template #end>
-          <ButtonBase
-            icon="bx bx-sm bx-x"
-            severity="secondary"
-            text
-            @click="$emit('close')"
-          />
+          <ToolbuttonClose @click="$emit('close')" />
         </template>
       </Toolbar>
     </div>
