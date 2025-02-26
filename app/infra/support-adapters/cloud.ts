@@ -18,11 +18,11 @@ export class CloudSupportAdapter implements SupportAdapter {
     return typeof this.clientId === "string" && typeof this.redirectUrl === "string";
   }
 
-  renameFile() {
+  renameDirectory() {
     return this.access();
   }
 
-  renameFolder() {
+  renameFile() {
     return this.access();
   }
 };

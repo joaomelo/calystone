@@ -6,11 +6,11 @@ export class FsaSupportAdapter implements SupportAdapter {
     return ("showOpenFilePicker" in self);
   }
 
-  renameFile() {
-    return this.access();
+  renameDirectory(): boolean {
+    return false;
   }
 
-  renameFolder(): boolean {
-    return false;
+  renameFile() {
+    return this.access();
   }
 }
