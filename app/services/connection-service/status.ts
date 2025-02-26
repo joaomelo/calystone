@@ -1,7 +1,7 @@
-import type { FileSystemAdapter } from "@/services/adapters";
+import type { Source } from "@/services/source";
 
 export type Observer = (options: ObserverOptions) => void;
-export type ObserverOptions = { fileSystemAdapter: FileSystemAdapter; value: "connected", } | { value: "disconnected" };
+export type ObserverOptions = { source: Source; value: "connected", } | { value: "disconnected" };
 export type Observers = Set<Observer>;
 export type Value = "connected" | "disconnected";
 
