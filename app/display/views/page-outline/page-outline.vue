@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
-import { EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
+import { DialogRename, EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
 import { Artifact, Directory, type Id, type Node } from "@/domain";
-import { ref } from "vue";
+import { ref, useTemplateRef } from "vue";
 
 const toast = useErrorToast();
 const { nodes, service } = Store.use();
@@ -17,6 +17,10 @@ function handleClose() {
 function handleExpanded(id: Id) {
   const node = solveNode(id);
   if (node) void triggerOpen(node);
+}
+const dialogRename = useTemplateRef("dialogRename");
+function handleRename() {
+  dialogRename.value?.show();
 }
 
 function handleSelected(id?: Id) {
@@ -43,7 +47,6 @@ async function triggerOpen(node: Node) {
     toast(error);
   }
 }
-
 </script>
 <template>
   <FrameDashboard>
@@ -63,6 +66,11 @@ async function triggerOpen(node: Node) {
         <EditorSwitcher
           :node
           @close="handleClose"
+          @rename="handleRename"
+        />
+        <DialogRename
+          ref="dialogRename"
+          :node="node"
         />
       </template>
     </MasterDetail>

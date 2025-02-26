@@ -1,5 +1,6 @@
 export * from "./button-base";
 export * from "./card-panel";
+export * from "./dialog-rename";
 export * from "./editor-switcher";
 export * from "./frame-card";
 export * from "./frame-dashboard";
