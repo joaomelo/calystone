@@ -6,7 +6,7 @@ import type { Status } from "./status";
 
 export abstract class Node {
   readonly id: Id;
-  readonly name: string;
+  name: string;
   readonly nodes: Nodes;
   readonly parentId?: Id;
   status: Status = "unloaded";
