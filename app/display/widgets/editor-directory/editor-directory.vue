@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Directory, Node } from "@/domain";
+import type { Directory } from "@/domain";
 
 import { useI18n } from "@/display/i18n";
 import { EditorWorkspace } from "@/display/widgets/editor-workspace";
@@ -7,10 +7,6 @@ import { EditorWorkspace } from "@/display/widgets/editor-workspace";
 const { content } = defineProps<{
   content: Directory;
 }>();
-defineEmits<{
-  rename: [node: Node]
-}>();
-
 const { t } = useI18n();
 </script>
 <template>

@@ -18,6 +18,7 @@ function handleExpanded(id: Id) {
   const node = solveNode(id);
   if (node) void triggerOpen(node);
 }
+
 const dialogRename = useTemplateRef("dialogRename");
 function handleRename() {
   dialogRename.value?.show();
