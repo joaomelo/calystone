@@ -23,7 +23,7 @@ const data = reactive<{
   node
 });
 
-const { errors, validate } = useSchema((builder) => {
+const { dispatch, errors, validate } = useSchema((builder) => {
   return builder.object({
     name: builder.string().nonempty({ message: "name cannot be empty" }),
     node: builder.instanceof(Node, { message: "no active node to be renamed" })
@@ -33,8 +33,10 @@ const { errors, validate } = useSchema((builder) => {
 async function save() {
   const success = validate(data);
   if (!success) return;
-  await service.renamer.perform({ name: data.name, node: data.node });
-  visible.value = false;
+  await dispatch(async () => {
+    await service.renamer.perform({ name: data.name, node: data.node });
+    visible.value = false;
+  });
 }
 
 function show() {
@@ -55,7 +57,7 @@ function show() {
         v-model="data.name"
         label="name"
         autofocus
-        :error="errors.name"
+        :error="errors.name ?? errors.form"
       />
     </template>
     <template #footer>

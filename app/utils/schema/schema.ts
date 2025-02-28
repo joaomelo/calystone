@@ -23,5 +23,18 @@ export function useSchema<T>(builder: Builder<T>) {
     return result.success;
   }
 
-  return { errors, validate };
+  async function dispatch(callback: () => Promise<void>) {
+    try {
+      await callback();
+    } catch (error) {
+      console.error(error);
+      errors.form = typeof error === "string"
+        ? error
+        : error instanceof Error
+          ? error.message
+          : "unknown error";
+    }
+  }
+
+  return { dispatch, errors, validate };
 }
