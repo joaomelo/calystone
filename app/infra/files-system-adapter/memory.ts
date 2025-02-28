@@ -3,6 +3,7 @@ import type { ArtifactOrDirectoryDataOptions } from "@/services";
 
 import { createId } from "@/domain";
 import { fakeDirectory, fakeFile, fakeFileSystemEntry } from "@/utils";
+import { throwError } from "@/utils";
 import { faker } from "@faker-js/faker";
 
 import { BaseFileSystemAdapter } from "./base";
@@ -58,11 +59,19 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
     return Promise.resolve();
   }
 
-  renameDirectory(): Promise<void> {
+  renameDirectory(options: { name: string }): Promise<void> {
+    this.renameNode(options.name);
     return Promise.resolve();
   }
 
-  renameFile(): Promise<void> {
+  renameFile(options: { name: string }): Promise<void> {
+    this.renameNode(options.name);
     return Promise.resolve();
+  }
+
+  renameNode(name: string) {
+    if (name.includes("/")) {
+      throwError("INVALID_CHAR", "invalid char for naming nodes in the file system");
+    }
   }
 }
