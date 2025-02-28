@@ -3,22 +3,20 @@ import InputTextPrimeVue from "primevue/inputtext";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { autofocus = false, label } = defineProps<{
+const { autofocus = false } = defineProps<{
   autofocus?: boolean
-  label?: string;
-  name: string;
 }>();
 const model = defineModel({ type: String });
 </script>
 <template>
-  <InputWrapper :label>
-    <template #default="{ id }">
+  <InputWrapper>
+    <template #default="{ id, invalid }">
       <InputTextPrimeVue
         :id="id"
         v-model="model"
-        :name="name"
         class="input-text"
         :autofocus="autofocus"
+        :invalid="invalid"
       />
     </template>
   </InputWrapper>

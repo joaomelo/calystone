@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import Message from "primevue/message";
 import { useId } from "vue";
 
 const { justify = "start", label } = defineProps<{
+  error?: string;
   justify?: "center" | "end" | "start";
   label?: string;
 }>();
@@ -21,8 +23,18 @@ const id = useId();
       {{ label }}
     </label>
     <div class="input-wrapper-content">
-      <slot :id="id" />
+      <slot
+        :id="id"
+        :invalid="!!error"
+      />
     </div>
+    <Message
+      severity="error"
+      size="small"
+      variant="simple"
+    >
+      {{ error }}
+    </Message>
   </div>
 </template>
 <style scoped>

@@ -3,13 +3,12 @@ import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/widgets/button-base";
 import { InputText } from "@/display/widgets/input-text";
 import { Node } from "@/domain";
-import { throwCritical, throwError } from "@/utils";
+import { useSchema } from "@/utils";
 import Dialog from "primevue/dialog";
 import { reactive, ref } from "vue";
-import { z } from "zod";
 
 const { node } = defineProps<{
-  node: Node | undefined
+  node?: Node
 }>();
 defineExpose({ show });
 
@@ -24,24 +23,17 @@ const data = reactive<{
   node
 });
 
-const schema = z.object({
-  name: z.string().nonempty({ message: "name is required" }),
-  node: z.instanceof(Node)
+const { errors, validate } = useSchema((builder) => {
+  return builder.object({
+    name: builder.string().nonempty({ message: "name cannot be empty" }),
+    node: builder.instanceof(Node, { message: "no active node to be renamed" })
+  });
 });
 
-const errors = ref({});
-
 async function save() {
-  const validation = schema.safeParse(data);
-  if (!validation.success) {
-    errors.value = validation.error.format();
-    console.log({ errors: errors.value });
-    return;
-  }
-
-  if (!node) throwCritical("NO_ACTIVE_NODE", "no active node to be renamed");
-  if (!data.name) throwError("EMPTY_NAME", "the name cannot be empty ir order do rename a node");
-  await service.renamer.perform({ name: data.name, node });
+  const success = validate(data);
+  if (!success) return;
+  await service.renamer.perform({ name: data.name, node: data.node });
   visible.value = false;
 }
 
@@ -62,8 +54,8 @@ function show() {
       <InputText
         v-model="data.name"
         label="name"
-        name="name"
         autofocus
+        :error="errors.name"
       />
     </template>
     <template #footer>

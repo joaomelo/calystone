@@ -1,18 +1,15 @@
 import type { ZodSchema } from "zod";
 
 import { reactive } from "vue";
+import { z } from "zod";
 
-export { z as s } from "zod";
+type Builder<T> = (builder: typeof z) => ZodSchema<T>;
 
-interface Options<T> {
-  data: T
-  schema: ZodSchema<T>
-}
-
-export function useSchema<T>({ data, schema }: Options<T>) {
+export function useSchema<T>(builder: Builder<T>) {
+  const schema = builder(z);
   const errors = reactive<Record<string, string | undefined>>({});
 
-  function validate(): boolean {
+  function validate(data: unknown): data is T {
     const result = schema.safeParse(data);
     Object.keys(errors).forEach((key) => (errors[key] = undefined));
     if (!result.success) {
