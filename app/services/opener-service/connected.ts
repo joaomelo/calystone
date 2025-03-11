@@ -4,14 +4,14 @@ import type { FileSystemAdapter } from "@/infra";
 import { Artifact, Directory, isArtifactDataOptions } from "@/domain";
 import { throwError } from "@/utils";
 
-import type { OpenerService } from "./opener";
+import type { DirectoryOpenerService } from "./opener";
 
 interface Options {
   fileSystemAdapter: FileSystemAdapter
   nodes: Nodes
 }
 
-export class ConnectedOpenerService implements OpenerService {
+export class ConnectedDirectoryOpenerService implements DirectoryOpenerService {
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;
 
@@ -20,13 +20,13 @@ export class ConnectedOpenerService implements OpenerService {
     this.nodes = nodes;
   }
 
-  async openDirectory(directory: Directory) {
+  async open(directory: Directory) {
     if (directory.status !== "unloaded") return;
 
     directory.status = "loading";
 
     try {
-      const nodesData = await this.fileSystemAdapter.openDirectory(directory.id);
+      const nodesData = await this.fileSystemAdapter.open(directory.id);
       for (const data of nodesData) {
         const node = isArtifactDataOptions(data)
           ? new Artifact({ nodes: this.nodes, ...data })
@@ -41,13 +41,13 @@ export class ConnectedOpenerService implements OpenerService {
     directory.status = "loaded";
   }
 
-  async openRootDirectories() {
+  async openRoots() {
     for (const node of this.nodes.list()) {
       if (!node.isRoot()) continue;
       if (!(node instanceof Directory)) continue;
       if (node.status !== "unloaded") continue;
 
-      await this.openDirectory(node);
+      await this.open(node);
     }
   }
 

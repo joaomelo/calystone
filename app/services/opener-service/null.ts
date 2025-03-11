@@ -1,14 +1,14 @@
 import { NullThrower } from "@/utils";
 
-import type { OpenerService } from "./opener";
+import type { DirectoryOpenerService } from "./opener";
 
-export class NullOpenerService extends NullThrower implements OpenerService{
+export class NullDirectoryOpenerService extends NullThrower implements DirectoryOpenerService{
 
-  openDirectory(): Promise<void> {
+  open(): Promise<void> {
     this.throw();
   }
 
-  openRootDirectories(): Promise<void> {
+  openRoots(): Promise<void> {
     this.throw();
   }
 

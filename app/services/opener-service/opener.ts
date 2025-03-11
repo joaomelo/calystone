@@ -1,6 +1,6 @@
 import type { Directory } from "@/domain";
 
-export interface OpenerService {
-  openDirectory(directory: Directory): Promise<void>
-  openRootDirectories(): Promise<void>
+export interface DirectoryOpenerService {
+  open(directory: Directory): Promise<void>
+  openRoots(): Promise<void>
 }
