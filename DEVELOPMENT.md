@@ -19,7 +19,7 @@ graph TD
   display --> domain
   display --> services
   services --> domain
-  infra --> services
+  services --> infra
   infra --> domain
   main --> utils
   core --> utils
@@ -31,7 +31,7 @@ Starts the applicaton, initializes app level state and stablish runtime dependen
 
 ## Display
 
-Make the app moves. It grabs and transform state from `domain` and show it to the user, then captures events triggered by the user ans translates them into calls to `domain`.
+Make the app move. It grabs and transform state from `domain` using `services` and show it to the user, then captures events triggered by the user and translates them into calls to `services`.
 
 ```mermaid
 graph LR;
@@ -42,21 +42,25 @@ graph LR;
   subgraph views
     pageX;
     pageU;
+    dialogZ;
   end
   subgraph widgets
     widgetN
     widgetM
-  end
+  end  
   subgraph external
     component
   end
+  store
 
   routeA --> pageX;
   routeB --> pageU
   pageX --> widgetN
   pageU --> widgetM;
   pageU --> widgetN;
+  pageU --> dialogZ;
   widgetM --> component
+  views --> store;
 ```
 
 ### Routes
@@ -71,13 +75,15 @@ Pages should mount their layout inside their own template. They can reuse capabi
 
 ### Views
 
-Views are what the user see in the end. They access the domain via a central construct called Store. All data they need they grab from the store user signals are convert to calls to the store inner methods.
+Views are what the user see in the end. They access the services and domain via a central construct called Store. All data they need they grab from the store user signals are convert to calls to the store inner objects.
 
 Views can be complex structures in order to deal with data orchestrations. They can abstract its capacities into subcomponets or composables to streamline code.
 
+They can be pages to be placed in the router routes or also components to be used inside pages like dialogs or frames. The distinc feature of a view it access the store to complete its tasks.
+
 ### Widgets
 
-They are shared resources (components and composables) used by more than one view or other widgets.
+They are shared resources (components and composables) used by more than one view or other widgets that do not have access to the app state. All state used by a widget must be provided as a prop and all changes it want to provoque must by raised as events.
 
 Widgets are also used to function as single entry points for outside UI dependencies. Like if some button from a UI library is used in the app, for example. On that case, the button should be imported in a proxy ButtonBase widget and then used in pages, even if for a single page.
 
@@ -89,25 +95,21 @@ The project uses vanilla CSS with design tokens coming from custom properties. T
 
 ## Domain
 
-Domain is the app logic running in a vacum without care about `views` and just with bare interfaces for `infra`.
+Domain is the app logic running in a vacum without care about any other core module. 
 
-### Separeta state from logic
+This is a simple module focus on representing data and behaviour that is not dependent of external medida. These domain structures are not meant to encapsulate UI tasks. The point here is simplicity and communality. 
 
-Computation logic should be isolated in pure function whenever possible, even if they will be used to enable classes methods.
+Service will later provide the UI with the appropriate use cases that are able to communicate with the infra structures.
 
-This isolation avoid big classes files that are hard to read, avoid side effects in state that are hard to locate and makes testing easier.
+## Infra
 
-### Be simple and let upper layers carry some load
+Infra is the module with the logic to persist and recover real data for media like the file system and the local storage. It also provides services utilities for things like checking if the user browser supports the repository technology.
 
-The domain has a concise as possible properties and methods to allow state mutation, asserting business rules, and exposing essencial data to the top layers.
+Infra knows about the domain so it can manipulate the proper data structures but should not know about display and services.
 
-These types are not meant to be flexible or adapt to every needs of the UI. The point here is simplicity and communality. Views will extedend upon the domain to reach their needs.
+## Services
 
-When adding something to the domain ask yourself, does the domain doesn't already expose this? if so, create the capability in the consumer.
-
-## infra
-
-infra is the module with the logic to persist and recover real data for medias like the file system and the local storage. It also provides services utilities for things like checking if the user browser supports the repository technology.
+To be written...
 
 ## Utils
 
