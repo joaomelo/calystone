@@ -1,5 +1,5 @@
 import { MemoryAccessAdapter, NullAccessAdapter } from "@/infra/access-adapters";
-import { MemoryFileSystemAdapter } from "@/infra/files-system-adapter";
+import { MemoryFileSystemAdapter } from "@/infra/files-system-adapters";
 import { MemorySupportAdapter } from "@/infra/support-adapters";
 
 import { BaseSourceAdapter } from "./base";

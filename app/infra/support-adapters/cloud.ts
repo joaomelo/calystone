@@ -1,4 +1,4 @@
-import type { SupportAdapter } from "@/services";
+import type { SupportAdapter } from "./support";
 
 interface Options {
   clientId: string | undefined;

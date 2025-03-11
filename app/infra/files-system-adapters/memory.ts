@@ -1,10 +1,11 @@
 import type { DirectoryDataOptions, Id } from "@/domain";
-import type { ArtifactOrDirectoryDataOptions } from "@/services";
 
 import { createId } from "@/domain";
 import { fakeDirectory, fakeFile, fakeFileSystemEntry } from "@/utils";
 import { throwError } from "@/utils";
 import { faker } from "@faker-js/faker";
+
+import type { ArtifactOrDirectoryDataOptions } from "./file-system";
 
 import { BaseFileSystemAdapter } from "./base";
 

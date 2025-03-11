@@ -1,5 +1,5 @@
 import { NullAccessAdapter, OneDriveAccessAdapter } from "@/infra/access-adapters";
-import { OneDriveFileSystemAdapter } from "@/infra/files-system-adapter";
+import { OneDriveFileSystemAdapter } from "@/infra/files-system-adapters";
 import { CloudSupportAdapter } from "@/infra/support-adapters";
 
 import { BaseSourceAdapter } from "./base";

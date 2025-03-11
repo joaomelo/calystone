@@ -1,10 +1,11 @@
 import type { DirectoryDataOptions, Id } from "@/domain";
-import type { ArtifactOrDirectoryDataOptions } from "@/services";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
 import { throwCritical, throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
+
+import type { ArtifactOrDirectoryDataOptions } from "./file-system";
 
 import { BaseFileSystemAdapter } from "./base";
 

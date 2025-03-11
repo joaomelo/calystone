@@ -1,5 +1,5 @@
 import { FsaAccessAdapter, NullAccessAdapter } from "@/infra/access-adapters";
-import { FsaFileSystemAdapter } from "@/infra/files-system-adapter";
+import { FsaFileSystemAdapter } from "@/infra/files-system-adapters";
 import { FsaSupportAdapter } from "@/infra/support-adapters";
 
 import { BaseSourceAdapter } from "./base";

@@ -1,6 +1,10 @@
-import type { AccessAdapter, FileSystemAdapter, SourceAdapter, SupportAdapter } from "@/services";
+import type { AccessAdapter } from "@/infra/access-adapters";
+import type { FileSystemAdapter } from "@/infra/files-system-adapters";
+import type { SupportAdapter } from "@/infra/support-adapters";
 
 import { throwCritical } from "@/utils";
+
+import type { SourceAdapter } from "./source";
 
 interface Options<T> {
   support: SupportAdapter;

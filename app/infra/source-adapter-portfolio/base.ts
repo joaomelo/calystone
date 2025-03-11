@@ -1,10 +1,10 @@
-import type { AdaptersPortfolio, Source } from "@/services";
-
-import { DropboxSourceAdapter, FsaSourceAdapter, MemorySourceAdapter, OneDriveSourceAdapter } from "@/infra/sources-adapters";
+import { DropboxSourceAdapter, FsaSourceAdapter, MemorySourceAdapter, OneDriveSourceAdapter } from "@/infra/source-adapters";
 
 import type { BaseAdaptersPortfolioOptions } from "./options";
+import type { SourceAdapterPortfolio } from "./portfolio";
+import type { Source } from "./source";
 
-export class BaseAdaptersPortfolio implements AdaptersPortfolio {
+export class BaseSourceAdapterPortfolio implements SourceAdapterPortfolio {
   dropbox: DropboxSourceAdapter;
   fsa: FsaSourceAdapter;
   memory: MemorySourceAdapter;

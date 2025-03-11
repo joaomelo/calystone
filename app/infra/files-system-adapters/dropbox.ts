@@ -1,9 +1,10 @@
 import type { DirectoryDataOptions, Id } from "@/domain";
-import type { ArtifactOrDirectoryDataOptions } from "@/services";
 
 import { createId } from "@/domain";
 import { throwCritical, throwError } from "@/utils";
 import { Dropbox } from "dropbox";
+
+import type { ArtifactOrDirectoryDataOptions } from "./file-system";
 
 import { BaseFileSystemAdapter } from "./base";
 

@@ -1,5 +1,5 @@
 import { DropboxAccessAdapter, NullAccessAdapter } from "@/infra/access-adapters";
-import { DropboxFileSystemAdapter } from "@/infra/files-system-adapter";
+import { DropboxFileSystemAdapter } from "@/infra/files-system-adapters";
 import { CloudSupportAdapter } from "@/infra/support-adapters";
 
 import { BaseSourceAdapter } from "./base";

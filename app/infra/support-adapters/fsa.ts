@@ -1,4 +1,4 @@
-import type { SupportAdapter } from "@/services";
+import type { SupportAdapter } from "./support";
 
 export class FsaSupportAdapter implements SupportAdapter {
   access() {

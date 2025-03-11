@@ -1,6 +1,6 @@
-import type { AccessAdapter } from "./access";
-import type { FileSystemAdapter } from "./file-system";
-import type { SupportAdapter } from "./support";
+import type { AccessAdapter } from "@/infra/access-adapters";
+import type { FileSystemAdapter } from "@/infra/files-system-adapters";
+import type { SupportAdapter } from "@/infra/support-adapters";
 
 export interface SourceAdapter<T> {
   getSupport(): SupportAdapter;

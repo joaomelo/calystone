@@ -1,6 +1,6 @@
-import type { AccessAdapter } from "@/services";
-
 import { throwError } from "@/utils";
+
+import type { AccessAdapter } from "./access";
 
 export class FsaAccessAdapter implements AccessAdapter<FileSystemDirectoryHandle> {
   rootHandle?: FileSystemDirectoryHandle;

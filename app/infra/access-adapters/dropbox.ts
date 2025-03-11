@@ -1,8 +1,8 @@
-import type { AccessAdapter } from "@/services";
-
 import { LocalStorage } from "@/utils";
 import { throwError } from "@/utils";
 import { DropboxAuth } from "dropbox";
+
+import type { AccessAdapter } from "./access";
 
 interface Options {
   clientId: string;

@@ -1,7 +1,8 @@
 import type { DirectoryDataOptions, Id } from "@/domain";
-import type { ArtifactOrDirectoryDataOptions, FileSystemAdapter } from "@/services";
 
 import { throwCritical } from "@/utils";
+
+import type { ArtifactOrDirectoryDataOptions, FileSystemAdapter } from "./file-system";
 
 interface Options<Metadata> {
   rootData: DirectoryDataOptions;
