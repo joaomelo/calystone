@@ -1,11 +1,11 @@
 import type { Node, Nodes } from "@/domain";
-import type { FileSystemAdapter, SupportAdapter } from "@/services/adapters";
+import type { FileSystemAdapter, SupportAdapter } from "@/infra";
 
 import { Directory } from "@/domain";
 
-import type { RenamerService } from "./renamer";
+import type { NodeRenameService } from "./renamer";
 
-export class ConnectedRenamerService implements RenamerService {
+export class ConnectedNodeRenameService implements NodeRenameService {
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;
   private readonly supportAdapter: SupportAdapter;
@@ -16,7 +16,7 @@ export class ConnectedRenamerService implements RenamerService {
     this.nodes = options.nodes;
   }
 
-  async perform(options: { name: string, node: Node }): Promise<void> {
+  async rename(options: { name: string, node: Node }): Promise<void> {
     const adapterOptions = { id: options.node.id, name: options.name };
     if (options.node instanceof Directory) {
       await this.fileSystemAdapter.renameDirectory(adapterOptions);
