@@ -1,8 +1,8 @@
 import { NullThrower } from "@/utils";
 
-import type { TextService } from "./text";
+import type { ArtifactTextService } from "./text";
 
-export class NullTextService extends NullThrower implements TextService{
+export class NullArtifactTextService extends NullThrower implements ArtifactTextService{
 
   fetch(): Promise<string> {
     this.throw();

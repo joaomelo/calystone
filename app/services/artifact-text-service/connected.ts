@@ -1,11 +1,11 @@
 import type { Artifact } from "@/domain";
-import type { FileSystemAdapter } from "@/services/adapters";
+import type { FileSystemAdapter } from "@/infra";
 
 import { throwCritical, throwError } from "@/utils";
 
-import type { TextService } from "./text";
+import type { ArtifactTextService } from "./text";
 
-export class ConnectedTextService implements TextService {
+export class ConnectedArtifactTextService implements ArtifactTextService {
   private decoder = new TextDecoder("utf-8");
   private encoder = new TextEncoder();
   private readonly fileSystemAdapter: FileSystemAdapter;
