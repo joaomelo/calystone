@@ -1,20 +1,20 @@
-import type { Source } from "@/services/source";
+import type { Source } from "@/infra";
 
-export type Observer = (options: ObserverOptions) => void;
 export type ObserverOptions = { source: Source; value: "connected", } | { value: "disconnected" };
-export type Observers = Set<Observer>;
-export type Value = "connected" | "disconnected";
+export type Observers = Set<StatusObserver>;
+export type Status = "connected" | "disconnected";
+export type StatusObserver = (options: ObserverOptions) => void;
 
-export class Status {
-  value: Value = "disconnected";
+export class StatusObservable {
+  status: Status = "disconnected";
   private observers: Observers = new Set();
 
   next(options: ObserverOptions) {
-    this.value = options.value;
+    this.status = options.value;
     this.observers.forEach(observer => { observer(options); });
   }
 
-  subscribe(observer: Observer) {
+  subscribe(observer: StatusObserver) {
     this.observers.add(observer);
     return () => this.observers.delete(observer);
   }

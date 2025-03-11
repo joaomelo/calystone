@@ -1,38 +1,39 @@
 import type { Nodes } from "@/domain";
-import type { AdaptersPortfolio, FileSystemAdapter } from "@/services/adapters";
-import type { Source } from "@/services/source";
+import type { FileSystemAdapter, Source, SourceAdapterPortfolio } from "@/infra";
 
 import { Directory } from "@/domain";
 import { throwCritical } from "@/utils";
 
-import { Status } from "./status";
+import type { StatusObserver } from "./status";
+
+import { StatusObservable } from "./status";
 
 interface Options {
   nodes: Nodes,
-  adaptersPortfolio: AdaptersPortfolio
+  sourceAdapterPortfolio: SourceAdapterPortfolio
 }
 
 export class ConnectionService {
-  status: Status;
-  private readonly adaptersPortfolio: AdaptersPortfolio;
   private fileSystemAdapter?: FileSystemAdapter;
   private readonly nodes: Nodes;
+  private readonly sourceAdapterPortfolio: SourceAdapterPortfolio;
+  private readonly statusObservable: StatusObservable;
 
-  constructor({ adaptersPortfolio, nodes }: Options) {
-    this.adaptersPortfolio = adaptersPortfolio;
+  constructor({ nodes, sourceAdapterPortfolio }: Options) {
+    this.sourceAdapterPortfolio = sourceAdapterPortfolio;
     this.nodes = nodes;
-    this.status = new Status();
+    this.statusObservable = new StatusObservable();
   }
 
   async connect(source: Source) {
-    const sourceAdapter = this.adaptersPortfolio.get(source);
+    const sourceAdapter = this.sourceAdapterPortfolio.get(source);
     this.fileSystemAdapter = await sourceAdapter.getOrCreateFileSystemAdapter();
     this.reset(this.fileSystemAdapter);
-    this.status.next({ source, value: "connected" });
+    this.statusObservable.next({ source, value: "connected" });
   }
 
   disconnect() {
-    this.status.next({ value: "disconnected" });
+    this.statusObservable.next({ value: "disconnected" });
     this.reset();
   }
 
@@ -41,6 +42,10 @@ export class ConnectionService {
     if (!fileSystemAdapter) throwCritical("NO_FILE_SYSTEM_ADAPTER", "the connection must have a file system adapter to reconect");
 
     this.reset(fileSystemAdapter);
+  }
+
+  subscribe(observer: StatusObserver) {
+    return this.statusObservable.subscribe(observer);
   };
 
   private reset(fileSystemAdapter?: FileSystemAdapter) {
