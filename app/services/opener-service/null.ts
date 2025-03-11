@@ -8,7 +8,7 @@ export class NullOpenerService extends NullThrower implements OpenerService{
     this.throw();
   }
 
-  openRoots(): Promise<void> {
+  openRootDirectories(): Promise<void> {
     this.throw();
   }
 

@@ -1,5 +1,5 @@
 import type { Nodes } from "@/domain";
-import type { FileSystemAdapter } from "@/services/adapters";
+import type { FileSystemAdapter } from "@/infra";
 
 import { Artifact, Directory, isArtifactDataOptions } from "@/domain";
 import { throwError } from "@/utils";
@@ -41,11 +41,11 @@ export class ConnectedOpenerService implements OpenerService {
     directory.status = "loaded";
   }
 
-  async openRoots() {
+  async openRootDirectories() {
     for (const node of this.nodes.list()) {
       if (!node.isRoot()) continue;
-      if (node.status !== "unloaded") continue;
       if (!(node instanceof Directory)) continue;
+      if (node.status !== "unloaded") continue;
 
       await this.openDirectory(node);
     }
