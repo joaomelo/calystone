@@ -16,6 +16,7 @@
   "email": "email",
   "empty": "Quando você selecionar um nó na hierarquia, suas informações serão mostradas aqui.",
   "errors": {
+    "EMPTY_NAME": "nome não pode ser vazio",
     "UNABLE_FETCH_CONTENT": "Não foi possível carregar o conteúdo do arquivo",
     "UNABLE_LOAD": "Não foi possível carregar os dados do nó",
     "UNABLE_OPEN": "Não foi possível abrir arquivos",
@@ -67,6 +68,7 @@
   "path": "caminho",
   "preferences": "preferências",
   "reload": "recarregar",
+  "rename": "renomear",
   "save": "salvar",
   "search": "buscar",
   "size": "tamanho",

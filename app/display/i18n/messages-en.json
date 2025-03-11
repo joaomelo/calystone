@@ -16,6 +16,7 @@
   "email": "email",
   "empty": "When you select an node on the outline, its details will show here.",
   "errors": {
+    "EMPTY_NAME": "name cannot be empty",
     "UNABLE_FETCH_CONTENT": "Unable to fetch content from file",
     "UNABLE_LOAD": "Unable to load node data",
     "UNABLE_OPEN": "Unable to open files",
@@ -67,6 +68,7 @@
   "path": "path",
   "preferences": "preferences",
   "reload": "reload",
+  "rename": "rename",
   "save": "save",
   "search": "search",
   "size": "size",
