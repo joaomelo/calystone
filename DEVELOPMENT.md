@@ -109,7 +109,11 @@ Infra knows about the domain so it can manipulate the proper data structures but
 
 ## Services
 
-To be written...
+Services implement typical use cases that will be consumed by one or more UIs.
+
+Services are incouraged to have a small surface will no many methods so they represent a specilized use case that is quite independent of the other use cases. 
+
+At the same time, this methods are encourage to be deep and absorve complexity like validation and integration. Auxiliare classes are encouraged but must be hiddes to the services consumers by methods the service itself. The point is that the services methods should express their behaviour.
 
 ## Utils
 
