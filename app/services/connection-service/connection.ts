@@ -29,11 +29,11 @@ export class ConnectionService {
     const sourceAdapter = this.sourceAdapterPortfolio.get(source);
     this.fileSystemAdapter = await sourceAdapter.getOrCreateFileSystemAdapter();
     this.reset(this.fileSystemAdapter);
-    this.statusObservable.next({ source, value: "connected" });
+    this.statusObservable.next({ source, status: "connected" });
   }
 
   disconnect() {
-    this.statusObservable.next({ value: "disconnected" });
+    this.statusObservable.next({ status: "disconnected" });
     this.reset();
   }
 

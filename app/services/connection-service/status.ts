@@ -1,6 +1,6 @@
 import type { Source } from "@/infra";
 
-export type ObserverOptions = { source: Source; value: "connected", } | { value: "disconnected" };
+export type ObserverOptions = { source: Source; status: "connected", } | { status: "disconnected" };
 export type Observers = Set<StatusObserver>;
 export type Status = "connected" | "disconnected";
 export type StatusObserver = (options: ObserverOptions) => void;
@@ -10,7 +10,7 @@ export class StatusObservable {
   private observers: Observers = new Set();
 
   next(options: ObserverOptions) {
-    this.status = options.value;
+    this.status = options.status;
     this.observers.forEach(observer => { observer(options); });
   }
 

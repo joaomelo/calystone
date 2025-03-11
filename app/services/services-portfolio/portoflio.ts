@@ -1,0 +1,54 @@
+import type { SourceAdapterPortfolio } from "@/infra";
+import type { ArtifactTextService } from "@/services/artifact-text-service";
+import type { ObserverOptions } from "@/services/connection-service";
+import type { DirectoryOpenService } from "@/services/directory-open-service";
+import type { NodeRenameService } from "@/services/node-rename-service";
+
+import { Nodes } from "@/domain";
+import { AccessRequestService } from "@/services/access-request-service";
+import { ConnectedArtifactTextService, NullArtifactTextService } from "@/services/artifact-text-service";
+import { ConnectionService } from "@/services/connection-service";
+import { ConnectedDirectoryOpenService, NullDirectoryOpenService } from "@/services/directory-open-service";
+import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
+
+export class ServicesPortolfio {
+  accessRequest: AccessRequestService;
+  artifactText: ArtifactTextService;
+  connection: ConnectionService;
+  directoryOpen: DirectoryOpenService;
+  nodeRename: NodeRenameService;
+  nodes: Nodes;
+  sourceAdapterPortfolio: SourceAdapterPortfolio;
+
+  constructor(SourceAdapterPortfolio: SourceAdapterPortfolio) {
+    this.sourceAdapterPortfolio = SourceAdapterPortfolio;
+
+    this.nodes = new Nodes();
+    this.accessRequest = new AccessRequestService(SourceAdapterPortfolio);
+    this.connection = new ConnectionService({ nodes: this.nodes, sourceAdapterPortfolio: SourceAdapterPortfolio });
+
+    this.directoryOpen = new NullDirectoryOpenService();
+    this.artifactText = new NullArtifactTextService();
+    this.nodeRename = new NullNodeRenameService();
+
+    this.connection.subscribe((options) => { this.rotateServices(options); });
+  }
+
+  rotateServices(options: ObserverOptions) {
+    if (options.status === "disconnected" ) {
+      this.directoryOpen = new NullDirectoryOpenService();
+      this.artifactText = new NullArtifactTextService();
+      this.nodeRename = new NullNodeRenameService();
+      return;
+    }
+
+    const sourceAdapter = this.sourceAdapterPortfolio.get(options.source);
+    const fileSystemAdapter = sourceAdapter.getOrThrowFileSystemAdapter();
+    const supportAdapter = sourceAdapter.getSupport();
+    const nodes = this.nodes;
+
+    this.directoryOpen = new ConnectedDirectoryOpenService({ fileSystemAdapter, nodes });
+    this.artifactText = new ConnectedArtifactTextService(fileSystemAdapter);
+    this.nodeRename = new ConnectedNodeRenameService({ fileSystemAdapter, nodes, supportAdapter });
+  };
+}

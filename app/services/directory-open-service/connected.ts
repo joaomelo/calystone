@@ -4,14 +4,14 @@ import type { FileSystemAdapter } from "@/infra";
 import { Artifact, Directory, isArtifactDataOptions } from "@/domain";
 import { throwError } from "@/utils";
 
-import type { DirectoryOpenerService } from "./opener";
+import type { DirectoryOpenService } from "./opener";
 
 interface Options {
   fileSystemAdapter: FileSystemAdapter
   nodes: Nodes
 }
 
-export class ConnectedDirectoryOpenerService implements DirectoryOpenerService {
+export class ConnectedDirectoryOpenService implements DirectoryOpenService {
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;
 
