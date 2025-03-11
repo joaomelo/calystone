@@ -1,6 +1,6 @@
 import { name, version } from "@/../package.json";
 import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
-import { BaseAdaptersPortfolio } from "@/infra";
+import { BaseSourceAdapterPortfolio } from "@/infra";
 import { ServicesPortolfio } from "@/services";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
@@ -40,8 +40,8 @@ export function initApp(elementId: string) {
       redirectUrl: `${window.location.origin}/transfer-one-drive`,
     },
   };
-  const AdaptersPortfolio = new BaseAdaptersPortfolio(options);
-  const servicesPortolfio = new ServicesPortolfio(AdaptersPortfolio);
+  const sourceAdapterPortfolio = new BaseSourceAdapterPortfolio(options);
+  const servicesPortolfio = new ServicesPortolfio(sourceAdapterPortfolio);
 
   const store = new Store({ appData, service: servicesPortolfio });
   window.$store = store;
