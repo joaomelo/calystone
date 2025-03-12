@@ -1,6 +1,5 @@
 export * from "./button-base";
 export * from "./card-panel";
-export * from "./dialog-rename";
 export * from "./editor-switcher";
 export * from "./frame-card";
 export * from "./frame-dashboard";
@@ -8,6 +7,7 @@ export * from "./frame-text";
 export * from "./input-select-button";
 export * from "./input-textarea";
 export * from "./master-detail";
+export * from "./modal-base";
 export * from "./outline-nodes";
 export * from "./scroll-panel";
 export * from "./side-bar";
