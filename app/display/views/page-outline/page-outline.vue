@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
-import { DialogRename, EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
+import { DialogRename } from "@/display/views/dialog-rename";
+import { EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
 import { Artifact, Directory, type Id, type Node } from "@/domain";
 import { ref, useTemplateRef } from "vue";
 
@@ -21,7 +22,7 @@ function handleExpanded(id: Id) {
 
 const dialogRename = useTemplateRef("dialogRename");
 function handleRename() {
-  dialogRename.value?.show();
+  dialogRename.value?.open();
 }
 
 function handleSelected(id?: Id) {
@@ -38,11 +39,11 @@ function solveNode(id?: Id) {
 async function triggerOpen(node: Node) {
   try {
     if (node instanceof Directory) {
-      await service.opener.openDirectory(node);
+      await service.directoryOpen.open(node);
     }
 
     if (node instanceof Artifact && node.mime.type() === "text") {
-      await service.text.fetch(node);
+      await service.artifactText.fetch(node);
     }
   } catch (error) {
     toast(error);
@@ -69,12 +70,14 @@ async function triggerOpen(node: Node) {
           @close="handleClose"
           @rename="handleRename"
         />
-        <DialogRename
-          ref="dialogRename"
-          :node="node"
-        />
       </template>
     </MasterDetail>
+
+    <DialogRename
+      v-if="node"
+      ref="dialogRename"
+      :node="node"
+    />
   </FrameDashboard>
 </template>
 <style scoped>

@@ -2,12 +2,16 @@ import type { Node, Nodes } from "@/domain";
 import type { FileSystemAdapter, SupportAdapter } from "@/infra";
 
 import { Directory } from "@/domain";
+import { z } from "zod";
 
 import type { NodeRenameService } from "./renamer";
 
 export class ConnectedNodeRenameService implements NodeRenameService {
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;
+  private readonly schema = z.object({
+    name: z.string().nonempty({ message: "EMPTY_NAME" }),
+  });
   private readonly supportAdapter: SupportAdapter;
 
   constructor(options: { fileSystemAdapter: FileSystemAdapter, nodes: Nodes, supportAdapter: SupportAdapter }) {
@@ -17,6 +21,8 @@ export class ConnectedNodeRenameService implements NodeRenameService {
   }
 
   async rename(options: { name: string, node: Node }): Promise<void> {
+    this.schema.parse(options);
+
     const adapterOptions = { id: options.node.id, name: options.name };
     if (options.node instanceof Directory) {
       await this.fileSystemAdapter.renameDirectory(adapterOptions);
