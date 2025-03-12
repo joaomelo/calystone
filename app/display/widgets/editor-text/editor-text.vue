@@ -18,11 +18,11 @@ if (content.mime.type() !== "text") throwCritical("INVALID_MIME_TYPE_FOR_EDITOR"
 const { service } = Store.use();
 
 const text = ref("");
-text.value = await service.text.fetch(content);
+text.value = await service.artifactText.fetch(content);
 
 // will save updates to the model after 1 second of inactivity
 const handleUpdate = debounce(async (text: string) => {
-  await service.text.post({ artifact: content, text });
+  await service.artifactText.post({ artifact: content, text });
 }, 1000);
 </script>
 <template>

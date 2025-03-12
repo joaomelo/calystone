@@ -20,7 +20,7 @@ const { service } = Store.use();
   <Toolbar>
     <template #start>
       <ToolbarButton
-        v-if="service.renamer.support(node)"
+        v-if="service.nodeRename.support(node)"
         icon="bxs-rename"
         @click="$emit('rename', node)"
       />

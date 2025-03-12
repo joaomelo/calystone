@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Source } from "@/services";
+import type { Source } from "@/infra";
 
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Source } from "@/services";
+import type { Source } from "@/infra";
 
 import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
@@ -21,7 +21,7 @@ const { service } = Store.use();
 
 async function handleClick() {
   try {
-    await service.request.perform(source);
+    await service.accessRequest.request(source);
     void router.push({ name: "bootstrap", params: { source } });
   } catch (error) {
     toast(error);
@@ -31,7 +31,7 @@ async function handleClick() {
 </script>
 <template>
   <ButtonBase
-    v-if="service.request.support(source)"
+    v-if="service.accessRequest.support(source)"
     :label="t(label)"
     size="large"
     :data-test="dataTest"
