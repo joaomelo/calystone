@@ -1,40 +1,32 @@
 import type { ZodSchema } from "zod";
 
-import { reactive } from "vue";
+import { Exception, Exceptions, Severity } from "@/utils/exception";
 import { z } from "zod";
 
 type Builder<T> = (builder: typeof z) => ZodSchema<T>;
 
 export function useSchema<T>(builder: Builder<T>) {
   const schema = builder(z);
-  const errors = reactive<Record<string, string | undefined>>({});
 
   function validate(data: unknown): data is T {
     const result = schema.safeParse(data);
-    Object.keys(errors).forEach((key) => (errors[key] = undefined));
     if (!result.success) {
-      const { fieldErrors } = result.error.flatten();
+      const exceptions: Exception[] = [];
+      const { fieldErrors, formErrors } = result.error.flatten();
+
+      formErrors.forEach((error) => {
+        exceptions.push(new Exception({ message: error, severity: Severity.Warning }));
+      });
+
       Object.entries(fieldErrors).forEach(([fieldName, fieldErrors]) => {
         if (Array.isArray(fieldErrors) && typeof fieldErrors[0] === "string") {
-          errors[fieldName] = fieldErrors[0];
+          exceptions.push(new Exception({ message: fieldErrors[0], path: fieldName, severity: Severity.Warning }));
         }
       });
+      throw new Exceptions({ exceptions });
     }
     return result.success;
   }
 
-  async function dispatch(callback: () => Promise<void>) {
-    try {
-      await callback();
-    } catch (error) {
-      console.error(error);
-      errors.form = typeof error === "string"
-        ? error
-        : error instanceof Error
-          ? error.message
-          : "unknown error";
-    }
-  }
-
-  return { dispatch, errors, validate };
+  return validate;
 }
