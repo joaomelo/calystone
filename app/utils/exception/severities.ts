@@ -9,3 +9,7 @@ export enum Severity {
   Info, // informational messages
   Debug, // debug-level messages
 }
+
+export function severest(severities: Severity[]): Severity {
+  return severities.reduce((acc, current) => Math.min(acc, current), Severity.Debug);
+}
