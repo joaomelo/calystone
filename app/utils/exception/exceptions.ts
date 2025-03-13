@@ -3,9 +3,9 @@ import { severest } from "./severities";
 
 export class Exceptions extends Exception {
   readonly list: Exception[] = [];
-  constructor(exceptions: Exception[], cause?: unknown) {
+  constructor({ cause, exceptions }: { cause?: unknown; exceptions: Exception[], }) {
     const severity = severest(exceptions.map((exception) => exception.severity));
-    super("exceptions", cause, severity);
+    super({ cause, message: "exceptions", severity });
     Error.captureStackTrace(this, Exceptions);
   }
 }

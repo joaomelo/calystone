@@ -1,15 +1,13 @@
 import { Severity } from "./severities";
 
 export class Exception extends Error {
-  readonly code;
-  readonly detail;
+  readonly path: string;
   readonly severity;
 
-  constructor(code: string, cause: unknown, severity?: Severity) {
-    super(code);
-    this.code = code;
+  constructor({ cause, message, path, severity }: { cause?: unknown, message: string, path?: string, severity?: Severity }) {
+    super(message);
+    this.path = path ?? "global";
     this.severity = severity ?? Severity.Error;
-    this.detail = typeof cause === "string" ? cause : undefined;
     this.cause = cause;
     Error.captureStackTrace(this, Exception);
   }
