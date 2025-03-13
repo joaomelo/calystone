@@ -26,7 +26,7 @@ export class ConnectedDirectoryOpenService implements DirectoryOpenService {
     directory.status = "loading";
 
     try {
-      const nodesData = await this.fileSystemAdapter.open(directory.id);
+      const nodesData = await this.fileSystemAdapter.openDirectory(directory.id);
       for (const data of nodesData) {
         const node = isArtifactDataOptions(data)
           ? new Artifact({ nodes: this.nodes, ...data })
