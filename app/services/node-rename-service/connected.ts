@@ -2,6 +2,7 @@ import type { Node, Nodes } from "@/domain";
 import type { FileSystemAdapter, SupportAdapter } from "@/infra";
 
 import { Directory } from "@/domain";
+import { useSchema } from "@/utils";
 import { z } from "zod";
 
 import type { NodeRenameService } from "./renamer";
@@ -9,9 +10,9 @@ import type { NodeRenameService } from "./renamer";
 export class ConnectedNodeRenameService implements NodeRenameService {
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;
-  private readonly schema = z.object({
+  private readonly schema = useSchema(builder => builder.object({
     name: z.string().nonempty({ message: "EMPTY_NAME" }),
-  });
+  }));
   private readonly supportAdapter: SupportAdapter;
 
   constructor(options: { fileSystemAdapter: FileSystemAdapter, nodes: Nodes, supportAdapter: SupportAdapter }) {
@@ -21,7 +22,7 @@ export class ConnectedNodeRenameService implements NodeRenameService {
   }
 
   async rename(options: { name: string, node: Node }): Promise<void> {
-    this.schema.parse(options);
+    this.schema.validate(options);
 
     const adapterOptions = { id: options.node.id, name: options.name };
     if (options.node instanceof Directory) {
