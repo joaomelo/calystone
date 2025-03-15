@@ -6,10 +6,10 @@ import { z } from "zod";
 type Builder<T> = (builder: typeof z) => ZodSchema<T>;
 
 export function useSchema<T>(builder: Builder<T>) {
-  const schema = builder(z);
+  const parser = builder(z);
 
   function validate(data: unknown): data is T {
-    const result = schema.safeParse(data);
+    const result = parser.safeParse(data);
     if (!result.success) {
       const exceptions: Exception[] = [];
       const { fieldErrors, formErrors } = result.error.flatten();
@@ -28,5 +28,5 @@ export function useSchema<T>(builder: Builder<T>) {
     return result.success;
   }
 
-  return validate;
+  return { validate };
 }
