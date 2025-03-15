@@ -1,39 +1,38 @@
 import { Exception } from "./exception";
 import { Severity } from "./severities";
 
-export function throwAlert(code: string, cause: unknown): never {
-  throwException(code, cause, Severity.Alert);
+export function throwAlert(message: string, cause?: unknown): never {
+  throwException(message, cause, Severity.Alert);
 }
 
-export function throwCritical(code: string, cause: unknown): never {
-  throwException(code, cause, Severity.Critical);
+export function throwCritical(message: string, cause?: unknown): never {
+  throwException(message, cause, Severity.Critical);
 }
 
-export function throwDebug(code: string, cause: unknown): never {
-  throwException(code, cause, Severity.Debug);
+export function throwDebug(message: string, cause?: unknown): never {
+  throwException(message, cause, Severity.Debug);
 }
 
-export function throwEmergency(code: string, cause: unknown): never {
-  throwException(code, cause, Severity.Emergency);
+export function throwEmergency(message: string, cause?: unknown): never {
+  throwException(message, cause, Severity.Emergency);
 }
 
-export function throwError(code: string, cause: unknown): never {
-  throwException(code, cause, Severity.Error);
+export function throwError(message: string, cause?: unknown): never {
+  throwException(message, cause, Severity.Error);
 }
 
-export function throwInfo(code: string, cause: unknown): never {
-  throwException(code, cause, Severity.Info);
+export function throwInfo(message: string, cause?: unknown): never {
+  throwException(message, cause, Severity.Info);
 }
 
-export function throwNotice(code: string, cause: unknown): never {
-  throwException(code, cause, Severity.Notice);
+export function throwNotice(message: string, cause?: unknown): never {
+  throwException(message, cause, Severity.Notice);
 }
 
-export function throwWarning(code: string, cause: unknown): never {
-  throwException(code, cause, Severity.Warning);
+export function throwWarning(message: string, cause?: unknown): never {
+  throwException(message, cause, Severity.Warning);
 }
 
-function throwException(code: string, cause: unknown, severity?: Severity): never {
-  const exception = new Exception(code, cause, severity);
-  throw exception;
+function throwException(message: string, cause?: unknown, severity?: Severity): never {
+  throw new Exception({ cause, message, severity });
 }
