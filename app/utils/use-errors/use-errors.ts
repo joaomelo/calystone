@@ -42,7 +42,6 @@ export function useErrors() {
 
     if (error instanceof Exceptions) {
       const { list } = error;
-      console.log({ list });
       list.forEach((exception) => {
         errors[exception.path] = tError(exception.message);
       });

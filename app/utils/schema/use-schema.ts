@@ -24,8 +24,6 @@ export function useSchema<T>(builder: Builder<T>) {
         }
       });
 
-      console.log({ exceptions });
-
       throw new Exceptions({ exceptions });
     }
     return result.success;
