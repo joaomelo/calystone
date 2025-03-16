@@ -1,7 +1,7 @@
 import type { DirectoryDataOptions, Id } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwCritical, throwError } from "@/utils";
+import { throwError } from "@/utils";
 import { Dropbox } from "dropbox";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -83,11 +83,29 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
     });
   }
 
-  renameDirectory(): Promise<void> {
-    throwCritical("NOT_IMPLEMENTED", "method not implemented");
+  async renameDirectory(options: { id: Id, name: string }): Promise<void> {
+    await this.renameNode(options);
   }
 
-  renameFile(): Promise<void> {
-    throwCritical("NOT_IMPLEMENTED", "method not implemented");
+  async renameFile(options: { id: Id, name: string }): Promise<void> {
+    await this.renameNode(options);
+  }
+
+  async renameNode(options: { id: Id, name: string }): Promise<void> {
+    const { id, name } = options;
+
+    const oldPath = this.metadataOrThrow(id);
+    if (oldPath === this.rootMetadata) throwError("DROPBOX_RENAME_ROOT", "cannot rename dropbox root node");
+
+    const parentPath = oldPath.substring(0, oldPath.lastIndexOf("/"));
+    const newPath = `${parentPath}/${name}`;
+
+    await this.dropboxClient.filesMoveV2({
+      autorename: false,
+      from_path: oldPath,
+      to_path: newPath
+    });
+
+    this.nodesMetadata.set(id, newPath);
   }
 }
