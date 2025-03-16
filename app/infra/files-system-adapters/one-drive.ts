@@ -2,7 +2,7 @@ import type { DirectoryDataOptions, Id } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
-import { throwCritical, throwError } from "@/utils";
+import { throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -83,11 +83,18 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
       .put(blob);
   }
 
-  renameDirectory(): Promise<void> {
-    throwCritical("NOT_IMPLEMENTED", "method not implemented");
+  async renameDirectory(options: { id: Id, name: string }): Promise<void> {
+    await this.renameNode(options);
   }
 
-  renameFile(): Promise<void> {
-    throwCritical("NOT_IMPLEMENTED", "method not implemented");
+  async renameFile(options: { id: Id, name: string }): Promise<void> {
+    await this.renameNode(options);
+  }
+
+  async renameNode(options: { id: Id, name: string }): Promise<void> {
+    const { id, name } = options;
+    await this.graphClient
+      .api(`/me/drive/items/${id}`)
+      .patch({ name });
   }
 }
