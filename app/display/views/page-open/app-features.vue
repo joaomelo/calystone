@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from "@/utils";
 import { Store } from "@/display/store";
+import { useI18n } from "@/utils";
 
 const { t } = useI18n();
 const { appData } = Store.use();

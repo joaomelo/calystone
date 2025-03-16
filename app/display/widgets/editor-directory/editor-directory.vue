@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Directory } from "@/domain";
 
-import { useI18n } from "@/utils";
 import { EditorWorkspace } from "@/display/widgets/editor-workspace";
+import { useI18n } from "@/utils";
 
 const { content } = defineProps<{
   content: Directory;
