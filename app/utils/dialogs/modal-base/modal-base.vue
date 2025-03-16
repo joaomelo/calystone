@@ -3,7 +3,8 @@ import Dialog from "primevue/dialog";
 import { ref } from "vue";
 
 defineProps<{
-  header: string
+  error?: string,
+  header: string,
 }>();
 defineExpose({ close, open });
 
@@ -25,6 +26,15 @@ function open() {
     :style="{ 'width': 'min(var(--size-sm), 90%)' }"
   >
     <template #default>
+      <template v-if="error">
+        <Message
+          severity="error"
+          size="small"
+          variant="simple"
+        >
+          {{ error }}
+        </Message>
+      </template>
       <slot
         name="content"
         :close="close"

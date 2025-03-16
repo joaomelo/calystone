@@ -9,7 +9,6 @@ const { justify = "start", label } = defineProps<{
 }>();
 
 const id = useId();
-
 </script>
 <template>
   <div
@@ -28,13 +27,15 @@ const id = useId();
         :invalid="!!error"
       />
     </div>
-    <Message
-      severity="error"
-      size="small"
-      variant="simple"
-    >
-      {{ error }}
-    </Message>
+    <template v-if="error">
+      <Message
+        severity="error"
+        size="small"
+        variant="simple"
+      >
+        {{ error }}
+      </Message>
+    </template>
   </div>
 </template>
 <style scoped>
