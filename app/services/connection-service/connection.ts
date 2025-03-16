@@ -27,7 +27,7 @@ export class ConnectionService {
 
   async connect(source: Source) {
     const sourceAdapter = this.sourceAdapterPortfolio.get(source);
-    this.fileSystemAdapter = await sourceAdapter.getOrCreateFileSystemAdapter();
+    this.fileSystemAdapter = await sourceAdapter.createFileSystemAdapter();
     this.reset(this.fileSystemAdapter);
     this.statusObservable.next({ source, status: "connected" });
   }
