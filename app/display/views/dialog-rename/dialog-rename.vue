@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import type { Node } from "@/domain";
 
-import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/widgets/button-base";
-import { InputText } from "@/display/widgets/input-text";
 import { ModalBase } from "@/display/widgets/modal-base";
-import { useCommand } from "@/utils";
+import { InputText, useErrors } from "@/utils";
+import { useI18n } from "@/utils/i18n";
 import { reactive, useTemplateRef } from "vue";
 
 const { node } = defineProps<{
@@ -22,7 +21,7 @@ const data = reactive({
   name: node.name,
 });
 
-const { dispatch, errors } = useCommand(() => service.nodeRename.rename({ name: data.name, node: node }));
+const { dispatch, errors } = useErrors();
 
 function open() {
   data.name = node.name;
@@ -30,7 +29,7 @@ function open() {
 }
 
 async function save() {
-  const success = await dispatch();
+  const success = await dispatch(() => service.nodeRename.rename({ name: data.name, node: node }));
   if (!success) return;
   modal.value?.close();
 }
@@ -39,13 +38,15 @@ async function save() {
   <ModalBase
     ref="modal"
     :header="t('rename')"
+    :error="errors.global"
   >
     <template #content>
+      <pre>{{ errors }}</pre>
       <InputText
         v-model="data.name"
         :label="t('name')"
         autofocus
-        :error="errors.name ?? errors.form"
+        :error="errors.name"
       />
     </template>
     <template #buttons="{ close }">

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
 
-import { useI18n } from "@/display/i18n";
+import { useI18n } from "@/utils";
 import { EditorWorkspace } from "@/display/widgets/editor-workspace";
 import { filesize } from "filesize";
 

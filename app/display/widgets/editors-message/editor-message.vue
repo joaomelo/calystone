@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useI18n } from "@/display/i18n";
+import { useI18n } from "@/utils";
 defineProps<{
   message: string;
 }>();

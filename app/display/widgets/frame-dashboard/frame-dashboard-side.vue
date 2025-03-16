@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ComputedRef } from "vue";
 
-import { useI18n } from "@/display/i18n";
+import { useI18n } from "@/utils";
 import { Store } from "@/display/store";
 import { SideBar, SideItem } from "@/display/widgets/side-bar";
 import { computed } from "vue";

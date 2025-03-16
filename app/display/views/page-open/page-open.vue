@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from "@/display/i18n";
 import { FrameCard } from "@/display/widgets";
+import { useI18n } from "@/utils";
 
 import AppFeatures from "./app-features.vue";
 import InputLocale from "./input-locale.vue";

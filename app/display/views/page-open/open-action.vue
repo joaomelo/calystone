@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { Source } from "@/infra";
 
-import { useI18n } from "@/display/i18n";
 import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/widgets";
 import { useErrorToast } from "@/display/widgets";
+import { useI18n } from "@/utils";
 import { useRouter } from "vue-router";
 
 const { source } = defineProps<{
