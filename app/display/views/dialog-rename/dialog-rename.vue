@@ -36,16 +36,17 @@ async function save() {
 <template>
   <ModalBase
     ref="modal"
+    data-test="modal-rename"
     :header="t('rename')"
     :error="errors.global"
   >
     <template #content>
-      <pre>{{ errors }}</pre>
       <InputText
         v-model="data.name"
         :label="t('name')"
         autofocus
         :error="errors.name"
+        data-test="input-name"
       />
     </template>
     <template #buttons="{ close }">
@@ -57,6 +58,7 @@ async function save() {
       <ButtonBase
         :label="t('save')"
         severity="primary"
+        data-test="button-save"
         @click="save"
       />
     </template>

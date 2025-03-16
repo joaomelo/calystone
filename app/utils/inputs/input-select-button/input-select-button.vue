@@ -4,6 +4,7 @@ import SelectButton from "primevue/selectbutton";
 import { InputWrapper } from "../input-wrapper";
 
 const { label } = defineProps<{
+  dataTest: string
   label?: string;
   options: string[];
 }>();
@@ -11,7 +12,10 @@ const model = defineModel({ type: String });
 
 </script>
 <template>
-  <InputWrapper :label>
+  <InputWrapper
+    :label
+    :data-test="dataTest"
+  >
     <template #default="{ id }">
       <SelectButton
         :id="id"

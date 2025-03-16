@@ -5,18 +5,20 @@ import { InputWrapper } from "../input-wrapper";
 
 const { autofocus = false } = defineProps<{
   autofocus?: boolean
+  dataTest: string
 }>();
 const model = defineModel({ type: String });
 </script>
 <template>
-  <InputWrapper>
-    <template #default="{ id, invalid }">
+  <InputWrapper :data-test="dataTest">
+    <template #default="{ id, invalid, inputDataTest }">
       <InputTextPrimeVue
         :id="id"
         v-model="model"
         class="input-text"
         :autofocus="autofocus"
         :invalid="invalid"
+        :data-test="inputDataTest"
       />
     </template>
   </InputWrapper>

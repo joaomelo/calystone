@@ -22,6 +22,7 @@ const { service } = Store.use();
       <ToolbarButton
         v-if="service.nodeRename.support(node)"
         icon="bxs-rename"
+        data-test="button-rename"
         @click="$emit('rename', node)"
       />
       <slot />

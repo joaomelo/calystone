@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { kebabCase } from "@/utils/strings";
 import Dialog from "primevue/dialog";
 import Message from "primevue/message";
 import { ref } from "vue";
 
 defineProps<{
+  dataTest: string,
   error?: string,
   header: string,
 }>();
@@ -25,6 +27,7 @@ function open() {
     modal
     :header="header"
     :style="{ 'width': 'min(var(--size-sm), 90%)' }"
+    :data-test="dataTest"
   >
     <template #default>
       <template v-if="error">
@@ -32,6 +35,8 @@ function open() {
           severity="error"
           size="small"
           variant="simple"
+          class="modal-base__error"
+          :data-test="kebabCase(dataTest, 'error')"
         >
           {{ error }}
         </Message>
@@ -49,3 +54,8 @@ function open() {
     </template>
   </Dialog>
 </template>
+<style scoped>
+.modal-base__error {
+  margin-block-end: var(--size-1);
+}
+</style>

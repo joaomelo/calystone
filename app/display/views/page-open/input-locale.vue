@@ -10,5 +10,6 @@ const { availableLocales, locale, t } = useI18n();
     :options="availableLocales"
     :label="t('language')"
     justify="center"
+    data-test="input-locale"
   />
 </template>

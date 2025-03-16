@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { kebabCase } from "@/utils/strings";
 import Message from "primevue/message";
 import { useId } from "vue";
 
 const { justify = "start", label } = defineProps<{
+  dataTest: string;
   error?: string;
   justify?: "center" | "end" | "start";
   label?: string;
@@ -14,10 +16,12 @@ const id = useId();
   <div
     class="input-wrapper"
     :class="[`justify-${justify}`]"
+    :data-test="dataTest"
   >
     <label
       v-if="label"
       :for="id"
+      :data-test="kebabCase(dataTest, 'label')"
     >
       {{ label }}
     </label>
@@ -25,6 +29,7 @@ const id = useId();
       <slot
         :id="id"
         :invalid="!!error"
+        :input-data-test="kebabCase(dataTest, 'input')"
       />
     </div>
     <template v-if="error">
@@ -32,6 +37,7 @@ const id = useId();
         severity="error"
         size="small"
         variant="simple"
+        :data-test="kebabCase(dataTest, 'error')"
       >
         {{ error }}
       </Message>
