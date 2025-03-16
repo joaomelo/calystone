@@ -23,6 +23,9 @@ export function useSchema<T>(builder: Builder<T>) {
           exceptions.push(new Exception({ message: fieldErrors[0], path: fieldName, severity: Severity.Warning }));
         }
       });
+
+      console.log({ exceptions });
+
       throw new Exceptions({ exceptions });
     }
     return result.success;
