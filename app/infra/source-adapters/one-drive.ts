@@ -19,7 +19,7 @@ export class OneDriveSourceAdapter extends BaseSourceAdapter<string> {
     super({ access, support });
   }
 
-  createFileSystemAdapter(accessToken: string) {
+  performCreateFileSystemAdapter(accessToken: string) {
     return new OneDriveFileSystemAdapter(accessToken);
   }
 }

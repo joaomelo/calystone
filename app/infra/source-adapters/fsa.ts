@@ -14,7 +14,7 @@ export class FsaSourceAdapter extends BaseSourceAdapter<FileSystemDirectoryHandl
     super({ access, support });
   }
 
-  createFileSystemAdapter(options: FileSystemDirectoryHandle) {
+  performCreateFileSystemAdapter(options: FileSystemDirectoryHandle) {
     return new FsaFileSystemAdapter(options);
   }
 }

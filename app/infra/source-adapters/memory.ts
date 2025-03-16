@@ -17,7 +17,7 @@ export class MemorySourceAdapter extends BaseSourceAdapter<string> {
     super({ access, support });
   }
 
-  createFileSystemAdapter(options: string) {
+  performCreateFileSystemAdapter(options: string) {
     return new MemoryFileSystemAdapter(options);
   }
 }

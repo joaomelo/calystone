@@ -21,19 +21,14 @@ export abstract class BaseSourceAdapter<T> implements SourceAdapter<T> {
     this.accessAdapter = access;
   }
 
-  abstract createFileSystemAdapter(options: T): FileSystemAdapter;
+  async createFileSystemAdapter(): Promise<FileSystemAdapter> {
+    const options = await this.accessAdapter.acquire();
+    this.fileSystemAdapter = this.performCreateFileSystemAdapter(options);
+    return this.fileSystemAdapter;
+  }
 
   getAccess() {
     return this.accessAdapter;
-  }
-
-  async getOrCreateFileSystemAdapter(): Promise<FileSystemAdapter> {
-    if (this.fileSystemAdapter) return this.fileSystemAdapter;
-
-    const options = await this.accessAdapter.acquire();
-    this.fileSystemAdapter = this.createFileSystemAdapter(options);
-
-    return this.fileSystemAdapter;
   }
 
   getOrThrowFileSystemAdapter(): FileSystemAdapter {
@@ -44,4 +39,6 @@ export abstract class BaseSourceAdapter<T> implements SourceAdapter<T> {
   getSupport(): SupportAdapter {
     return this.supportAdapter;
   }
+
+  abstract performCreateFileSystemAdapter(options: T): FileSystemAdapter;
 }

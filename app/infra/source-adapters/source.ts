@@ -5,6 +5,6 @@ import type { SupportAdapter } from "@/infra/support-adapters";
 export interface SourceAdapter<T> {
   getSupport(): SupportAdapter;
   getAccess(): AccessAdapter<T>;
-  getOrCreateFileSystemAdapter(): FileSystemAdapter | Promise<FileSystemAdapter>;
+  createFileSystemAdapter(): FileSystemAdapter | Promise<FileSystemAdapter>;
   getOrThrowFileSystemAdapter(): FileSystemAdapter;
 }
