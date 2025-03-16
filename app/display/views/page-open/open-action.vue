@@ -3,8 +3,7 @@ import type { Source } from "@/infra";
 
 import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/widgets";
-import { useErrorToast } from "@/display/widgets";
-import { useI18n } from "@/utils";
+import { useErrors, useI18n } from "@/utils";
 import { useRouter } from "vue-router";
 
 const { source } = defineProps<{
@@ -16,16 +15,14 @@ const { source } = defineProps<{
 
 const { t } = useI18n();
 const router = useRouter();
-const toast = useErrorToast();
+const { dispatchOrToast } = useErrors();
 const { service } = Store.use();
 
 async function handleClick() {
-  try {
+  await dispatchOrToast(async () => {
     await service.accessRequest.request(source);
     void router.push({ name: "bootstrap", params: { source } });
-  } catch (error) {
-    toast(error);
-  }
+  });
 }
 
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ToastSingleton } from "@/display";
+import { ToastSingleton } from "@/utils";
 </script>
 <template>
   <router-view />

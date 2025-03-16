@@ -3,7 +3,7 @@ import { Exception, Exceptions, Severity } from "@/utils/exception";
 import { useI18n } from "@/utils/i18n";
 import { reactive } from "vue";
 
-type Command = () => Promise<void>;
+type Command = () => Promise<unknown>;
 
 export function useErrors() {
   const i18n = useI18n();

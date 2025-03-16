@@ -1,4 +1,5 @@
 export * from "./arrays";
+export * from "./dialogs";
 export * from "./exception";
 export * from "./file-system";
 export * from "./i18n";

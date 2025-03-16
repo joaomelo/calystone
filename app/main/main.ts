@@ -1,7 +1,8 @@
 import { name, version } from "@/../package.json";
-import { createI18n, createRouter, Store, ThemePreset, ToastService } from "@/display"; // this will also apply the css styles as a side effect
+import { createI18n, createRouter, Store, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
 import { BaseSourceAdapterPortfolio } from "@/infra";
 import { ServicesPortolfio } from "@/services";
+import { ToastService } from "@/utils";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";

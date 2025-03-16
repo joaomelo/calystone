@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
 import { DialogRename } from "@/display/views/dialog-rename";
-import { EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes, useErrorToast } from "@/display/widgets";
+import { EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes } from "@/display/widgets";
 import { Artifact, Directory, type Id, type Node } from "@/domain";
+import { useErrors } from "@/utils";
 import { ref, useTemplateRef } from "vue";
 
-const toast = useErrorToast();
+const { dispatchOrToast } = useErrors();
 const { nodes, service } = Store.use();
 const node = ref<Node | undefined>();
 const detail = ref(false);
@@ -37,16 +38,12 @@ function solveNode(id?: Id) {
 }
 
 async function triggerOpen(node: Node) {
-  try {
-    if (node instanceof Directory) {
-      await service.directoryOpen.open(node);
-    }
+  if (node instanceof Directory) {
+    await dispatchOrToast(() => service.directoryOpen.open(node));
+  }
 
-    if (node instanceof Artifact && node.mime.type() === "text") {
-      await service.artifactText.fetch(node);
-    }
-  } catch (error) {
-    toast(error);
+  if (node instanceof Artifact && node.mime.type() === "text") {
+    await dispatchOrToast(() => service.artifactText.fetch(node));
   }
 }
 </script>
