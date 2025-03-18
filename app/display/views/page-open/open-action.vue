@@ -3,7 +3,7 @@ import type { Source } from "@/infra";
 
 import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/widgets";
-import { useErrors, useI18n } from "@/utils";
+import { useDispatch, useI18n } from "@/utils";
 import { useRouter } from "vue-router";
 
 const { source } = defineProps<{
@@ -15,7 +15,7 @@ const { source } = defineProps<{
 
 const { t } = useI18n();
 const router = useRouter();
-const { dispatchOrToast } = useErrors();
+const { dispatchOrToast, loading } = useDispatch();
 const { service } = Store.use();
 
 async function handleClick() {
@@ -34,6 +34,7 @@ async function handleClick() {
     :data-test="dataTest"
     :icon="icon"
     class="open-base"
+    :loading="loading"
     @click="handleClick"
   >
     <template #icon>

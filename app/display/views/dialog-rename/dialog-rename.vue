@@ -3,7 +3,7 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/widgets/button-base";
-import { InputText, ModalBase, useErrors } from "@/utils";
+import { InputText, ModalBase, useDispatch } from "@/utils";
 import { useI18n } from "@/utils/i18n";
 import { reactive, useTemplateRef } from "vue";
 
@@ -20,7 +20,7 @@ const data = reactive({
   name: node.name,
 });
 
-const { dispatch, errors } = useErrors();
+const { dispatch, errors, loading } = useDispatch();
 
 function open() {
   data.name = node.name;
@@ -59,6 +59,7 @@ async function save() {
         :label="t('save')"
         severity="primary"
         data-test="button-save"
+        :loading="loading"
         @click="save"
       />
     </template>

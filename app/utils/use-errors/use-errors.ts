@@ -1,44 +1,19 @@
-import { useToast } from "@/utils/dialogs";
-import { Exception, Exceptions, Severity } from "@/utils/exception";
+import { Exception, Exceptions } from "@/utils/exception";
 import { useI18n } from "@/utils/i18n";
 import { reactive } from "vue";
 
-type Command = () => Promise<unknown>;
-
 export function useErrors() {
   const i18n = useI18n();
-  const { toast } = useToast();
   const errors = reactive<Record<string, string | undefined>>({});
 
-  return { dispatch, dispatchOrToast, errors, reset };
-
-  async function dispatch(command: Command): Promise<boolean> {
-    reset();
-    try {
-      await command();
-      return true;
-    } catch (error) {
-      console.error(error);
-      applyError(error);
-      return false;
-    }
-  }
-
-  async function dispatchOrToast(command: Command): Promise<boolean> {
-    const result = await dispatch(command);
-    if (!result && typeof errors.global === "string") {
-      toast(Severity.Error, errors.global);
-    }
-    return result;
-  }
-
-  function reset() {
+  function clear() {
     Object.keys(errors).forEach((key) => {
       errors[key] = undefined;
     });
   }
 
-  function applyError(error: unknown) {
+  function apply(error: unknown) {
+    clear();
 
     if (error instanceof Exceptions) {
       const { list } = error;
@@ -73,4 +48,6 @@ export function useErrors() {
         ? i18n.t(`errors.${message}`)
         : message;
   }
+
+  return { apply, clear, errors };
 }

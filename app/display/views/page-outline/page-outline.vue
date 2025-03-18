@@ -3,10 +3,10 @@ import { Store } from "@/display/store";
 import { DialogRename } from "@/display/views/dialog-rename";
 import { EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes } from "@/display/widgets";
 import { Artifact, Directory, type Id, type Node } from "@/domain";
-import { useErrors } from "@/utils";
+import { useDispatch } from "@/utils";
 import { ref, useTemplateRef } from "vue";
 
-const { dispatchOrToast } = useErrors();
+const { dispatchOrToast } = useDispatch();
 const { nodes, service } = Store.use();
 const node = ref<Node | undefined>();
 const detail = ref(false);

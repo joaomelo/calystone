@@ -12,4 +12,5 @@ export * from "./performance";
 export * from "./scheduler";
 export * from "./schema";
 export * from "./strings";
+export * from "./use-dispatch";
 export * from "./use-errors";
