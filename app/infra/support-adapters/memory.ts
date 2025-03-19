@@ -15,11 +15,7 @@ export class MemorySupportAdapter implements SupportAdapter {
     return this.enabled;
   }
 
-  renameDirectory(): boolean {
-    return this.access();
-  }
-
-  renameFile() {
+  rename() {
     return this.access();
   }
 }

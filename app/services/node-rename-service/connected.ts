@@ -36,9 +36,7 @@ export class ConnectedNodeRenameService implements NodeRenameService {
   }
 
   support(node: Node) {
-    return (node instanceof Directory)
-      ? this.supportAdapter.renameDirectory()
-      : this.supportAdapter.renameFile();
+    return this.supportAdapter.rename(node);
   }
 
 }

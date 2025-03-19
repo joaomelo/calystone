@@ -1,3 +1,5 @@
+import type { Node } from "@/domain";
+
 import type { SupportAdapter } from "./support";
 
 interface Options {
@@ -18,11 +20,8 @@ export class CloudSupportAdapter implements SupportAdapter {
     return typeof this.clientId === "string" && typeof this.redirectUrl === "string";
   }
 
-  renameDirectory() {
-    return this.access();
-  }
-
-  renameFile() {
+  rename(node: Node) {
+    if (node.isRoot()) return false;
     return this.access();
   }
 };

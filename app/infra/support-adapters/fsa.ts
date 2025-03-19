@@ -1,3 +1,7 @@
+import type { Node } from "@/domain";
+
+import { Directory } from "@/domain";
+
 import type { SupportAdapter } from "./support";
 
 export class FsaSupportAdapter implements SupportAdapter {
@@ -6,11 +10,12 @@ export class FsaSupportAdapter implements SupportAdapter {
     return ("showOpenFilePicker" in self);
   }
 
-  renameDirectory(): boolean {
-    return false;
+  rename(node: Node) {
+    if (node instanceof Directory) return false;
+    return this.access();
   }
 
-  renameFile() {
-    return this.access();
+  renameDirectory(): boolean {
+    return false;
   }
 }

@@ -1,5 +1,6 @@
+import type { Node } from "@/domain";
+
 export interface SupportAdapter {
   access(): boolean;
-  renameFile(): boolean;
-  renameDirectory(): boolean;
+  rename(node: Node): boolean;
 }
