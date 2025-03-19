@@ -3,11 +3,9 @@ import type { Artifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/widgets/editor-workspace";
-import { throwCritical } from "@/utils";
+import { InputRichText, throwCritical } from "@/utils";
 import { debounce } from "lodash-es";
 import { ref } from "vue";
-
-import CodeMirror from "./code-mirror.vue";
 
 const { content } = defineProps<{
   content: Artifact;
@@ -27,7 +25,7 @@ const handleUpdate = debounce(async (text: string) => {
 </script>
 <template>
   <EditorWorkspace :node="content">
-    <CodeMirror
+    <InputRichText
       data-test="editor-text"
       :model-value="text"
       @update:model-value="handleUpdate"

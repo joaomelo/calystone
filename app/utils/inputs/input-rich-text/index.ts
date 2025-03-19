@@ -1,0 +1,1 @@
+export { default as InputRichText } from "./input-rich-text.vue";
