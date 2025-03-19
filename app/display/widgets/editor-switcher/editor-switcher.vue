@@ -8,7 +8,7 @@ import type { EditorSwitch } from "../editor-switch";
 
 import { editorArtifactSwitch } from "../editor-artifact";
 import { editorDirectorySwitch } from "../editor-directory";
-import { editorTextSwitch } from "../editor-text";
+import { editorArtifactTextSwitch } from "../editor-text";
 import { editorEmptySwitch, editorNotLoadedSwitch } from "../editors-message";
 
 const { node } = defineProps<{
@@ -16,7 +16,7 @@ const { node } = defineProps<{
 }>();
 
 // switches order matters since the first compatible switch will be used, so the most specific should be first.
-const switchs: EditorSwitch[] = [editorEmptySwitch, editorNotLoadedSwitch, editorDirectorySwitch, editorTextSwitch, editorArtifactSwitch];
+const switchs: EditorSwitch[] = [editorEmptySwitch, editorNotLoadedSwitch, editorDirectorySwitch, editorArtifactTextSwitch, editorArtifactSwitch];
 const editor: Component = computed(() => {
   const specializedSwitch = switchs.find((s) => s.supports(node));
   return specializedSwitch?.component ?? editorEmptySwitch.component;
