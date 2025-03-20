@@ -1,18 +1,26 @@
 <script setup lang="ts">
 import type { Artifact } from "@/domain";
 
-import { EditorWorkspace } from "@/display/widgets/editor-workspace";
+import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { useI18n } from "@/utils";
 import { filesize } from "filesize";
 
 const { content } = defineProps<{
   content: Artifact;
+  remove: boolean;
+  rename: boolean;
+  share: boolean;
 }>();
 
 const { t } = useI18n();
 </script>
 <template>
-  <EditorWorkspace :node="content">
+  <EditorNodeWorkspace
+    :remove
+    :rename
+    :share
+    :node="content"
+  >
     <template #default>
       <div class="editor-artifact">
         <p data-test="type">
@@ -29,7 +37,7 @@ const { t } = useI18n();
         </p>
       </div>
     </template>
-  </EditorWorkspace>
+  </EditorNodeWorkspace>
 </template>
 <style scoped>
 .editor-artifact {

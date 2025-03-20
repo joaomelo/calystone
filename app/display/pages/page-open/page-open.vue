@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FrameCard } from "@/display/widgets";
+import { Frameplain } from "@/display/widgets";
 import { useI18n } from "@/utils";
 
 import AppFeatures from "./app-features.vue";
@@ -8,7 +8,7 @@ import OpenActions from "./open-actions.vue";
 const { t } = useI18n();
 </script>
 <template>
-  <FrameCard>
+  <Frameplain>
     <div class="page-open">
       <div class="page-open-features page-open-panel">
         <AppFeatures />
@@ -20,7 +20,7 @@ const { t } = useI18n();
         <InputLocale />
       </div>
     </div>
-  </FrameCard>
+  </Frameplain>
 </template>
 <style scoped>
 .page-open {

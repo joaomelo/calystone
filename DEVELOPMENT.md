@@ -39,18 +39,15 @@ graph LR;
     routeA;
     routeB
   end
-  subgraph views
+  subgraph pages
     pageX;
     pageU;
-    dialogZ;
   end
   subgraph widgets
     widgetN
     widgetM
+    useZ
   end  
-  subgraph external
-    component
-  end
   store
 
   routeA --> pageX;
@@ -58,9 +55,9 @@ graph LR;
   pageX --> widgetN
   pageU --> widgetM;
   pageU --> widgetN;
-  pageU --> dialogZ;
-  widgetM --> component
-  views --> store;
+  pageU --> useZ;
+  pages --> store;
+  widgets --> store;
 ```
 
 ### Routes
@@ -73,19 +70,21 @@ The library supports the concept of nested routes to enable a sort of layout str
 
 Pages should mount their layout inside their own template. They can reuse capabilities by composing the layout with widgets.
 
-### Views
+### Pages
 
-Views are what the user see in the end. They access the services and domain via a central construct called Store. All data they need they grab from the store user signals are convert to calls to the store inner objects.
+Pages are what the user see in the end. They access the services and domain via a central construct called Store. All data they need they grab from the store and user signals are convert to calls to the store inner objects.
 
-Views can be complex structures in order to deal with data orchestrations. They can abstract its capacities into subcomponets or composables to streamline code.
+The distinc feature of a Page is that it is to places in router routes.
 
-They can be pages to be placed in the router routes or also components to be used inside pages like dialogs or frames. The distinc feature of a view it access the store to complete its tasks.
+They can be complex structures in order to deal with data orchestrations. They can abstract its capacities into subcomponets or composables to streamline code. These subparts are present in the widgets module.
 
 ### Widgets
 
-They are shared resources (components and composables) used by more than one view or other widgets that do not have access to the app state. All state used by a widget must be provided as a prop and all changes it want to provoque must by raised as events.
+They are shared resources (components and composables) used by more than one view or other widgets. Widgets get the page context by props and are able to implement features using the state in the Store.
 
-Widgets are also used to function as single entry points for outside UI dependencies. Like if some button from a UI library is used in the app, for example. On that case, the button should be imported in a proxy ButtonBase widget and then used in pages, even if for a single page.
+We tried a pattern of isolating the widgets from the Store and use only props and event. This end up promoting complexity in sibling components one to access the store and the other to do the work. Now pages and widget are encouraged to use services from the store to delivery their capabilities.
+
+Nevertheless, shared UI logic decoupled from the business rules like button, toolbars and so on are encouraged to be externalized in dummy components in the utils module. Also access to UI libraries is discouraged in the widgets module, prefer creating proxy ui components in utils.
 
 ### Styles
 

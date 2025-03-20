@@ -2,8 +2,7 @@
 import type { Source } from "@/infra";
 
 import { Store } from "@/display/store";
-import { ButtonBase } from "@/display/widgets";
-import { useDispatch, useI18n } from "@/utils";
+import { ButtonBase, useDispatch, useI18n } from "@/utils";
 import { useRouter } from "vue-router";
 
 const { source } = defineProps<{

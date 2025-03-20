@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ButtonBase } from "@/display/widgets/button-base";
+import { ButtonBase } from "@/utils/actions/button-base";
 
 defineProps<{
   icon: string;

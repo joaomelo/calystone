@@ -2,13 +2,16 @@
 import type { Artifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorWorkspace } from "@/display/widgets/editor-workspace";
+import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { InputRichText, throwCritical } from "@/utils";
 import { debounce } from "lodash-es";
 import { ref } from "vue";
 
 const { content } = defineProps<{
   content: Artifact;
+  remove: boolean;
+  rename: boolean;
+  share: boolean;
 }>();
 
 if (content.mime.type() !== "text") throwCritical("INVALID_MIME_TYPE_FOR_EDITOR", "the artifact must have text content");
@@ -24,11 +27,15 @@ const handleUpdate = debounce(async (text: string) => {
 }, 1000);
 </script>
 <template>
-  <EditorWorkspace :node="content">
+  <EditorNodeWorkspace
+    :remove
+    :share
+    :rename
+  >
     <InputRichText
       data-test="editor-text"
       :model-value="text"
       @update:model-value="handleUpdate"
     />
-  </EditorWorkspace>
+  </EditorNodeWorkspace>
 </template>

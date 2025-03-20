@@ -2,7 +2,7 @@
 import type { Source } from "@/infra";
 
 import { Store } from "@/display/store";
-import { FrameCard } from "@/display/widgets";
+import { Frameplain } from "@/display/widgets";
 import { useI18n } from "@/utils";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
@@ -26,7 +26,7 @@ onMounted(async () => {
 
 </script>
 <template>
-  <FrameCard>
+  <Frameplain>
     <div>{{ t("loading") }}</div>
-  </FrameCard>
+  </Frameplain>
 </template>

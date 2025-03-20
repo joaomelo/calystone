@@ -2,7 +2,7 @@ import { Artifact } from "@/domain";
 
 import type { EditorSwitch } from "../editor-switch";
 
-import EditorArtifactText from "./editor-text.vue";
+import EditorArtifactText from "./editor-artifact-text.vue";
 
 export const editorArtifactTextSwitch: EditorSwitch = {
   component: EditorArtifactText,

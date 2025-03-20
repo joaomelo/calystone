@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Directory } from "@/domain";
 
-import { EditorWorkspace } from "@/display/widgets/editor-workspace";
+import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { useI18n } from "@/utils";
 
 const { content } = defineProps<{
@@ -10,7 +10,7 @@ const { content } = defineProps<{
 const { t } = useI18n();
 </script>
 <template>
-  <EditorWorkspace :node="content">
+  <EditorNodeWorkspace :node="content">
     <template #default>
       <div class="editor-directory">
         <p data-test="path">
@@ -21,7 +21,7 @@ const { t } = useI18n();
         </p>
       </div>
     </template>
-  </EditorWorkspace>
+  </EditorNodeWorkspace>
 </template>
 <style scoped>
 .editor-directory {

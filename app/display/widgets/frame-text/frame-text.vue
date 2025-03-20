@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { FrameCard } from "@/display/widgets/frame-card";
+import { Frameplain } from "@/display/widgets/frame-card";
 defineProps<{
   date: string;
   title: string;
 }>();
 </script>
 <template>
-  <FrameCard>
+  <Frameplain>
     <div class="frame-text">
       <h1>{{ title }}</h1>
       <p>Effective Date: {{ date }}</p>
@@ -19,7 +19,7 @@ defineProps<{
         </router-link>
       </div>
     </div>
-  </FrameCard>
+  </Frameplain>
 </template>
 <style scoped>
 .frame-text {

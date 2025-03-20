@@ -1,7 +1,5 @@
-import { PageOpen, PageOutline, PagePrivacy, PageSearch, PageTags, PageTerms } from "@/display/views";
+import { PageBootstrap, PageOpen, PageOutline, PagePrivacy, PageSearch, PageTags, PageTerms } from "@/display/pages";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
-
-import PageBootstrap from "../views/page-bootstrap/page-bootstrap.vue";
 
 export function createRouter() {
   const routes = [

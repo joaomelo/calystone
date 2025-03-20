@@ -1,0 +1,63 @@
+<script lang="ts" setup>
+import { ToolbarNode } from "@/display/widgets/toolbar-node";
+import { ToolbarButton } from "@/utils";
+
+defineProps<{
+  remove: boolean
+  rename: boolean;
+  share: boolean;
+}>();
+defineEmits<{
+  close: []
+  remove: [];
+  rename: [];
+  share: [];
+}>();
+
+</script>
+<template>
+  <div class="editor-node-workspace">
+    <div class="editor-node-workspace__header">
+      <ToolbarNode
+        :remove
+        :rename
+        :share
+        @rename="$emit('rename')"
+        @share="$emit('share')"
+        @remove="$emit('remove')"
+      >
+        <template #end>
+          <ToolbarButton
+            icon="bx-x"
+            @click="$emit('close')"
+          />
+        </template>
+      </ToolbarNode>
+    </div>
+    <div class="editor-node-workspace__content">
+      <slot />
+    </div>
+  </div>
+</template>
+<style scoped>
+.editor-node-workspace {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.editor-node-workspace__header {
+  flex: 0 0 auto;
+
+  & :deep(.p-toolbar) {
+    border: none;
+    padding: var(--size-1);
+  }
+}
+
+.editor-node-workspace__content {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+</style>
