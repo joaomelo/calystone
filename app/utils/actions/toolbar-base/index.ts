@@ -1,1 +1,0 @@
-export { default as ToolbarBase } from "./toolbar-base.vue";

@@ -1,4 +1,4 @@
-import { throwCritical } from "@/utils/exception";
+import { throwCritical } from "./throw";
 
 export class NullThrower {
 
