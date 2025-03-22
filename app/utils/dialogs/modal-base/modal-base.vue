@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { kebabCase } from "@/utils/strings";
+import { kebabCase } from "@/utils/text";
 import Dialog from "primevue/dialog";
 import Message from "primevue/message";
 import { ref } from "vue";
