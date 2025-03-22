@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
-import { DialogRename } from "@/display/views/dialog-rename";
-import { EditorSwitcher, FrameDashboard, MasterDetail, OutlineNodes } from "@/display/widgets";
+import { EditorSwitcher, FrameDashboard, OutlineNodes } from "@/display/widgets";
 import { Artifact, Directory, type Id, type Node } from "@/domain";
-import { useDispatch } from "@/utils";
-import { ref, useTemplateRef } from "vue";
+import { MasterDetail, useDispatch } from "@/utils";
+import { ref } from "vue";
 
 const { dispatchOrToast } = useDispatch();
 const { nodes, service } = Store.use();
@@ -19,11 +18,6 @@ function handleClose() {
 function handleExpanded(id: Id) {
   const node = solveNode(id);
   if (node) void triggerOpen(node);
-}
-
-const dialogRename = useTemplateRef("dialogRename");
-function handleRename() {
-  dialogRename.value?.open();
 }
 
 function handleSelected(id?: Id) {
@@ -65,16 +59,9 @@ async function triggerOpen(node: Node) {
         <EditorSwitcher
           :node
           @close="handleClose"
-          @rename="handleRename"
         />
       </template>
     </MasterDetail>
-
-    <DialogRename
-      v-if="node"
-      ref="dialogRename"
-      :node="node"
-    />
   </FrameDashboard>
 </template>
 <style scoped>

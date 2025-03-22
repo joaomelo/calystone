@@ -1,39 +1,24 @@
 <script setup lang="ts">
+import type { Node } from "@/domain";
 
-import { ToolbarBase, ToolbarButton } from "@/utils";
+import { ToolbarBase } from "@/utils";
+
+import ToolbarNodeRemove from "./toolbar-node-remove.vue";
+import ToolbarNodeRename from "./toolbar-node-rename.vue";
+import ToolbarNodeShare from "./toolbar-node-share.vue";
 
 defineProps<{
-  remove: boolean
-  rename: boolean;
-  share: boolean;
-}>();
-defineEmits<{
-  remove: [];
-  rename: [];
-  share: [];
+  node?: Node;
 }>();
 </script>
 <template>
   <ToolbarBase>
     <template #start>
-      <ToolbarButton
-        v-if="share"
-        icon="bxs-share-alt"
-        data-test="button-share"
-        @click="$emit('share')"
-      />
-      <ToolbarButton
-        v-if="rename"
-        icon="bxs-rename"
-        data-test="button-rename"
-        @click="$emit('rename')"
-      />
-      <ToolbarButton
-        v-if="remove"
-        icon="bxs-trash"
-        data-test="button-remove"
-        @click="$emit('remove')"
-      />
+      <template v-if="node">
+        <ToolbarNodeRename :node="node" />
+        <ToolbarNodeShare :node="node" />
+        <ToolbarNodeRemove :node="node" />
+      </template>
       <slot name="start" />
     </template>
     <template #end>

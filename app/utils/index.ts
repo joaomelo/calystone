@@ -10,4 +10,5 @@ export * from "./performance";
 export * from "./scheduler";
 export * from "./schema";
 export * from "./storages";
+export * from "./surfaces";
 export * from "./text";

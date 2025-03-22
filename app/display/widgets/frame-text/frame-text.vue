@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Frameplain } from "@/display/widgets/frame-card";
+import { Frameplain } from "@/display/widgets/frame-plain";
 defineProps<{
   date: string;
   title: string;

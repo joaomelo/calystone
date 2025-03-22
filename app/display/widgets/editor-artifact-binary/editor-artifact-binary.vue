@@ -7,29 +7,18 @@ import { filesize } from "filesize";
 
 const { content } = defineProps<{
   content: Artifact;
-  remove: boolean;
-  rename: boolean;
-  share: boolean;
 }>();
 
 const { t } = useI18n();
 </script>
 <template>
-  <EditorNodeWorkspace
-    :remove
-    :rename
-    :share
-    :node="content"
-  >
+  <EditorNodeWorkspace :node="content">
     <template #default>
       <div class="editor-artifact">
         <p data-test="type">
           <b>{{ t('type') }}</b>: {{ content.mime.media }}
         </p>
-        <p
-          v-if="content.size"
-          data-test="size"
-        >
+        <p data-test="size">
           <b>{{ t('size') }}</b>: {{ filesize(content.size) }}
         </p>
         <p data-test="path">

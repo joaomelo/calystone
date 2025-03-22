@@ -3,11 +3,10 @@ import type { Id, Nodes } from "@/domain";
 import type { TreeNode } from "primevue/treenode";
 
 import { isId } from "@/domain";
-import { isObjectLike } from "@/utils";
+import { isObjectLike, ScrollPanel } from "@/utils";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref } from "vue";
 
-import { ScrollPanel } from "../scroll-panel";
 import { convert } from "./convert";
 
 const { nodes } = defineProps<{

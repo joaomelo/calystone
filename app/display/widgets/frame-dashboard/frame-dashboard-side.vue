@@ -2,8 +2,7 @@
 import type { ComputedRef } from "vue";
 
 import { Store } from "@/display/store";
-import { SideBar, SideItem } from "@/display/widgets/side-bar";
-import { useI18n } from "@/utils";
+import { SideBar, SideItem, useI18n } from "@/utils";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 

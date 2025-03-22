@@ -1,31 +1,21 @@
 <script lang="ts" setup>
+import type { Node } from "@/domain";
+
 import { ToolbarNode } from "@/display/widgets/toolbar-node";
 import { ToolbarButton } from "@/utils";
 
 defineProps<{
-  remove: boolean
-  rename: boolean;
-  share: boolean;
+  node: Node;
 }>();
 defineEmits<{
   close: []
-  remove: [];
-  rename: [];
-  share: [];
 }>();
 
 </script>
 <template>
   <div class="editor-node-workspace">
     <div class="editor-node-workspace__header">
-      <ToolbarNode
-        :remove
-        :rename
-        :share
-        @rename="$emit('rename')"
-        @share="$emit('share')"
-        @remove="$emit('remove')"
-      >
+      <ToolbarNode :node="node">
         <template #end>
           <ToolbarButton
             icon="bx-x"

@@ -9,9 +9,6 @@ import { ref } from "vue";
 
 const { content } = defineProps<{
   content: Artifact;
-  remove: boolean;
-  rename: boolean;
-  share: boolean;
 }>();
 
 if (content.mime.type() !== "text") throwCritical("INVALID_MIME_TYPE_FOR_EDITOR", "the artifact must have text content");
@@ -27,11 +24,7 @@ const handleUpdate = debounce(async (text: string) => {
 }, 1000);
 </script>
 <template>
-  <EditorNodeWorkspace
-    :remove
-    :share
-    :rename
-  >
+  <EditorNodeWorkspace :node="content">
     <InputRichText
       data-test="editor-text"
       :model-value="text"
