@@ -1,5 +1,6 @@
-import type { DirectoryDataOptions, Id } from "@/domain";
+import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
+import { Directory } from "@/domain";
 import { throwCritical } from "@/utils";
 
 import type { ArtifactOrDirectoryDataOptions, FileSystemAdapter } from "./file-system";
@@ -30,9 +31,18 @@ export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapt
   }
 
   abstract openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]>;
-
   abstract postFileContent(options: { content: ArrayBuffer; id: Id, }): Promise<void>;
 
+  removeMetadata(node: Node): void {
+    this.nodesMetadata.delete(node.id);
+    if (node instanceof Directory) {
+      for (const child of node.getChildren()) {
+        this.removeMetadata(child);
+      }
+    }
+  }
+
+  abstract removeNode(node: Node): Promise<void>;
   abstract renameNode(options: { id: Id, name: string }): Promise<void>;
 
   reset() {

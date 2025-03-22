@@ -2,7 +2,7 @@ import type { DirectoryDataOptions, Id } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
-import { throwError } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -81,6 +81,10 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     await this.graphClient
       .api(`/me/drive/items/${id}/content`)
       .put(blob);
+  }
+
+  removeNode(): Promise<void> {
+    throwCritical("NOT_IMPLEMENTED", "removeNode not implement");
   }
 
   async renameNode(options: { id: Id, name: string }): Promise<void> {

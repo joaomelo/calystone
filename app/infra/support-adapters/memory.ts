@@ -1,3 +1,5 @@
+import type { Node } from "@/domain";
+
 import type { SupportAdapter } from "./support";
 
 interface Options {
@@ -13,6 +15,11 @@ export class MemorySupportAdapter implements SupportAdapter {
 
   access(): boolean {
     return this.enabled;
+  }
+
+  remove(node: Node) {
+    if (node.isRoot()) return false;
+    return this.access();
   }
 
   rename() {

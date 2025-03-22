@@ -1,8 +1,7 @@
-import type { DirectoryDataOptions, Id } from "@/domain";
+import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { fakeDirectory, fakeFile, fakeFileSystemEntry } from "@/utils";
-import { throwError } from "@/utils";
+import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError } from "@/utils";
 import { faker } from "@faker-js/faker";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -57,6 +56,11 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
 
   async postFileContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
     this.nodesMetadata.set(id, content);
+    return Promise.resolve();
+  }
+
+  removeNode(node: Node): Promise<void> {
+    this.removeMetadata(node);
     return Promise.resolve();
   }
 

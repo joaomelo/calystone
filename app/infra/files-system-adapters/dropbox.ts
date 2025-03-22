@@ -1,7 +1,7 @@
 import type { DirectoryDataOptions, Id } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwError } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 import { Dropbox } from "dropbox";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -81,6 +81,10 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
       mode: { ".tag": "overwrite" },
       path
     });
+  }
+
+  removeNode(): Promise<void> {
+    throwCritical("NOT_IMPLEMENTED", "removeNode not implement");
   }
 
   async renameNode(options: { id: Id, name: string }): Promise<void> {

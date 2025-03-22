@@ -20,6 +20,11 @@ export class CloudSupportAdapter implements SupportAdapter {
     return typeof this.clientId === "string" && typeof this.redirectUrl === "string";
   }
 
+  remove(node: Node) {
+    if (node.isRoot()) return false;
+    return this.access();
+  }
+
   rename(node: Node) {
     if (node.isRoot()) return false;
     return this.access();

@@ -10,12 +10,13 @@ export class FsaSupportAdapter implements SupportAdapter {
     return ("showOpenFilePicker" in self);
   }
 
-  rename(node: Node) {
-    if (node instanceof Directory) return false;
+  remove(node: Node) {
+    if (node.isRoot()) return false;
     return this.access();
   }
 
-  renameNode(): boolean {
-    return false;
+  rename(node: Node) {
+    if (node instanceof Directory) return false;
+    return this.access();
   }
 }

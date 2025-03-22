@@ -87,6 +87,10 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     await writableStream.close();
   }
 
+  removeNode(): Promise<void> {
+    throwCritical("NOT_IMPLEMENTED", "removeNode not implement");
+  }
+
   async renameNode(options: { id: Id, name: string }): Promise<void> {
     const { id, name } = options;
 
