@@ -87,11 +87,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     await writableStream.close();
   }
 
-  renameDirectory(): Promise<void> {
-    throwCritical("NOT_SUPPORTED", "the file system access api does not support a reliable method of renaming directories");
-  }
-
-  async renameFile(options: { id: Id, name: string }): Promise<void> {
+  async renameNode(options: { id: Id, name: string }): Promise<void> {
     const { id, name } = options;
 
     const fileMetadata = this.metadataOfFileOrThrow(id);

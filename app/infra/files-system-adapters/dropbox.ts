@@ -83,14 +83,6 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
     });
   }
 
-  async renameDirectory(options: { id: Id, name: string }): Promise<void> {
-    await this.renameNode(options);
-  }
-
-  async renameFile(options: { id: Id, name: string }): Promise<void> {
-    await this.renameNode(options);
-  }
-
   async renameNode(options: { id: Id, name: string }): Promise<void> {
     const { id, name } = options;
 

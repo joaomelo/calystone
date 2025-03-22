@@ -33,8 +33,7 @@ export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapt
 
   abstract postFileContent(options: { content: ArrayBuffer; id: Id, }): Promise<void>;
 
-  abstract renameDirectory(options: { id: Id, name: string }): Promise<void>;
-  abstract renameFile(options: { id: Id, name: string }): Promise<void>;
+  abstract renameNode(options: { id: Id, name: string }): Promise<void>;
 
   reset() {
     this.nodesMetadata.clear();

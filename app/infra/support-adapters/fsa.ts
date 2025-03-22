@@ -15,7 +15,7 @@ export class FsaSupportAdapter implements SupportAdapter {
     return this.access();
   }
 
-  renameDirectory(): boolean {
+  renameNode(): boolean {
     return false;
   }
 }

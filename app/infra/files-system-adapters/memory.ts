@@ -60,19 +60,10 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
     return Promise.resolve();
   }
 
-  renameDirectory(options: { name: string }): Promise<void> {
-    this.renameNode(options.name);
-    return Promise.resolve();
-  }
-
-  renameFile(options: { name: string }): Promise<void> {
-    this.renameNode(options.name);
-    return Promise.resolve();
-  }
-
-  renameNode(name: string) {
-    if (name.includes("/")) {
+  renameNode(options: { name: string }): Promise<void> {
+    if (options.name.includes("/")) {
       throwError("INVALID_CHAR", "invalid char for naming nodes in the file system");
     }
+    return Promise.resolve();
   }
 }
