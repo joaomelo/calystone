@@ -1,4 +1,4 @@
-import { LocalStorage } from "@/utils/local-storage";
+import { LocalStorage } from "@/utils/storages";
 
 import type { Locale, Locales } from "./locales";
 

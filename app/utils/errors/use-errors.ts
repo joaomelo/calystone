@@ -1,6 +1,8 @@
-import { Exception, Exceptions } from "@/utils/exception";
 import { useI18n } from "@/utils/i18n";
 import { reactive } from "vue";
+
+import { Exception } from "./exception";
+import { Exceptions } from "./exceptions";
 
 export function useErrors() {
   const i18n = useI18n();

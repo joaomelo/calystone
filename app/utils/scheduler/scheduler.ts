@@ -1,4 +1,4 @@
-import { idle } from "@/utils/idle";
+import { idle } from "@/utils/async";
 
 export type Task = (() => Promise<void>) | (() => void);
 

@@ -1,1 +1,1 @@
-export { default as Frameplain } from "./frame-card.vue";
+export { default as Frameplain } from "./frame-plain.vue";
