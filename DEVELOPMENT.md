@@ -1,8 +1,8 @@
 # Architecture
 
-## Layers
+## Modules
 
-The arrows represent wich modules depends on. In that case the control module depends on the view module but the view knows nothing about the control.
+These are the top-level modules of the system. The arrows represent wich other modules that module depends on.
 
 ```mermaid
 graph TD
@@ -27,11 +27,11 @@ graph TD
 
 ## Main
 
-Starts the applicaton, initializes app level state and stablish runtime dependencies.
+Starts the applicaton, initializes app level state and connect runtime dependencies.
 
 ## Display
 
-Make the app move. It grabs and transform state from `domain` using `services` and show it to the user, then captures events triggered by the user and translates them into calls to `services`.
+Make the app move. It collects and transform state from using the `services` module and show the state to the user, then the `display` captures events triggered by the user and translates them into calls to `services`.
 
 ```mermaid
 graph LR;
@@ -39,7 +39,7 @@ graph LR;
     routeA;
     routeB
   end
-  subgraph pages
+  subgraph views
     pageX;
     pageU;
   end
@@ -56,35 +56,35 @@ graph LR;
   pageU --> widgetM;
   pageU --> widgetN;
   pageU --> useZ;
-  pages --> store;
+  views --> store;
   widgets --> store;
 ```
 
 ### Routes
 
-The top structure starts at the route level. Routes are objects that define the entry points available to the user. The shape of the route objects are defined by the vue-router library API. 
+The top structure starts at the route level. Routes are objects that define the url entry points available to the user. The shape of the route objects is defined by the vue-router library API. 
 
-The route will render a view component. 
+The route will render one or more view components. 
 
-The library supports the concept of nested routes to enable a sort of layout structure. This is not allowed in this app design. This approach couples the route configuration to the component tree and can become a maintence burden. 
+The library supports the concept of nested routes to enable a sort of layout structure. This is discouraged in this app design. This approach couples the route configuration to the component tree and can become a maintence burden. 
 
-Pages should mount their layout inside their own template. They can reuse capabilities by composing the layout with widgets.
+Vies should mount their layout inside their own templates. They can reuse capabilities by composing the layout with widgets.
 
-### Pages
+### Views
 
-Pages are what the user see in the end. They access the services and domain via a central construct called Store. All data they need they grab from the store and user signals are convert to calls to the store inner objects.
+While routes are url/component configuration, the views are what the user reaslly see. Views access the services and domain via a central construct called store. All data they need, they grab from the store and user signals are convert to calls to the store inner objects methods.
 
-The distinc feature of a Page is that it is to places in router routes.
+The distinc feature of a view is that it was designed to be placed as an route component. So it is not meant for reuse.
 
-They can be complex structures in order to deal with data orchestrations. They can abstract its capacities into subcomponets or composables to streamline code. These subparts are present in the widgets module.
+They can be complex structures in order to deal with data orchestrations. They can abstract its capacities into subcomponets or composables to streamline code. If this sub strucutures are used only in one page they will live beside the page, if they are shared by multiple page, they should be moved to the widgets module.
 
 ### Widgets
 
 They are shared resources (components and composables) used by more than one view or other widgets. Widgets get the page context by props and are able to implement features using the state in the Store.
 
-We tried a pattern of isolating the widgets from the Store and use only props and event. This end up promoting complexity in sibling components one to access the store and the other to do the work. Now pages and widget are encouraged to use services from the store to delivery their capabilities.
+We tried a pattern of isolating the widgets from the Store and use only props and events. This end up promoting complexity by demanding coupled siamese components meant only to access the store. Now views and widgets are encouraged to use services from the store to delivery their capabilities.
 
-Nevertheless, shared UI logic decoupled from the business rules like button, toolbars and so on are encouraged to be externalized in dummy components in the utils module. Also access to UI libraries is discouraged in the widgets module, prefer creating proxy ui components in utils.
+Nevertheless, shared UI logic decoupled from the business rules like button, toolbars and so on are encouraged to be externalized in components in the utils module. Also access to UI libraries is discouraged in the widgets module, prefer creating proxy ui components in utils.
 
 ### Styles
 
