@@ -1,6 +1,7 @@
 import type { Id } from "@/domain/id";
 import type { Node } from "@/domain/node";
 
+import { Directory } from "@/domain/directory";
 import { throwCritical } from "@/utils";
 import { reactive } from "vue";
 
@@ -28,6 +29,15 @@ export class Nodes {
 
   list(): Node[] {
     return Array.from(this.map.values());
+  }
+
+  remove(node: Node) {
+    this.map.delete(node.id);
+    if (node instanceof Directory) {
+      for (const child of node.getChildren()) {
+        this.remove(child);
+      }
+    }
   }
 
   set(node: Node): void {

@@ -2,6 +2,7 @@ import type { SourceAdapterPortfolio } from "@/infra";
 import type { ArtifactTextService } from "@/services/artifact-text-service";
 import type { ObserverOptions } from "@/services/connection-service";
 import type { DirectoryOpenService } from "@/services/directory-open-service";
+import type { NodeRemoveService } from "@/services/node-remove-service";
 import type { NodeRenameService } from "@/services/node-rename-service";
 
 import { Nodes } from "@/domain";
@@ -9,6 +10,7 @@ import { AccessRequestService } from "@/services/access-request-service";
 import { ConnectedArtifactTextService, NullArtifactTextService } from "@/services/artifact-text-service";
 import { ConnectionService } from "@/services/connection-service";
 import { ConnectedDirectoryOpenService, NullDirectoryOpenService } from "@/services/directory-open-service";
+import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/node-remove-service";
 import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
 
 export class ServicesPortolfio {
@@ -16,6 +18,7 @@ export class ServicesPortolfio {
   artifactText: ArtifactTextService;
   connection: ConnectionService;
   directoryOpen: DirectoryOpenService;
+  nodeRemove: NodeRemoveService;
   nodeRename: NodeRenameService;
   nodes: Nodes;
   sourceAdapterPortfolio: SourceAdapterPortfolio;
@@ -30,6 +33,7 @@ export class ServicesPortolfio {
     this.directoryOpen = new NullDirectoryOpenService();
     this.artifactText = new NullArtifactTextService();
     this.nodeRename = new NullNodeRenameService();
+    this.nodeRemove = new NullNodeRemoveService();
 
     this.connection.subscribe((options) => { this.rotateServices(options); });
   }
@@ -39,6 +43,7 @@ export class ServicesPortolfio {
       this.directoryOpen = new NullDirectoryOpenService();
       this.artifactText = new NullArtifactTextService();
       this.nodeRename = new NullNodeRenameService();
+      this.nodeRemove = new NullNodeRemoveService();
       return;
     }
 
@@ -50,5 +55,6 @@ export class ServicesPortolfio {
     this.directoryOpen = new ConnectedDirectoryOpenService({ fileSystemAdapter, nodes });
     this.artifactText = new ConnectedArtifactTextService(fileSystemAdapter);
     this.nodeRename = new ConnectedNodeRenameService({ fileSystemAdapter, nodes, supportAdapter });
+    this.nodeRemove = new ConnectedNodeRemoveService({ fileSystemAdapter, nodes, supportAdapter });
   };
 }

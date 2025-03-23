@@ -1,6 +1,6 @@
 import { NullThrower } from "@/utils";
 
-import type { DirectoryOpenService } from "./opener";
+import type { DirectoryOpenService } from "./open";
 
 export class NullDirectoryOpenService extends NullThrower implements DirectoryOpenService{
 

@@ -4,7 +4,7 @@ import type { FileSystemAdapter } from "@/infra";
 import { Artifact, Directory, isArtifactDataOptions } from "@/domain";
 import { throwError } from "@/utils";
 
-import type { DirectoryOpenService } from "./opener";
+import type { DirectoryOpenService } from "./open";
 
 interface Options {
   fileSystemAdapter: FileSystemAdapter
