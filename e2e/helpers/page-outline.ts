@@ -16,30 +16,6 @@ export const pageOutline = {
         editor: () => cy.get(dataTest("editor-text")),
       }
     },
-
-    tree: {
-      artifactOf: (node: Cypress.Chainable) => pageOutline
-        .selectors.tree.childrenOf(node)
-        .filter(".p-tree-node-leaf"),
-      binaryArtifactOf: (node: Cypress.Chainable) => pageOutline
-        .selectors.tree.artifactOf(node)
-        .filter((_, el) => !pageOutline.selectors.tree.labelOf(el).includes(".txt")),
-      childrenContainerOf: (node: Cypress.Chainable) => node
-        .find("ul.p-tree-node-children"),
-      childrenOf: (node: Cypress.Chainable) => pageOutline
-        .selectors.tree.childrenContainerOf(node)
-        .find("li.p-tree-node"),
-      directoryOf: (node: Cypress.Chainable) => pageOutline
-        .selectors.tree.childrenOf(node)
-        .filter(":not(.p-tree-node-leaf)"),
-      labelOf: (el: HTMLElement) => Cypress.$(el).find(".p-tree-node-label").text(),
-      outline: () => cy.get(dataTest("nodes-outline-tree")),
-      rootNode: () => cy.get(".p-tree-root-children > .p-tree-node").first(),
-      textArtifactOf: (node: Cypress.Chainable) => pageOutline
-        .selectors.tree.artifactOf(node)
-        .filter((_, el) => pageOutline.selectors.tree.labelOf(el).includes(".txt")),
-      toogleOf: (node: Cypress.Chainable) => node.find(".p-tree-node-toggle-button"),
-    },
     url: () => "/outline"
   }
 } as const;

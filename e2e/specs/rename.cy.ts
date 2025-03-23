@@ -14,16 +14,16 @@ describe("rename", () => {
   } as const;
 
   it("allows new name for directory", () => {
-    pageOutline.selectors.tree.rootNode().click();
+    outline.rootNode().click();
     selectors.buttonRename().click();
     selectors.inputName().clear().type("new-directory-name");
     selectors.buttonSave().click();
-    pageOutline.selectors.tree.rootNode().should("contain.text", "new-directory-name");
+    outline.rootNode().should("contain.text", "new-directory-name");
   });
 
   it("allows new name for artifacts", () => {
     const newName = "_new-artifact-name";
-    pageOutline.selectors.tree.toogleOf(pageOutline.selectors.tree.rootNode()).click();
+    outline.toogleOf(outline.rootNode()).click();
     firstArtifact().click();
     selectors.buttonRename().click();
     selectors.inputName().clear().type(newName);
@@ -31,12 +31,12 @@ describe("rename", () => {
     firstArtifact().should("contain.text", newName);
 
     function firstArtifact() {
-      return pageOutline.selectors.tree.artifactOf(pageOutline.selectors.tree.rootNode()).first();
+      return outline.artifactOf(outline.rootNode()).first();
     }
   });
 
   it("fails if name is empty", () => {
-    pageOutline.selectors.tree.rootNode().click();
+    outline.rootNode().click();
     selectors.buttonRename().click();
     selectors.inputName().clear();
     selectors.buttonSave().click();
@@ -44,7 +44,7 @@ describe("rename", () => {
   });
 
   it("show backend errors", () => {
-    pageOutline.selectors.tree.rootNode().click();
+    outline.rootNode().click();
     selectors.buttonRename().click();
     selectors.inputName().clear().type("/\\|");
     selectors.buttonSave().click();

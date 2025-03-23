@@ -1,4 +1,4 @@
-import { pageOpen, pageOutline } from "../helpers";
+import { outline, pageOpen, pageOutline } from "../helpers";
 
 describe("outline", () => {
   beforeEach(() => {
@@ -6,33 +6,33 @@ describe("outline", () => {
   });
 
   it("enables outline navigation", () => {
-    pageOutline.selectors.tree.toogleOf(pageOutline.selectors.tree.rootNode()).click();
-    pageOutline.selectors.tree.rootNode().should("have.attr", "aria-expanded", "true");
-    pageOutline.selectors.tree.childrenOf(pageOutline.selectors.tree.rootNode()).should("have.length.greaterThan", 0);
+    outline.toogleOf(outline.rootNode()).click();
+    outline.rootNode().should("have.attr", "aria-expanded", "true");
+    outline.childrenOf(outline.rootNode()).should("have.length.greaterThan", 0);
 
-    pageOutline.selectors.tree.directoryOf(pageOutline.selectors.tree.rootNode()).first().as("subdirectory");
-    pageOutline.selectors.tree.toogleOf(cy.get("@subdirectory")).click();
+    outline.directoryOf(outline.rootNode()).first().as("subdirectory");
+    outline.toogleOf(cy.get("@subdirectory")).click();
     cy.get("@subdirectory").should("have.attr", "aria-expanded", "true");
-    pageOutline.selectors.tree.childrenOf(cy.get("@subdirectory")).should("have.length.greaterThan", 0);
+    outline.childrenOf(cy.get("@subdirectory")).should("have.length.greaterThan", 0);
   });
 
   it("shows directory data when selected", () => {
-    pageOutline.selectors.tree.rootNode().click();
+    outline.rootNode().click();
     pageOutline.selectors.editors.directory.items().should("exist");
     pageOutline.selectors.editors.directory.path().should("exist");
   });
 
   it("shows summary data when binary artifact is selected", () => {
-    pageOutline.selectors.tree.toogleOf(pageOutline.selectors.tree.rootNode()).click();
-    pageOutline.selectors.tree.binaryArtifactOf(pageOutline.selectors.tree.rootNode()).first().click();
+    outline.toogleOf(outline.rootNode()).click();
+    outline.binaryArtifactOf(outline.rootNode()).first().click();
     pageOutline.selectors.editors.binary.type().should("exist");
     pageOutline.selectors.editors.binary.size().should("exist");
     pageOutline.selectors.editors.binary.path().should("exist");
   });
 
   it("shows content when text artifact is selected", () => {
-    pageOutline.selectors.tree.toogleOf(pageOutline.selectors.tree.rootNode()).click();
-    pageOutline.selectors.tree.textArtifactOf(pageOutline.selectors.tree.rootNode()).first().click();
+    outline.toogleOf(outline.rootNode()).click();
+    outline.textArtifactOf(outline.rootNode()).first().click();
     pageOutline.selectors.editors.text.editor().should("exist");
   });
 });
