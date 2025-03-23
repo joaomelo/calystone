@@ -1,4 +1,4 @@
-import { frameDashboard, pageOpen, pageOutline } from "../helpers";
+import { frameDashboard, outline, pageOpen } from "../helpers";
 
 describe("sidebar", () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { dataTest, pageOpen, pageOutline } from "../helpers";
+import { dataTest, outline, pageOpen } from "../helpers";
 
 describe("rename", () => {
   beforeEach(() => {
