@@ -10,6 +10,7 @@
   "date-end": "data final",
   "date-start": "data inicial",
   "delete": "excluir",
+  "delete-node": "você tem certeza que deseja excluir \"{name}\"? Esta ação não pode ser desfeita.",
   "directory": "diretório",
   "done": "pronto",
   "edit": "editar",

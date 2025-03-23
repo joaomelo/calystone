@@ -10,6 +10,7 @@
   "date-end": "end date",
   "date-start": "start date",
   "delete": "delete",
+  "delete-node": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
   "directory": "directory",
   "done": "done",
   "edit": "edit",
