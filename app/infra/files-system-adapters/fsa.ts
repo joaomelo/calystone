@@ -1,4 +1,4 @@
-import type { DirectoryDataOptions, Id } from "@/domain";
+import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
 import { throwCritical } from "@/utils";
@@ -7,16 +7,22 @@ import type { ArtifactOrDirectoryDataOptions } from "./file-system";
 
 import { BaseFileSystemAdapter } from "./base";
 
+interface DirecotryRootMetadata {
+  handle: FileSystemDirectoryHandle,
+  kind: "directory"
+  parentHandle: undefined;
+}
 interface DirectoryMetadata {
   handle: FileSystemDirectoryHandle,
   kind: "directory"
+  parentHandle: FileSystemDirectoryHandle;
 }
 interface FileMetadata {
   kind: "file";
   handle: FileSystemFileHandle;
   parentHandle: FileSystemDirectoryHandle;
 }
-type NodeMetadata = DirectoryMetadata | FileMetadata;
+type NodeMetadata = DirecotryRootMetadata | DirectoryMetadata | FileMetadata;
 
 export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
   constructor(rootHandle: FileSystemDirectoryHandle) {
@@ -25,9 +31,10 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
       name: rootHandle.name,
       parentId: undefined
     };
-    const rootMetadata: DirectoryMetadata = {
+    const rootMetadata: DirecotryRootMetadata = {
       handle: rootHandle,
-      kind: "directory"
+      kind: "directory",
+      parentHandle: undefined
     };
     super({ rootData, rootMetadata });
   }
@@ -48,7 +55,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
       const childId = createId();
 
       let childData: ArtifactOrDirectoryDataOptions;
-      let childMetadata: NodeMetadata;
+      let childMetadata: DirectoryMetadata | FileMetadata;
       if (kind === "file") {
         const { lastModified, size } = await childHandle.getFile();
         childData = {
@@ -72,6 +79,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
         childMetadata = {
           handle: childHandle,
           kind,
+          parentHandle: handle,
         };
       }
       this.nodesMetadata.set(childId, childMetadata);
@@ -87,8 +95,20 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     await writableStream.close();
   }
 
-  removeNode(): Promise<void> {
-    throwCritical("NOT_IMPLEMENTED", "removeNode not implement");
+  async removeNode(node: Node): Promise<void> {
+    const { kind, parentHandle } = this.metadataOrThrow(node.id);
+
+    if (node.isRoot() || !parentHandle) {
+      throwCritical("CANNOT_REMOVE_ROOT", "cannot remove the root node");
+    }
+
+    if (kind === "directory") {
+      await parentHandle.removeEntry(node.name, { recursive: true });
+    } else {
+      await parentHandle.removeEntry(node.name);
+    }
+
+    this.removeMetadata(node);
   }
 
   async renameNode(options: { id: Id, name: string }): Promise<void> {
@@ -114,7 +134,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     this.nodesMetadata.set(id, newMetadata);
   }
 
-  private metadataOfDirectoryOrThrow(id: Id): DirectoryMetadata {
+  private metadataOfDirectoryOrThrow(id: Id): DirecotryRootMetadata | DirectoryMetadata {
     const metadata = this.metadataOrThrow(id);
     if (!(metadata.kind === "directory")) throwCritical("NOT_DIRECTORY_METADATA");
     return metadata;
