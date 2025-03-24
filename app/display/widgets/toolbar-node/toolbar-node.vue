@@ -10,6 +10,9 @@ import ToolbarNodeShare from "./toolbar-node-share.vue";
 defineProps<{
   node?: Node;
 }>();
+defineEmits<{
+  removed: []
+}>();
 </script>
 <template>
   <ToolbarBase>
@@ -17,7 +20,10 @@ defineProps<{
       <template v-if="node">
         <ToolbarNodeRename :node="node" />
         <ToolbarNodeShare :node="node" />
-        <ToolbarNodeRemove :node="node" />
+        <ToolbarNodeRemove
+          :node="node"
+          @removed="$emit('removed')"
+        />
       </template>
       <slot name="start" />
     </template>

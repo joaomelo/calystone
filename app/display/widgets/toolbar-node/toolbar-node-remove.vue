@@ -9,16 +9,26 @@ import { useTemplateRef } from "vue";
 const { node } = defineProps<{
   node: Node;
 }>();
+const emit = defineEmits<{
+  removed: [Node];
+}>();
 
 const { service } = Store.use();
-const dialogRemove = useTemplateRef("dialogRemove");
+const dialogRemove = useTemplateRef<{ remove: () => Promise<boolean> }>("dialogRemove");
+async function handleClick() {
+  if (!dialogRemove.value) return;
+  const result = await dialogRemove.value.remove();
+  if (result) {
+    emit("removed", node);
+  }
+}
 </script>
 <template>
   <ToolbarButton
     v-if="service.nodeRemove.support(node)"
     icon="bxs-trash"
     data-test="button-remove"
-    @click="dialogRemove?.remove"
+    @click="handleClick"
   />
   <DialogRemove
     ref="dialogRemove"

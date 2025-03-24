@@ -18,11 +18,14 @@ const modalRemove = useTemplateRef("modalRemove");
 const { dispatchOrToast, loading } = useDispatch();
 
 async function remove() {
-  if (!modalRemove.value) return;
+  if (!modalRemove.value) return false;
 
   if (await modalRemove.value.confirm()) {
     await dispatchOrToast(() => service.nodeRemove.remove(node));
+    return true;
   }
+
+  return false;
 }
 </script>
 <template>

@@ -15,7 +15,10 @@ defineEmits<{
 <template>
   <div class="editor-node-workspace">
     <div class="editor-node-workspace__header">
-      <ToolbarNode :node="node">
+      <ToolbarNode
+        :node="node"
+        @removed="$emit('close')"
+      >
         <template #end>
           <ToolbarButton
             icon="bx-x"

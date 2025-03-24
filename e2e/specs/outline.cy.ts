@@ -1,4 +1,4 @@
-import { outline, pageOpen, pageOutline } from "../helpers";
+import { editor, outline, pageOpen } from "../helpers";
 
 describe("outline", () => {
   beforeEach(() => {
@@ -18,21 +18,21 @@ describe("outline", () => {
 
   it("shows directory data when selected", () => {
     outline.rootNode().click();
-    pageOutline.selectors.editors.directory.items().should("exist");
-    pageOutline.selectors.editors.directory.path().should("exist");
+    editor.directory.items().should("exist");
+    editor.directory.path().should("exist");
   });
 
   it("shows summary data when binary artifact is selected", () => {
     outline.toogleOf(outline.rootNode()).click();
     outline.binaryArtifactOf(outline.rootNode()).first().click();
-    pageOutline.selectors.editors.binary.type().should("exist");
-    pageOutline.selectors.editors.binary.size().should("exist");
-    pageOutline.selectors.editors.binary.path().should("exist");
+    editor.binary.type().should("exist");
+    editor.binary.size().should("exist");
+    editor.binary.path().should("exist");
   });
 
   it("shows content when text artifact is selected", () => {
     outline.toogleOf(outline.rootNode()).click();
     outline.textArtifactOf(outline.rootNode()).first().click();
-    pageOutline.selectors.editors.text.editor().should("exist");
+    editor.text.editor().should("exist");
   });
 });
