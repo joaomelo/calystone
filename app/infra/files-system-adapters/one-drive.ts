@@ -87,9 +87,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     if (node.isRoot()) {
       throwCritical("CANNOT_REMOVE_ROOT", "cannot remove the root node");
     }
-
     await this.graphClient.api(`/me/drive/items/${node.id}`).delete();
-
     this.removeMetadata(node);
   }
 

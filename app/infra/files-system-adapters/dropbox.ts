@@ -1,4 +1,4 @@
-import type { DirectoryDataOptions, Id } from "@/domain";
+import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
 import { throwCritical, throwError } from "@/utils";
@@ -83,8 +83,13 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
     });
   }
 
-  removeNode(): Promise<void> {
-    throwCritical("NOT_IMPLEMENTED", "removeNode not implement");
+  async removeNode(node: Node): Promise<void> {
+    if (node.isRoot()) {
+      throwCritical("CANNOT_REMOVE_ROOT", "cannot remove the root node");
+    }
+    const path = this.metadataOrThrow(node.id);
+    await this.dropboxClient.filesDeleteV2({ path });
+    this.removeMetadata(node);
   }
 
   async renameNode(options: { id: Id, name: string }): Promise<void> {
