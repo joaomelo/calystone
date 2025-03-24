@@ -1,4 +1,4 @@
-import type { DirectoryDataOptions, Id } from "@/domain";
+import type { DirectoryDataOptions, Id, Node } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
@@ -83,8 +83,14 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
       .put(blob);
   }
 
-  removeNode(): Promise<void> {
-    throwCritical("NOT_IMPLEMENTED", "removeNode not implement");
+  async removeNode(node: Node): Promise<void> {
+    if (node.isRoot()) {
+      throwCritical("CANNOT_REMOVE_ROOT", "cannot remove the root node");
+    }
+
+    await this.graphClient.api(`/me/drive/items/${node.id}`).delete();
+
+    this.removeMetadata(node);
   }
 
   async renameNode(options: { id: Id, name: string }): Promise<void> {
