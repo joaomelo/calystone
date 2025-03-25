@@ -8,6 +8,7 @@ import PrimeVueTree from "primevue/tree";
 import { computed, ref } from "vue";
 
 import { convert } from "./convert";
+import OutlineNode from "./outline-node.vue";
 
 const { nodes } = defineProps<{
   nodes: Nodes // is important to use the reactive data structure with all nodes to trigger the reactivity system. passing a array with only the root objects will not secure ui updates for deeper nodes.
@@ -56,7 +57,11 @@ function resolveKey(node?: TreeNode) {
         @node-expand="handleNodeExpand"
         @node-select="handleNodeSelect"
         @node-unselect="handleNodeUnselect"
-      />
+      >
+        <template #default="slotProps">
+          <OutlineNode :node="slotProps.node.data" />
+        </template>
+      </PrimeVueTree>
     </ScrollPanel>
   </div>
 </template>
