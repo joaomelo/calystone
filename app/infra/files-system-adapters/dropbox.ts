@@ -1,7 +1,7 @@
 import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwCritical, throwError } from "@/utils";
+import { throwCritical, throwError, throwNull } from "@/utils";
 import { Dropbox } from "dropbox";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -32,6 +32,10 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
 
     const content = await response.result.fileBlob.arrayBuffer();
     return content;
+  }
+
+  moveNode(): Promise<void> {
+    throwNull();
   }
 
   async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {

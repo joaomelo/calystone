@@ -1,7 +1,7 @@
 import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwCritical } from "@/utils";
+import { throwCritical, throwNull } from "@/utils";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
 
@@ -44,6 +44,10 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     const file: File = await handle.getFile();
     const content: ArrayBuffer = await file.arrayBuffer();
     return content;
+  }
+
+  moveNode(): Promise<void> {
+    throwNull();
   }
 
   async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {

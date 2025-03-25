@@ -2,7 +2,7 @@ import type { DirectoryDataOptions, Id, Node } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
-import { throwCritical, throwError } from "@/utils";
+import { throwCritical, throwError, throwNull } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -36,6 +36,10 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     const response = await fetch(downloadUrl["@microsoft.graph.downloadUrl"]);
     const content = await response.arrayBuffer();
     return content;
+  }
+
+  moveNode(): Promise<void> {
+    throwNull();
   }
 
   async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
