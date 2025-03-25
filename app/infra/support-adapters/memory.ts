@@ -17,6 +17,12 @@ export class MemorySupportAdapter implements SupportAdapter {
     return this.enabled;
   }
 
+  move(node: Node) {
+    if (node.isRoot()) return false;
+    return this.access();
+
+  }
+
   remove(node: Node) {
     if (node.isRoot()) return false;
     return this.access();

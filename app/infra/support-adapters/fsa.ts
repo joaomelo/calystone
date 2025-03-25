@@ -10,6 +10,10 @@ export class FsaSupportAdapter implements SupportAdapter {
     return ("showOpenFilePicker" in self);
   }
 
+  move() {
+    return false;
+  }
+
   remove(node: Node) {
     if (node.isRoot()) return false;
     return this.access();
