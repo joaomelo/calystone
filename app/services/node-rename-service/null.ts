@@ -1,6 +1,6 @@
 import { NullThrower } from "@/utils";
 
-import type { NodeRenameService } from "./renamer";
+import type { NodeRenameService } from "./rename";
 
 export class NullNodeRenameService extends NullThrower implements NodeRenameService{
 

@@ -1,3 +1,3 @@
 export * from "./connected";
 export * from "./null";
-export * from "./renamer";
+export * from "./rename";

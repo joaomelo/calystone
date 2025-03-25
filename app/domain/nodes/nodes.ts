@@ -31,6 +31,10 @@ export class Nodes {
     return Array.from(this.map.values());
   }
 
+  move(options: { subject: Node, target: Directory }) {
+    console.log({ nodesMove: options });
+  }
+
   remove(node: Node) {
     this.map.delete(node.id);
     if (node instanceof Directory) {

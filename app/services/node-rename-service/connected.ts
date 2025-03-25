@@ -4,7 +4,7 @@ import type { FileSystemAdapter, SupportAdapter } from "@/infra";
 import { useSchema } from "@/utils";
 import { z } from "zod";
 
-import type { NodeRenameService } from "./renamer";
+import type { NodeRenameService } from "./rename";
 
 export class ConnectedNodeRenameService implements NodeRenameService {
   private readonly fileSystemAdapter: FileSystemAdapter;
