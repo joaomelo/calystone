@@ -1,4 +1,4 @@
-import type { Directory, DirectoryDataOptions, Id, Node } from "@/domain";
+import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
 import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError } from "@/utils";
@@ -30,8 +30,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
     return Promise.resolve(content);
   }
 
-  moveNode(options: { subject: Node, target: Directory }): Promise<void> {
-    console.log(options);
+  moveNode(): Promise<void> {
     return Promise.resolve();
   }
 

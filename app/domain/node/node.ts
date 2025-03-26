@@ -1,4 +1,8 @@
+import type { Directory } from "@/domain/directory";
 import type { Nodes } from "@/domain/nodes";
+import type { Able } from "@/utils";
+
+import { throwError } from "@/utils";
 
 import type { Id } from "../id";
 import type { NodeOptions } from "./options";
@@ -8,7 +12,7 @@ export abstract class Node {
   readonly id: Id;
   name: string;
   readonly nodes: Nodes;
-  readonly parentId?: Id;
+  parentId?: Id;
   status: Status = "unloaded";
 
   constructor({ id, name, nodes, parentId }: NodeOptions) {
@@ -53,5 +57,17 @@ export abstract class Node {
     const parent = this.getParent();
     if (!parent) return basePath;
     return `${parent.mountPath()}${basePath}`;
+  }
+
+  move(target: Directory): void {
+    const moveable = this.moveable(target);
+    if (!moveable.able) throwError(moveable.cause);
+    this.parentId = target.id;
+  }
+
+  moveable(target: Directory): Able {
+    if (this.isEqualTo(target)) return { able: false, cause: "CANNOT_MOVE_TO_ITSELF" };
+    if (this.isDescendantOf(target)) return { able: false, cause: "CANNOT_MOVE_TO_DESCENDANT" };
+    return { able: true };
   }
 }
