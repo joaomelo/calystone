@@ -44,7 +44,7 @@ export function initApp(elementId: string) {
   const sourceAdapterPortfolio = new BaseSourceAdapterPortfolio(options);
   const servicesPortolfio = new ServicesPortolfio(sourceAdapterPortfolio);
 
-  const store = new Store({ appData, service: servicesPortolfio });
+  const store = new Store({ appData, services: servicesPortolfio });
   window.$store = store;
   app.use(store);
 

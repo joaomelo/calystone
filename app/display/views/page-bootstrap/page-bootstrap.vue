@@ -12,12 +12,12 @@ const { source } = defineProps<{
 }>();
 
 const { t } = useI18n();
-const { service } = Store.use();
+const { services } = Store.use();
 const router = useRouter();
 
 onMounted(async () => {
   try {
-    await service.connection.connect(source);
+    await services.connection.connect(source);
     void router.push({ name: "outline" });
   } catch {
     void router.push({ name: "open" });

@@ -10,7 +10,7 @@ import { key } from "./key";
 import { useStore } from "./use";
 
 interface Options {
-  service: ServicesPortolfio
+  services: ServicesPortolfio
   appData: AppData;
 };
 
@@ -18,15 +18,15 @@ export class Store {
   appData: AppData;
   connected: Ref<boolean>;
   nodes: Nodes;
-  service: ServicesPortolfio;
+  services: ServicesPortolfio;
 
-  constructor({ appData, service }: Options) {
+  constructor({ appData, services }: Options) {
     this.appData = appData;
-    this.service = service;
-    this.nodes = reactive(service.nodes);
+    this.services = services;
+    this.nodes = reactive(services.nodes);
 
     this.connected = ref(false);
-    this.service.connection.subscribe(({ status }) => {
+    this.services.connection.subscribe(({ status }) => {
       this.connected.value = status === "connected";
     });
   }

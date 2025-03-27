@@ -10,12 +10,12 @@ defineProps<{
   node: Node;
 }>();
 
-const { service } = Store.use();
+const { services } = Store.use();
 const dialogRename = useTemplateRef("dialogRename");
 </script>
 <template>
   <ToolbarButton
-    v-if="service.nodeRename.support(node)"
+    v-if="services.nodeRename.support(node)"
     icon="bxs-rename"
     data-test="button-rename"
     @click="dialogRename?.open"

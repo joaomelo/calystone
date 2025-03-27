@@ -15,11 +15,11 @@ const { source } = defineProps<{
 const { t } = useI18n();
 const router = useRouter();
 const { dispatchOrToast, loading } = useDispatch();
-const { service } = Store.use();
+const { services } = Store.use();
 
 async function handleClick() {
   await dispatchOrToast(async () => {
-    await service.accessRequest.request(source);
+    await services.accessRequest.request(source);
     void router.push({ name: "bootstrap", params: { source } });
   });
 }
@@ -27,7 +27,7 @@ async function handleClick() {
 </script>
 <template>
   <ButtonBase
-    v-if="service.accessRequest.support(source)"
+    v-if="services.accessRequest.support(source)"
     :label="t(label)"
     size="large"
     :data-test="dataTest"

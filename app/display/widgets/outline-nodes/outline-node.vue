@@ -11,9 +11,9 @@ import { solveIcon } from "./solve-icon";
 const { node } = defineProps<{
   node: Node
 }>();
-const { nodes, service } = Store.use();
+const { nodes, services } = Store.use();
 
-const isMoveable = computed(() => service.nodeMove.support(node));
+const isMoveable = computed(() => services.nodeMove.support(node));
 const { dispatchOrToast } = useDispatch();
 const dragFormat = "application/node-id";
 
@@ -30,7 +30,7 @@ async function handleDragdrop(event: DragEvent) {
     const subject = nodes.getOrThrow(id);
     const moveable = subject.moveable(target);
     if (moveable.isFail()) return;
-    await service.nodeMove.move({ subject, target });
+    await services.nodeMove.move({ subject, target });
   });
 }
 

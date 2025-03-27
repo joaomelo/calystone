@@ -11,7 +11,7 @@ const { node } = defineProps<{
 }>();
 defineExpose({ open });
 
-const { service } = Store.use();
+const { services } = Store.use();
 const { t } = useI18n();
 const modal = useTemplateRef("modal");
 
@@ -27,7 +27,7 @@ function open() {
 }
 
 async function save() {
-  const success = await dispatch(() => service.nodeRename.rename({ name: data.name, node: node }));
+  const success = await dispatch(() => services.nodeRename.rename({ name: data.name, node: node }));
   if (!success) return;
   modal.value?.close();
 }

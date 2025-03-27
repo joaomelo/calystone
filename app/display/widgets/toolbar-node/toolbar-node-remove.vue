@@ -13,7 +13,7 @@ const emit = defineEmits<{
   removed: [Node];
 }>();
 
-const { service } = Store.use();
+const { services } = Store.use();
 const dialogRemove = useTemplateRef<{ remove: () => Promise<boolean> }>("dialogRemove");
 async function handleClick() {
   if (!dialogRemove.value) return;
@@ -25,7 +25,7 @@ async function handleClick() {
 </script>
 <template>
   <ToolbarButton
-    v-if="service.nodeRemove.support(node)"
+    v-if="services.nodeRemove.support(node)"
     icon="bxs-trash"
     data-test="button-remove"
     @click="handleClick"

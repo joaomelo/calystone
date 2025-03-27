@@ -6,7 +6,7 @@ import { MasterDetail, useDispatch } from "@/utils";
 import { ref } from "vue";
 
 const { dispatchOrToast } = useDispatch();
-const { nodes, service } = Store.use();
+const { nodes, services } = Store.use();
 const node = ref<Node | undefined>();
 const detail = ref(false);
 
@@ -33,11 +33,11 @@ function solveNode(id?: Id) {
 
 async function triggerOpen(node: Node) {
   if (node instanceof Directory) {
-    await dispatchOrToast(() => service.directoryOpen.open(node));
+    await dispatchOrToast(() => services.directoryOpen.open(node));
   }
 
   if (node instanceof Artifact && node.mime.type() === "text") {
-    await dispatchOrToast(() => service.artifactText.fetch(node));
+    await dispatchOrToast(() => services.artifactText.fetch(node));
   }
 }
 </script>

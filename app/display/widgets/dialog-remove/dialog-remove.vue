@@ -11,7 +11,7 @@ const { node } = defineProps<{
 }>();
 defineExpose({ remove });
 
-const { service } = Store.use();
+const { services } = Store.use();
 const { t } = useI18n();
 const modalRemove = useTemplateRef("modalRemove");
 
@@ -21,7 +21,7 @@ async function remove() {
   if (!modalRemove.value) return false;
 
   if (await modalRemove.value.confirm()) {
-    await dispatchOrToast(() => service.nodeRemove.remove(node));
+    await dispatchOrToast(() => services.nodeRemove.remove(node));
     return true;
   }
 
