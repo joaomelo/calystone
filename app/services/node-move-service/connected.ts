@@ -19,7 +19,7 @@ export class ConnectedNodeMoveService implements NodeMoveService {
   async move(options: { subject: Node, target: Directory }): Promise<void> {
     const { subject, target } = options;
     const moveable = subject.moveable(target);
-    if (!moveable.able) throwError(moveable.cause);
+    if (moveable.isFail()) throwError(moveable.cause);
     await this.fileSystemAdapter.moveNode(options);
     options.subject.move(options.target);
   }

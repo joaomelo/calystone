@@ -1,19 +1,19 @@
 import type { Directory } from "@/domain/directory";
 import type { Nodes } from "@/domain/nodes";
-import type { Able } from "@/utils";
 
+import { Status } from "@/utils";
 import { throwError } from "@/utils";
 
 import type { Id } from "../id";
 import type { NodeOptions } from "./options";
-import type { Status } from "./status";
+import type { LoadStatus } from "./status";
 
 export abstract class Node {
   readonly id: Id;
   name: string;
   readonly nodes: Nodes;
   parentId?: Id;
-  status: Status = "unloaded";
+  status: LoadStatus = "unloaded";
 
   constructor({ id, name, nodes, parentId }: NodeOptions) {
     this.id = id;
@@ -61,13 +61,14 @@ export abstract class Node {
 
   move(target: Directory): void {
     const moveable = this.moveable(target);
-    if (!moveable.able) throwError(moveable.cause);
+    if (moveable.isFail()) throwError(moveable.cause);
     this.parentId = target.id;
   }
 
-  moveable(target: Directory): Able {
-    if (this.isEqualTo(target)) return { able: false, cause: "CANNOT_MOVE_TO_ITSELF" };
-    if (this.isDescendantOf(target)) return { able: false, cause: "CANNOT_MOVE_TO_DESCENDANT" };
-    return { able: true };
+  moveable(target: Directory): Status {
+    if (this.isEqualTo(target)) return Status.fail("CANNOT_MOVE_TO_ITSELF");
+    if (this.isChildOf(target)) return Status.fail("CANNOT_MOVE_TO_SAME_PARENT");
+    if (target.isDescendantOf(this)) return Status.fail("CANNOT_MOVE_TO_DESCENDANT");
+    return Status.ok();
   }
 }

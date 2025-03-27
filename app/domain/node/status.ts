@@ -1,1 +1,1 @@
-export type Status = "loaded" | "loading" | "unloaded";
+export type LoadStatus = "loaded" | "loading" | "unloaded";

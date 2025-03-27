@@ -23,12 +23,14 @@ async function handleDragdrop(event: DragEvent) {
   event.preventDefault();
 
   const id = event.dataTransfer.getData(dragFormat);
-  if (id === node.id) return;
-  if (!(node instanceof Directory)) return;
+  const target = node;
+  if (!(target instanceof Directory)) return;
 
   await dispatchOrToast(async () => {
     const subject = nodes.getOrThrow(id);
-    await service.nodeMove.move({ subject, target: node });
+    const moveable = subject.moveable(target);
+    if (moveable.isFail()) return;
+    await service.nodeMove.move({ subject, target });
   });
 }
 

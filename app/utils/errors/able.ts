@@ -1,1 +1,0 @@
-export type Able = { able: false, cause: string } | { able: true };
