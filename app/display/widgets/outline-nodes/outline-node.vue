@@ -51,7 +51,8 @@ function handleDragstart(event: DragEvent) {
   <div
     :draggable="isMoveable"
     class="outline-node"
-    :data-test="`outline-node-${node.id}`"
+    data-test-type="outline-node"
+    :data-test="node.id"
     @dragstart="handleDragstart"
     @drop="handleDragdrop"
     @dragover="handleDragover"
