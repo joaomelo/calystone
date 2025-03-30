@@ -34,7 +34,8 @@ export function initApp(elementId: string) {
       redirectUrl: `${window.location.origin}/transfer-dropbox`,
     },
     memory: {
-      enabled: asBoolean(import.meta.env.VITE_ENABLE_MEMORY)
+      delayInSeconds: asNumber(import.meta.env.VITE_MEMORY_DELAY_IN_SECONDS),
+      enabled: asBoolean(import.meta.env.VITE_ENABLE_MEMORY),
     },
     oneDrive: {
       clientId: stringOrUndefined(import.meta.env.VITE_ONE_DRIVE_CLIENT_ID),
@@ -58,6 +59,12 @@ function asBoolean(value: unknown): boolean {
   if (value === undefined || value === null) return false;
   if (typeof value === "string" && value === "false") return false;
   return Boolean(value);
+}
+
+function asNumber(value: unknown): number {
+  if (typeof value === "number") return value;
+  if (typeof value === "string") return Number(value);
+  return 0;
 }
 
 function stringOrUndefined(value: unknown): string | undefined {
