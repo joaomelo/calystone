@@ -26,7 +26,7 @@ export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapt
 
   metadataOrThrow(id: Id): Metadata {
     const metadata = this.nodesMetadata.get(id);
-    if (metadata === undefined) throwCritical("NO_METADATA", "the id does not matched a metadata record in the nodes adapter");
+    if (metadata === undefined) throwCritical("NO_METADATA");
     return metadata;
   }
 
