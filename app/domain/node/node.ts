@@ -1,4 +1,3 @@
-import type { Directory } from "@/domain/directory";
 import type { Nodes } from "@/domain/nodes";
 
 import { Status } from "@/utils";
@@ -59,16 +58,21 @@ export abstract class Node {
     return `${parent.mountPath()}${basePath}`;
   }
 
-  move(target: Directory): void {
+  move(target: Node): void {
     const moveable = this.moveable(target);
     if (moveable.isFail()) throwError(moveable.cause);
     this.parentId = target.id;
   }
 
-  moveable(target: Directory): Status {
+  moveable(target: Node): Status {
+    const parentable = target.parentable();
+    if (parentable.isFail()) return parentable;
+    if (this.isRoot()) return Status.fail("CANNOT_MOVE_ROOT");
     if (this.isEqualTo(target)) return Status.fail("CANNOT_MOVE_TO_ITSELF");
     if (this.isChildOf(target)) return Status.fail("CANNOT_MOVE_TO_SAME_PARENT");
     if (target.isDescendantOf(this)) return Status.fail("CANNOT_MOVE_TO_DESCENDANT");
     return Status.ok();
   }
+
+  abstract parentable(): Status;
 }

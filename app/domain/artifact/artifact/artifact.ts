@@ -1,4 +1,5 @@
 import { Node } from "@/domain/node";
+import { Status } from "@/utils";
 
 import type { ArtifactOptions } from "./options";
 
@@ -15,5 +16,9 @@ export class Artifact extends Node {
     this.lastModified = lastModified;
     this.size = size;
     this.mime = new Mime(options.name);
+  }
+
+  parentable(): Status {
+    return Status.fail("ARTIFACT_CANNOT_BE_PARENT");
   }
 }
