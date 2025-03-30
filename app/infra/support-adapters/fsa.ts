@@ -6,21 +6,27 @@ import type { SupportAdapter } from "./support";
 
 export class FsaSupportAdapter implements SupportAdapter {
   access() {
-    if (typeof self === "undefined") return false;
-    return ("showOpenFilePicker" in self);
+    return this.isFileSystemAccessSupported();
   }
 
-  move() {
-    return false;
+  move(node: Node) {
+    if (node.isRoot()) return false;
+    if (node instanceof Directory) return false;
+    return this.isFileSystemAccessSupported();
   }
 
   remove(node: Node) {
     if (node.isRoot()) return false;
-    return this.access();
+    return this.isFileSystemAccessSupported();
   }
 
   rename(node: Node) {
     if (node instanceof Directory) return false;
-    return this.access();
+    return this.isFileSystemAccessSupported();
+  }
+
+  private isFileSystemAccessSupported() {
+    if (typeof self === "undefined") return false;
+    return ("showOpenFilePicker" in self);
   }
 }

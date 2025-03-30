@@ -1,7 +1,7 @@
 import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwCritical, throwNull } from "@/utils";
+import { throwCritical } from "@/utils";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
 
@@ -46,8 +46,23 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     return content;
   }
 
-  moveNode(): Promise<void> {
-    throwNull();
+  async moveNode(options: { subject: Node; target: Node }): Promise<void> {
+    const { subject, target } = options;
+
+    const fileMetadata = this.metadataOfFileOrThrow(subject.id);
+    const { handle: oldHandle, parentHandle: oldParentHandle } = fileMetadata;
+
+    const newParentMetadata = this.metadataOfDirectoryOrThrow(target.id);
+    const newParentHandle = newParentMetadata.handle;
+
+    if (oldParentHandle === newParentHandle && oldHandle.name === subject.name) return;
+
+    const newFileHandle = await newParentHandle.getFileHandle(subject.name, { create: true });
+    await this.copyFileContent({ source: oldHandle, target: newFileHandle });
+    await oldParentHandle.removeEntry(oldHandle.name);
+
+    const newMetadata = { ...fileMetadata, handle: newFileHandle, parentHandle: newParentHandle };
+    this.nodesMetadata.set(subject.id, newMetadata);
   }
 
   async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
@@ -102,9 +117,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
   async removeNode(node: Node): Promise<void> {
     const { kind, parentHandle } = this.metadataOrThrow(node.id);
 
-    if (node.isRoot() || !parentHandle) {
-      throwCritical("CANNOT_REMOVE_ROOT", "cannot remove the root node");
-    }
+    if (node.isRoot() || !parentHandle) throwCritical("CANNOT_REMOVE_ROOT");
 
     if (kind === "directory") {
       await parentHandle.removeEntry(node.name, { recursive: true });
@@ -125,28 +138,31 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     if (name === oldName) return;
 
     const newFileHandle = await parentHandle.getFileHandle(name, { create: true });
-
-    const oldFile = await oldHandle.getFile();
-    const oldContent = await oldFile.arrayBuffer();
-    const writable = await newFileHandle.createWritable();
-    await writable.write(oldContent);
-    await writable.close();
-
+    await this.copyFileContent({ source: oldHandle, target: newFileHandle });
     await parentHandle.removeEntry(oldName);
 
     const newMetadata = { ...fileMetadata, handle: newFileHandle };
     this.nodesMetadata.set(id, newMetadata);
   }
 
+  private async copyFileContent(options: { source: FileSystemFileHandle, target: FileSystemFileHandle } ): Promise<void> {
+    const { source, target } = options;
+    const sourceFile = await source.getFile();
+    const content = await sourceFile.arrayBuffer();
+    const writable = await target.createWritable();
+    await writable.write(content);
+    await writable.close();
+  }
+
   private metadataOfDirectoryOrThrow(id: Id): DirecotryRootMetadata | DirectoryMetadata {
     const metadata = this.metadataOrThrow(id);
-    if (!(metadata.kind === "directory")) throwCritical("NOT_DIRECTORY_METADATA");
+    if ((metadata.kind !== "directory")) throwCritical("NOT_DIRECTORY_METADATA");
     return metadata;
   }
 
   private metadataOfFileOrThrow(id: Id): FileMetadata {
     const metadata = this.metadataOrThrow(id);
-    if (!(metadata.kind === "file")) throwCritical("NOT_FILE_METADATA");
+    if ((metadata.kind !== "file")) throwCritical("NOT_FILE_METADATA");
     return metadata;
   }
 }
