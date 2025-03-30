@@ -21,9 +21,9 @@ export class ConnectedDirectoryOpenService implements DirectoryOpenService {
   }
 
   async open(directory: Directory) {
-    if (directory.status !== "unloaded") return;
+    if (directory.isLoaded()) return;
 
-    directory.status = "loading";
+    directory.busy();
 
     try {
       const nodesData = await this.fileSystemAdapter.openDirectory(directory.id);
@@ -33,22 +33,22 @@ export class ConnectedDirectoryOpenService implements DirectoryOpenService {
           : new Directory({ nodes: this.nodes, ...data });
         this.nodes.set(node);
       }
+      directory.loaded();
     } catch (error) {
-      directory.status = "unloaded";
+      directory.unloaded();
       throwError("UNABLE_TO_OPEN_DIRECTORY", error);
+    } finally {
+      directory.idle();
     }
-
-    directory.status = "loaded";
   }
 
   async openRoots() {
     for (const node of this.nodes.list()) {
       if (!node.isRoot()) continue;
       if (!(node instanceof Directory)) continue;
-      if (node.status !== "unloaded") continue;
+      if (node.isLoaded()) continue;
 
       await this.open(node);
     }
   }
-
 }

@@ -17,17 +17,18 @@ export class ConnectedArtifactTextService implements ArtifactTextService {
   async fetch(artifact: Artifact) {
     if (artifact.mime.type() !== "text") throwCritical("NOT_TEXT_ARTIFACT", "cannot fetch text content if artifact is not of text type");
 
-    artifact.status = "loading";
+    artifact.busy();
     try {
       const content = artifact.content ?? await this.fileSystemAdapter.fetchFileContent(artifact.id);
       artifact.content = content;
+      artifact.loaded();
+      return this.decoder.decode(artifact.content);
     } catch (error) {
-      artifact.status = "unloaded";
+      artifact.unloaded();
       throwError("UNABLE_TO_FETCH_CONTENT", error);
+    } finally {
+      artifact.idle();
     }
-
-    artifact.status = "loaded";
-    return this.decoder.decode(artifact.content);
   }
 
   async post({ artifact, text }: { artifact: Artifact, text: string }) {
@@ -35,5 +36,4 @@ export class ConnectedArtifactTextService implements ArtifactTextService {
     artifact.content = content;
     await this.fileSystemAdapter.postFileContent({ content, id: artifact.id });
   }
-
 }

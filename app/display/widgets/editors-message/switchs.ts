@@ -17,6 +17,6 @@ export const editorNotLoadedSwitch: EditorSwitch = {
   supports(content) {
     if (!(content instanceof Node)) return false;
     if (content instanceof Artifact && content.mime.type() === "binary") return false;
-    return content.status !== "loaded";
+    return !content.isLoaded();
   }
 };

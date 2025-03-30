@@ -4,22 +4,22 @@ import { Directory } from "@/domain";
 
 export function solveIcon(node: Node): string {
   const baseIcon = "bx bx-sm";
-  const iconLoading = "bx-flashing";
+  const iconBusy = "bx-flashing";
   const baseDirectory = "folder";
   const baseArtifact = "file-blank";
   const iconMap = {
     artifact: {
+      busy: `${baseIcon} bx-${baseArtifact} ${iconBusy}`,
       loaded: `${baseIcon} bxs-${baseArtifact}`,
-      loading: `${baseIcon} bx-${baseArtifact} ${iconLoading}`,
       unloaded: `${baseIcon} bx-${baseArtifact}`,
     },
     directory: {
+      busy: `${baseIcon} bx-${baseDirectory} ${iconBusy}`,
       loaded: `${baseIcon} bxs-${baseDirectory}`,
-      loading: `${baseIcon} bx-${baseDirectory} ${iconLoading}`,
       unloaded: `${baseIcon} bx-${baseDirectory}`,
     }
   };
   const iconFamily = node instanceof Directory ? "directory" : "artifact";
-  const iconStatus = node.status;
+  const iconStatus = node.isBusy() ? "busy" : node.isLoaded() ? "loaded" : "unloaded";
   return iconMap[iconFamily][iconStatus];
 }

@@ -7,7 +7,7 @@ export function convert(node: Node): TreeNode {
   const key = node.id;
   const label = node.name;
   const children = solveChildren(node).map(convert);
-  const leaf = node instanceof Artifact || (node.status === "loaded" && children.length === 0);
+  const leaf = node instanceof Artifact || (node.isLoaded() && children.length === 0);
 
   return { children, data: node, key, label, leaf };
 }
