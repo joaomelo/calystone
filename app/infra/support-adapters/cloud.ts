@@ -17,20 +17,25 @@ export class CloudSupportAdapter implements SupportAdapter {
   }
 
   access() {
-    return typeof this.clientId === "string" && typeof this.redirectUrl === "string";
+    return this.isCloudConfigured();
   }
 
-  move() {
-    return false;
+  move(node: Node) {
+    if (node.isRoot()) return false;
+    return this.isCloudConfigured();
   }
 
   remove(node: Node) {
     if (node.isRoot()) return false;
-    return this.access();
+    return this.isCloudConfigured();
   }
 
   rename(node: Node) {
     if (node.isRoot()) return false;
-    return this.access();
+    return this.isCloudConfigured();
+  }
+
+  private isCloudConfigured() {
+    return typeof this.clientId === "string" && typeof this.redirectUrl === "string";
   }
 };

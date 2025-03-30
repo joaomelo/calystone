@@ -42,6 +42,7 @@ export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapt
       }
     }
   }
+
   abstract removeNode(node: Node): Promise<void>;
   abstract renameNode(options: { id: Id, name: string }): Promise<void>;
 

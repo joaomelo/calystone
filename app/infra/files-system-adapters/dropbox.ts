@@ -1,7 +1,7 @@
-import type { DirectoryDataOptions, Id, Node } from "@/domain";
+import type { Directory, DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwCritical, throwError, throwNull } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 import { Dropbox } from "dropbox";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -34,8 +34,23 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
     return content;
   }
 
-  moveNode(): Promise<void> {
-    throwNull();
+  async moveNode(options: { subject: Node, target: Directory }): Promise<void> {
+    const { subject, target } = options;
+
+    const able = subject.moveable(target);
+    able.throwOnFail();
+
+    const oldPath = this.metadataOrThrow(subject.id);
+    const targetPath = this.metadataOrThrow(target.id);
+    const newPath = `${targetPath}/${subject.name}`;
+
+    await this.dropboxClient.filesMoveV2({
+      autorename: false,
+      from_path: oldPath,
+      to_path: newPath
+    });
+
+    this.nodesMetadata.set(subject.id, newPath);
   }
 
   async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {

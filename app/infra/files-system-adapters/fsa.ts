@@ -49,13 +49,14 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
   async moveNode(options: { subject: Node; target: Node }): Promise<void> {
     const { subject, target } = options;
 
+    const able = subject.moveable(target);
+    able.throwOnFail();
+
     const fileMetadata = this.metadataOfFileOrThrow(subject.id);
     const { handle: oldHandle, parentHandle: oldParentHandle } = fileMetadata;
 
     const newParentMetadata = this.metadataOfDirectoryOrThrow(target.id);
     const newParentHandle = newParentMetadata.handle;
-
-    if (oldParentHandle === newParentHandle && oldHandle.name === subject.name) return;
 
     const newFileHandle = await newParentHandle.getFileHandle(subject.name, { create: true });
     await this.copyFileContent({ source: oldHandle, target: newFileHandle });

@@ -9,9 +9,9 @@ export class FsaSupportAdapter implements SupportAdapter {
     return this.isFileSystemAccessSupported();
   }
 
-  move(node: Node) {
-    if (node.isRoot()) return false;
-    if (node instanceof Directory) return false;
+  move(subject: Node) {
+    if (subject.isRoot()) return false;
+    if (subject instanceof Directory) return false;
     return this.isFileSystemAccessSupported();
   }
 

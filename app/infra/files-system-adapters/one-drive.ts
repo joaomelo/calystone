@@ -1,8 +1,9 @@
 import type { DirectoryDataOptions, Id, Node } from "@/domain";
+import type { Directory } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
-import { throwCritical, throwError, throwNull } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -38,8 +39,19 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     return content;
   }
 
-  moveNode(): Promise<void> {
-    throwNull();
+  async moveNode(options: { subject: Node, target: Directory }): Promise<void> {
+    const { subject, target } = options;
+
+    const able = subject.moveable(target);
+    able.throwOnFail();
+
+    await this.graphClient
+      .api(`/me/drive/items/${subject.id}`)
+      .update({
+        parentReference: {
+          id: target.id
+        }
+      });
   }
 
   async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
