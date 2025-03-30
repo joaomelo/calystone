@@ -2,6 +2,7 @@ import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
 import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError } from "@/utils";
+import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -11,16 +12,21 @@ import { BaseFileSystemAdapter } from "./base";
 type MemoryMetadata = ArrayBuffer | undefined;
 
 export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadata> {
-  constructor(rootDirectoryName: string) {
+  private readonly delayInSeconds: number;
+
+  constructor(options: { delayInSeconds: number; rootDirectoryName: string, }) {
+    const { delayInSeconds, rootDirectoryName } = options;
     const rootData: DirectoryDataOptions = {
       id: createId(),
       name: rootDirectoryName,
       parentId: undefined
     };
     super({ rootData, rootMetadata: undefined });
+    this.delayInSeconds = delayInSeconds;
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {
+    await delay(this.delayInSeconds);
     const cachedData = this.nodesMetadata.get(id);
     if (cachedData) return Promise.resolve(cachedData);
 
@@ -30,11 +36,13 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
     return Promise.resolve(content);
   }
 
-  moveNode(): Promise<void> {
+  async moveNode(): Promise<void> {
+    await delay(this.delayInSeconds);
     return Promise.resolve();
   }
 
-  openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
+  async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
+    await delay(this.delayInSeconds);
     const childrenData: ArtifactOrDirectoryDataOptions[] = [];
 
     if (id === this.rootData.id) {
@@ -62,16 +70,19 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
   }
 
   async postFileContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
+    await delay(this.delayInSeconds);
     this.nodesMetadata.set(id, content);
     return Promise.resolve();
   }
 
-  removeNode(node: Node): Promise<void> {
+  async removeNode(node: Node): Promise<void> {
+    await delay(this.delayInSeconds);
     this.removeMetadata(node);
     return Promise.resolve();
   }
 
-  renameNode(options: { name: string }): Promise<void> {
+  async renameNode(options: { name: string }): Promise<void> {
+    await delay(this.delayInSeconds);
     if (options.name.includes("/")) {
       throwError("INVALID_CHAR", "invalid char for naming nodes in the file system");
     }

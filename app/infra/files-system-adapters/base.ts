@@ -30,7 +30,7 @@ export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapt
     return metadata;
   }
 
-  abstract moveNode(options: { subject: Node, target: Directory }): Promise<void>;
+  abstract moveNode(options: { subject: Node, target: Node }): Promise<void>;
   abstract openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]>;
   abstract postFileContent(options: { content: ArrayBuffer; id: Id, }): Promise<void>;
 

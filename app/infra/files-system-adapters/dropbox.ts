@@ -1,4 +1,4 @@
-import type { Directory, DirectoryDataOptions, Id, Node } from "@/domain";
+import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
 import { throwCritical, throwError } from "@/utils";
@@ -34,7 +34,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
     return content;
   }
 
-  async moveNode(options: { subject: Node, target: Directory }): Promise<void> {
+  async moveNode(options: { subject: Node, target: Node }): Promise<void> {
     const { subject, target } = options;
 
     const able = subject.moveable(target);

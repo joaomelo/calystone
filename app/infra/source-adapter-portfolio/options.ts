@@ -10,5 +10,6 @@ interface CloudOptions {
 }
 
 interface MemoryOptions {
+  delayInSeconds: number;
   enabled: boolean;
 }
