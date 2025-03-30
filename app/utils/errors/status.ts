@@ -1,3 +1,5 @@
+import { throwError } from "..";
+
 interface StatusFail {
   ok: false;
   cause: string;
@@ -33,5 +35,9 @@ export class Status {
 
   isOk(): this is StatusOk {
     return this.ok;
+  }
+
+  throwOnFail(): void {
+    if (this.isFail()) throwError(this.cause);
   }
 }
