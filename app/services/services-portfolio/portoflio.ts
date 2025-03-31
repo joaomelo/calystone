@@ -10,15 +10,19 @@ import { Nodes } from "@/domain";
 import { AccessRequestService } from "@/services/access-request-service";
 import { ConnectedArtifactTextService, NullArtifactTextService } from "@/services/artifact-text-service";
 import { ConnectionService } from "@/services/connection-service";
+import { ConnectedCreateDirectoryService, NullCreateDirectoryService } from "@/services/create-directory-service";
 import { ConnectedDirectoryOpenService, NullDirectoryOpenService } from "@/services/directory-open-service";
 import { ConnectedNodeMoveService, NullNodeMoveService } from "@/services/node-move-service";
 import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/node-remove-service";
 import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
 
+import type { CreateDirectoryService } from "../create-directory-service";
+
 export class ServicesPortolfio {
   accessRequest: AccessRequestService;
   artifactText: ArtifactTextService;
   connection: ConnectionService;
+  createDirectory: CreateDirectoryService;
   directoryOpen: DirectoryOpenService;
   nodeMove: NodeMoveService;
   nodeRemove: NodeRemoveService;
@@ -38,6 +42,7 @@ export class ServicesPortolfio {
     this.nodeRename = new NullNodeRenameService();
     this.nodeRemove = new NullNodeRemoveService();
     this.nodeMove = new NullNodeMoveService();
+    this.createDirectory = new NullCreateDirectoryService();
 
     this.connection.subscribe((options) => { this.rotateServices(options); });
   }
@@ -49,6 +54,7 @@ export class ServicesPortolfio {
       this.nodeRename = new NullNodeRenameService();
       this.nodeRemove = new NullNodeRemoveService();
       this.nodeMove = new NullNodeMoveService();
+      this.createDirectory = new NullCreateDirectoryService();
       return;
     }
 
@@ -61,6 +67,7 @@ export class ServicesPortolfio {
     this.artifactText = new ConnectedArtifactTextService(fileSystemAdapter);
     this.nodeRename = new ConnectedNodeRenameService({ fileSystemAdapter, nodes, supportAdapter });
     this.nodeRemove = new ConnectedNodeRemoveService({ fileSystemAdapter, nodes, supportAdapter });
-    this.nodeMove = new ConnectedNodeMoveService({ fileSystemAdapter, nodes, supportAdapter });
+    this.nodeMove = new ConnectedNodeMoveService({ fileSystemAdapter, supportAdapter });
+    this.createDirectory = new ConnectedCreateDirectoryService({ fileSystemAdapter, nodes, supportAdapter });
   };
 }
