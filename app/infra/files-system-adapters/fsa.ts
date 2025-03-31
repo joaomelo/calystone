@@ -1,7 +1,7 @@
 import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwCritical } from "@/utils";
+import { throwCritical, throwNull } from "@/utils";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
 
@@ -37,6 +37,10 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
       parentHandle: undefined
     };
     super({ rootData, rootMetadata });
+  }
+
+  createDirectory(): Promise<void> {
+    throwNull();
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {

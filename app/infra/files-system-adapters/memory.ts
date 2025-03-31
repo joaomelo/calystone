@@ -1,7 +1,7 @@
 import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError } from "@/utils";
+import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError, throwNull } from "@/utils";
 import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";
 
@@ -23,6 +23,10 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
     };
     super({ rootData, rootMetadata: undefined });
     this.delayInSeconds = delayInSeconds;
+  }
+
+  createDirectory(): Promise<void> {
+    throwNull();
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {

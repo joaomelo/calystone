@@ -14,21 +14,32 @@ export class MemorySupportAdapter implements SupportAdapter {
   }
 
   access(): boolean {
-    return this.enabled;
+    return this.isEnabled();
+  }
+
+  createDirectory(): boolean {
+    return this.isEnabled();
+  }
+
+  createFile(): boolean {
+    return this.isEnabled();
   }
 
   move(node: Node) {
     if (node.isRoot()) return false;
-    return this.access();
-
+    return this.isEnabled();
   }
 
   remove(node: Node) {
     if (node.isRoot()) return false;
-    return this.access();
+    return this.isEnabled();
   }
 
   rename() {
-    return this.access();
+    return this.isEnabled();
+  }
+
+  private isEnabled() {
+    return this.enabled;
   }
 }

@@ -3,7 +3,7 @@ import type { Directory } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
-import { throwCritical, throwError } from "@/utils";
+import { throwCritical, throwError, throwNull } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -26,6 +26,10 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
         done(null, accessToken);
       },
     });
+  }
+
+  createDirectory(): Promise<void> {
+    throwNull();
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {
