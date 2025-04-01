@@ -11,5 +11,5 @@ export interface FileSystemAdapter {
   renameNode(options: { id: Id, name: string }): Promise<void>;
   removeNode(node: Node): Promise<void>;
   moveNode(options: { subject: Node, target: Node }): Promise<void>;
-  createDirectory(options: { name: string, parent: Node }): Promise<void>;
+  createDirectory(options: { name: string, parent: Node }): Promise<DirectoryDataOptions>;
 }

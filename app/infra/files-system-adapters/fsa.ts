@@ -39,7 +39,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     super({ rootData, rootMetadata });
   }
 
-  createDirectory(): Promise<void> {
+  createDirectory(): Promise<DirectoryDataOptions> {
     throwNull();
   }
 

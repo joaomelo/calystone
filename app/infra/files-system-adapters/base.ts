@@ -22,7 +22,7 @@ export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapt
     this.reset();
   }
 
-  abstract createDirectory(options: { name: string, parent: Node }): Promise<void>;
+  abstract createDirectory(options: { name: string, parent: Node }): Promise<DirectoryDataOptions>;
   abstract fetchFileContent(id: Id): Promise<ArrayBuffer>;
 
   metadataOrThrow(id: Id): Metadata {

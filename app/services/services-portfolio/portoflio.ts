@@ -68,6 +68,6 @@ export class ServicesPortolfio {
     this.nodeRename = new ConnectedNodeRenameService({ fileSystemAdapter, nodes, supportAdapter });
     this.nodeRemove = new ConnectedNodeRemoveService({ fileSystemAdapter, nodes, supportAdapter });
     this.nodeMove = new ConnectedNodeMoveService({ fileSystemAdapter, supportAdapter });
-    this.createDirectory = new ConnectedCreateDirectoryService({ fileSystemAdapter, nodes, supportAdapter });
+    this.createDirectory = new ConnectedCreateDirectoryService({ directoryOpen: this.directoryOpen, fileSystemAdapter, nodes, supportAdapter });
   };
 }

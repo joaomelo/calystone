@@ -1,7 +1,7 @@
 import type { DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError, throwNull } from "@/utils";
+import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError } from "@/utils";
 import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";
 
@@ -9,9 +9,11 @@ import type { ArtifactOrDirectoryDataOptions } from "./file-system";
 
 import { BaseFileSystemAdapter } from "./base";
 
-type MemoryMetadata = ArrayBuffer | undefined;
+type ArtifactMetadata = ArrayBuffer;
+type DirectoryMetadata = undefined;
+type NodeMetadata = ArtifactMetadata | DirectoryMetadata;
 
-export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadata> {
+export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
   private readonly delayInSeconds: number;
 
   constructor(options: { delayInSeconds: number; rootDirectoryName: string, }) {
@@ -25,8 +27,16 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<MemoryMetadat
     this.delayInSeconds = delayInSeconds;
   }
 
-  createDirectory(): Promise<void> {
-    throwNull();
+  async createDirectory(options: { name: string, parent: Node }): Promise<DirectoryDataOptions> {
+    await delay(this.delayInSeconds);
+
+    const id = createId();
+    this.nodesMetadata.set(id, undefined);
+
+    const { name, parent: { id: parentId } } = options;
+    const data: DirectoryDataOptions = { id, name, parentId };
+
+    return data;
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {
