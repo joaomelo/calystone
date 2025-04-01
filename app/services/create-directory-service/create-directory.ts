@@ -1,6 +1,7 @@
 import type { Node } from "@/domain";
+import type { Status } from "@/utils";
 
 export interface CreateDirectoryService {
-  support(): boolean;
+  createbleOn(parent: Node): Status;
   createDirectory(options: { name: string, parent: Node }): Promise<void>
 }

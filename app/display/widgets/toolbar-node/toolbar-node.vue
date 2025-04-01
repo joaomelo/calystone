@@ -3,9 +3,10 @@ import type { Node } from "@/domain";
 
 import { ToolbarBase } from "@/utils";
 
-import ToolbarNodeRemove from "./toolbar-node-remove.vue";
-import ToolbarNodeRename from "./toolbar-node-rename.vue";
-import ToolbarNodeShare from "./toolbar-node-share.vue";
+import ToolbarButtonCreateDirectory from "./toolbar-button-create-directory.vue";
+import ToolbarButtonRemove from "./toolbar-button-remove.vue";
+import ToolbarButtonRename from "./toolbar-button-rename.vue";
+import ToolbarButtonShare from "./toolbar-button-share.vue";
 
 defineProps<{
   node?: Node;
@@ -18,9 +19,10 @@ defineEmits<{
   <ToolbarBase>
     <template #start>
       <template v-if="node">
-        <ToolbarNodeRename :node="node" />
-        <ToolbarNodeShare :node="node" />
-        <ToolbarNodeRemove
+        <ToolbarButtonRename :node="node" />
+        <ToolbarButtonShare :node="node" />
+        <ToolbarButtonCreateDirectory :parent="node" />
+        <ToolbarButtonRemove
           :node="node"
           @removed="$emit('removed')"
         />

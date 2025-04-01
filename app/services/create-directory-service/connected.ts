@@ -1,7 +1,7 @@
-import type { Nodes } from "@/domain";
+import type { Node, Nodes } from "@/domain";
 import type { FileSystemAdapter, SupportAdapter } from "@/infra";
 
-import { throwNull } from "@/utils";
+import { Status, throwNull } from "@/utils";
 
 import type { CreateDirectoryService } from "./create-directory";
 
@@ -16,12 +16,17 @@ export class ConnectedCreateDirectoryService implements CreateDirectoryService {
     this.nodes = options.nodes;
   }
 
-  createDirectory(): Promise<void> {
-    throwNull();
+  createbleOn(parent: Node): Status {
+    if (!this.supportAdapter.createDirectory()) return Status.fail("CREATE_DIRECTORY_NOT_SUPPORTED");
+
+    const parentable = parent.parentable();
+    if (!parentable.isOk()) return parentable;
+
+    return Status.ok();
   }
 
-  support() {
-    return this.supportAdapter.createDirectory();
+  createDirectory(): Promise<void> {
+    throwNull();
   }
 
 }

@@ -12,6 +12,7 @@
   "delete": "delete",
   "delete-node": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
   "directory": "directory",
+  "create-directory": "create directory",
   "done": "done",
   "edit": "edit",
   "email": "email",

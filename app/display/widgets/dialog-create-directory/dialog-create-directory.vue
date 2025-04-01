@@ -7,8 +7,8 @@ import { InputText, ModalBase, useDispatch } from "@/utils";
 import { useI18n } from "@/utils/i18n";
 import { reactive, useTemplateRef } from "vue";
 
-const { node } = defineProps<{
-  node: Node
+const { parent } = defineProps<{
+  parent: Node
 }>();
 defineExpose({ open });
 
@@ -17,27 +17,27 @@ const { t } = useI18n();
 const modal = useTemplateRef("modal");
 
 const data = reactive({
-  name: node.name,
+  name: "",
 });
 
 const { dispatch, errors, loading } = useDispatch();
 
-function open() {
-  data.name = node.name;
-  modal.value?.open();
-}
-
-async function save() {
-  const success = await dispatch(() => services.nodeRename.rename({ name: data.name, node: node }));
+async function handleSave() {
+  const success = await dispatch(() => services.createDirectory.createDirectory({ name: data.name, parent }));
   if (!success) return;
   modal.value?.close();
+}
+
+function open() {
+  data.name = "";
+  modal.value?.open();
 }
 </script>
 <template>
   <ModalBase
     ref="modal"
-    data-test="modal-rename"
-    :header="t('rename')"
+    data-test="modal-create-directory"
+    :header="t('create-directory')"
     :error="errors.global"
   >
     <template #content>
@@ -53,7 +53,7 @@ async function save() {
       <ButtonsSaveCancel
         :saving="loading"
         @cancel="close"
-        @save="save"
+        @save="handleSave"
       />
     </template>
   </ModalBase>
