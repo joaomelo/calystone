@@ -1,7 +1,7 @@
-import type { Directory, DirectoryDataOptions, Id, Node } from "@/domain";
+import type { ArtifactDataOptions, Directory, DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError } from "@/utils";
+import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError, throwNull } from "@/utils";
 import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";
 
@@ -37,6 +37,10 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata>
     const data: DirectoryDataOptions = { id, name, parentId };
 
     return data;
+  }
+
+  createFile(): Promise<ArtifactDataOptions> {
+    throwNull();
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {

@@ -1,8 +1,8 @@
-import type { DirectoryDataOptions, Id, Node } from "@/domain";
+import type { ArtifactDataOptions, DirectoryDataOptions, Id, Node } from "@/domain";
 import type { Directory } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwCritical, throwError } from "@/utils";
+import { throwCritical, throwError, throwNull } from "@/utils";
 import { Dropbox } from "dropbox";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -38,6 +38,10 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
 
     const newDirectoryData: DirectoryDataOptions = { id, name, parentId };
     return newDirectoryData;
+  }
+
+  createFile(): Promise<ArtifactDataOptions> {
+    throwNull();
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {

@@ -1,4 +1,4 @@
-import type { DirectoryDataOptions, Id, Node } from "@/domain";
+import type { ArtifactDataOptions, DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { Directory } from "@/domain";
 import { throwCritical } from "@/utils";
@@ -23,6 +23,7 @@ export abstract class BaseFileSystemAdapter<Metadata> implements FileSystemAdapt
   }
 
   abstract createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions>;
+  abstract createFile(options: { name: string, parent: Directory }): Promise<ArtifactDataOptions>;
   abstract fetchFileContent(id: Id): Promise<ArrayBuffer>;
 
   metadataOrThrow(id: Id): Metadata {
