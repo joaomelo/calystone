@@ -6,11 +6,11 @@ import type { CreateFileService } from "./create-file";
 
 export class NullCreateFileService extends NullThrower implements CreateFileService{
 
-  createbleOn(): Status {
+  create(): Promise<void> {
     this.throw();
   }
 
-  createFile(): Promise<void> {
+  createbleOn(): Status {
     this.throw();
   }
 

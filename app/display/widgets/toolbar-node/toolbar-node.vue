@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { Node } from "@/domain";
 
+import { Directory } from "@/domain";
 import { ToolbarBase } from "@/utils";
 
 import ToolbarButtonCreateDirectory from "./toolbar-button-create-directory.vue";
+import ToolbarButtonCreateFile from "./toolbar-button-create-file.vue";
 import ToolbarButtonRemove from "./toolbar-button-remove.vue";
 import ToolbarButtonRename from "./toolbar-button-rename.vue";
 import ToolbarButtonShare from "./toolbar-button-share.vue";
@@ -19,9 +21,20 @@ defineEmits<{
   <ToolbarBase>
     <template #start>
       <template v-if="node">
-        <ToolbarButtonRename :node="node" />
-        <ToolbarButtonShare :node="node" />
-        <ToolbarButtonCreateDirectory :parent="node" />
+        <ToolbarButtonCreateDirectory
+          v-if="(node instanceof Directory)"
+          :parent="node"
+        />
+        <ToolbarButtonCreateFile
+          v-if="(node instanceof Directory)"
+          :parent="node"
+        />
+        <ToolbarButtonRename
+          :node="node"
+        />
+        <ToolbarButtonShare
+          :node="node"
+        />
         <ToolbarButtonRemove
           :node="node"
           @removed="$emit('removed')"

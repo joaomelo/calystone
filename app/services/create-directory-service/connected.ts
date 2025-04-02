@@ -20,16 +20,7 @@ export class ConnectedCreateDirectoryService implements CreateDirectoryService {
     this.directoryOpen = options.directoryOpen;
   }
 
-  createbleOn(parent: Node): Status {
-    if (!this.supportAdapter.createDirectory()) return Status.fail("CREATE_DIRECTORY_NOT_SUPPORTED");
-
-    const parentable = parent.parentable();
-    if (!parentable.isOk()) return parentable;
-
-    return Status.ok();
-  }
-
-  async createDirectory(options: { name: string, parent: Directory }): Promise<void> {
+  async create(options: { name: string, parent: Directory }): Promise<void> {
     const { parent } = options;
 
     const createable = this.createbleOn(parent);
@@ -46,6 +37,15 @@ export class ConnectedCreateDirectoryService implements CreateDirectoryService {
       parent.idle();
     }
 
+  }
+
+  createbleOn(parent: Node): Status {
+    if (!this.supportAdapter.createDirectory()) return Status.fail("CREATE_DIRECTORY_NOT_SUPPORTED");
+
+    const parentable = parent.parentable();
+    if (!parentable.isOk()) return parentable;
+
+    return Status.ok();
   }
 
 }

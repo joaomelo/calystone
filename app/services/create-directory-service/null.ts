@@ -6,11 +6,11 @@ import type { CreateDirectoryService } from "./create-directory";
 
 export class NullCreateDirectoryService extends NullThrower implements CreateDirectoryService{
 
-  createbleOn(): Status {
+  create(): Promise<void> {
     this.throw();
   }
 
-  createDirectory(): Promise<void> {
+  createbleOn(): Status {
     this.throw();
   }
 

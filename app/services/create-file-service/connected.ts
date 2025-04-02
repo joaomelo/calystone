@@ -20,16 +20,7 @@ export class ConnectedCreateFileService implements CreateFileService {
     this.directoryOpen = options.directoryOpen;
   }
 
-  createbleOn(parent: Node): Status {
-    if (!this.supportAdapter.createFile()) return Status.fail("CREATE_FILE_NOT_SUPPORTED");
-
-    const parentable = parent.parentable();
-    if (!parentable.isOk()) return parentable;
-
-    return Status.ok();
-  }
-
-  async createFile(options: { name: string, parent: Directory }): Promise<void> {
+  async create(options: { name: string, parent: Directory }): Promise<void> {
     const { parent } = options;
 
     const createable = this.createbleOn(parent);
@@ -45,6 +36,15 @@ export class ConnectedCreateFileService implements CreateFileService {
       parent.idle();
     }
 
+  }
+
+  createbleOn(parent: Node): Status {
+    if (!this.supportAdapter.createFile()) return Status.fail("CREATE_FILE_NOT_SUPPORTED");
+
+    const parentable = parent.parentable();
+    if (!parentable.isOk()) return parentable;
+
+    return Status.ok();
   }
 
 }
