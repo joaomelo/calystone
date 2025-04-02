@@ -21,7 +21,7 @@ export class CloudSupportAdapter implements SupportAdapter {
   }
 
   createDirectory() {
-    return false;
+    return this.isCloudConfigured();
   }
 
   createFile() {

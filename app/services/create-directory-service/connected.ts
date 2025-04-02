@@ -41,6 +41,7 @@ export class ConnectedCreateDirectoryService implements CreateDirectoryService {
       const data = await this.fileSystemAdapter.createDirectory(options);
       const directory = new Directory({ nodes: this.nodes, ...data });
       this.nodes.set(directory);
+      await this.directoryOpen.open(directory);
     } finally {
       parent.idle();
     }

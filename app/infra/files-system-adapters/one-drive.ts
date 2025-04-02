@@ -3,7 +3,7 @@ import type { Directory } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
-import { throwCritical, throwError, throwNull } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -28,8 +28,27 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     });
   }
 
-  createDirectory(): Promise<void> {
-    throwNull();
+  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
+    const { name, parent } = options;
+
+    const response = await this.graphClient
+      .api(`/me/drive/items/${parent.id}/children`)
+      .post({
+        "@microsoft.graph.conflictBehavior": "rename",
+        folder: {},
+        name
+      }) as DriveItem;
+
+    if (!isId(response.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
+    if (typeof response.name !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_NAME");
+
+    const newDirectoryData: DirectoryDataOptions = {
+      id: response.id,
+      name: response.name,
+      parentId: parent.id
+    };
+
+    return newDirectoryData;
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {
