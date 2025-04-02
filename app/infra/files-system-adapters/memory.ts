@@ -1,4 +1,4 @@
-import type { DirectoryDataOptions, Id, Node } from "@/domain";
+import type { Directory, DirectoryDataOptions, Id, Node } from "@/domain";
 
 import { createId } from "@/domain";
 import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError } from "@/utils";
@@ -27,7 +27,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata>
     this.delayInSeconds = delayInSeconds;
   }
 
-  async createDirectory(options: { name: string, parent: Node }): Promise<DirectoryDataOptions> {
+  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
     await delay(this.delayInSeconds);
 
     const id = createId();

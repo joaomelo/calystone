@@ -10,7 +10,7 @@ export class FsaSupportAdapter implements SupportAdapter {
   }
 
   createDirectory() {
-    return false;
+    return this.isFileSystemAccessSupported();
   }
 
   createFile() {

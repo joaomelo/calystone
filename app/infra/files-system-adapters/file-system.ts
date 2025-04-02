@@ -1,4 +1,4 @@
-import type { ArtifactDataOptions, DirectoryDataOptions, Id, Node } from "@/domain";
+import type { ArtifactDataOptions, Directory, DirectoryDataOptions, Id, Node } from "@/domain";
 
 export type ArtifactOrDirectoryDataOptions = ArtifactDataOptions | DirectoryDataOptions;
 
@@ -11,5 +11,5 @@ export interface FileSystemAdapter {
   renameNode(options: { id: Id, name: string }): Promise<void>;
   removeNode(node: Node): Promise<void>;
   moveNode(options: { subject: Node, target: Node }): Promise<void>;
-  createDirectory(options: { name: string, parent: Node }): Promise<DirectoryDataOptions>;
+  createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions>;
 }
