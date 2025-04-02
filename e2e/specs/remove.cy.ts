@@ -1,4 +1,4 @@
-import { dataTest, editor, outline, pageOpen } from "../helpers";
+import { dataTest, editor, outline, pageOpen, toolbarNode } from "../helpers";
 
 describe("remove", () => {
   beforeEach(() => {
@@ -9,14 +9,13 @@ describe("remove", () => {
   const selectors = {
     buttonCancel: () => cy.get(dataTest("modal-remove-cancel")),
     buttonConfirm: () => cy.get(dataTest("modal-remove-confirm")),
-    buttonRemove: () => cy.get(dataTest("button-remove")),
   } as const;
 
   it("allows directory remove", () => {
     outline.directoryOf(outline.rootNode()).first().as("directory");
     outline.labelOf(cy.get("@directory")).then((oldLabel) => {
       cy.get("@directory").click();
-      selectors.buttonRemove().click();
+      toolbarNode.buttonRemove().click();
       selectors.buttonConfirm().click();
 
       outline.labelOf(outline.directoryOf(outline.rootNode()).first())
@@ -31,7 +30,7 @@ describe("remove", () => {
     outline.artifactOf(outline.rootNode()).first().as("artifact");
     outline.labelOf(cy.get("@artifact")).then((oldLabel) => {
       cy.get("@artifact").click();
-      selectors.buttonRemove().click();
+      toolbarNode.buttonRemove().click();
       selectors.buttonConfirm().click();
 
       outline.labelOf(outline.artifactOf(outline.rootNode()).first())
@@ -46,7 +45,7 @@ describe("remove", () => {
     outline.artifactOf(outline.rootNode()).first().as("artifact");
     outline.labelOf(cy.get("@artifact")).then((oldLabel) => {
       cy.get("@artifact").click();
-      selectors.buttonRemove().click();
+      toolbarNode.buttonRemove().click();
       selectors.buttonCancel().click();
 
       outline.labelOf(outline.artifactOf(outline.rootNode()).first())

@@ -1,4 +1,4 @@
-import { dataTest, outline, pageOpen } from "../helpers";
+import { dataTest, outline, pageOpen, toolbarNode } from "../helpers";
 
 describe("rename", () => {
   beforeEach(() => {
@@ -6,7 +6,6 @@ describe("rename", () => {
   });
 
   const selectors = {
-    buttonRename: () => cy.get(dataTest("button-rename")),
     buttonSave: () => cy.get(dataTest("button-save")),
     inputError: () => cy.get(dataTest("input-name-error")),
     inputName: () => cy.get(dataTest("input-name-input")),
@@ -15,7 +14,7 @@ describe("rename", () => {
 
   it("allows new name for directory", () => {
     outline.rootNode().click();
-    selectors.buttonRename().click();
+    toolbarNode.buttonRename().click();
     selectors.inputName().clear().type("new-directory-name");
     selectors.buttonSave().click();
     outline.rootNode().should("contain.text", "new-directory-name");
@@ -25,7 +24,7 @@ describe("rename", () => {
     const newName = "_new-artifact-name";
     outline.toogleOf(outline.rootNode()).click();
     firstArtifact().click();
-    selectors.buttonRename().click();
+    toolbarNode.buttonRename().click();
     selectors.inputName().clear().type(newName);
     selectors.buttonSave().click();
     firstArtifact().should("contain.text", newName);
@@ -37,7 +36,7 @@ describe("rename", () => {
 
   it("fails if name is empty", () => {
     outline.rootNode().click();
-    selectors.buttonRename().click();
+    toolbarNode.buttonRename().click();
     selectors.inputName().clear();
     selectors.buttonSave().click();
     selectors.inputError().should("exist");
@@ -45,7 +44,7 @@ describe("rename", () => {
 
   it("show backend errors", () => {
     outline.rootNode().click();
-    selectors.buttonRename().click();
+    toolbarNode.buttonRename().click();
     selectors.inputName().clear().type("/\\|");
     selectors.buttonSave().click();
     selectors.modalError().should("exist");
