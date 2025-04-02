@@ -1,7 +1,8 @@
 import type { DirectoryDataOptions, Id, Node } from "@/domain";
+import type { Directory } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwCritical, throwError, throwNull } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 import { Dropbox } from "dropbox";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -22,8 +23,21 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
     this.dropboxClient = new Dropbox({ accessToken });
   }
 
-  createDirectory(): Promise<void> {
-    throwNull();
+  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
+    const { name, parent: { id: parentId } } = options;
+
+    const parentPath = this.metadataOrThrow(parentId);
+    const newPath = `${parentPath}/${name}`;
+    await this.dropboxClient.filesCreateFolderV2({
+      autorename: false,
+      path: newPath
+    });
+
+    const id = createId();
+    this.nodesMetadata.set(id, newPath);
+
+    const newDirectoryData: DirectoryDataOptions = { id, name, parentId };
+    return newDirectoryData;
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {
