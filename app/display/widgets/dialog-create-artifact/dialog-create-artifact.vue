@@ -23,7 +23,7 @@ const data = reactive({
 const { dispatch, errors, loading } = useDispatch();
 
 async function handleSave() {
-  const success = await dispatch(() => services.createFile.create({ name: data.name, parent }));
+  const success = await dispatch(() => services.createArtifact.create({ name: data.name, parent }));
   if (!success) return;
   modal.value?.close();
 }
@@ -36,8 +36,8 @@ function open() {
 <template>
   <ModalBase
     ref="modal"
-    data-test="modal-create-file"
-    :header="t('create-file')"
+    data-test="modal-create-artifact"
+    :header="t('create-artifact')"
     :error="errors.global"
   >
     <template #content>

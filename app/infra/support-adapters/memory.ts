@@ -17,11 +17,11 @@ export class MemorySupportAdapter implements SupportAdapter {
     return this.isEnabled();
   }
 
-  createDirectory(): boolean {
+  createArtifact(): boolean {
     return this.isEnabled();
   }
 
-  createFile(): boolean {
+  createDirectory(): boolean {
     return this.isEnabled();
   }
 

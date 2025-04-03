@@ -12,7 +12,7 @@
   "delete": "delete",
   "delete-node": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
   "directory": "directory",
-  "create-file": "create file",
+  "create-artifact": "create file",
   "create-directory": "create directory",
   "done": "done",
   "edit": "edit",

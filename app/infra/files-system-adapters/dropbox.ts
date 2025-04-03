@@ -23,6 +23,10 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
     this.dropboxClient = new Dropbox({ accessToken });
   }
 
+  createArtifact(): Promise<ArtifactDataOptions> {
+    throwNull();
+  }
+
   async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
     const { name, parent: { id: parentId } } = options;
 
@@ -38,10 +42,6 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string> {
 
     const newDirectoryData: DirectoryDataOptions = { id, name, parentId };
     return newDirectoryData;
-  }
-
-  createFile(): Promise<ArtifactDataOptions> {
-    throwNull();
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {

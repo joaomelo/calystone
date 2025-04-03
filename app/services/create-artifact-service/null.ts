@@ -2,9 +2,9 @@ import type { Status } from "@/utils";
 
 import { NullThrower } from "@/utils";
 
-import type { CreateFileService } from "./create-file";
+import type { CreateArtifactService } from "./create-artifact";
 
-export class NullCreateFileService extends NullThrower implements CreateFileService{
+export class NullCreateArtifactService extends NullThrower implements CreateArtifactService{
 
   create(): Promise<void> {
     this.throw();

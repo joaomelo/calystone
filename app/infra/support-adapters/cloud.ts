@@ -20,12 +20,12 @@ export class CloudSupportAdapter implements SupportAdapter {
     return this.isCloudConfigured();
   }
 
-  createDirectory() {
-    return this.isCloudConfigured();
+  createArtifact() {
+    return false;
   }
 
-  createFile() {
-    return false;
+  createDirectory() {
+    return this.isCloudConfigured();
   }
 
   move(node: Node) {

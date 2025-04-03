@@ -39,6 +39,10 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     super({ rootData, rootMetadata });
   }
 
+  createArtifact(): Promise<ArtifactDataOptions> {
+    throwNull();
+  }
+
   async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
     const { name, parent: { id: parentId } } = options;
     const id = createId();
@@ -57,10 +61,6 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
 
     const data: DirectoryDataOptions = { id, name, parentId };
     return data;
-  }
-
-  createFile(): Promise<ArtifactDataOptions> {
-    throwNull();
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {

@@ -28,6 +28,10 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     });
   }
 
+  createArtifact(): Promise<ArtifactDataOptions> {
+    throwNull();
+  }
+
   async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
     const { name, parent } = options;
 
@@ -49,10 +53,6 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     };
 
     return newDirectoryData;
-  }
-
-  createFile(): Promise<ArtifactDataOptions> {
-    throwNull();
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {

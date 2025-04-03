@@ -5,9 +5,9 @@ import { Artifact } from "@/domain";
 import { Status } from "@/utils";
 
 import type { DirectoryOpenService } from "../directory-open-service/open";
-import type { CreateFileService } from "./create-file";
+import type { CreateArtifactService } from "./create-artifact";
 
-export class ConnectedCreateFileService implements CreateFileService {
+export class ConnectedCreateArtifactService implements CreateArtifactService {
   private readonly directoryOpen: DirectoryOpenService;
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;
@@ -29,7 +29,7 @@ export class ConnectedCreateFileService implements CreateFileService {
     try {
       parent.busy();
       await this.directoryOpen.open(parent);
-      const data = await this.fileSystemAdapter.createFile(options);
+      const data = await this.fileSystemAdapter.createArtifact(options);
       const artifact = new Artifact({ nodes: this.nodes, ...data });
       this.nodes.set(artifact);
     } finally {
@@ -39,7 +39,7 @@ export class ConnectedCreateFileService implements CreateFileService {
   }
 
   createbleOn(parent: Node): Status {
-    if (!this.supportAdapter.createFile()) return Status.fail("CREATE_FILE_NOT_SUPPORTED");
+    if (!this.supportAdapter.createArtifact()) return Status.fail("CREATE_FILE_NOT_SUPPORTED");
 
     const parentable = parent.parentable();
     if (!parentable.isOk()) return parentable;

@@ -7,5 +7,5 @@ export interface SupportAdapter {
   remove(node: Node): boolean;
   move(node: Node): boolean;
   createDirectory(): boolean;
-  createFile(): boolean;
+  createArtifact(): boolean;
 }

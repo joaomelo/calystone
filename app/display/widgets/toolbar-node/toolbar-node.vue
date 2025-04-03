@@ -4,8 +4,8 @@ import type { Node } from "@/domain";
 import { Directory } from "@/domain";
 import { ToolbarBase } from "@/utils";
 
+import ToolbarButtonCreateArtifact from "./toolbar-button-create-artifact.vue";
 import ToolbarButtonCreateDirectory from "./toolbar-button-create-directory.vue";
-import ToolbarButtonCreateFile from "./toolbar-button-create-file.vue";
 import ToolbarButtonRemove from "./toolbar-button-remove.vue";
 import ToolbarButtonRename from "./toolbar-button-rename.vue";
 import ToolbarButtonShare from "./toolbar-button-share.vue";
@@ -25,7 +25,7 @@ defineEmits<{
           v-if="(node instanceof Directory)"
           :parent="node"
         />
-        <ToolbarButtonCreateFile
+        <ToolbarButtonCreateArtifact
           v-if="(node instanceof Directory)"
           :parent="node"
         />

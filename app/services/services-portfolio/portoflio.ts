@@ -1,8 +1,8 @@
 import type { SourceAdapterPortfolio } from "@/infra";
 import type { ArtifactTextService } from "@/services/artifact-text-service";
 import type { ObserverOptions } from "@/services/connection-service";
+import type { CreateArtifactService } from "@/services/create-artifact-service";
 import type { CreateDirectoryService } from "@/services/create-directory-service";
-import type { CreateFileService } from "@/services/create-file-service";
 import type { DirectoryOpenService } from "@/services/directory-open-service";
 import type { NodeMoveService } from "@/services/node-move-service";
 import type { NodeRemoveService } from "@/services/node-remove-service";
@@ -12,8 +12,8 @@ import { Nodes } from "@/domain";
 import { AccessRequestService } from "@/services/access-request-service";
 import { ConnectedArtifactTextService, NullArtifactTextService } from "@/services/artifact-text-service";
 import { ConnectionService } from "@/services/connection-service";
+import { ConnectedCreateArtifactService, NullCreateArtifactService } from "@/services/create-artifact-service";
 import { ConnectedCreateDirectoryService, NullCreateDirectoryService } from "@/services/create-directory-service";
-import { ConnectedCreateFileService, NullCreateFileService } from "@/services/create-file-service";
 import { ConnectedDirectoryOpenService, NullDirectoryOpenService } from "@/services/directory-open-service";
 import { ConnectedNodeMoveService, NullNodeMoveService } from "@/services/node-move-service";
 import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/node-remove-service";
@@ -23,8 +23,8 @@ export class ServicesPortolfio {
   accessRequest: AccessRequestService;
   artifactText: ArtifactTextService;
   connection: ConnectionService;
+  createArtifact: CreateArtifactService;
   createDirectory: CreateDirectoryService;
-  createFile: CreateFileService;
   directoryOpen: DirectoryOpenService;
   nodeMove: NodeMoveService;
   nodeRemove: NodeRemoveService;
@@ -45,7 +45,7 @@ export class ServicesPortolfio {
     this.nodeRemove = new NullNodeRemoveService();
     this.nodeMove = new NullNodeMoveService();
     this.createDirectory = new NullCreateDirectoryService();
-    this.createFile = new NullCreateFileService();
+    this.createArtifact = new NullCreateArtifactService();
 
     this.connection.subscribe((options) => { this.rotateServices(options); });
   }
@@ -58,7 +58,7 @@ export class ServicesPortolfio {
       this.nodeRemove = new NullNodeRemoveService();
       this.nodeMove = new NullNodeMoveService();
       this.createDirectory = new NullCreateDirectoryService();
-      this.createFile = new NullCreateFileService();
+      this.createArtifact = new NullCreateArtifactService();
       return;
     }
 
@@ -73,6 +73,6 @@ export class ServicesPortolfio {
     this.nodeRemove = new ConnectedNodeRemoveService({ fileSystemAdapter, nodes, supportAdapter });
     this.nodeMove = new ConnectedNodeMoveService({ fileSystemAdapter, supportAdapter });
     this.createDirectory = new ConnectedCreateDirectoryService({ directoryOpen: this.directoryOpen, fileSystemAdapter, nodes, supportAdapter });
-    this.createFile = new ConnectedCreateFileService({ directoryOpen: this.directoryOpen, fileSystemAdapter, nodes, supportAdapter });
+    this.createArtifact = new ConnectedCreateArtifactService({ directoryOpen: this.directoryOpen, fileSystemAdapter, nodes, supportAdapter });
   };
 }

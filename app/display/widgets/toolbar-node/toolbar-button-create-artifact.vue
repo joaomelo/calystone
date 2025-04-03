@@ -2,7 +2,7 @@
 import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
-import { DialogCreateFile } from "@/display/widgets/dialog-create-file";
+import { DialogCreateArtifact } from "@/display/widgets/dialog-create-artifact";
 import { ToolbarButton } from "@/utils";
 import { computed, useTemplateRef } from "vue";
 
@@ -11,19 +11,19 @@ const { parent } = defineProps<{
 }>();
 
 const { services } = Store.use();
-const dialogCreateFile = useTemplateRef("dialogCreateFile");
+const dialogCreateArtifact = useTemplateRef("dialogCreateArtifact");
 
-const creatable = computed(() => services.createFile.createbleOn(parent));
+const creatable = computed(() => services.createArtifact.createbleOn(parent));
 </script>
 <template>
   <ToolbarButton
     v-if="creatable.isOk()"
     icon="bxs-file-plus"
-    data-test="button-create-file"
-    @click="dialogCreateFile?.open"
+    data-test="button-create-artifact"
+    @click="dialogCreateArtifact?.open"
   />
-  <DialogCreateFile
-    ref="dialogCreateFile"
+  <DialogCreateArtifact
+    ref="dialogCreateArtifact"
     :parent="parent"
   />
 </template>
