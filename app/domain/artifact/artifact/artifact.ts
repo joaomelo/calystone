@@ -5,8 +5,7 @@ import type { ArtifactOptions } from "./options";
 
 import { Mime } from "../mime";
 
-export class Artifact extends Node {
-  content?: ArrayBuffer;
+export abstract class Artifact extends Node {
   lastModified: number;
   readonly mime: Mime;
   size: number;
@@ -18,7 +17,16 @@ export class Artifact extends Node {
     this.mime = new Mime(options.name);
   }
 
+  fromBinary(binary: ArrayBuffer): void {
+    this.performFromBinary(binary);
+    this.loaded();
+  }
+
   parentable(): Status {
     return Status.fail("ARTIFACT_CANNOT_BE_PARENT");
   }
+
+  abstract toBinary(): ArrayBuffer | undefined;
+
+  protected abstract performFromBinary(binary: ArrayBuffer): void;
 }
