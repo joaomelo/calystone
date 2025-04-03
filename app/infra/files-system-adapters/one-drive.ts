@@ -3,7 +3,7 @@ import type { Directory } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
-import { throwCritical, throwError, throwNull } from "@/utils";
+import { throwCritical, throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
 import type { ArtifactOrDirectoryDataOptions } from "./file-system";
@@ -28,31 +28,28 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     });
   }
 
-  createArtifact(): Promise<ArtifactDataOptions> {
-    throwNull();
+  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactDataOptions> {
+    const { name, parent: { id: parentId } } = options;
+
+    const item = await this.graphClient
+      .api(`/me/drive/items/${parentId}:/${name}:/content`)
+      .put("") as DriveItem;
+
+    return this.convertDriveItemToArtifactData({ item, parentId });
   }
 
   async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
-    const { name, parent } = options;
+    const { name, parent: { id: parentId } } = options;
 
-    const response = await this.graphClient
-      .api(`/me/drive/items/${parent.id}/children`)
+    const item = await this.graphClient
+      .api(`/me/drive/items/${parentId}/children`)
       .post({
         "@microsoft.graph.conflictBehavior": "rename",
         folder: {},
         name
       }) as DriveItem;
 
-    if (!isId(response.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
-    if (typeof response.name !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_NAME");
-
-    const newDirectoryData: DirectoryDataOptions = {
-      id: response.id,
-      name: response.name,
-      parentId: parent.id
-    };
-
-    return newDirectoryData;
+    return this.convertDriveItemToDirectoryData({ item, parentId });
   }
 
   async fetchFileContent(id: Id): Promise<ArrayBuffer> {
@@ -88,30 +85,10 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     const { value: childrenResponse } = response;
 
     const childrenData: ArtifactOrDirectoryDataOptions[] = [];
-
     for (const childResponse of childrenResponse) {
-
-      if (!isId(childResponse.id)) throwError("INVALID_ID", "driveItem from OneDrive has no id");
-      if (typeof childResponse.name !== "string") throwError("NO_NAME", `driveItem from OneDrive with id ${childResponse.id} does not have a name`);
-
-      let childData: ArtifactOrDirectoryDataOptions = {
-        id: childResponse.id,
-        name: childResponse.name,
-        parentId: id,
-      };
-
-      if (childResponse.file) {
-        const size = childResponse.size ?? 0;
-        const lastModified = childResponse.lastModifiedDateTime
-          ? new Date(childResponse.lastModifiedDateTime).getTime()
-          : Date.now();
-
-        childData = {
-          ...childData,
-          lastModified,
-          size,
-        };
-      }
+      const childData = childResponse.file
+        ? this.convertDriveItemToArtifactData({ item: childResponse, parentId: id })
+        : this.convertDriveItemToDirectoryData({ item: childResponse, parentId: id });
       childrenData.push(childData);
     }
 
@@ -140,4 +117,35 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
       .api(`/me/drive/items/${id}`)
       .patch({ name });
   }
+
+  private convertDriveItemToArtifactData(options: { item: DriveItem, parentId: Id }): ArtifactDataOptions {
+    const { item, parentId } = options;
+
+    if (!isId(item.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
+    if (typeof item.name !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_NAME");
+    if (typeof item.lastModifiedDateTime !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_LAST_MODIFIED");
+    if (typeof item.size !== "number") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_SIZE");
+    if (typeof item.name !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_NAME");
+
+    return {
+      id: item.id,
+      lastModified: new Date(item.lastModifiedDateTime).getTime(),
+      name: item.name,
+      parentId,
+      size: item.size
+    };
+  }
+
+  private convertDriveItemToDirectoryData(options: { item: DriveItem, parentId: Id }): DirectoryDataOptions {
+    const { item, parentId } = options;
+    if (!isId(item.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
+    if (typeof item.name !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_NAME");
+
+    return {
+      id: item.id,
+      name: item.name,
+      parentId
+    };
+  }
+
 }

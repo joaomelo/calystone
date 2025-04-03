@@ -21,7 +21,7 @@ export class CloudSupportAdapter implements SupportAdapter {
   }
 
   createArtifact() {
-    return false;
+    return this.isCloudConfigured();
   }
 
   createDirectory() {
