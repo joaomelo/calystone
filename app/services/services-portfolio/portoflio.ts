@@ -1,31 +1,31 @@
 import type { SourceAdapterPortfolio } from "@/infra";
-import type { ArtifactTextService } from "@/services/artifact-text-service";
 import type { ObserverOptions } from "@/services/connection-service";
 import type { CreateArtifactService } from "@/services/create-artifact-service";
 import type { CreateDirectoryService } from "@/services/create-directory-service";
 import type { DirectoryOpenService } from "@/services/directory-open-service";
+import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { NodeMoveService } from "@/services/node-move-service";
 import type { NodeRemoveService } from "@/services/node-remove-service";
 import type { NodeRenameService } from "@/services/node-rename-service";
 
 import { Nodes } from "@/domain";
 import { AccessRequestService } from "@/services/access-request-service";
-import { ConnectedArtifactTextService, NullArtifactTextService } from "@/services/artifact-text-service";
 import { ConnectionService } from "@/services/connection-service";
 import { ConnectedCreateArtifactService, NullCreateArtifactService } from "@/services/create-artifact-service";
 import { ConnectedCreateDirectoryService, NullCreateDirectoryService } from "@/services/create-directory-service";
 import { ConnectedDirectoryOpenService, NullDirectoryOpenService } from "@/services/directory-open-service";
+import { ConnectedExchangeArtifactService, NullExchangeArtifactService } from "@/services/exchange-artifact-service";
 import { ConnectedNodeMoveService, NullNodeMoveService } from "@/services/node-move-service";
 import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/node-remove-service";
 import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
 
 export class ServicesPortolfio {
   accessRequest: AccessRequestService;
-  artifactText: ArtifactTextService;
   connection: ConnectionService;
   createArtifact: CreateArtifactService;
   createDirectory: CreateDirectoryService;
   directoryOpen: DirectoryOpenService;
+  exchangeArtifact: ExchangeArtifactService;
   nodeMove: NodeMoveService;
   nodeRemove: NodeRemoveService;
   nodeRename: NodeRenameService;
@@ -40,7 +40,7 @@ export class ServicesPortolfio {
     this.connection = new ConnectionService({ nodes: this.nodes, sourceAdapterPortfolio: SourceAdapterPortfolio });
 
     this.directoryOpen = new NullDirectoryOpenService();
-    this.artifactText = new NullArtifactTextService();
+    this.exchangeArtifact = new NullExchangeArtifactService();
     this.nodeRename = new NullNodeRenameService();
     this.nodeRemove = new NullNodeRemoveService();
     this.nodeMove = new NullNodeMoveService();
@@ -53,7 +53,7 @@ export class ServicesPortolfio {
   rotateServices(options: ObserverOptions) {
     if (options.status === "disconnected" ) {
       this.directoryOpen = new NullDirectoryOpenService();
-      this.artifactText = new NullArtifactTextService();
+      this.exchangeArtifact = new NullExchangeArtifactService();
       this.nodeRename = new NullNodeRenameService();
       this.nodeRemove = new NullNodeRemoveService();
       this.nodeMove = new NullNodeMoveService();
@@ -68,11 +68,11 @@ export class ServicesPortolfio {
     const nodes = this.nodes;
 
     this.directoryOpen = new ConnectedDirectoryOpenService({ fileSystemAdapter, nodes });
-    this.artifactText = new ConnectedArtifactTextService(fileSystemAdapter);
+    this.exchangeArtifact = new ConnectedExchangeArtifactService(fileSystemAdapter);
     this.nodeRename = new ConnectedNodeRenameService({ fileSystemAdapter, nodes, supportAdapter });
     this.nodeRemove = new ConnectedNodeRemoveService({ fileSystemAdapter, nodes, supportAdapter });
     this.nodeMove = new ConnectedNodeMoveService({ fileSystemAdapter, supportAdapter });
     this.createDirectory = new ConnectedCreateDirectoryService({ directoryOpen: this.directoryOpen, fileSystemAdapter, nodes, supportAdapter });
-    this.createArtifact = new ConnectedCreateArtifactService({ directoryOpen: this.directoryOpen, fileSystemAdapter, nodes, supportAdapter });
+    this.createArtifact = new ConnectedCreateArtifactService({ directoryOpen: this.directoryOpen, exchangeArtifact: this.exchangeArtifact, fileSystemAdapter, nodes, supportAdapter });
   };
 }

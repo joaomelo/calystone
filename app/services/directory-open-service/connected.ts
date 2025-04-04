@@ -1,7 +1,7 @@
 import type { Nodes } from "@/domain";
 import type { FileSystemAdapter } from "@/infra";
 
-import { Artifact, Directory, isArtifactDataOptions } from "@/domain";
+import { createNode, Directory } from "@/domain";
 import { throwError } from "@/utils";
 
 import type { DirectoryOpenService } from "./open";
@@ -28,9 +28,7 @@ export class ConnectedDirectoryOpenService implements DirectoryOpenService {
     try {
       const nodesData = await this.fileSystemAdapter.openDirectory(directory.id);
       for (const data of nodesData) {
-        const node = isArtifactDataOptions(data)
-          ? new Artifact({ nodes: this.nodes, ...data })
-          : new Directory({ nodes: this.nodes, ...data });
+        const node = createNode({ nodes: this.nodes, ...data });
         this.nodes.set(node);
       }
       directory.loaded();

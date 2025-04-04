@@ -1,7 +1,7 @@
-import type { Node, Nodes } from "@/domain";
+import type { Directory, Node, Nodes } from "@/domain";
 import type { FileSystemAdapter, SupportAdapter } from "@/infra";
 
-import { Directory } from "@/domain";
+import { createNode } from "@/domain";
 import { Status } from "@/utils";
 
 import type { DirectoryOpenService } from "../directory-open-service/open";
@@ -30,7 +30,7 @@ export class ConnectedCreateDirectoryService implements CreateDirectoryService {
       parent.busy();
       await this.directoryOpen.open(parent);
       const data = await this.fileSystemAdapter.createDirectory(options);
-      const directory = new Directory({ nodes: this.nodes, ...data });
+      const directory = createNode({ nodes: this.nodes, ...data });
       this.nodes.set(directory);
       await this.directoryOpen.open(directory);
     } finally {

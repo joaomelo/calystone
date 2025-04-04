@@ -23,7 +23,7 @@ export class Nodes {
 
   getOrThrow(id: Id): Node {
     const node = this.get(id);
-    if (!node) throwCritical("NODE_NOT_FOUND", `a node with the id "${id}" was not found`);
+    if (!node) throwCritical("NODE_NOT_FOUND");
     return node;
   }
 

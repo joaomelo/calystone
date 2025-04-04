@@ -3,9 +3,9 @@ import type { FileSystemAdapter } from "@/infra";
 
 import { throwCritical, throwError } from "@/utils";
 
-import type { ArtifactTextService } from "./text";
+import type { ExchangeArtifactService } from "./exchange";
 
-export class ConnectedArtifactTextService implements ArtifactTextService {
+export class ConnectedExchangeArtifactService implements ExchangeArtifactService {
   private decoder = new TextDecoder("utf-8");
   private encoder = new TextEncoder();
   private readonly fileSystemAdapter: FileSystemAdapter;
@@ -19,10 +19,10 @@ export class ConnectedArtifactTextService implements ArtifactTextService {
 
     artifact.busy();
     try {
-      const content = artifact.content ?? await this.fileSystemAdapter.fetchFileContent(artifact.id);
-      artifact.content = content;
+      const content = artifact.toBinary() ?? await this.fileSystemAdapter.fetchFileContent(artifact.id);
+      artifact.fromBinary(content);
       artifact.loaded();
-      return this.decoder.decode(artifact.content);
+      return content;
     } catch (error) {
       artifact.unloaded();
       throwError("UNABLE_TO_FETCH_CONTENT", error);
@@ -31,9 +31,9 @@ export class ConnectedArtifactTextService implements ArtifactTextService {
     }
   }
 
-  async post({ artifact, text }: { artifact: Artifact, text: string }) {
-    const content: ArrayBuffer = this.encoder.encode(text).buffer as ArrayBuffer;
-    artifact.content = content;
+  async post(options: { artifact: Artifact, content: ArrayBuffer }) {
+    const { artifact, content } = options;
+    artifact.fromBinary(content);
     await this.fileSystemAdapter.postFileContent({ content, id: artifact.id });
   }
 }
