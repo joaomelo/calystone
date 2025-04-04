@@ -37,7 +37,7 @@ async function triggerOpen(node: Node) {
   }
 
   if (node instanceof Artifact && node.mime.type() === "text") {
-    await dispatchOrToast(() => services.artifactText.fetch(node));
+    await dispatchOrToast(() => services.exchangeArtifact.fetch(node));
   }
 }
 </script>
