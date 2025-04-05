@@ -5,7 +5,7 @@ import type { ArtifactOptions } from "../artifact";
 import { Artifact } from "../artifact";
 
 export class TextArtifact extends Artifact {
-  content?: string;
+  content: string;
   private decoder = new TextDecoder("utf-8");
   private encoder = new TextEncoder();
 
@@ -14,14 +14,14 @@ export class TextArtifact extends Artifact {
     if (this.mime.type() !== "text") {
       throwCritical("INVALID_MIME_TYPE");
     }
+    this.content = "";
   }
 
   performFromBinary(binary: ArrayBuffer): void {
     this.content = this.decoder.decode(binary);
   }
 
-  toBinary(): ArrayBuffer | undefined {
-    if (!this.content) return;
+  toBinary(): ArrayBuffer {
     return this.encoder.encode(this.content).buffer as ArrayBuffer;
   }
 }

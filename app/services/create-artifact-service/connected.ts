@@ -34,7 +34,7 @@ export class ConnectedCreateArtifactService implements CreateArtifactService {
       const data = await this.fileSystemAdapter.createArtifact(options);
       const artifact = createNode({ nodes: this.nodes, ...data });
       this.nodes.set(artifact);
-      await this.exchangeArtifact.fetch(artifact);
+      await this.exchangeArtifact.fetchInto(artifact);
     } finally {
       parent.idle();
     }

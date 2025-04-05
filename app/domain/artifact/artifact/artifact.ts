@@ -26,7 +26,7 @@ export abstract class Artifact extends Node {
     return Status.fail("ARTIFACT_CANNOT_BE_PARENT");
   }
 
-  abstract toBinary(): ArrayBuffer | undefined;
+  abstract toBinary(): ArrayBuffer;
 
   protected abstract performFromBinary(binary: ArrayBuffer): void;
 }

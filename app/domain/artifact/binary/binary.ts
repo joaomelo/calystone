@@ -1,3 +1,5 @@
+import { throwCritical } from "@/utils";
+
 import { Artifact } from "../artifact";
 
 export class BinaryArtifact extends Artifact {
@@ -7,7 +9,8 @@ export class BinaryArtifact extends Artifact {
     this.content = binary;
   }
 
-  toBinary(): ArrayBuffer | undefined {
+  toBinary(): ArrayBuffer {
+    if (!this.content) throwCritical("ARTIFACT_UNLOADED");
     return this.content;
   }
 }
