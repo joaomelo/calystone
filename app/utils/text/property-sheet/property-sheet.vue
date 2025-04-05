@@ -19,8 +19,8 @@ defineProps<{
       :key="index"
       class="property-sheet__row"
     >
-      <span class="property-sheet__row-label">{{ row.label }}</span>
-      <span class="property-sheet__row-value">{{ row.value }}</span>
+      <span class="property-sheet__row__label">{{ row.label }}</span>
+      <span class="property-sheet__row__value">{{ row.value }}</span>
     </div>
   </div>
 </template>
@@ -43,11 +43,11 @@ defineProps<{
   border-bottom: var(--border-size-1) solid var(--p-surface-200);
 }
 
-.property-sheet__row-label {
+.property-sheet__row__label {
   font-weight: var(--font-weight-5);
 }
 
-.property-sheet__row-value {
+.property-sheet__row__value {
   text-align: right;
 }
 </style>
