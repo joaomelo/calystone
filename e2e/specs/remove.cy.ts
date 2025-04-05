@@ -1,4 +1,4 @@
-import { dataTest, editor, outline, pageOpen, toolbarNode } from "../helpers";
+import { dataTest, editorEmpty, outline, pageOpen, toolbarNode } from "../helpers";
 
 describe("remove", () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe("remove", () => {
         .then((newLabel) => {
           expect(newLabel).to.not.equal(oldLabel);
         });
-      editor.empty.editor().should("exist");
+      editorEmpty.message().should("exist");
     });
   });
 
@@ -37,7 +37,7 @@ describe("remove", () => {
         .then((newLabel) => {
           expect(newLabel).to.not.equal(oldLabel);
         });
-      editor.empty.editor().should("exist");
+      editorEmpty.message().should("exist");
     });
   });
 

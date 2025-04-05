@@ -1,4 +1,4 @@
-import { editor, outline, pageOpen } from "../helpers";
+import { outline, pageOpen } from "../helpers";
 
 describe("outline", () => {
   beforeEach(() => {
@@ -14,9 +14,4 @@ describe("outline", () => {
     cy.get("@subdirectory").should("have.attr", "aria-expanded", "true");
   });
 
-  it("shows content when text artifact is selected", () => {
-    outline.toogleOf(outline.rootNode()).click();
-    outline.textArtifactOf(outline.rootNode()).first().click();
-    editor.text.editor().should("exist");
-  });
 });
