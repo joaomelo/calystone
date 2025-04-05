@@ -47,13 +47,19 @@ defineProps<{
   align-items: baseline;
   padding-block: var(--size-1);
   border-bottom: var(--border-size-1) solid var(--p-surface-200);
+  gap: var(--size-2);
 }
 
 .property-sheet__row__label {
   font-weight: var(--font-weight-5);
+  flex-shrink: 0;
 }
 
 .property-sheet__row__value {
   text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 </style>
