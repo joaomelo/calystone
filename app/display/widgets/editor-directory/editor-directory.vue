@@ -26,7 +26,10 @@ const propertySheetRows = computed(() => {
           :rows="propertySheetRows"
           :title="`${t('directory')} ${content.name}`"
         />
-        <TextMessage v-if="!content.isLoaded()">
+        <TextMessage
+          v-if="!content.isLoaded()"
+          data-test="tip-unloaded"
+        >
           {{ t('directory-unloaded') }}
         </TextMessage>
       </div>

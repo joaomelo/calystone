@@ -6,10 +6,6 @@ export const editor = {
     size: () => cy.get(dataTest("size")),
     type: () => cy.get(dataTest("type")),
   },
-  directory: {
-    items: () => cy.get(dataTest("items")),
-    path: () => cy.get(dataTest("path")),
-  },
   empty: {
     editor: () => cy.get(dataTest("editor-empty")),
   },

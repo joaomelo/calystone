@@ -19,8 +19,14 @@ defineProps<{
       :key="index"
       class="property-sheet__row"
     >
-      <span class="property-sheet__row__label">{{ row.label }}</span>
-      <span class="property-sheet__row__value">{{ row.value }}</span>
+      <span
+        class="property-sheet__row__label"
+        :data-test="`property-sheet-${index}-label`"
+      >{{ row.label }}</span>
+      <span
+        class="property-sheet__row__value"
+        :data-test="`property-sheet-${index}-value`"
+      >{{ row.value }}</span>
     </div>
   </div>
 </template>

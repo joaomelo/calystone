@@ -1,5 +1,6 @@
 export * from "./data-test";
 export * from "./editor";
+export * from "./editor-directory";
 export * from "./frame-dashboard";
 export * from "./outline";
 export * from "./page-open";
