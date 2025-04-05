@@ -19,7 +19,7 @@ describe("remove", () => {
       selectors.buttonConfirm().click();
 
       outline.labelOf(outline.directoryOf(outline.rootNode()).first())
-        .then((newLabel) => {
+        .should((newLabel) => {
           expect(newLabel).to.not.equal(oldLabel);
         });
       editorEmpty.message().should("exist");
@@ -34,7 +34,7 @@ describe("remove", () => {
       selectors.buttonConfirm().click();
 
       outline.labelOf(outline.artifactOf(outline.rootNode()).first())
-        .then((newLabel) => {
+        .should((newLabel) => {
           expect(newLabel).to.not.equal(oldLabel);
         });
       editorEmpty.message().should("exist");
