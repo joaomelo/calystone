@@ -1,6 +1,6 @@
 import { pageOpen, pageOutline } from "../helpers";
 
-describe("open", () => {
+describe("open-source", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
   });

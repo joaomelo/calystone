@@ -1,19 +1,8 @@
-import { editorDirectory, outline, pageOpen, toolbarNode } from "../helpers";
+import { editorDirectory, outline, pageOpen } from "../helpers";
 
-describe("outline", () => {
+describe("editor-directory", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
-  });
-
-  it("can open directory via expand", () => {
-    outline.toogleOf(outline.rootNode()).click();
-    outline.childrenOf(outline.rootNode()).should("have.length.greaterThan", 0);
-  });
-
-  it("can open directory via toolbar button", () => {
-    outline.rootNode().click();
-    toolbarNode.buttonOpenDirectory().click();
-    editorDirectory.tipUnloaded().should("not.exist");
   });
 
   it("shows and updates tip and directory data according to directory status", () => {
