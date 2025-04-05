@@ -9,14 +9,14 @@ import type { EditorSwitch } from "../editor-switch";
 import { editorArtifactBinarySwitch } from "../editor-artifact-binary";
 import { editorArtifactTextSwitch } from "../editor-artifact-text";
 import { editorDirectorySwitch } from "../editor-directory";
-import { editorEmptySwitch, editorNotLoadedSwitch } from "../editors-message";
+import { editorEmptySwitch } from "../editors-message";
 
 const { node } = defineProps<{
   node?: Node;
 }>();
 
 // switches order matters since the first compatible switch will be used, so the most specific should be first.
-const switchs: EditorSwitch[] = [editorEmptySwitch, editorNotLoadedSwitch, editorDirectorySwitch, editorArtifactTextSwitch, editorArtifactBinarySwitch];
+const switchs: EditorSwitch[] = [editorEmptySwitch, editorDirectorySwitch, editorArtifactTextSwitch, editorArtifactBinarySwitch];
 const editor: Component = computed(() => {
   const specializedSwitch = switchs.find((s) => s.supports(node));
   return specializedSwitch?.component ?? editorEmptySwitch.component;
@@ -26,21 +26,10 @@ const editor: Component = computed(() => {
 const key = computed(() => node?.id ?? "empty");
 </script>
 <template>
-  <Suspense>
-    <template #default>
-      <component
-        :is="editor"
-        :key
-        :content="node"
-        v-bind="$attrs"
-      />
-    </template>
-    <template #fallback>
-      <component
-        :is="editorNotLoadedSwitch.component"
-        :key
-        :content="node"
-      />
-    </template>
-  </Suspense>
+  <component
+    :is="editor"
+    :key
+    :content="node"
+    v-bind="$attrs"
+  />
 </template>
