@@ -1,63 +1,57 @@
 <script setup lang="ts">
+import type { Id, Node } from "@/domain";
+
 import { Store } from "@/display/store";
 import { EditorSwitcher, FrameDashboard, OutlineNodes } from "@/display/widgets";
-import { Artifact, Directory, type Id, type Node } from "@/domain";
+import { Directory } from "@/domain";
 import { MasterDetail, useDispatch } from "@/utils";
 import { ref } from "vue";
 
 const { dispatchOrToast } = useDispatch();
 const { nodes, services } = Store.use();
-const node = ref<Node | undefined>();
-const detail = ref(false);
+
+const selectedNode = ref<Node | undefined>();
+const showDetail = ref(false);
 
 function handleClose() {
-  detail.value = false;
-  node.value = undefined;
+  showDetail.value = false;
+  selectedNode.value = undefined;
 }
 
-function handleExpanded(id: Id) {
+async function handleExpanded(id: Id) {
   const node = solveNode(id);
-  if (node) void triggerOpen(node);
+  if (node instanceof Directory) {
+    await dispatchOrToast(() => services.directoryOpen.open(node));
+  }
 }
 
 function handleSelected(id?: Id) {
-  node.value = solveNode(id);
-  detail.value = Boolean(node.value);
-  if (node.value) void triggerOpen(node.value);
+  // selection does not trigger directory opening or artifact content fetching. selection opens the editor for the selected node. each editor is going to manage what is the best approach regarding content. maybe auto opening or offering a affordances for the user to do it at their convenience.
+  selectedNode.value = solveNode(id);
+  showDetail.value = Boolean(selectedNode.value);
 }
 
 function solveNode(id?: Id) {
   const node = (id) ? nodes.get(id) : undefined;
   return node;
 }
-
-async function triggerOpen(node: Node) {
-  if (node instanceof Directory) {
-    await dispatchOrToast(() => services.directoryOpen.open(node));
-  }
-
-  if (node instanceof Artifact && node.mime.type() === "text") {
-    await dispatchOrToast(() => services.exchangeArtifact.fetch(node));
-  }
-}
 </script>
 <template>
   <FrameDashboard>
     <MasterDetail
-      v-model="detail"
+      v-model="showDetail"
       class="page-outline"
     >
       <template #master>
         <OutlineNodes
           :nodes="nodes"
-          class="page-outline-start"
           @selected="handleSelected"
           @expanded="handleExpanded"
         />
       </template>
       <template #detail>
         <EditorSwitcher
-          :node
+          :node="selectedNode"
           @close="handleClose"
         />
       </template>
