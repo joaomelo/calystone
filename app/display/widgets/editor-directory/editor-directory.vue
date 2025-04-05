@@ -2,8 +2,7 @@
 import type { Directory } from "@/domain";
 
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
-import { useI18n } from "@/utils";
-import { PropertySheet } from "@/utils";
+import { PropertySheet, TextMessage, useI18n } from "@/utils";
 import { computed } from "vue";
 
 const { content } = defineProps<{
@@ -27,6 +26,9 @@ const propertySheetRows = computed(() => {
           :rows="propertySheetRows"
           :title="`${t('directory')} ${content.name}`"
         />
+        <TextMessage v-if="!content.isLoaded()">
+          {{ t('directory-unloaded') }}
+        </TextMessage>
       </div>
     </template>
   </EditorNodeWorkspace>
@@ -34,5 +36,8 @@ const propertySheetRows = computed(() => {
 <style scoped>
 .editor-directory {
   padding-inline: var(--size-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
 }
 </style>
