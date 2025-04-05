@@ -31,9 +31,9 @@ export class ConnectedDirectoryOpenService implements DirectoryOpenService {
         const node = createNode({ nodes: this.nodes, ...data });
         this.nodes.set(node);
       }
-      directory.loaded();
+      directory.load();
     } catch (error) {
-      directory.unloaded();
+      directory.unload();
       throwError("UNABLE_TO_OPEN_DIRECTORY", error);
     } finally {
       directory.idle();

@@ -21,10 +21,10 @@ export class ConnectedExchangeArtifactService implements ExchangeArtifactService
     try {
       const content = artifact.toBinary() ?? await this.fileSystemAdapter.fetchFileContent(artifact.id);
       artifact.fromBinary(content);
-      artifact.loaded();
+      artifact.load();
       return content;
     } catch (error) {
-      artifact.unloaded();
+      artifact.unload();
       throwError("UNABLE_TO_FETCH_CONTENT", error);
     } finally {
       artifact.idle();

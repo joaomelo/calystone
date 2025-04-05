@@ -19,7 +19,7 @@ export abstract class Artifact extends Node {
 
   fromBinary(binary: ArrayBuffer): void {
     this.performFromBinary(binary);
-    this.loaded();
+    this.load();
   }
 
   parentable(): Status {

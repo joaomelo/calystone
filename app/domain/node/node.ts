@@ -7,15 +7,14 @@ import type { Id } from "../id";
 import type { NodeOptions } from "./options";
 
 type Activity = "busy" | "idle";
-type Load = "loaded" | "unloaded";
 
 export abstract class Node {
   activity: Activity = "idle";
   readonly id: Id;
-  load: Load = "unloaded";
   name: string;
   readonly nodes: Nodes;
   parentId?: Id;
+  private loaded = false;
 
   constructor({ id, name, nodes, parentId }: NodeOptions) {
     this.id = id;
@@ -63,15 +62,15 @@ export abstract class Node {
   }
 
   isLoaded(): boolean {
-    return this.load === "loaded";
+    return this.loaded;
   }
 
   isRoot(): boolean {
     return !this.parentId;
   }
 
-  loaded(): void {
-    this.load = "loaded";
+  load(): void {
+    this.loaded = true;
   }
 
   mountPath(): string {
@@ -99,7 +98,7 @@ export abstract class Node {
 
   abstract parentable(): Status;
 
-  unloaded(): void {
-    this.load = "unloaded";
+  unload(): void {
+    this.loaded = false;
   }
 }
