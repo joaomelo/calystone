@@ -1,7 +1,7 @@
 import type { Artifact } from "@/domain";
 import type { FileSystemAdapter } from "@/infra";
 
-import { throwCritical, throwError } from "@/utils";
+import { throwError } from "@/utils";
 
 import type { ExchangeArtifactService } from "./exchange";
 
@@ -28,8 +28,6 @@ export class ConnectedExchangeArtifactService implements ExchangeArtifactService
 
   async postFrom(artifact: Artifact) {
     const content = artifact.toBinary();
-    if (!content) throwCritical("ARTIFACT_UNLOADED");
-
     await this.fileSystemAdapter.postFileContent({ content, id: artifact.id });
   }
 }
