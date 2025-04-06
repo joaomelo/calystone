@@ -7,8 +7,8 @@
   "complete": "concluir",
   "completed": "concluído",
   "connect": "conectar",
-  "create-directory": "criar diretório",
   "create-artifact": "criar arquivo",
+  "create-directory": "criar diretório",
   "date-end": "data final",
   "date-start": "data inicial",
   "delete": "excluir",
@@ -68,6 +68,7 @@
     "one-drive": "OneDrive",
     "title": "Acesse seus arquivos por um dos métodos abaixo"
   },
+  "open-directory": "abrir diretório",
   "or": "ou",
   "outline": "hierarquia",
   "path": "caminho",
@@ -76,6 +77,7 @@
   "rename": "renomear",
   "save": "salvar",
   "search": "buscar",
+  "share": "compartilhar",
   "size": "tamanho",
   "tags": "rótulos",
   "type": "tipo"

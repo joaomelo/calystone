@@ -3,7 +3,7 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { DialogRemove } from "@/display/widgets/dialog-remove";
-import { ToolbarButton } from "@/utils";
+import { ToolbarButton, useI18n } from "@/utils";
 import { useTemplateRef } from "vue";
 
 const { node } = defineProps<{
@@ -15,6 +15,8 @@ const emit = defineEmits<{
 
 const { services } = Store.use();
 const dialogRemove = useTemplateRef<{ remove: () => Promise<boolean> }>("dialogRemove");
+const { t } = useI18n();
+
 async function handleClick() {
   if (!dialogRemove.value) return;
   const result = await dialogRemove.value.remove();
@@ -26,6 +28,7 @@ async function handleClick() {
 <template>
   <ToolbarButton
     v-if="services.nodeRemove.support(node)"
+    v-tooltip="{ value: t('delete-node', { name: node.name }), showDelay: 500 }"
     icon="bxs-trash"
     data-test="button-remove"
     @click="handleClick"
