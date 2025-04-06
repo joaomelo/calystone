@@ -19,7 +19,7 @@ export class ConnectedNodeRemoveService implements NodeRemoveService {
     this.nodes.remove(node);
   }
 
-  support(node: Node) {
+  removeable(node: Node) {
     return this.supportAdapter.remove(node);
   }
 

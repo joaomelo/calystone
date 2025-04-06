@@ -42,10 +42,11 @@ export class ConnectedCreateArtifactService implements CreateArtifactService {
   }
 
   createbleOn(parent: Node): Status {
-    if (!this.supportAdapter.createArtifact()) return Status.fail("CREATE_FILE_NOT_SUPPORTED");
+    const supportable = this.supportAdapter.createArtifact();
+    if (supportable.isFail()) return supportable;
 
     const parentable = parent.parentable();
-    if (!parentable.isOk()) return parentable;
+    if (parentable.isFail()) return parentable;
 
     return Status.ok();
   }

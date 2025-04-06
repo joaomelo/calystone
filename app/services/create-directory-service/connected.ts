@@ -40,10 +40,11 @@ export class ConnectedCreateDirectoryService implements CreateDirectoryService {
   }
 
   createbleOn(parent: Node): Status {
-    if (!this.supportAdapter.createDirectory()) return Status.fail("CREATE_DIRECTORY_NOT_SUPPORTED");
+    const supportable = this.supportAdapter.createDirectory();
+    if (supportable.isFail()) return supportable;
 
     const parentable = parent.parentable();
-    if (!parentable.isOk()) return parentable;
+    if (parentable.isFail()) return parentable;
 
     return Status.ok();
   }

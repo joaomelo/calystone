@@ -4,11 +4,11 @@ import type { DirectoryOpenService } from "./open";
 
 export class NullDirectoryOpenService extends NullThrower implements DirectoryOpenService{
 
-  open(): Promise<void> {
+  open(): never {
     this.throw();
   }
 
-  openRoots(): Promise<void> {
+  openRoots(): never {
     this.throw();
   }
 

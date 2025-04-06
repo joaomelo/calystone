@@ -1,16 +1,14 @@
-import type { Status } from "@/utils";
-
 import { NullThrower } from "@/utils";
 
 import type { ShareNodeService } from "./share";
 
 export class NullShareNodeService extends NullThrower implements ShareNodeService {
 
-  share(): Promise<void> {
+  share(): never {
     this.throw();
   }
 
-  shareable(): Status {
+  shareable(): never {
     this.throw();
   }
 }

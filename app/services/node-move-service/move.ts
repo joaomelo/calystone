@@ -1,6 +1,7 @@
 import type { Node } from "@/domain";
+import type { Status } from "@/utils";
 
 export interface NodeMoveService {
-  support(node: Node): boolean;
+  moveable(node: Node): Status;
   move(options: { subject: Node, target: Node }): Promise<void>;
 }

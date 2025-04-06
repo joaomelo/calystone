@@ -4,11 +4,11 @@ import type { NodeMoveService } from "./move";
 
 export class NullNodeMoveService extends NullThrower implements NodeMoveService{
 
-  move(): Promise<void> {
+  move(): never {
     this.throw();
   }
 
-  support(): boolean {
+  moveable(): never {
     this.throw();
   }
 

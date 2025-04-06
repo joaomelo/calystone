@@ -1,18 +1,20 @@
-// import type { Node } from "@/domain";
-import type { FileSystemAdapter } from "@/infra";
+import type { Node } from "@/domain";
+import type { FileSystemAdapter, SupportAdapter } from "@/infra";
 
-import { Status, throwError } from "@/utils";
+import { throwNull } from "@/utils";
 
 import type { ShareNodeService } from "./share";
 
 export class ConnectedShareNodeService implements ShareNodeService {
   private readonly fileSystemAdapter: FileSystemAdapter;
+  private readonly supportAdapter: SupportAdapter;
 
-  constructor(fileSystemAdapter: FileSystemAdapter) {
-    this.fileSystemAdapter = fileSystemAdapter;
+  constructor(options: { fileSystemAdapter: FileSystemAdapter, supportAdapter: SupportAdapter }) {
+    this.fileSystemAdapter = options.fileSystemAdapter;
+    this.supportAdapter = options.supportAdapter;
   }
 
-  share(): Promise<void> {
+  share(): never {
     // node.busy();
     // try {
     //   const content = await this.fileSystemAdapter.fetchFileContent(node.id);
@@ -24,10 +26,10 @@ export class ConnectedShareNodeService implements ShareNodeService {
     // } finally {
     //   node.idle();
     // }
-    throwError("TODO");
+    throwNull();
   }
 
-  shareable(node: Node): Status {
-    return Status.fail("TODO");
+  shareable(node: Node) {
+    return this.supportAdapter.share(node);
   }
 }

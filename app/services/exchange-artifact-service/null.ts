@@ -4,11 +4,11 @@ import type { ExchangeArtifactService } from "./exchange";
 
 export class NullExchangeArtifactService extends NullThrower implements ExchangeArtifactService {
 
-  fetchInto(): Promise<void> {
+  fetchInto(): never {
     this.throw();
   }
 
-  postFrom(): Promise<void> {
+  postFrom(): never {
     this.throw();
   }
 

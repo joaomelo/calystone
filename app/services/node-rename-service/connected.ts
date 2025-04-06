@@ -28,7 +28,7 @@ export class ConnectedNodeRenameService implements NodeRenameService {
     node.name = options.name;
   }
 
-  support(node: Node) {
+  renameable(node: Node) {
     return this.supportAdapter.rename(node);
   }
 

@@ -1,16 +1,14 @@
-import type { Status } from "@/utils";
-
 import { NullThrower } from "@/utils";
 
 import type { CreateArtifactService } from "./create-artifact";
 
 export class NullCreateArtifactService extends NullThrower implements CreateArtifactService{
 
-  create(): Promise<void> {
+  create(): never {
     this.throw();
   }
 
-  createbleOn(): Status {
+  createbleOn(): never {
     this.throw();
   }
 

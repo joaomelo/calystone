@@ -4,11 +4,11 @@ import type { NodeRenameService } from "./rename";
 
 export class NullNodeRenameService extends NullThrower implements NodeRenameService{
 
-  rename(): Promise<void> {
+  rename(): never {
     this.throw();
   }
 
-  support(): boolean {
+  renameable(): never {
     this.throw();
   }
 

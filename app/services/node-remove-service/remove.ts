@@ -1,6 +1,7 @@
 import type { Node } from "@/domain";
+import type { Status } from "@/utils";
 
 export interface NodeRemoveService {
-  support(node: Node): boolean;
+  removeable(node: Node): Status;
   remove(node: Node): Promise<void>
 }

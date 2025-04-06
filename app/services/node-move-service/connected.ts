@@ -12,7 +12,7 @@ export class ConnectedNodeMoveService implements NodeMoveService {
     this.supportAdapter = options.supportAdapter;
   }
 
-  async move(options: { subject: Node, target: Node }): Promise<void> {
+  async move(options: { subject: Node, target: Node }) {
     const { subject, target } = options;
     const moveable = subject.moveable(target);
     moveable.throwOnFail();
@@ -28,7 +28,7 @@ export class ConnectedNodeMoveService implements NodeMoveService {
     }
   }
 
-  support(node: Node) {
+  moveable(node: Node) {
     return this.supportAdapter.move(node);
   }
 
