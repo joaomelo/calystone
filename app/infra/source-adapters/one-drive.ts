@@ -13,7 +13,7 @@ export class OneDriveSourceAdapter extends BaseSourceAdapter<string> {
 
   constructor({ clientId, redirectUrl }: Options) {
     const support = new CloudSupportAdapter({ clientId, redirectUrl });
-    const access = (support.access() && clientId && redirectUrl)
+    const access = (support.access().isOk() && clientId && redirectUrl)
       ? new OneDriveAccessAdapter({ clientId, redirectUrl })
       : new NullAccessAdapter<string>();
     super({ access, support });

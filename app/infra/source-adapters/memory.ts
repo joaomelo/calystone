@@ -14,7 +14,7 @@ export class MemorySourceAdapter extends BaseSourceAdapter<string> {
 
   constructor({ delayInSeconds, enabled }: Options) {
     const support = new MemorySupportAdapter({ enabled });
-    const access = support.access()
+    const access = support.access().isOk()
       ? new MemoryAccessAdapter(delayInSeconds)
       : new NullAccessAdapter<string>();
     super({ access, support });

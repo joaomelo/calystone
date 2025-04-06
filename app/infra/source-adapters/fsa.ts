@@ -8,7 +8,7 @@ export class FsaSourceAdapter extends BaseSourceAdapter<FileSystemDirectoryHandl
 
   constructor() {
     const support = new FsaSupportAdapter();
-    const access = support.access()
+    const access = support.access().isOk()
       ? new FsaAccessAdapter()
       : new NullAccessAdapter<FileSystemDirectoryHandle>();
     super({ access, support });
