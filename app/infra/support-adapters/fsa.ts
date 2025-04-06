@@ -1,40 +1,53 @@
 import type { Node } from "@/domain";
 
-import { Directory } from "@/domain";
+import { Status } from "@/utils";
 
-import type { SupportAdapter } from "./support";
+import { SupportAdapter } from "./support";
 
-export class FsaSupportAdapter implements SupportAdapter {
+export class FsaSupportAdapter extends SupportAdapter {
   access() {
-    return this.isFileSystemAccessSupported();
+    return this.statusOfFileSystemAccessSupport();
   }
 
   createArtifact() {
-    return this.isFileSystemAccessSupported();
+    return this.statusOfFileSystemAccessSupport();
   }
 
   createDirectory() {
-    return this.isFileSystemAccessSupported();
+    return this.statusOfFileSystemAccessSupport();
   }
 
   move(subject: Node) {
-    if (subject.isRoot()) return false;
-    if (subject instanceof Directory) return false;
-    return this.isFileSystemAccessSupported();
+    const rootStatus = this.failIfRoot(subject);
+    if (rootStatus.isFail()) return rootStatus;
+
+    const directoryStatus = this.failIfDirectory(subject);
+    if (directoryStatus.isFail()) return directoryStatus;
+
+    return this.statusOfFileSystemAccessSupport();
   }
 
   remove(node: Node) {
-    if (node.isRoot()) return false;
-    return this.isFileSystemAccessSupported();
+    const rootStatus = this.failIfRoot(node);
+    if (rootStatus.isFail()) return rootStatus;
+
+    return this.statusOfFileSystemAccessSupport();
   }
 
   rename(node: Node) {
-    if (node instanceof Directory) return false;
-    return this.isFileSystemAccessSupported();
+    const directoryStatus = this.failIfDirectory(node);
+    if (directoryStatus.isFail()) return directoryStatus;
+
+    return this.statusOfFileSystemAccessSupport();
   }
 
-  private isFileSystemAccessSupported() {
-    if (typeof self === "undefined") return false;
-    return ("showOpenFilePicker" in self);
+  share() {
+    return Status.fail("NOT_IMPLEMENTED");
+  }
+
+  private statusOfFileSystemAccessSupport() {
+    if (typeof self === "undefined") return Status.fail("SELF_UNDEFINED");
+    if (!("showOpenFilePicker" in self)) return Status.fail("SHOW_OPEN_FILE_PICKER_NOT_SUPPORTED");
+    return Status.ok();
   }
 }

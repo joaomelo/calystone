@@ -1,45 +1,59 @@
 import type { Node } from "@/domain";
 
-import type { SupportAdapter } from "./support";
+import { Status } from "@/utils";
+
+import { SupportAdapter } from "./support";
 
 interface Options {
   enabled: boolean;
 }
 
-export class MemorySupportAdapter implements SupportAdapter {
+export class MemorySupportAdapter extends SupportAdapter {
   enabled: boolean;
 
   constructor(options: Options) {
+    super();
     this.enabled = options.enabled;
   }
 
-  access(): boolean {
-    return this.isEnabled();
+  access() {
+    return this.statusOfMemoryEnabled();
   }
 
-  createArtifact(): boolean {
-    return this.isEnabled();
+  createArtifact() {
+    return this.statusOfMemoryEnabled();
   }
 
-  createDirectory(): boolean {
-    return this.isEnabled();
+  createDirectory() {
+    return this.statusOfMemoryEnabled();
   }
 
   move(node: Node) {
-    if (node.isRoot()) return false;
-    return this.isEnabled();
+    const rootStatus = this.failIfRoot(node);
+    if (rootStatus.isFail()) return rootStatus;
+
+    return this.statusOfMemoryEnabled();
   }
 
   remove(node: Node) {
-    if (node.isRoot()) return false;
-    return this.isEnabled();
+    const rootStatus = this.failIfRoot(node);
+    if (rootStatus.isFail()) return rootStatus;
+
+    return this.statusOfMemoryEnabled();
   }
 
   rename() {
-    return this.isEnabled();
+    return this.statusOfMemoryEnabled();
   }
 
-  private isEnabled() {
-    return this.enabled;
+  share(node: Node) {
+    const directoryStatus = this.failIfDirectory(node);
+    if (directoryStatus.isFail()) return directoryStatus;
+    return Status.ok();
+  }
+
+  private statusOfMemoryEnabled() {
+    if (!this.enabled) return Status.fail("MEMORY_NOT_ENABLED");
+    return Status.ok();
   }
 }
