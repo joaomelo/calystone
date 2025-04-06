@@ -13,7 +13,7 @@ const { node } = defineProps<{
 }>();
 const { nodes, services } = Store.use();
 
-const isMoveable = computed(() => services.nodeMove.support(node));
+const moveable = computed(() => services.nodeMove.moveable(node));
 const { dispatchOrToast } = useDispatch();
 const dragFormat = "application/node-id";
 
@@ -49,7 +49,7 @@ function handleDragstart(event: DragEvent) {
 </script>
 <template>
   <div
-    :draggable="isMoveable"
+    :draggable="moveable.isOk()"
     class="outline-node"
     data-test-type="outline-node"
     :data-test="node.id"

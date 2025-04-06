@@ -4,19 +4,21 @@ import type { Node } from "@/domain";
 import { Store } from "@/display/store";
 import { DialogRename } from "@/display/widgets/dialog-rename";
 import { ToolbarButton, useI18n } from "@/utils";
-import { useTemplateRef } from "vue";
+import { computed, useTemplateRef } from "vue";
 
-defineProps<{
+const { node } = defineProps<{
   node: Node;
 }>();
 
 const { services } = Store.use();
 const { t } = useI18n();
 const dialogRename = useTemplateRef("dialogRename");
+
+const renameable = computed(() => services.nodeRename.renameable(node));
 </script>
 <template>
   <ToolbarButton
-    v-if="services.nodeRename.support(node)"
+    v-if="renameable.isOk()"
     v-tooltip="{ value: t('rename'), showDelay: 500 }"
     icon="bxs-rename"
     data-test="button-rename"
