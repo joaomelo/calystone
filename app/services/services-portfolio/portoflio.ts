@@ -85,6 +85,6 @@ export class ServicesPortolfio {
     this.nodeMove = new ConnectedNodeMoveService({ fileSystemAdapter, supportAdapter });
     this.createDirectory = new ConnectedCreateDirectoryService({ directoryOpen: this.directoryOpen, fileSystemAdapter, nodes, supportAdapter });
     this.createArtifact = new ConnectedCreateArtifactService({ directoryOpen: this.directoryOpen, exchangeArtifact: this.exchangeArtifact, fileSystemAdapter, nodes, supportAdapter });
-    this.shareNode = new ConnectedShareNodeService(fileSystemAdapter);
+    this.shareNode = new ConnectedShareNodeService({ fileSystemAdapter, supportAdapter });
   };
 }
