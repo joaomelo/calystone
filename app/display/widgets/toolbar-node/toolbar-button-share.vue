@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import type { Node } from "@/domain";
 
-import { Status, ToolbarButton, useI18n } from "@/utils";
-defineProps<{
+import { Store } from "@/display/store";
+import { ToolbarButton, useI18n } from "@/utils";
+import { computed } from "vue";
+
+const { node } = defineProps<{
   node: Node;
 }>();
 
 const { t } = useI18n();
-// const { services } = Store.use();
+const { services } = Store.use();
 
-// const shareable = computed(() => services.share.shareableOn(node));
-const shareable = Status.ok(true);
+const shareable = computed(() => services.shareNode.shareable(node));
 </script>
 <template>
   <ToolbarButton

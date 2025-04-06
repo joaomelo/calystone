@@ -8,6 +8,7 @@ import type { ExchangeTextService } from "@/services/exchange-text-service";
 import type { NodeMoveService } from "@/services/node-move-service";
 import type { NodeRemoveService } from "@/services/node-remove-service";
 import type { NodeRenameService } from "@/services/node-rename-service";
+import type { ShareNodeService } from "@/services/share-node-service";
 
 import { Nodes } from "@/domain";
 import { AccessRequestService } from "@/services/access-request-service";
@@ -20,6 +21,7 @@ import { ConnectedExchangeTextService, NullExchangeTextService } from "@/service
 import { ConnectedNodeMoveService, NullNodeMoveService } from "@/services/node-move-service";
 import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/node-remove-service";
 import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
+import { ConnectedShareNodeService, NullShareNodeService } from "@/services/share-node-service";
 
 export class ServicesPortolfio {
   accessRequest: AccessRequestService;
@@ -33,6 +35,7 @@ export class ServicesPortolfio {
   nodeRemove: NodeRemoveService;
   nodeRename: NodeRenameService;
   nodes: Nodes;
+  shareNode: ShareNodeService;
   sourceAdapterPortfolio: SourceAdapterPortfolio;
 
   constructor(SourceAdapterPortfolio: SourceAdapterPortfolio) {
@@ -50,6 +53,7 @@ export class ServicesPortolfio {
     this.nodeMove = new NullNodeMoveService();
     this.createDirectory = new NullCreateDirectoryService();
     this.createArtifact = new NullCreateArtifactService();
+    this.shareNode = new NullShareNodeService();
 
     this.connection.subscribe((options) => { this.rotateServices(options); });
   }
@@ -64,6 +68,7 @@ export class ServicesPortolfio {
       this.nodeMove = new NullNodeMoveService();
       this.createDirectory = new NullCreateDirectoryService();
       this.createArtifact = new NullCreateArtifactService();
+      this.shareNode = new NullShareNodeService();
       return;
     }
 
@@ -80,5 +85,6 @@ export class ServicesPortolfio {
     this.nodeMove = new ConnectedNodeMoveService({ fileSystemAdapter, supportAdapter });
     this.createDirectory = new ConnectedCreateDirectoryService({ directoryOpen: this.directoryOpen, fileSystemAdapter, nodes, supportAdapter });
     this.createArtifact = new ConnectedCreateArtifactService({ directoryOpen: this.directoryOpen, exchangeArtifact: this.exchangeArtifact, fileSystemAdapter, nodes, supportAdapter });
+    this.shareNode = new ConnectedShareNodeService(fileSystemAdapter);
   };
 }
