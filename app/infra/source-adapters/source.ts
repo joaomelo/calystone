@@ -1,10 +1,6 @@
-import type { AccessAdapter } from "@/infra/access-adapters";
 import type { FileSystemAdapter } from "@/infra/files-system-adapters";
-import type { SupportAdapter } from "@/infra/support-adapters";
+import type { ShareAdapter } from "@/infra/share-adapters";
 
-export interface SourceAdapter<T> {
-  getSupport(): SupportAdapter;
-  getAccess(): AccessAdapter<T>;
-  createFileSystemAdapter(): FileSystemAdapter | Promise<FileSystemAdapter>;
-  getOrThrowFileSystemAdapter(): FileSystemAdapter;
+export interface SourceAdapter extends FileSystemAdapter, ShareAdapter {
+  request(): Promise<void> | void;
 }

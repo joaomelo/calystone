@@ -23,7 +23,7 @@ export class ConnectedNodeRenameService implements NodeRenameService {
   async rename(options: { name: string, node: Node }): Promise<void> {
     this.schema.validate(options);
     const adapterOptions = { id: options.node.id, name: options.name };
-    await this.fileSystemAdapter.renameNode(adapterOptions);
+    await this.fileSystemAdapter.rename(adapterOptions);
     const node = this.nodes.getOrThrow(options.node.id);
     node.name = options.name;
   }

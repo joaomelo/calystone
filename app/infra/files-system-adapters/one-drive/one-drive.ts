@@ -52,7 +52,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     return this.convertDriveItemToDirectoryData({ item, parentId });
   }
 
-  async fetchFileContent(id: Id): Promise<ArrayBuffer> {
+  async fetchContent(id: Id): Promise<ArrayBuffer> {
     // onedrive only returns the download url if the request is made exclusivy for it: https://stackoverflow.com/questions/57036249/search-query-doesnt-return-microsoft-graph-downloadurl
     const downloadUrl = await this.graphClient
       .api(`/me/drive/items/${id}`)
@@ -63,7 +63,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     return content;
   }
 
-  async moveNode(options: { subject: Node, target: Directory }): Promise<void> {
+  async move(options: { subject: Node, target: Directory }): Promise<void> {
     const { subject, target } = options;
 
     const able = subject.moveable(target);
@@ -78,7 +78,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
       });
   }
 
-  async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
+  async open(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
     const response = await this.graphClient
       .api(`/me/drive/items/${id}/children`)
       .get() as { value: DriveItem[] };
@@ -95,7 +95,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     return childrenData;
   }
 
-  async postFileContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
+  async postContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
     // graph client expects a node implementation of the arraybuffer and will break if receives the browser one. we need to convert the buffer to a blob to make the request work.
     const blob = new Blob([content]);
     await this.graphClient
@@ -103,7 +103,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
       .put(blob);
   }
 
-  async removeNode(node: Node): Promise<void> {
+  async remove(node: Node): Promise<void> {
     if (node.isRoot()) {
       throwCritical("CANNOT_REMOVE_ROOT", "cannot remove the root node");
     }
@@ -111,7 +111,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
     this.removeMetadata(node);
   }
 
-  async renameNode(options: { id: Id, name: string }): Promise<void> {
+  async rename(options: { id: Id, name: string }): Promise<void> {
     const { id, name } = options;
     await this.graphClient
       .api(`/me/drive/items/${id}`)

@@ -24,6 +24,6 @@ export class ConnectedExchangeTextService implements ExchangeTextService {
   async post(options: { artifact: TextArtifact; text: string }): Promise<void> {
     const { artifact, text } = options;
     artifact.content = text;
-    await this.fileSystemAdapter.postFileContent({ content: artifact.toBinary(), id: artifact.id });
+    await this.fileSystemAdapter.postContent({ content: artifact.toBinary(), id: artifact.id });
   }
 }

@@ -20,7 +20,7 @@ export class ConnectedNodeMoveService implements NodeMoveService {
       subject.busy();
       target.busy();
 
-      await this.fileSystemAdapter.moveNode(options);
+      await this.fileSystemAdapter.move(options);
       options.subject.move(options.target);
     } finally {
       subject.idle();

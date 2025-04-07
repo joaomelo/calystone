@@ -1,5 +1,5 @@
 import type { Nodes } from "@/domain";
-import type { FileSystemAdapter, Source, SourceAdapterPortfolio } from "@/infra";
+import type { FileSystemAdapter, Source, SourcesAdaptersPortfolio } from "@/infra";
 
 import { Directory } from "@/domain";
 import { throwCritical } from "@/utils";
@@ -10,23 +10,23 @@ import { StatusObservable } from "./status";
 
 interface Options {
   nodes: Nodes,
-  sourceAdapterPortfolio: SourceAdapterPortfolio
+  sourcesAdaptersPortfolio: SourcesAdaptersPortfolio
 }
 
 export class ConnectionService {
   private fileSystemAdapter?: FileSystemAdapter;
   private readonly nodes: Nodes;
-  private readonly sourceAdapterPortfolio: SourceAdapterPortfolio;
+  private readonly sourcesAdaptersPortfolio: SourcesAdaptersPortfolio;
   private readonly statusObservable: StatusObservable;
 
-  constructor({ nodes, sourceAdapterPortfolio }: Options) {
-    this.sourceAdapterPortfolio = sourceAdapterPortfolio;
+  constructor({ nodes, sourcesAdaptersPortfolio }: Options) {
+    this.sourcesAdaptersPortfolio = sourcesAdaptersPortfolio;
     this.nodes = nodes;
     this.statusObservable = new StatusObservable();
   }
 
   async connect(source: Source) {
-    const sourceAdapter = this.sourceAdapterPortfolio.get(source);
+    const sourceAdapter = this.sourcesAdaptersPortfolio.get(source);
     this.fileSystemAdapter = await sourceAdapter.createFileSystemAdapter();
     this.reset(this.fileSystemAdapter);
     this.statusObservable.next({ source, status: "connected" });
@@ -56,7 +56,7 @@ export class ConnectionService {
 
     if (!this.fileSystemAdapter) return;
 
-    const { rootData } = this.fileSystemAdapter;
+    const { resolveRoot: rootData } = this.fileSystemAdapter;
     const rootDirectory = new Directory({ nodes: this.nodes, ...rootData });
     this.nodes.set(rootDirectory);
   }

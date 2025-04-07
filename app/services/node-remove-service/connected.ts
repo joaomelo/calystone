@@ -15,7 +15,7 @@ export class ConnectedNodeRemoveService implements NodeRemoveService {
   }
 
   async remove(node: Node): Promise<void> {
-    await this.fileSystemAdapter.removeNode(node);
+    await this.fileSystemAdapter.remove(node);
     this.nodes.remove(node);
   }
 

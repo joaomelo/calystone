@@ -1,4 +1,4 @@
-import type { SourceAdapterPortfolio } from "@/infra";
+import type { SourcesAdaptersPortfolio } from "@/infra";
 import type { ObserverOptions } from "@/services/connection-service";
 import type { CreateArtifactService } from "@/services/create-artifact-service";
 import type { CreateDirectoryService } from "@/services/create-directory-service";
@@ -36,14 +36,14 @@ export class ServicesPortolfio {
   nodeRename: NodeRenameService;
   nodes: Nodes;
   shareNode: ShareNodeService;
-  sourceAdapterPortfolio: SourceAdapterPortfolio;
+  sourcesAdaptersPortfolio: SourcesAdaptersPortfolio;
 
-  constructor(SourceAdapterPortfolio: SourceAdapterPortfolio) {
-    this.sourceAdapterPortfolio = SourceAdapterPortfolio;
+  constructor(SourcesAdaptersPortfolio: SourcesAdaptersPortfolio) {
+    this.sourcesAdaptersPortfolio = SourcesAdaptersPortfolio;
 
     this.nodes = new Nodes();
-    this.accessRequest = new AccessRequestService(SourceAdapterPortfolio);
-    this.connection = new ConnectionService({ nodes: this.nodes, sourceAdapterPortfolio: SourceAdapterPortfolio });
+    this.accessRequest = new AccessRequestService(SourcesAdaptersPortfolio);
+    this.connection = new ConnectionService({ nodes: this.nodes, sourcesAdaptersPortfolio: SourcesAdaptersPortfolio });
 
     this.directoryOpen = new NullDirectoryOpenService();
     this.exchangeArtifact = new NullExchangeArtifactService();
@@ -72,7 +72,7 @@ export class ServicesPortolfio {
       return;
     }
 
-    const sourceAdapter = this.sourceAdapterPortfolio.get(options.source);
+    const sourceAdapter = this.sourcesAdaptersPortfolio.get(options.source);
     const fileSystemAdapter = sourceAdapter.getOrThrowFileSystemAdapter();
     const supportAdapter = sourceAdapter.getSupport();
     const nodes = this.nodes;

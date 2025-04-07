@@ -1,24 +1,16 @@
-import { throwError } from "..";
+import type { FailData, OkData, StatusData } from "./data";
 
-interface StatusFail {
-  ok: false;
-  cause: string;
-}
-
-interface StatusOk {
-  ok: true;
-  cause?: undefined;
-}
-
-type StatusState = StatusFail | StatusOk;
+import { throwError } from "../throwers";
 
 export class Status {
   public readonly cause?: string;
   public readonly ok: boolean;
 
-  private constructor({ cause, ok }: StatusState) {
-    this.ok = ok;
-    this.cause = cause;
+  protected constructor(state: StatusData) {
+    this.ok = state.ok;
+    if (!state.ok) {
+      this.cause = state.cause;
+    }
   }
 
   static fail(cause: string): Status {
@@ -29,11 +21,11 @@ export class Status {
     return new Status({ ok: true });
   }
 
-  isFail(): this is StatusFail {
+  isFail(): this is FailData {
     return !this.ok;
   }
 
-  isOk(): this is StatusOk {
+  isOk(): this is OkData {
     return this.ok;
   }
 

@@ -1,18 +1,18 @@
-import type { Source, SourceAdapterPortfolio } from "@/infra";
+import type { Source, SourcesAdaptersPortfolio } from "@/infra";
 
 export class AccessRequestService {
-  sourceAdapterPortfolio: SourceAdapterPortfolio;
+  sourcesAdaptersPortfolio: SourcesAdaptersPortfolio;
 
-  constructor(portfolio: SourceAdapterPortfolio) {
-    this.sourceAdapterPortfolio = portfolio;
+  constructor(portfolio: SourcesAdaptersPortfolio) {
+    this.sourcesAdaptersPortfolio = portfolio;
   }
 
   request(source: Source) {
-    return this.sourceAdapterPortfolio.get(source).getAccess().request();
+    return this.sourcesAdaptersPortfolio.get(source).getAccess().request();
   }
 
   support(source: Source) {
-    return this.sourceAdapterPortfolio.get(source).getSupport().access();
+    return this.sourcesAdaptersPortfolio.get(source).getSupport().access();
   }
 
 }

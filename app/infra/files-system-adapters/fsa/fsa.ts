@@ -1,39 +1,34 @@
-import type { ArtifactDataOptions, Directory, DirectoryDataOptions, Id, Node } from "@/domain";
+import type { Artifact, ArtifactDataOptions, Directory, DirectoryDataOptions, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { throwCritical } from "@/utils";
+import { Status, throwCritical } from "@/utils";
 
-import type { ArtifactOrDirectoryDataOptions } from "./file-system";
+import type { ArtifactOrDirectoryDataOptions } from "../file-system";
 
-import { BaseFileSystemAdapter } from "./base";
+import { BaseFileSystemAdapter } from "../base";
 
-interface DirecotryRootMetadata {
-  handle: FileSystemDirectoryHandle,
-  kind: "directory"
-  parentHandle: undefined;
-}
 interface DirectoryMetadata {
   handle: FileSystemDirectoryHandle,
-  kind: "directory"
   parentHandle: FileSystemDirectoryHandle;
 }
 interface FileMetadata {
-  kind: "file";
   handle: FileSystemFileHandle;
   parentHandle: FileSystemDirectoryHandle;
 }
-type NodeMetadata = DirecotryRootMetadata | DirectoryMetadata | FileMetadata;
+interface RootMetadata {
+  handle: FileSystemDirectoryHandle,
+  parentHandle: undefined;
+}
 
-export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
+export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, DirectoryMetadata, FileMetadata> {
   constructor(rootHandle: FileSystemDirectoryHandle) {
     const rootData: DirectoryDataOptions = {
       id: createId(),
       name: rootHandle.name,
       parentId: undefined
     };
-    const rootMetadata: DirecotryRootMetadata = {
+    const rootMetadata: RootMetadata = {
       handle: rootHandle,
-      kind: "directory",
       parentHandle: undefined
     };
     super({ rootData, rootMetadata });
@@ -43,18 +38,17 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     const { name, parent: { id: parentId } } = options;
     const id = createId();
 
-    const parentMetadata = this.metadataOfDirectoryOrThrow(parentId);
-    const { handle: parentHandle } = parentMetadata;
+    const parentMetadata = this.metadatas.getOfDirectoryOrThrow(parentId);
+    const { metadata: { handle: parentHandle } } = parentMetadata;
     const newFileHandle = await parentHandle.getFileHandle(name, { create: true });
     const writableStream = await newFileHandle.createWritable();
     await writableStream.close();
 
     const fileMetadata: FileMetadata = {
       handle: newFileHandle,
-      kind: "file",
       parentHandle,
     };
-    this.nodesMetadata.set(id, fileMetadata);
+    this.metadatas.setFile(id, fileMetadata);
 
     const { lastModified, size } = await newFileHandle.getFile();
     const data: ArtifactDataOptions = {
@@ -72,102 +66,110 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     const { name, parent: { id: parentId } } = options;
     const id = createId();
 
-    const parentMetadata = this.metadataOfDirectoryOrThrow(parentId);
-    const { handle: parentHandle } = parentMetadata;
+    const { metadata: { handle: parentHandle } } = this.metadatas.getOfDirectoryOrThrow(parentId);
     const newDirectoryHandle = await parentHandle.getDirectoryHandle(name, { create: true });
 
     const directoryMetadata: DirectoryMetadata = {
       handle: newDirectoryHandle,
-      kind: "directory",
       parentHandle: parentHandle
     };
 
-    this.nodesMetadata.set(id, directoryMetadata);
+    this.metadatas.setDirectory(id, directoryMetadata);
 
     const data: DirectoryDataOptions = { id, name, parentId };
     return data;
   }
 
-  async fetchFileContent(id: Id): Promise<ArrayBuffer> {
-    const { handle } = this.metadataOfFileOrThrow(id);
+  async fetchContent(artifact: Artifact): Promise<ArrayBuffer> {
+    const { metadata: { handle } } = this.metadatas.getOfFileOrThrow(artifact.id);
     const file: File = await handle.getFile();
     const content: ArrayBuffer = await file.arrayBuffer();
     return content;
   }
 
-  async moveNode(options: { subject: Node; target: Node }): Promise<void> {
+  async move(options: { subject: Node; target: Directory }): Promise<void> {
     const { subject, target } = options;
 
     const able = subject.moveable(target);
     able.throwOnFail();
 
-    const fileMetadata = this.metadataOfFileOrThrow(subject.id);
+    const { metadata: fileMetadata } = this.metadatas.getOfFileOrThrow(subject.id);
     const { handle: oldHandle, parentHandle: oldParentHandle } = fileMetadata;
-
-    const newParentMetadata = this.metadataOfDirectoryOrThrow(target.id);
-    const newParentHandle = newParentMetadata.handle;
+    const { metadata: { handle: newParentHandle } } = this.metadatas.getOfDirectoryOrThrow(target.id);
 
     const newFileHandle = await newParentHandle.getFileHandle(subject.name, { create: true });
     await this.copyFileContent({ source: oldHandle, target: newFileHandle });
     await oldParentHandle.removeEntry(oldHandle.name);
 
     const newMetadata = { ...fileMetadata, handle: newFileHandle, parentHandle: newParentHandle };
-    this.nodesMetadata.set(subject.id, newMetadata);
+    this.metadatas.setFile(subject.id, newMetadata);
   }
 
-  async openDirectory(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
-    const { handle } = this.metadataOfDirectoryOrThrow(id);
+  moveable(subject: Node) {
+    const rootStatus = this.failIfRoot(subject);
+    if (rootStatus.isFail()) return rootStatus;
+
+    const directoryStatus = this.failIfDirectory(subject);
+    if (directoryStatus.isFail()) return directoryStatus;
+
+    return Status.ok();
+  }
+
+  async open(parent: Directory): Promise<ArtifactOrDirectoryDataOptions[]> {
+    const { metadata: { handle } } = this.metadatas.getOfDirectoryOrThrow(parent.id);
     const childrenData: ArtifactOrDirectoryDataOptions[] = [];
 
     for await (const childHandle of handle.values()) {
       const { kind, name } = childHandle;
       const childId = createId();
 
-      let childData: ArtifactOrDirectoryDataOptions;
-      let childMetadata: DirectoryMetadata | FileMetadata;
       if (kind === "file") {
         const { lastModified, size } = await childHandle.getFile();
-        childData = {
+        const childData: ArtifactDataOptions = {
           id: childId,
           lastModified,
           name,
-          parentId: id,
+          parentId: parent.id,
           size,
         };
-        childMetadata = {
+        const childMetadata: FileMetadata = {
           handle: childHandle,
-          kind,
           parentHandle: handle,
         };
-      } else {
-        childData = {
-          id: childId,
-          name,
-          parentId: id,
-        };
-        childMetadata = {
-          handle: childHandle,
-          kind,
-          parentHandle: handle,
-        };
+        this.metadatas.setFile(childId, childMetadata);
+        childrenData.push(childData);
+        continue;
       }
-      this.nodesMetadata.set(childId, childMetadata);
+
+      const childData: DirectoryDataOptions = {
+        id: childId,
+        name,
+        parentId: parent.id,
+      };
+      const childMetadata: DirectoryMetadata = {
+        handle: childHandle,
+        parentHandle: handle,
+      };
+      this.metadatas.setDirectory(childId, childMetadata);
       childrenData.push(childData);
     }
+
     return childrenData;
   }
 
-  async postFileContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
-    const { handle } = this.metadataOfFileOrThrow(id);
+  async postContent(artifact: Artifact): Promise<void> {
+    const { metadata: { handle } } = this.metadatas.getOfFileOrThrow(artifact.id);
     const writableStream = await handle.createWritable();
-    await writableStream.write(content);
+    await writableStream.write(artifact.toBinary());
     await writableStream.close();
   }
 
-  async removeNode(node: Node): Promise<void> {
-    const { kind, parentHandle } = this.metadataOrThrow(node.id);
+  async remove(node: Node): Promise<void> {
+    const removeable = this.removeable(node);
+    removeable.throwOnFail();
 
-    if (node.isRoot() || !parentHandle) throwCritical("CANNOT_REMOVE_ROOT");
+    const { kind, metadata: { parentHandle } } = this.metadatas.getOrThrow(node.id);
+    if (!parentHandle) throwCritical("CANNOT_REMOVE_ROOT");
 
     if (kind === "directory") {
       await parentHandle.removeEntry(node.name, { recursive: true });
@@ -178,10 +180,14 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     this.removeMetadata(node);
   }
 
-  async renameNode(options: { id: Id, name: string }): Promise<void> {
-    const { id, name } = options;
+  removeable(node: Node) {
+    return this.failIfRoot(node);
+  }
 
-    const fileMetadata = this.metadataOfFileOrThrow(id);
+  async rename(options: { name: string; node: Node, }): Promise<void> {
+    const { name, node: { id } } = options;
+
+    const { metadata: fileMetadata } = this.metadatas.getOfFileOrThrow(id);
     const { handle: oldHandle, parentHandle } = fileMetadata;
 
     const oldName = oldHandle.name;
@@ -192,7 +198,11 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     await parentHandle.removeEntry(oldName);
 
     const newMetadata = { ...fileMetadata, handle: newFileHandle };
-    this.nodesMetadata.set(id, newMetadata);
+    this.metadatas.setFile(id, newMetadata);
+  }
+
+  renameable(node: Node) {
+    return this.failIfDirectory(node);
   }
 
   private async copyFileContent(options: { source: FileSystemFileHandle, target: FileSystemFileHandle } ): Promise<void> {
@@ -204,15 +214,4 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<NodeMetadata> {
     await writable.close();
   }
 
-  private metadataOfDirectoryOrThrow(id: Id): DirecotryRootMetadata | DirectoryMetadata {
-    const metadata = this.metadataOrThrow(id);
-    if ((metadata.kind !== "directory")) throwCritical("NOT_DIRECTORY_METADATA");
-    return metadata;
-  }
-
-  private metadataOfFileOrThrow(id: Id): FileMetadata {
-    const metadata = this.metadataOrThrow(id);
-    if ((metadata.kind !== "file")) throwCritical("NOT_FILE_METADATA");
-    return metadata;
-  }
 }
