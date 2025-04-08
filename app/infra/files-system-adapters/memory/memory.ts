@@ -1,7 +1,7 @@
-import type { ArtifactDataOptions, Directory, DirectoryDataOptions, Id, Node } from "@/domain";
+import type { Artifact, ArtifactDataOptions, Directory, DirectoryDataOptions, Node } from "@/domain";
 
 import { createId } from "@/domain";
-import { fakeDirectory, fakeFile, fakeFileSystemEntry, throwError } from "@/utils";
+import { fakeDirectory, fakeFile, fakeFileSystemEntry, Status, throwError } from "@/utils";
 import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";
 
@@ -34,7 +34,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
 
     const id = createId();
     const emptyBuffer = new ArrayBuffer(0);
-    this.metadatas.setFile(id, emptyBuffer);
+    this.metadatas.setFile({ id, metadata: emptyBuffer });
 
     const data: ArtifactDataOptions = {
       id,
@@ -51,7 +51,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
     await delay(this.delayInSeconds);
 
     const id = createId();
-    this.metadatas.setDirectory(id, undefined);
+    this.metadatas.setDirectory({ id, metadata: undefined });
 
     const { name, parent: { id: parentId } } = options;
     const data: DirectoryDataOptions = { id, name, parentId };
@@ -59,103 +59,101 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
     return data;
   }
 
-  async fetchContent(id: Id): Promise<ArrayBuffer> {
+  async fetchContent(artifact: Artifact): Promise<ArrayBuffer> {
     await delay(this.delayInSeconds);
-    const cachedData = this.metadatas.getFile(id);
-    if (cachedData) return Promise.resolve(cachedData);
 
-    const { content } = fakeFile("txt");
-    this.nodesMetadata.set(id, content);
-
-    return Promise.resolve(content);
+    const { metadata: cachedData } = this.metadatas.getOfFileOrThrow(artifact.id);
+    return cachedData;
   }
 
-  async move(): Promise<void> {
+  async move(options: { subject: Node, target: Directory }): Promise<void> {
     await delay(this.delayInSeconds);
-    return Promise.resolve();
+
+    const moveable = this.moveable(options.subject);
+    moveable.throwOnFail();
   }
 
   moveable(subject: Node) {
-    const rootStatus = this.failIfRoot(subject);
-    if (rootStatus.isFail()) return rootStatus;
-    return this.configured();
+    return this.failIfRoot(subject);
   }
 
-  moveable(node: Node) {
-    const rootStatus = this.failIfRoot(node);
-    if (rootStatus.isFail()) return rootStatus;
-
-    return this.statusOfMemoryEnabled();
-  }
-
-  async open(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
+  async open(parent: Directory): Promise<ArtifactOrDirectoryDataOptions[]> {
     await delay(this.delayInSeconds);
+
     const childrenData: ArtifactOrDirectoryDataOptions[] = [];
 
-    if (id === this.rootData.id) {
-      // garantees at least two of the following node types at the root level for e2e testing
+    const shouldGaranteeDataExpectedByE2e = parent.id === this.rootData.id;
+    if (shouldGaranteeDataExpectedByE2e) {
       const file = fakeFile("txt");
-      childrenData.push({ id: createId(), parentId: id, ...file });
+      const fileId = createId();
+      childrenData.push({ id: fileId, parentId: parent.id, ...file });
+      this.metadatas.setFile({ id: fileId, metadata: file.content });
 
       const binary = fakeFile("exe");
-      childrenData.push({ id: createId(), parentId: id, ...binary });
+      const binaryId = createId();
+      childrenData.push({ id: binaryId, parentId: parent.id, ...binary });
+      this.metadatas.setFile({ id: binaryId, metadata: binary.content });
 
       const directoryOne = fakeDirectory();
-      childrenData.push({ id: createId(), parentId: id, ...directoryOne });
+      const directoryOneId = createId();
+      childrenData.push({ id: directoryOneId, parentId: parent.id, ...directoryOne });
+      this.metadatas.setDirectory({ id: directoryOneId, metadata: undefined });
 
       const directoryTwo = fakeDirectory();
-      childrenData.push({ id: createId(), parentId: id, ...directoryTwo });
+      const directoryTwoId = createId();
+      childrenData.push({ id: directoryTwoId, parentId: parent.id, ...directoryTwo });
+      this.metadatas.setDirectory({ id: directoryTwoId, metadata: undefined });
     }
 
     const howManyChildren = faker.helpers.rangeToNumber({ max: 5, min: 1 });
     for (let i = 0; i < howManyChildren; i++) {
       const entry = fakeFileSystemEntry();
-      childrenData.push({ id: createId(), parentId: id, ...entry });
+      childrenData.push({ id: createId(), parentId: parent.id, ...entry });
     }
 
-    return Promise.resolve(childrenData);
+    return childrenData;
   }
 
-  async postContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
+  async postContent(artifact: Artifact): Promise<void> {
     await delay(this.delayInSeconds);
-    this.nodesMetadata.set(id, content);
-    return Promise.resolve();
+
+    const { id } = artifact;
+    const content = artifact.toBinary();
+    this.metadatas.setFile({ id, metadata: content });
   }
 
   async remove(node: Node): Promise<void> {
     await delay(this.delayInSeconds);
-    this.removeMetadata(node);
-    return Promise.resolve();
+
+    const removeable = this.removeable(node);
+    removeable.throwOnFail();
+
+    this.metadatas.remove(node);
   }
 
   removeable(node: Node) {
     const rootStatus = this.failIfRoot(node);
     if (rootStatus.isFail()) return rootStatus;
-    return this.configured();
+    return Status.ok();
   }
 
-  removeable(node: Node) {
-    const rootStatus = this.failIfRoot(node);
-    if (rootStatus.isFail()) return rootStatus;
-
-    return this.statusOfMemoryEnabled();
-  }
-
-  async rename(options: { name: string }): Promise<void> {
+  async rename(options: { name: string; node: Node, }): Promise<void> {
     await delay(this.delayInSeconds);
-    if (options.name.includes("/")) {
+
+    const { name, node } = options;
+
+    const renameable = this.renameable(node);
+    renameable.throwOnFail();
+
+    if (name.includes("/")) {
       throwError("INVALID_CHAR", "invalid char for naming nodes in the file system");
     }
-    return Promise.resolve();
   }
 
   renameable(node: Node) {
     const rootStatus = this.failIfRoot(node);
     if (rootStatus.isFail()) return rootStatus;
-    return this.configured();
+    return Status.ok();
   }
 
-  renameable(node: Node) {
-    return this.statusOfMemoryEnabled();
-  }
 }

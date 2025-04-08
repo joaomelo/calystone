@@ -36,7 +36,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     });
 
     const id = createId();
-    this.metadatas.setFile(id, newPath);
+    this.metadatas.setFile({ id, metadata: newPath });
     const data: ArtifactDataOptions = {
       id,
       lastModified: Date.now(),
@@ -58,7 +58,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     });
 
     const id = createId();
-    this.metadatas.setDirectory(id, newPath);
+    this.metadatas.setDirectory({ id, metadata: newPath });
     const newDirectoryData: DirectoryDataOptions = { id, name, parentId };
     return newDirectoryData;
   }
@@ -92,9 +92,9 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     });
 
     if (subject instanceof Artifact) {
-      this.metadatas.setFile(subject.id, newPath);
+      this.metadatas.setFile({ id: subject.id, metadata: newPath });
     } else {
-      this.metadatas.setDirectory(subject.id, newPath);
+      this.metadatas.setDirectory({ id: subject.id, metadata: newPath });
     }
   }
 
@@ -124,7 +124,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
           name: childResult.name,
           parentId,
         };
-        this.metadatas.setDirectory(childId, childResult.path_lower);
+        this.metadatas.setDirectory({ id: childId, metadata: childResult.path_lower });
         childrenData.push(childData);
         continue;
       }
@@ -140,7 +140,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
         parentId: parent.id,
         size,
       };
-      this.metadatas.setFile(childId, childResult.path_lower);
+      this.metadatas.setFile({ id: childId, metadata: childResult.path_lower });
       childrenData.push(childData);
     };
 
@@ -186,9 +186,9 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     });
 
     if (node instanceof Artifact) {
-      this.metadatas.setFile(id, newPath);
+      this.metadatas.setFile({ id, metadata: newPath });
     } else {
-      this.metadatas.setDirectory(id, newPath);
+      this.metadatas.setDirectory({ id, metadata: newPath });
     }
   }
 

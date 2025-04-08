@@ -1,16 +1,16 @@
-import type { ArtifactDataOptions, DirectoryDataOptions, Id, Node } from "@/domain";
+import type { Artifact, ArtifactDataOptions, DirectoryDataOptions, Id, Node } from "@/domain";
 import type { Directory } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
-import { throwCritical, throwError } from "@/utils";
+import { throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
-import type { ArtifactOrDirectoryDataOptions } from "./file-system";
+import type { ArtifactOrDirectoryDataOptions } from "../file-system";
 
-import { BaseFileSystemAdapter } from "./base";
+import { BaseFileSystemAdapter } from "../base";
 
-export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> {
+export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, undefined, undefined> {
   graphClient: Client;
 
   constructor(accessToken: string) {
@@ -35,7 +35,9 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
       .api(`/me/drive/items/${parentId}:/${name}:/content`)
       .put("") as DriveItem;
 
-    return this.convertDriveItemToArtifactData({ item, parentId });
+    const data = this.convertDriveItemToArtifactData({ item, parentId });
+    this.metadatas.setFile({ id: data.id, metadata: undefined });
+    return data;
   }
 
   async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
@@ -49,13 +51,15 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
         name
       }) as DriveItem;
 
-    return this.convertDriveItemToDirectoryData({ item, parentId });
+    const data = this.convertDriveItemToDirectoryData({ item, parentId });
+    this.metadatas.setDirectory({ id: data.id, metadata: undefined });
+    return data;
   }
 
-  async fetchContent(id: Id): Promise<ArrayBuffer> {
+  async fetchContent(artifact: Artifact): Promise<ArrayBuffer> {
     // onedrive only returns the download url if the request is made exclusivy for it: https://stackoverflow.com/questions/57036249/search-query-doesnt-return-microsoft-graph-downloadurl
     const downloadUrl = await this.graphClient
-      .api(`/me/drive/items/${id}`)
+      .api(`/me/drive/items/${artifact.id}`)
       .select("@microsoft.graph.downloadUrl")
       .get() as { "@microsoft.graph.downloadUrl": string };
     const response = await fetch(downloadUrl["@microsoft.graph.downloadUrl"]);
@@ -78,44 +82,72 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined> 
       });
   }
 
-  async open(id: Id): Promise<ArtifactOrDirectoryDataOptions[]> {
+  moveable(subject: Node) {
+    return this.failIfRoot(subject);
+  }
+
+  async open(parent: Directory): Promise<ArtifactOrDirectoryDataOptions[]> {
+    const { id: parentId } = parent;
+
     const response = await this.graphClient
-      .api(`/me/drive/items/${id}/children`)
+      .api(`/me/drive/items/${parentId}/children`)
       .get() as { value: DriveItem[] };
     const { value: childrenResponse } = response;
 
     const childrenData: ArtifactOrDirectoryDataOptions[] = [];
     for (const childResponse of childrenResponse) {
-      const childData = childResponse.file
-        ? this.convertDriveItemToArtifactData({ item: childResponse, parentId: id })
-        : this.convertDriveItemToDirectoryData({ item: childResponse, parentId: id });
-      childrenData.push(childData);
+      const driveItem = { item: childResponse, parentId };
+
+      if (childResponse.folder) {
+        const data = this.convertDriveItemToDirectoryData(driveItem);
+        this.metadatas.setDirectory({ id: data.id, metadata: undefined });
+        childrenData.push(data);
+        continue;
+      }
+
+      const data = this.convertDriveItemToArtifactData(driveItem);
+      this.metadatas.setFile({ id: data.id, metadata: undefined });
+      childrenData.push(data);
     }
 
     return childrenData;
   }
 
-  async postContent({ content, id }: { content: ArrayBuffer; id: Id, }): Promise<void> {
+  async postContent(artifact: Artifact): Promise<void> {
     // graph client expects a node implementation of the arraybuffer and will break if receives the browser one. we need to convert the buffer to a blob to make the request work.
-    const blob = new Blob([content]);
+    const blob = new Blob([artifact.toBinary()]);
     await this.graphClient
-      .api(`/me/drive/items/${id}/content`)
+      .api(`/me/drive/items/${artifact.id}/content`)
       .put(blob);
   }
 
   async remove(node: Node): Promise<void> {
-    if (node.isRoot()) {
-      throwCritical("CANNOT_REMOVE_ROOT", "cannot remove the root node");
-    }
+    const removeable = this.removeable(node);
+    removeable.throwOnFail();
+
     await this.graphClient.api(`/me/drive/items/${node.id}`).delete();
-    this.removeMetadata(node);
+
+    this.metadatas.remove(node);
   }
 
-  async rename(options: { id: Id, name: string }): Promise<void> {
-    const { id, name } = options;
+  removeable(node: Node) {
+    return this.failIfRoot(node);
+  }
+
+  async rename(options: { name: string; node: Node, }): Promise<void> {
+    const renameable = this.renameable(options.node);
+    renameable.throwOnFail();
+
+    const { name, node } = options;
+    const { id } = node;
+
     await this.graphClient
       .api(`/me/drive/items/${id}`)
       .patch({ name });
+  }
+
+  renameable(node: Node) {
+    return this.failIfRoot(node);
   }
 
   private convertDriveItemToArtifactData(options: { item: DriveItem, parentId: Id }): ArtifactDataOptions {

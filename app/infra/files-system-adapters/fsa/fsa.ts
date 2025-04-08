@@ -48,7 +48,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
       handle: newFileHandle,
       parentHandle,
     };
-    this.metadatas.setFile(id, fileMetadata);
+    this.metadatas.setFile({ id, metadata: fileMetadata });
 
     const { lastModified, size } = await newFileHandle.getFile();
     const data: ArtifactDataOptions = {
@@ -74,7 +74,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
       parentHandle: parentHandle
     };
 
-    this.metadatas.setDirectory(id, directoryMetadata);
+    this.metadatas.setDirectory({ id, metadata: directoryMetadata });
 
     const data: DirectoryDataOptions = { id, name, parentId };
     return data;
@@ -102,7 +102,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
     await oldParentHandle.removeEntry(oldHandle.name);
 
     const newMetadata = { ...fileMetadata, handle: newFileHandle, parentHandle: newParentHandle };
-    this.metadatas.setFile(subject.id, newMetadata);
+    this.metadatas.setFile({ id: subject.id, metadata: newMetadata });
   }
 
   moveable(subject: Node) {
@@ -136,7 +136,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
           handle: childHandle,
           parentHandle: handle,
         };
-        this.metadatas.setFile(childId, childMetadata);
+        this.metadatas.setFile({ id: childId, metadata: childMetadata });
         childrenData.push(childData);
         continue;
       }
@@ -150,7 +150,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
         handle: childHandle,
         parentHandle: handle,
       };
-      this.metadatas.setDirectory(childId, childMetadata);
+      this.metadatas.setDirectory({ id: childId, metadata: childMetadata });
       childrenData.push(childData);
     }
 
@@ -177,7 +177,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
       await parentHandle.removeEntry(node.name);
     }
 
-    this.removeMetadata(node);
+    this.metadatas.remove(node);
   }
 
   removeable(node: Node) {
@@ -198,7 +198,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
     await parentHandle.removeEntry(oldName);
 
     const newMetadata = { ...fileMetadata, handle: newFileHandle };
-    this.metadatas.setFile(id, newMetadata);
+    this.metadatas.setFile({ id, metadata: newMetadata });
   }
 
   renameable(node: Node) {

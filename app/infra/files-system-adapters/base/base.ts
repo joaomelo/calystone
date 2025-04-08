@@ -29,10 +29,6 @@ export abstract class BaseFileSystemAdapter<R, D, F> implements FileSystemAdapte
   abstract remove(node: Node): Promise<void>;
   abstract removeable(node: Node): Status;
 
-  removeMetadata(node: Node): void {
-    this.metadatas.remove(node);
-  }
-
   abstract rename(options: { name: string; node: Node, }): Promise<void>;
   abstract renameable(node: Node): Status;
 

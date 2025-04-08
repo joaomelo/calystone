@@ -59,24 +59,26 @@ export class Metadatas<R, D, F> {
     this.map.set(this.rootId, this.rootContainer);
   }
 
-  setDirectory(id: Id, metadata: D) {
-    this.set(id, {
+  set(container: DirectoryMetadataContainer<D> | FileMetadataContainer<F>) {
+    this.map.set(container.id, container);
+  }
+
+  setDirectory(options: { id: Id, metadata: D }) {
+    const { id, metadata } = options;
+    this.set({
       id,
       kind: "directory",
       metadata,
     });
   }
 
-  setFile(id: Id, metadata: F) {
-    this.set(id, {
+  setFile(options: { id: Id, metadata: F }) {
+    const { id, metadata } = options;
+    this.set({
       id,
       kind: "file",
       metadata,
     });
-  }
-
-  private set(id: Id, metadata: DirectoryMetadataContainer<D> | FileMetadataContainer<F> | RootMetadataContainer<R>) {
-    this.map.set(id, metadata);
   }
 
 }
