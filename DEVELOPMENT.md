@@ -106,6 +106,16 @@ Infra is the module with the logic to persist and recover real data for media li
 
 Infra knows about the domain so it can manipulate the proper data structures but should not know about display and services.
 
+### Orthogonality 
+
+Diferent adapters tend to have some similarities as sometimes they offer diferent groups of featues from the same base technology or cloud provider. This tend to incentivize creating logic for cooperation between them.
+
+This should be avoided. Changes on services needs tend to break this cooperations without relly effecting the core features the adpater should be concern. Let cooperation be done in the service layer and avoid dependencies between adapaters. 
+
+To make things easier in the service layer, concentrate in fatctories or façades between diferent concrete adapters implementations from the same shared interface.
+
+Be sure to demand clear data as possible for instantiation and let main and services decide if configuration is available to actually create adpaters.
+
 ## Services
 
 Services implement typical use cases that will be consumed by one or more UIs.
