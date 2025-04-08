@@ -1,6 +1,6 @@
 import { Status } from "@/utils";
 
-import type { AvailabilityAdapter } from "./availability";
+import type { AvailabilityAdapter } from "../availability";
 
 export class FsaAvailabilityAdapter implements AvailabilityAdapter {
   available(): Status {

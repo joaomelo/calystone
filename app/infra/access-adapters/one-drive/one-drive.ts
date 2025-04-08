@@ -1,7 +1,7 @@
 import { throwError } from "@/utils";
 import { PublicClientApplication } from "@azure/msal-browser";
 
-import type { AccessAdapter } from "./access";
+import type { AccessAdapter } from "../access";
 
 interface Options {
   clientId: string;

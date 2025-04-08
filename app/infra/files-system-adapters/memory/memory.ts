@@ -16,7 +16,7 @@ type RootMetadata = undefined;
 export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, DirectoryMetadata, ArtifactMetadata> {
   private readonly delayInSeconds: number;
 
-  constructor(options: { delayInSeconds: number; rootDirectoryName: string, }) {
+  constructor(options: { delayInSeconds: number; rootDirectoryName: string }) {
     const { delayInSeconds, rootDirectoryName } = options;
     const rootData: DirectoryDataOptions = {
       id: createId(),
