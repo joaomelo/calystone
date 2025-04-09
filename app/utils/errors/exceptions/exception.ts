@@ -1,4 +1,4 @@
-import { Severity } from "./severities";
+import { Severity } from "../severities";
 
 export class Exception extends Error {
   readonly path: string;

@@ -1,5 +1,5 @@
+import { severest } from "../severities";
 import { Exception } from "./exception";
-import { severest } from "./severities";
 
 export class Exceptions extends Exception {
   readonly list: Exception[] = [];

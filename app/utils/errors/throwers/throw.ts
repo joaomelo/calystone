@@ -1,5 +1,5 @@
-import { Exception } from "./exception";
-import { Severity } from "./severities";
+import { Exception } from "../exceptions";
+import { Severity } from "../severities";
 
 export function throwAlert(message: string, cause?: unknown): never {
   throwException(message, cause, Severity.Alert);

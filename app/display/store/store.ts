@@ -26,7 +26,7 @@ export class Store {
     this.nodes = reactive(services.nodes);
 
     this.connected = ref(false);
-    this.services.connection.subscribe(({ status }) => {
+    this.services.connectSource.subscribe(({ status }) => {
       this.connected.value = status === "connected";
     });
   }

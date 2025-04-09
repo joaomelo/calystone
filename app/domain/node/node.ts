@@ -11,10 +11,10 @@ type Activity = "busy" | "idle";
 export abstract class Node {
   activity: Activity = "idle";
   readonly id: Id;
+  loaded = false;
   name: string;
   readonly nodes: Nodes;
   parentId?: Id;
-  private loaded = false;
 
   constructor({ id, name, nodes, parentId }: NodeOptions) {
     this.id = id;
