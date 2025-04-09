@@ -23,6 +23,7 @@ export class ConnectionService {
     this.sourcesAdaptersPortfolio = sourcesAdaptersPortfolio;
     this.nodes = nodes;
     this.statusObservable = new StatusObservable();
+    this.accessAdaptersFactory = options.accessAdaptersFactory;
   }
 
   async connect(source: Source) {
@@ -42,6 +43,11 @@ export class ConnectionService {
     if (!fileSystemAdapter) throwCritical("NO_FILE_SYSTEM_ADAPTER", "the connection must have a file system adapter to reconect");
 
     this.reset(fileSystemAdapter);
+  }
+
+  async request(source: Source) {
+    const accessAdapter = this.accessAdaptersFactory.create(source);
+    return accessAdapter.request();
   }
 
   subscribe(observer: StatusObserver) {
