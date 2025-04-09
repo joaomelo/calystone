@@ -1,6 +1,6 @@
 import type { AccessAdaptersFactory, AvailabilityFacade, Source } from "@/infra";
 
-export class AccessRequestService {
+export class RequestAccessService {
   accessAdaptersFactory: AccessAdaptersFactory;
   availabilityFacade: AvailabilityFacade;
 
@@ -13,7 +13,7 @@ export class AccessRequestService {
     return this.availabilityFacade.available(source);
   }
 
-  request(source: Source) {
+  async request(source: Source) {
     const accessAdapter = this.accessAdaptersFactory.create(source);
     return accessAdapter.request();
   }

@@ -27,7 +27,7 @@ async function handleClick() {
 </script>
 <template>
   <ButtonBase
-    v-if="services.accessRequest.support(source)"
+    v-if="services.availSource.avail(source)"
     :label="t(label)"
     size="large"
     :data-test="dataTest"

@@ -11,7 +11,7 @@ import type { NodeRenameService } from "@/services/node-rename-service";
 import type { ShareNodeService } from "@/services/share-node-service";
 
 import { Nodes } from "@/domain";
-import { AccessRequestService } from "@/services/access-request-service";
+import { AvailSourceService } from "@/services/avail-source-service";
 import { ConnectionService } from "@/services/connection-service";
 import { ConnectedCreateArtifactService, NullCreateArtifactService } from "@/services/create-artifact-service";
 import { ConnectedCreateDirectoryService, NullCreateDirectoryService } from "@/services/create-directory-service";
@@ -21,14 +21,16 @@ import { ConnectedExchangeTextService, NullExchangeTextService } from "@/service
 import { ConnectedNodeMoveService, NullNodeMoveService } from "@/services/node-move-service";
 import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/node-remove-service";
 import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
+import { RequestAccessService } from "@/services/request-access-service";
 import { ConnectedShareNodeService, NullShareNodeService } from "@/services/share-node-service";
 
 import type { Options } from "./options";
 
 export class ServicesPortolfio {
   accessAdaptersFactory: AccessAdaptersFactory;
-  accessRequest: AccessRequestService;
+  accessRequest: RequestAccessService;
   availabilityFacade: AvailabilityFacade;
+  availSource: AvailSourceService;
   connection: ConnectionService;
   createArtifact: CreateArtifactService;
   createDirectory: CreateDirectoryService;
@@ -49,7 +51,8 @@ export class ServicesPortolfio {
 
     this.nodes = new Nodes();
 
-    this.accessRequest = new AccessRequestService({
+    this.availSource = new AvailSourceService(this.availabilityFacade);
+    this.accessRequest = new RequestAccessService({
       accessAdaptersFactory: this.accessAdaptersFactory,
       availabilityFacade: this.availabilityFacade,
     });
