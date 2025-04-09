@@ -4,7 +4,6 @@ import type { Source } from "@/infra";
 import { Store } from "@/display/store";
 import { ButtonBase, useDispatch, useI18n } from "@/utils";
 import { useRouter } from "vue-router";
-
 const { source } = defineProps<{
   dataTest: string;
   icon: string;
@@ -13,14 +12,13 @@ const { source } = defineProps<{
 }>();
 
 const { t } = useI18n();
-const router = useRouter();
 const { dispatchOrToast, loading } = useDispatch();
 const { services } = Store.use();
-
+const router = useRouter();
 async function handleClick() {
   await dispatchOrToast(async () => {
-    await services.accessRequest.request(source);
-    void router.push({ name: "bootstrap", params: { source } });
+    await services.connectSource.connect(source);
+    void router.push({ name: "outline" });
   });
 }
 

@@ -19,11 +19,11 @@ const active: ComputedRef<string> = computed(() => {
 });
 
 function handleExit() {
-  services.connection.disconnect();
+  services.connectSource.disconnect();
 }
 
 function handleReload() {
-  services.connection.reconnect();
+  services.connectSource.reconnect();
 }
 </script>
 <template>
