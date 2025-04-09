@@ -23,39 +23,30 @@ export class DropboxAccessAdapter implements AccessAdapter {
     this.storage = new LocalStorage("dropboxCodeVerifier", asString);
   }
 
-  async acquire() {
+  async request() {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
-    if (!code) {
-      throwError(
-        "DROPBOX_CODE_NOT_FOUND",
-        "no authorization code found in the url"
-      );
+    const storedVerifier = this.storage.load();
+
+    if (!code || !storedVerifier) {
+      await this.authenticateUserAtTheDropboxWebsite();
     }
 
-    const storedVerifier = this.storage.load();
-    if (!storedVerifier) {
-      throwError(
-        "DROPBOX_PKCE_VERIFIER_NOT_FOUND",
-        "no PKCE code verifier found in storage"
-      );
-    }
+    if (!code) throwError("DROPBOX_CODE_NOT_FOUND");
+    if (!storedVerifier) throwError("DROPBOX_PKCE_VERIFIER_NOT_FOUND");
 
     this.auth.setCodeVerifier(storedVerifier);
 
     const { result } = await this.auth.getAccessTokenFromCode(this.redirectUrl, code);
     if (!("access_token" in result) || typeof result.access_token !== "string") {
-      throwError(
-        "DROPBOX_ACCESS_TOKEN_NOT_FOUND",
-        "failed to acquire the dropbox access token"
-      );
+      throwError("DROPBOX_ACCESS_TOKEN_NOT_FOUND");
     }
     this.auth.setAccessToken(result.access_token);
 
     return new DropboxFileSystemAdapter(result.access_token);
   }
 
-  async request() {
+  private async authenticateUserAtTheDropboxWebsite() {
     const authUrl = await this.auth.getAuthenticationUrl(
       this.redirectUrl,
       undefined,

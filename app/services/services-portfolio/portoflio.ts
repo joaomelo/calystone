@@ -1,4 +1,4 @@
-import type { AccessAdaptersFactory, AvailabilityFacade, FilesSystemAdaptersFactory, ShareAdapter } from "@/infra";
+import type { AccessAdaptersFactory, AvailabilityFacade, ShareAdapter } from "@/infra";
 import type { ObserverOptions } from "@/services/connection-service";
 import type { CreateArtifactService } from "@/services/create-artifact-service";
 import type { CreateDirectoryService } from "@/services/create-directory-service";
@@ -30,13 +30,11 @@ export class ServicesPortolfio {
   accessRequest: AccessRequestService;
   availabilityFacade: AvailabilityFacade;
   connection: ConnectionService;
-
   createArtifact: CreateArtifactService;
   createDirectory: CreateDirectoryService;
   directoryOpen: DirectoryOpenService;
   exchangeArtifact: ExchangeArtifactService;
   exchangeText: ExchangeTextService;
-  filesSystemAdaptersFactory: FilesSystemAdaptersFactory;
   nodeMove: NodeMoveService;
   nodeRemove: NodeRemoveService;
   nodeRename: NodeRenameService;
@@ -47,7 +45,6 @@ export class ServicesPortolfio {
   constructor(options: Options) {
     this.accessAdaptersFactory = options.accessAdaptersFactory;
     this.availabilityFacade = options.availabilityFacade;
-    this.filesSystemAdaptersFactory = options.filesSystemAdaptersFactory;
     this.shareAdapter = options.shareAdapter;
 
     this.nodes = new Nodes();
@@ -56,7 +53,7 @@ export class ServicesPortolfio {
       accessAdaptersFactory: this.accessAdaptersFactory,
       availabilityFacade: this.availabilityFacade,
     });
-    this.connection = new ConnectionService({ nodes: this.nodes, sourcesAdaptersPortfolio: SourcesAdaptersPortfolio });
+    this.connection = new ConnectionService({ nodes: this.nodes });
 
     this.directoryOpen = new NullDirectoryOpenService();
     this.exchangeArtifact = new NullExchangeArtifactService();

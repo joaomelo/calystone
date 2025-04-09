@@ -1,6 +1,6 @@
 import { name, version } from "@/../package.json";
 import { createI18n, createRouter, Store, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
-import { AccessAdaptersFactory, AvailabilityFacade, BrowserShareAdapter, FilesSystemAdaptersFactory } from "@/infra";
+import { AccessAdaptersFactory, AvailabilityFacade, BrowserShareAdapter } from "@/infra";
 import { ServicesPortolfio } from "@/services";
 import { ToastService } from "@/utils";
 import PrimeVue from "primevue/config";
@@ -49,13 +49,11 @@ export function initApp(elementId: string) {
   };
   const availabilityFacade = new AvailabilityFacade(availabilityOptions);
 
-  const filesSystemAdaptersFactory = new FilesSystemAdaptersFactory();
   const shareAdapter = new BrowserShareAdapter();
 
   const servicesPortolfio = new ServicesPortolfio({
     accessAdaptersFactory,
     availabilityFacade,
-    filesSystemAdaptersFactory,
     shareAdapter,
   });
 

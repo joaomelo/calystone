@@ -1,8 +1,7 @@
-import type { AccessAdaptersFactory, AvailabilityFacade, FilesSystemAdaptersFactory, ShareAdapter } from "@/infra";
+import type { AccessAdaptersFactory, AvailabilityFacade, ShareAdapter } from "@/infra";
 
 export interface Options {
   accessAdaptersFactory: AccessAdaptersFactory;
   availabilityFacade: AvailabilityFacade;
-  filesSystemAdaptersFactory: FilesSystemAdaptersFactory;
   shareAdapter: ShareAdapter;
 }

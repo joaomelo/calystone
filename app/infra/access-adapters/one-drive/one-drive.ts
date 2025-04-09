@@ -30,10 +30,15 @@ export class OneDriveAccessAdapter implements AccessAdapter {
     this.msalInstance = new PublicClientApplication(msalConfig);
   }
 
-  async acquire() {
+  async request() {
     await this.msalInstance.initialize();
     const response = await this.msalInstance.handleRedirectPromise();
-    if (!response) throwError("ONE_DRIVE_ACCESS_WITHOUT_RESPONSE", "one drive access found no response to acquire");
+
+    if (!response) {
+      await this.authenticateUserAtTheOneDriveWebsite();
+    }
+
+    if (!response) throwError("ONE_DRIVE_ACCESS_WITHOUT_RESPONSE");
 
     const tokenResponse = await this.msalInstance.acquireTokenSilent(response);
     const { accessToken } = tokenResponse;
@@ -41,7 +46,7 @@ export class OneDriveAccessAdapter implements AccessAdapter {
     return new OneDriveFileSystemAdapter(accessToken);
   }
 
-  async request() {
+  private async authenticateUserAtTheOneDriveWebsite() {
     await this.msalInstance.initialize();
 
     // clear eventual previous session
