@@ -4,11 +4,11 @@ import type { ExchangeTextService } from "./exchange";
 
 export class NullExchangeTextService extends NullThrower implements ExchangeTextService {
 
-  fetch(): never {
+  fetchInto(): never {
     this.throw();
   }
 
-  post(): never {
+  postFrom(): never {
     this.throw();
   }
 

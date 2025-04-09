@@ -8,8 +8,4 @@ export class NullCreateDirectoryService extends NullThrower implements CreateDir
     this.throw();
   }
 
-  createbleOn(): never {
-    this.throw();
-  }
-
 }

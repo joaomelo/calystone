@@ -1,29 +1,25 @@
 import type { TextArtifact } from "@/domain";
-import type { FileSystemAdapter } from "@/infra";
 
 import type { ExchangeArtifactService } from "../exchange-artifact-service/exchange";
 import type { ExchangeTextService } from "./exchange";
 
 export class ConnectedExchangeTextService implements ExchangeTextService {
-  private readonly exchangeService: ExchangeArtifactService;
-  private readonly fileSystemAdapter: FileSystemAdapter;
+  private readonly exchangeArtifact: ExchangeArtifactService;
 
-  constructor(options: { exchangeService: ExchangeArtifactService, fileSystemAdapter: FileSystemAdapter }) {
-    const { exchangeService, fileSystemAdapter } = options;
-    this.exchangeService = exchangeService;
-    this.fileSystemAdapter = fileSystemAdapter;
+  constructor(exchangeArtifact: ExchangeArtifactService) {
+    this.exchangeArtifact = exchangeArtifact;
   }
 
-  async fetch(artifact: TextArtifact): Promise<string> {
+  async fetchInto(artifact: TextArtifact): Promise<string> {
     if (!artifact.isLoaded()) {
-      await this.exchangeService.fetchInto(artifact);
+      await this.exchangeArtifact.fetchInto(artifact);
     }
     return artifact.content;
   }
 
-  async post(options: { artifact: TextArtifact; text: string }): Promise<void> {
+  async postFrom(options: { artifact: TextArtifact; text: string }): Promise<void> {
     const { artifact, text } = options;
     artifact.content = text;
-    await this.fileSystemAdapter.postContent({ content: artifact.toBinary(), id: artifact.id });
+    await this.exchangeArtifact.postFrom(artifact);
   }
 }

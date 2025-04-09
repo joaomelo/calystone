@@ -1,18 +1,16 @@
-import type { Node } from "@/domain";
-import type { FileSystemAdapter, SupportAdapter } from "@/infra";
+import type { Directory, Node } from "@/domain";
+import type { FileSystemAdapter } from "@/infra";
 
 import type { NodeMoveService } from "./move";
 
 export class ConnectedNodeMoveService implements NodeMoveService {
   private readonly fileSystemAdapter: FileSystemAdapter;
-  private readonly supportAdapter: SupportAdapter;
 
-  constructor(options: { fileSystemAdapter: FileSystemAdapter, supportAdapter: SupportAdapter }) {
-    this.fileSystemAdapter = options.fileSystemAdapter;
-    this.supportAdapter = options.supportAdapter;
+  constructor(fileSystemAdapter: FileSystemAdapter) {
+    this.fileSystemAdapter = fileSystemAdapter;
   }
 
-  async move(options: { subject: Node, target: Node }) {
+  async move(options: { subject: Node, target: Directory }) {
     const { subject, target } = options;
     const moveable = subject.moveable(target);
     moveable.throwOnFail();
@@ -29,7 +27,7 @@ export class ConnectedNodeMoveService implements NodeMoveService {
   }
 
   moveable(node: Node) {
-    return this.supportAdapter.move(node);
+    return this.fileSystemAdapter.moveable(node);
   }
 
 }

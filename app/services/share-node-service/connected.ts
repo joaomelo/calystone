@@ -1,17 +1,15 @@
 import type { Node } from "@/domain";
-import type { FileSystemAdapter, SupportAdapter } from "@/infra";
+import type { ShareAdapter } from "@/infra";
 
 import { throwNull } from "@/utils";
 
 import type { ShareNodeService } from "./share";
 
 export class ConnectedShareNodeService implements ShareNodeService {
-  private readonly fileSystemAdapter: FileSystemAdapter;
-  private readonly supportAdapter: SupportAdapter;
+  private readonly shareAdapter: ShareAdapter;
 
-  constructor(options: { fileSystemAdapter: FileSystemAdapter, supportAdapter: SupportAdapter }) {
-    this.fileSystemAdapter = options.fileSystemAdapter;
-    this.supportAdapter = options.supportAdapter;
+  constructor(shareAdapter: ShareAdapter) {
+    this.shareAdapter = shareAdapter;
   }
 
   share(): never {
@@ -30,6 +28,6 @@ export class ConnectedShareNodeService implements ShareNodeService {
   }
 
   shareable(node: Node) {
-    return this.supportAdapter.share(node);
+    return this.shareAdapter.shareable(node);
   }
 }

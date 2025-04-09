@@ -8,8 +8,4 @@ export class NullCreateArtifactService extends NullThrower implements CreateArti
     this.throw();
   }
 
-  createbleOn(): never {
-    this.throw();
-  }
-
 }

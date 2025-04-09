@@ -1,70 +1,55 @@
 import type { Nodes } from "@/domain";
-import type { FileSystemAdapter, Source, SourcesAdaptersPortfolio } from "@/infra";
+import type { AccessAdaptersFactory, FileSystemAdapter, Source } from "@/infra";
 
-import { Directory } from "@/domain";
+import { createNode } from "@/domain";
 import { throwCritical } from "@/utils";
 
 import type { StatusObserver } from "./status";
 
 import { StatusObservable } from "./status";
 
-interface Options {
-  nodes: Nodes,
-  sourcesAdaptersPortfolio: SourcesAdaptersPortfolio
-}
-
-export class ConnectionService {
+export class ConnectSourceService {
+  private readonly accessAdaptersFactory: AccessAdaptersFactory;
   private fileSystemAdapter?: FileSystemAdapter;
   private readonly nodes: Nodes;
-  private readonly sourcesAdaptersPortfolio: SourcesAdaptersPortfolio;
   private readonly statusObservable: StatusObservable;
 
-  constructor({ nodes, sourcesAdaptersPortfolio }: Options) {
-    this.sourcesAdaptersPortfolio = sourcesAdaptersPortfolio;
+  constructor(options: { accessAdaptersFactory: AccessAdaptersFactory, nodes: Nodes, }) {
+    const { accessAdaptersFactory, nodes } = options;
     this.nodes = nodes;
+    this.accessAdaptersFactory = accessAdaptersFactory;
     this.statusObservable = new StatusObservable();
-    this.accessAdaptersFactory = options.accessAdaptersFactory;
   }
 
   async connect(source: Source) {
-    const sourceAdapter = this.sourcesAdaptersPortfolio.get(source);
-    this.fileSystemAdapter = await sourceAdapter.createFileSystemAdapter();
-    this.reset(this.fileSystemAdapter);
-    this.statusObservable.next({ source, status: "connected" });
+
+    const accessAdapter = this.accessAdaptersFactory.create(source);
+    this.fileSystemAdapter = await accessAdapter.request();
+
+    this.reconnect();
+
+    this.statusObservable.next({ fileSystemAdapter: this.fileSystemAdapter, nodes: this.nodes, status: "connected" });
   }
 
   disconnect() {
     this.statusObservable.next({ status: "disconnected" });
-    this.reset();
+
+    this.fileSystemAdapter = undefined;
+    this.nodes.clear();
   }
 
   reconnect() {
-    const fileSystemAdapter = this.fileSystemAdapter;
-    if (!fileSystemAdapter) throwCritical("NO_FILE_SYSTEM_ADAPTER", "the connection must have a file system adapter to reconect");
+    if (!this.fileSystemAdapter) throwCritical("NO_FILE_SYSTEM_ADAPTER");
 
-    this.reset(fileSystemAdapter);
-  }
+    const rootOptions = this.fileSystemAdapter.resetToRootOnly();
+    const rootDirectory = createNode({ nodes: this.nodes, ...rootOptions });
 
-  async request(source: Source) {
-    const accessAdapter = this.accessAdaptersFactory.create(source);
-    return accessAdapter.request();
+    this.nodes.clear();
+    this.nodes.set(rootDirectory);
   }
 
   subscribe(observer: StatusObserver) {
     return this.statusObservable.subscribe(observer);
   };
-
-  private reset(fileSystemAdapter?: FileSystemAdapter) {
-    this.nodes.clear();
-
-    this.fileSystemAdapter?.reset();
-    this.fileSystemAdapter = fileSystemAdapter;
-
-    if (!this.fileSystemAdapter) return;
-
-    const { resolveRoot: rootData } = this.fileSystemAdapter;
-    const rootDirectory = new Directory({ nodes: this.nodes, ...rootData });
-    this.nodes.set(rootDirectory);
-  }
 
 }

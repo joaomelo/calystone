@@ -15,7 +15,7 @@ export class ConnectedExchangeArtifactService implements ExchangeArtifactService
   async fetchInto(artifact: Artifact) {
     artifact.busy();
     try {
-      const content = await this.fileSystemAdapter.fetchContent(artifact.id);
+      const content = await this.fileSystemAdapter.fetchContent(artifact);
       artifact.fromBinary(content);
       artifact.load();
     } catch (error) {
@@ -27,7 +27,6 @@ export class ConnectedExchangeArtifactService implements ExchangeArtifactService
   }
 
   async postFrom(artifact: Artifact) {
-    const content = artifact.toBinary();
-    await this.fileSystemAdapter.postContent({ content, id: artifact.id });
+    await this.fileSystemAdapter.postContent(artifact);
   }
 }

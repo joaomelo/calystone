@@ -1,16 +1,14 @@
 import type { Node, Nodes } from "@/domain";
-import type { FileSystemAdapter, SupportAdapter } from "@/infra";
+import type { FileSystemAdapter } from "@/infra";
 
 import type { NodeRemoveService } from "./remove";
 
 export class ConnectedNodeRemoveService implements NodeRemoveService {
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;
-  private readonly supportAdapter: SupportAdapter;
 
-  constructor(options: { fileSystemAdapter: FileSystemAdapter, nodes: Nodes, supportAdapter: SupportAdapter }) {
+  constructor(options: { fileSystemAdapter: FileSystemAdapter, nodes: Nodes }) {
     this.fileSystemAdapter = options.fileSystemAdapter;
-    this.supportAdapter = options.supportAdapter;
     this.nodes = options.nodes;
   }
 
@@ -20,7 +18,7 @@ export class ConnectedNodeRemoveService implements NodeRemoveService {
   }
 
   removeable(node: Node) {
-    return this.supportAdapter.remove(node);
+    return this.fileSystemAdapter.removeable(node);
   }
 
 }

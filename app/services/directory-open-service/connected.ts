@@ -26,7 +26,7 @@ export class ConnectedDirectoryOpenService implements DirectoryOpenService {
     directory.busy();
 
     try {
-      const nodesData = await this.fileSystemAdapter.open(directory.id);
+      const nodesData = await this.fileSystemAdapter.open(directory);
       for (const data of nodesData) {
         const node = createNode({ nodes: this.nodes, ...data });
         this.nodes.set(node);
