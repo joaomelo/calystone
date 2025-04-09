@@ -1,6 +1,6 @@
 import { name, version } from "@/../package.json";
 import { createI18n, createRouter, Store, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
-import { BaseSourcesAdaptersPortfolio } from "@/infra";
+import { AccessAdaptersFactory, AvailabilityFacade, BrowserShareAdapter, FilesSystemAdaptersFactory } from "@/infra";
 import { ServicesPortolfio } from "@/services";
 import { ToastService } from "@/utils";
 import PrimeVue from "primevue/config";
@@ -28,22 +28,36 @@ export function initApp(elementId: string) {
   const router = createRouter();
   app.use(router);
 
-  const options = {
-    dropbox: {
-      clientId: stringOrUndefined(import.meta.env.VITE_DROPBOX_CLIENT_ID),
-      redirectUrl: `${window.location.origin}/transfer-dropbox`,
-    },
-    memory: {
-      delayInSeconds: asNumber(import.meta.env.VITE_MEMORY_DELAY_IN_SECONDS),
-      enabled: asBoolean(import.meta.env.VITE_ENABLE_MEMORY),
-    },
-    oneDrive: {
-      clientId: stringOrUndefined(import.meta.env.VITE_ONE_DRIVE_CLIENT_ID),
-      redirectUrl: `${window.location.origin}/transfer-one-drive`,
-    },
+  const dropboxClientId = stringOrUndefined(import.meta.env.VITE_DROPBOX_CLIENT_ID);
+  const dropboxRedirectUrl = `${window.location.origin}/transfer-dropbox`;
+  const memoryDelayInSeconds = asNumber(import.meta.env.VITE_MEMORY_DELAY_IN_SECONDS);
+  const memoryEnabled = asBoolean(import.meta.env.VITE_ENABLE_MEMORY);
+  const oneDriveClientId = stringOrUndefined(import.meta.env.VITE_ONE_DRIVE_CLIENT_ID);
+  const oneDriveRedirectUrl = `${window.location.origin}/transfer-one-drive`;
+
+  const accessConfiguration = {
+    dropbox: typeof dropboxClientId === "string" ? { clientId: dropboxClientId, redirectUrl: dropboxRedirectUrl } : undefined,
+    memory: memoryEnabled ? { delayInSeconds: memoryDelayInSeconds } : undefined,
+    oneDrive: typeof oneDriveClientId === "string" ? { clientId: oneDriveClientId, redirectUrl: oneDriveRedirectUrl } : undefined,
   };
-  const sourcesAdaptersPortfolio = new BaseSourcesAdaptersPortfolio(options);
-  const servicesPortolfio = new ServicesPortolfio(sourcesAdaptersPortfolio);
+  const accessAdaptersFactory = new AccessAdaptersFactory(accessConfiguration);
+
+  const availabilityOptions = {
+    dropbox: typeof dropboxClientId === "string",
+    memory: memoryEnabled,
+    oneDrive: typeof oneDriveClientId === "string",
+  };
+  const availabilityFacade = new AvailabilityFacade(availabilityOptions);
+
+  const filesSystemAdaptersFactory = new FilesSystemAdaptersFactory();
+  const shareAdapter = new BrowserShareAdapter();
+
+  const servicesPortolfio = new ServicesPortolfio({
+    accessAdaptersFactory,
+    availabilityFacade,
+    filesSystemAdaptersFactory,
+    shareAdapter,
+  });
 
   const store = new Store({ appData, services: servicesPortolfio });
   window.$store = store;

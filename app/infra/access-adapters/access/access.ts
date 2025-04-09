@@ -1,4 +1,6 @@
-export interface AccessAdapter<T> {
+import type { FileSystemAdapter } from "@/infra/files-system-adapters";
+
+export interface AccessAdapter {
   request(): Promise<void> | void;
-  acquire(): Promise<T> | T;
+  acquire(): FileSystemAdapter | Promise<FileSystemAdapter>;
 }

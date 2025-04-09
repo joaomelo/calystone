@@ -2,7 +2,7 @@ import type { Source } from "@/infra/source";
 
 import { throwCritical } from "@/utils";
 
-import type { AccessConfigurations } from "./configuration";
+import type { AccessConfiguration } from "./configuration";
 
 import { DropboxAccessAdapter } from "../dropbox";
 import { FsaAccessAdapter } from "../fsa";
@@ -10,9 +10,9 @@ import { MemoryAccessAdapter } from "../memory";
 import { OneDriveAccessAdapter } from "../one-drive";
 
 export class AccessAdaptersFactory {
-  private readonly configurations: AccessConfigurations;
+  private readonly configurations: AccessConfiguration;
 
-  constructor(configurations: AccessConfigurations) {
+  constructor(configurations: AccessConfiguration) {
     this.configurations = configurations;
   }
 

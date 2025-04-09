@@ -1,8 +1,9 @@
+import { MemoryFileSystemAdapter } from "@/infra/files-system-adapters";
 import { delay, fakeDirectory, throwError } from "@/utils";
 
 import type { AccessAdapter } from "../access";
 
-export class MemoryAccessAdapter implements AccessAdapter<string> {
+export class MemoryAccessAdapter implements AccessAdapter {
   rootDirectoryName?: string;
   private readonly delayInSeconds: number;
 
@@ -13,7 +14,7 @@ export class MemoryAccessAdapter implements AccessAdapter<string> {
   async acquire() {
     await delay(this.delayInSeconds);
     if (!this.rootDirectoryName) throwError("MEMORY_ACCESS_WITHOUT_ROOT");
-    return this.rootDirectoryName;
+    return new MemoryFileSystemAdapter({ delayInSeconds: this.delayInSeconds, rootDirectoryName: this.rootDirectoryName });
   }
 
   async request() {

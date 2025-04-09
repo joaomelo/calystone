@@ -1,4 +1,4 @@
-export interface AccessConfigurations {
+export interface AccessConfiguration {
   memory?: MemoryConfiguration;
   oneDrive?: OneDriveConfiguration;
   dropbox?: DropboxConfiguration;

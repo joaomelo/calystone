@@ -1,3 +1,4 @@
+import { DropboxFileSystemAdapter } from "@/infra/files-system-adapters";
 import { LocalStorage } from "@/utils";
 import { throwError } from "@/utils";
 import { DropboxAuth } from "dropbox";
@@ -9,7 +10,7 @@ interface Options {
   redirectUrl: string;
 }
 
-export class DropboxAccessAdapter implements AccessAdapter<string> {
+export class DropboxAccessAdapter implements AccessAdapter {
   auth: DropboxAuth;
   redirectUrl: string;
   storage: LocalStorage<string>;
@@ -51,7 +52,7 @@ export class DropboxAccessAdapter implements AccessAdapter<string> {
     }
     this.auth.setAccessToken(result.access_token);
 
-    return result.access_token;
+    return new DropboxFileSystemAdapter(result.access_token);
   }
 
   async request() {

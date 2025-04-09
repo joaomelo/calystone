@@ -1,4 +1,4 @@
-import type { SourcesAdaptersPortfolio } from "@/infra";
+import type { AccessAdaptersFactory, AvailabilityFacade, FilesSystemAdaptersFactory, ShareAdapter } from "@/infra";
 import type { ObserverOptions } from "@/services/connection-service";
 import type { CreateArtifactService } from "@/services/create-artifact-service";
 import type { CreateDirectoryService } from "@/services/create-directory-service";
@@ -23,26 +23,39 @@ import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/no
 import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
 import { ConnectedShareNodeService, NullShareNodeService } from "@/services/share-node-service";
 
+import type { Options } from "./options";
+
 export class ServicesPortolfio {
+  accessAdaptersFactory: AccessAdaptersFactory;
   accessRequest: AccessRequestService;
+  availabilityFacade: AvailabilityFacade;
   connection: ConnectionService;
+
   createArtifact: CreateArtifactService;
   createDirectory: CreateDirectoryService;
   directoryOpen: DirectoryOpenService;
   exchangeArtifact: ExchangeArtifactService;
   exchangeText: ExchangeTextService;
+  filesSystemAdaptersFactory: FilesSystemAdaptersFactory;
   nodeMove: NodeMoveService;
   nodeRemove: NodeRemoveService;
   nodeRename: NodeRenameService;
   nodes: Nodes;
+  shareAdapter: ShareAdapter;
   shareNode: ShareNodeService;
-  sourcesAdaptersPortfolio: SourcesAdaptersPortfolio;
 
-  constructor(SourcesAdaptersPortfolio: SourcesAdaptersPortfolio) {
-    this.sourcesAdaptersPortfolio = SourcesAdaptersPortfolio;
+  constructor(options: Options) {
+    this.accessAdaptersFactory = options.accessAdaptersFactory;
+    this.availabilityFacade = options.availabilityFacade;
+    this.filesSystemAdaptersFactory = options.filesSystemAdaptersFactory;
+    this.shareAdapter = options.shareAdapter;
 
     this.nodes = new Nodes();
-    this.accessRequest = new AccessRequestService(SourcesAdaptersPortfolio);
+
+    this.accessRequest = new AccessRequestService({
+      accessAdaptersFactory: this.accessAdaptersFactory,
+      availabilityFacade: this.availabilityFacade,
+    });
     this.connection = new ConnectionService({ nodes: this.nodes, sourcesAdaptersPortfolio: SourcesAdaptersPortfolio });
 
     this.directoryOpen = new NullDirectoryOpenService();

@@ -1,18 +1,21 @@
-import type { Source, SourcesAdaptersPortfolio } from "@/infra";
+import type { AccessAdaptersFactory, AvailabilityFacade, Source } from "@/infra";
 
 export class AccessRequestService {
-  sourcesAdaptersPortfolio: SourcesAdaptersPortfolio;
+  accessAdaptersFactory: AccessAdaptersFactory;
+  availabilityFacade: AvailabilityFacade;
 
-  constructor(portfolio: SourcesAdaptersPortfolio) {
-    this.sourcesAdaptersPortfolio = portfolio;
+  constructor(options: { accessAdaptersFactory: AccessAdaptersFactory, availabilityFacade: AvailabilityFacade }) {
+    this.accessAdaptersFactory = options.accessAdaptersFactory;
+    this.availabilityFacade = options.availabilityFacade;
+  }
+
+  available(source: Source) {
+    return this.availabilityFacade.available(source);
   }
 
   request(source: Source) {
-    return this.sourcesAdaptersPortfolio.get(source).getAccess().request();
-  }
-
-  support(source: Source) {
-    return this.sourcesAdaptersPortfolio.get(source).getSupport().access();
+    const accessAdapter = this.accessAdaptersFactory.create(source);
+    return accessAdapter.request();
   }
 
 }
