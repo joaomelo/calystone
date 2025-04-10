@@ -3,7 +3,9 @@ import type { Source } from "@/infra";
 
 import { Store } from "@/display/store";
 import { ButtonBase, useDispatch, useI18n } from "@/utils";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
+
 const { source } = defineProps<{
   dataTest: string;
   icon: string;
@@ -15,6 +17,9 @@ const { t } = useI18n();
 const { dispatchOrToast, loading } = useDispatch();
 const { services } = Store.use();
 const router = useRouter();
+
+const show = computed(() => services.availSource.avail(source).isOk());
+
 async function handleClick() {
   await dispatchOrToast(async () => {
     await services.connectSource.connect(source);
@@ -25,7 +30,7 @@ async function handleClick() {
 </script>
 <template>
   <ButtonBase
-    v-if="services.availSource.avail(source)"
+    v-if="show"
     :label="t(label)"
     size="large"
     :data-test="dataTest"
