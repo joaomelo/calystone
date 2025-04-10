@@ -137,12 +137,12 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
     return Status.ok();
   }
 
-  async rename(options: { name: string; node: Node, }): Promise<void> {
+  async rename(options: { name: string }): Promise<void> {
     await delay(this.delayInSeconds);
 
-    const { name, node } = options;
+    const { name } = options;
 
-    const renameable = this.renameable(node);
+    const renameable = this.renameable();
     renameable.throwOnFail();
 
     if (name.includes("/")) {
@@ -150,9 +150,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
     }
   }
 
-  renameable(node: Node) {
-    const rootStatus = this.failIfRoot(node);
-    if (rootStatus.isFail()) return rootStatus;
+  renameable() {
     return Status.ok();
   }
 
