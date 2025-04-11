@@ -1,8 +1,6 @@
 import type { Node } from "@/domain";
 import type { ShareAdapter } from "@/infra";
 
-import { throwNull } from "@/utils";
-
 import type { ShareNodeService } from "./share";
 
 export class ConnectedShareNodeService implements ShareNodeService {
@@ -12,19 +10,16 @@ export class ConnectedShareNodeService implements ShareNodeService {
     this.shareAdapter = shareAdapter;
   }
 
-  share(): never {
-    // node.busy();
-    // try {
-    //   const content = await this.fileSystemAdapter.fetchFileContent(node.id);
-    //   node.fromBinary(content);
-    //   node.load();
-    // } catch (error) {
-    //   node.unload();
-    //   throwError("UNABLE_TO_FETCH_CONTENT", error);
-    // } finally {
-    //   node.idle();
-    // }
-    throwNull();
+  async share(node: Node): Promise<void> {
+    const shareable = this.shareable(node);
+    shareable.throwOnFail();
+
+    node.busy();
+    try {
+      await this.shareAdapter.share(node);
+    } finally {
+      node.idle();
+    }
   }
 
   shareable(node: Node) {

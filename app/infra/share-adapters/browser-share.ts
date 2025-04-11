@@ -18,21 +18,15 @@ export class BrowserShareAdapter implements ShareAdapter {
   }
 
   shareable(node: Node): Status {
-    const navigatorable = this.navigatorable();
-    if (navigatorable.isFail()) return navigatorable;
+    if (!("share" in navigator) || !("canShare" in navigator)) return Status.fail("SHARE_NOT_SUPPORTED");
 
     if (!node.isLoaded()) return Status.fail("NODE_NOT_LOADED");
     if (!(node instanceof Artifact)) return Status.fail("NODE_NOT_ARTIFACT");
 
     const shareData = this.shareDataFrom(node);
     const isShareableByNavigator = navigator.canShare(shareData);
-    if (!isShareableByNavigator) return Status.fail("NAVIGATOR_CANNOT_SHARE_NODE");
+    if (!isShareableByNavigator) return Status.fail("NAVIGATOR_CAN_SHARE_FALSE");
 
-    return Status.ok();
-  }
-
-  private navigatorable(): Status {
-    if (!("share" in navigator) || !("canShare" in navigator)) return Status.fail("SHARE_NOT_SUPPORTED");
     return Status.ok();
   }
 
