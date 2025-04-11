@@ -37,7 +37,7 @@ export class BrowserShareAdapter implements ShareAdapter {
       artifact.name,
       {
         lastModified: artifact.lastModified,
-        type: artifact.mime.type()
+        type: artifact.mime.media
       }
     );
     return {
