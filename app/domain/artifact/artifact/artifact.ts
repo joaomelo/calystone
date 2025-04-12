@@ -17,9 +17,29 @@ export abstract class Artifact extends Node {
     this.mime = new Mime(options.name);
   }
 
+  basename(): string {
+    const name = this.name;
+    if (!name) return "";
+
+    const lastDotIndex = name.lastIndexOf(".");
+    if (lastDotIndex === -1) return name;
+
+    return name.substring(0, lastDotIndex);
+  }
+
   fromBinary(binary: ArrayBuffer): void {
     this.performFromBinary(binary);
     this.load();
+  }
+
+  nameWithoutExtension(): string {
+    const name = this.name;
+    if (!name) return "";
+
+    const lastDotIndex = name.lastIndexOf(".");
+    if (lastDotIndex === -1) return name;
+
+    return name.substring(0, lastDotIndex);
   }
 
   parentable(): Status {
