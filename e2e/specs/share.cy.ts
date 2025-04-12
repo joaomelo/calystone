@@ -8,13 +8,20 @@ describe("share", () => {
 
   it("allows text artifact share", () => {
     cy.window().then((win) => {
+      Object.defineProperty(win.navigator, "share", {
+        value: () => Promise.resolve(),
+        writable: true
+      });
+      Object.defineProperty(win.navigator, "canShare", {
+        value: () => true,
+        writable: true
+      });
+
       const stub = cy.stub(win.navigator, "share").resolves();
-      cy.stub(win.navigator, "canShare").resolves(true);
 
       outline.textArtifactOf(outline.rootNode()).first().as("artifact");
       cy.get("@artifact").click();
       toolbarNode.buttonShare().click();
-
       cy.wrap(stub).should("have.been.calledOnce");
     });
   });
