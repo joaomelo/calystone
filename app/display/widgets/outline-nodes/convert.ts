@@ -15,7 +15,7 @@ export function convert(node: Node): TreeNode {
 function solveChildren(node: Node): Node[] {
   if (!(node instanceof Directory)) return [];
 
-  const children = node.getChildren();
+  const children = node.children();
 
   if (children.length === 0) return [];
 

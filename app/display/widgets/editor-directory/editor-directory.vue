@@ -14,7 +14,7 @@ const { t } = useI18n();
 const propertySheetRows = computed(() => {
   return [
     { label: t("path"), value: content.mountPath() },
-    { label: t("items"), value: content.getDescendants().length },
+    { label: t("items"), value: content.descendants().length },
   ];
 });
 </script>

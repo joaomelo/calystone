@@ -34,7 +34,7 @@ export class Nodes {
   remove(node: Node) {
     this.map.delete(node.id);
     if (node instanceof Directory) {
-      for (const child of node.getChildren()) {
+      for (const child of node.children()) {
         this.remove(child);
       }
     }
