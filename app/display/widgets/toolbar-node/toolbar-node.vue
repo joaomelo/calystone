@@ -6,6 +6,7 @@ import { ToolbarBase } from "@/utils";
 
 import ToolbarButtonCreateArtifact from "./toolbar-button-create-artifact.vue";
 import ToolbarButtonCreateDirectory from "./toolbar-button-create-directory.vue";
+import ToolbarButtonExport from "./toolbar-button-export.vue";
 import ToolbarButtonOpenDirectory from "./toolbar-button-open-directory.vue";
 import ToolbarButtonRemove from "./toolbar-button-remove.vue";
 import ToolbarButtonRename from "./toolbar-button-rename.vue";
@@ -35,6 +36,9 @@ defineEmits<{
           :parent="node"
         />
         <ToolbarButtonRename
+          :node="node"
+        />
+        <ToolbarButtonExport
           :node="node"
         />
         <ToolbarButtonShare

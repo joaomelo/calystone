@@ -27,6 +27,7 @@
     "UNABLE_POST_CONTENT": "Unable to save content to file"
   },
   "exit": "exit",
+  "export": "export",
   "features": {
     "continuous-development": {
       "description": "We are continually working to improve its reliability. Because we can’t guarantee complete accuracy, please use it with care and maintain regular backups of your files. Additionally, by using Calystone, you acknowledge our {0} and agree to use the app responsibly.",

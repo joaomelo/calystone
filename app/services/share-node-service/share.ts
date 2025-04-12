@@ -1,7 +1,26 @@
 import type { Node } from "@/domain";
-import type { Status } from "@/utils";
+import type { ShareAdapter } from "@/infra";
 
-export interface ShareNodeService {
-  shareable(node: Node): Status
-  share(node: Node): Promise<void>
+export class ShareNodeService {
+  private readonly shareAdapter: ShareAdapter;
+
+  constructor(shareAdapter: ShareAdapter) {
+    this.shareAdapter = shareAdapter;
+  }
+
+  async share(node: Node): Promise<void> {
+    const shareable = this.shareable(node);
+    shareable.throwOnFail();
+
+    node.busy();
+    try {
+      await this.shareAdapter.share(node);
+    } finally {
+      node.idle();
+    }
+  }
+
+  shareable(node: Node) {
+    return this.shareAdapter.shareable(node);
+  }
 }

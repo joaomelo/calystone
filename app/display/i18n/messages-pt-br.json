@@ -27,6 +27,7 @@
     "UNABLE_POST_CONTENT": "Não foi possível salvar o conteúdo no arquivo"
   },
   "exit": "sair",
+  "export": "exportar",
   "features": {
     "continuous-development": {
       "description": "Estamos continuamente trabalhando para melhorar sua confiabilidade. Como não podemos garantir total precisão, use com cuidado e mantenha backups regulares de seus arquivos. Além disso, ao usar o Calystone, você reconhece nossos {0} e concorda em usar o aplicativo de forma responsável.",
