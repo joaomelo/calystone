@@ -4,6 +4,8 @@ import { Status } from "@/utils";
 import { Node } from "../node";
 
 export class Directory extends Node {
+  static readonly descriptorBasename = "README";
+
   children(): Node[] {
     return this.nodes.list().filter(node => node.isChildOf(this));
   }
@@ -25,8 +27,7 @@ export class Directory extends Node {
     const textArtifacts = children.filter(child => child instanceof TextArtifact);
     if (textArtifacts.length === 0) return;
 
-    const descriptorBasename = "README";
-    const descriptor = textArtifacts.find(child => child.basename() === descriptorBasename);
+    const descriptor = textArtifacts.find(child => child.basename() === Directory.descriptorBasename);
     if (!descriptor) return;
 
     return descriptor;

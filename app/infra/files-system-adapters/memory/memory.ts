@@ -1,6 +1,6 @@
-import type { Artifact, ArtifactDataOptions, Directory, DirectoryDataOptions, Node } from "@/domain";
+import type { Artifact, ArtifactDataOptions, DirectoryDataOptions, Node } from "@/domain";
 
-import { createId } from "@/domain";
+import { createId, Directory } from "@/domain";
 import { fakeDirectory, fakeFile, fakeFileSystemEntry, Status, throwError } from "@/utils";
 import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";
@@ -85,6 +85,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
     const shouldGaranteeDataExpectedByE2e = parent.id === this.rootData.id;
     if (shouldGaranteeDataExpectedByE2e) {
       const file = fakeFile("txt");
+      file.name = `${Directory.descriptorBasename}.txt`;
       const fileId = createId();
       childrenData.push({ id: fileId, parentId: parent.id, ...file });
       this.metadatas.setFile({ id: fileId, metadata: file.content });
