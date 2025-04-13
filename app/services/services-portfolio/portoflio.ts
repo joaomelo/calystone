@@ -15,19 +15,19 @@ import { ConnectSourceService } from "@/services/connect-source-service";
 import { ConnectedCreateArtifactService, NullCreateArtifactService } from "@/services/create-artifact-service";
 import { ConnectedCreateDirectoryService, NullCreateDirectoryService } from "@/services/create-directory-service";
 import { ConnectedDirectoryOpenService, NullDirectoryOpenService } from "@/services/directory-open-service";
+import { ConnectedEnsureDescriptorService, NullEnsureDescriptorService } from "@/services/ensure-descriptor";
 import { ConnectedExchangeArtifactService, NullExchangeArtifactService } from "@/services/exchange-artifact-service";
 import { ConnectedExchangeTextService, NullExchangeTextService } from "@/services/exchange-text-service";
 import { ExportNodeService } from "@/services/export-node-service";
+import { ConnectedLoadBackgroundService, NullLoadBackgroundService } from "@/services/load-background-service";
 import { ConnectedNodeMoveService, NullNodeMoveService } from "@/services/node-move-service";
 import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/node-remove-service";
 import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
 import { ShareNodeService } from "@/services/share-node-service";
 
 import type { EnsureDescriptorService } from "../ensure-descriptor";
+import type { LoadBackgroundService } from "../load-background-service/load";
 import type { Options } from "./options";
-
-import { NullEnsureDescriptorService } from "../ensure-descriptor";
-import { ConnectedEnsureDescriptorService } from "../ensure-descriptor";
 
 export class ServicesPortolfio {
   accessAdaptersFactory: AccessAdaptersFactory;
@@ -42,6 +42,7 @@ export class ServicesPortolfio {
   exchangeText: ExchangeTextService;
   exportAdapter: ExportAdapter;
   exportNode: ExportNodeService;
+  loadBackground: LoadBackgroundService;
   nodeMove: NodeMoveService;
   nodeRemove: NodeRemoveService;
   nodeRename: NodeRenameService;
@@ -71,6 +72,7 @@ export class ServicesPortolfio {
     this.nodeMove = new NullNodeMoveService();
     this.createDirectory = new NullCreateDirectoryService();
     this.createArtifact = new NullCreateArtifactService();
+    this.loadBackground = new NullLoadBackgroundService();
 
     this.connectSource.subscribe((options) => { this.rotateServices(options); });
   }
@@ -86,6 +88,9 @@ export class ServicesPortolfio {
       this.createDirectory = new NullCreateDirectoryService();
       this.createArtifact = new NullCreateArtifactService();
       this.ensureDescriptor = new NullEnsureDescriptorService();
+
+      this.loadBackground.stop();
+      this.loadBackground = new NullLoadBackgroundService();
       return;
     }
 
@@ -100,5 +105,8 @@ export class ServicesPortolfio {
     this.nodeMove = new ConnectedNodeMoveService(fileSystemAdapter);
     this.createDirectory = new ConnectedCreateDirectoryService({ directoryOpen: this.directoryOpen, fileSystemAdapter, nodes });
     this.createArtifact = new ConnectedCreateArtifactService({ directoryOpen: this.directoryOpen, exchangeArtifact: this.exchangeArtifact, fileSystemAdapter, nodes });
+
+    this.loadBackground = new ConnectedLoadBackgroundService();
+    this.loadBackground.start();
   };
 }

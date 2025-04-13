@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
-import { watch } from "vue";
+import { onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 
 import FrameDashboardSide from "./frame-dashboard-side.vue";
@@ -8,18 +8,11 @@ import FrameDashboardSide from "./frame-dashboard-side.vue";
 const router = useRouter();
 const store = Store.use();
 
-watch(
-  () => store.connected.value,
-  (connected) => {
-    if (!connected) {
-      void router.push({ name: "open" });
-    }
-  },
-  {
-    immediate: true
+onBeforeMount(() => {
+  if (!store.connected.value) {
+    void router.push({ name: "open" });
   }
-);
-
+});
 </script>
 <template>
   <div class="frame-dashboard">

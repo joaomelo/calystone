@@ -4,12 +4,13 @@ import type { ComputedRef } from "vue";
 import { Store } from "@/display/store";
 import { SideBar, SideItem, useI18n } from "@/utils";
 import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const { t } = useI18n();
 const { services } = Store.use();
 
 const route = useRoute();
+const router = useRouter();
 
 const baseIcon = "bx bx-md";
 
@@ -19,7 +20,10 @@ const active: ComputedRef<string> = computed(() => {
 });
 
 function handleExit() {
-  services.connectSource.disconnect();
+  // we push open immediately to avoid rendering the dashboard while the services are being disconnected
+  void router.push({ name: "open" }).then(() => {
+    services.connectSource.disconnect();
+  });
 }
 
 function handleReload() {
