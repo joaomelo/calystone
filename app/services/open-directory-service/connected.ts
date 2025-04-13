@@ -5,9 +5,9 @@ import type { EnsureDescriptorService } from "@/services/ensure-descriptor";
 import { createNode, Directory } from "@/domain";
 import { throwError } from "@/utils";
 
-import type { DirectoryOpenService } from "./open";
+import type { OpenDirectoryService } from "./open";
 
-export class ConnectedDirectoryOpenService implements DirectoryOpenService {
+export class ConnectedOpenDirectoryService implements OpenDirectoryService {
   private readonly ensureDescriptor: EnsureDescriptorService;
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;

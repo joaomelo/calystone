@@ -13,7 +13,7 @@ const { services } = Store.use();
 const { t } = useI18n();
 
 async function handleClick() {
-  await dispatchOrToast(() => services.directoryOpen.open(node));
+  await dispatchOrToast(() => services.openDirectory.open(node));
 }
 </script>
 <template>

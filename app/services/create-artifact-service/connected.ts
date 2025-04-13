@@ -3,20 +3,20 @@ import type { FileSystemAdapter } from "@/infra";
 
 import { createNode } from "@/domain";
 
-import type { DirectoryOpenService } from "../directory-open-service/open";
 import type { ExchangeArtifactService } from "../exchange-artifact-service";
+import type { OpenDirectoryService } from "../open-directory-service/open";
 import type { CreateArtifactService } from "./create-artifact";
 
 export class ConnectedCreateArtifactService implements CreateArtifactService {
-  private readonly directoryOpen: DirectoryOpenService;
   private readonly exchangeArtifact: ExchangeArtifactService;
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;
+  private readonly openDirectory: OpenDirectoryService;
 
-  constructor(options: { directoryOpen: DirectoryOpenService; exchangeArtifact: ExchangeArtifactService; fileSystemAdapter: FileSystemAdapter, nodes: Nodes }) {
+  constructor(options: { exchangeArtifact: ExchangeArtifactService; fileSystemAdapter: FileSystemAdapter, nodes: Nodes; openDirectory: OpenDirectoryService; }) {
     this.fileSystemAdapter = options.fileSystemAdapter;
     this.nodes = options.nodes;
-    this.directoryOpen = options.directoryOpen;
+    this.openDirectory = options.openDirectory;
     this.exchangeArtifact = options.exchangeArtifact;
   }
 
@@ -24,7 +24,7 @@ export class ConnectedCreateArtifactService implements CreateArtifactService {
     const { parent } = options;
     try {
       parent.busy();
-      await this.directoryOpen.open(parent);
+      await this.openDirectory.open(parent);
       const data = await this.fileSystemAdapter.createArtifact(options);
       const artifact = createNode({ nodes: this.nodes, ...data });
       this.nodes.set(artifact);

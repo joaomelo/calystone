@@ -21,7 +21,7 @@ function handleClose() {
 async function handleExpanded(id: Id) {
   const node = solveNode(id);
   if (node instanceof Directory) {
-    await dispatchOrToast(() => services.directoryOpen.open(node));
+    await dispatchOrToast(() => services.openDirectory.open(node));
   }
 }
 

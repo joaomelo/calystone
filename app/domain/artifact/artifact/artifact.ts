@@ -46,6 +46,18 @@ export abstract class Artifact extends Node {
     return Status.fail("ARTIFACT_CANNOT_BE_PARENT");
   }
 
+  sizeAbove(bytes: number): boolean {
+    return this.size > bytes;
+  }
+
+  sizeBelow(bytes: number): boolean {
+    return this.size < bytes;
+  }
+
+  sizeBetween(options: { max: number; min: number, }): boolean {
+    return this.size >= options.min && this.size <= options.max;
+  }
+
   abstract toBinary(): ArrayBuffer;
 
   protected abstract performFromBinary(binary: ArrayBuffer): void;
