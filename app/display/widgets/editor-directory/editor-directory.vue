@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Directory } from "@/domain";
 
+import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { PropertySheet, TextMarkdown, TextMessage, useI18n } from "@/utils";
 import { computed } from "vue";
@@ -10,6 +11,7 @@ const { content } = defineProps<{
 }>();
 
 const { t } = useI18n();
+const { services } = Store.use();
 
 const propertySheetRows = computed(() => {
   return [
@@ -20,6 +22,10 @@ const propertySheetRows = computed(() => {
 
 const description = computed(() => {
   return content.description();
+});
+
+const descriptorMissing = computed(() => {
+  return services.ensureDescriptor.missing(content).isOk();
 });
 </script>
 <template>
@@ -35,6 +41,12 @@ const description = computed(() => {
           data-test="tip-unloaded"
         >
           {{ t('directory-unloaded') }}
+        </TextMessage>
+        <TextMessage
+          v-if="descriptorMissing"
+          data-test="descriptor-missing"
+        >
+          {{ t('descriptor-tip') }}
         </TextMessage>
         <TextMarkdown
           v-if="description"

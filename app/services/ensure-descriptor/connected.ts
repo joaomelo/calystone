@@ -1,6 +1,8 @@
 import type { Directory } from "@/domain";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 
+import { Status } from "@/utils";
+
 import type { EnsureDescriptorService } from "./ensure";
 
 export class ConnectedEnsureDescriptorService implements EnsureDescriptorService {
@@ -18,5 +20,14 @@ export class ConnectedEnsureDescriptorService implements EnsureDescriptorService
     if (descriptor.isLoaded()) return;
 
     await this.exchangeArtifact.fetchInto(descriptor);
+  }
+
+  missing(directory: Directory): Status {
+    if (!directory.isLoaded()) return Status.fail("UNABLE_TO_CHECK_DIRECTORY_NOT_LOADED");
+
+    const descriptor = directory.descriptor();
+    if (descriptor) return Status.fail("DESCRIPTOR_FOUND");
+
+    return Status.ok();
   }
 }

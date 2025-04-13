@@ -8,4 +8,7 @@ export class NullEnsureDescriptorService extends NullThrower implements EnsureDe
     this.throw();
   }
 
+  missing(): never {
+    this.throw();
+  }
 }
