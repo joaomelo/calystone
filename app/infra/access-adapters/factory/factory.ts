@@ -28,8 +28,8 @@ export class AccessAdaptersFactory {
         return new FsaAccessAdapter();
       }
       case "memory": {
-        const delayInSeconds = this.configurations.memory?.delayInSeconds ?? 1;
-        return new MemoryAccessAdapter(delayInSeconds);
+        const delayInMilliseconds = this.configurations.memory?.delayInMilliseconds ?? 0;
+        return new MemoryAccessAdapter(delayInMilliseconds);
       }
       case "one-drive":{
         if (!this.configurations.oneDrive) {

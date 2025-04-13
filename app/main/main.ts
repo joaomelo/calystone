@@ -30,14 +30,14 @@ export function initApp(elementId: string) {
 
   const dropboxClientId = stringOrUndefined(import.meta.env.VITE_DROPBOX_CLIENT_ID);
   const dropboxRedirectUrl = `${window.location.origin}/transfer-dropbox`;
-  const memoryDelayInSeconds = asNumber(import.meta.env.VITE_MEMORY_DELAY_IN_SECONDS);
+  const memoryDelayInMilliseconds = asNumber(import.meta.env.VITE_MEMORY_DELAY_IN_MILLISECONDS);
   const memoryEnabled = asBoolean(import.meta.env.VITE_ENABLE_MEMORY);
   const oneDriveClientId = stringOrUndefined(import.meta.env.VITE_ONE_DRIVE_CLIENT_ID);
   const oneDriveRedirectUrl = `${window.location.origin}/transfer-one-drive`;
 
   const accessConfiguration = {
     dropbox: typeof dropboxClientId === "string" ? { clientId: dropboxClientId, redirectUrl: dropboxRedirectUrl } : undefined,
-    memory: memoryEnabled ? { delayInSeconds: memoryDelayInSeconds } : undefined,
+    memory: memoryEnabled ? { delayInMilliseconds: memoryDelayInMilliseconds } : undefined,
     oneDrive: typeof oneDriveClientId === "string" ? { clientId: oneDriveClientId, redirectUrl: oneDriveRedirectUrl } : undefined,
   };
   const accessAdaptersFactory = new AccessAdaptersFactory(accessConfiguration);

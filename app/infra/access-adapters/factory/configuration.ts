@@ -7,7 +7,7 @@ export interface AccessConfiguration {
 export type DropboxConfiguration = CloudConfiguration;
 
 export interface MemoryConfiguration {
-  delayInSeconds: number;
+  delayInMilliseconds: number;
 }
 
 export type OneDriveConfiguration = CloudConfiguration;

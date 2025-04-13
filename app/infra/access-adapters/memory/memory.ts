@@ -4,18 +4,18 @@ import { delay, fakeDirectory } from "@/utils";
 import type { AccessAdapter } from "../access";
 
 export class MemoryAccessAdapter implements AccessAdapter {
-  private readonly delayInSeconds: number;
+  private readonly delayInMilliseconds: number;
 
-  constructor(delayInSeconds: number) {
-    this.delayInSeconds = delayInSeconds;
+  constructor(delayInMilliseconds: number) {
+    this.delayInMilliseconds = delayInMilliseconds;
   }
 
   async request() {
-    await delay(this.delayInSeconds);
+    await delay(this.delayInMilliseconds);
 
     const dir = fakeDirectory();
     const rootDirectoryName = dir.name;
 
-    return new MemoryFileSystemAdapter({ delayInSeconds: this.delayInSeconds, rootDirectoryName });
+    return new MemoryFileSystemAdapter({ delayInMilliseconds: this.delayInMilliseconds, rootDirectoryName });
   }
 }

@@ -14,21 +14,21 @@ type DirectoryMetadata = undefined;
 type RootMetadata = undefined;
 
 export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, DirectoryMetadata, ArtifactMetadata> {
-  private readonly delayInSeconds: number;
+  private readonly delayInMilliseconds: number;
 
-  constructor(options: { delayInSeconds: number; rootDirectoryName: string }) {
-    const { delayInSeconds, rootDirectoryName } = options;
+  constructor(options: { delayInMilliseconds: number; rootDirectoryName: string }) {
+    const { delayInMilliseconds, rootDirectoryName } = options;
     const rootData: DirectoryDataOptions = {
       id: createId(),
       name: rootDirectoryName,
       parentId: undefined
     };
     super({ rootData, rootMetadata: undefined });
-    this.delayInSeconds = delayInSeconds;
+    this.delayInMilliseconds = delayInMilliseconds;
   }
 
   async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactDataOptions> {
-    await delay(this.delayInSeconds);
+    await this.delay();
 
     const { name, parent: { id: parentId } } = options;
 
@@ -48,7 +48,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
   }
 
   async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
-    await delay(this.delayInSeconds);
+    await this.delay();
 
     const id = createId();
     this.metadatas.setDirectory({ id, metadata: undefined });
@@ -60,14 +60,14 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
   }
 
   async fetchContent(artifact: Artifact): Promise<ArrayBuffer> {
-    await delay(this.delayInSeconds);
+    await this.delay();
 
     const { metadata: cachedData } = this.metadatas.getOfFileOrThrow(artifact.id);
     return cachedData;
   }
 
   async move(options: { subject: Node, target: Directory }): Promise<void> {
-    await delay(this.delayInSeconds);
+    await this.delay();
 
     const moveable = this.moveable(options.subject);
     moveable.throwOnFail();
@@ -78,7 +78,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
   }
 
   async open(parent: Directory): Promise<ArtifactOrDirectoryDataOptions[]> {
-    await delay(this.delayInSeconds);
+    await this.delay();
 
     const childrenData: ArtifactOrDirectoryDataOptions[] = [];
 
@@ -116,7 +116,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
   }
 
   async postContent(artifact: Artifact): Promise<void> {
-    await delay(this.delayInSeconds);
+    await this.delay();
 
     const { id } = artifact;
     const content = artifact.toBinary();
@@ -124,7 +124,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
   }
 
   async remove(node: Node): Promise<void> {
-    await delay(this.delayInSeconds);
+    await this.delay();
 
     const removeable = this.removeable(node);
     removeable.throwOnFail();
@@ -139,7 +139,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
   }
 
   async rename(options: { name: string }): Promise<void> {
-    await delay(this.delayInSeconds);
+    await this.delay();
 
     const { name } = options;
 
@@ -153,6 +153,10 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
 
   renameable() {
     return Status.ok();
+  }
+
+  private async delay() {
+    await delay(this.delayInMilliseconds);
   }
 
 }
