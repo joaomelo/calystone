@@ -27,6 +27,7 @@ const { version } = appData;
         >
           <router-link
             :to="{ name: 'privacy' }"
+            data-test="privacy-link"
           >
             {{ t('features.data-ownership.privacy') }}
           </router-link>
@@ -54,6 +55,7 @@ const { version } = appData;
         >
           <router-link
             :to="{ name: 'terms' }"
+            data-test="terms-link"
           >
             {{ t('features.continuous-development.terms') }}
           </router-link>

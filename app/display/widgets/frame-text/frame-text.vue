@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import { Frameplain } from "@/display/widgets/frame-plain";
+import { TextMarkdown } from "@/utils";
+
 defineProps<{
-  date: string;
-  title: string;
+  text: string;
 }>();
 </script>
 <template>
   <Frameplain>
     <div class="frame-text">
-      <h1>{{ title }}</h1>
-      <p>Effective Date: {{ date }}</p>
-
-      <slot />
-
-      <div class="frame-text-home">
+      <TextMarkdown :markdown="text" />
+      <div class="frame-text__home">
         <router-link :to="{ name: 'open' }">
           Back to Home
         </router-link>
@@ -22,17 +19,7 @@ defineProps<{
   </Frameplain>
 </template>
 <style scoped>
-.frame-text {
-  & :deep(h2) {
-    font-size: var(--font-size-2);
-  }
-
-  & :deep(p) {
-    margin-block-end: var(--size-3);
-  }
-}
-
-.frame-text-home {
+.frame-text__home {
   text-align: end;
 }
 </style>

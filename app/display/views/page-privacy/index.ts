@@ -1,1 +1,0 @@
-export { default as PagePrivacy } from "./page-privacy.vue";
