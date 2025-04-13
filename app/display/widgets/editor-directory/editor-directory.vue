@@ -2,7 +2,7 @@
 import type { Directory } from "@/domain";
 
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
-import { PropertySheet, TextMessage, useI18n } from "@/utils";
+import { PropertySheet, TextMarkdown, TextMessage, useI18n } from "@/utils";
 import { computed } from "vue";
 
 const { content } = defineProps<{
@@ -16,6 +16,10 @@ const propertySheetRows = computed(() => {
     { label: t("path"), value: content.mountPath() },
     { label: t("items"), value: content.descendants().length },
   ];
+});
+
+const description = computed(() => {
+  return content.description();
 });
 </script>
 <template>
@@ -32,6 +36,10 @@ const propertySheetRows = computed(() => {
         >
           {{ t('directory-unloaded') }}
         </TextMessage>
+        <TextMarkdown
+          v-if="description"
+          :markdown="description"
+        />
       </div>
     </template>
   </EditorNodeWorkspace>
