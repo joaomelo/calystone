@@ -44,12 +44,13 @@ const descriptorMissing = computed(() => {
         </TextMessage>
         <TextMessage
           v-if="descriptorMissing"
-          data-test="descriptor-missing"
+          data-test="descriptor-tip"
         >
           {{ t('descriptor-tip') }}
         </TextMessage>
         <TextMarkdown
           v-if="description"
+          data-test="descriptor-content"
           :markdown="description"
         />
       </div>
