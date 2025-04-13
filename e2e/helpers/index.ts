@@ -1,4 +1,5 @@
 export * from "./data-test";
+export * from "./docs";
 export * from "./editor-binary";
 export * from "./editor-directory";
 export * from "./editor-empty";

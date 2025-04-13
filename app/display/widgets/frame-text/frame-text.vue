@@ -11,7 +11,10 @@ defineProps<{
     <div class="frame-text">
       <TextMarkdown :markdown="text" />
       <div class="frame-text__home">
-        <router-link :to="{ name: 'open' }">
+        <router-link
+          data-test="open-link"
+          :to="{ name: 'open' }"
+        >
           Back to Home
         </router-link>
       </div>
