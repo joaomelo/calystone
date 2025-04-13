@@ -1,21 +1,24 @@
 import type { Nodes } from "@/domain";
 import type { FileSystemAdapter } from "@/infra";
+import type { EnsureDescriptorService } from "@/services/ensure-descriptor";
 
 import { createNode, Directory } from "@/domain";
 import { throwError } from "@/utils";
 
 import type { DirectoryOpenService } from "./open";
 
-interface Options {
-  fileSystemAdapter: FileSystemAdapter
-  nodes: Nodes
-}
-
 export class ConnectedDirectoryOpenService implements DirectoryOpenService {
+  private readonly ensureDescriptor: EnsureDescriptorService;
   private readonly fileSystemAdapter: FileSystemAdapter;
   private readonly nodes: Nodes;
 
-  constructor({ fileSystemAdapter, nodes }: Options) {
+  constructor(options: {
+    ensureDescriptor: EnsureDescriptorService,
+    fileSystemAdapter: FileSystemAdapter,
+    nodes: Nodes
+  }) {
+    const { ensureDescriptor, fileSystemAdapter, nodes } = options;
+    this.ensureDescriptor = ensureDescriptor;
     this.fileSystemAdapter = fileSystemAdapter;
     this.nodes = nodes;
   }
@@ -32,6 +35,7 @@ export class ConnectedDirectoryOpenService implements DirectoryOpenService {
         this.nodes.set(node);
       }
       directory.load();
+      await this.ensureDescriptor.ensure(directory);
     } catch (error) {
       directory.unload();
       throwError("UNABLE_TO_OPEN_DIRECTORY", error);

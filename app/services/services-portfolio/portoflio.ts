@@ -23,7 +23,11 @@ import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/no
 import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
 import { ShareNodeService } from "@/services/share-node-service";
 
+import type { EnsureDescriptorService } from "../ensure-descriptor";
 import type { Options } from "./options";
+
+import { NullEnsureDescriptorService } from "../ensure-descriptor";
+import { ConnectedEnsureDescriptorService } from "../ensure-descriptor";
 
 export class ServicesPortolfio {
   accessAdaptersFactory: AccessAdaptersFactory;
@@ -33,6 +37,7 @@ export class ServicesPortolfio {
   createArtifact: CreateArtifactService;
   createDirectory: CreateDirectoryService;
   directoryOpen: DirectoryOpenService;
+  ensureDescriptor: EnsureDescriptorService;
   exchangeArtifact: ExchangeArtifactService;
   exchangeText: ExchangeTextService;
   exportAdapter: ExportAdapter;
@@ -58,6 +63,7 @@ export class ServicesPortolfio {
     this.exportNode = new ExportNodeService(this.exportAdapter);
 
     this.directoryOpen = new NullDirectoryOpenService();
+    this.ensureDescriptor = new NullEnsureDescriptorService();
     this.exchangeArtifact = new NullExchangeArtifactService();
     this.exchangeText = new NullExchangeTextService();
     this.nodeRename = new NullNodeRenameService();
@@ -79,13 +85,15 @@ export class ServicesPortolfio {
       this.nodeMove = new NullNodeMoveService();
       this.createDirectory = new NullCreateDirectoryService();
       this.createArtifact = new NullCreateArtifactService();
+      this.ensureDescriptor = new NullEnsureDescriptorService();
       return;
     }
 
     const { fileSystemAdapter, nodes } = options;
 
-    this.directoryOpen = new ConnectedDirectoryOpenService({ fileSystemAdapter, nodes });
     this.exchangeArtifact = new ConnectedExchangeArtifactService(fileSystemAdapter);
+    this.ensureDescriptor = new ConnectedEnsureDescriptorService(this.exchangeArtifact);
+    this.directoryOpen = new ConnectedDirectoryOpenService({ ensureDescriptor: this.ensureDescriptor, fileSystemAdapter, nodes });
     this.exchangeText = new ConnectedExchangeTextService(this.exchangeArtifact);
     this.nodeRename = new ConnectedNodeRenameService({ fileSystemAdapter, nodes });
     this.nodeRemove = new ConnectedNodeRemoveService({ fileSystemAdapter, nodes });
