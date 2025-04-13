@@ -1,5 +1,5 @@
 # Privacy Policy for Calystone
-2025-01-18
+Effective Date: 2025-01-18
 
 ## Introduction
 Calystone ("we," "us," or "our") is an open-source self-management app centered around user-controlled files. This Privacy Policy explains how we access, use, store, or share data from users of our application, including data accessed through third-party cloud providers OneDrive and Dropbox (from now on called "file services"), and your local file system.

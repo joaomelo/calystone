@@ -1,9 +1,0 @@
-# Configuration for GitHub repository settings
-# This file tells GitHub where to find the README and LICENSE files
-
-# Path to the README file (relative to repository root)
-readme: app/display/views/page-privacy/page-privacy.md
-
-# Path to the LICENSE file (relative to repository root)
-# Uncomment and modify if you have a LICENSE file in a different location
-# license: path/to/license.md 
