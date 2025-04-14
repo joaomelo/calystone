@@ -71,7 +71,7 @@ export class ConnectedLoadNodesService implements LoadNodesService{
     } else {
       await this.load();
     }
-    this.clearId = window.setTimeout(() => void this.tick(), 500);
+    this.clearId = window.setTimeout(() => void this.tick(), 1500);
   }
 
 }
