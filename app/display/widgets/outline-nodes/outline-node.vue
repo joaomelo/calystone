@@ -13,6 +13,8 @@ const { node } = defineProps<{
 }>();
 const { nodes, services } = Store.use();
 
+const icon = computed(() => solveIcon(node));
+
 const moveable = computed(() => services.nodeMove.moveable(node));
 const { dispatchOrToast } = useDispatch();
 const dragFormat = "application/node-id";
@@ -58,7 +60,7 @@ function handleDragstart(event: DragEvent) {
     @dragover="handleDragover"
     @dragenter="handleDragover"
   >
-    <i :class="solveIcon(node)" />
+    <i :class="icon" />
     <p>{{ node.name }}</p>
   </div>
 </template>

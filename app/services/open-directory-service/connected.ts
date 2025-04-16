@@ -27,7 +27,6 @@ export class ConnectedOpenDirectoryService implements OpenDirectoryService {
     if (directory.isLoaded()) return;
 
     directory.busy();
-
     try {
       const nodesData = await this.fileSystemAdapter.open(directory);
       for (const data of nodesData) {

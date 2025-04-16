@@ -30,7 +30,5 @@ export class ConnectedCreateDirectoryService implements CreateDirectoryService {
     } finally {
       parent.idle();
     }
-
   }
-
 }

@@ -2,6 +2,7 @@ import type { Nodes } from "@/domain/nodes";
 
 import { Status } from "@/utils";
 import { throwError } from "@/utils";
+import { reactive } from "vue";
 
 import type { Id } from "../id";
 import type { NodeOptions } from "./options";
@@ -21,6 +22,9 @@ export abstract class Node {
     this.name = name;
     this.parentId = parentId;
     this.nodes = nodes;
+
+    // unfortunately placing this vue wrapper was the only way the ui was able to reactively react to state changes of new nodes created in some services like create directory or create artifact.
+    return reactive(this);
   }
 
   busy(): void {
