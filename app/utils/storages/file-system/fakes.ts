@@ -1,8 +1,5 @@
 import { faker } from "@faker-js/faker";
 
-type Kind = typeof kinds[number];
-const kinds = ["file", "directory"] as const;
-
 export function fakeDirectory() {
   const options = faker.system.directoryPath().split("/").filter(Boolean);
   return {
@@ -23,9 +20,4 @@ export function fakeFile(type?: string) {
     name: faker.system.commonFileName(type),
     size: content.byteLength,
   };
-}
-
-export function fakeFileSystemEntry(kind?: Kind) {
-  const finalKind: Kind = kind ?? faker.helpers.arrayElement(kinds);
-  return finalKind === "file" ? fakeFile() : fakeDirectory();
 }

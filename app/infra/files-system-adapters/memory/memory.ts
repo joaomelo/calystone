@@ -1,7 +1,7 @@
 import type { Artifact, ArtifactDataOptions, DirectoryDataOptions, Node } from "@/domain";
 
 import { createId, Directory } from "@/domain";
-import { fakeDirectory, fakeFile, fakeFileSystemEntry, Status, throwError } from "@/utils";
+import { fakeDirectory, fakeFile, Status, throwError } from "@/utils";
 import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";
 
@@ -84,32 +84,41 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
 
     const shouldGaranteeDataExpectedByE2e = parent.id === this.rootData.id;
     if (shouldGaranteeDataExpectedByE2e) {
-      const file = fakeFile("txt");
-      file.name = `${Directory.descriptorBasename}.txt`;
-      const fileId = createId();
-      childrenData.push({ id: fileId, parentId: parent.id, ...file });
-      this.metadatas.setFile({ id: fileId, metadata: file.content });
+      const descriptorFile = fakeFile("txt");
+      descriptorFile.name = `${Directory.descriptorBasename}.txt`;
+      const descriptorFileId = createId();
+      childrenData.push({ id: descriptorFileId, parentId: parent.id, ...descriptorFile });
+      this.metadatas.setFile({ id: descriptorFileId, metadata: descriptorFile.content });
 
-      const binary = fakeFile("exe");
-      const binaryId = createId();
-      childrenData.push({ id: binaryId, parentId: parent.id, ...binary });
-      this.metadatas.setFile({ id: binaryId, metadata: binary.content });
+      const binaryFile = fakeFile("exe");
+      const binaryFileId = createId();
+      childrenData.push({ id: binaryFileId, parentId: parent.id, ...binaryFile });
+      this.metadatas.setFile({ id: binaryFileId, metadata: binaryFile.content });
 
-      const directoryOne = fakeDirectory();
-      const directoryOneId = createId();
-      childrenData.push({ id: directoryOneId, parentId: parent.id, ...directoryOne });
-      this.metadatas.setDirectory({ id: directoryOneId, metadata: undefined });
+      const oneDirectory = fakeDirectory();
+      const oneDirectoryId = createId();
+      childrenData.push({ id: oneDirectoryId, parentId: parent.id, ...oneDirectory });
+      this.metadatas.setDirectory({ id: oneDirectoryId, metadata: undefined });
 
-      const directoryTwo = fakeDirectory();
-      const directoryTwoId = createId();
-      childrenData.push({ id: directoryTwoId, parentId: parent.id, ...directoryTwo });
-      this.metadatas.setDirectory({ id: directoryTwoId, metadata: undefined });
+      const moreThanOneDirectory = fakeDirectory();
+      const moreThanOneDirectoryId = createId();
+      childrenData.push({ id: moreThanOneDirectoryId, parentId: parent.id, ...moreThanOneDirectory });
+      this.metadatas.setDirectory({ id: moreThanOneDirectoryId, metadata: undefined });
     }
 
     const howManyChildren = faker.helpers.rangeToNumber({ max: 5, min: 1 });
     for (let i = 0; i < howManyChildren; i++) {
-      const entry = fakeFileSystemEntry();
-      childrenData.push({ id: createId(), parentId: parent.id, ...entry });
+      const id = createId();
+      const kind = faker.helpers.arrayElement(["file", "directory"]);
+      if (kind === "file") {
+        const entry = fakeFile();
+        this.metadatas.setFile({ id, metadata: entry.content });
+        childrenData.push({ id, parentId: parent.id, ...entry });
+      } else {
+        const entry = fakeDirectory();
+        this.metadatas.setDirectory({ id, metadata: undefined });
+        childrenData.push({ id, parentId: parent.id, ...entry });
+      }
     }
 
     return childrenData;
