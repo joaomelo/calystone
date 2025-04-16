@@ -10,19 +10,20 @@ import type { LoadNodesService } from "./load";
 import { Queue } from "./queue";
 
 export class ConnectedLoadNodesService implements LoadNodesService{
+  private ARTIFACT_SIZE_THRESHOLD = 10_485_760;
   private clearId?: number;
   private exchangeArtifact: ExchangeArtifactService;
   private nodes: Nodes;
+  private nodesToLoad: Queue;
   private openDirectory: OpenDirectoryService;
-  private queue: Queue;
+  private SCHEDULE_INTERVAL = 1500;
 
   constructor(options: { exchangeArtifact: ExchangeArtifactService; nodes: Nodes, openDirectory: OpenDirectoryService }) {
     const { exchangeArtifact, nodes, openDirectory } = options;
     this.nodes = nodes;
     this.exchangeArtifact = exchangeArtifact;
     this.openDirectory = openDirectory;
-
-    this.queue = new Queue();
+    this.nodesToLoad = new Queue();
   }
 
   start(): void {
@@ -31,26 +32,25 @@ export class ConnectedLoadNodesService implements LoadNodesService{
 
   stop(): void {
     clearTimeout(this.clearId);
-    this.queue.clear();
+    this.nodesToLoad.clear();
   }
 
   private feed(): void {
-    const tenMegabytes = 10_485_760;
     const textArtifacts = this.nodes
       .list()
-      .filter(node => node instanceof TextArtifact && !node.isLoaded() && node.sizeBelow(tenMegabytes));
-    this.queue.add(textArtifacts);
+      .filter(node => node instanceof TextArtifact && !node.isLoaded() && node.sizeBelow(this.ARTIFACT_SIZE_THRESHOLD));
+    this.nodesToLoad.add(textArtifacts);
 
-    if (!this.queue.empty()) return;
+    if (!this.nodesToLoad.empty()) return;
 
     const directories = this.nodes
       .list()
       .filter(node => node instanceof Directory && !node.isLoaded());
-    this.queue.add(directories);
+    this.nodesToLoad.add(directories);
   }
 
   private async load() {
-    const node = this.queue.next();
+    const node = this.nodesToLoad.next();
     if (!node) return;
 
     if (node.isBusy() || node.isLoaded()) return;
@@ -66,12 +66,14 @@ export class ConnectedLoadNodesService implements LoadNodesService{
 
   private async tick() {
     await idle();
-    if (this.queue.empty()) {
+
+    if (this.nodesToLoad.empty()) {
       this.feed();
     } else {
       await this.load();
     }
-    this.clearId = window.setTimeout(() => void this.tick(), 1500);
+
+    this.clearId = window.setTimeout(() => void this.tick(), this.SCHEDULE_INTERVAL);
   }
 
 }
