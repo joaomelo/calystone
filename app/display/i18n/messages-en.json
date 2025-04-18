@@ -57,6 +57,10 @@
   "items": "items",
   "language": "language",
   "last-modified": "last modified",
+  "load-nodes": {
+    "idle": "click to enable the background loading",
+    "loading": "click to disable the background loading"
+  },
   "loading": "loading",
   "name": "name",
   "node": "node",

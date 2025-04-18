@@ -6,6 +6,8 @@ import { SideBar, SideItem, useI18n } from "@/utils";
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
+import SideItemLoading from "./side-item-loading.vue";
+
 const { t } = useI18n();
 const { services } = Store.use();
 
@@ -41,9 +43,10 @@ function handleReload() {
       />
     </template>
     <template #bottom>
+      <SideItemLoading />
       <SideItem
         id="reload"
-        :icon="`${baseIcon} bx-sync`"
+        :icon="`${baseIcon} bx-refresh`"
         :title="t('reload')"
         data-test="reload"
         @click="handleReload"
@@ -58,3 +61,9 @@ function handleReload() {
     </template>
   </SideBar>
 </template>
+
+<style scoped>
+.loading :deep(.side-item-icon) {
+  animation-duration: 7s;
+}
+</style>

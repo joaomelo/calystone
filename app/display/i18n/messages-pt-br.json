@@ -57,6 +57,10 @@
   "items": "itens",
   "language": "idioma",
   "last-modified": "última modificação",
+  "load-nodes": {
+    "idle": "clique para ativar o carregamento em segundo plano",
+    "loading": "clique para desativar o carregamento em segundo plano"
+  },
   "loading": "carregando",
   "name": "nome",
   "node": "nó",
