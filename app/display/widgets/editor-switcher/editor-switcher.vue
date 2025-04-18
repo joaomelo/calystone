@@ -1,22 +1,21 @@
 <script setup lang="ts">
+import type { EditorSwitch } from "@/display/widgets/editor-switch";
 import type { Node } from "@/domain";
 import type { Component } from "vue";
 
+import { editorArtifactBinarySwitch } from "@/display/widgets/editor-artifact-binary";
+import { editorArtifactTextSwitch } from "@/display/widgets/editor-artifact-text";
+import { editorArtifactTodoSwitch } from "@/display/widgets/editor-artifact-todo";
+import { editorDirectorySwitch } from "@/display/widgets/editor-directory";
+import { editorEmptySwitch } from "@/display/widgets/editors-message";
 import { computed } from "vue";
-
-import type { EditorSwitch } from "../editor-switch";
-
-import { editorArtifactBinarySwitch } from "../editor-artifact-binary";
-import { editorArtifactTextSwitch } from "../editor-artifact-text";
-import { editorDirectorySwitch } from "../editor-directory";
-import { editorEmptySwitch } from "../editors-message";
 
 const { node } = defineProps<{
   node?: Node;
 }>();
 
 // switches order matters since the first compatible switch will be used, so the most specific should be first.
-const switchs: EditorSwitch[] = [editorEmptySwitch, editorDirectorySwitch, editorArtifactTextSwitch, editorArtifactBinarySwitch];
+const switchs: EditorSwitch[] = [editorEmptySwitch, editorDirectorySwitch, editorArtifactTodoSwitch, editorArtifactTextSwitch, editorArtifactBinarySwitch];
 const editor: Component = computed(() => {
   const specializedSwitch = switchs.find((s) => s.supports(node));
   return specializedSwitch?.component ?? editorEmptySwitch.component;
