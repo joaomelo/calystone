@@ -1,24 +1,30 @@
-import type { ArtifactOptions } from "../artifact";
+import type { Artifact, ArtifactOptions } from "../artifact";
 import type { DirectoryOptions } from "../directory";
 import type { NodeOptions } from "../node";
 
-import { BinaryArtifact, isArtifactDataOptions, Mime, TextArtifact } from "../artifact";
+import { BinaryArtifact, isArtifactDataOptions, Mime, TextArtifact, TodoArtifact } from "../artifact";
 import { Directory } from "../directory";
 
-export function createNode(options: ArtifactOptions): BinaryArtifact | TextArtifact;
+export function createNode(options: ArtifactOptions): Artifact;
 export function createNode(options: DirectoryOptions): Directory;
 
-export function createNode(options: NodeOptions): BinaryArtifact | Directory | TextArtifact {
+export function createNode(options: NodeOptions): Artifact | Directory {
   if (isArtifactDataOptions(options)) {
     return createArtifact(options);
   }
   return new Directory(options);
 }
 
-function createArtifact(options: ArtifactOptions): BinaryArtifact | TextArtifact {
+function createArtifact(options: ArtifactOptions): Artifact {
   const mime = new Mime(options.name);
+
+  if (mime.media() === "application/todo") {
+    return new TodoArtifact(options);
+  }
+
   if (mime.type() === "text") {
     return new TextArtifact(options);
   }
+
   return new BinaryArtifact(options);
 }
