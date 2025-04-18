@@ -2,6 +2,7 @@ import type { AccessAdaptersFactory, AvailabilityFacade, ExportAdapter, ShareAda
 import type { ObserverOptions } from "@/services/connect-source-service";
 import type { CreateArtifactService } from "@/services/create-artifact-service";
 import type { CreateDirectoryService } from "@/services/create-directory-service";
+import type { EnsureDescriptorService } from "@/services/ensure-descriptor";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { ExchangeTextService } from "@/services/exchange-text-service";
 import type { NodeMoveService } from "@/services/node-move-service";
@@ -18,15 +19,13 @@ import { ConnectedEnsureDescriptorService, NullEnsureDescriptorService } from "@
 import { ConnectedExchangeArtifactService, NullExchangeArtifactService } from "@/services/exchange-artifact-service";
 import { ConnectedExchangeTextService, NullExchangeTextService } from "@/services/exchange-text-service";
 import { ExportNodeService } from "@/services/export-node-service";
-import { ConnectedLoadNodesService, NullLoadNodesService } from "@/services/load-nodes-service";
+import { LoadNodesService } from "@/services/load-nodes-service";
 import { ConnectedNodeMoveService, NullNodeMoveService } from "@/services/node-move-service";
 import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/node-remove-service";
 import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
 import { ConnectedOpenDirectoryService, NullOpenDirectoryService } from "@/services/open-directory-service";
 import { ShareNodeService } from "@/services/share-node-service";
 
-import type { EnsureDescriptorService } from "../ensure-descriptor";
-import type { LoadNodesService } from "../load-nodes-service/load";
 import type { Options } from "./options";
 
 export class ServicesPortolfio {
@@ -41,7 +40,7 @@ export class ServicesPortolfio {
   exchangeText: ExchangeTextService;
   exportAdapter: ExportAdapter;
   exportNode: ExportNodeService;
-  loadBackground: LoadNodesService;
+  loadNodes: LoadNodesService;
   nodeMove: NodeMoveService;
   nodeRemove: NodeRemoveService;
   nodeRename: NodeRenameService;
@@ -62,6 +61,7 @@ export class ServicesPortolfio {
     this.connectSource = new ConnectSourceService({ accessAdaptersFactory: this.accessAdaptersFactory, nodes: this.nodes });
     this.shareNode = new ShareNodeService(this.shareAdapter);
     this.exportNode = new ExportNodeService(this.exportAdapter);
+    this.loadNodes = new LoadNodesService();
 
     this.openDirectory = new NullOpenDirectoryService();
     this.ensureDescriptor = new NullEnsureDescriptorService();
@@ -72,7 +72,6 @@ export class ServicesPortolfio {
     this.nodeMove = new NullNodeMoveService();
     this.createDirectory = new NullCreateDirectoryService();
     this.createArtifact = new NullCreateArtifactService();
-    this.loadBackground = new NullLoadNodesService();
 
     this.connectSource.subscribe((options) => { this.rotateServices(options); });
   }
@@ -89,8 +88,7 @@ export class ServicesPortolfio {
       this.createArtifact = new NullCreateArtifactService();
       this.ensureDescriptor = new NullEnsureDescriptorService();
 
-      this.loadBackground.stop();
-      this.loadBackground = new NullLoadNodesService();
+      this.loadNodes.stop();
       return;
     }
 
@@ -106,7 +104,7 @@ export class ServicesPortolfio {
     this.createDirectory = new ConnectedCreateDirectoryService({ fileSystemAdapter, nodes, openDirectory: this.openDirectory });
     this.createArtifact = new ConnectedCreateArtifactService({ exchangeArtifact: this.exchangeArtifact, fileSystemAdapter, nodes, openDirectory: this.openDirectory });
 
-    this.loadBackground = new ConnectedLoadNodesService({ exchangeArtifact: this.exchangeArtifact, nodes, openDirectory: this.openDirectory });
-    this.loadBackground.start();
+    this.loadNodes.provide({ exchangeArtifact: this.exchangeArtifact, nodes, openDirectory: this.openDirectory });
+    this.loadNodes.start();
   };
 }
