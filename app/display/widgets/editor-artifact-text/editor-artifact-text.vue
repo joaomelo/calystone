@@ -4,8 +4,7 @@ import type { TextArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
-import { InputRichText } from "@/utils";
-import { debounce } from "lodash-es";
+import { debounce, InputRichText } from "@/utils";
 import { onMounted, ref } from "vue";
 
 const { content: artifact } = defineProps<{

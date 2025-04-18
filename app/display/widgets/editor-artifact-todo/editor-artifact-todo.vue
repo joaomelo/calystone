@@ -4,7 +4,8 @@ import type { TodoArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
-import { onMounted, ref } from "vue";
+import { debounce, InputCheck, InputRichText } from "@/utils";
+import { onMounted } from "vue";
 
 const { content: artifact } = defineProps<{
   content: TodoArtifact;
@@ -12,19 +13,51 @@ const { content: artifact } = defineProps<{
 
 const { services } = Store.use();
 
-const data = ref(artifact.content);
-
 onMounted(async () => {
   await services.exchangeArtifact.fetchInto(artifact);
-  data.value = artifact.content;
 });
+
+async function handleUpdateMode(value: boolean) {
+  if (value) {
+    artifact.complete();
+  } else {
+    artifact.uncomplete();
+  }
+  await services.exchangeArtifact.postFrom(artifact);
+}
+
+const handleUpdateDescription = debounce(async (text: string) => {
+  artifact.updateDescription(text);
+  await services.exchangeArtifact.postFrom(artifact);
+}, 1000);
 </script>
 <template>
   <EditorNodeWorkspace
     v-if="artifact.isLoaded()"
     :node="artifact"
   >
-    <pre>{{ data }}</pre>
+    <div class="editor-artifact-todo__inputs-wrapper">
+      <InputCheck
+        :model-value="artifact.completed()"
+        :label="artifact.basename()"
+        data-test="input-mode"
+        @update:model-value="handleUpdateMode"
+      />
+    </div>
+    <InputRichText
+      data-test="input-description"
+      :model-value="artifact.description"
+      @update:model-value="handleUpdateDescription"
+    />
   </EditorNodeWorkspace>
   <EditorNotLoaded v-else />
 </template>
+<style scoped>
+.editor-artifact-todo__inputs-wrapper {
+  padding-block: var(--size-3);
+  padding-inline: var(--size-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+}
+</style>

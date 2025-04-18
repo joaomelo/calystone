@@ -3,8 +3,9 @@ import { kebabCase } from "@/utils/text";
 import Message from "primevue/message";
 import { useId } from "vue";
 
-const { justify = "start", label } = defineProps<{
+const { direction = "column", justify = "start", label } = defineProps<{
   dataTest: string;
+  direction?: "column" | "column-reverse" | "row" | "row-reverse";
   error?: string;
   justify?: "center" | "end" | "start";
   label?: string;
@@ -47,7 +48,8 @@ const id = useId();
 <style scoped>
 .input-wrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: v-bind(direction);
+  justify-content: v-bind(justify);
   gap: var(--size-2);
 
   label {
