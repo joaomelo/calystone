@@ -90,6 +90,11 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
       childrenData.push({ id: descriptorFileId, parentId: parent.id, ...descriptorFile });
       this.metadatas.setFile({ id: descriptorFileId, metadata: descriptorFile.content });
 
+      const todoFile = fakeFile("todo");
+      const todoFileId = createId();
+      childrenData.push({ id: todoFileId, parentId: parent.id, ...todoFile });
+      this.metadatas.setFile({ id: todoFileId, metadata: todoFile.content });
+
       const binaryFile = fakeFile("exe");
       const binaryFileId = createId();
       childrenData.push({ id: binaryFileId, parentId: parent.id, ...binaryFile });
