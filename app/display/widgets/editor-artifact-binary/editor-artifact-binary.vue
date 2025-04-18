@@ -14,7 +14,7 @@ const { d, t } = useI18n();
 
 const propertySheetRows = computed(() => {
   return [
-    { label: t("type"), value: content.mime.media },
+    { label: t("type"), value: content.mime.media() },
     { label: t("path"), value: content.mountPath() },
     { label: t("size"), value: filesize(content.size) },
     { label: t("last-modified"), value: d(new Date(content.lastModified)) },
