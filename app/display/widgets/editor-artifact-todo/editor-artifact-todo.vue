@@ -4,7 +4,7 @@ import type { TodoArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
-import { debounce, InputCheck, InputRichText } from "@/utils";
+import { debounce, InputCheck, InputRichText, useI18n } from "@/utils";
 import { onMounted } from "vue";
 
 const { content: artifact } = defineProps<{
@@ -12,6 +12,7 @@ const { content: artifact } = defineProps<{
 }>();
 
 const { services } = Store.use();
+const { t } = useI18n();
 
 onMounted(async () => {
   await services.exchangeArtifact.fetchInto(artifact);
@@ -26,8 +27,8 @@ async function handleUpdateMode(value: boolean) {
   await services.exchangeArtifact.postFrom(artifact);
 }
 
-const handleUpdateDescription = debounce(async (text: string) => {
-  artifact.updateDescription(text);
+const handleUpdatedetails = debounce(async (text: string) => {
+  artifact.updatedetails(text);
   await services.exchangeArtifact.postFrom(artifact);
 }, 1000);
 </script>
@@ -44,11 +45,11 @@ const handleUpdateDescription = debounce(async (text: string) => {
         @update:model-value="handleUpdateMode"
       />
       <InputRichText
-        label="description"
-        data-test="input-description"
+        :label="t('details')"
+        data-test="input-details"
         lineless
-        :model-value="artifact.description"
-        @update:model-value="handleUpdateDescription"
+        :model-value="artifact.details"
+        @update:model-value="handleUpdatedetails"
       />
     </div>
   </EditorNodeWorkspace>

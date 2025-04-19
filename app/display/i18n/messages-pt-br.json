@@ -14,6 +14,7 @@
   "delete": "excluir",
   "delete-node": "você tem certeza que deseja excluir \"{name}\"? Esta ação não pode ser desfeita.",
   "descriptor-tip": "Adicione um arquivo README.txt ou README.md ao diretório para exibir sua descrição aqui.",
+  "details": "detalhes",
   "directory": "diretório",
   "directory-unloaded": "expanda este diretório na hierarquia ou clique no botão de abrir na barra de ferramentas para abrir seu conteúdo",
   "done": "pronto",

@@ -7,7 +7,7 @@ import { Artifact } from "../artifact";
 import { defaultMode, hasMode } from "./mode";
 
 export class TodoArtifact extends Artifact {
-  description = "";
+  details = "";
   mode: Mode = defaultMode;
   private _decoder = new TextDecoder("utf-8");
   private _encoder = new TextEncoder();
@@ -39,13 +39,13 @@ export class TodoArtifact extends Artifact {
       this.mode = data.mode;
     }
 
-    if ("description" in data && typeof data.description === "string") {
-      this.description = data.description;
+    if ("details" in data && typeof data.details === "string") {
+      this.details = data.details;
     }
   }
 
   toBinary(): ArrayBuffer {
-    const jsonString = JSON.stringify({ description: this.description, mode: this.mode });
+    const jsonString = JSON.stringify({ details: this.details, mode: this.mode });
     return this._encoder.encode(jsonString).buffer as ArrayBuffer;
   }
 
@@ -53,7 +53,7 @@ export class TodoArtifact extends Artifact {
     this.mode = "pending";
   }
 
-  updateDescription(description: string) {
-    this.description = description;
+  updatedetails(details: string) {
+    this.details = details;
   }
 }
