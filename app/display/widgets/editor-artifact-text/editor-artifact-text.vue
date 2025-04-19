@@ -31,6 +31,7 @@ const handleUpdate = debounce(async (text: string) => {
     <InputRichText
       data-test="editor-text"
       :model-value="text"
+      borderless
       @update:model-value="handleUpdate"
     />
   </EditorNodeWorkspace>

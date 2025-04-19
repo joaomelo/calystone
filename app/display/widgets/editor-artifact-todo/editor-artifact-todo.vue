@@ -43,19 +43,21 @@ const handleUpdateDescription = debounce(async (text: string) => {
         data-test="input-mode"
         @update:model-value="handleUpdateMode"
       />
+      <InputRichText
+        label="description"
+        data-test="input-description"
+        lineless
+        :model-value="artifact.description"
+        @update:model-value="handleUpdateDescription"
+      />
     </div>
-    <InputRichText
-      data-test="input-description"
-      :model-value="artifact.description"
-      @update:model-value="handleUpdateDescription"
-    />
   </EditorNodeWorkspace>
   <EditorNotLoaded v-else />
 </template>
 <style scoped>
 .editor-artifact-todo__inputs-wrapper {
   padding-block: var(--size-3);
-  padding-inline: var(--size-3);
+  padding-inline: var(--size-2);
   display: flex;
   flex-direction: column;
   gap: var(--size-3);

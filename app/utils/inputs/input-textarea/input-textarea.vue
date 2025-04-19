@@ -3,15 +3,15 @@ import Textarea from "primevue/textarea";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { label } = defineProps<{
-  label?: string;
+defineProps<{
+  dataTest: string
   rows: number | string
 }>();
 const model = defineModel({ type: String });
 
 </script>
 <template>
-  <InputWrapper :label>
+  <InputWrapper :data-test="dataTest">
     <template #default="{ id }">
       <Textarea
         :id="id"

@@ -15,8 +15,8 @@ const model = defineModel<boolean>({ required: true });
   >
     <template #default="{ id, invalid, inputDataTest }">
       <InputCheckboxPrimeVue
-        :id="id"
         v-model="model"
+        :input-id="id"
         binary
         variant="filled"
         class="input-check"
