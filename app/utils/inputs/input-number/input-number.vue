@@ -3,11 +3,12 @@ import InputNumberPrimeVue from "primevue/inputnumber";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { autofocus = false, buttons = false, locale = "en" } = defineProps<{
+const { autofocus = false, buttons = false, locale = "en", size } = defineProps<{
   autofocus?: boolean
   buttons?: boolean
   dataTest: string
   locale?: string
+  size?: "large" | "small"
 }>();
 const model = defineModel({ type: Number });
 </script>
@@ -24,6 +25,7 @@ const model = defineModel({ type: Number });
         fluid
         :locale="locale"
         :show-buttons="buttons"
+        :size="size"
         button-layout="horizontal"
       />
     </template>

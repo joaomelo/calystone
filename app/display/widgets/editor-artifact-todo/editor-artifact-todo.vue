@@ -61,6 +61,7 @@ const handleUpdatedetails = debounce(async (text: string) => {
           :locale="locale"
           :model-value="artifact.importance"
           buttons
+          size="small"
           @update:model-value="handleUpdateImportance"
         />
         <InputNumber
@@ -69,6 +70,7 @@ const handleUpdatedetails = debounce(async (text: string) => {
           :locale="locale"
           :model-value="artifact.urgency"
           buttons
+          size="small"
           @update:model-value="handleUpdateUrgency"
         />
       </div>
