@@ -8,14 +8,18 @@ interface Data {
   details?: string;
   importance?: number;
   mode?: Mode;
+  startDate?: Date;
+  dueDate?: Date;
   urgency?: number;
 }
 
 export function parseJsonString(value: string): Data {
   const data: Data = {
     details: undefined,
+    dueDate: undefined,
     importance: undefined,
     mode: undefined,
+    startDate: undefined,
     urgency: undefined,
   };
 
@@ -42,6 +46,14 @@ export function parseJsonString(value: string): Data {
 
   if ("urgency" in data && typeof rawData.urgency === "number") {
     data.urgency = rawData.urgency;
+  }
+
+  if ("startDate" in data && typeof rawData.startDate === "string") {
+    data.startDate = new Date(rawData.startDate);
+  }
+
+  if ("dueDate" in data && typeof rawData.dueDate === "string") {
+    data.dueDate = new Date(rawData.dueDate);
   }
 
   return data;

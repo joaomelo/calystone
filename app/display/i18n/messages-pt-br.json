@@ -11,6 +11,10 @@
   "create-directory": "criar diretório",
   "date-end": "data final",
   "date-start": "data inicial",
+  "dates": {
+    "due": "até",
+    "start": "início"
+  },
   "delete": "excluir",
   "delete-node": "você tem certeza que deseja excluir \"{name}\"? Esta ação não pode ser desfeita.",
   "descriptor-tip": "Adicione um arquivo README.txt ou README.md ao diretório para exibir sua descrição aqui.",

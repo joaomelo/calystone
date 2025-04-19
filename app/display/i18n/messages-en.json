@@ -11,6 +11,10 @@
   "create-directory": "create directory",
   "date-end": "end date",
   "date-start": "start date",
+  "dates": {
+    "due": "due",
+    "start": "start"
+  },
   "delete": "delete",
   "delete-node": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
   "descriptor-tip": "Add a README.txt or README.md file to the directory to display its description here.",

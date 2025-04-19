@@ -1,25 +1,31 @@
 <script setup lang="ts">
-import InputTextPrimeVue from "primevue/inputtext";
+import InputDatePrimeVue from "primevue/datepicker";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { autofocus = false } = defineProps<{
+const { autofocus = false, showTime = false } = defineProps<{
   autofocus?: boolean
   dataTest: string
+  showTime?: boolean
 }>();
-const model = defineModel<string>();
+const model = defineModel<Date | null>();
 </script>
 <template>
   <InputWrapper :data-test="dataTest">
     <template #default="{ id, invalid, inputDataTest }">
-      <InputTextPrimeVue
-        :id="id"
+      <InputDatePrimeVue
         v-model="model"
-        class="input-text"
+        :input-id="id"
+        class="input-date"
         :autofocus="autofocus"
         :invalid="invalid"
         :data-test="inputDataTest"
         fluid
+        show-icon
+        select-other-months
+        show-button-bar
+        :show-time="showTime"
+        hide-on-date-time-select
       />
     </template>
   </InputWrapper>
