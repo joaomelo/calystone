@@ -1,14 +1,17 @@
-import { isJsonParseable, isObjectLike, throwCritical } from "@/utils";
+import { throwCritical } from "@/utils";
 
 import type { ArtifactOptions } from "../artifact";
 import type { Mode } from "./mode";
 
 import { Artifact } from "../artifact";
-import { defaultMode, hasMode } from "./mode";
+import { defaultMode } from "./mode";
+import { parseJsonString } from "./parse";
 
 export class TodoArtifact extends Artifact {
   details = "";
+  importance = 0;
   mode: Mode = defaultMode;
+  urgency = 0;
   private _decoder = new TextDecoder("utf-8");
   private _encoder = new TextEncoder();
 
@@ -30,22 +33,27 @@ export class TodoArtifact extends Artifact {
   performFromBinary(binary: ArrayBuffer): void {
     const jsonString = this._decoder.decode(binary);
 
-    if (!isJsonParseable(jsonString)) return;
+    const { details, importance, mode, urgency, } = parseJsonString(jsonString);
 
-    const data = JSON.parse(jsonString) as Record<string, unknown>;
-    if (!isObjectLike(data)) return;
-
-    if (hasMode(data)) {
-      this.mode = data.mode;
+    if (mode) {
+      this.mode = mode;
     }
 
-    if ("details" in data && typeof data.details === "string") {
-      this.details = data.details;
+    if (details) {
+      this.details = details;
+    }
+
+    if (importance) {
+      this.importance = importance;
+    }
+
+    if (urgency) {
+      this.urgency = urgency;
     }
   }
 
   toBinary(): ArrayBuffer {
-    const jsonString = JSON.stringify({ details: this.details, mode: this.mode });
+    const jsonString = JSON.stringify({ details: this.details, importance: this.importance, mode: this.mode, urgency: this.urgency });
     return this._encoder.encode(jsonString).buffer as ArrayBuffer;
   }
 
