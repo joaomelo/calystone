@@ -1,4 +1,5 @@
 export * from "./input-check";
+export * from "./input-number";
 export * from "./input-rich-text";
 export * from "./input-select-button";
 export * from "./input-text";

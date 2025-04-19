@@ -55,6 +55,7 @@
     }
   },
   "focus": "focus",
+  "importance": "importance",
   "items": "items",
   "language": "language",
   "last-modified": "last modified",
@@ -87,5 +88,6 @@
   "share": "share",
   "size": "size",
   "tags": "tags",
-  "type": "type"
+  "type": "type",
+  "urgency": "urgency"
 }

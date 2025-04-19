@@ -55,6 +55,7 @@
     }
   },
   "focus": "focar",
+  "importance": "importância",
   "items": "itens",
   "language": "idioma",
   "last-modified": "última modificação",
@@ -87,5 +88,6 @@
   "share": "compartilhar",
   "size": "tamanho",
   "tags": "rótulos",
-  "type": "tipo"
+  "type": "tipo",
+  "urgency": "urgência"
 }

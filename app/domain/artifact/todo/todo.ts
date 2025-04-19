@@ -61,7 +61,15 @@ export class TodoArtifact extends Artifact {
     this.mode = "pending";
   }
 
-  updatedetails(details: string) {
+  updateDetails(details: string) {
     this.details = details;
+  }
+
+  updateImportance(importance = 0) {
+    this.importance = importance;
+  }
+
+  updateUrgency(urgency = 0) {
+    this.urgency = urgency;
   }
 }

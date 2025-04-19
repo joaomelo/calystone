@@ -112,11 +112,10 @@ watch(
   border: 1px solid var(--p-form-field-border-color);
   border-radius: var(--p-form-field-border-radius);
   padding-block: var(--p-form-field-padding-y);
-  padding-inline: var(--p-form-field-padding-x);
 
-  & :deep(.cm-line) {
-    padding-inline: 0;
-  }
+  /* the padding is smaller at the start because every line already has some padding */
+  padding-inline-start: 0.25rem;
+  padding-inline-end: var(--p-form-field-padding-x);
 
   &:focus-within {
     border-color: var(--p-form-field-focus-border-color);

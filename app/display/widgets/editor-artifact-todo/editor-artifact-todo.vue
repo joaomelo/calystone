@@ -4,7 +4,7 @@ import type { TodoArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
-import { debounce, InputCheck, InputRichText, useI18n } from "@/utils";
+import { debounce, InputCheck, InputNumber, InputRichText, useI18n } from "@/utils";
 import { onMounted } from "vue";
 
 const { content: artifact } = defineProps<{
@@ -12,7 +12,7 @@ const { content: artifact } = defineProps<{
 }>();
 
 const { services } = Store.use();
-const { t } = useI18n();
+const { locale, t } = useI18n();
 
 onMounted(async () => {
   await services.exchangeArtifact.fetchInto(artifact);
@@ -27,8 +27,18 @@ async function handleUpdateMode(value: boolean) {
   await services.exchangeArtifact.postFrom(artifact);
 }
 
+const handleUpdateUrgency = debounce(async (urgency?: number) => {
+  artifact.updateUrgency(urgency);
+  await services.exchangeArtifact.postFrom(artifact);
+}, 200);
+
+const handleUpdateImportance = debounce(async (importance?: number) => {
+  artifact.updateImportance(importance);
+  await services.exchangeArtifact.postFrom(artifact);
+}, 200);
+
 const handleUpdatedetails = debounce(async (text: string) => {
-  artifact.updatedetails(text);
+  artifact.updateDetails(text);
   await services.exchangeArtifact.postFrom(artifact);
 }, 1000);
 </script>
@@ -44,6 +54,24 @@ const handleUpdatedetails = debounce(async (text: string) => {
         data-test="input-mode"
         @update:model-value="handleUpdateMode"
       />
+      <div class="editor-artifact-todo__priority-inputs-wrapper">
+        <InputNumber
+          :label="t('importance')"
+          data-test="input-importance"
+          :locale="locale"
+          :model-value="artifact.importance"
+          buttons
+          @update:model-value="handleUpdateImportance"
+        />
+        <InputNumber
+          :label="t('urgency')"
+          data-test="input-urgency"
+          :locale="locale"
+          :model-value="artifact.urgency"
+          buttons
+          @update:model-value="handleUpdateUrgency"
+        />
+      </div>
       <InputRichText
         :label="t('details')"
         data-test="input-details"
@@ -61,6 +89,12 @@ const handleUpdatedetails = debounce(async (text: string) => {
   padding-inline: var(--size-2);
   display: flex;
   flex-direction: column;
+  gap: var(--size-3);
+}
+
+.editor-artifact-todo__priority-inputs-wrapper {
+  display: flex;
+  flex-direction: row;
   gap: var(--size-3);
 }
 </style>
