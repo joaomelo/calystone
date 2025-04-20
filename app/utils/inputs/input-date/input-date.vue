@@ -38,6 +38,7 @@ onMounted(() => {
         show-button-bar
         :show-time="showTime"
         hide-on-date-time-select
+        date-format="yy-mm-dd"
       />
     </template>
   </InputWrapper>
