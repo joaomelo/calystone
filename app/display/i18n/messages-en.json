@@ -12,6 +12,7 @@
   "date-end": "end date",
   "date-start": "start date",
   "dates": {
+    "allDay": "all day",
     "due": "due",
     "start": "start"
   },

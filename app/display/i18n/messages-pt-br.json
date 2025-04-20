@@ -12,6 +12,7 @@
   "date-end": "data final",
   "date-start": "data inicial",
   "dates": {
+    "allDay": "dia inteiro",
     "due": "até",
     "start": "início"
   },

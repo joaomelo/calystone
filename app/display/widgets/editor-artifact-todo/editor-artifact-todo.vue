@@ -4,8 +4,10 @@ import type { TodoArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
-import { debounce, InputCheck, InputDate, InputNumber, InputRichText, useI18n } from "@/utils";
+import { debounce, InputCheck, InputNumber, InputRichText, useI18n } from "@/utils";
 import { onMounted } from "vue";
+
+import DatesPanel from "./dates-panel.vue";
 
 const { content: artifact } = defineProps<{
   content: TodoArtifact;
@@ -18,22 +20,12 @@ onMounted(async () => {
   await services.exchangeArtifact.fetchInto(artifact);
 });
 
-async function handleUpdateDueDate(due: Date | null | undefined) {
-  artifact.updateDueDate(due ?? null);
-  await services.exchangeArtifact.postFrom(artifact);
-}
-
 async function handleUpdateMode(value: boolean) {
   if (value) {
     artifact.complete();
   } else {
     artifact.uncomplete();
   }
-  await services.exchangeArtifact.postFrom(artifact);
-}
-
-async function handleUpdateStartDate(start: Date | null | undefined) {
-  artifact.updateStartDate(start ?? null);
   await services.exchangeArtifact.postFrom(artifact);
 }
 
@@ -64,22 +56,7 @@ const handleUpdatedetails = debounce(async (text: string) => {
         data-test="input-mode"
         @update:model-value="handleUpdateMode"
       />
-      <div class="editor-artifact-todo__row">
-        <InputDate
-          :label="t('dates.start')"
-          data-test="input-start"
-          :model-value="artifact.startDate"
-          show-time
-          @update:model-value="handleUpdateStartDate"
-        />
-        <InputDate
-          :label="t('dates.due')"
-          data-test="input-due"
-          :model-value="artifact.dueDate"
-          show-time
-          @update:model-value="handleUpdateDueDate"
-        />
-      </div>
+      <DatesPanel :artifact="artifact" />
       <div class="editor-artifact-todo__row">
         <InputNumber
           :label="t('importance')"

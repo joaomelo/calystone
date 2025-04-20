@@ -1,18 +1,19 @@
 import { throwCritical } from "@/utils";
 
 import type { ArtifactOptions } from "../artifact";
+import type { UpdateDateOptions } from "./dates";
 import type { Mode } from "./mode";
 
 import { Artifact } from "../artifact";
+import { Dates } from "./dates";
 import { defaultMode } from "./mode";
 import { parseJsonString } from "./parse";
 
 export class TodoArtifact extends Artifact {
+  dates = new Dates();
   details = "";
-  dueDate: Date | null = null;
   importance = 0;
   mode: Mode = defaultMode;
-  startDate: Date | null = null;
   urgency = 0;
   private _decoder = new TextDecoder("utf-8");
   private _encoder = new TextEncoder();
@@ -30,6 +31,10 @@ export class TodoArtifact extends Artifact {
 
   completed(): boolean {
     return this.mode === "done";
+  }
+
+  dueDate() {
+    return this.dates.due;
   }
 
   performFromBinary(binary: ArrayBuffer): void {
@@ -54,21 +59,25 @@ export class TodoArtifact extends Artifact {
     }
 
     if (startDate !== undefined) {
-      this.updateStartDate(startDate);
+      this.updateStartDate({ anchor: false, date: startDate });
     }
 
     if (dueDate !== undefined) {
-      this.updateDueDate(dueDate);
+      this.updateDueDate({ anchor: false, date: dueDate });
     }
+  }
+
+  startDate() {
+    return this.dates.start;
   }
 
   toBinary(): ArrayBuffer {
     const jsonString = JSON.stringify({
       details: this.details,
-      dueDate: this.dueDate?.toISOString() ?? null,
+      dueDate: this.dates.stringifiableDue(),
       importance: this.importance,
       mode: this.mode,
-      startDate: this.startDate?.toISOString() ?? null,
+      startDate: this.dates.stringifiableStart(),
       urgency: this.urgency
     });
     return this._encoder.encode(jsonString).buffer as ArrayBuffer;
@@ -82,22 +91,16 @@ export class TodoArtifact extends Artifact {
     this.details = details;
   }
 
-  updateDueDate(due: Date | null) {
-    this.dueDate = due;
-    if (due === null) {
-      this.startDate = due;
-    }
+  updateDueDate(options: UpdateDateOptions) {
+    this.dates.updateDue(options);
   }
 
   updateImportance(importance = 0) {
     this.importance = importance;
   }
 
-  updateStartDate(start: Date | null) {
-    this.startDate = start;
-    if (this.dueDate === null) {
-      this.dueDate = start;
-    }
+  updateStartDate(options: UpdateDateOptions) {
+    this.dates.updateStart(options);
   }
 
   updateUrgency(urgency = 0) {
