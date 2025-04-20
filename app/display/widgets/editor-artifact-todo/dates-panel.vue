@@ -2,7 +2,7 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { InputCheck, InputDate, useI18n } from "@/utils";
+import { FieldSet, InputCheck, InputDate, useI18n } from "@/utils";
 import { ref } from "vue";
 
 const { artifact } = defineProps<{
@@ -25,8 +25,8 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
 }
 </script>
 <template>
-  <div class="dates-panel">
-    <div class="dates-panel__inputs-date">
+  <FieldSet :legend="t('dates.dates')">
+    <div class="dates-panel__inputs">
       <InputDate
         :label="t('dates.start')"
         data-test="input-start"
@@ -43,19 +43,18 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
         :show-time="!allDay"
         @update:model-value="handleUpdateDueDate"
       />
+      <InputCheck
+        v-model="allDay"
+        :label="t('dates.allDay')"
+        data-test="input-all-day"
+      />
     </div>
-    <InputCheck
-      v-model="allDay"
-      :label="t('dates.allDay')"
-      data-test="input-all-day"
-    />
-  </div>
+  </FieldSet>
 </template>
 <style scoped>
-.dates-panel__inputs-date {
-  display: flex;
-  flex-direction: row;
+.dates-panel__inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--size-3);
-  margin-bottom: var(--size-3);
 }
 </style>
