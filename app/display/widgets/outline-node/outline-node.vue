@@ -2,18 +2,19 @@
 import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { Directory } from "@/domain";
+import { Artifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
 import { useDispatch } from "@/utils";
 import { computed } from "vue";
 
-import { solveIcon } from "./solve-icon";
+import NodeArtifact from "./node-artifact.vue";
+import NodeDirectory from "./node-directory.vue";
+import NodeText from "./node-text.vue";
+import NodeTodo from "./node-todo.vue";
 
 const { node } = defineProps<{
   node: Node
 }>();
 const { nodes, services } = Store.use();
-
-const icon = computed(() => solveIcon(node));
 
 const moveable = computed(() => services.nodeMove.moveable(node));
 const { dispatchOrToast } = useDispatch();
@@ -52,7 +53,6 @@ function handleDragstart(event: DragEvent) {
 <template>
   <div
     :draggable="moveable.isOk()"
-    class="outline-node"
     data-test-type="outline-node"
     :data-test="node.id"
     @dragstart="handleDragstart"
@@ -60,13 +60,21 @@ function handleDragstart(event: DragEvent) {
     @dragover="handleDragover"
     @dragenter="handleDragover"
   >
-    <i :class="icon" />
-    <p>{{ node.name }}</p>
+    <NodeDirectory
+      v-if="(node instanceof Directory)"
+      :directory="node"
+    />
+    <NodeTodo
+      v-else-if="(node instanceof TodoArtifact)"
+      :todo="node"
+    />
+    <NodeText
+      v-else-if="(node instanceof TextArtifact)"
+      :text="node"
+    />
+    <NodeArtifact
+      v-else-if="(node instanceof Artifact)"
+      :artifact="node"
+    />
   </div>
 </template>
-<style scoped>
-.outline-node {
-  display: flex;
-  gap: var(--size-1)
-}
-</style>

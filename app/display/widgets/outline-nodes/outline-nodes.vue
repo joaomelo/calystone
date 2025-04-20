@@ -2,13 +2,13 @@
 import type { Id, Nodes } from "@/domain";
 import type { TreeNode } from "primevue/treenode";
 
+import { OutlineNode } from "@/display/widgets/outline-node";
 import { isId } from "@/domain";
 import { isObjectLike, ScrollPanel } from "@/utils";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref } from "vue";
 
 import { convert } from "./convert";
-import OutlineNode from "./outline-node.vue";
 
 const { nodes } = defineProps<{
   nodes: Nodes // is important to use the reactive data structure with all nodes to trigger the reactivity system. passing a array with only the root objects will not secure ui updates for deeper nodes.
