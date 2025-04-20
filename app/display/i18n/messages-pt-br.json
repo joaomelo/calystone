@@ -17,6 +17,11 @@
     "due": "até",
     "start": "início"
   },
+  "priority": {
+    "priority": "prioridade",
+    "importance": "importância",
+    "urgency": "urgência"
+  },
   "delete": "excluir",
   "delete-node": "você tem certeza que deseja excluir \"{name}\"? Esta ação não pode ser desfeita.",
   "descriptor-tip": "Adicione um arquivo README.txt ou README.md ao diretório para exibir sua descrição aqui.",
@@ -61,7 +66,6 @@
     }
   },
   "focus": "focar",
-  "importance": "importância",
   "items": "itens",
   "language": "idioma",
   "last-modified": "última modificação",
@@ -94,6 +98,5 @@
   "share": "compartilhar",
   "size": "tamanho",
   "tags": "rótulos",
-  "type": "tipo",
-  "urgency": "urgência"
+  "type": "tipo"
 }

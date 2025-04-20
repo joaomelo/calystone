@@ -4,17 +4,18 @@ import type { TodoArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
-import { debounce, InputCheck, InputNumber, InputRichText, useI18n } from "@/utils";
+import { debounce, InputCheck, InputRichText, useI18n } from "@/utils";
 import { onMounted } from "vue";
 
 import DatesPanel from "./dates-panel.vue";
+import PriorityPanel from "./priority-panel.vue";
 
 const { content: artifact } = defineProps<{
   content: TodoArtifact;
 }>();
 
 const { services } = Store.use();
-const { locale, t } = useI18n();
+const { t } = useI18n();
 
 onMounted(async () => {
   await services.exchangeArtifact.fetchInto(artifact);
@@ -28,16 +29,6 @@ async function handleUpdateMode(value: boolean) {
   }
   await services.exchangeArtifact.postFrom(artifact);
 }
-
-const handleUpdateUrgency = debounce(async (urgency?: number) => {
-  artifact.updateUrgency(urgency);
-  await services.exchangeArtifact.postFrom(artifact);
-}, 200);
-
-const handleUpdateImportance = debounce(async (importance?: number) => {
-  artifact.updateImportance(importance);
-  await services.exchangeArtifact.postFrom(artifact);
-}, 200);
 
 const handleUpdatedetails = debounce(async (text: string) => {
   artifact.updateDetails(text);
@@ -57,26 +48,7 @@ const handleUpdatedetails = debounce(async (text: string) => {
         @update:model-value="handleUpdateMode"
       />
       <DatesPanel :artifact="artifact" />
-      <div class="editor-artifact-todo__row">
-        <InputNumber
-          :label="t('importance')"
-          data-test="input-importance"
-          :locale="locale"
-          :model-value="artifact.importance"
-          buttons
-          size="small"
-          @update:model-value="handleUpdateImportance"
-        />
-        <InputNumber
-          :label="t('urgency')"
-          data-test="input-urgency"
-          :locale="locale"
-          :model-value="artifact.urgency"
-          buttons
-          size="small"
-          @update:model-value="handleUpdateUrgency"
-        />
-      </div>
+      <PriorityPanel :artifact="artifact" />
       <InputRichText
         :label="t('details')"
         data-test="input-details"
@@ -94,12 +66,6 @@ const handleUpdatedetails = debounce(async (text: string) => {
   padding-inline: var(--size-2);
   display: flex;
   flex-direction: column;
-  gap: var(--size-3);
-}
-
-.editor-artifact-todo__row {
-  display: flex;
-  flex-direction: row;
-  gap: var(--size-3);
+  gap: var(--size-2);
 }
 </style>

@@ -17,6 +17,11 @@
     "due": "due",
     "start": "start"
   },
+  "priority": {
+    "priority": "priority",
+    "importance": "importance",
+    "urgency": "urgency"
+  },
   "delete": "delete",
   "delete-node": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
   "descriptor-tip": "Add a README.txt or README.md file to the directory to display its description here.",
@@ -61,7 +66,6 @@
     }
   },
   "focus": "focus",
-  "importance": "importance",
   "items": "items",
   "language": "language",
   "last-modified": "last modified",
@@ -94,6 +98,5 @@
   "share": "share",
   "size": "size",
   "tags": "tags",
-  "type": "type",
-  "urgency": "urgency"
+  "type": "type"
 }
