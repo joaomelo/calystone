@@ -2,26 +2,21 @@ import type { Nodes } from "@/domain";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 
-import { Directory, TextArtifact } from "@/domain";
+import { Artifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
 import { idle, throwCritical } from "@/utils";
 
 import { LoadNodesObservable, type LoadNodesObserver } from "./observable";
 import { Queue } from "./queue";
 
 export class LoadNodesService {
-  private ARTIFACT_SIZE_THRESHOLD = 10_485_760;
   private clearId?: number;
   private exchangeArtifact?: ExchangeArtifactService;
   private nodes?: Nodes;
-  private nodesToLoad: Queue;
-  private observable = new LoadNodesObservable();
+  private readonly nodesToLoad: Queue = new Queue();
+  private readonly observable = new LoadNodesObservable();
+  private readonly oneMegabyte = 1024 * 1024;
   private openDirectory?: OpenDirectoryService;
-  private SCHEDULE_INTERVAL = 1500;
-
-  constructor() {
-    this.nodesToLoad = new Queue();
-    this.observable = new LoadNodesObservable();
-  }
+  private readonly scheduleInterval = 1500;
 
   pause(): void {
     clearTimeout(this.clearId);
@@ -60,11 +55,16 @@ export class LoadNodesService {
   private feed(): void {
     const { nodes } = this.inject();
 
+    const todoArtifacts = nodes
+      .list()
+      .filter(node => node instanceof TodoArtifact && !node.isLoaded());
+    this.nodesToLoad.add(todoArtifacts);
+    if (!this.nodesToLoad.empty()) return;
+
     const textArtifacts = nodes
       .list()
-      .filter(node => node instanceof TextArtifact && !node.isLoaded() && node.sizeBelow(this.ARTIFACT_SIZE_THRESHOLD));
+      .filter(node => node instanceof TextArtifact && !node.isLoaded() && node.sizeBelow(this.oneMegabyte));
     this.nodesToLoad.add(textArtifacts);
-
     if (!this.nodesToLoad.empty()) return;
 
     const directories = nodes
@@ -88,7 +88,7 @@ export class LoadNodesService {
 
     if (node.isBusy() || node.isLoaded()) return;
 
-    if (node instanceof TextArtifact) {
+    if (node instanceof Artifact) {
       await exchangeArtifact.fetchInto(node);
     }
 
@@ -106,7 +106,7 @@ export class LoadNodesService {
       await this.load();
     }
 
-    this.clearId = window.setTimeout(() => void this.tick(), this.SCHEDULE_INTERVAL);
+    this.clearId = window.setTimeout(() => void this.tick(), this.scheduleInterval);
   }
 
 }
