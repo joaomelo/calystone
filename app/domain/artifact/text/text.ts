@@ -17,6 +17,10 @@ export class TextArtifact extends Artifact {
     this.content = "";
   }
 
+  fromString(content: string) {
+    this.content = content;
+  }
+
   performFromBinary(binary: ArrayBuffer): void {
     this.content = this.decoder.decode(binary);
   }

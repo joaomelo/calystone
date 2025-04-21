@@ -16,11 +16,13 @@ const { services } = Store.use();
 const text = ref(artifact.content);
 
 onMounted(async () => {
-  text.value = await services.exchangeText.fetchInto(artifact);
+  await services.exchangeArtifact.fetchInto(artifact);
+  text.value = artifact.content;
 });
 
 const handleUpdate = debounce(async (text: string) => {
-  await services.exchangeText.postFrom({ artifact, text });
+  artifact.fromString(text);
+  await services.exchangeArtifact.postFrom(artifact);
 }, 1000);
 </script>
 <template>

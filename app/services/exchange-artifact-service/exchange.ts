@@ -1,6 +1,41 @@
 import type { Artifact } from "@/domain";
+import type { FileSystemAdapter } from "@/infra";
 
-export interface ExchangeArtifactService {
-  fetchInto(artifact: Artifact): Promise<void>
-  postFrom(artifact: Artifact): Promise<void>
+import { throwError } from "@/utils";
+
+export class ExchangeArtifactService {
+  private fileSystemAdapter?: FileSystemAdapter;
+
+  async fetchInto(artifact: Artifact) {
+    if (artifact.isLoaded()) return;
+
+    const { fileSystemAdapter } = this.inject();
+
+    artifact.busy();
+    try {
+      const content = await fileSystemAdapter.fetchContent(artifact);
+      artifact.fromBinary(content);
+      artifact.load();
+    } catch (error) {
+      artifact.unload();
+      throwError("UNABLE_TO_FETCH_CONTENT", error);
+    } finally {
+      artifact.idle();
+    }
+  }
+
+  async postFrom(artifact: Artifact) {
+    const { fileSystemAdapter } = this.inject();
+    await fileSystemAdapter.postContent(artifact);
+  }
+
+  provide(options: { fileSystemAdapter: FileSystemAdapter }) {
+    const { fileSystemAdapter } = options;
+    this.fileSystemAdapter = fileSystemAdapter;
+  }
+
+  private inject() {
+    if (!this.fileSystemAdapter) throwError("FILE_SYSTEM_ADAPTER_NOT_PROVIDED");
+    return { fileSystemAdapter: this.fileSystemAdapter };
+  }
 }

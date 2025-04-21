@@ -3,8 +3,6 @@ import type { ObserverOptions } from "@/services/connect-source-service";
 import type { CreateArtifactService } from "@/services/create-artifact-service";
 import type { CreateDirectoryService } from "@/services/create-directory-service";
 import type { EnsureDescriptorService } from "@/services/ensure-descriptor";
-import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
-import type { ExchangeTextService } from "@/services/exchange-text-service";
 import type { NodeMoveService } from "@/services/node-move-service";
 import type { NodeRemoveService } from "@/services/node-remove-service";
 import type { NodeRenameService } from "@/services/node-rename-service";
@@ -16,8 +14,7 @@ import { ConnectSourceService } from "@/services/connect-source-service";
 import { ConnectedCreateArtifactService, NullCreateArtifactService } from "@/services/create-artifact-service";
 import { ConnectedCreateDirectoryService, NullCreateDirectoryService } from "@/services/create-directory-service";
 import { ConnectedEnsureDescriptorService, NullEnsureDescriptorService } from "@/services/ensure-descriptor";
-import { ConnectedExchangeArtifactService, NullExchangeArtifactService } from "@/services/exchange-artifact-service";
-import { ConnectedExchangeTextService, NullExchangeTextService } from "@/services/exchange-text-service";
+import { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import { ExportNodeService } from "@/services/export-node-service";
 import { LoadNodesService } from "@/services/load-nodes-service";
 import { ConnectedNodeMoveService, NullNodeMoveService } from "@/services/node-move-service";
@@ -37,7 +34,6 @@ export class ServicesPortolfio {
   createDirectory: CreateDirectoryService;
   ensureDescriptor: EnsureDescriptorService;
   exchangeArtifact: ExchangeArtifactService;
-  exchangeText: ExchangeTextService;
   exportAdapter: ExportAdapter;
   exportNode: ExportNodeService;
   loadNodes: LoadNodesService;
@@ -65,8 +61,7 @@ export class ServicesPortolfio {
 
     this.openDirectory = new NullOpenDirectoryService();
     this.ensureDescriptor = new NullEnsureDescriptorService();
-    this.exchangeArtifact = new NullExchangeArtifactService();
-    this.exchangeText = new NullExchangeTextService();
+    this.exchangeArtifact = new ExchangeArtifactService();
     this.nodeRename = new NullNodeRenameService();
     this.nodeRemove = new NullNodeRemoveService();
     this.nodeMove = new NullNodeMoveService();
@@ -79,8 +74,6 @@ export class ServicesPortolfio {
   rotateServices(options: ObserverOptions) {
     if (options.status === "disconnected" ) {
       this.openDirectory = new NullOpenDirectoryService();
-      this.exchangeArtifact = new NullExchangeArtifactService();
-      this.exchangeText = new NullExchangeTextService();
       this.nodeRename = new NullNodeRenameService();
       this.nodeRemove = new NullNodeRemoveService();
       this.nodeMove = new NullNodeMoveService();
@@ -94,16 +87,15 @@ export class ServicesPortolfio {
 
     const { fileSystemAdapter, nodes } = options;
 
-    this.exchangeArtifact = new ConnectedExchangeArtifactService(fileSystemAdapter);
     this.ensureDescriptor = new ConnectedEnsureDescriptorService(this.exchangeArtifact);
     this.openDirectory = new ConnectedOpenDirectoryService({ ensureDescriptor: this.ensureDescriptor, fileSystemAdapter, nodes });
-    this.exchangeText = new ConnectedExchangeTextService(this.exchangeArtifact);
     this.nodeRename = new ConnectedNodeRenameService({ fileSystemAdapter, nodes });
     this.nodeRemove = new ConnectedNodeRemoveService({ fileSystemAdapter, nodes });
     this.nodeMove = new ConnectedNodeMoveService(fileSystemAdapter);
     this.createDirectory = new ConnectedCreateDirectoryService({ fileSystemAdapter, nodes, openDirectory: this.openDirectory });
     this.createArtifact = new ConnectedCreateArtifactService({ exchangeArtifact: this.exchangeArtifact, fileSystemAdapter, nodes, openDirectory: this.openDirectory });
 
+    this.exchangeArtifact.provide({ fileSystemAdapter });
     this.loadNodes.provide({ exchangeArtifact: this.exchangeArtifact, nodes, openDirectory: this.openDirectory });
     this.loadNodes.start();
   };
