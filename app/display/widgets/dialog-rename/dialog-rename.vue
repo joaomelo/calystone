@@ -44,7 +44,6 @@ async function save() {
       <InputText
         v-model="data.name"
         :label="t('name')"
-        autofocus
         :error="errors.name"
         data-test="input-name"
       />

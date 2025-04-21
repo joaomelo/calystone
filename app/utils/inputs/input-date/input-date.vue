@@ -4,8 +4,7 @@ import { onMounted, useTemplateRef } from "vue";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { autofocus = false, defaultTime = undefined, showTime = false } = defineProps<{
-  autofocus?: boolean
+const { defaultTime = undefined, showTime = false } = defineProps<{
   dataTest: string
   defaultTime?: string
   showTime?: boolean
@@ -29,7 +28,6 @@ onMounted(() => {
         v-model="model"
         :input-id="id"
         class="input-date"
-        :autofocus="autofocus"
         :invalid="invalid"
         :data-test="inputDataTest"
         fluid

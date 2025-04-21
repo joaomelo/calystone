@@ -3,8 +3,7 @@ import InputNumberPrimeVue from "primevue/inputnumber";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { autofocus = false, buttons = false, locale = "en", size } = defineProps<{
-  autofocus?: boolean
+const { buttons = false, locale = "en", size } = defineProps<{
   buttons?: boolean
   dataTest: string
   locale?: string
@@ -19,7 +18,6 @@ const model = defineModel({ type: Number });
         :id="id"
         v-model="model"
         class="input-number"
-        :autofocus="autofocus"
         :invalid="invalid"
         :data-test="inputDataTest"
         fluid
