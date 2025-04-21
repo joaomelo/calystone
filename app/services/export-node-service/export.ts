@@ -15,6 +15,11 @@ export class ExportNodeService {
     node.busy();
     try {
       await this.exportAdapter.export(node);
+    } catch (error) {
+      const userCanceledTheExport = (error instanceof DOMException && error.name === "AbortError");
+      if (userCanceledTheExport) return;
+
+      throw error;
     } finally {
       node.idle();
     }
