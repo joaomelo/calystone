@@ -1,16 +1,9 @@
-import { dataTest, outline, pageOpen, toolbarNode } from "../helpers";
+import { dialogCreateArtifact, outline, pageOpen, toolbarNode } from "../helpers";
 
 describe("create-artifact", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
   });
-
-  const dialogCreateArtifact = {
-    buttonSave: () => cy.get(dataTest("button-save")),
-    inputError: () => cy.get(dataTest("input-name-error")),
-    inputName: () => cy.get(dataTest("input-name-input")),
-    modalError: () => cy.get(dataTest("modal-create-artifact-error")),
-  } as const;
 
   it("creates artifact inside a directory", () => {
     const artifactName = "new-artifact-name.txt";

@@ -24,7 +24,7 @@ describe("export", () => {
       });
     });
 
-    outline.textArtifactOf(outline.rootNode()).first().as("artifact");
+    outline.artifactTextOf(outline.rootNode()).first().as("artifact");
     cy.get("@artifact").click();
     toolbarNode.buttonExport().click();
 

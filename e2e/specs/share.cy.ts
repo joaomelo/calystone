@@ -19,7 +19,7 @@ describe("share", () => {
 
       const stub = cy.stub(win.navigator, "share").resolves();
 
-      outline.textArtifactOf(outline.rootNode()).first().as("artifact");
+      outline.artifactTextOf(outline.rootNode()).first().as("artifact");
       cy.get("@artifact").click();
       toolbarNode.buttonShare().click();
       cy.wrap(stub).should("have.been.calledOnce");
