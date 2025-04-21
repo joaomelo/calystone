@@ -4,6 +4,7 @@ import InputTextPrimeVue from "primevue/inputtext";
 import { InputWrapper } from "../input-wrapper";
 
 defineProps<{
+  autofocus?: boolean
   dataTest: string
 }>();
 const model = defineModel<string>();
@@ -18,6 +19,7 @@ const model = defineModel<string>();
         :invalid="invalid"
         :data-test="inputDataTest"
         fluid
+        :autofocus="autofocus"
       />
     </template>
   </InputWrapper>

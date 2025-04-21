@@ -43,6 +43,7 @@ function open() {
     <template #content>
       <InputText
         v-model="data.name"
+        autofocus
         :label="t('name')"
         :error="errors.name"
         data-test="input-name"
