@@ -17,9 +17,15 @@ describe("create-artifact", () => {
     outline.artifactOf(outline.rootNode()).should("contain.text", artifactName);
   });
 
-  it("does not show create directory toolbar button if artifact is selected", () => {
+  it("creates sibling artifact if one is selected", () => {
+    const siblingName = "sibling.txt";
+
     outline.toogleOf(outline.rootNode()).click();
     outline.artifactOf(outline.rootNode()).first().click();
-    toolbarNode.buttonCreateArtifact().should("not.exist");
+    toolbarNode.buttonCreateArtifact().click();
+    dialogCreateArtifact.inputName().clear().type(siblingName);
+    dialogCreateArtifact.buttonSave().click();
+
+    outline.artifactOf(outline.rootNode()).should("contain.text", siblingName);
   });
 });
