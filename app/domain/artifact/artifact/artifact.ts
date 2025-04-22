@@ -1,5 +1,4 @@
 import { Node } from "@/domain/node";
-import { Status } from "@/utils";
 
 import type { ArtifactOptions } from "./options";
 
@@ -40,10 +39,6 @@ export abstract class Artifact extends Node {
     if (lastDotIndex === -1) return name;
 
     return name.substring(0, lastDotIndex);
-  }
-
-  parentable(): Status {
-    return Status.fail("ARTIFACT_CANNOT_BE_PARENT");
   }
 
   sizeAbove(bytes: number): boolean {

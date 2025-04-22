@@ -1,3 +1,4 @@
+import type { Directory } from "@/domain/directory";
 import type { Nodes } from "@/domain/nodes";
 
 import { Status } from "@/utils";
@@ -31,11 +32,6 @@ export abstract class Node {
     this.activity = "busy";
   }
 
-  getParent(): Node | undefined {
-    if (!this.parentId) return;
-    return this.nodes.get(this.parentId);
-  }
-
   idle(): void {
     this.activity = "idle";
   }
@@ -44,19 +40,19 @@ export abstract class Node {
     return this.activity === "busy";
   }
 
-  isChildOf(parent: Node): boolean {
+  isChildOf(parent: Directory): boolean {
     return this.parentId === parent.id;
   }
 
-  isDescendantOf(ascendant: Node): boolean {
+  isDescendantOf(ascendant: Directory): boolean {
     let isDescendant = false;
-    let parent = this.getParent();
+    let parent = this.parent();
     while (parent) {
       if (parent.isEqualTo(ascendant)) {
         isDescendant = true;
         break;
       }
-      parent = parent.getParent();
+      parent = parent.parent();
     }
     return isDescendant;
   }
@@ -79,30 +75,38 @@ export abstract class Node {
 
   mountPath(): string {
     const basePath = `/${this.name}`;
-    const parent = this.getParent();
+    const parent = this.parent();
     if (!parent) return basePath;
     return `${parent.mountPath()}${basePath}`;
   }
 
-  move(target: Node): void {
-    const moveable = this.moveable(target);
+  move(targetParent: Directory): void {
+    const moveable = this.moveable(targetParent);
     if (moveable.isFail()) throwError(moveable.cause);
-    this.parentId = target.id;
+    this.parentId = targetParent.id;
   }
 
-  moveable(target: Node): Status {
-    const parentable = target.parentable();
-    if (parentable.isFail()) return parentable;
+  moveable(targetParent: Directory): Status {
     if (this.isRoot()) return Status.fail("CANNOT_MOVE_ROOT");
-    if (this.isEqualTo(target)) return Status.fail("CANNOT_MOVE_TO_ITSELF");
-    if (this.isChildOf(target)) return Status.fail("CANNOT_MOVE_TO_SAME_PARENT");
-    if (target.isDescendantOf(this)) return Status.fail("CANNOT_MOVE_TO_DESCENDANT");
+    if (this.isEqualTo(targetParent)) return Status.fail("CANNOT_MOVE_TO_ITSELF");
+    if (this.isChildOf(targetParent)) return Status.fail("CANNOT_MOVE_TO_SAME_PARENT");
+
+    if (isDirectoryWithoutCircularDependency(this) && targetParent.isDescendantOf(this)) return Status.fail("CANNOT_MOVE_TO_DESCENDANT");
     return Status.ok();
   }
 
-  abstract parentable(): Status;
+  parent(): Directory | undefined {
+    if (!this.parentId) return;
+    const maybeParent = this.nodes.get(this.parentId);
+    if (isDirectoryWithoutCircularDependency(maybeParent)) return maybeParent;
+  }
 
   unload(): void {
     this.loaded = false;
   }
+}
+
+function isDirectoryWithoutCircularDependency(node?: Node): node is Directory {
+  if (!node) return false;
+  return "children" in node;
 }

@@ -1,5 +1,4 @@
 import { TextArtifact } from "@/domain/artifact";
-import { Status } from "@/utils";
 
 import { Node } from "../node";
 
@@ -31,9 +30,5 @@ export class Directory extends Node {
     if (!descriptor) return;
 
     return descriptor;
-  }
-
-  parentable(): Status {
-    return Status.ok();
   }
 };

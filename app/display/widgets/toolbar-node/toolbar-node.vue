@@ -32,8 +32,7 @@ defineEmits<{
           :parent="node"
         />
         <ToolbarButtonCreateArtifact
-          v-if="(node instanceof Directory)"
-          :parent="node"
+          :node="node"
         />
         <ToolbarButtonRename
           :node="node"
