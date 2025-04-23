@@ -2,18 +2,17 @@ import { throwCritical } from "@/utils";
 
 import type { ArtifactOptions } from "../artifact";
 import type { UpdateDateOptions } from "./dates";
-import type { Mode } from "./mode";
 
 import { Artifact } from "../artifact";
 import { Dates } from "./dates";
-import { defaultMode } from "./mode";
-import { parseJsonString } from "./parse";
+import { parseString, stringifyData } from "./parse";
+import { Progressor } from "./progress";
 
 export class TodoArtifact extends Artifact {
   dates = new Dates();
   details = "";
   importance = 0;
-  mode: Mode = defaultMode;
+  progressor: Progressor = new Progressor();
   urgency = 0;
   private _decoder = new TextDecoder("utf-8");
   private _encoder = new TextEncoder();
@@ -25,12 +24,12 @@ export class TodoArtifact extends Artifact {
     }
   }
 
-  complete() {
-    this.mode = "done";
+  completed(): boolean {
+    return this.progressor.completed();
   }
 
-  completed(): boolean {
-    return this.mode === "done";
+  done() {
+    this.progressor.done();
   }
 
   dueDate() {
@@ -40,10 +39,10 @@ export class TodoArtifact extends Artifact {
   performFromBinary(binary: ArrayBuffer): void {
     const jsonString = this._decoder.decode(binary);
 
-    const { details, dueDate, importance, mode, startDate, urgency } = parseJsonString(jsonString);
+    const { details, dueDate, importance, progress, startDate, urgency } = parseString(jsonString);
 
-    if (mode) {
-      this.mode = mode;
+    if (progress) {
+      this.progressor = new Progressor(progress);
     }
 
     if (details) {
@@ -67,24 +66,32 @@ export class TodoArtifact extends Artifact {
     }
   }
 
+  reopen() {
+    this.progressor.reopen();
+  }
+
+  skip() {
+    this.progressor.skip();
+  }
+
   startDate() {
     return this.dates.start;
   }
 
   toBinary(): ArrayBuffer {
-    const jsonString = JSON.stringify({
+    const jsonString = stringifyData({
       details: this.details,
-      dueDate: this.dates.stringifiableDue(),
+      dueDate: this.dates.due,
       importance: this.importance,
-      mode: this.mode,
-      startDate: this.dates.stringifiableStart(),
+      progress: this.progressor.progress,
+      startDate: this.dates.start,
       urgency: this.urgency
     });
     return this._encoder.encode(jsonString).buffer as ArrayBuffer;
   }
 
-  uncomplete() {
-    this.mode = "pending";
+  uncompleted(): boolean {
+    return this.progressor.uncompleted();
   }
 
   updateDetails(details: string) {

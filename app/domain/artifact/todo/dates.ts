@@ -1,24 +1,16 @@
-export interface UpdateDateOptions { anchor?: boolean; date: Date | null }
+export interface UpdateDateOptions { anchor?: boolean; date: Date | undefined }
 
 export class Dates {
-  due: Date | null = null;
-  start: Date | null = null;
+  due: Date | undefined = undefined;
+  start: Date | undefined = undefined;
 
   clearDates() {
-    this.due = null;
-    this.start = null;
-  }
-
-  stringifiableDue() {
-    return this.due?.toISOString() ?? null;
-  }
-
-  stringifiableStart() {
-    return this.start?.toISOString() ?? null;
+    this.due = undefined;
+    this.start = undefined;
   }
 
   updateDue({ anchor = false, date }: UpdateDateOptions) {
-    if (date === null) {
+    if (date === undefined) {
       this.clearDates();
       return;
     }
@@ -31,14 +23,14 @@ export class Dates {
     this.due = anchoredDate;
 
     const isDueSmallerThanStart = this.start && anchoredDate < this.start;
-    const isStartEmpty = this.start === null;
+    const isStartEmpty = this.start === undefined;
     if (isDueSmallerThanStart || isStartEmpty) {
       this.updateStart({ anchor, date: anchoredDate });
     }
   }
 
   updateStart({ anchor = false, date }: UpdateDateOptions) {
-    if (date === null) {
+    if (date === undefined) {
       this.clearDates();
       return;
     }
@@ -51,7 +43,7 @@ export class Dates {
     this.start = anchoredStart;
 
     const isStartGreaterThanDue = this.due && anchoredStart > this.due;
-    const isDueEmpty = this.due === null;
+    const isDueEmpty = this.due === undefined;
     if (isStartGreaterThanDue || isDueEmpty) {
       this.updateDue({ anchor, date: anchoredStart });
     }

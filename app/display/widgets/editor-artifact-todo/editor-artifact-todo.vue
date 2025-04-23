@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import type { TodoArtifact } from "@/domain";
+import type { Panels } from "@/utils";
 
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
-import { debounce, InputCheck, InputRichText, useI18n } from "@/utils";
-import { onMounted } from "vue";
+import { TabsPanels, useI18n } from "@/utils";
+import { computed, onMounted } from "vue";
 
-import DatesPanel from "./dates-panel.vue";
-import PriorityPanel from "./priority-panel.vue";
+import TabDates from "./tab-dates.vue";
+import TabMain from "./tab-main.vue";
+import TabMore from "./tab-more.vue";
 
 const { content: artifact } = defineProps<{
   content: TodoArtifact;
@@ -21,51 +23,28 @@ onMounted(async () => {
   await services.exchangeArtifact.fetchInto(artifact);
 });
 
-async function handleUpdateMode(value: boolean) {
-  if (value) {
-    artifact.complete();
-  } else {
-    artifact.uncomplete();
-  }
-  await services.exchangeArtifact.postFrom(artifact);
-}
-
-const handleUpdatedetails = debounce(async (text: string) => {
-  artifact.updateDetails(text);
-  await services.exchangeArtifact.postFrom(artifact);
-}, 1000);
+const panels = computed<Panels>(() => [
+  ["main", artifact.basename()],
+  ["dates", t("todo-panels.dates")],
+  ["more", t("todo-panels.more")]
+]);
 </script>
 <template>
   <EditorNodeWorkspace
     v-if="artifact.isLoaded()"
     :node="artifact"
   >
-    <div class="editor-artifact-todo__inputs-wrapper">
-      <InputCheck
-        :model-value="artifact.completed()"
-        :label="artifact.basename()"
-        data-test="input-mode"
-        @update:model-value="handleUpdateMode"
-      />
-      <DatesPanel :artifact="artifact" />
-      <PriorityPanel :artifact="artifact" />
-      <InputRichText
-        :label="t('details')"
-        data-test="input-details"
-        lineless
-        :model-value="artifact.details"
-        @update:model-value="handleUpdatedetails"
-      />
-    </div>
+    <TabsPanels :panels="panels">
+      <template #main>
+        <TabMain :artifact="artifact" />
+      </template>
+      <template #dates>
+        <TabDates :artifact="artifact" />
+      </template>
+      <template #more>
+        <TabMore :artifact="artifact" />
+      </template>
+    </TabsPanels>
   </EditorNodeWorkspace>
   <EditorNotLoaded v-else />
 </template>
-<style scoped>
-.editor-artifact-todo__inputs-wrapper {
-  padding-block: var(--size-3);
-  padding-inline: var(--size-2);
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-2);
-}
-</style>

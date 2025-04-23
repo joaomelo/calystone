@@ -12,15 +12,10 @@
   "date-end": "end date",
   "date-start": "start date",
   "dates": {
-    "dates": "dates",
     "allDay": "all day",
+    "dates": "dates",
     "due": "due",
     "start": "start"
-  },
-  "priority": {
-    "priority": "priority",
-    "importance": "importance",
-    "urgency": "urgency"
   },
   "delete": "delete",
   "delete-node": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
@@ -91,6 +86,16 @@
   "outline": "outline",
   "path": "path",
   "preferences": "preferences",
+  "priority": {
+    "importance": "importance",
+    "priority": "priority",
+    "urgency": "urgency"
+  },
+  "progress": {
+    "done": "done",
+    "reopen": "reopen",
+    "skip": "skip"
+  },
   "reload": "reload",
   "rename": "rename",
   "save": "save",
@@ -98,5 +103,9 @@
   "share": "share",
   "size": "size",
   "tags": "tags",
+  "todo-panels": {
+    "dates": "dates",
+    "more": "more"
+  },
   "type": "type"
 }
