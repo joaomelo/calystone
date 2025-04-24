@@ -13,7 +13,10 @@ const { panels } = defineProps<{
 }>();
 </script>
 <template>
-  <Tabs :value="panels[0][0]">
+  <Tabs
+    :value="panels[0][0]"
+    class="tabs-panels"
+  >
     <TabList>
       <Tab
         v-for="panel in panels"
@@ -24,12 +27,13 @@ const { panels } = defineProps<{
         {{ panel[1] }}
       </Tab>
     </TabList>
-    <TabPanels>
+    <TabPanels class="tabs-panels__panels">
       <TabPanel
         v-for="panel in panels"
         :key="panel[0]"
         :value="panel[0]"
         :data-test="kebabCase('tabs-panels-panel', panel[0])"
+        class="tabs-panels__panel"
       >
         <slot :name="panel[0]" />
       </TabPanel>

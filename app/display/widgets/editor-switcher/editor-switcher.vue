@@ -8,6 +8,7 @@ import { editorArtifactTextSwitch } from "@/display/widgets/editor-artifact-text
 import { editorArtifactTodoSwitch } from "@/display/widgets/editor-artifact-todo";
 import { editorDirectorySwitch } from "@/display/widgets/editor-directory";
 import { editorEmptySwitch } from "@/display/widgets/editors-message";
+import { ScrollPanel } from "@/utils";
 import { computed } from "vue";
 
 const { node } = defineProps<{
@@ -25,10 +26,12 @@ const editor: Component = computed(() => {
 const key = computed(() => node?.id ?? "empty");
 </script>
 <template>
-  <component
-    :is="editor"
-    :key
-    :content="node"
-    v-bind="$attrs"
-  />
+  <ScrollPanel>
+    <component
+      :is="editor"
+      :key
+      :content="node"
+      v-bind="$attrs"
+    />
+  </ScrollPanel>
 </template>

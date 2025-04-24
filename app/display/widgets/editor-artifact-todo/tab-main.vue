@@ -70,18 +70,10 @@ const handleUpdatedetails = debounce(async (text: string) => {
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
-  height: 100%;
-  overflow: hidden;
 }
 
 .tab-main__progress {
   display: flex;
   gap: var(--size-2);
-}
-
-:deep(.input-rich-text) {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
 }
 </style>

@@ -1,1 +1,1 @@
-export { default as ScrollPanel } from "primevue/scrollpanel";
+export { default as ScrollPanel } from "./scroll-panel.vue";

@@ -34,10 +34,8 @@ defineEmits<{
 </template>
 <style scoped>
 .editor-node-workspace {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .editor-node-workspace__header {
@@ -51,6 +49,5 @@ defineEmits<{
 
 .editor-node-workspace__content {
   flex: 1 1 auto;
-  overflow: hidden;
 }
 </style>

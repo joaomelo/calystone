@@ -47,33 +47,19 @@ function resolveKey(node?: TreeNode) {
 };
 </script>
 <template>
-  <div class="outline-nodes">
-    <ScrollPanel class="outline-nodes-scroll">
-      <PrimeVueTree
-        v-model:selection-keys="selectedKey"
-        selection-mode="single"
-        data-test="nodes-outline-tree"
-        :value="tree"
-        @node-expand="handleNodeExpand"
-        @node-select="handleNodeSelect"
-        @node-unselect="handleNodeUnselect"
-      >
-        <template #default="slotProps">
-          <OutlineNode :node="slotProps.node.data" />
-        </template>
-      </PrimeVueTree>
-    </ScrollPanel>
-  </div>
+  <ScrollPanel>
+    <PrimeVueTree
+      v-model:selection-keys="selectedKey"
+      selection-mode="single"
+      data-test="nodes-outline-tree"
+      :value="tree"
+      @node-expand="handleNodeExpand"
+      @node-select="handleNodeSelect"
+      @node-unselect="handleNodeUnselect"
+    >
+      <template #default="slotProps">
+        <OutlineNode :node="slotProps.node.data" />
+      </template>
+    </PrimeVueTree>
+  </ScrollPanel>
 </template>
-<style scoped>
-.outline-nodes,
-.outline-nodes-scroll {
-  /* this will contain the component between the height boundaries of its parent  */
-  height: 100%;
-}
-
-.outline-nodes :deep(.p-progressbar) {
-  border-radius: 0;
-  height: var(--border-size-2);
-}
-</style>
