@@ -45,7 +45,7 @@ describe("move", () => {
       });
   });
 
-  it.only("cant move to descendant", () => {
+  it("cant move to descendant", () => {
     outline
       .directoryOf(outline.rootNode()).eq(0)
       .as("sourceNodeWrapper");
