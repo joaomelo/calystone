@@ -33,6 +33,11 @@ describe("move", () => {
 
         outline
           .directoryOf(outline.rootNode()).eq(0)
+          .find(dataTest(dataTestString))
+          .should("not.exist");
+
+        outline
+          .directoryOf(outline.rootNode()).eq(0)
           .as("targetNodeRecatch");
 
         outline

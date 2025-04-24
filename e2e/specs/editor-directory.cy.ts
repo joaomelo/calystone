@@ -9,12 +9,12 @@ describe("editor-directory", () => {
     outline.labelOf(outline.rootNode()).then(label => {
       outline.rootNode().click();
       editorDirectory.tipUnloaded().should("exist");
-      editorDirectory.itemsValue().should("contain.text", "0");
+      editorDirectory.itemsValue().should("have.text", "0");
       editorDirectory.pathValue().should("contain.text", `/${label}`);
 
       outline.toogleOf(outline.rootNode()).click();
       editorDirectory.tipUnloaded().should("not.exist");
-      editorDirectory.itemsValue().should("not.contain.text", "0");
+      editorDirectory.itemsValue().should("not.have.text", "0");
     });
   });
 

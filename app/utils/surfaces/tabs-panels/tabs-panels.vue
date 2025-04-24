@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { kebabCase } from "@/utils/text";
 import Tab from "primevue/tab";
 import TabList from "primevue/tablist";
 import TabPanel from "primevue/tabpanel";
@@ -18,6 +19,7 @@ const { panels } = defineProps<{
         v-for="panel in panels"
         :key="panel[0]"
         :value="panel[0]"
+        :data-test="kebabCase('tabs-panels-tab', panel[0])"
       >
         {{ panel[1] }}
       </Tab>
@@ -27,6 +29,7 @@ const { panels } = defineProps<{
         v-for="panel in panels"
         :key="panel[0]"
         :value="panel[0]"
+        :data-test="kebabCase('tabs-panels-panel', panel[0])"
       >
         <slot :name="panel[0]" />
       </TabPanel>

@@ -18,6 +18,7 @@ describe("create-todo", () => {
       .filter((_, el) => outline.labelOfElement(el) === todoName)
       .click();
 
+    editorTodo.dates.tabDates().click();
     editorTodo.dates.inputStart().type("2025-01-01");
     editorTodo.dates.inputDue().should("have.value", "2025-01-01");
   });
