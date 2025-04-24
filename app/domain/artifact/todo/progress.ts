@@ -2,8 +2,8 @@ import { throwError } from "@/utils";
 
 export type Progress = (typeof progresses)[number];
 
-const progresses = ["done", "open", "skipped", "unknown"] as const;
-const defaultProgress: Progress = "unknown";
+const progresses = ["done", "open", "skipped" ] as const;
+const defaultProgress: Progress = "open";
 
 export class Progressor {
   progress: Progress;
