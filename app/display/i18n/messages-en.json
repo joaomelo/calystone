@@ -93,8 +93,8 @@
   },
   "progress": {
     "done": "done",
-    "reopen": "reopen",
-    "skip": "skip"
+    "open": "open",
+    "skipped": "skipped"
   },
   "reload": "reload",
   "rename": "rename",

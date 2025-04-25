@@ -92,9 +92,9 @@
     "urgency": "urgência"
   },
   "progress": {
-    "done": "pronto",
-    "reopen": "reabrir",
-    "skip": "pular"
+    "done": "pronta",
+    "open": "aberta",
+    "skipped": "descartada"
   },
   "reload": "recarregar",
   "rename": "renomear",

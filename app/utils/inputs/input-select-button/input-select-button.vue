@@ -6,7 +6,7 @@ import { InputWrapper } from "../input-wrapper";
 const { label } = defineProps<{
   dataTest: string
   label?: string;
-  options: string[];
+  options: string[] | { label: string; value: string }[];
 }>();
 const model = defineModel({ type: String });
 
@@ -22,6 +22,8 @@ const model = defineModel({ type: String });
         v-model="model"
         :options="options"
         :allow-empty="false"
+        option-label="label"
+        option-value="value"
       />
     </template>
   </InputWrapper>

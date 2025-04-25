@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { TodoArtifact } from "@/domain";
+import type { Progress, TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { ButtonBase, debounce, InputRichText, useI18n } from "@/utils";
+import { debounce, InputRichText, InputSelectButton, useI18n } from "@/utils";
 
 const { artifact } = defineProps<{
   artifact: TodoArtifact;
@@ -11,18 +11,26 @@ const { artifact } = defineProps<{
 const { services } = Store.use();
 const { t } = useI18n();
 
-async function handleDone() {
-  artifact.done();
-  await services.exchangeArtifact.postFrom(artifact);
-}
+const options: { label: string; value: Progress }[] = [
+  { label: t("progress.done"), value: "done" },
+  { label: t("progress.skipped"), value: "skipped" },
+  { label: t("progress.open"), value: "open" },
+];
 
-async function handleReopen() {
-  artifact.reopen();
-  await services.exchangeArtifact.postFrom(artifact);
-}
+async function handleUpdatedProgress(progress?: string) {
+  switch (progress) {
+    case "done":
+      artifact.done();
+      break;
+    case "open":
+      artifact.reopen();
+      break;
+    case "skipped":
+      artifact.skip();
+      break;
+    default: return;
+  }
 
-async function handleSkip() {
-  artifact.skip();
   await services.exchangeArtifact.postFrom(artifact);
 }
 
@@ -34,26 +42,12 @@ const handleUpdatedetails = debounce(async (text: string) => {
 <template>
   <div class="tab-main">
     <div class="tab-main__progress">
-      <ButtonBase
-        v-if="!artifact.completed()"
-        :label="t('progress.done')"
-        severity="primary"
-        data-test="button-done"
-        @click="handleDone"
-      />
-      <ButtonBase
-        v-if="!artifact.completed()"
-        :label="t('progress.skip')"
-        severity="secondary"
-        data-test="button-skip"
-        @click="handleSkip"
-      />
-      <ButtonBase
-        v-if="!artifact.uncompleted()"
-        :label="t('progress.reopen')"
-        severity="secondary"
-        data-test="button-reopen"
-        @click="handleReopen"
+      <InputSelectButton
+        data-test="input-progress"
+        :model-value="artifact.progressor.progress"
+        default-value="open"
+        :options="options"
+        @update:model-value="handleUpdatedProgress"
       />
     </div>
     <InputRichText
