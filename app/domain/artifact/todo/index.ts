@@ -1,2 +1,2 @@
-export * from "./progress";
+export * from "./progressor";
 export * from "./todo";

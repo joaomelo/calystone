@@ -13,7 +13,7 @@ const icon = computed(() => {
   const baseIcon = "bx bx-sm";
   const todoIcon = !todo.isLoaded()
     ? `${baseIcon} bx-task`
-    : todo.completed()
+    : todo.progressor.completed()
       ? `${baseIcon} bx-checkbox-checked`
       : `${baseIcon} bx-checkbox`;
 
@@ -25,7 +25,7 @@ const icon = computed(() => {
   <NodeBase
     :icon="icon"
     :label="todo.name"
-    :class="{ 'completed': todo.completed() }"
+    :class="{ 'completed': todo.progressor.completed() }"
   />
 </template>
 <style scoped>

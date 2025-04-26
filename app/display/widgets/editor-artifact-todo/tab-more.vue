@@ -3,6 +3,7 @@ import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import { debounce, FieldSet, InputNumber, useI18n } from "@/utils";
+import { computed } from "vue";
 
 const { artifact } = defineProps<{
   artifact: TodoArtifact;
@@ -11,24 +12,28 @@ const { artifact } = defineProps<{
 const { services } = Store.use();
 const { locale, t } = useI18n();
 
+const legend = computed(() => {
+  return `${t("priority.priority")}: ${artifact.prioritizer.priority().toString()}`;
+});
+
 const handleUpdateUrgency = debounce(async (urgency?: number) => {
-  artifact.updateUrgency(urgency);
+  artifact.prioritizer.urgency = urgency ?? 0;
   await services.exchangeArtifact.postFrom(artifact);
 }, 200);
 
 const handleUpdateImportance = debounce(async (importance?: number) => {
-  artifact.updateImportance(importance);
+  artifact.prioritizer.importance = importance ?? 0;
   await services.exchangeArtifact.postFrom(artifact);
 }, 200);
 </script>
 <template>
-  <FieldSet :legend="t('priority.priority')">
+  <FieldSet :legend="legend">
     <div class="priority-panel__inputs">
       <InputNumber
         :label="t('priority.importance')"
         data-test="input-importance"
         :locale="locale"
-        :model-value="artifact.importance"
+        :model-value="artifact.prioritizer.importance"
         buttons
         size="small"
         @update:model-value="handleUpdateImportance"
@@ -37,7 +42,7 @@ const handleUpdateImportance = debounce(async (importance?: number) => {
         :label="t('priority.urgency')"
         data-test="input-urgency"
         :locale="locale"
-        :model-value="artifact.urgency"
+        :model-value="artifact.prioritizer.urgency"
         buttons
         size="small"
         @update:model-value="handleUpdateUrgency"

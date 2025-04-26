@@ -20,13 +20,13 @@ const options: { label: string; value: Progress }[] = [
 async function handleUpdatedProgress(progress?: string) {
   switch (progress) {
     case "done":
-      artifact.done();
+      artifact.progressor.done();
       break;
     case "open":
-      artifact.reopen();
+      artifact.progressor.open();
       break;
     case "skipped":
-      artifact.skip();
+      artifact.progressor.skip();
       break;
     default: return;
   }
@@ -35,21 +35,19 @@ async function handleUpdatedProgress(progress?: string) {
 }
 
 const handleUpdatedetails = debounce(async (text: string) => {
-  artifact.updateDetails(text);
+  artifact.details = text;
   await services.exchangeArtifact.postFrom(artifact);
 }, 1000);
 </script>
 <template>
   <div class="tab-main">
-    <div class="tab-main__progress">
-      <InputSelectButton
-        data-test="input-progress"
-        :model-value="artifact.progressor.progress"
-        default-value="open"
-        :options="options"
-        @update:model-value="handleUpdatedProgress"
-      />
-    </div>
+    <InputSelectButton
+      data-test="input-progress"
+      :model-value="artifact.progressor.progress"
+      default-value="open"
+      :options="options"
+      @update:model-value="handleUpdatedProgress"
+    />
     <InputRichText
       :label="t('details')"
       data-test="input-details"
@@ -64,10 +62,5 @@ const handleUpdatedetails = debounce(async (text: string) => {
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
-}
-
-.tab-main__progress {
-  display: flex;
-  gap: var(--size-2);
 }
 </style>

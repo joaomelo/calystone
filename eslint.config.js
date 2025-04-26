@@ -43,6 +43,11 @@ export default tseslint.config(
 
   // vue
   ...pluginVue.configs["flat/recommended"],
+  {
+    rules: {
+      "vue/no-mutating-props": "off"
+    }
+  },
 
   //style linters
   {
