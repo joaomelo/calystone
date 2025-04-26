@@ -1,0 +1,86 @@
+import { isJsonParseable, isObjectLike } from "@/utils";
+
+import { Prioritizer } from "./prioritizer";
+import { Progressor } from "./progressor";
+import { Scheduler } from "./scheduler";
+import { Tagger } from "./tagger";
+
+interface Data {
+  details: string,
+  prioritizer: Prioritizer,
+  progressor: Progressor,
+  scheduler: Scheduler,
+  tagger: Tagger,
+}
+
+export class Parser {
+  private decoder = new TextDecoder("utf-8");
+  private encoder = new TextEncoder();
+
+  convertBinaryToData(binary: ArrayBuffer): Data {
+    const flatJsonString = this.decoder.decode(binary);
+
+    const data: Data = {
+      details: "",
+      prioritizer: new Prioritizer(),
+      progressor: new Progressor(),
+      scheduler: new Scheduler(),
+      tagger: new Tagger(),
+    };
+
+    if (!isJsonParseable(flatJsonString)) {
+      return data;
+    };
+
+    const rawData = JSON.parse(flatJsonString) as Record<string, unknown>;
+    if (!isObjectLike(rawData)) {
+      return data;
+    }
+
+    if ("details" in data && typeof rawData.details === "string") {
+      data.details = rawData.details;
+    }
+
+    if (("progress" in rawData) && Progressor.isProgress(rawData.progress)) {
+      data.progressor = new Progressor(rawData.progress);
+    }
+
+    if ("importance" in rawData && typeof rawData.importance === "number") {
+      data.prioritizer.importance = rawData.importance;
+    }
+
+    if ("urgency" in rawData && typeof rawData.urgency === "number") {
+      data.prioritizer.urgency = rawData.urgency;
+    }
+
+    if ("startDate" in data && typeof rawData.startDate === "string") {
+      const startDate = new Date(rawData.startDate);
+      data.scheduler.updateStart({ anchor: false, date: startDate });
+    }
+
+    if ("dueDate" in data && typeof rawData.dueDate === "string") {
+      const dueDate = new Date(rawData.dueDate);
+      data.scheduler.updateDue({ anchor: false, date: dueDate });
+    }
+
+    if ("tags" in data && Array.isArray(rawData.tags)) {
+      data.tagger.add(rawData.tags);
+    }
+
+    return data;
+  }
+
+  convertDataToBinary(data: Data): ArrayBuffer {
+    const { due, start } = data.scheduler.stringify();
+    const jsonString = JSON.stringify({
+      details: data.details,
+      dueDate: due,
+      importance: data.prioritizer.importance,
+      progress: data.progressor.progress,
+      startDate: start,
+      tags: data.tagger.list(),
+      urgency: data.prioritizer.urgency,
+    });
+    return this.encoder.encode(jsonString).buffer as ArrayBuffer;
+  }
+}

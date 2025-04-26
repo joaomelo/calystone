@@ -1,12 +1,19 @@
 export interface UpdateDateOptions { anchor?: boolean; date: Date | undefined }
 
-export class Dates {
+export class Scheduler {
   due: Date | undefined = undefined;
   start: Date | undefined = undefined;
 
   clearDates() {
     this.due = undefined;
     this.start = undefined;
+  }
+
+  stringify() {
+    return {
+      due: this.due?.toISOString() ?? null,
+      start: this.start?.toISOString() ?? null,
+    };
   }
 
   updateDue({ anchor = false, date }: UpdateDateOptions) {

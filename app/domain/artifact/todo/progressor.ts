@@ -10,6 +10,11 @@ export class Progressor {
     this.progress = progress;
   }
 
+  static isProgress(value: unknown): value is Progress {
+    if (typeof value !== "string") return false;
+    return progresses.includes(value as Progress);
+  }
+
   completed() {
     return this.progress === "done" || this.progress === "skipped";
   }
@@ -18,7 +23,7 @@ export class Progressor {
     this.progress = "done";
   }
 
-  reopen() {
+  open() {
     this.progress = "open";
   }
 
@@ -30,9 +35,4 @@ export class Progressor {
     return this.progress === "open";
   }
 
-}
-
-export function isProgress(value: unknown): value is Progress {
-  if (typeof value !== "string") return false;
-  return progresses.includes(value as Progress);
 }
