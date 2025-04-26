@@ -12,7 +12,15 @@ const { artifact } = defineProps<{
 const { services } = Store.use();
 const { locale, t } = useI18n();
 
-const legend = computed(() => {
+// const optionTags = computed(() => {
+//   return artifact.tagger.list();
+// });
+
+// function handleUpdateTags(value: unknown) {
+//   console.log({ value });
+// }
+
+const priorityLegend = computed(() => {
   return `${t("priority.priority")}: ${artifact.prioritizer.priority().toString()}`;
 });
 
@@ -27,31 +35,47 @@ const handleUpdateImportance = debounce(async (importance?: number) => {
 }, 200);
 </script>
 <template>
-  <FieldSet :legend="legend">
-    <div class="priority-panel__inputs">
-      <InputNumber
-        :label="t('priority.importance')"
-        data-test="input-importance"
-        :locale="locale"
-        :model-value="artifact.prioritizer.importance"
-        buttons
-        size="small"
-        @update:model-value="handleUpdateImportance"
-      />
-      <InputNumber
-        :label="t('priority.urgency')"
-        data-test="input-urgency"
-        :locale="locale"
-        :model-value="artifact.prioritizer.urgency"
-        buttons
-        size="small"
-        @update:model-value="handleUpdateUrgency"
-      />
-    </div>
-  </FieldSet>
+  <div class="tab-more">
+    <!-- <InputMultiselect
+      :label="t('tags')"
+      data-test="input-tags"
+      :options="optionTags"
+      :model-value="artifact.tagger.list()"
+      add
+      @update:model-value="handleUpdateTags"
+    /> -->
+    <FieldSet :legend="priorityLegend">
+      <div class="tab-more__priority-inputs">
+        <InputNumber
+          :label="t('priority.importance')"
+          data-test="input-importance"
+          :locale="locale"
+          :model-value="artifact.prioritizer.importance"
+          buttons
+          size="small"
+          @update:model-value="handleUpdateImportance"
+        />
+        <InputNumber
+          :label="t('priority.urgency')"
+          data-test="input-urgency"
+          :locale="locale"
+          :model-value="artifact.prioritizer.urgency"
+          buttons
+          size="small"
+          @update:model-value="handleUpdateUrgency"
+        />
+      </div>
+    </FieldSet>
+  </div>
 </template>
 <style scoped>
-.priority-panel__inputs {
+.tab-more {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+}
+
+.tab-more__priority-inputs {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--size-3);
