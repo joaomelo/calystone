@@ -21,6 +21,14 @@ const active: ComputedRef<string> = computed(() => {
   return "outline";
 });
 
+function handleClickOutline() {
+  void router.push({ name: "outline" });
+}
+
+function handleClickTags() {
+  void router.push({ name: "tags" });
+}
+
 function handleExit() {
   // we push open immediately to avoid rendering the dashboard while the services are being disconnected
   void router.push({ name: "open" }).then(() => {
@@ -40,6 +48,14 @@ function handleReload() {
         :title="t('outline')"
         :icon="`${baseIcon} bx-list-ul`"
         data-test="outline"
+        @click="handleClickOutline"
+      />
+      <SideItem
+        id="tags"
+        :title="t('tags')"
+        :icon="`${baseIcon} bxs-purchase-tag-alt`"
+        data-test="tags"
+        @click="handleClickTags"
       />
     </template>
     <template #bottom>
