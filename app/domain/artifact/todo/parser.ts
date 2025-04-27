@@ -14,6 +14,8 @@ interface Data {
 }
 
 export class Parser {
+  static readonly VERSION = 1;
+
   private decoder = new TextDecoder("utf-8");
   private encoder = new TextEncoder();
 
@@ -34,6 +36,14 @@ export class Parser {
 
     const rawData = JSON.parse(flatJsonString) as Record<string, unknown>;
     if (!isObjectLike(rawData)) {
+      return data;
+    }
+
+    if (!("version" in rawData) || typeof rawData.version !== "number") {
+      return data;
+    }
+
+    if (rawData.version !== Parser.VERSION) {
       return data;
     }
 
@@ -80,6 +90,7 @@ export class Parser {
       startDate: start,
       tags: data.tagger.list(),
       urgency: data.prioritizer.urgency,
+      version: Parser.VERSION,
     });
     return this.encoder.encode(jsonString).buffer as ArrayBuffer;
   }
