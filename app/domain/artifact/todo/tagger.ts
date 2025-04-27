@@ -13,11 +13,11 @@ export class Tagger {
     }
   }
 
-  delete(tag: string) {
-    this.tags.delete(tag);
-  }
-
   list(): string[] {
     return Array.from(this.tags);
+  }
+
+  remove(tag: string) {
+    this.tags.delete(tag);
   }
 }

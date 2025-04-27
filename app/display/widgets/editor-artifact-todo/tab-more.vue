@@ -5,20 +5,14 @@ import { Store } from "@/display/store";
 import { debounce, FieldSet, InputNumber, useI18n } from "@/utils";
 import { computed } from "vue";
 
+import InputTags from "./input-tags.vue";
+
 const { artifact } = defineProps<{
   artifact: TodoArtifact;
 }>();
 
 const { services } = Store.use();
 const { locale, t } = useI18n();
-
-// const optionTags = computed(() => {
-//   return artifact.tagger.list();
-// });
-
-// function handleUpdateTags(value: unknown) {
-//   console.log({ value });
-// }
 
 const priorityLegend = computed(() => {
   return `${t("priority.priority")}: ${artifact.prioritizer.priority().toString()}`;
@@ -36,14 +30,7 @@ const handleUpdateImportance = debounce(async (importance?: number) => {
 </script>
 <template>
   <div class="tab-more">
-    <!-- <InputMultiselect
-      :label="t('tags')"
-      data-test="input-tags"
-      :options="optionTags"
-      :model-value="artifact.tagger.list()"
-      add
-      @update:model-value="handleUpdateTags"
-    /> -->
+    <InputTags :artifact="artifact" />
     <FieldSet :legend="priorityLegend">
       <div class="tab-more__priority-inputs">
         <InputNumber
