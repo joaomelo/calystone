@@ -1,6 +1,11 @@
 import { dataTest } from "./data-test";
 
 export const pageOpen = {
+  locale: {
+    input: () => cy.get(dataTest("input-locale-input")),
+    label: () => cy.get(dataTest("input-locale-label")),
+    option: (locale: string) => pageOpen.locale.input().find("button").contains(locale),
+  },
   macros: {
     openMemory() {
       cy.visit("/");

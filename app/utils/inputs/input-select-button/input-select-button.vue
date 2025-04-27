@@ -16,10 +16,11 @@ const model = defineModel({ type: String });
     :label
     :data-test="dataTest"
   >
-    <template #default="{ id }">
+    <template #default="{ id, inputDataTest }">
       <SelectButton
         :id="id"
         v-model="model"
+        :data-test="inputDataTest"
         :options="options"
         :allow-empty="false"
         option-label="label"
