@@ -57,7 +57,7 @@ async function handleRemoveTag(tag: string) {
     </div>
     <ChipTags
       :labels="artifact.tagger.list()"
-      data-test="artifact-tags"
+      data-test="chip-tags-tags"
       removable
       @remove="handleRemoveTag"
     />
