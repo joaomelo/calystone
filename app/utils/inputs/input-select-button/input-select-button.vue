@@ -6,7 +6,7 @@ import { InputWrapper } from "../input-wrapper";
 const { label } = defineProps<{
   dataTest: string
   label?: string;
-  options: string[] | { label: string; value: string }[];
+  options: { label: string; value: string }[];
 }>();
 const model = defineModel({ type: String });
 
