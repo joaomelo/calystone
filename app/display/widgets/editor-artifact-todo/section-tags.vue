@@ -3,20 +3,31 @@ import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import { ButtonBase, ChipTags, FieldSet, InputText, useI18n } from "@/utils";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 const { artifact } = defineProps<{
   artifact: TodoArtifact;
 }>();
 
-const { services } = Store.use();
+const { services, tags } = Store.use();
 const { t } = useI18n();
 
 const tag = ref("");
+
+const suggestions = computed(() => {
+  const allTags = new Set(tags.list());
+  const artifactTags = new Set(artifact.tagger.list());
+  return Array.from(allTags.difference(artifactTags));
+});
 
 async function handleAddTag() {
   artifact.tagger.add(tag.value);
   tag.value = "";
   await services.exchangeArtifact.postFrom(artifact);
+}
+
+function handleOptionSelect(option: string) {
+  tag.value = option;
+  void handleAddTag();
 }
 
 async function handleRemoveTag(tag: string) {
@@ -35,6 +46,8 @@ async function handleRemoveTag(tag: string) {
         :label="t('name')"
         data-test="input-tag"
         class="section-tags__input"
+        :suggestions="suggestions"
+        @option-select="handleOptionSelect"
       />
       <ButtonBase
         :label="t('add')"
