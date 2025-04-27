@@ -12,6 +12,10 @@ export class Tag {
     this.todos.add(todo);
   }
 
+  list(): TodoArtifact[] {
+    return Array.from(this.todos);
+  }
+
   remove(todo: TodoArtifact) {
     this.todos.delete(todo);
   }

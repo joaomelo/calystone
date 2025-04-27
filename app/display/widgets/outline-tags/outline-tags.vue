@@ -8,7 +8,7 @@ import { isObjectLike, ScrollPanel } from "@/utils";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref } from "vue";
 
-type Selected = { key: Id; type: "node" } | { key: string; type: "tag" } | { type: "none" };
+type Selected = { key: Id; type: "todo" } | { key: string; type: "tag" } | { type: "none" };
 
 const emit = defineEmits<{
   selected: [data: Selected];
@@ -34,12 +34,21 @@ const tree = computed<TreeNode[]>(() => {
 });
 
 function solveChildrenOf(tag: Tag): TreeNode[] {
+  const todos = tag.list();
+  todos.sort((a, b) => {
+    const result = a.prioritizer.compareTo(b.prioritizer);
+    if (result === 0) {
+      return a.basename().localeCompare(b.basename());
+    }
+    return result;
+  });
+
   return Array.from(tag.todos).map(todo => {
     return {
       children: [],
-      data: { id: todo.id, type: "node" },
+      data: { todo, type: "todo" },
       key: todo.id,
-      label: todo.basename(),
+      label: `${todo.basename()} ${todo.prioritizer.priority().toString()}`,
       leaf: true,
     };
   });
@@ -51,7 +60,7 @@ const selectedKey = ref();
 function handleNodeSelect(treeNode: TreeNode) {
   if (!isObjectLike(treeNode.data)) return;
   if (!("type" in treeNode.data) || typeof treeNode.data.type !== "string") return;
-  if (treeNode.data.type !== "tag" && treeNode.data.type !== "node") return;
+  if (treeNode.data.type !== "tag" && treeNode.data.type !== "todo") return;
   emit("selected", { key: treeNode.key, type: treeNode.data.type });
 }
 
