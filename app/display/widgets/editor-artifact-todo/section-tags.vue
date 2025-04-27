@@ -14,7 +14,7 @@ const { t } = useI18n();
 const tag = ref("");
 
 const suggestions = computed(() => {
-  const allTags = new Set(tags.list());
+  const allTags = new Set(tags.list().map(tag => tag.name));
   const artifactTags = new Set(artifact.tagger.list());
   return Array.from(allTags.difference(artifactTags));
 });

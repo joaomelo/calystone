@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type { Id } from "@/domain";
+import type { Tag } from "@/domain/tags/tag";
 import type { TreeNode } from "primevue/treenode";
 
 import { Store } from "@/display/store";
-import { ScrollPanel } from "@/utils";
+import { isObjectLike, ScrollPanel } from "@/utils";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref } from "vue";
 
-type Selected = { id: Id; type: "node" } | { label: string; type: "tag" } | { type: "none" };
+type Selected = { key: Id; type: "node" } | { key: string; type: "tag" } | { type: "none" };
 
 const emit = defineEmits<{
   selected: [data: Selected];
@@ -16,23 +17,42 @@ const emit = defineEmits<{
 const { tags } = Store.use();
 
 const tree = computed<TreeNode[]>(() => {
-  return tags.list().map(tag => {
+  const unsortedTags = tags.list();
+  const sortedTags = unsortedTags.sort((a, b) => a.name.localeCompare(b.name));
+
+  return sortedTags.map(tag => {
+    const children = solveChildrenOf(tag);
     const treeNode: TreeNode = {
-      children: [],
-      data: undefined,
-      key: tag,
-      label: tag,
-      leaf: true
+      children,
+      data: { name: tag.name, type: "tag" },
+      key: tag.name,
+      label: tag.name,
+      leaf: children.length === 0
     };
     return treeNode;
   });
 });
 
+function solveChildrenOf(tag: Tag): TreeNode[] {
+  return Array.from(tag.todos).map(todo => {
+    return {
+      children: [],
+      data: { id: todo.id, type: "node" },
+      key: todo.id,
+      label: todo.basename(),
+      leaf: true,
+    };
+  });
+}
+
 // this is nedeed so the prime vue component can visualy show the selected node
 const selectedKey = ref();
 
 function handleNodeSelect(treeNode: TreeNode) {
-  emit("selected", { label: treeNode.key, type: "tag" });
+  if (!isObjectLike(treeNode.data)) return;
+  if (!("type" in treeNode.data) || typeof treeNode.data.type !== "string") return;
+  if (treeNode.data.type !== "tag" && treeNode.data.type !== "node") return;
+  emit("selected", { key: treeNode.key, type: treeNode.data.type });
 }
 
 function handleNodeUnselect() {
