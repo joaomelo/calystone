@@ -5,7 +5,7 @@ import { Store } from "@/display/store";
 import { debounce, FieldSet, InputNumber, useI18n } from "@/utils";
 import { computed } from "vue";
 
-import InputTags from "./input-tags.vue";
+import SectionTags from "./section-tags.vue";
 
 const { artifact } = defineProps<{
   artifact: TodoArtifact;
@@ -30,7 +30,7 @@ const handleUpdateImportance = debounce(async (importance?: number) => {
 </script>
 <template>
   <div class="tab-more">
-    <InputTags :artifact="artifact" />
+    <SectionTags :artifact="artifact" />
     <FieldSet :legend="priorityLegend">
       <div class="tab-more__priority-inputs">
         <InputNumber
