@@ -2,7 +2,7 @@
 import type { Id, Nodes } from "@/domain";
 import type { TreeNode } from "primevue/treenode";
 
-import { OutlineNode } from "@/display/widgets/outline-node";
+import { OutlineItem } from "@/display/widgets/outline-item";
 import { isId } from "@/domain";
 import { isObjectLike, ScrollPanel } from "@/utils";
 import PrimeVueTree from "primevue/tree";
@@ -58,7 +58,7 @@ function resolveKey(node?: TreeNode) {
       @node-unselect="handleNodeUnselect"
     >
       <template #default="slotProps">
-        <OutlineNode :node="slotProps.node.data" />
+        <OutlineItem :item="slotProps.node.data" />
       </template>
     </PrimeVueTree>
   </ScrollPanel>

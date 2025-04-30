@@ -1,3 +1,4 @@
+import type { OutlineItemData } from "@/display/widgets/outline-item";
 import type { Node } from "@/domain";
 import type { TreeNode } from "primevue/treenode";
 
@@ -8,8 +9,12 @@ export function convert(node: Node): TreeNode {
   const label = node.name;
   const children = solveChildren(node).map(convert);
   const leaf = node instanceof Artifact || (node.isLoaded() && children.length === 0);
+  const data: OutlineItemData = {
+    key,
+    type: "node"
+  };
 
-  return { children, data: node, key, label, leaf };
+  return { children, data: data as unknown, key, label, leaf };
 }
 
 function solveChildren(node: Node): Node[] {

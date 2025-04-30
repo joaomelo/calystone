@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import type { Id } from "@/domain";
+import type { OutlineItemData } from "@/display/widgets/outline-item";
 import type { Tag } from "@/domain/tags/tag";
 import type { TreeNode } from "primevue/treenode";
 
 import { Store } from "@/display/store";
-import { isObjectLike, ScrollPanel } from "@/utils";
+import { isOutlineItemData } from "@/display/widgets/outline-item";
+import { ScrollPanel } from "@/utils";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref } from "vue";
 
-type Selected = { key: Id; type: "todo" } | { key: string; type: "tag" } | { type: "none" };
-
 const emit = defineEmits<{
-  selected: [data: Selected];
+  selected: [data?: OutlineItemData];
 }>();
 
 const { tags } = Store.use();
@@ -22,9 +21,13 @@ const tree = computed<TreeNode[]>(() => {
 
   return sortedTags.map(tag => {
     const children = solveChildrenOf(tag);
+    const data: OutlineItemData = {
+      key: tag.name,
+      type: "tag"
+    };
     const treeNode: TreeNode = {
       children,
-      data: { name: tag.name, type: "tag" },
+      data: data as unknown,
       key: tag.name,
       label: tag.name,
       leaf: children.length === 0
@@ -43,10 +46,15 @@ function solveChildrenOf(tag: Tag): TreeNode[] {
     return result;
   });
 
-  return Array.from(tag.todos).map(todo => {
+  return todos.map(todo => {
+    const data: OutlineItemData = {
+      key: todo.id,
+      type: "node"
+    };
+
     return {
       children: [],
-      data: { todo, type: "todo" },
+      data: data as unknown,
       key: todo.id,
       label: `${todo.basename()} ${todo.prioritizer.priority().toString()}`,
       leaf: true,
@@ -58,14 +66,13 @@ function solveChildrenOf(tag: Tag): TreeNode[] {
 const selectedKey = ref();
 
 function handleNodeSelect(treeNode: TreeNode) {
-  if (!isObjectLike(treeNode.data)) return;
-  if (!("type" in treeNode.data) || typeof treeNode.data.type !== "string") return;
-  if (treeNode.data.type !== "tag" && treeNode.data.type !== "todo") return;
-  emit("selected", { key: treeNode.key, type: treeNode.data.type });
+  const data = treeNode.data as unknown;
+  if (!isOutlineItemData(data)) return;
+  emit("selected", data);
 }
 
 function handleNodeUnselect() {
-  emit("selected", { type: "none" });
+  emit("selected", undefined);
 }
 </script>
 <template>

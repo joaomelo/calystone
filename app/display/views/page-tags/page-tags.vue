@@ -1,31 +1,44 @@
 <script setup lang="ts">
+import type { OutlineItemData } from "@/display/widgets";
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher, FrameDashboard, OutlineTags } from "@/display/widgets";
-import { Directory } from "@/domain";
-import { MasterDetail, useDispatch } from "@/utils";
+import { MasterDetail } from "@/utils";
 import { ref } from "vue";
 
-const { dispatchOrToast } = useDispatch();
-const { nodes, services } = Store.use();
+const { nodes } = Store.use();
 
 const selectedNode = ref<Node | undefined>();
 const showDetail = ref(false);
 
 function handleClose() {
-  showDetail.value = false;
-  selectedNode.value = undefined;
+  resetState();
 }
 
-function handleSelected(id?: Id) {
-  // selection does not trigger directory opening or artifact content fetching. selection opens the editor for the selected node. each editor is going to manage what is the best approach regarding content. maybe auto opening or offering a affordances for the user to do it at their convenience.
-  selectedNode.value = solveNode(id);
+function handleSelected(data?: OutlineItemData) {
+  if (!data) {
+    resetState();
+    return;
+  }
+
+  const { key, type } = data;
+  if (type === "tag") {
+    resetState();
+    return;
+  }
+
+  selectedNode.value = solveNode(key);
   showDetail.value = Boolean(selectedNode.value);
 }
 
-function solveNode(id?: Id) {
-  const node = (id) ? nodes.get(id) : undefined;
+function resetState() {
+  selectedNode.value = undefined;
+  showDetail.value = false;
+}
+
+function solveNode(id: Id) {
+  const node = nodes.get(id);
   return node;
 }
 </script>

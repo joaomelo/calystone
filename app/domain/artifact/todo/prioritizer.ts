@@ -13,8 +13,14 @@ export class Prioritizer {
     const priorityA = a.priority();
     const priorityB = b.priority();
 
-    if (priorityA < priorityB) return -1;
-    if (priorityA > priorityB) return 1;
+    const aHasMorePriority = priorityA > priorityB;
+    const aComesBeforeB = -1;
+    if (aHasMorePriority) return aComesBeforeB;
+
+    const aHasLessPriority = priorityA < priorityB;
+    const aComesAfterB = 1;
+    if (aHasLessPriority) return aComesAfterB;
+
     return 0;
   }
 

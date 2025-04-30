@@ -3,5 +3,6 @@ export * from "./editor-switcher";
 export * from "./frame-dashboard";
 export * from "./frame-plain";
 export * from "./frame-text";
+export * from "./outline-item";
 export * from "./outline-nodes";
 export * from "./outline-tags";
