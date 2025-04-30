@@ -6,6 +6,8 @@ describe("move", () => {
     outline.toogleOf(outline.rootNode()).click();
   });
 
+  const dragFormat = "application/outline-item";
+
   it("allows directory move", () => {
     outline
       .inlineNodeOf(outline.directoryOf(outline.rootNode()).eq(0))
@@ -21,7 +23,7 @@ describe("move", () => {
         if (typeof dataTestString !== "string") throw new Error("dataTestString is not a string");
 
         const dataTransfer = new DataTransfer();
-        dataTransfer.setData("application/node-id", dataTestString);
+        dataTransfer.setData(dragFormat, dataTestString);
 
         cy.get("@sourceNode")
           .trigger("dragstart", { dataTransfer })
@@ -77,7 +79,7 @@ describe("move", () => {
         if (typeof dataTestString !== "string") throw new Error("dataTestString is not a string");
 
         const dataTransfer = new DataTransfer();
-        dataTransfer.setData("application/node-id", dataTestString);
+        dataTransfer.setData(dragFormat, dataTestString);
 
         cy.get("@sourceNode")
           .trigger("dragstart", { dataTransfer })
