@@ -7,7 +7,7 @@ export * from "./editor-empty";
 export * from "./editor-text";
 export * from "./editor-todo";
 export * from "./frame-dashboard";
-export * from "./outline";
+export * from "./outline-nodes";
 export * from "./page-open";
 export * from "./page-outline";
 export * from "./toolbar-node";

@@ -3,18 +3,18 @@ import { dataTest, outline, pageOpen } from "../helpers";
 describe("move", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
-    outline.toogleOf(outline.rootNode()).click();
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
   });
 
   const dragFormat = "application/outline-item";
 
   it("allows directory move", () => {
     outline
-      .inlineNodeOf(outline.directoryOf(outline.rootNode()).eq(0))
+      .inlineNodeOf(outlineNodes.directoryOf(outlineNodes.rootNode()).eq(0))
       .as("sourceNode");
 
     outline
-      .inlineNodeOf(outline.directoryOf(outline.rootNode()).eq(1))
+      .inlineNodeOf(outlineNodes.directoryOf(outlineNodes.rootNode()).eq(1))
       .as("targetNode");
 
     cy.get("@sourceNode")
@@ -34,12 +34,12 @@ describe("move", () => {
           .trigger("drop", { dataTransfer });
 
         outline
-          .directoryOf(outline.rootNode()).eq(0)
+          .directoryOf(outlineNodes.rootNode()).eq(0)
           .find(dataTest(dataTestString))
           .should("not.exist");
 
         outline
-          .directoryOf(outline.rootNode()).eq(0)
+          .directoryOf(outlineNodes.rootNode()).eq(0)
           .as("targetNodeRecatch");
 
         outline
@@ -54,7 +54,7 @@ describe("move", () => {
 
   it("cant move to descendant", () => {
     outline
-      .directoryOf(outline.rootNode()).eq(0)
+      .directoryOf(outlineNodes.rootNode()).eq(0)
       .as("sourceNodeWrapper");
 
     outline

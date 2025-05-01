@@ -6,9 +6,9 @@ describe("editor-binary", () => {
   });
 
   it("shows artifact binary data according to directory status", () => {
-    outline.labelOf(outline.rootNode()).then(label => {
-      outline.toogleOf(outline.rootNode()).click();
-      outline.artifactBinaryOf(outline.rootNode()).first().click();
+    outlineNodes.labelOf(outlineNodes.rootNode()).then(label => {
+      outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+      outlineNodes.artifactBinaryOf(outlineNodes.rootNode()).first().click();
 
       editorBinary.typeLabel().should("exist");
       editorBinary.sizeLabel().should("exist");

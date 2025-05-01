@@ -6,11 +6,11 @@ describe("outline", () => {
   });
 
   it("enables outline navigation", () => {
-    outline.toogleOf(outline.rootNode()).click();
-    outline.rootNode().should("have.attr", "aria-expanded", "true");
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodes.rootNode().should("have.attr", "aria-expanded", "true");
 
-    outline.directoryOf(outline.rootNode()).first().as("subdirectory");
-    outline.toogleOf(cy.get("@subdirectory")).click();
+    outlineNodes.directoryOf(outlineNodes.rootNode()).first().as("subdirectory");
+    outlineNodes.toogleOf(cy.get("@subdirectory")).click();
     cy.get("@subdirectory").should("have.attr", "aria-expanded", "true");
   });
 

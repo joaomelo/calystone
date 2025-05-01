@@ -8,14 +8,14 @@ describe("create-and-edit-todo", () => {
   it("creates todo inside a directory and edits it", () => {
     const todoName = "new-todo-name.todo";
 
-    outline.rootNode().click();
+    outlineNodes.rootNode().click();
     toolbarNode.buttonCreateArtifact().click();
     dialogCreateArtifact.inputName().clear().type(todoName);
     dialogCreateArtifact.buttonSave().click();
 
-    outline.toogleOf(outline.rootNode()).click();
-    outline.artifactTodoOf(outline.rootNode())
-      .filter((_, el) => outline.labelOfElement(el) === todoName)
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodes.artifactTodoOf(outlineNodes.rootNode())
+      .filter((_, el) => outlineNodes.labelOfElement(el) === todoName)
       .click();
 
     editorTodo.dates.tabDates().click();
@@ -24,8 +24,8 @@ describe("create-and-edit-todo", () => {
   });
 
   it.only("adds and removes tags", () => {
-    outline.toogleOf(outline.rootNode()).click();
-    outline.artifactTodoOf(outline.rootNode()).eq(0).click();
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodes.artifactTodoOf(outlineNodes.rootNode()).eq(0).click();
 
     editorTodo.tags.tabMore().click();
 

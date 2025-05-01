@@ -3,7 +3,7 @@ import { dataTest, editorEmpty, outline, pageOpen, toolbarNode } from "../helper
 describe("remove", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
-    outline.toogleOf(outline.rootNode()).click();
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
   });
 
   const selectors = {
@@ -12,13 +12,13 @@ describe("remove", () => {
   } as const;
 
   it("allows directory remove", () => {
-    outline.directoryOf(outline.rootNode()).first().as("directory");
-    outline.labelOf(cy.get("@directory")).then((oldLabel) => {
+    outlineNodes.directoryOf(outlineNodes.rootNode()).first().as("directory");
+    outlineNodes.labelOf(cy.get("@directory")).then((oldLabel) => {
       cy.get("@directory").click();
       toolbarNode.buttonRemove().click();
       selectors.buttonConfirm().click();
 
-      outline.labelOf(outline.directoryOf(outline.rootNode()).first())
+      outlineNodes.labelOf(outlineNodes.directoryOf(outlineNodes.rootNode()).first())
         .should((newLabel) => {
           expect(newLabel).to.not.equal(oldLabel);
         });
@@ -27,13 +27,13 @@ describe("remove", () => {
   });
 
   it("allows artifact remove", () => {
-    outline.artifactOf(outline.rootNode()).first().as("artifact");
-    outline.labelOf(cy.get("@artifact")).then((oldLabel) => {
+    outlineNodes.artifactOf(outlineNodes.rootNode()).first().as("artifact");
+    outlineNodes.labelOf(cy.get("@artifact")).then((oldLabel) => {
       cy.get("@artifact").click();
       toolbarNode.buttonRemove().click();
       selectors.buttonConfirm().click();
 
-      outline.labelOf(outline.artifactOf(outline.rootNode()).first())
+      outlineNodes.labelOf(outlineNodes.artifactOf(outlineNodes.rootNode()).first())
         .should((newLabel) => {
           expect(newLabel).to.not.equal(oldLabel);
         });
@@ -42,13 +42,13 @@ describe("remove", () => {
   });
 
   it("does not remove if user cancels", () => {
-    outline.artifactOf(outline.rootNode()).first().as("artifact");
-    outline.labelOf(cy.get("@artifact")).then((oldLabel) => {
+    outlineNodes.artifactOf(outlineNodes.rootNode()).first().as("artifact");
+    outlineNodes.labelOf(cy.get("@artifact")).then((oldLabel) => {
       cy.get("@artifact").click();
       toolbarNode.buttonRemove().click();
       selectors.buttonCancel().click();
 
-      outline.labelOf(outline.artifactOf(outline.rootNode()).first())
+      outlineNodes.labelOf(outlineNodes.artifactOf(outlineNodes.rootNode()).first())
         .then((newLabel) => {
           expect(newLabel).to.equal(oldLabel);
         });

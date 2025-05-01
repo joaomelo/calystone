@@ -3,7 +3,7 @@ import { outline, pageOpen, toolbarNode } from "../helpers";
 describe("share", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
-    outline.toogleOf(outline.rootNode()).click();
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
   });
 
   it("allows text artifact share", () => {
@@ -19,7 +19,7 @@ describe("share", () => {
 
       const stub = cy.stub(win.navigator, "share").resolves();
 
-      outline.artifactTextOf(outline.rootNode()).first().as("artifact");
+      outlineNodes.artifactTextOf(outlineNodes.rootNode()).first().as("artifact");
       cy.get("@artifact").click();
       toolbarNode.buttonShare().click();
       cy.wrap(stub).should("have.been.calledOnce");
@@ -27,7 +27,7 @@ describe("share", () => {
   });
 
   it("does not allow directory share", () => {
-    outline.directoryOf(outline.rootNode()).first().as("directory");
+    outlineNodes.directoryOf(outlineNodes.rootNode()).first().as("directory");
     cy.get("@directory").click();
     toolbarNode.buttonShare().should("not.exist");
   });

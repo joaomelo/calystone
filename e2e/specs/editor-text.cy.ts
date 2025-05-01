@@ -6,8 +6,8 @@ describe("editor-binary", () => {
   });
 
   it("shows content when text artifact is selected", () => {
-    outline.toogleOf(outline.rootNode()).click();
-    outline.artifactTextOf(outline.rootNode()).first().click();
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodes.artifactTextOf(outlineNodes.rootNode()).first().click();
     editorText.input().should("exist");
   });
 });

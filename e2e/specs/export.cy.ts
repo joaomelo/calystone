@@ -9,7 +9,7 @@ declare global {
 describe("export", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
-    outline.toogleOf(outline.rootNode()).click();
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
   });
 
   it("allows text artifact export", () => {
@@ -24,7 +24,7 @@ describe("export", () => {
       });
     });
 
-    outline.artifactTextOf(outline.rootNode()).first().as("artifact");
+    outlineNodes.artifactTextOf(outlineNodes.rootNode()).first().as("artifact");
     cy.get("@artifact").click();
     toolbarNode.buttonExport().click();
 
@@ -34,7 +34,7 @@ describe("export", () => {
   });
 
   it("does not allow directory export", () => {
-    outline.directoryOf(outline.rootNode()).first().as("directory");
+    outlineNodes.directoryOf(outlineNodes.rootNode()).first().as("directory");
     cy.get("@directory").click();
     toolbarNode.buttonExport().should("not.exist");
   });
