@@ -1,4 +1,4 @@
-import { dialogCreateArtifact, outline, pageOpen, toolbarNode } from "../helpers";
+import { dialogCreateArtifact, outlineNodes, pageOpen, toolbarNode } from "../helpers";
 
 describe("create-artifact", () => {
   beforeEach(() => {

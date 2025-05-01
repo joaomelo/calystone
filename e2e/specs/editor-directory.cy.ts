@@ -1,4 +1,4 @@
-import { editorDirectory, outline, pageOpen } from "../helpers";
+import { editorDirectory, outlineNodes, pageOpen } from "../helpers";
 
 describe("editor-directory", () => {
   beforeEach(() => {

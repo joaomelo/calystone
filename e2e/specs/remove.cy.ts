@@ -1,4 +1,4 @@
-import { dataTest, editorEmpty, outline, pageOpen, toolbarNode } from "../helpers";
+import { dataTest, editorEmpty, outlineNodes, pageOpen, toolbarNode } from "../helpers";
 
 describe("remove", () => {
   beforeEach(() => {

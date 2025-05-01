@@ -1,6 +1,6 @@
-import { frameDashboard, outline, pageOpen } from "../helpers";
+import { outlineNodes, pageOpen, pageOutline } from "../helpers";
 
-describe("sidebar", () => {
+describe("data", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
   });
@@ -8,12 +8,12 @@ describe("sidebar", () => {
   it("reload", () => {
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
     outlineNodes.childrenOf(outlineNodes.rootNode()).should("have.length.greaterThan", 0);
-    frameDashboard.selectors.reload().click();
+    pageOutline.reload().click();
     outlineNodes.childrenContainerOf(outlineNodes.rootNode()).should("not.exist");
   });
 
   it("exit", () => {
-    frameDashboard.selectors.exit().click();
+    pageOutline.exit().click();
     cy.url().should("include", pageOpen.selectors.url());
   });
 });

@@ -1,4 +1,4 @@
-import { outline, pageOpen, toolbarNode } from "../helpers";
+import { outlineNodes, pageOpen, toolbarNode } from "../helpers";
 
 declare global {
   interface Window {

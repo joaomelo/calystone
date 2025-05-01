@@ -1,4 +1,4 @@
-import { editorBinary, outline, pageOpen } from "../helpers";
+import { editorBinary, outlineNodes, pageOpen } from "../helpers";
 
 describe("editor-binary", () => {
   beforeEach(() => {

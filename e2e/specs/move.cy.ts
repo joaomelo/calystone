@@ -1,4 +1,4 @@
-import { dataTest, outline, pageOpen } from "../helpers";
+import { dataTest, outlineNodes, pageOpen } from "../helpers";
 
 describe("move", () => {
   beforeEach(() => {
@@ -9,11 +9,11 @@ describe("move", () => {
   const dragFormat = "application/outline-item";
 
   it("allows directory move", () => {
-    outline
+    outlineNodes
       .inlineNodeOf(outlineNodes.directoryOf(outlineNodes.rootNode()).eq(0))
       .as("sourceNode");
 
-    outline
+    outlineNodes
       .inlineNodeOf(outlineNodes.directoryOf(outlineNodes.rootNode()).eq(1))
       .as("targetNode");
 
@@ -33,16 +33,16 @@ describe("move", () => {
           .trigger("dragover", { dataTransfer })
           .trigger("drop", { dataTransfer });
 
-        outline
+        outlineNodes
           .directoryOf(outlineNodes.rootNode()).eq(0)
           .find(dataTest(dataTestString))
           .should("not.exist");
 
-        outline
+        outlineNodes
           .directoryOf(outlineNodes.rootNode()).eq(0)
           .as("targetNodeRecatch");
 
-        outline
+        outlineNodes
           .toogleOf(cy.get("@targetNodeRecatch"))
           .click();
 
@@ -53,23 +53,23 @@ describe("move", () => {
   });
 
   it("cant move to descendant", () => {
-    outline
+    outlineNodes
       .directoryOf(outlineNodes.rootNode()).eq(0)
       .as("sourceNodeWrapper");
 
-    outline
+    outlineNodes
       .inlineNodeOf(cy.get("@sourceNodeWrapper")).eq(0)
       .as("sourceNode");
 
-    outline
+    outlineNodes
       .toogleOf(cy.get("@sourceNodeWrapper"))
       .click();
 
-    outline
+    outlineNodes
       .childrenOf(cy.get("@sourceNodeWrapper")).eq(0)
       .as("targetNodeWrapper");
 
-    outline
+    outlineNodes
       .inlineNodeOf(cy.get("@targetNodeWrapper"))
       .as("targetNode");
 

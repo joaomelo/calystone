@@ -12,7 +12,10 @@ export const outlineNodes = {
     nodeWrapper.find(dataTestType("outline-item")),
   labelOf: (node: Cypress.Chainable) => node.find(".p-tree-node-label").invoke("text"),
   labelOfElement: (el: HTMLElement) => Cypress.$(el).find(".p-tree-node-label").text(),
+  nodeLabeledAs: (label: string) => {
+    return cy.get(`.p-tree-node[aria-label='${label}']`);
+  },
   outline: () => cy.get(dataTest("nodes-outline-tree")),
   rootNode: () => cy.get(".p-tree-root-children > .p-tree-node").first(),
-  toogleOf: (node: Cypress.Chainable) => node.find(".p-tree-node-toggle-button"),
+  toogleOf: (node: Cypress.Chainable) => node.find(".p-tree-node-toggle-button")
 } as const;

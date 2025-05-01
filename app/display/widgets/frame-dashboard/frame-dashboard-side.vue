@@ -47,14 +47,14 @@ function handleReload() {
         id="outline"
         :title="t('outline')"
         :icon="`${baseIcon} bx-list-ul`"
-        data-test="outline"
+        data-test="sidebar-outline"
         @click="handleClickOutline"
       />
       <SideItem
         id="tags"
         :title="t('tags')"
         :icon="`${baseIcon} bxs-purchase-tag-alt`"
-        data-test="tags"
+        data-test="sidebar-tags"
         @click="handleClickTags"
       />
     </template>
@@ -64,14 +64,14 @@ function handleReload() {
         id="reload"
         :icon="`${baseIcon} bx-refresh`"
         :title="t('reload')"
-        data-test="reload"
+        data-test="sidebar-reload"
         @click="handleReload"
       />
       <SideItem
         id="exit"
         :icon="`${baseIcon} bx-log-out`"
         :title="t('exit')"
-        data-test="exit"
+        data-test="sidebar-exit"
         @click="handleExit"
       />
     </template>

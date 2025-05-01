@@ -1,11 +1,11 @@
-import { outline, pageOpen } from "../helpers";
+import { outlineNodes, pageOpen } from "../helpers";
 
-describe("outline", () => {
+describe("outlineNodes", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
   });
 
-  it("enables outline navigation", () => {
+  it("enables outlineNodes navigation", () => {
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
     outlineNodes.rootNode().should("have.attr", "aria-expanded", "true");
 

@@ -5,7 +5,7 @@ describe("open-source", () => {
     pageOpen.macros.openMemory();
   });
 
-  it("opens memory outline", () => {
-    cy.url().should("include", pageOutline.selectors.url());
+  it("opens memory outlineNodes", () => {
+    cy.url().should("include", pageOutline.url());
   });
 });

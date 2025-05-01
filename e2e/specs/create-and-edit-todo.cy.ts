@@ -1,4 +1,4 @@
-import { dialogCreateArtifact, editorTodo, outline, pageOpen, toolbarNode } from "../helpers";
+import { dialogCreateArtifact, editorTodo, outlineNodes, pageOpen, toolbarNode } from "../helpers";
 
 describe("create-and-edit-todo", () => {
   beforeEach(() => {
@@ -18,16 +18,16 @@ describe("create-and-edit-todo", () => {
       .filter((_, el) => outlineNodes.labelOfElement(el) === todoName)
       .click();
 
-    editorTodo.dates.tabDates().click();
+    editorTodo.dates.tab().click();
     editorTodo.dates.inputStart().type("2025-01-01");
     editorTodo.dates.inputDue().should("have.value", "2025-01-01");
   });
 
-  it.only("adds and removes tags", () => {
+  it("adds and removes tags", () => {
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
     outlineNodes.artifactTodoOf(outlineNodes.rootNode()).eq(0).click();
 
-    editorTodo.tags.tabMore().click();
+    editorTodo.tags.tab().click();
 
     editorTodo.tags.input().type("tag1");
     editorTodo.tags.buttonAdd().click();

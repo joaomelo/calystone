@@ -1,8 +1,7 @@
 import { dataTest } from "./data-test";
 
 export const frameDashboard = {
-  selectors: {
-    exit: () => cy.get(dataTest("exit")),
-    reload: () => cy.get(dataTest("reload"))
-  }
+  exit: () => cy.get(dataTest("sidebar-exit")),
+  reload: () => cy.get(dataTest("sidebar-reload")),
+  tags: () => cy.get(dataTest("sidebar-tags")),
 } as const;

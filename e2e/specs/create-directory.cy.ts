@@ -1,4 +1,4 @@
-import { dataTest, outline, pageOpen, toolbarNode } from "../helpers";
+import { dataTest, outlineNodes, pageOpen, toolbarNode } from "../helpers";
 
 describe("create-directory", () => {
   beforeEach(() => {
