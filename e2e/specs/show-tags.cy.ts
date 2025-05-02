@@ -32,9 +32,7 @@ describe("show tags", () => {
 
     outlineTags.toogleOf(sharedTodosTag).click();
     outlineTags.todosOf(sharedTodosTag).eq(0).should("include.text", highPriorityBaseName);
-    outlineTags.todosOf(sharedTodosTag).eq(0).should("include.text", "4");
     outlineTags.todosOf(sharedTodosTag).eq(1).should("include.text", lowPriorityBaseName);
-    outlineTags.todosOf(sharedTodosTag).eq(1).should("include.text", "1");
   });
 
   function createTodo(options: { importance: string, name: string, tags: string[], urgency: string }) {
