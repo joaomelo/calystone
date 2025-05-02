@@ -37,15 +37,7 @@ const tree = computed<TreeNode[]>(() => {
 });
 
 function solveChildrenOf(tag: Tag): TreeNode[] {
-  const todos = tag.list();
-  todos.sort((a, b) => {
-    const result = a.prioritizer.compareTo(b.prioritizer);
-    if (result === 0) {
-      return a.basename().localeCompare(b.basename());
-    }
-    return result;
-  });
-
+  const todos = tag.prioritize();
   return todos.map(todo => {
     const data: OutlineItemData = {
       key: todo.id,
