@@ -17,7 +17,7 @@ export class OneDriveAccessAdapter implements AccessAdapter {
 
     const msalConfig = {
       auth: {
-        authority: "https://login.microsoftonline.com/common",
+        authority: "https://login.microsoftonline.com/consumers",
         clientId: clientId,
         navigateToLoginRequestUrl: false,
         redirectUri: redirectUrl,
@@ -40,7 +40,10 @@ export class OneDriveAccessAdapter implements AccessAdapter {
 
     if (!response) throwError("ONE_DRIVE_ACCESS_WITHOUT_RESPONSE");
 
-    const tokenResponse = await this.msalInstance.acquireTokenSilent(response);
+    const tokenResponse = await this.msalInstance.acquireTokenSilent({
+      account: response.account,
+      scopes: ["User.Read", "Files.ReadWrite", "offline_access"]
+    });
     const { accessToken } = tokenResponse;
 
     return new OneDriveFileSystemAdapter(accessToken);
@@ -53,8 +56,10 @@ export class OneDriveAccessAdapter implements AccessAdapter {
     await this.msalInstance.handleRedirectPromise();
 
     const request = {
-      scopes: ["User.Read", "Files.ReadWrite"],
+      prompt: "select_account", // Force account selection
+      scopes: ["User.Read", "Files.ReadWrite", "offline_access"]
     };
+
     await this.msalInstance.loginRedirect(request);
   }
 }
