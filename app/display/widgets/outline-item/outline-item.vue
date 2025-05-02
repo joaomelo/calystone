@@ -17,7 +17,6 @@ const appearance = useAppearance(item);
     :draggable="moveable.isOk()"
     data-test-type="outline-item"
     :data-test="item.key"
-    :style="appearance.style"
     class="outline-item"
     @dragstart="handleDragstart"
     @drop="handleDragdrop"
@@ -25,7 +24,9 @@ const appearance = useAppearance(item);
     @dragenter="handleDragover"
   >
     <i :class="appearance.icon" />
-    <p>{{ appearance.label }}</p>
+    <p :style="appearance.style">
+      {{ appearance.label }}
+    </p>
   </div>
 </template>
 <style scoped>
