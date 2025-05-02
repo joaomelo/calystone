@@ -53,7 +53,7 @@ export class OneDriveAccessAdapter implements AccessAdapter {
     await this.msalInstance.handleRedirectPromise();
 
     const request = {
-      scopes: ["User.Read", "Files.ReadWrite.All"],
+      scopes: ["User.Read", "Files.ReadWrite"],
     };
     await this.msalInstance.loginRedirect(request);
   }
