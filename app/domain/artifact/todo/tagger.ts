@@ -13,6 +13,10 @@ export class Tagger {
     }
   }
 
+  has(tag: string): boolean {
+    return this.tags.has(tag);
+  }
+
   list(): string[] {
     return Array.from(this.tags);
   }

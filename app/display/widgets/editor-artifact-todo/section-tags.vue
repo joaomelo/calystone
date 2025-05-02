@@ -4,19 +4,21 @@ import type { TodoArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { ButtonBase, ChipTags, FieldSet, InputText, useI18n } from "@/utils";
 import { computed, ref } from "vue";
+
 const { artifact } = defineProps<{
   artifact: TodoArtifact;
 }>();
 
-const { services, tags } = Store.use();
+const { services } = Store.use();
 const { t } = useI18n();
 
 const tag = ref("");
 
 const suggestions = computed(() => {
-  const allTags = new Set(tags.list().map(tag => tag.name));
-  const artifactTags = new Set(artifact.tagger.list());
-  return Array.from(allTags.difference(artifactTags));
+  const tags = services.computeTags.compute();
+  const list = tags.difference(artifact);
+  list.sort((a, b) => a.localeCompare(b));
+  return list;
 });
 
 async function handleAddTag() {

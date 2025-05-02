@@ -13,13 +13,13 @@ const emit = defineEmits<{
   selected: [data?: OutlineItemData];
 }>();
 
-const { tags } = Store.use();
+const { services } = Store.use();
 
 const tree = computed<TreeNode[]>(() => {
-  const unsortedTags = tags.list();
-  const sortedTags = unsortedTags.sort((a, b) => a.name.localeCompare(b.name));
+  const tags = services.computeTags.compute();
+  const list = tags.list();
 
-  return sortedTags.map(tag => {
+  return list.map(tag => {
     const children = solveChildrenOf(tag);
     const data: OutlineItemData = {
       key: tag.name,

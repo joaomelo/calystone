@@ -2,7 +2,6 @@ import type { Nodes } from "@/domain";
 import type { ServicesPortolfio } from "@/services";
 import type { App, Ref } from "vue";
 
-import { Tags } from "@/domain";
 import { reactive, ref } from "vue";
 
 import type { AppData } from "./app-data";
@@ -20,13 +19,11 @@ export class Store {
   connected: Ref<boolean>;
   nodes: Nodes;
   services: ServicesPortolfio;
-  tags: Tags;
 
   constructor({ appData, services }: Options) {
     this.appData = appData;
     this.services = services;
     this.nodes = reactive(services.nodes);
-    this.tags = reactive(new Tags(this.nodes));
 
     this.connected = ref(false);
     this.services.connectSource.subscribe(({ status }) => {

@@ -25,10 +25,13 @@ import { ShareNodeService } from "@/services/share-node-service";
 
 import type { Options } from "./options";
 
+import { ComputeTagsService } from "../compute-tags-service";
+
 export class ServicesPortolfio {
   accessAdaptersFactory: AccessAdaptersFactory;
   availabilityFacade: AvailabilityFacade;
   availSource: AvailSourceService;
+  computeTags: ComputeTagsService;
   connectSource: ConnectSourceService;
   createArtifact: CreateArtifactService;
   createDirectory: CreateDirectoryService;
@@ -58,6 +61,7 @@ export class ServicesPortolfio {
     this.shareNode = new ShareNodeService(this.shareAdapter);
     this.exportNode = new ExportNodeService(this.exportAdapter);
     this.loadNodes = new LoadNodesService();
+    this.computeTags = new ComputeTagsService(this.nodes);
 
     this.openDirectory = new NullOpenDirectoryService();
     this.ensureDescriptor = new NullEnsureDescriptorService();
