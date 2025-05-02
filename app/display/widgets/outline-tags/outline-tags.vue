@@ -4,7 +4,7 @@ import type { Tag } from "@/domain/tags/tag";
 import type { TreeNode } from "primevue/treenode";
 
 import { Store } from "@/display/store";
-import { isOutlineItemData } from "@/display/widgets/outline-item";
+import { isOutlineItemData, OutlineItem } from "@/display/widgets/outline-item";
 import { ScrollPanel } from "@/utils";
 import PrimeVueTree from "primevue/tree";
 import { computed, ref } from "vue";
@@ -84,6 +84,10 @@ function handleNodeUnselect() {
       :value="tree"
       @node-select="handleNodeSelect"
       @node-unselect="handleNodeUnselect"
-    />
+    >
+      <template #default="slotProps">
+        <OutlineItem :item="slotProps.node.data" />
+      </template>
+    </PrimeVueTree>
   </ScrollPanel>
 </template>
