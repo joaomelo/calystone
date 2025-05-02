@@ -5,25 +5,25 @@ import OpenAction from "./open-action.vue";
 <template>
   <div class="open-actions">
     <OpenAction
-      label="open.memory"
+      label="page-open.actions.memory"
       data-test="open-memory"
       icon="bx bx-memory-card"
       source="memory"
     />
     <OpenAction
       source="fsa"
-      label="open.fsa"
+      label="page-open.actions.fsa"
       data-test="open-fsa"
       icon="bx bx-hdd"
     />
     <OpenAction
-      label="open.one-drive"
+      label="page-open.actions.one-drive"
       data-test="open-one-drive"
       icon="bx bx-cloud"
       source="one-drive"
     />
     <OpenAction
-      label="open.dropbox"
+      label="page-open.actions.dropbox"
       data-test="open-dropbox"
       icon="bx bxl-dropbox"
       source="dropbox"

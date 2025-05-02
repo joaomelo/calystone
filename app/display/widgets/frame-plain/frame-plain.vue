@@ -2,7 +2,7 @@
 import { CardPanel } from "@/utils";
 </script>
 <template>
-  <div class="frame-card">
+  <div class="frame-plain">
     <CardPanel>
       <template #content>
         <slot />
@@ -11,7 +11,7 @@ import { CardPanel } from "@/utils";
   </div>
 </template>
 <style scoped>
-.frame-card {
+.frame-plain {
   min-height: 100dvh;
   background-color: var(--p-surface-100);
   display: grid;

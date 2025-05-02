@@ -3,6 +3,7 @@ import { Frameplain } from "@/display/widgets";
 import { useI18n } from "@/utils";
 
 import AppFeatures from "./app-features.vue";
+import AppVersion from "./app-version.vue";
 import InputLocale from "./input-locale.vue";
 import OpenActions from "./open-actions.vue";
 const { t } = useI18n();
@@ -10,15 +11,18 @@ const { t } = useI18n();
 <template>
   <Frameplain>
     <div class="page-open">
-      <div class="page-open-features page-open-panel">
-        <AppFeatures />
-      </div>
-      <div class="page-open-divider" />
-      <div class="page-open-actions page-open-panel">
-        <h2>{{ t('open.title') }}</h2>
+      <section>
+        <h1>{{ t('page-open.title') }}</h1>
+      </section>
+      <section>
+        <h2>{{ t('page-open.actions.title') }}</h2>
         <OpenActions />
         <InputLocale />
-      </div>
+      </section>
+      <section>
+        <AppFeatures />
+        <AppVersion />
+      </section>
     </div>
   </Frameplain>
 </template>
@@ -26,42 +30,27 @@ const { t } = useI18n();
 .page-open {
   display: flex;
   flex-direction: column;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
-}
-
-.page-open-panel {
-  --padding: var(--size-fluid-2);
-  padding-inline: var(--padding);
-
-  @media (min-width: 768px) {
-    padding-inline: 0;
-  }
-}
-
-.page-open-divider {
-  --border: var(--border-size-1) solid var(--p-primary-200);
-  --margin: var(--size-fluid-4);
-  flex: 0;
-
-  border-block-start: var(--border);
-  margin-block: var(--margin);
-
-  @media (min-width: 768px) {
-    border-block-start: 0;
-    margin-block: 0;
-    border-inline-start: var(--border);
-    margin-inline: var(--margin);
-  }
-}
-
-.page-open-actions {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+  align-items: center;
   gap: var(--size-6);
-  justify-content: space-between;
+
+  & section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+    justify-content: space-between;
+  }
+
+  & h1 {
+    font-size: var(--font-size-5);
+  }
+
+  & h2 {
+    font-size: var(--font-size-2);
+  }
+
+  & h1,
+  & h2 {
+    text-align: center;
+  }
 }
 </style>

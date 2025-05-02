@@ -12,7 +12,7 @@ const options = availableLocales.map((locale) => ({
   <InputSelectButton
     v-model="locale"
     :options="options"
-    :label="t('language')"
+    :label="t('page-open.language')"
     justify="center"
     data-test="input-locale"
   />

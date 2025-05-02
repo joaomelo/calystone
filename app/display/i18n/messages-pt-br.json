@@ -36,33 +36,8 @@
   },
   "exit": "sair",
   "export": "exportar",
-  "features": {
-    "continuous-development": {
-      "description": "Estamos continuamente trabalhando para melhorar sua confiabilidade. Como não podemos garantir total precisão, use com cuidado e mantenha backups regulares de seus arquivos. Além disso, ao usar o Calystone, você reconhece nossos {0} e concorda em usar o aplicativo de forma responsável.",
-      "terms": "Termos de Serviço",
-      "title": "Calystone é um Projeto em Evolução"
-    },
-    "data-ownership": {
-      "description": "Calystone não rastreia nem armazena nenhum dado sobre você ou seus arquivos. Fique atento às políticas de qualquer serviço de nuvem que você escolher. Veja nossa {0} para saber mais.",
-      "privacy": "Política de Privacidade",
-      "title": "Propriedade de Dados Flexível"
-    },
-    "header": {
-      "description": "Um aplicativo de autogestão de código aberto, criado em torno dos seus arquivos.",
-      "title": "Bem-vindo ao Calystone"
-    },
-    "note-taking": {
-      "description": "Edite notas rapidamente, utilizando a estrutura familiar em que você já organiza para seus diretórios e arquivos.",
-      "title": "Anotações sem complicações"
-    },
-    "open-source": {
-      "description": "Explore o projeto de código aberto no {0}.",
-      "title": "Código aberto"
-    }
-  },
   "focus": "focar",
   "items": "itens",
-  "language": "idioma",
   "last-modified": "última modificação",
   "load-nodes": {
     "idle": "clique para ativar o carregamento em segundo plano",
@@ -74,16 +49,34 @@
   "nodes": "nós",
   "not-loaded": "Por favor, aguarde um momento enquanto esse nó é carregado.",
   "notes": "notas",
-  "open": {
-    "dropbox": "Dropbox",
-    "fsa": "Arquivos Locais",
-    "memory": "Memory",
-    "one-drive": "OneDrive",
-    "title": "Acesse seus arquivos por um dos métodos abaixo"
-  },
   "open-directory": "abrir diretório",
   "or": "ou",
   "outline": "hierarquia",
+  "page-open": {
+    "language": "idioma",
+    "actions": {
+      "dropbox": "Dropbox",
+      "fsa": "Arquivos Locais",
+      "memory": "Memory",
+      "one-drive": "OneDrive",
+      "title": "Acesse seus arquivos por um dos métodos abaixo"
+    },  
+    "features": {
+      "privacy": {
+        "text": "O projeto prioriza a privacidade e não rastreia nem armazena dados sobre você ou seus arquivos. Mesmo assim, fique atento às políticas de qualquer serviço que você escolher. Leia mais nos {0} e na {1}.",
+        "privacy": "Política de Privacidade",
+        "terms": "Termos de Serviço"
+      },
+      "overview": {
+        "text": "Calystone é um aplicativo que ajuda você a organizar sua vida através do seu sistema de arquivos, com recursos como anotações e gerenciamento de tarefas. Saiba mais sobre suas capacidades e motivação na {0}.",
+        "link": "visão geral"
+      },      
+      "open-source": {
+        "text": "Calystone é open-source. Explore o projeto no {0}."
+      }
+    },
+    "title": "Bem-vindo ao Calystone"
+  },
   "path": "caminho",
   "preferences": "preferências",
   "priority": {
