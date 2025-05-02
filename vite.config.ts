@@ -30,7 +30,7 @@ export default defineConfig(() => {
         vueTsc: true
       }),
     ],
-    publicDir: pathBasedOnRootStartinAtProject("app/display/assets"),
+    publicDir: pathBasedOnRootStartinAtProject("assets"),
     resolve: {
       alias: {
         "@": pathBasedOnCofingStartingAtProject("app"),
