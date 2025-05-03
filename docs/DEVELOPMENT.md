@@ -2,6 +2,8 @@
 
 While I'm passionate about this project, I maintain it alongside my full-time job and family commitments. To ensure sustainable development and maintain mental health, I've decided to keep the project closed to external contributions for now.
 
+*this file is still under construction from this point on, do not consider the information reliable*
+
 # Architecture and Development Guidelines
 
 ## Modules
