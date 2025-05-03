@@ -10,12 +10,11 @@ const { t } = useI18n();
       tag="p"
       scope="global"
     >
-      <router-link
-        :to="{ name: 'overview' }"
+      <a
+        href="https://github.com/joaomelo/calystone/blob/main/README.md"
+        target="_blank"
         data-test="overview-link"
-      >
-        {{ t('page-open.features.overview.link') }}
-      </router-link>
+      >{{ t('page-open.features.overview.link') }}</a>
     </i18n-t>
     <i18n-t
       keypath="page-open.features.privacy.text"
