@@ -30,14 +30,12 @@ const { t } = useI18n();
 .page-open {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--size-6);
+  gap: var(--size-3);
 
   & section {
     display: flex;
     flex-direction: column;
-    gap: var(--size-4);
-    justify-content: space-between;
+    gap: var(--size-2);
   }
 
   & h1 {

@@ -10,7 +10,9 @@ const { version } = appData;
 </template>
 <style scoped>
 .app-version {
+  max-width: 100%;
   font-size: var(--font-size-00);
   color: var(--p-text-muted-color);
+  text-align: end;
 }
 </style>

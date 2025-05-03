@@ -3,7 +3,7 @@ import { CardPanel } from "@/utils";
 </script>
 <template>
   <div class="frame-plain">
-    <CardPanel>
+    <CardPanel class="frame-plain__card">
       <template #content>
         <slot />
       </template>
@@ -17,5 +17,13 @@ import { CardPanel } from "@/utils";
   display: grid;
   place-items: center;
   padding: var(--size-fluid-2);
+}
+
+.frame-plain__card :deep(.p-card-body) {
+  gap: 0;
+}
+
+.frame-plain__card :deep(.p-card-caption) {
+  display: none;
 }
 </style>
