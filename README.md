@@ -56,11 +56,11 @@ After the file system is open, the directories and their files will be shown in 
 
 ### Background Loading
 
-After the root folder is open, the app does not start with knowledge about all folders and files inside it. This data is progressively loaded through interactions like expanding directories or clicking on text files.
+After the root folder is opened, the app does not immediately load information about all folders and files. Instead, it gathers data progressively as you interact with the controls by expanding directories or opening text files, for example.
 
-The app also tries to load some of this data in the background. It gradually opens directories to take notice of subfolders, loads the content of todo files and small text files. 
+We can enable background loading to let the app perform some of this work automatically. When active, it continuously opens directories to discover subfolders and loads the contents of todo and small text files. This feature can be toggled using the loading icon in the left sidebar.
 
-If using the file system access, no network is used to perform this task. You can disable this feature by clicking the loading icon in the left sidebar.
+When accessing the file system directly, no network connection is used for any loading tasks. However, this is not the case when using cloud file providers.
 
 ### Cloud Providers
 

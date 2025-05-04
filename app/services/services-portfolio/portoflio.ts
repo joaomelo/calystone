@@ -92,15 +92,31 @@ export class ServicesPortolfio {
     const { fileSystemAdapter, nodes } = options;
 
     this.ensureDescriptor = new ConnectedEnsureDescriptorService(this.exchangeArtifact);
-    this.openDirectory = new ConnectedOpenDirectoryService({ ensureDescriptor: this.ensureDescriptor, fileSystemAdapter, nodes });
+    this.openDirectory = new ConnectedOpenDirectoryService({
+      ensureDescriptor: this.ensureDescriptor,
+      fileSystemAdapter,
+      nodes
+    });
     this.nodeRename = new ConnectedNodeRenameService({ fileSystemAdapter, nodes });
     this.nodeRemove = new ConnectedNodeRemoveService({ fileSystemAdapter, nodes });
     this.nodeMove = new ConnectedNodeMoveService(fileSystemAdapter);
-    this.createDirectory = new ConnectedCreateDirectoryService({ fileSystemAdapter, nodes, openDirectory: this.openDirectory });
-    this.createArtifact = new ConnectedCreateArtifactService({ exchangeArtifact: this.exchangeArtifact, fileSystemAdapter, nodes, openDirectory: this.openDirectory });
+    this.createDirectory = new ConnectedCreateDirectoryService({
+      fileSystemAdapter,
+      nodes,
+      openDirectory: this.openDirectory
+    });
+    this.createArtifact = new ConnectedCreateArtifactService({
+      exchangeArtifact: this.exchangeArtifact,
+      fileSystemAdapter,
+      nodes,
+      openDirectory: this.openDirectory
+    });
 
     this.exchangeArtifact.provide({ fileSystemAdapter });
-    this.loadNodes.provide({ exchangeArtifact: this.exchangeArtifact, nodes, openDirectory: this.openDirectory });
-    this.loadNodes.start();
+    this.loadNodes.provide({
+      exchangeArtifact: this.exchangeArtifact,
+      nodes,
+      openDirectory: this.openDirectory
+    });
   };
 }
