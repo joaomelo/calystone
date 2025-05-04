@@ -63,12 +63,12 @@
     },  
     "features": {
       "privacy": {
-        "text": "O projeto prioriza a privacidade e não rastreia nem armazena dados sobre você ou seus arquivos. Mesmo assim, fique atento às políticas de qualquer serviço que você escolher. Leia mais nos {0} e na {1}.",
+        "text": "O projeto prioriza a privacidade. Ele não rastreia nem armazena dados sobre você ou seus arquivos. Mesmo assim, fique atento às políticas de qualquer serviço que você escolher. Leia mais nos {0} e na {1}.",
         "privacy": "Política de Privacidade",
         "terms": "Termos de Serviço"
       },
       "overview": {
-        "text": "Calystone é um aplicativo que ajuda você a organizar sua vida através do seu sistema de arquivos, com recursos como anotações e gerenciamento de tarefas. Saiba mais sobre suas capacidades e motivação nesta {0}.",
+        "text": "Calystone ajuda você a organizar sua vida através do seu sistema de arquivos, oferecendo como recursos para anotações e gerenciamento de tarefas. Saiba mais sobre suas capacidades e motivação nesta {0}.",
         "link": "visão geral"
       },      
       "open-source": {
