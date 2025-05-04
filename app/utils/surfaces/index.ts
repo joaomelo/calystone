@@ -1,3 +1,4 @@
+export * from "./accordion-panels";
 export * from "./card-panel";
 export * from "./field-set";
 export * from "./master-detail";
