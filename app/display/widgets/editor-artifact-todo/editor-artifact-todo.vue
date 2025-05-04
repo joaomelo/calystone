@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TodoArtifact } from "@/domain";
-import type { Panels } from "@/utils";
+import type { PanelsList } from "@/utils";
 
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
@@ -23,7 +23,7 @@ onMounted(async () => {
   await services.exchangeArtifact.fetchInto(artifact);
 });
 
-const panels = computed<Panels>(() => [
+const panels = computed<PanelsList>(() => [
   ["main", artifact.basename()],
   ["dates", t("todo-panels.dates")],
   ["more", t("todo-panels.more")]

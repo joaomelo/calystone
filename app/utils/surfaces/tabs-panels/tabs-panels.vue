@@ -6,10 +6,10 @@ import TabPanel from "primevue/tabpanel";
 import TabPanels from "primevue/tabpanels";
 import Tabs from "primevue/tabs";
 
-import type { Panels } from "./panels";
+import type { PanelsList } from "../panels-list";
 
 const { panels } = defineProps<{
-  panels: Panels;
+  panels: PanelsList;
 }>();
 </script>
 <template>
