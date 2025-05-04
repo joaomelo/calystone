@@ -5,7 +5,7 @@ import type { PanelsList } from "@/utils";
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
-import { TabsPanels, useI18n } from "@/utils";
+import { AccordionPanels, useI18n } from "@/utils";
 import { computed, onMounted } from "vue";
 
 import TabDates from "./tab-dates.vue";
@@ -34,7 +34,10 @@ const panels = computed<PanelsList>(() => [
     v-if="artifact.isLoaded()"
     :node="artifact"
   >
-    <TabsPanels :panels="panels">
+    <AccordionPanels
+      :panels="panels"
+      multiple
+    >
       <template #main>
         <TabMain :artifact="artifact" />
       </template>
@@ -44,7 +47,7 @@ const panels = computed<PanelsList>(() => [
       <template #more>
         <TabMore :artifact="artifact" />
       </template>
-    </TabsPanels>
+    </AccordionPanels>
   </EditorNodeWorkspace>
   <EditorNotLoaded v-else />
 </template>
