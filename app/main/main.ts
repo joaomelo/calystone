@@ -18,12 +18,18 @@ export function initApp(elementId: string) {
 
   app.use(PrimeVue, {
     theme: {
-
       preset: ThemePreset
     }
   });
   app.use(ToastService);
-  app.directive("tooltip", Tooltip);
+
+  app.directive("tooltip", {
+    ...Tooltip,
+    beforeUnmount() {
+      const tooltips = document.querySelectorAll(".p-tooltip");
+      tooltips.forEach(tooltip => { tooltip.remove(); });
+    }
+  });
 
   const router = createRouter();
   app.use(router);

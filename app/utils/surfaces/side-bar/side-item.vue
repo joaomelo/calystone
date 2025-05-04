@@ -23,7 +23,7 @@ function handleClick() {
 </script>
 <template>
   <li
-    v-tooltip="{ value: title, showDelay: 500 }"
+    v-tooltip="{ value: title }"
     class="side-item"
     :class="{ active, disabled }"
     :data-test="dataTest"
