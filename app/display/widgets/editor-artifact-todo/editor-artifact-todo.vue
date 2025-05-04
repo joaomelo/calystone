@@ -8,9 +8,11 @@ import { EditorNotLoaded } from "@/display/widgets/editors-message";
 import { AccordionPanels, useI18n } from "@/utils";
 import { computed, onMounted } from "vue";
 
-import TabDates from "./tab-dates.vue";
-import TabMain from "./tab-main.vue";
-import TabMore from "./tab-more.vue";
+import ControlDates from "./control-dates.vue";
+import ControlDetails from "./control-details.vue";
+import ControlPriority from "./control-priority.vue";
+import ControlProgress from "./control-progress.vue";
+import ControlTags from "./control-tags.vue";
 
 const { content: artifact } = defineProps<{
   content: TodoArtifact;
@@ -23,11 +25,17 @@ onMounted(async () => {
   await services.exchangeArtifact.fetchInto(artifact);
 });
 
-const panels = computed<PanelsList>(() => [
-  ["main", artifact.basename()],
-  ["dates", t("todo-panels.dates")],
-  ["more", t("todo-panels.more")]
-]);
+const panels = computed<PanelsList>(() => {
+  const priorityLegend = `${t("editor-todo.priority.priority")}: ${artifact.prioritizer.priority().toString()}`;
+
+  return [
+    ["main", artifact.basename()],
+    ["dates", t("editor-todo.dates.dates")],
+    ["tags", t("common.tags")],
+    ["priority", priorityLegend],
+    ["details", t("editor-todo.details")]
+  ];
+});
 </script>
 <template>
   <EditorNodeWorkspace
@@ -39,13 +47,19 @@ const panels = computed<PanelsList>(() => [
       multiple
     >
       <template #main>
-        <TabMain :artifact="artifact" />
+        <ControlProgress :artifact="artifact" />
       </template>
       <template #dates>
-        <TabDates :artifact="artifact" />
+        <ControlDates :artifact="artifact" />
       </template>
-      <template #more>
-        <TabMore :artifact="artifact" />
+      <template #tags>
+        <ControlTags :artifact="artifact" />
+      </template>
+      <template #priority>
+        <ControlPriority :artifact="artifact" />
+      </template>
+      <template #details>
+        <ControlDetails :artifact="artifact" />
       </template>
     </AccordionPanels>
   </EditorNodeWorkspace>

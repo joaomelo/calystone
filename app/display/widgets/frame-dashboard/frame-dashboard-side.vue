@@ -52,7 +52,7 @@ function handleReload() {
       />
       <SideItem
         id="tags"
-        :title="t('tags')"
+        :title="t('common.tags')"
         :icon="`${baseIcon} bxs-purchase-tag-alt`"
         data-test="sidebar-tags"
         @click="handleClickTags"

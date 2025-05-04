@@ -2,7 +2,7 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { ButtonBase, ChipTags, FieldSet, InputText, useI18n } from "@/utils";
+import { ButtonBase, ChipTags, InputText, useI18n } from "@/utils";
 import { computed, ref } from "vue";
 
 const { artifact } = defineProps<{
@@ -38,10 +38,7 @@ async function handleRemoveTag(tag: string) {
 }
 </script>
 <template>
-  <FieldSet
-    :legend="t('tags')"
-    class="section-tags"
-  >
+  <div>
     <div class="section-tags__input-wrapper">
       <InputText
         v-model="tag"
@@ -63,7 +60,7 @@ async function handleRemoveTag(tag: string) {
       removable
       @remove="handleRemoveTag"
     />
-  </FieldSet>
+  </div>
 </template>
 <style scoped>
 .section-tags__input-wrapper {

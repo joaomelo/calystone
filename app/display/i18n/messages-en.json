@@ -4,6 +4,9 @@
   "append": "append",
   "cancel": "cancel",
   "cancelled": "cancelled",
+  "common": {
+    "tags": "tags"
+  },
   "complete": "complete",
   "completed": "completed",
   "connect": "connect",
@@ -11,20 +14,33 @@
   "create-directory": "create directory",
   "date-end": "end date",
   "date-start": "start date",
-  "dates": {
-    "allDay": "all day",
-    "dates": "dates",
-    "due": "due",
-    "start": "start"
-  },
   "delete": "delete",
   "delete-node": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
   "descriptor-tip": "Add a README.txt or README.md file to the directory to display its description here.",
-  "details": "details",
   "directory": "directory",
   "directory-unloaded": "expand this directory in the outline or click on the open button in the toolbar to open its content",
   "done": "done",
   "edit": "edit",
+  "editor-todo": {
+    "dates": {
+      "allDay": "all day",
+      "dates": "dates",
+      "due": "due",
+      "start": "start"
+    },
+    "details": "details",
+    "priority": {
+      "importance": "importance",
+      "priority": "priority",
+      "doing": "doing",
+      "urgency": "urgency"
+    },
+    "progress": {
+      "done": "done",
+      "open": "open",
+      "skipped": "skipped"
+    }    
+  },
   "email": "email",
   "empty": "When you select an node on the outline, its details will show here.",
   "errors": {
@@ -53,52 +69,37 @@
   "or": "or",
   "outline": "outline",
   "page-open": {
-    "language": "language",
     "actions": {
       "dropbox": "Dropbox",
       "fsa": "File System",
       "memory": "In-App Memory",
       "one-drive": "OneDrive",
       "title": "Access your files using one of the methods below"
-    },  
+    },
     "features": {
-      "privacy": {
-        "text": "The project prioritizes privacy. It does not track or store data about you or your files. That said, be aware of the policies for any service you choose. Read more in the {0} and the {1}.",
-        "privacy": "Privacy Policy",
-        "terms": "Terms of Service"
-      },
-      "overview": {
-        "text": "Calystone helps you organize your life through your file system, offering note taking and task management features. Learn more about its capabilities and motivation in this {0}.",
-        "link": "overview"
-      },
       "open-source": {
         "text": "Calystone is open-source. Explore the project at {0}."
+      },
+      "overview": {
+        "link": "overview",
+        "text": "Calystone helps you organize your life through your file system, offering note taking and task management features. Learn more about its capabilities and motivation in this {0}."
+      },
+      "privacy": {
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "text": "The project prioritizes privacy. It does not track or store data about you or your files. That said, be aware of the policies for any service you choose. Read more in the {0} and the {1}."
       }
     },
+    "language": "language",
     "title": "Welcome to Calystone"
   },
   "path": "path",
   "preferences": "preferences",
-  "priority": {
-    "importance": "importance",
-    "priority": "priority",
-    "urgency": "urgency"
-  },
-  "progress": {
-    "done": "done",
-    "open": "open",
-    "skipped": "skipped"
-  },
   "reload": "reload",
   "rename": "rename",
   "save": "save",
   "search": "search",
   "share": "share",
   "size": "size",
-  "tags": "tags",
-  "todo-panels": {
-    "dates": "dates",
-    "more": "more"
-  },
   "type": "type"
 }
