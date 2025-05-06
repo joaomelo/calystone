@@ -2,14 +2,13 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { debounce, InputRichText, useI18n } from "@/utils";
+import { debounce, InputRichText } from "@/utils";
 
 const { artifact } = defineProps<{
   artifact: TodoArtifact;
 }>();
 
 const { services } = Store.use();
-const { t } = useI18n();
 
 const handleUpdatedetails = debounce(async (text: string) => {
   artifact.details = text;
@@ -18,7 +17,6 @@ const handleUpdatedetails = debounce(async (text: string) => {
 </script>
 <template>
   <InputRichText
-    :label="t('editor-todo.details')"
     data-test="input-details"
     lineless
     :model-value="artifact.details"

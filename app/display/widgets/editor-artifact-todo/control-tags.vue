@@ -42,7 +42,6 @@ async function handleRemoveTag(tag: string) {
     <div class="section-tags__input-wrapper">
       <InputText
         v-model="tag"
-        :label="t('name')"
         data-test="input-tag"
         class="section-tags__input"
         :suggestions="suggestions"
