@@ -25,7 +25,7 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
 }
 </script>
 <template>
-  <div class="tab-dates">
+  <div class="control-dates">
     <InputCheck
       v-model="allDay"
       :label="t('editor-todo.dates.allDay')"
@@ -50,7 +50,7 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
   </div>
 </template>
 <style scoped>
-.tab-dates {
+.control-dates {
   display: flex;
   flex-direction: column;
   gap: var(--size-3);

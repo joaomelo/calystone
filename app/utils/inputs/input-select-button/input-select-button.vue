@@ -25,6 +25,7 @@ const model = defineModel({ type: String });
         :allow-empty="false"
         option-label="label"
         option-value="value"
+        fluid
       />
     </template>
   </InputWrapper>

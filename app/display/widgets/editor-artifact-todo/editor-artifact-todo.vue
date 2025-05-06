@@ -10,6 +10,7 @@ import { computed, onMounted } from "vue";
 
 import ControlDates from "./control-dates.vue";
 import ControlDetails from "./control-details.vue";
+import ControlInfo from "./control-info.vue";
 import ControlPriority from "./control-priority.vue";
 import ControlProgress from "./control-progress.vue";
 import ControlTags from "./control-tags.vue";
@@ -47,7 +48,10 @@ const panels = computed<PanelsList>(() => {
       multiple
     >
       <template #main>
-        <ControlProgress :artifact="artifact" />
+        <div class="editor-artifact-todo__main">
+          <ControlInfo :artifact="artifact" />
+          <ControlProgress :artifact="artifact" />
+        </div>
       </template>
       <template #dates>
         <ControlDates :artifact="artifact" />
@@ -65,3 +69,10 @@ const panels = computed<PanelsList>(() => {
   </EditorNodeWorkspace>
   <EditorNotLoaded v-else />
 </template>
+<style scoped>
+.editor-artifact-todo__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4);
+}
+</style>
