@@ -1,6 +1,6 @@
 export type Progress = (typeof progresses)[number];
 
-const progresses = ["done", "open", "skipped" ] as const;
+const progresses = ["open", "doing", "done", "skipped" ] as const;
 const defaultProgress: Progress = "open";
 
 export class Progressor {
@@ -20,19 +20,27 @@ export class Progressor {
   }
 
   done() {
-    this.progress = "done";
+    this.set("done");
   }
 
   open() {
-    this.progress = "open";
+    this.set("open");
+  }
+
+  set(progress: Progress) {
+    this.progress = progress;
   }
 
   skip() {
-    this.progress = "skipped";
+    this.set("skipped");
+  }
+
+  start() {
+    this.set("doing");
   }
 
   uncompleted() {
-    return this.progress === "open";
+    return this.progress === "open" || this.progress === "doing";
   }
 
 }

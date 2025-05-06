@@ -35,11 +35,11 @@
       "urgency": "urgência"
     },
     "progress": {
+      "doing": "fazendo",
       "done": "pronta",
       "open": "aberta",
-      "doing": "fazendo",
       "skipped": "descartada"
-    }  
+    }
   },
   "email": "email",
   "empty": "Quando você selecionar um nó na hierarquia, suas informações serão mostradas aqui.",

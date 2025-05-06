@@ -32,14 +32,14 @@
     "priority": {
       "importance": "importance",
       "priority": "priority",
-      "doing": "doing",
       "urgency": "urgency"
     },
     "progress": {
+      "doing": "doing",
       "done": "done",
       "open": "open",
       "skipped": "skipped"
-    }    
+    }
   },
   "email": "email",
   "empty": "When you select an node on the outline, its details will show here.",

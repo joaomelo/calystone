@@ -42,7 +42,10 @@ export function useAppearance(item: OutlineItemData) {
         ? "bx-task"
         : node.progressor.completed()
           ? "bx-checkbox-checked"
-          : "bx-checkbox";
+          : node.progressor.progress === "doing"
+            ? "bx-checkbox-minus"
+            : "bx-checkbox";
+
       const style = node.progressor.completed() ? { textDecoration: "line-through" } : {};
       return {
         icon: `${baseNodeIcon} ${todoIcon}`,
