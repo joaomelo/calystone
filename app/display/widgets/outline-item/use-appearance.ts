@@ -31,7 +31,7 @@ export function useAppearance(item: OutlineItemData) {
 
     if (node instanceof TextArtifact) {
       return {
-        icon: `${baseNodeIcon} ${node.isLoaded() ? "bxs-file-txt" : "bx-file-txt"}`,
+        icon: `${baseNodeIcon} ${node.isLoaded() ? "bxs-file-txt" : "bx-file-blank"}`,
         label: node.name,
         style: {}
       };
