@@ -5,7 +5,8 @@
   "cancel": "cancelar",
   "cancelled": "cancelado",
   "common": {
-    "tags": "rótulos"
+    "tags": "rótulos",
+    "disabled": "desabilitado"
   },
   "complete": "concluir",
   "completed": "concluído",
@@ -27,7 +28,7 @@
       "completion": "conclusão",
       "dates": "datas",
       "due": "até",
-      "recurring": "recorrente",
+      "recurring-by": "recorrente por",
       "reference": "referência",
       "start": "início",
       "step": "passo",

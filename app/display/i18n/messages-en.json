@@ -5,7 +5,8 @@
   "cancel": "cancel",
   "cancelled": "cancelled",
   "common": {
-    "tags": "tags"
+    "tags": "tags",
+    "disabled": "disabled"
   },
   "complete": "complete",
   "completed": "completed",
@@ -27,7 +28,7 @@
       "completion": "completion",
       "dates": "dates",
       "due": "due",
-      "recurring": "recurring",
+      "recurring-by": "recurring by",
       "reference": "reference",
       "start": "start",
       "step": "step",

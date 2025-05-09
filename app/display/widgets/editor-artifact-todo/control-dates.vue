@@ -16,6 +16,7 @@ const allDay = ref(true);
 const recurring = ref(false);
 
 const referenceOptions: { label: string; value: Reference }[] = [
+  { label: t("common.disabled"), value: "disabled" },
   { label: t("editor-todo.dates.completion"), value: "completion" },
   { label: t("editor-todo.dates.due"), value: "due" },
 ] as const;
@@ -62,14 +63,8 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
         @update:model-value="handleUpdateDueDate"
       />
     </div>
-    <InputCheck
-      v-model="recurring"
-      :disabled="!artifact.dater.due"
-      :label="t('editor-todo.dates.recurring')"
-      data-test="input-recurring"
-    />
     <InputSelectButton
-      :label="t('editor-todo.dates.reference')"
+      :label="t('editor-todo.dates.recurring-by')"
       :disabled="!recurring"
       data-test="input-reference"
       :options="referenceOptions"
