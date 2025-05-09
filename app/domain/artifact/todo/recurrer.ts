@@ -35,4 +35,12 @@ export class Recurrer {
       start: newStart
     };
   }
+
+  stringify() {
+    return {
+      reference: this.reference,
+      step: this.step,
+      unit: this.unit,
+    };
+  }
 }

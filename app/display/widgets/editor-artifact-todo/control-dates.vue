@@ -15,12 +15,12 @@ const { t } = useI18n();
 const allDay = ref(true);
 
 async function handleUpdateDueDate(due: Date | null | undefined) {
-  artifact.scheduler.updateDue({ anchor: allDay.value, date: due ?? undefined });
+  artifact.dater.updateDue({ anchor: allDay.value, date: due ?? undefined });
   await services.exchangeArtifact.postFrom(artifact);
 }
 
 async function handleUpdateStartDate(start: Date | null | undefined) {
-  artifact.scheduler.updateStart({ anchor: allDay.value, date: start ?? undefined });
+  artifact.dater.updateStart({ anchor: allDay.value, date: start ?? undefined });
   await services.exchangeArtifact.postFrom(artifact);
 }
 </script>
@@ -34,7 +34,7 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
     <InputDate
       :label="t('editor-todo.dates.start')"
       data-test="input-start"
-      :model-value="artifact.scheduler.start"
+      :model-value="artifact.dater.start"
       default-time="0:0"
       :show-time="!allDay"
       @update:model-value="handleUpdateStartDate"
@@ -42,7 +42,7 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
     <InputDate
       :label="t('editor-todo.dates.due')"
       data-test="input-due"
-      :model-value="artifact.scheduler.due"
+      :model-value="artifact.dater.due"
       default-time="23:59"
       :show-time="!allDay"
       @update:model-value="handleUpdateDueDate"

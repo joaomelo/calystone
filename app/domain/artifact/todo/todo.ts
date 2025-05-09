@@ -3,18 +3,18 @@ import { throwCritical } from "@/utils";
 import type { ArtifactOptions } from "../artifact";
 
 import { Artifact } from "../artifact";
+import { Dater } from "./dater";
 import { Parser } from "./parser";
 import { Prioritizer } from "./prioritizer";
 import { Progressor } from "./progressor";
-import { Scheduler } from "./scheduler";
 import { Tagger } from "./tagger";
 
 export class TodoArtifact extends Artifact {
+  dater = new Dater();
   details = "";
   parser = new Parser();
   prioritizer = new Prioritizer();
   progressor = new Progressor();
-  scheduler = new Scheduler();
   tagger = new Tagger();
 
   constructor(options: ArtifactOptions) {
@@ -29,16 +29,16 @@ export class TodoArtifact extends Artifact {
     this.details = data.details;
     this.progressor = data.progressor;
     this.prioritizer = data.prioritizer;
-    this.scheduler = data.scheduler;
+    this.dater = data.dater;
     this.tagger = data.tagger;
   }
 
   toBinary(): ArrayBuffer {
     return this.parser.convertDataToBinary({
+      dater: this.dater,
       details: this.details,
       prioritizer: this.prioritizer,
       progressor: this.progressor,
-      scheduler: this.scheduler,
       tagger: this.tagger,
     });
   }

@@ -1,15 +1,15 @@
 import { isJsonParseable, isObjectLike } from "@/utils";
 
+import { Dater } from "./dater";
 import { Prioritizer } from "./prioritizer";
 import { Progressor } from "./progressor";
-import { Scheduler } from "./scheduler";
 import { Tagger } from "./tagger";
 
 interface Data {
   details: string,
   prioritizer: Prioritizer,
   progressor: Progressor,
-  scheduler: Scheduler,
+  dater: Dater,
   tagger: Tagger,
 }
 
@@ -23,10 +23,10 @@ export class Parser {
     const flatJsonString = this.decoder.decode(binary);
 
     const data: Data = {
+      dater: new Dater(),
       details: "",
       prioritizer: new Prioritizer(),
       progressor: new Progressor(),
-      scheduler: new Scheduler(),
       tagger: new Tagger(),
     };
 
@@ -65,12 +65,12 @@ export class Parser {
 
     if ("startDate" in data && typeof rawData.startDate === "string") {
       const startDate = new Date(rawData.startDate);
-      data.scheduler.updateStart({ anchor: false, date: startDate });
+      data.dater.updateStart({ anchor: false, date: startDate });
     }
 
     if ("dueDate" in data && typeof rawData.dueDate === "string") {
       const dueDate = new Date(rawData.dueDate);
-      data.scheduler.updateDue({ anchor: false, date: dueDate });
+      data.dater.updateDue({ anchor: false, date: dueDate });
     }
 
     if ("tags" in data && Array.isArray(rawData.tags)) {
@@ -81,7 +81,7 @@ export class Parser {
   }
 
   convertDataToBinary(data: Data): ArrayBuffer {
-    const { due, start } = data.scheduler.stringify();
+    const { due, start } = data.dater.stringify();
     const jsonString = JSON.stringify({
       details: data.details,
       dueDate: due,
