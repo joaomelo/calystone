@@ -3,8 +3,9 @@ import SelectButton from "primevue/selectbutton";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { label } = defineProps<{
+const { disabled = false, label } = defineProps<{
   dataTest: string
+  disabled?: boolean
   label?: string;
   options: { label: string; value: string }[];
 }>();
@@ -21,6 +22,7 @@ const model = defineModel({ type: String });
         :id="id"
         v-model="model"
         :data-test="inputDataTest"
+        :disabled="disabled"
         :options="options"
         :allow-empty="false"
         option-label="label"

@@ -31,6 +31,7 @@ async function handleUpdatedProgress(progress?: string) {
     :model-value="artifact.progressor.progress"
     default-value="open"
     :options="options"
+    :label="t('editor-todo.progress.progress')"
     @update:model-value="handleUpdatedProgress"
   />
 </template>

@@ -24,9 +24,18 @@
   "editor-todo": {
     "dates": {
       "allDay": "all day",
+      "completion": "completion",
       "dates": "dates",
       "due": "due",
-      "start": "start"
+      "recurring": "recurring",
+      "reference": "reference",
+      "start": "start",
+      "step": "step",
+      "unit": "unit",
+      "days": "days",
+      "weeks": "weeks",
+      "months": "months",
+      "years": "years"
     },
     "details": "details",
     "priority": {
@@ -38,7 +47,8 @@
       "doing": "doing",
       "done": "done",
       "open": "open",
-      "skipped": "skipped"
+      "skipped": "skipped",
+      "progress": "progress"
     }
   },
   "email": "email",

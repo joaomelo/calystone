@@ -5,6 +5,7 @@ import { InputWrapper } from "../input-wrapper";
 
 defineProps<{
   dataTest: string
+  disabled?: boolean
 }>();
 const model = defineModel<boolean>({ required: true });
 </script>
@@ -20,6 +21,7 @@ const model = defineModel<boolean>({ required: true });
         binary
         variant="filled"
         class="input-check"
+        :disabled="disabled"
         :invalid="invalid"
         :data-test="inputDataTest"
       />

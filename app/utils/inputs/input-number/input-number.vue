@@ -3,9 +3,10 @@ import InputNumberPrimeVue from "primevue/inputnumber";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { buttons = false, locale = "en", size } = defineProps<{
+const { buttons = false, disabled = false, locale = "en", size } = defineProps<{
   buttons?: boolean
   dataTest: string
+  disabled?: boolean
   locale?: string
   size?: "large" | "small"
 }>();
@@ -25,6 +26,7 @@ const model = defineModel({ type: Number });
         :show-buttons="buttons"
         :size="size"
         button-layout="horizontal"
+        :disabled="disabled"
       />
     </template>
   </InputWrapper>

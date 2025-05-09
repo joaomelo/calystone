@@ -24,9 +24,18 @@
   "editor-todo": {
     "dates": {
       "allDay": "dia inteiro",
+      "completion": "conclusão",
       "dates": "datas",
       "due": "até",
-      "start": "início"
+      "recurring": "recorrente",
+      "reference": "referência",
+      "start": "início",
+      "step": "passo",
+      "unit": "unidade",
+      "days": "dias",
+      "weeks": "semanas",
+      "months": "meses",
+      "years": "anos"
     },
     "details": "detalhes",
     "priority": {
@@ -38,7 +47,8 @@
       "doing": "fazendo",
       "done": "pronta",
       "open": "aberta",
-      "skipped": "descartada"
+      "skipped": "descartada",
+      "progress": "progresso"
     }
   },
   "email": "email",

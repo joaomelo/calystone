@@ -4,9 +4,10 @@ import { onMounted, useTemplateRef } from "vue";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { defaultTime = undefined, showTime = false } = defineProps<{
+const { defaultTime = undefined, disabled = false, showTime = false } = defineProps<{
   dataTest: string
   defaultTime?: string
+  disabled?: boolean
   showTime?: boolean
 }>();
 const model = defineModel<Date | null>();
@@ -28,6 +29,7 @@ onMounted(() => {
         v-model="model"
         :input-id="id"
         class="input-date"
+        :disabled="disabled"
         :invalid="invalid"
         :data-test="inputDataTest"
         fluid
