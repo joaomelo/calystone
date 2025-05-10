@@ -1,17 +1,12 @@
 import { isJsonParseable, isObjectLike } from "@/utils";
 
+import type { TodoArtifactState } from "./state";
+
+import { RecurrenceReference, RecurrenceStep, RecurrenceUnit, Recurrer } from "../recurrer";
 import { Dater } from "./dater";
 import { Prioritizer } from "./prioritizer";
 import { Progressor } from "./progressor";
 import { Tagger } from "./tagger";
-
-interface Data {
-  details: string,
-  prioritizer: Prioritizer,
-  progressor: Progressor,
-  dater: Dater,
-  tagger: Tagger,
-}
 
 export class Parser {
   static readonly VERSION = 1;
@@ -19,11 +14,10 @@ export class Parser {
   private decoder = new TextDecoder("utf-8");
   private encoder = new TextEncoder();
 
-  convertBinaryToData(binary: ArrayBuffer): Data {
+  convertBinaryToState(binary: ArrayBuffer): TodoArtifactState {
     const flatJsonString = this.decoder.decode(binary);
 
-    const data: Data = {
-      dater: new Dater(),
+    const data: TodoArtifactState = {
       details: "",
       prioritizer: new Prioritizer(),
       progressor: new Progressor(),
@@ -63,14 +57,28 @@ export class Parser {
       data.prioritizer.urgency = rawData.urgency;
     }
 
-    if ("startDate" in data && typeof rawData.startDate === "string") {
-      const startDate = new Date(rawData.startDate);
-      data.dater.updateStart({ anchor: false, date: startDate });
+    if (
+      "dateStart" in data
+      && typeof rawData.dateStart === "string"
+      && "dateDue" in data
+      && typeof rawData.dateDue === "string"
+    ) {
+      const start = new Date(rawData.dateStart);
+      const due = new Date(rawData.dateDue);
+      const dater = new Dater({ allDay: false, due, start });
+      data.dater = dater;
     }
 
-    if ("dueDate" in data && typeof rawData.dueDate === "string") {
-      const dueDate = new Date(rawData.dueDate);
-      data.dater.updateDue({ anchor: false, date: dueDate });
+    if (
+      "reference" in data
+      && RecurrenceReference.isRecurrenceReferenceValue(rawData.reference)
+      && "step" in data
+      && RecurrenceStep.isStepValue(rawData.step)
+      && "unit" in data
+      && RecurrenceUnit.isRecurrenceUnitValue(rawData.unit)
+    ) {
+      const recurrer = new Recurrer({ reference: rawData.reference, step: rawData.step, unit: rawData.unit });
+      data.recurrer = recurrer;
     }
 
     if ("tags" in data && Array.isArray(rawData.tags)) {
@@ -80,14 +88,19 @@ export class Parser {
     return data;
   }
 
-  convertDataToBinary(data: Data): ArrayBuffer {
-    const { due, start } = data.dater.stringify();
+  convertDataToBinary(data: TodoArtifactState): ArrayBuffer {
+    const { due, start } = data.dater?.stringify() ?? {};
+    const { reference, step, unit } = data.recurrer?.stringify() ?? {};
+
     const jsonString = JSON.stringify({
+      dateDue: due,
+      dateStart: start,
       details: data.details,
-      dueDate: due,
       importance: data.prioritizer.importance,
       progress: data.progressor.progress,
-      startDate: start,
+      recurrenceReference: reference,
+      recurrenceStep: step,
+      recurrenceUnit: unit,
       tags: data.tagger.list(),
       urgency: data.prioritizer.urgency,
       version: Parser.VERSION,

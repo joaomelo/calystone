@@ -1,6 +1,10 @@
+import type { RecurrerOptions } from "@/domain/artifact/recurrer";
+
+import { Recurrer } from "@/domain/artifact/recurrer";
 import { throwCritical } from "@/utils";
 
 import type { ArtifactOptions } from "../artifact";
+import type { TodoArtifactState } from "./state";
 
 import { Artifact } from "../artifact";
 import { Dater } from "./dater";
@@ -9,12 +13,13 @@ import { Prioritizer } from "./prioritizer";
 import { Progressor } from "./progressor";
 import { Tagger } from "./tagger";
 
-export class TodoArtifact extends Artifact {
-  dater = new Dater();
+export class TodoArtifact extends Artifact implements TodoArtifactState {
+  dater? = new Dater();
   details = "";
   parser = new Parser();
   prioritizer = new Prioritizer();
   progressor = new Progressor();
+  recurrer?: Recurrer;
   tagger = new Tagger();
 
   constructor(options: ArtifactOptions) {
@@ -24,8 +29,21 @@ export class TodoArtifact extends Artifact {
     }
   }
 
+  clearDates() {
+    this.dater = undefined;
+    this.disableRecurrence();
+  }
+
+  disableRecurrence() {
+    this.recurrer = undefined;
+  }
+
+  enableRecurrence(options: RecurrerOptions = {}) {
+    this.recurrer = new Recurrer(options);
+  }
+
   performFromBinary(binary: ArrayBuffer): void {
-    const data = this.parser.convertBinaryToData(binary);
+    const data = this.parser.convertBinaryToState(binary);
     this.details = data.details;
     this.progressor = data.progressor;
     this.prioritizer = data.prioritizer;
@@ -39,6 +57,7 @@ export class TodoArtifact extends Artifact {
       details: this.details,
       prioritizer: this.prioritizer,
       progressor: this.progressor,
+      recurrer: this.recurrer,
       tagger: this.tagger,
     });
   }

@@ -1,54 +1,53 @@
-export interface UpdateDateOptions { anchor?: boolean; date: Date }
-export interface UpdateDatesOptions { anchor?: boolean; start: Date; due: Date }
+export interface DaterOptions { due?: Date; start?: Date, allDay?: boolean }
+export interface UpdateDateOptions { allDay?: boolean; date: Date }
+export interface UpdateDatesOptions { allDay?: boolean; start: Date; due: Date }
 
 export class Dater {
-  due: Date | undefined = undefined;
-  start: Date | undefined = undefined;
+  due: Date = new Date();
+  start: Date = new Date();
 
-  clearDates() {
-    this.due = undefined;
-    this.start = undefined;
+  constructor(options: DaterOptions = {}) {
+    const { allDay = false, due = new Date(), start = new Date() } = options;
+    this.update({ allDay, due, start });
   }
 
   stringify() {
     return {
-      due: this.due?.toISOString() ?? null,
-      start: this.start?.toISOString() ?? null,
+      due: this.due.toISOString(),
+      start: this.start.toISOString(),
     };
   }
 
-  update({ anchor = false, due, start }: UpdateDatesOptions) {
-    this.updateStart({ anchor, date: start });
-    this.updateDue({ anchor, date: due });
+  update({ allDay = false, due, start }: UpdateDatesOptions) {
+    this.updateStart({ allDay, date: start });
+    this.updateDue({ allDay, date: due });
   }
 
-  updateDue({ anchor = false, date }: UpdateDateOptions) {
-    const anchoredDate = new Date(date);
-    if (anchor) {
-      anchoredDate.setHours(23, 59, 59, 999);
+  updateDue({ allDay = false, date }: UpdateDateOptions) {
+    const allDayDate = new Date(date);
+    if (allDay) {
+      allDayDate.setHours(23, 59, 59, 999);
     }
 
-    this.due = anchoredDate;
+    this.due = allDayDate;
 
-    const isDueSmallerThanStart = this.start && anchoredDate < this.start;
-    const isStartEmpty = this.start === undefined;
-    if (isDueSmallerThanStart || isStartEmpty) {
-      this.updateStart({ anchor, date: anchoredDate });
+    const isDueSmallerThanStart = allDayDate < this.start;
+    if (isDueSmallerThanStart) {
+      this.updateStart({ allDay, date: allDayDate });
     }
   }
 
-  updateStart({ anchor = false, date }: UpdateDateOptions) {
-    const anchoredStart = new Date(date);
-    if (anchor) {
-      anchoredStart.setHours(0, 0, 0, 0);
+  updateStart({ allDay = false, date }: UpdateDateOptions) {
+    const allDayDate = new Date(date);
+    if (allDay) {
+      allDayDate.setHours(0, 0, 0, 0);
     }
 
-    this.start = anchoredStart;
+    this.start = allDayDate;
 
-    const isStartGreaterThanDue = this.due && anchoredStart > this.due;
-    const isDueEmpty = this.due === undefined;
-    if (isStartGreaterThanDue || isDueEmpty) {
-      this.updateDue({ anchor, date: anchoredStart });
+    const isStartGreaterThanDue = allDayDate > this.due;
+    if (isStartGreaterThanDue) {
+      this.updateDue({ allDay, date: allDayDate });
     }
   }
 }
