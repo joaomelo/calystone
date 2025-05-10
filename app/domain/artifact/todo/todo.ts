@@ -7,7 +7,7 @@ import type { ArtifactOptions } from "../artifact";
 import type { TodoArtifactState } from "./state";
 
 import { Artifact } from "../artifact";
-import { Dater } from "./dater";
+import { Dater, type UpdateDateOptions } from "./dater";
 import { Parser } from "./parser";
 import { Prioritizer } from "./prioritizer";
 import { Progressor } from "./progressor";
@@ -31,7 +31,7 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
 
   clearDates() {
     this.dater = undefined;
-    this.disableRecurrence();
+    this.recurrer = undefined;
   }
 
   dateDue() {
@@ -50,6 +50,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.recurrer = new Recurrer(options);
   }
 
+  hasDates() {
+    return this.dater !== undefined;
+  }
+
   performFromBinary(binary: ArrayBuffer): void {
     const data = this.parser.convertBinaryToState(binary);
     this.details = data.details;
@@ -57,6 +61,11 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.prioritizer = data.prioritizer;
     this.dater = data.dater;
     this.tagger = data.tagger;
+  }
+
+  reference() {
+    if (!this.recurrer) return undefined;
+    return this.recurrer.reference.value;
   }
 
   toBinary(): ArrayBuffer {
@@ -68,5 +77,19 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
       recurrer: this.recurrer,
       tagger: this.tagger,
     });
+  }
+
+  updateDateDue(options: UpdateDateOptions) {
+    if (!this.dater) {
+      this.dater = new Dater();
+    }
+    this.dater.updateDue(options);
+  }
+
+  updateDateStart(options: UpdateDateOptions) {
+    if (!this.dater) {
+      this.dater = new Dater();
+    }
+    this.dater.updateStart(options);
   }
 }

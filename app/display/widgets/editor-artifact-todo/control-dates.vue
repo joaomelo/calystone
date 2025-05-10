@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Reference, TodoArtifact, Unit } from "@/domain";
+import type { RecurrenceReferenceValue, RecurrenceUnitValue, TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { InputCheck, InputDate, InputNumber, InputSelectButton, useI18n } from "@/utils";
-import { ref } from "vue";
+import { ButtonBase, InputCheck, InputDate, InputNumber, InputSelectButton, throwCritical, useI18n } from "@/utils";
+import { computed, ref } from "vue";
 
 const { artifact } = defineProps<{
   artifact: TodoArtifact;
@@ -13,39 +13,62 @@ const { services } = Store.use();
 const { t } = useI18n();
 
 const allDay = ref(true);
-const recurring = ref(false);
 
-const referenceOptions: { label: string; value: Reference }[] = [
+const referenceOptions: { label: string; value: "disabled" | RecurrenceReferenceValue }[] = [
   { label: t("common.disabled"), value: "disabled" },
   { label: t("editor-todo.dates.completion"), value: "completion" },
   { label: t("editor-todo.dates.due"), value: "due" },
 ] as const;
 
-const unitOptions: { label: string; value: Unit }[] = [
+const referenceValue = computed(() => {
+  const value = artifact.reference();
+  if (!value) return "disabled";
+  return value;
+});
+
+const unitOptions: { label: string; value: RecurrenceUnitValue }[] = [
   { label: t("editor-todo.dates.days"), value: "days" },
   { label: t("editor-todo.dates.weeks"), value: "weeks" },
   { label: t("editor-todo.dates.months"), value: "months" },
   { label: t("editor-todo.dates.years"), value: "years" },
 ] as const;
 
-async function handleUpdateDueDate(due: Date | null | undefined) {
-  artifact.dater.updateDue({ anchor: allDay.value, date: due ?? undefined });
+async function handleClearDates() {
+  artifact.clearDates();
   await services.exchangeArtifact.postFrom(artifact);
 }
 
-async function handleUpdateStartDate(start: Date | null | undefined) {
-  artifact.dater.updateStart({ anchor: allDay.value, date: start ?? undefined });
+async function handleUpdateDueDate(date: Date | null | undefined) {
+  if (date) {
+    artifact.updateDateDue({ allDay: allDay.value, date });
+  } else {
+    artifact.clearDates();
+  }
+  await services.exchangeArtifact.postFrom(artifact);
+}
+
+function handleUpdateReference(reference: string | undefined) {
+  if (!reference) throwCritical("INVALID_REFERENCE");
+  console.log(reference);
+}
+
+async function handleUpdateStartDate(date: Date | null | undefined) {
+  if (date) {
+    artifact.updateDateStart({ allDay: allDay.value, date });
+  } else {
+    artifact.clearDates();
+  }
   await services.exchangeArtifact.postFrom(artifact);
 }
 </script>
 <template>
   <div class="control-dates">
+    <InputCheck
+      v-model="allDay"
+      :label="t('editor-todo.dates.allDay')"
+      data-test="input-all-day"
+    />
     <div class="control-dates__start-due">
-      <InputCheck
-        v-model="allDay"
-        :label="t('editor-todo.dates.allDay')"
-        data-test="input-all-day"
-      />
       <InputDate
         :label="t('editor-todo.dates.start')"
         data-test="input-start"
@@ -65,24 +88,30 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
     </div>
     <InputSelectButton
       :label="t('editor-todo.dates.recurring-by')"
-      :disabled="!recurring"
       data-test="input-reference"
+      :model-value="referenceValue"
       :options="referenceOptions"
+      @update:model-value="handleUpdateReference"
     />
     <div class="control-dates__step-unit">
       <InputNumber
         :label="t('editor-todo.dates.step')"
         data-test="input-step"
-        :disabled="!recurring"
         buttons
       />
       <InputSelectButton
         :label="t('editor-todo.dates.unit')"
-        :disabled="!recurring"
         data-test="input-unit"
         :options="unitOptions"
       />
     </div>
+    <ButtonBase
+      :label="t('editor-todo.dates.clear')"
+      data-test="button-clear"
+      icon="bx bx-trash"
+      severity="secondary"
+      @click="handleClearDates"
+    />
   </div>
 </template>
 <style scoped>

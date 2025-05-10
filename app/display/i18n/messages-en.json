@@ -27,6 +27,7 @@
       "allDay": "all day",
       "completion": "completion",
       "dates": "dates",
+      "clear": "clear dates",
       "due": "due",
       "recurring-by": "recurring by",
       "reference": "reference",
