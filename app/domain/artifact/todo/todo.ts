@@ -34,6 +34,14 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.disableRecurrence();
   }
 
+  dateDue() {
+    return this.dater?.due;
+  }
+
+  dateStart() {
+    return this.dater?.start;
+  }
+
   disableRecurrence() {
     this.recurrer = undefined;
   }

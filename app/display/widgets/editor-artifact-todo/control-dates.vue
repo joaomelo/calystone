@@ -40,16 +40,16 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
 </script>
 <template>
   <div class="control-dates">
-    <InputCheck
-      v-model="allDay"
-      :label="t('editor-todo.dates.allDay')"
-      data-test="input-all-day"
-    />
     <div class="control-dates__start-due">
+      <InputCheck
+        v-model="allDay"
+        :label="t('editor-todo.dates.allDay')"
+        data-test="input-all-day"
+      />
       <InputDate
         :label="t('editor-todo.dates.start')"
         data-test="input-start"
-        :model-value="artifact.dater.start"
+        :model-value="artifact.dateStart()"
         default-time="0:0"
         :show-time="!allDay"
         @update:model-value="handleUpdateStartDate"
@@ -57,7 +57,7 @@ async function handleUpdateStartDate(start: Date | null | undefined) {
       <InputDate
         :label="t('editor-todo.dates.due')"
         data-test="input-due"
-        :model-value="artifact.dater.due"
+        :model-value="artifact.dateDue()"
         default-time="23:59"
         :show-time="!allDay"
         @update:model-value="handleUpdateDueDate"
