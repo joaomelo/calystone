@@ -1,7 +1,7 @@
 import { throwCritical } from "@/utils";
 
 import type { RecurrenceReferenceValue } from "./reference";
-import type { StepValue } from "./step";
+import type { RecurrenceStepValue } from "./step";
 import type { RecurrenceUnitValue } from "./unit";
 
 import { RecurrenceReference } from "./reference";
@@ -10,7 +10,7 @@ import { RecurrenceUnit } from "./unit";
 
 export interface RecurrerOptions {
   reference?: RecurrenceReferenceValue;
-  step?: StepValue;
+  step?: RecurrenceStepValue;
   unit?: RecurrenceUnitValue;
 }
 

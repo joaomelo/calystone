@@ -8,7 +8,9 @@ import { EditorNotLoaded } from "@/display/widgets/editors-message";
 import { AccordionPanels, useI18n } from "@/utils";
 import { computed, onMounted } from "vue";
 
-import ControlDates from "./control-dates.vue";
+import ControlDatesClear from "./control-dates-clear.vue";
+import ControlDatesRecurrence from "./control-dates-recurrence.vue";
+import ControlDatesStartDue from "./control-dates-start-due.vue";
 import ControlDetails from "./control-details.vue";
 import ControlInfo from "./control-info.vue";
 import ControlPriority from "./control-priority.vue";
@@ -54,7 +56,11 @@ const panels = computed<PanelsList>(() => {
         </div>
       </template>
       <template #dates>
-        <ControlDates :artifact="artifact" />
+        <div class="editor-artifact-todo__control-dates">
+          <ControlDatesStartDue :artifact="artifact" />
+          <ControlDatesRecurrence :artifact="artifact" />
+          <ControlDatesClear :artifact="artifact" />
+        </div>
       </template>
       <template #tags>
         <ControlTags :artifact="artifact" />
@@ -74,5 +80,11 @@ const panels = computed<PanelsList>(() => {
   display: flex;
   flex-direction: column;
   gap: var(--size-4);
+}
+
+.editor-artifact-todo__control-dates {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
 }
 </style>

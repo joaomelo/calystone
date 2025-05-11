@@ -41,7 +41,7 @@ export class Parser {
       return data;
     }
 
-    if ("details" in data && typeof rawData.details === "string") {
+    if ("details" in rawData && typeof rawData.details === "string") {
       data.details = rawData.details;
     }
 
@@ -58,9 +58,9 @@ export class Parser {
     }
 
     if (
-      "dateStart" in data
+      "dateStart" in rawData
       && typeof rawData.dateStart === "string"
-      && "dateDue" in data
+      && "dateDue" in rawData
       && typeof rawData.dateDue === "string"
     ) {
       const start = new Date(rawData.dateStart);
@@ -70,18 +70,18 @@ export class Parser {
     }
 
     if (
-      "reference" in data
-      && RecurrenceReference.isRecurrenceReferenceValue(rawData.reference)
-      && "step" in data
-      && RecurrenceStep.isStepValue(rawData.step)
-      && "unit" in data
-      && RecurrenceUnit.isRecurrenceUnitValue(rawData.unit)
+      "recurrenceReference" in rawData
+      && RecurrenceReference.isRecurrenceReferenceValue(rawData.recurrenceReference)
+      && "recurrenceStep" in rawData
+      && RecurrenceStep.isStepValue(rawData.recurrenceStep)
+      && "recurrenceUnit" in rawData
+      && RecurrenceUnit.isRecurrenceUnitValue(rawData.recurrenceUnit)
     ) {
-      const recurrer = new Recurrer({ reference: rawData.reference, step: rawData.step, unit: rawData.unit });
+      const recurrer = new Recurrer({ reference: rawData.recurrenceReference, step: rawData.recurrenceStep, unit: rawData.recurrenceUnit });
       data.recurrer = recurrer;
     }
 
-    if ("tags" in data && Array.isArray(rawData.tags)) {
+    if ("tags" in rawData && Array.isArray(rawData.tags)) {
       data.tagger.add(rawData.tags);
     }
 

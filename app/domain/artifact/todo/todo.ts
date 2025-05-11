@@ -1,4 +1,4 @@
-import type { RecurrerOptions } from "@/domain/artifact/recurrer";
+import type { RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue } from "@/domain/artifact/recurrer";
 
 import { Recurrer } from "@/domain/artifact/recurrer";
 import { throwCritical } from "@/utils";
@@ -46,12 +46,12 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.recurrer = undefined;
   }
 
-  enableRecurrence(options: RecurrerOptions = {}) {
-    this.recurrer = new Recurrer(options);
-  }
-
   hasDates() {
     return this.dater !== undefined;
+  }
+
+  hasRecurrence() {
+    return this.recurrer !== undefined;
   }
 
   performFromBinary(binary: ArrayBuffer): void {
@@ -60,12 +60,23 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.progressor = data.progressor;
     this.prioritizer = data.prioritizer;
     this.dater = data.dater;
+    this.recurrer = data.recurrer;
     this.tagger = data.tagger;
   }
 
-  reference() {
+  recurrenceReference() {
     if (!this.recurrer) return undefined;
     return this.recurrer.reference.value;
+  }
+
+  recurrenceStep() {
+    if (!this.recurrer) return undefined;
+    return this.recurrer.step.value;
+  }
+
+  recurrenceUnit() {
+    if (!this.recurrer) return undefined;
+    return this.recurrer.unit.value;
   }
 
   toBinary(): ArrayBuffer {
@@ -91,5 +102,35 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
       this.dater = new Dater();
     }
     this.dater.updateStart(options);
+  }
+
+  updateRecurrenceReference(reference: RecurrenceReferenceValue) {
+    if (!this.hasDates()) {
+      throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
+    }
+    if (!this.recurrer) {
+      this.recurrer = new Recurrer();
+    }
+    this.recurrer.reference.value = reference;
+  }
+
+  updateRecurrenceStep(step: RecurrenceStepValue) {
+    if (!this.hasDates()) {
+      throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
+    }
+    if (!this.recurrer) {
+      this.recurrer = new Recurrer();
+    }
+    this.recurrer.step.value = step;
+  }
+
+  updateRecurrenceUnit(unit: RecurrenceUnitValue) {
+    if (!this.hasDates()) {
+      throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
+    }
+    if (!this.recurrer) {
+      this.recurrer = new Recurrer();
+    }
+    this.recurrer.unit.value = unit;
   }
 }
