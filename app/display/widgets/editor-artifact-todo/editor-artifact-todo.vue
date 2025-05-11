@@ -5,7 +5,7 @@ import type { PanelsList } from "@/utils";
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
-import { AccordionPanels, useI18n } from "@/utils";
+import { AccordionPanels, formatDateTime, useI18n } from "@/utils";
 import { computed, onMounted } from "vue";
 
 import ControlDatesClear from "./control-dates-clear.vue";
@@ -31,9 +31,13 @@ onMounted(async () => {
 const panels = computed<PanelsList>(() => {
   const priorityLegend = `${t("editor-todo.priority.priority")}: ${artifact.prioritizer.priority().toString()}`;
 
+  const dueDate = artifact.dateDue();
+  const dateSuffix = dueDate ? `: ${formatDateTime(dueDate)}` : "";
+  const datesLegend = `${t("editor-todo.dates.dates")}${dateSuffix}`;
+
   return [
     ["main", artifact.basename()],
-    ["dates", t("editor-todo.dates.dates")],
+    ["dates", datesLegend],
     ["tags", t("common.tags")],
     ["priority", priorityLegend],
     ["details", t("editor-todo.details")]

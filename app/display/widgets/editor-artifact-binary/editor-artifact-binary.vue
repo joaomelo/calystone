@@ -2,7 +2,7 @@
 import type { Artifact } from "@/domain";
 
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
-import { PropertySheet, useI18n } from "@/utils";
+import { formatDateTime, PropertySheet, useI18n } from "@/utils";
 import { filesize } from "filesize";
 import { computed } from "vue";
 
@@ -10,14 +10,14 @@ const { content } = defineProps<{
   content: Artifact;
 }>();
 
-const { d, t } = useI18n();
+const { t } = useI18n();
 
 const propertySheetRows = computed(() => {
   return [
     { label: t("type"), value: content.mime.media() },
     { label: t("path"), value: content.mountPath() },
     { label: t("size"), value: filesize(content.size) },
-    { label: t("last-modified"), value: d(new Date(content.lastModified)) },
+    { label: t("last-modified"), value: formatDateTime(new Date(content.lastModified)) },
   ];
 });
 </script>
