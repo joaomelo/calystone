@@ -5,9 +5,9 @@ import { Recurrer } from "./recurrer";
 describe("recurrer", () => {
   it("should calculate next occurrence for an all-day task", () => {
     const recurrer = new Recurrer();
-    recurrer.reference = "due";
-    recurrer.step = 1;
-    recurrer.unit = "days";
+    recurrer.reference.value = "due";
+    recurrer.step.value = 1;
+    recurrer.unit.value = "days";
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -27,9 +27,9 @@ describe("recurrer", () => {
 
   it("should maintain same time span when using completion reference", () => {
     const recurrer = new Recurrer();
-    recurrer.reference = "completion";
-    recurrer.step = 1;
-    recurrer.unit = "days";
+    recurrer.reference.value = "completion";
+    recurrer.step.value = 1;
+    recurrer.unit.value = "days";
 
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -45,9 +45,9 @@ describe("recurrer", () => {
 
   it("should calculate next occurrence for overdue weekly task", () => {
     const recurrer = new Recurrer();
-    recurrer.reference = "due";
-    recurrer.step = 1;
-    recurrer.unit = "weeks";
+    recurrer.reference.value = "due";
+    recurrer.step.value = 1;
+    recurrer.unit.value = "weeks";
 
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
@@ -68,9 +68,9 @@ describe("recurrer", () => {
 
   it("should handle yearly recurrence with completion reference", () => {
     const recurrer = new Recurrer();
-    recurrer.reference = "completion";
-    recurrer.step = 1;
-    recurrer.unit = "years";
+    recurrer.reference.value = "completion";
+    recurrer.step.value = 1;
+    recurrer.unit.value = "years";
 
     const today = new Date();
     today.setHours(10, 0, 0, 0);
@@ -90,9 +90,9 @@ describe("recurrer", () => {
 
   it("should handle bi-weekly recurrence", () => {
     const recurrer = new Recurrer();
-    recurrer.reference = "due";
-    recurrer.step = 2;
-    recurrer.unit = "weeks";
+    recurrer.reference.value = "due";
+    recurrer.step.value = 2;
+    recurrer.unit.value = "weeks";
 
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
@@ -113,9 +113,9 @@ describe("recurrer", () => {
 
   it("should handle month end edge case", () => {
     const recurrer = new Recurrer();
-    recurrer.reference = "due";
-    recurrer.step = 1;
-    recurrer.unit = "months";
+    recurrer.reference.value = "due";
+    recurrer.step.value = 1;
+    recurrer.unit.value = "months";
 
     const lastDayOfMonth = new Date();
     lastDayOfMonth.setMonth(0);
@@ -137,9 +137,9 @@ describe("recurrer", () => {
 
   it("should handle year", () => {
     const recurrer = new Recurrer();
-    recurrer.reference = "due";
-    recurrer.step = 1;
-    recurrer.unit = "years";
+    recurrer.reference.value = "due";
+    recurrer.step.value = 1;
+    recurrer.unit.value = "years";
 
     const lastDayOfYear = new Date();
     lastDayOfYear.setMonth(11);
