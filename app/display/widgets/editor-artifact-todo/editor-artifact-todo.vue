@@ -6,7 +6,7 @@ import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/widgets/editor-node-workspace";
 import { EditorNotLoaded } from "@/display/widgets/editors-message";
 import { AccordionPanels, formatDateTime, useI18n } from "@/utils";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 import ControlDatesClear from "./control-dates-clear.vue";
 import ControlDatesRecurrence from "./control-dates-recurrence.vue";
@@ -28,6 +28,7 @@ onMounted(async () => {
   await services.exchangeArtifact.fetchInto(artifact);
 });
 
+const panelsState = ref<string[]>(["main"]);
 const panels = computed<PanelsList>(() => {
   const priorityLegend = `${t("editor-todo.priority.priority")}: ${artifact.prioritizer.priority().toString()}`;
 
@@ -50,6 +51,7 @@ const panels = computed<PanelsList>(() => {
     :node="artifact"
   >
     <AccordionPanels
+      v-model="panelsState"
       :panels="panels"
       multiple
     >

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { asArray } from "@/utils/arrays";
 import { kebabCase } from "@/utils/text";
 import Accordion from "primevue/accordion";
 import AccordionContent from "primevue/accordioncontent";
@@ -11,11 +12,17 @@ const { multiple = false, panels } = defineProps<{
   multiple?: boolean;
   panels: PanelsList;
 }>();
+const model = defineModel<string[]>();
+function handleUpdateValue(value: null | string | string[] | undefined) {
+  const normalizedValue = asArray(value);
+  model.value = normalizedValue;
+}
 </script>
 <template>
   <Accordion
+    :value="model"
     :multiple="multiple"
-    :value="multiple ? [panels[0][0]] : panels[0][0]"
+    @update:value="handleUpdateValue"
   >
     <AccordionPanel
       v-for="panel in panels"
