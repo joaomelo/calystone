@@ -7,7 +7,10 @@ export class Dater {
   start: Date = new Date();
 
   constructor(options: DaterOptions = {}) {
-    const { allDay = false, due = new Date(), start = new Date() } = options;
+    const { allDay = false } = options;
+    const now = new Date();
+    const start = options.start ?? options.due ?? now;
+    const due = options.due ?? options.start ?? now;
     this.update({ allDay, due, start });
   }
 

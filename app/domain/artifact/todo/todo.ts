@@ -1,5 +1,6 @@
 import type { RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue } from "@/domain/artifact/recurrer";
 
+import { Dater, type UpdateDateOptions } from "@/domain/artifact/dater";
 import { Recurrer } from "@/domain/artifact/recurrer";
 import { throwCritical } from "@/utils";
 
@@ -7,7 +8,6 @@ import type { ArtifactOptions } from "../artifact";
 import type { TodoArtifactState } from "./state";
 
 import { Artifact } from "../artifact";
-import { Dater, type UpdateDateOptions } from "./dater";
 import { Parser } from "./parser";
 import { Prioritizer } from "./prioritizer";
 import { Progressor } from "./progressor";
@@ -92,16 +92,20 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
 
   updateDateDue(options: UpdateDateOptions) {
     if (!this.dater) {
-      this.dater = new Dater();
+      const { allDay, date: due } = options;
+      this.dater = new Dater({ allDay, due });
+    } else {
+      this.dater.updateDue(options);
     }
-    this.dater.updateDue(options);
   }
 
   updateDateStart(options: UpdateDateOptions) {
     if (!this.dater) {
-      this.dater = new Dater();
+      const { allDay, date: start } = options;
+      this.dater = new Dater({ allDay, start });
+    } else {
+      this.dater.updateStart(options);
     }
-    this.dater.updateStart(options);
   }
 
   updateRecurrenceReference(reference: RecurrenceReferenceValue) {

@@ -1,9 +1,9 @@
+import { Dater } from "@/domain/artifact/dater";
 import { isJsonParseable, isObjectLike } from "@/utils";
 
 import type { TodoArtifactState } from "./state";
 
 import { RecurrenceReference, RecurrenceStep, RecurrenceUnit, Recurrer } from "../recurrer";
-import { Dater } from "./dater";
 import { Prioritizer } from "./prioritizer";
 import { Progressor } from "./progressor";
 import { Tagger } from "./tagger";
