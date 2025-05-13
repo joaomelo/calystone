@@ -5,6 +5,7 @@ import { Recurrer } from "@/domain/artifact/recurrer";
 import { throwCritical } from "@/utils";
 
 import type { ArtifactOptions } from "../artifact";
+import type { Progress } from "./progressor";
 import type { TodoArtifactState } from "./state";
 
 import { Artifact } from "../artifact";
@@ -34,6 +35,22 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.recurrer = undefined;
   }
 
+  completed() {
+    return this.progressor.completed();
+  }
+
+  cycleRecurrence() {
+    if (!this.hasRecurrence()) throwCritical("TODO_ARTIFACT_HAS_NO_RECURRENCE");
+
+    const currentDue = this.dateDue();
+    const currentStart = this.dateStart();
+    if (!currentDue || !currentStart) throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
+
+    const { due, start } = this.recurrer.next({ due: currentDue, start: currentStart });
+    this.updateDateStart({ allDay: false, date: start });
+    this.updateDateDue({ allDay: false, date: due });
+  }
+
   dateDue() {
     return this.dater?.due;
   }
@@ -46,11 +63,11 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.recurrer = undefined;
   }
 
-  hasDates() {
+  hasDates(): this is { dater: Dater } {
     return this.dater !== undefined;
   }
 
-  hasRecurrence() {
+  hasRecurrence(): this is { recurrer: Recurrer } {
     return this.recurrer !== undefined;
   }
 
@@ -62,6 +79,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.dater = data.dater;
     this.recurrer = data.recurrer;
     this.tagger = data.tagger;
+  }
+
+  progress() {
+    return this.progressor.progress;
   }
 
   recurrenceReference() {
@@ -90,6 +111,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     });
   }
 
+  uncompleted() {
+    return this.progressor.uncompleted();
+  }
+
   updateDateDue(options: UpdateDateOptions) {
     if (!this.dater) {
       const { allDay, date: due } = options;
@@ -106,6 +131,23 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     } else {
       this.dater.updateStart(options);
     }
+  }
+
+  updateProgress(progress: Progress) {
+    const canRecur = this.hasDates() && this.hasRecurrence();
+
+    const isCurrentUncompleted = this.uncompleted();
+    const isNextCompleted = Progressor.completed(progress);
+    const willComplete = isCurrentUncompleted && isNextCompleted;
+
+    const willRecur = canRecur && willComplete;
+    if (willRecur) {
+      this.cycleRecurrence();
+      this.progressor.reset();
+      return;
+    }
+
+    this.progressor.set(progress);
   }
 
   updateRecurrenceReference(reference: RecurrenceReferenceValue) {

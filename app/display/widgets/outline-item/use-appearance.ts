@@ -40,13 +40,13 @@ export function useAppearance(item: OutlineItemData) {
     if (node instanceof TodoArtifact) {
       const todoIcon = !node.isLoaded()
         ? "bx-task"
-        : node.progressor.completed()
+        : node.completed()
           ? "bx-checkbox-checked"
-          : node.progressor.progress === "doing"
+          : node.progress() === "doing"
             ? "bx-checkbox-minus"
             : "bx-checkbox";
 
-      const style = node.progressor.completed() ? { textDecoration: "line-through" } : {};
+      const style = node.completed() ? { textDecoration: "line-through" } : {};
       return {
         icon: `${baseNodeIcon} ${todoIcon}`,
         label: node.name,

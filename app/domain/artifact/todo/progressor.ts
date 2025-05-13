@@ -10,37 +10,35 @@ export class Progressor {
     this.progress = progress;
   }
 
+  static completed(progressOrProgressor: Progress | Progressor) {
+    const progress = progressOrProgressor instanceof Progressor ? progressOrProgressor.progress : progressOrProgressor;
+    return progress === "done" || progress === "skipped";
+  }
+
   static isProgress(value: unknown): value is Progress {
     if (typeof value !== "string") return false;
     return progresses.includes(value as Progress);
   }
 
+  static uncompleted(progressOrProgressor: Progress | Progressor) {
+    const progress = progressOrProgressor instanceof Progressor ? progressOrProgressor.progress : progressOrProgressor;
+    return progress === "open" || progress === "doing";
+  }
+
   completed() {
-    return this.progress === "done" || this.progress === "skipped";
+    return Progressor.completed(this);
   }
 
-  done() {
-    this.set("done");
-  }
-
-  open() {
-    this.set("open");
+  reset() {
+    this.progress = defaultProgress;
   }
 
   set(progress: Progress) {
     this.progress = progress;
   }
 
-  skip() {
-    this.set("skipped");
-  }
-
-  start() {
-    this.set("doing");
-  }
-
   uncompleted() {
-    return this.progress === "open" || this.progress === "doing";
+    return Progressor.uncompleted(this);
   }
 
 }

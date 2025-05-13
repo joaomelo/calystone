@@ -21,14 +21,14 @@ const options: { label: string; value: Progress }[] = [
 
 async function handleUpdatedProgress(progress?: string) {
   if (!Progressor.isProgress(progress)) return;
-  artifact.progressor.set(progress);
+  artifact.updateProgress(progress);
   await services.exchangeArtifact.postFrom(artifact);
 }
 </script>
 <template>
   <InputSelectButton
     data-test="input-progress"
-    :model-value="artifact.progressor.progress"
+    :model-value="artifact.progress()"
     default-value="open"
     :options="options"
     :label="t('editor-todo.progress.progress')"
