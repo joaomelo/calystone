@@ -12,7 +12,6 @@ export function convert(options: { expanded: TreeExpandedKeys; node: Node }): Tr
   const label = node.name;
 
   const visibleChildrenNodes = solveChildren({ expanded, node });
-  console.log({ visibleChildrenNodes });
   const visibleChildren = visibleChildrenNodes.map((child) => convert({ expanded, node: child }));
 
   const leaf = isImpossibleToHaveChildren(node);

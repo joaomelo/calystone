@@ -7,7 +7,7 @@ import { OutlineItem } from "@/display/widgets/outline-item";
 import { isId } from "@/domain";
 import { isObjectLike, ScrollPanel } from "@/utils";
 import PrimeVueTree from "primevue/tree";
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 
 import { convert } from "./convert";
 
@@ -26,10 +26,6 @@ const tree = computed(() =>
     .filter(n => n.isRoot())
     .map((root) => convert({ expanded: expandedKeys.value, node: root }))
 );
-
-watch(expandedKeys, (keys) => {
-  console.log("expandedKeys", keys);
-});
 
 function handleNodeExpand(node: TreeNode) {
   const id = resolveKey(node);
