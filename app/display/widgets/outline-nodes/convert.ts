@@ -1,23 +1,39 @@
 import type { OutlineItemData } from "@/display/widgets/outline-item";
 import type { Node } from "@/domain";
+import type { TreeExpandedKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 
 import { Artifact, Directory } from "@/domain";
 
-export function convert(node: Node): TreeNode {
+export function convert(options: { expanded: TreeExpandedKeys; node: Node }): TreeNode {
+  const { expanded, node } = options;
+
   const key = node.id;
   const label = node.name;
-  const children = solveChildren(node).map(convert);
-  const leaf = node instanceof Artifact || (node.isLoaded() && children.length === 0);
+
+  const visibleChildrenNodes = solveChildren({ expanded, node });
+  console.log({ visibleChildrenNodes });
+  const visibleChildren = visibleChildrenNodes.map((child) => convert({ expanded, node: child }));
+
+  const leaf = isImpossibleToHaveChildren(node);
+
   const data: OutlineItemData = {
     key,
     type: "node"
   };
 
-  return { children, data: data as unknown, key, label, leaf };
+  return { children: visibleChildren, data: data as unknown, key, label, leaf };
 }
 
-function solveChildren(node: Node): Node[] {
+function isImpossibleToHaveChildren(node: Node): boolean {
+  if (!(node instanceof Directory)) return true;
+  if (!node.isLoaded()) return false;
+  return node.children().length === 0;
+}
+
+function solveChildren(options: { expanded: TreeExpandedKeys; node: Node }): Node[] {
+  const { expanded, node } = options;
+  if (!expanded[node.id]) return [];
   if (!(node instanceof Directory)) return [];
 
   const children = node.children();

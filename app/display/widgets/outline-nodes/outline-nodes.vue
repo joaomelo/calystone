@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { Id, Nodes } from "@/domain";
+import type { TreeExpandedKeys } from "primevue/tree";
 import type { TreeNode } from "primevue/treenode";
 
 import { OutlineItem } from "@/display/widgets/outline-item";
 import { isId } from "@/domain";
 import { isObjectLike, ScrollPanel } from "@/utils";
 import PrimeVueTree from "primevue/tree";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 import { convert } from "./convert";
 
@@ -18,10 +19,17 @@ const emit = defineEmits<{
   selected: [id: Id | undefined];
 }>();
 
-const tree = computed(() => nodes.list().filter(n => n.isRoot()).map(convert));
+const selectedKey = ref(); // this is nedeed so the prime vue component can visualy show the selected node
+const expandedKeys = ref<TreeExpandedKeys>({});
+const tree = computed(() =>
+  nodes.list()
+    .filter(n => n.isRoot())
+    .map((root) => convert({ expanded: expandedKeys.value, node: root }))
+);
 
-// this is nedeed so the prime vue component can visualy show the selected node
-const selectedKey = ref();
+watch(expandedKeys, (keys) => {
+  console.log("expandedKeys", keys);
+});
 
 function handleNodeExpand(node: TreeNode) {
   const id = resolveKey(node);
@@ -49,6 +57,7 @@ function resolveKey(node?: TreeNode) {
 <template>
   <ScrollPanel>
     <PrimeVueTree
+      v-model:expanded-keys="expandedKeys"
       v-model:selection-keys="selectedKey"
       selection-mode="single"
       data-test="nodes-outline-tree"
