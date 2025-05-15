@@ -41,4 +41,16 @@ describe("create-and-edit-todo", () => {
     editorTodo.tags.chips().should("not.contain", "tag1");
   });
 
+  it("set recurrence that cycle dates when todo is completed", () => {
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodes.artifactTodoOf(outlineNodes.rootNode()).eq(0).click();
+
+    editorTodo.dates.tab().click();
+    editorTodo.dates.inputStart().type("2025-01-01");
+    editorTodo.dates.inputReference.due().click();
+    editorTodo.main.progress.done().click();
+
+    editorTodo.dates.inputStart().should("have.value", "2025-01-02");
+  });
+
 });
