@@ -37,16 +37,17 @@ function handleClick() {
 </template>
 
 <style scoped>
+.side-item {
+  padding: var(--size-1);
+  border-radius: var(--radius-2);
+}
+
 .side-item:not(.disabled):not(.active) {
   cursor: pointer;
-
-  &:hover {
-    color: var(--p-primary-400);
-  }
 }
 
 .side-item.active {
-  color: var(--p-primary-500);
+  background-color: var(--p-surface-100);
 }
 
 .side-item-icon {

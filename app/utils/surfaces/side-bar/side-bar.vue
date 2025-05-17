@@ -25,8 +25,8 @@ provideProvider({
 .side-bar {
   border-right: var(--border-size-1) solid var(--p-surface-100);
 
-  padding-block: var(--size-4);
-  padding-inline: var(--size-3);
+  padding-block: var(--size-1);
+  padding-inline: var(--size-2);
 
   display: flex;
   flex-direction: column;
@@ -36,6 +36,6 @@ provideProvider({
 .side-bar-items {
   display: flex;
   flex-direction: column;
-  gap: var(--size-5);
+  gap: var(--size-2);
 }
 </style>
