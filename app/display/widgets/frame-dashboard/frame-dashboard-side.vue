@@ -21,12 +21,8 @@ const active: ComputedRef<string> = computed(() => {
   return "outline";
 });
 
-function handleClickOutline() {
-  void router.push({ name: "outline" });
-}
-
-function handleClickTags() {
-  void router.push({ name: "tags" });
+function handleClickPage(name: string) {
+  void router.push({ name });
 }
 
 function handleExit() {
@@ -45,17 +41,24 @@ function handleReload() {
     <template #default>
       <SideItem
         id="outline"
-        :title="t('outline')"
+        :title="t('common.outline')"
         :icon="`${baseIcon} bx-list-ul`"
         data-test="sidebar-outline"
-        @click="handleClickOutline"
+        @click="handleClickPage('outline')"
       />
       <SideItem
         id="tags"
         :title="t('common.tags')"
         :icon="`${baseIcon} bxs-purchase-tag-alt`"
         data-test="sidebar-tags"
-        @click="handleClickTags"
+        @click="handleClickPage('tags')"
+      />
+      <SideItem
+        id="search"
+        :title="t('common.search')"
+        :icon="`${baseIcon} bx-search-alt`"
+        data-test="sidebar-search"
+        @click="handleClickPage('search')"
       />
     </template>
     <template #bottom>

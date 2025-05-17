@@ -6,7 +6,9 @@
   "cancelled": "cancelado",
   "common": {
     "tags": "rótulos",
-    "disabled": "desabilitado"
+    "disabled": "desabilitado",
+    "outline": "hierarquia",
+    "search": "busca"
   },
   "complete": "concluir",
   "completed": "concluído",
@@ -79,7 +81,6 @@
   "notes": "notas",
   "open-directory": "abrir diretório",
   "or": "ou",
-  "outline": "hierarquia",
   "page-open": {
     "actions": {
       "dropbox": "Dropbox",

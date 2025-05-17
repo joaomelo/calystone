@@ -6,7 +6,9 @@
   "cancelled": "cancelled",
   "common": {
     "tags": "tags",
-    "disabled": "disabled"
+    "disabled": "disabled",
+    "outline": "outline",
+    "search": "search"
   },
   "complete": "complete",
   "completed": "completed",
@@ -79,7 +81,6 @@
   "notes": "notes",
   "open-directory": "open directory",
   "or": "or",
-  "outline": "outline",
   "page-open": {
     "actions": {
       "dropbox": "Dropbox",
