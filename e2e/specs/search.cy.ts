@@ -7,7 +7,7 @@ describe("editor-directory", () => {
 
   it("fuzzy searches considering name and inner data of nodes", () => {
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.rootNode().click();
+    outlineNodes.rootNodeContent().click();
 
     const directoryName = "téste";
     toolbarNode.buttonCreateDirectory().click();
@@ -29,7 +29,7 @@ describe("editor-directory", () => {
     outlineNodes.nodeLabeledAs(textName).click();
     editorText.type("meu teste de texto");
 
-    outlineNodes.rootNode().click();
+    outlineNodes.rootNodeContent().click();
 
     const todoName = "file.todo";
     toolbarNode.buttonCreateArtifact().click();

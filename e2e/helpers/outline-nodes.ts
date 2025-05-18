@@ -16,6 +16,7 @@ export const outlineNodes = {
     return cy.get(`.p-tree-node[aria-label='${label}']`);
   },
   outline: () => cy.get(dataTest("nodes-outline-tree")),
-  rootNode: () => cy.get(".p-tree-root-children > .p-tree-node > .p-tree-node-content").first(),
+  rootNode: () => cy.get(".p-tree-root-children > .p-tree-node"),
+  rootNodeContent: () => cy.get(".p-tree-root-children > .p-tree-node > .p-tree-node-content").first(),
   toogleOf: (node: Cypress.Chainable) => node.find(".p-tree-node-toggle-button")
 } as const;
