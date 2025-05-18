@@ -9,7 +9,7 @@ export class ExchangeArtifactService {
   async fetchInto(artifact: Artifact) {
     if (artifact.isLoaded()) return;
 
-    const { fileSystemAdapter } = this.inject();
+    const fileSystemAdapter = this.inject();
 
     artifact.busy();
     try {
@@ -25,17 +25,16 @@ export class ExchangeArtifactService {
   }
 
   async postFrom(artifact: Artifact) {
-    const { fileSystemAdapter } = this.inject();
+    const fileSystemAdapter = this.inject();
     await fileSystemAdapter.postContent(artifact);
   }
 
-  provide(options: { fileSystemAdapter: FileSystemAdapter }) {
-    const { fileSystemAdapter } = options;
+  provide(fileSystemAdapter: FileSystemAdapter) {
     this.fileSystemAdapter = fileSystemAdapter;
   }
 
   private inject() {
     if (!this.fileSystemAdapter) throwError("FILE_SYSTEM_ADAPTER_NOT_PROVIDED");
-    return { fileSystemAdapter: this.fileSystemAdapter };
+    return this.fileSystemAdapter;
   }
 }
