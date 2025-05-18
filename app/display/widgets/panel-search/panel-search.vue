@@ -30,15 +30,18 @@ function handleSelect(node: Node) {
       <div>
         <InputText
           autofocus
-          data-test="input-name"
+          data-test="input-search"
           @update:model-value="handleSearch"
         />
       </div>
-      <ul class="panel-search__items">
+      <ul
+        class="panel-search__results"
+        data-test="search-results"
+      >
         <li
           v-for="node in searchedNodes"
           :key="node.id"
-          class="panel-search__item"
+          class="panel-search__result-item"
           :class="{ 'selected': selectedNode?.isEqualTo(node) }"
           @click="handleSelect(node)"
         >
@@ -56,13 +59,13 @@ function handleSelect(node: Node) {
   gap: var(--size-3);
 }
 
-.panel-search__items {
+.panel-search__results {
   display: flex;
   flex-direction: column;
   gap: var(--size-1);
 }
 
-.panel-search__item {
+.panel-search__result-item {
   padding: var(--size-1);
   border-radius: var(--radius-2);
   cursor: pointer;

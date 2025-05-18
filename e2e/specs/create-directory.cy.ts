@@ -1,16 +1,9 @@
-import { dataTest, outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { dialogCreateDirectory, outlineNodes, pageOpen, toolbarNode } from "../helpers";
 
 describe("create-directory", () => {
   beforeEach(() => {
     pageOpen.macros.openMemory();
   });
-
-  const dialogCreateDirectory = {
-    buttonSave: () => cy.get(dataTest("button-save")),
-    inputError: () => cy.get(dataTest("input-name-error")),
-    inputName: () => cy.get(dataTest("input-name-input")),
-    modalError: () => cy.get(dataTest("modal-create-directory-error")),
-  } as const;
 
   it("creates directory inside another directory", () => {
     outlineNodes.rootNode().click();

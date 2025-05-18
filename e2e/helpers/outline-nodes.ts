@@ -10,12 +10,12 @@ export const outlineNodes = {
   directoryOf: (node: Cypress.Chainable) => outlineNodes.childrenOf(node).filter(":not(.p-tree-node-leaf)"),
   inlineNodeOf: (nodeWrapper: Cypress.Chainable) =>
     nodeWrapper.find(dataTestType("outline-item")),
-  labelOf: (node: Cypress.Chainable) => node.find(".p-tree-node-label").invoke("text"),
+  labelOf: (node: Cypress.Chainable) => node.find(".p-tree-node-label").first().invoke("text"),
   labelOfElement: (el: HTMLElement) => Cypress.$(el).find(".p-tree-node-label").text(),
   nodeLabeledAs: (label: string) => {
     return cy.get(`.p-tree-node[aria-label='${label}']`);
   },
   outline: () => cy.get(dataTest("nodes-outline-tree")),
-  rootNode: () => cy.get(".p-tree-root-children > .p-tree-node").first(),
+  rootNode: () => cy.get(".p-tree-root-children > .p-tree-node > .p-tree-node-content").first(),
   toogleOf: (node: Cypress.Chainable) => node.find(".p-tree-node-toggle-button")
 } as const;
