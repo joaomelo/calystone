@@ -5,30 +5,28 @@ import type { EnsureDescriptorService } from "@/services/ensure-descriptor";
 import { createNode, Directory } from "@/domain";
 import { throwError } from "@/utils";
 
-import type { OpenDirectoryService } from "./open";
-
-export class ConnectedOpenDirectoryService implements OpenDirectoryService {
+export class OpenDirectoryService {
   private readonly ensureDescriptor: EnsureDescriptorService;
-  private readonly fileSystemAdapter: FileSystemAdapter;
+  private fileSystemAdapter?: FileSystemAdapter;
   private readonly nodes: Nodes;
 
   constructor(options: {
     ensureDescriptor: EnsureDescriptorService,
-    fileSystemAdapter: FileSystemAdapter,
     nodes: Nodes
   }) {
-    const { ensureDescriptor, fileSystemAdapter, nodes } = options;
+    const { ensureDescriptor, nodes } = options;
     this.ensureDescriptor = ensureDescriptor;
-    this.fileSystemAdapter = fileSystemAdapter;
     this.nodes = nodes;
   }
 
   async open(directory: Directory) {
     if (directory.isLoaded()) return;
 
+    const fileSystemAdapter = this.inject();
+
     directory.busy();
     try {
-      const nodesData = await this.fileSystemAdapter.open(directory);
+      const nodesData = await fileSystemAdapter.open(directory);
       for (const data of nodesData) {
         const node = createNode({ nodes: this.nodes, ...data });
         this.nodes.set(node);
@@ -51,5 +49,14 @@ export class ConnectedOpenDirectoryService implements OpenDirectoryService {
 
       await this.open(node);
     }
+  }
+
+  provide(fileSystemAdapter: FileSystemAdapter) {
+    this.fileSystemAdapter = fileSystemAdapter;
+  }
+
+  private inject() {
+    if (!this.fileSystemAdapter) throwError("FILE_SYSTEM_ADAPTER_NOT_PROVIDED");
+    return this.fileSystemAdapter;
   }
 }

@@ -1,3 +1,1 @@
-export * from "./connected";
-export * from "./ensure";
-export * from "./null";
+export * from "./ensure-descriptor";

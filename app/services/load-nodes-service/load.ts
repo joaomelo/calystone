@@ -11,12 +11,16 @@ import { Queue } from "./queue";
 export class LoadNodesService {
   private clearId?: number;
   private exchangeArtifact?: ExchangeArtifactService;
-  private nodes?: Nodes;
+  private nodes: Nodes;
   private readonly nodesToLoad: Queue = new Queue();
   private readonly observable = new LoadNodesObservable();
   private readonly oneMegabyte = 1024 * 1024;
   private openDirectory?: OpenDirectoryService;
   private readonly scheduleInterval = 1500;
+
+  constructor(nodes: Nodes) {
+    this.nodes = nodes;
+  }
 
   pause(): void {
     clearTimeout(this.clearId);
@@ -25,9 +29,8 @@ export class LoadNodesService {
     this.observable.next({ status: "idle" });
   }
 
-  provide(options: { exchangeArtifact: ExchangeArtifactService; nodes: Nodes, openDirectory: OpenDirectoryService }): void {
-    const { exchangeArtifact, nodes, openDirectory } = options;
-    this.nodes = nodes;
+  provide(options: { exchangeArtifact: ExchangeArtifactService; openDirectory: OpenDirectoryService }): void {
+    const { exchangeArtifact, openDirectory } = options;
     this.exchangeArtifact = exchangeArtifact;
     this.openDirectory = openDirectory;
   }
@@ -40,7 +43,6 @@ export class LoadNodesService {
   stop(): void {
     clearTimeout(this.clearId);
 
-    this.nodes = undefined;
     this.exchangeArtifact = undefined;
     this.openDirectory = undefined;
 
@@ -74,7 +76,6 @@ export class LoadNodesService {
   }
 
   private inject(): { exchangeArtifact: ExchangeArtifactService; nodes: Nodes; openDirectory: OpenDirectoryService; } {
-    if (!this.nodes) throwCritical("NO_NODES");
     if (!this.exchangeArtifact) throwCritical("NO_EXCHANGE_ARTIFACT");
     if (!this.openDirectory) throwCritical("NO_OPEN_DIRECTORY");
     return { exchangeArtifact: this.exchangeArtifact, nodes: this.nodes, openDirectory: this.openDirectory };

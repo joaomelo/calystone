@@ -21,7 +21,7 @@ async function remove() {
   if (!modalRemove.value) return false;
 
   if (await modalRemove.value.confirm()) {
-    await dispatchOrToast(() => services.nodeRemove.remove(node));
+    await dispatchOrToast(() => services.removeNode.remove(node));
     return true;
   }
 

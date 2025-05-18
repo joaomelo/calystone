@@ -3,9 +3,7 @@ import type { ExchangeArtifactService } from "@/services/exchange-artifact-servi
 
 import { Status } from "@/utils";
 
-import type { EnsureDescriptorService } from "./ensure";
-
-export class ConnectedEnsureDescriptorService implements EnsureDescriptorService {
+export class EnsureDescriptorService {
   private readonly exchangeArtifact: ExchangeArtifactService;
 
   constructor(exchangeArtifact: ExchangeArtifactService) {

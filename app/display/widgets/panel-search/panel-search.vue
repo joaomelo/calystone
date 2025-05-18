@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import type { Node } from "@/domain";
 
+import { Store } from "@/display/store";
 import { debounce, InputText, ScrollPanel } from "@/utils";
 import { ref } from "vue";
+
+const { services } = Store.use();
 
 const results = ref<Node[]>([]);
 
 const handleSearch = debounce((text?: string) => {
-  console.log(text);
+  results.value = text ? services.searchNodes.search(text) : [];
 });
 </script>
 <template>

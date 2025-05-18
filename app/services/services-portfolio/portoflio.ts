@@ -1,24 +1,19 @@
 import type { AccessAdaptersFactory, AvailabilityFacade, ExportAdapter, ShareAdapter } from "@/infra";
 import type { ObserverOptions } from "@/services/connect-source-service";
-import type { EnsureDescriptorService } from "@/services/ensure-descriptor";
-import type { NodeMoveService } from "@/services/node-move-service";
-import type { NodeRemoveService } from "@/services/node-remove-service";
-import type { NodeRenameService } from "@/services/node-rename-service";
-import type { OpenDirectoryService } from "@/services/open-directory-service";
 
 import { Nodes } from "@/domain";
 import { AvailSourceService } from "@/services/avail-source-service";
 import { ConnectSourceService } from "@/services/connect-source-service";
 import { CreateArtifactService } from "@/services/create-artifact-service";
 import { CreateDirectoryService } from "@/services/create-directory-service";
-import { ConnectedEnsureDescriptorService, NullEnsureDescriptorService } from "@/services/ensure-descriptor";
+import { EnsureDescriptorService } from "@/services/ensure-descriptor";
 import { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import { ExportNodeService } from "@/services/export-node-service";
 import { LoadNodesService } from "@/services/load-nodes-service";
-import { ConnectedNodeMoveService, NullNodeMoveService } from "@/services/node-move-service";
-import { ConnectedNodeRemoveService, NullNodeRemoveService } from "@/services/node-remove-service";
-import { ConnectedNodeRenameService, NullNodeRenameService } from "@/services/node-rename-service";
-import { ConnectedOpenDirectoryService, NullOpenDirectoryService } from "@/services/open-directory-service";
+import { MoveNodeService } from "@/services/move-node-service";
+import { OpenDirectoryService } from "@/services/open-directory-service";
+import { RemoveNodeService } from "@/services/remove-node-service";
+import { RenameNodeService } from "@/services/rename-node-service";
 import { ShareNodeService } from "@/services/share-node-service";
 
 import type { Options } from "./options";
@@ -39,11 +34,11 @@ export class ServicesPortolfio {
   exportAdapter: ExportAdapter;
   exportNode: ExportNodeService;
   loadNodes: LoadNodesService;
-  nodeMove: NodeMoveService;
-  nodeRemove: NodeRemoveService;
-  nodeRename: NodeRenameService;
+  moveNode: MoveNodeService;
   nodes: Nodes;
   openDirectory: OpenDirectoryService;
+  removeNode: RemoveNodeService;
+  renameNode: RenameNodeService;
   searchNodes: SearchNodesService;
   shareAdapter: ShareAdapter;
   shareNode: ShareNodeService;
@@ -60,15 +55,15 @@ export class ServicesPortolfio {
     this.connectSource = new ConnectSourceService({ accessAdaptersFactory: this.accessAdaptersFactory, nodes: this.nodes });
     this.shareNode = new ShareNodeService(this.shareAdapter);
     this.exportNode = new ExportNodeService(this.exportAdapter);
-    this.loadNodes = new LoadNodesService();
+    this.loadNodes = new LoadNodesService(this.nodes);
     this.computeTags = new ComputeTagsService(this.nodes);
     this.searchNodes = new SearchNodesService(this.nodes);
-    this.openDirectory = new NullOpenDirectoryService();
-    this.ensureDescriptor = new NullEnsureDescriptorService();
     this.exchangeArtifact = new ExchangeArtifactService();
-    this.nodeRename = new NullNodeRenameService();
-    this.nodeRemove = new NullNodeRemoveService();
-    this.nodeMove = new NullNodeMoveService();
+    this.ensureDescriptor = new EnsureDescriptorService(this.exchangeArtifact);
+    this.openDirectory = new OpenDirectoryService({ ensureDescriptor: this.ensureDescriptor, nodes: this.nodes });
+    this.renameNode = new RenameNodeService(this.nodes);
+    this.removeNode = new RemoveNodeService(this.nodes);
+    this.moveNode = new MoveNodeService();
     this.createDirectory = new CreateDirectoryService({ nodes: this.nodes, openDirectory: this.openDirectory });
     this.createArtifact = new CreateArtifactService({ exchangeArtifact: this.exchangeArtifact, nodes: this.nodes, openDirectory: this.openDirectory });
 
@@ -77,35 +72,19 @@ export class ServicesPortolfio {
 
   rotateServices(options: ObserverOptions) {
     if (options.status === "disconnected" ) {
-      this.openDirectory = new NullOpenDirectoryService();
-      this.nodeRename = new NullNodeRenameService();
-      this.nodeRemove = new NullNodeRemoveService();
-      this.nodeMove = new NullNodeMoveService();
-      this.ensureDescriptor = new NullEnsureDescriptorService();
-
       this.loadNodes.stop();
       return;
     }
 
-    const { fileSystemAdapter, nodes } = options;
+    const { fileSystemAdapter } = options;
 
-    this.ensureDescriptor = new ConnectedEnsureDescriptorService(this.exchangeArtifact);
-    this.openDirectory = new ConnectedOpenDirectoryService({
-      ensureDescriptor: this.ensureDescriptor,
-      fileSystemAdapter,
-      nodes
-    });
-    this.nodeRename = new ConnectedNodeRenameService({ fileSystemAdapter, nodes });
-    this.nodeRemove = new ConnectedNodeRemoveService({ fileSystemAdapter, nodes });
-    this.nodeMove = new ConnectedNodeMoveService(fileSystemAdapter);
-
+    this.renameNode.provide(fileSystemAdapter);
+    this.removeNode.provide(fileSystemAdapter);
+    this.moveNode.provide(fileSystemAdapter);
+    this.openDirectory.provide(fileSystemAdapter);
     this.createDirectory.provide(fileSystemAdapter);
     this.createArtifact.provide(fileSystemAdapter);
     this.exchangeArtifact.provide(fileSystemAdapter);
-    this.loadNodes.provide({
-      exchangeArtifact: this.exchangeArtifact,
-      nodes,
-      openDirectory: this.openDirectory
-    });
+    this.loadNodes.provide({ exchangeArtifact: this.exchangeArtifact, openDirectory: this.openDirectory });
   };
 }

@@ -25,7 +25,7 @@ function useDranAndDropNode(id: string) {
 
   const node = nodes.getOrThrow(id);
 
-  const moveable = computed(() => services.nodeMove.moveable(node));
+  const moveable = computed(() => services.moveNode.moveable(node));
   const dragFormat = "application/outline-item";
 
   async function handleDragdrop(event: DragEvent) {
@@ -41,7 +41,7 @@ function useDranAndDropNode(id: string) {
       const moveable = subject.moveable(node);
       moveable.throwOnFail();
 
-      await services.nodeMove.move({ subject, target: node });
+      await services.moveNode.move({ subject, target: node });
     });
   };
 

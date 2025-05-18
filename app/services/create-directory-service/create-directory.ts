@@ -4,9 +4,9 @@ import type { FileSystemAdapter } from "@/infra";
 import { createNode } from "@/domain";
 import { throwError } from "@/utils";
 
-import type { OpenDirectoryService } from "../open-directory-service/open";
+import type { OpenDirectoryService } from "../open-directory-service";
 
-export class CreateDirectoryService implements CreateDirectoryService {
+export class CreateDirectoryService {
   private fileSystemAdapter?: FileSystemAdapter;
   private readonly nodes: Nodes;
   private readonly openDirectory: OpenDirectoryService;

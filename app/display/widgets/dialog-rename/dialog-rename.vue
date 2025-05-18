@@ -28,7 +28,7 @@ function open() {
 }
 
 async function save() {
-  const success = await dispatch(() => services.nodeRename.rename({ name: data.name, node: node }));
+  const success = await dispatch(() => services.renameNode.rename({ name: data.name, node: node }));
   if (!success) return;
   modal.value?.close();
 }

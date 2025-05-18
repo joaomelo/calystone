@@ -17,7 +17,7 @@ const { services } = Store.use();
 const { t } = useI18n();
 const dialogRemove = useTemplateRef<{ remove: () => Promise<boolean> }>("dialogRemove");
 
-const removeable = computed(() => services.nodeRemove.removeable(node));
+const removeable = computed(() => services.removeNode.removeable(node));
 
 async function handleClick() {
   if (!dialogRemove.value) return;

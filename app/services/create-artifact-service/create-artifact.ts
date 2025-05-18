@@ -5,9 +5,9 @@ import { createNode } from "@/domain";
 import { throwError } from "@/utils";
 
 import type { ExchangeArtifactService } from "../exchange-artifact-service";
-import type { OpenDirectoryService } from "../open-directory-service/open";
+import type { OpenDirectoryService } from "../open-directory-service";
 
-export class CreateArtifactService implements CreateArtifactService {
+export class CreateArtifactService {
   private readonly exchangeArtifact: ExchangeArtifactService;
   private fileSystemAdapter?: FileSystemAdapter;
   private readonly nodes: Nodes;
