@@ -14,12 +14,12 @@ const { locale, t } = useI18n();
 const handleUpdateUrgency = debounce(async (urgency?: number) => {
   artifact.prioritizer.urgency = urgency ?? 0;
   await services.exchangeArtifact.postFrom(artifact);
-}, 200);
+});
 
 const handleUpdateImportance = debounce(async (importance?: number) => {
   artifact.prioritizer.importance = importance ?? 0;
   await services.exchangeArtifact.postFrom(artifact);
-}, 200);
+});
 </script>
 <template>
   <div class="control-priority">

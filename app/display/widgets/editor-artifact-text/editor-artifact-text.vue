@@ -23,7 +23,7 @@ onMounted(async () => {
 const handleUpdate = debounce(async (text: string) => {
   artifact.fromString(text);
   await services.exchangeArtifact.postFrom(artifact);
-}, 1000);
+});
 </script>
 <template>
   <EditorNodeWorkspace

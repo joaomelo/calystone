@@ -13,7 +13,7 @@ const { services } = Store.use();
 const handleUpdatedetails = debounce(async (text: string) => {
   artifact.details = text;
   await services.exchangeArtifact.postFrom(artifact);
-}, 1000);
+});
 </script>
 <template>
   <InputRichText
