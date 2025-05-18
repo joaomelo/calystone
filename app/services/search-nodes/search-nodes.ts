@@ -1,4 +1,4 @@
-import type { Node, Nodes } from "@/domain";
+import type { Nodes } from "@/domain";
 
 import { TodoArtifact } from "@/domain";
 import Fuse from "fuse.js";
@@ -32,7 +32,7 @@ export class SearchNodesService {
     this.nodes = nodes;
   }
 
-  search(text: string): Node[] {
+  search(text: string) {
     if (!text.trim()) return [];
     const fuse = new Fuse(this.nodes.list(), this.fuseOptions);
     const results = fuse.search(text, { limit: 100 });
