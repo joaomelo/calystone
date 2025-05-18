@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { debounce, InputText, ScrollPanel } from "@/utils";
+import type { Node } from "@/domain";
 
-const handleUpdate = debounce(async (text: string) => {
-  artifact.fromString(text);
-  await services.exchangeArtifact.postFrom(artifact);
-}, 1000);
+import { debounce, InputText, ScrollPanel } from "@/utils";
+import { ref } from "vue";
+
+const results = ref<Node[]>([]);
+
+const handleSearch = debounce((text?: string) => {
+  console.log(text);
+});
 </script>
 <template>
   <ScrollPanel>
@@ -13,9 +17,17 @@ const handleUpdate = debounce(async (text: string) => {
         <InputText
           autofocus
           data-test="input-name"
+          @update:model-value="handleSearch"
         />
       </div>
-      <div>results</div>
+      <div>
+        <div
+          v-for="result in results"
+          :key="result.id"
+        >
+          {{ result.name }}
+        </div>
+      </div>
     </div>
   </ScrollPanel>
 </template>
