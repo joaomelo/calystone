@@ -2,16 +2,27 @@
 import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
+import { OutlineItem } from "@/display/widgets/outline-item";
 import { debounce, InputText, ScrollPanel } from "@/utils";
 import { ref } from "vue";
 
+const emit = defineEmits<{
+  "selected": [id: Node | undefined]
+}>();
+
 const { services } = Store.use();
 
-const results = ref<Node[]>([]);
+const searchedNodes = ref<Node[]>([]);
+const selectedNode = ref<Node | undefined>(undefined);
 
 const handleSearch = debounce((text?: string) => {
-  results.value = text ? services.searchNodes.search(text) : [];
+  searchedNodes.value = text ? services.searchNodes.search(text) : [];
 });
+
+function handleSelect(node: Node) {
+  selectedNode.value = selectedNode.value?.isEqualTo(node) ? undefined : node;
+  emit("selected", selectedNode.value);
+}
 </script>
 <template>
   <ScrollPanel>
@@ -23,14 +34,17 @@ const handleSearch = debounce((text?: string) => {
           @update:model-value="handleSearch"
         />
       </div>
-      <div>
-        <div
-          v-for="result in results"
-          :key="result.id"
+      <ul class="panel-search__items">
+        <li
+          v-for="node in searchedNodes"
+          :key="node.id"
+          class="panel-search__item"
+          :class="{ 'selected': selectedNode?.isEqualTo(node) }"
+          @click="handleSelect(node)"
         >
-          {{ result.name }}
-        </div>
-      </div>
+          <OutlineItem :item="{ key: node.id, type: 'node' }" />
+        </li>
+      </ul>
     </div>
   </ScrollPanel>
 </template>
@@ -40,5 +54,26 @@ const handleSearch = debounce((text?: string) => {
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
+}
+
+.panel-search__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+}
+
+.panel-search__item {
+  padding: var(--size-1);
+  border-radius: var(--radius-2);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--p-content-hover-background);
+  }
+
+  &.selected {
+    background-color: var(--p-highlight-background);
+    color: var(--p-highlight-color);
+  }
 }
 </style>
