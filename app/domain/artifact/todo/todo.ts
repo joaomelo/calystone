@@ -100,6 +100,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     return this.recurrer.unit.value;
   }
 
+  tags() {
+    return this.tagger.list();
+  }
+
   toBinary(): ArrayBuffer {
     return this.parser.convertDataToBinary({
       dater: this.dater,

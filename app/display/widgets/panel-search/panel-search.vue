@@ -16,7 +16,7 @@ const searchedNodes = ref<Node[]>([]);
 const selectedNode = ref<Node | undefined>(undefined);
 
 const handleSearch = debounce((text?: string) => {
-  searchedNodes.value = text ? services.searchNodes.search({ text }) : [];
+  searchedNodes.value = text ? services.searchNodes.search(text) : [];
 });
 
 function handleSelect(node: Node) {
