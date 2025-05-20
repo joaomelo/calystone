@@ -6,4 +6,5 @@ export * from "./frame-text";
 export * from "./outline-item";
 export * from "./outline-nodes";
 export * from "./outline-tags";
+export * from "./panel-calendar";
 export * from "./panel-search";

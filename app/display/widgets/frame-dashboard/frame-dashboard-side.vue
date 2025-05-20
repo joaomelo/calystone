@@ -54,6 +54,13 @@ function handleReload() {
         @click="handleClickPage('tags')"
       />
       <SideItem
+        id="calendar"
+        :title="t('common.calendar')"
+        :icon="`${baseIcon} bxs-calendar`"
+        data-test="sidebar-calendar"
+        @click="handleClickPage('calendar')"
+      />
+      <SideItem
         id="search"
         :title="t('common.search')"
         :icon="`${baseIcon} bx-search-alt`"

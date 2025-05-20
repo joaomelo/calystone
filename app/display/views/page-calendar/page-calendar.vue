@@ -3,7 +3,7 @@ import type { OutlineItemData } from "@/display/widgets";
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorSwitcher, FrameDashboard, OutlineTags } from "@/display/widgets";
+import { EditorSwitcher, FrameDashboard, PanelCalendar } from "@/display/widgets";
 import { MasterDetail } from "@/utils";
 import { ref } from "vue";
 
@@ -46,10 +46,10 @@ function solveNode(id: Id) {
   <FrameDashboard>
     <MasterDetail
       v-model="showDetail"
-      class="page-tags"
+      class="page-calendar"
     >
       <template #master>
-        <OutlineTags @selected="handleSelected" />
+        <PanelCalendar @selected="handleSelected" />
       </template>
       <template #detail>
         <EditorSwitcher
@@ -61,7 +61,7 @@ function solveNode(id: Id) {
   </FrameDashboard>
 </template>
 <style scoped>
-.page-tags {
+.page-calendar {
   height: 100%;
 }
 </style>

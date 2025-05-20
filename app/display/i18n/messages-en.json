@@ -8,7 +8,8 @@
     "tags": "tags",
     "disabled": "disabled",
     "outline": "outline",
-    "search": "search"
+    "search": "search",
+    "calendar": "calendar"
   },
   "complete": "complete",
   "completed": "completed",
