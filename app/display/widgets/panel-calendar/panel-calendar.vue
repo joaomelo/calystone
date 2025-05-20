@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { ScrollPanel } from "@/utils";
+import { MonthViewer } from "@/utils";
 
 defineEmits<{
   "selected": [id: Node | undefined]
 }>();
 </script>
 <template>
-  <ScrollPanel>
-    <div class="panel-calendar">
-      under development
-    </div>
-  </ScrollPanel>
+  <div class="panel-calendar">
+    <MonthViewer />
+    <div>day schedule</div>
+  </div>
 </template>
 <style scoped>
 .panel-calendar {
