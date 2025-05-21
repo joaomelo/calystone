@@ -7,13 +7,15 @@ defineEmits<{
 </script>
 <template>
   <div class="panel-calendar">
-    <MonthViewer />
+    <MonthViewer
+      borderless
+      :highlights="[new Date()]"
+    />
     <div>day schedule</div>
   </div>
 </template>
 <style scoped>
 .panel-calendar {
-  padding: var(--size-3);
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
