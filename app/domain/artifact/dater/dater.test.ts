@@ -43,4 +43,60 @@ describe("dater", () => {
     expect(dater.due.getMinutes()).toBe(59);
   });
 
+  describe("spansOn", () => {
+    const beginOfToday = new Date();
+    beginOfToday.setHours(0, 0, 0, 0);
+    const endOfToday = new Date();
+    endOfToday.setHours(23, 59, 59, 999);
+
+    const beginOfYesterday = new Date(beginOfToday);
+    beginOfYesterday.setDate(beginOfToday.getDate() - 1);
+
+    const beginOfTomorrow = new Date(beginOfToday);
+    beginOfTomorrow.setDate(beginOfTomorrow.getDate() + 1);
+    const endOfTomorrow = new Date(endOfToday);
+    endOfTomorrow.setDate(endOfTomorrow.getDate() + 1);
+
+    const periodStart = new Date(beginOfToday);
+    const periodEnd = new Date(endOfToday);
+    const period = { end: periodEnd, start: periodStart };
+
+    it("negates if the dater starts and ends before a period", () => {
+      const dater = new Dater({ allDay: true, due: beginOfYesterday });
+      expect(dater.spansOn(period)).toBe(false);
+    });
+
+    it("confirms if the dater ends inside a period", () => {
+      const start = new Date(beginOfYesterday);
+      const due = new Date(endOfToday);
+      due.setHours(14);
+      const dater = new Dater({ allDay: false, due, start });
+      expect(dater.spansOn(period)).toBe(true);
+    });
+
+    it("confirms if the dater starts and ends inside a period", () => {
+      const start = new Date(beginOfToday);
+      start.setHours(10);
+      const due = new Date(start);
+      due.setHours(11);
+      const dater = new Dater({ allDay: false, due, start });
+      expect(dater.spansOn(period)).toBe(true);
+    });
+
+    it("confirms if the dater starts inside a period", () => {
+      const start = new Date(beginOfToday);
+      start.setHours(10);
+      const due = new Date(endOfTomorrow);
+      const dater = new Dater({ allDay: false, due, start });
+      expect(dater.spansOn(period)).toBe(true);
+    });
+
+    it("negates if the dater starts and ends after a period", () => {
+      const start = new Date(beginOfTomorrow);
+      const due = new Date(endOfTomorrow);
+      const dater = new Dater({ allDay: false, due, start });
+      expect(dater.spansOn(period)).toBe(false);
+    });
+  });
+
 });
