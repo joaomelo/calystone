@@ -25,7 +25,7 @@ export class TrackTodosService {
       const options = { end: currentDateEnd, start: currentDateStart };
 
       const hasTodoOnDate = uncompletedDatedTodos.some(todo => todo.spansOn(options));
-      if (hasTodoOnDate) datesWithTodos.push(currentDateStart);
+      if (hasTodoOnDate) datesWithTodos.push(new Date(currentDateStart));
 
       currentDateStart.setDate(currentDateStart.getDate() + 1);
     } while (currentDateStart <= end);
