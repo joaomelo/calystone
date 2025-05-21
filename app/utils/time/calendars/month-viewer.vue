@@ -1,10 +1,27 @@
 <script setup lang="ts">
-import DatePicker, { type DatePickerDateSlotOptions } from "primevue/datepicker";
+import type { DatePickerDateSlotOptions, DatePickerMonthChangeEvent } from "primevue/datepicker";
+
+import DatePicker from "primevue/datepicker";
 
 const { borderless = false, highlights = [] } = defineProps<{
   borderless?: boolean,
   highlights?: Date[]
 }>();
+const emit = defineEmits<{
+  "update:selected": [date: Date]
+  "update:viewed": [data: DatePickerMonthChangeEvent]
+}>();
+
+function handleUpdateSelected(selected: unknown) {
+  const normalizedSelected = selected instanceof Date ? selected : new Date();
+  emit("update:selected", normalizedSelected);
+}
+
+function handleUpdateViewed(data: DatePickerMonthChangeEvent) {
+  const { month, year } = data;
+  const monthIndex = month - 1;
+  emit("update:viewed", { month: monthIndex, year });
+}
 
 function shouldHighlight(viewerDate: DatePickerDateSlotOptions): boolean {
   return highlights.some(highlightedDate => {
@@ -26,6 +43,8 @@ function shouldHighlight(viewerDate: DatePickerDateSlotOptions): boolean {
     fluid
     :class="{ borderless }"
     class="month-viewer"
+    @month-change="handleUpdateViewed"
+    @update:model-value="handleUpdateSelected"
   >
     <template #date="{ date }">
       <div class="month-viewer__date">

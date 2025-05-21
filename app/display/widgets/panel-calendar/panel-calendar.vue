@@ -4,12 +4,26 @@ import { MonthViewer } from "@/utils";
 defineEmits<{
   "selected": [id: Node | undefined]
 }>();
+
+const today = new Date();
+const yesterday = new Date();
+yesterday.setDate(today.getDate() - 1);
+
+function handleUpdateSelected(date: Date) {
+  console.log({ date });
+}
+
+function handleUpdateViewed(data: { month: number, year: number }) {
+  console.log({ data });
+}
 </script>
 <template>
   <div class="panel-calendar">
     <MonthViewer
       borderless
-      :highlights="[new Date()]"
+      :highlights="[today, yesterday]"
+      @update:selected="handleUpdateSelected"
+      @update:viewed="handleUpdateViewed"
     />
     <div>day schedule</div>
   </div>
