@@ -100,6 +100,11 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     return this.recurrer.unit.value;
   }
 
+  spansOn(options: { end: Date; start: Date }): boolean {
+    if (!this.hasDates()) return false;
+    return this.dater.spansOn(options);
+  }
+
   tags() {
     return this.tagger.list();
   }

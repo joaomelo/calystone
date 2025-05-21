@@ -14,6 +14,10 @@ export class Dater {
     this.update({ allDay, due, start });
   }
 
+  spansOn(options: { end: Date; start: Date }) {
+    return this.start <= options.end && this.due >= options.start;
+  }
+
   stringify() {
     return {
       due: this.due.toISOString(),

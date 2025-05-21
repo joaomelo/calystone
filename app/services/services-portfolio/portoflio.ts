@@ -3,10 +3,11 @@ import type { ObserverOptions } from "@/services/connect-source-service";
 
 import { Nodes } from "@/domain";
 import { AvailSourceService } from "@/services/avail-source-service";
+import { ComputeTagsService } from "@/services/compute-tags-service";
 import { ConnectSourceService } from "@/services/connect-source-service";
 import { CreateArtifactService } from "@/services/create-artifact-service";
 import { CreateDirectoryService } from "@/services/create-directory-service";
-import { EnsureDescriptorService } from "@/services/ensure-descriptor";
+import { EnsureDescriptorService } from "@/services/ensure-descriptor-service";
 import { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import { ExportNodeService } from "@/services/export-node-service";
 import { LoadNodesService } from "@/services/load-nodes-service";
@@ -14,12 +15,11 @@ import { MoveNodeService } from "@/services/move-node-service";
 import { OpenDirectoryService } from "@/services/open-directory-service";
 import { RemoveNodeService } from "@/services/remove-node-service";
 import { RenameNodeService } from "@/services/rename-node-service";
+import { SearchNodesService } from "@/services/search-nodes-service";
 import { ShareNodeService } from "@/services/share-node-service";
+import { TrackTodosService } from "@/services/track-todos-service";
 
 import type { Options } from "./options";
-
-import { ComputeTagsService } from "../compute-tags-service";
-import { SearchNodesService } from "../search-nodes";
 
 export class ServicesPortolfio {
   accessAdaptersFactory: AccessAdaptersFactory;
@@ -42,6 +42,7 @@ export class ServicesPortolfio {
   searchNodes: SearchNodesService;
   shareAdapter: ShareAdapter;
   shareNode: ShareNodeService;
+  trackTodos: TrackTodosService;
 
   constructor(options: Options) {
     this.accessAdaptersFactory = options.accessAdaptersFactory;
@@ -66,6 +67,7 @@ export class ServicesPortolfio {
     this.moveNode = new MoveNodeService();
     this.createDirectory = new CreateDirectoryService({ nodes: this.nodes, openDirectory: this.openDirectory });
     this.createArtifact = new CreateArtifactService({ exchangeArtifact: this.exchangeArtifact, nodes: this.nodes, openDirectory: this.openDirectory });
+    this.trackTodos = new TrackTodosService(this.nodes);
 
     this.connectSource.subscribe((options) => { this.rotateServices(options); });
   }
