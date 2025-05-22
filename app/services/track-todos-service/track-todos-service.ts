@@ -10,7 +10,7 @@ export class TrackTodosService {
     this.nodes = nodes;
   }
 
-  computeDatesWithTodos(options: { end: Date; start: Date }): Date[] {
+  datesWithTodosWithin(options: { end: Date; start: Date }): Date[] {
     const { end, start } = options;
     if (start > end) throwError("START_DATE_IS_AFTER_END_DATE");
 
@@ -31,6 +31,17 @@ export class TrackTodosService {
     } while (currentDateStart <= end);
 
     return datesWithTodos;
+  }
+
+  todosWithin(options: { end: Date; start: Date, }) {
+    const { end, start } = options;
+    if (start > end) throwError("START_DATE_IS_AFTER_END_DATE");
+    return [
+      { end: new Date, start: new Date(), text: "Ordered" },
+      { end: new Date, start: new Date(), text: "Processing" },
+      { end: new Date, start: new Date(), text: "Shipped" },
+      { end: new Date, start: new Date(), text: "Delivered" }
+    ];
   }
 
   private selectUncompletedDatedTodos() {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
-import { MonthViewer } from "@/utils";
+import { MonthViewer, TimelineViewer } from "@/utils";
 import { computed, ref } from "vue";
 
 interface Month { month: number, year: number }
@@ -12,7 +12,7 @@ defineEmits<{
 const { services } = Store.use();
 
 const today = new Date();
-const selected = ref<Date>(today);
+const timelineTodos = ref<{ end: Date, start: Date, text: string }[]>([]);
 const viewed = ref<Month>({ month: today.getMonth(), year: today.getFullYear() });
 
 const highlights = computed(() => {
@@ -20,13 +20,16 @@ const highlights = computed(() => {
 
   const start = new Date(year, month, 1, 0, 0, 0, 0);
   const end = new Date(year, month + 1, 0, 23, 59, 59, 999);
-  const datesWithTodos = services.trackTodos.computeDatesWithTodos({ end, start });
-  console.log({ datesWithTodos });
+  const datesWithTodos = services.trackTodos.datesWithTodosWithin({ end, start });
   return datesWithTodos;
 });
 
 function handleUpdateSelected(date: Date) {
-  selected.value = date;
+  const start = new Date(date);
+  start.setHours(0, 0, 0, 0);
+  const end = new Date(date);
+  end.setHours(23, 59, 59, 999);
+  timelineTodos.value = services.trackTodos.todosWithin({ end, start });
 }
 
 function handleUpdateViewed(data: Month) {
@@ -41,7 +44,7 @@ function handleUpdateViewed(data: Month) {
       @update:selected="handleUpdateSelected"
       @update:viewed="handleUpdateViewed"
     />
-    <div>day schedule</div>
+    <TimelineViewer :events="timelineTodos" />
   </div>
 </template>
 <style scoped>
