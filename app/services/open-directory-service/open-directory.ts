@@ -1,6 +1,6 @@
 import type { Nodes } from "@/domain";
 import type { FileSystemAdapter } from "@/infra";
-import type { EnsureDescriptorService } from "@/services/ensure-descriptor";
+import type { EnsureDescriptorService } from "@/services/ensure-descriptor-service";
 
 import { createNode, Directory } from "@/domain";
 import { throwError } from "@/utils";
