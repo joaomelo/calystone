@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
-import { MonthViewer, TimelineViewer } from "@/utils";
+import { MonthViewer } from "@/utils";
 import { computed, ref } from "vue";
+
+import TimelineViewer from "./timeline-viewer.vue";
 
 interface Month { month: number, year: number }
 
-defineEmits<{
+const emit = defineEmits<{
   "selected": [id: Node | undefined]
 }>();
 
 const { services } = Store.use();
 
 const today = new Date();
-const timelineTodos = ref<{ end: Date, start: Date, text: string }[]>([]);
-const viewed = ref<Month>({ month: today.getMonth(), year: today.getFullYear() });
+const selectedDate = ref<Date>(today);
+const viewedMonth = ref<Month>({ month: today.getMonth(), year: today.getFullYear() });
 
-const highlights = computed(() => {
-  const { month, year } = viewed.value;
+const highlightedDays = computed(() => {
+  const { month, year } = viewedMonth.value;
 
   const start = new Date(year, month, 1, 0, 0, 0, 0);
   const end = new Date(year, month + 1, 0, 23, 59, 59, 999);
@@ -24,33 +26,35 @@ const highlights = computed(() => {
   return datesWithTodos;
 });
 
-function handleUpdateSelected(date: Date) {
-  const start = new Date(date);
-  start.setHours(0, 0, 0, 0);
-  const end = new Date(date);
-  end.setHours(23, 59, 59, 999);
-  timelineTodos.value = services.trackTodos.todosWithin({ end, start });
+function handleUpdateDateSelected(date: Date) {
+  selectedDate.value = date;
 }
 
-function handleUpdateViewed(data: Month) {
-  viewed.value = data;
+function handleUpdateMonthViewed(data: Month) {
+  viewedMonth.value = data;
+}
+
+function handleUpdateTodoSelected(id?: Node) {
+  emit("selected", id);
 }
 </script>
 <template>
   <div class="panel-calendar">
     <MonthViewer
       borderless
-      :highlights="highlights"
-      @update:selected="handleUpdateSelected"
-      @update:viewed="handleUpdateViewed"
+      :highlights="highlightedDays"
+      @update:selected="handleUpdateDateSelected"
+      @update:viewed="handleUpdateMonthViewed"
     />
-    <TimelineViewer :events="timelineTodos" />
+    <TimelineViewer
+      :date="selectedDate"
+      @update:selected="handleUpdateTodoSelected"
+    />
   </div>
 </template>
 <style scoped>
 .panel-calendar {
   display: flex;
   flex-direction: column;
-  gap: var(--size-3);
 }
 </style>

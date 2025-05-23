@@ -11,10 +11,14 @@ export class TrackTodosService {
   }
 
   datesWithTodosWithin(options: { end: Date; start: Date }): Date[] {
+    this.throwIfDatesAreInvalid(options);
     const { end, start } = options;
-    if (start > end) throwError("START_DATE_IS_AFTER_END_DATE");
 
-    const uncompletedDatedTodos = this.selectUncompletedDatedTodos();
+    const loadedTodos = this.selectLoadedTodos();
+    const uncompletedDatedTodos = loadedTodos.filter(todo =>
+      todo.uncompleted()
+      && todo.hasDates()
+    );
 
     const datesWithTodos: Date[] = [];
     const currentDateStart = new Date(start);
@@ -34,27 +38,26 @@ export class TrackTodosService {
   }
 
   todosWithin(options: { end: Date; start: Date, }) {
-    const { end, start } = options;
-    if (start > end) throwError("START_DATE_IS_AFTER_END_DATE");
-    return [
-      { end: new Date, start: new Date(), text: "Ordered" },
-      { end: new Date, start: new Date(), text: "Processing" },
-      { end: new Date, start: new Date(), text: "Shipped" },
-      { end: new Date, start: new Date(), text: "Delivered" }
-    ];
+    this.throwIfDatesAreInvalid(options);
+    const loadedTodos = this.selectLoadedTodos();
+    const todosWithin = loadedTodos.filter(todo => todo.spansOn(options));
+    return todosWithin;
   }
 
-  private selectUncompletedDatedTodos() {
-    const uncompletedDatedTodos: TodoArtifact[] = [];
+  private selectLoadedTodos() {
+    const loadedTodos: TodoArtifact[] = [];
     const nodes = this.nodes.list();
     for (const node of nodes) {
       if (!(node instanceof TodoArtifact)) continue;
       if (!node.isLoaded()) continue;
-      if (node.completed()) continue;
-      if (!node.hasDates()) continue;
-      uncompletedDatedTodos.push(node);
+      loadedTodos.push(node);
     }
-    return uncompletedDatedTodos;
+    return loadedTodos;
+  }
+
+  private throwIfDatesAreInvalid(options: { end: Date; start: Date }) {
+    const { end, start } = options;
+    if (start > end) throwError("START_DATE_IS_AFTER_END_DATE");
   }
 
 }
