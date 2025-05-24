@@ -57,7 +57,7 @@
     }
   },
   "email": "email",
-  "empty": "When you select an node on the outline, its details will show here.",
+  "empty": "When you select an node, its details will show here.",
   "errors": {
     "EMPTY_NAME": "name cannot be empty",
     "UNABLE_FETCH_CONTENT": "Unable to fetch content from file",

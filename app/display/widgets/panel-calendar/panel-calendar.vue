@@ -8,7 +8,7 @@ import TimelineViewer from "./timeline-viewer.vue";
 interface Month { month: number, year: number }
 
 const emit = defineEmits<{
-  "selected": [id: Node | undefined]
+  "selected": [id?: string]
 }>();
 
 const { services } = Store.use();
@@ -34,7 +34,7 @@ function handleUpdateMonthViewed(data: Month) {
   viewedMonth.value = data;
 }
 
-function handleUpdateTodoSelected(id?: Node) {
+function handleUpdateTodoSelected(id?: string) {
   emit("selected", id);
 }
 </script>
@@ -48,7 +48,7 @@ function handleUpdateTodoSelected(id?: Node) {
     />
     <TimelineViewer
       :date="selectedDate"
-      @update:selected="handleUpdateTodoSelected"
+      @selected="handleUpdateTodoSelected"
     />
   </div>
 </template>

@@ -2,15 +2,17 @@
 import { Store } from "@/display/store";
 import { formatDateTime, throwCritical } from "@/utils";
 import { computed } from "vue";
+import { ref } from "vue";
 
 const { date } = defineProps<{
   date: Date
 }>();
-defineEmits<{
-  "selected": [id: string | undefined]
+const emit = defineEmits<{
+  "selected": [id?: string]
 }>();
 
 const { services } = Store.use();
+const selected = ref<string | undefined>(undefined);
 
 const items = computed(() => {
   const start = new Date(date);
@@ -35,6 +37,12 @@ const items = computed(() => {
 
   return items.sort((a, b) => a.start.localeCompare(b.start));
 });
+
+function handleClick(id: string) {
+  const newSelected = selected.value === id ? undefined : id;
+  selected.value = newSelected;
+  emit("selected", newSelected);
+}
 </script>
 <template>
   <div class="timeline-viewer">
@@ -42,7 +50,8 @@ const items = computed(() => {
       v-for="item in items"
       :key="item.id"
       class="timeline-viewer__item"
-      @click="$emit('selected', item.id)"
+      :class="{ selected: selected === item.id }"
+      @click="handleClick(item.id)"
     >
       <div class="timeline-viewer__item-meta">
         {{ item.start }} - {{ item.end }} ({{ item.progress }})
@@ -71,9 +80,15 @@ const items = computed(() => {
   background-color: var(--p-surface-50);
   border-radius: var(--radius-2);
   padding: var(--size-2);
+  cursor: pointer;
 
   &:hover {
     background-color: var(--p-surface-100);
+  }
+
+  &.selected {
+    background-color: var(--p-highlight-background);
+    color: var(--p-highlight-color);
   }
 }
 

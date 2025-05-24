@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { OutlineItemData } from "@/display/widgets";
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -16,19 +15,13 @@ function handleClose() {
   resetState();
 }
 
-function handleSelected(data?: OutlineItemData) {
-  if (!data) {
+function handleSelected(id?: string) {
+  if (!id) {
     resetState();
     return;
   }
 
-  const { key, type } = data;
-  if (type === "tag") {
-    resetState();
-    return;
-  }
-
-  selectedNode.value = solveNode(key);
+  selectedNode.value = solveNode(id);
   showDetail.value = Boolean(selectedNode.value);
 }
 
