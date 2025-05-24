@@ -25,10 +25,12 @@ const items = computed(() => {
     if (!dateStart || !dateDue) throwCritical("TODO_MUST_HAVE_DATES");
 
     const id = todo.id;
-    const text = todo.basename();
+    const name = todo.basename();
     const start = formatDateTime(dateStart);
     const end = formatDateTime(dateDue);
-    return { end, id, start, text };
+    const progress = todo.progress();
+    const completed = todo.completed();
+    return { completed, end, id, name, progress, start };
   });
 
   return items.sort((a, b) => a.start.localeCompare(b.start));
@@ -42,11 +44,14 @@ const items = computed(() => {
       class="timeline-viewer__item"
       @click="$emit('selected', item.id)"
     >
-      <div class="timeline-viewer__item-dates">
-        {{ item.start }} - {{ item.end }}
+      <div class="timeline-viewer__item-meta">
+        {{ item.start }} - {{ item.end }} ({{ item.progress }})
       </div>
-      <p class="timeline-viewer__item-text">
-        {{ item.text }}
+      <p
+        class="timeline-viewer__item-name"
+        :class="{ completed: item.completed }"
+      >
+        {{ item.name }}
       </p>
     </div>
   </div>
@@ -72,11 +77,15 @@ const items = computed(() => {
   }
 }
 
-.timeline-viewer__item-dates {
+.timeline-viewer__item-meta {
   font-size: var(--font-size-0);
 }
 
-.timeline-viewer__item-text {
+.timeline-viewer__item-name {
   font-weight: var(--font-weight-6);
+
+  &.completed {
+    text-decoration: line-through;
+  }
 }
 </style>
