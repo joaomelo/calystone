@@ -47,7 +47,10 @@ function shouldHighlight(viewerDate: DatePickerDateSlotOptions): boolean {
     @update:model-value="handleUpdateSelected"
   >
     <template #date="{ date }">
-      <div class="month-viewer__date">
+      <div
+        class="month-viewer__date"
+        :data-test-highlighted="shouldHighlight(date)"
+      >
         <span
           v-if="shouldHighlight(date)"
           class="month-viewer__date__highlight"
