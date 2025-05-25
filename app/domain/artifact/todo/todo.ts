@@ -30,6 +30,11 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     }
   }
 
+  allDay() {
+    if (!this.hasDates()) return false;
+    return this.dater.allDay();
+  }
+
   clearDates() {
     this.dater = undefined;
     this.recurrer = undefined;

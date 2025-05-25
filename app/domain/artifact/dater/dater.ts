@@ -1,17 +1,28 @@
+import type { DateRange } from "@/utils";
+
+import { isAllDay, isDateRange, throwError } from "@/utils";
+
 export interface DaterOptions { due?: Date; start?: Date, allDay?: boolean }
 export interface UpdateDateOptions { allDay?: boolean; date: Date }
 export interface UpdateDatesOptions { allDay?: boolean; start: Date; due: Date }
 
-export class Dater {
+export class Dater implements DateRange {
   due: Date = new Date();
   start: Date = new Date();
 
   constructor(options: DaterOptions = {}) {
     const { allDay = false } = options;
+
     const now = new Date();
     const start = options.start ?? options.due ?? now;
     const due = options.due ?? options.start ?? now;
     this.update({ allDay, due, start });
+
+    if (!isDateRange(this)) throwError("INVALID_DATE_RANGE");
+  }
+
+  allDay() {
+    return isAllDay(this);
   }
 
   spansOn(options: { end: Date; start: Date }) {

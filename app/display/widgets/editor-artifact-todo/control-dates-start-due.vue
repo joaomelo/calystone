@@ -12,7 +12,7 @@ const { artifact } = defineProps<{
 const { services } = Store.use();
 const { t } = useI18n();
 
-const allDay = ref(true);
+const allDay = ref(artifact.allDay());
 
 async function handleUpdateDueDate(date: Date | null | undefined) {
   if (date) {
