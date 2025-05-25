@@ -1,4 +1,4 @@
-import { dialogCreateArtifact, editorTodo, outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { dialogCreateArtifact, editorTodo, outlineNodes, pageOpen, toolbarNode, typeableDate, typicalDates } from "../helpers";
 
 describe("create-and-edit-todo", () => {
   beforeEach(() => {
@@ -19,8 +19,9 @@ describe("create-and-edit-todo", () => {
       .click();
 
     editorTodo.dates.tab().click();
-    editorTodo.dates.inputStart().type("2025-01-01");
-    editorTodo.dates.inputDue().should("have.value", "2025-01-01");
+    editorTodo.dates.inputAllDay().click();
+    editorTodo.dates.inputStart.typeDate(typicalDates.today.start);
+    editorTodo.dates.inputDue.input().should("have.value", typeableDate(typicalDates.today.end));
   });
 
   it("adds and removes tags", () => {
@@ -46,11 +47,12 @@ describe("create-and-edit-todo", () => {
     outlineNodes.artifactTodoOf(outlineNodes.rootNode()).eq(0).click();
 
     editorTodo.dates.tab().click();
-    editorTodo.dates.inputStart().type("2025-01-01");
+    editorTodo.dates.inputAllDay().click();
+    editorTodo.dates.inputStart.typeDate(typicalDates.today.start);
     editorTodo.dates.inputReference.due().click();
     editorTodo.main.progress.done().click();
 
-    editorTodo.dates.inputStart().should("have.value", "2025-01-02");
+    editorTodo.dates.inputStart.input().should("have.value", typeableDate(typicalDates.tomorrow.start));
   });
 
 });

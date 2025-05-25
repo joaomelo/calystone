@@ -25,3 +25,24 @@ export function typeableDateTime(date: Date) {
   const minutes = String(date.getMinutes()).padStart(2, "0");
   return `${datePart} ${hours}:${minutes}`;
 }
+
+const today = {
+  end: endOfDay(new Date()),
+  start: startOfDay(new Date()),
+} as const;
+
+const tomorrow = {
+  end: addDays(today.end, 1),
+  start: addDays(today.start, 1),
+} as const;
+
+const yesterday = {
+  end: addDays(today.end, -1),
+  start: addDays(today.start, - 1),
+} as const;
+
+export const typicalDates = {
+  today,
+  tomorrow,
+  yesterday,
+} as const;

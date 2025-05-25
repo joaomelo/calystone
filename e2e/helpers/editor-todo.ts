@@ -3,6 +3,7 @@ import { typeableDate, typeableDateTime } from "./dates";
 
 const inputStartInput = () => cy.get(dataTest("input-start")).find("input");
 const inputDueInput = () => cy.get(dataTest("input-due")).find("input");
+
 export const editorTodo = {
   dates: {
     inputAllDay: () => cy.get(dataTest("input-all-day")).find("input"),
