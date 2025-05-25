@@ -1,4 +1,6 @@
+export * from "./artifacts";
 export * from "./data-test";
+export * from "./dates";
 export * from "./dialog-create-artifact";
 export * from "./dialog-create-directory";
 export * from "./docs";
@@ -9,6 +11,7 @@ export * from "./editor-text";
 export * from "./editor-todo";
 export * from "./outline-nodes";
 export * from "./outline-tags";
+export * from "./page-calendar";
 export * from "./page-open";
 export * from "./page-outline";
 export * from "./page-search";

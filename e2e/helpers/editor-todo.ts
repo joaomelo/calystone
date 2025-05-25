@@ -2,6 +2,7 @@ import { dataTest } from "./data-test";
 
 export const editorTodo = {
   dates: {
+    inputAllDay: () => cy.get(dataTest("input-all-day")).find("input"),
     inputDue: () => cy.get(dataTest("input-due")).find("input"),
     inputReference: {
       completion: () => cy.get("[data-test='input-reference-input'] button").eq(1),
