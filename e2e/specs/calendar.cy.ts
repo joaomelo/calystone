@@ -1,4 +1,4 @@
-import { addDays, createArtifact, editorTodo, endOfDay, outlineNodes, pageCalendar, pageOpen, startOfDay, typeableDateTime } from "../helpers";
+import { addDays, createArtifact, editorTodo, endOfDay, outlineNodes, pageCalendar, pageOpen, startOfDay } from "../helpers";
 
 describe("calendar", () => {
   const today = {
@@ -27,16 +27,16 @@ describe("calendar", () => {
     outlineNodes.nodeLabeledAs(openTodoName).click();
     editorTodo.dates.tab().click();
 
-    editorTodo.dates.inputStart().invoke("val", typeableDateTime(yesterday.start)).trigger("input");
-    editorTodo.dates.inputDue().invoke("val", typeableDateTime(today.end)).trigger("input");
+    editorTodo.dates.inputStart.typeDateTime(yesterday.start);
+    editorTodo.dates.inputDue.typeDateTime(today.end);
 
     outlineNodes.rootNodeContent().click();
     const doneTodoName = "done-todo.todo";
     createArtifact(doneTodoName);
     outlineNodes.nodeLabeledAs(doneTodoName).click();
     editorTodo.dates.tab().click();
-    editorTodo.dates.inputStart().invoke("val", typeableDateTime(today.start)).trigger("input");
-    editorTodo.dates.inputDue().invoke("val", typeableDateTime(tomorrow.end)).trigger("input");
+    editorTodo.dates.inputStart.typeDateTime(today.start);
+    editorTodo.dates.inputDue.typeDateTime(tomorrow.end);
     editorTodo.main.progress.done().click();
 
     pageCalendar.calendar().click();

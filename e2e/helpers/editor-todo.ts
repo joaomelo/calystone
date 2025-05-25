@@ -1,15 +1,42 @@
 import { dataTest } from "./data-test";
+import { typeableDate, typeableDateTime } from "./dates";
 
+const inputStartInput = () => cy.get(dataTest("input-start")).find("input");
+const inputDueInput = () => cy.get(dataTest("input-due")).find("input");
 export const editorTodo = {
   dates: {
     inputAllDay: () => cy.get(dataTest("input-all-day")).find("input"),
-    inputDue: () => cy.get(dataTest("input-due")).find("input"),
+    inputDue: {
+      input: inputDueInput,
+      typeDate(date: Date) {
+        inputDueInput()
+          .invoke("val", typeableDate(date))
+          .trigger("input");
+      },
+      typeDateTime(date: Date) {
+        inputDueInput()
+          .invoke("val", typeableDateTime(date))
+          .trigger("input");
+      },
+    },
     inputReference: {
       completion: () => cy.get("[data-test='input-reference-input'] button").eq(1),
       disabled: () => cy.get("[data-test='input-reference-input'] button").eq(0),
       due: () => cy.get("[data-test='input-reference-input'] button").eq(2),
     },
-    inputStart: () => cy.get(dataTest("input-start")).find("input"),
+    inputStart: {
+      input: inputStartInput,
+      typeDate(date: Date) {
+        inputStartInput()
+          .invoke("val", typeableDate(date))
+          .trigger("input");
+      },
+      typeDateTime(date: Date) {
+        inputStartInput()
+          .invoke("val", typeableDateTime(date))
+          .trigger("input");
+      },
+    },
     tab: () => cy.get(dataTest("accordion-panels-panel-dates")),
   },
   main: {
