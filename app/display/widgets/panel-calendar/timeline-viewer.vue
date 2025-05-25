@@ -45,15 +45,16 @@ function handleClick(id: string) {
 }
 </script>
 <template>
-  <div class="timeline-viewer">
-    <div
+  <ul class="timeline-viewer">
+    <li
       v-for="item in items"
       :key="item.id"
       class="timeline-viewer__item"
+      data-test="timeline-viewer__item"
       :class="{ selected: selected === item.id }"
       @click="handleClick(item.id)"
     >
-      <div class="timeline-viewer__item-meta">
+      <div class="timeline-viewer__item-header">
         {{ item.start }} - {{ item.end }} ({{ item.progress }})
       </div>
       <p
@@ -62,8 +63,8 @@ function handleClick(id: string) {
       >
         {{ item.name }}
       </p>
-    </div>
-  </div>
+    </li>
+  </ul>
 </template>
 <style scoped>
 .timeline-viewer {
@@ -92,7 +93,7 @@ function handleClick(id: string) {
   }
 }
 
-.timeline-viewer__item-meta {
+.timeline-viewer__item-header {
   font-size: var(--font-size-0);
 }
 
