@@ -45,6 +45,7 @@ async function handleRemoveTag(tag: string) {
         data-test="input-tag"
         class="section-tags__input"
         :suggestions="suggestions"
+        @keydown.enter="handleAddTag"
         @option-select="handleOptionSelect"
       />
       <ButtonBase
