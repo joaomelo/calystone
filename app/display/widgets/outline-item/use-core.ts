@@ -4,7 +4,7 @@ import { computed } from "vue";
 
 import type { OutlineItemData } from "./outline-item-data";
 
-export function useAppearance(item: OutlineItemData) {
+export function useCore(item: OutlineItemData) {
   const { nodes } = Store.use();
 
   const baseIcon = "bx bx-sm";

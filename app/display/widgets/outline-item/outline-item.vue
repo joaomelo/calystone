@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { OutlineItemData } from "./outline-item-data";
 
-import { useAppearance } from "./use-appearance";
+import CoreBase from "./core-base.vue";
+import { useCore } from "./use-core";
 import { useDragAndDrop } from "./use-drag-and-drop";
 
 const { item } = defineProps<{
@@ -9,7 +10,7 @@ const { item } = defineProps<{
 }>();
 
 const { handleDragdrop, handleDragover, handleDragstart, moveable } = useDragAndDrop(item);
-const appearance = useAppearance(item);
+const core = useCore(item);
 
 </script>
 <template>
@@ -23,15 +24,9 @@ const appearance = useAppearance(item);
     @dragover="handleDragover"
     @dragenter="handleDragover"
   >
-    <i :class="appearance.icon" />
-    <p :style="appearance.style">
-      {{ appearance.label }}
-    </p>
+    <CoreBase
+      :icon="core.icon"
+      :label="core.label"
+    />
   </div>
 </template>
-<style scoped>
-.outline-item {
-  display: flex;
-  gap: var(--size-1)
-}
-</style>
