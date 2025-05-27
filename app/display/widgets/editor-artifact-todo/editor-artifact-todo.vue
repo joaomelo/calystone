@@ -36,10 +36,14 @@ const panels = computed<PanelsList>(() => {
   const dateSuffix = dueDate ? `: ${formatDateTime(dueDate)}` : "";
   const datesLegend = `${t("editor-todo.dates.dates")}${dateSuffix}`;
 
+  const tagsTitle = t("common.tags");
+  const tagsList = artifact.tagger.list().join(", ");
+  const tagsLegend = `${tagsTitle}${tagsList ? `: ${tagsList}` : ""}`;
+
   return [
     ["main", artifact.basename()],
     ["dates", datesLegend],
-    ["tags", t("common.tags")],
+    ["tags", tagsLegend],
     ["priority", priorityLegend],
     ["details", t("editor-todo.details")]
   ];

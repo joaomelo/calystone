@@ -18,7 +18,7 @@ export class Tagger {
   }
 
   list(): string[] {
-    return Array.from(this.tags);
+    return Array.from(this.tags).sort();
   }
 
   remove(tag: string) {
