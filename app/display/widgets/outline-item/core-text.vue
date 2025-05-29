@@ -1,20 +1,19 @@
 <script setup lang="ts">
+import type { TextArtifact } from "@/domain";
+
 import { computed } from "vue";
 
-import type { OutlineItemData } from "./outline-item-data";
-
 import CoreBase from "./core-base.vue";
-import { useCoreNode } from "./use-core-node";
 
-const { item } = defineProps<{
-  item: OutlineItemData;
+const { text } = defineProps<{
+  text: TextArtifact;
 }>();
 
-const { baseIcon, label, node } = useCoreNode(item);
-
 const icon = computed(() => {
-  const iconGlyph = node.isLoaded() ? "bxs-file-txt" : "bx-file-blank";
-  return `${baseIcon.value} ${iconGlyph}`;
+  const iconPrefix = "bx bx-sm";
+  const loadingEffect = text.isBusy() ? "bx-flashing" : "";
+  const iconGlyph = text.isLoaded() ? "bxs-file-txt" : "bx-file-blank";
+  return `${iconPrefix} ${loadingEffect} ${iconGlyph}`;
 });
 
 </script>
@@ -22,6 +21,6 @@ const icon = computed(() => {
 <template>
   <CoreBase
     :icon="icon"
-    :label="label"
+    :label="text.name"
   />
 </template>

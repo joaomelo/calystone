@@ -1,20 +1,19 @@
 <script setup lang="ts">
+import type { BinaryArtifact } from "@/domain";
+
 import { computed } from "vue";
 
-import type { OutlineItemData } from "./outline-item-data";
-
 import CoreBase from "./core-base.vue";
-import { useCoreNode } from "./use-core-node";
 
-const { item } = defineProps<{
-  item: OutlineItemData;
+const { binary } = defineProps<{
+  binary: BinaryArtifact;
 }>();
 
-const { baseIcon, label, node } = useCoreNode(item);
-
 const icon = computed(() => {
-  const iconGlyph = node.isLoaded() ? "bxs-file" : "bx-file";
-  return `${baseIcon.value} ${iconGlyph}`;
+  const iconPrefix = "bx bx-sm";
+  const loadingEffect = binary.isBusy() ? "bx-flashing" : "";
+  const iconGlyph = binary.isLoaded() ? "bxs-file" : "bx-file";
+  return `${iconPrefix} ${loadingEffect} ${iconGlyph}`;
 });
 
 </script>
@@ -22,6 +21,6 @@ const icon = computed(() => {
 <template>
   <CoreBase
     :icon="icon"
-    :label="label"
+    :label="binary.name"
   />
 </template>

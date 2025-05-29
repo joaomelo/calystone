@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { OutlineItemData } from "./outline-item-data";
 
-import { useCoreComponent } from "./use-core-component";
+import { useCore } from "./use-core";
 import { useDragAndDrop } from "./use-drag-and-drop";
 
 const { item } = defineProps<{
@@ -9,7 +9,7 @@ const { item } = defineProps<{
 }>();
 
 const { handleDragdrop, handleDragover, handleDragstart, moveable } = useDragAndDrop(item);
-const coreComponent = useCoreComponent(item);
+const coreComponent = useCore(item);
 
 </script>
 <template>
@@ -23,9 +23,6 @@ const coreComponent = useCoreComponent(item);
     @dragover="handleDragover"
     @dragenter="handleDragover"
   >
-    <component
-      :is="coreComponent"
-      :item="item"
-    />
+    <component :is="coreComponent" />
   </div>
 </template>

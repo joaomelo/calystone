@@ -1,44 +1,38 @@
 <script setup lang="ts">
-import { TodoArtifact } from "@/domain";
-import { throwCritical } from "@/utils";
+import type { TodoArtifact } from "@/domain";
+
 import { computed } from "vue";
 
-import type { OutlineItemData } from "./outline-item-data";
-
 import CoreBase from "./core-base.vue";
-import { useCoreNode } from "./use-core-node";
 
-const { item } = defineProps<{
-  item: OutlineItemData;
+const { todo } = defineProps<{
+  todo: TodoArtifact;
 }>();
 
-const { baseIcon, label, node } = useCoreNode(item);
-
 const visuals = computed<{ icon: string; strikethrough: boolean }>(() => {
-  if (!(node instanceof TodoArtifact)) {
-    throwCritical("TODO_ARTIFACT_EXPECTED");
-  }
+  const iconPrefix = "bx bx-sm";
+  const loadingEffect = todo.isBusy() ? "bx-flashing" : "";
 
-  if (!node.isLoaded()) {
+  if (!todo.isLoaded()) {
     return {
-      icon: `${baseIcon.value} bx-task`,
+      icon: `${iconPrefix} ${loadingEffect} bx-task`,
       strikethrough: false
     };
   }
 
-  if (node.completed()) {
+  if (todo.completed()) {
     return {
-      icon: `${baseIcon.value} bx-checkbox-checked`,
+      icon: `${iconPrefix} ${loadingEffect} bx-checkbox-checked`,
       strikethrough: true
     };
   }
 
-  const iconGlyph = node.progress() === "doing"
+  const iconGlyph = todo.progress() === "doing"
     ? "bx-checkbox-minus"
     : "bx-checkbox";
 
   return {
-    icon: `${baseIcon.value} ${iconGlyph}`,
+    icon: `${iconPrefix} ${loadingEffect} ${iconGlyph}`,
     strikethrough: false
   };
 });
@@ -49,7 +43,7 @@ const visuals = computed<{ icon: string; strikethrough: boolean }>(() => {
   <CoreBase
     :class="{ 'strikethrough': visuals.strikethrough }"
     :icon="visuals.icon"
-    :label="label"
+    :label="todo.name"
   />
 </template>
 

@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import { computed } from "vue";
-
-import type { OutlineItemData } from "./outline-item-data";
+import type { Tag } from "@/domain";
 
 import CoreBase from "./core-base.vue";
 
-const { item } = defineProps<{
-  item: OutlineItemData;
+const { tag } = defineProps<{
+  tag: Tag;
 }>();
-
-const label = computed(() => item.key);
-const icon = "bx bx-sm bx-purchase-tag-alt";
 
 </script>
 
 <template>
   <CoreBase
-    :icon="icon"
-    :label="label"
+    icon="bx bx-sm bx-purchase-tag-alt"
+    :label="tag.name"
   />
 </template>
