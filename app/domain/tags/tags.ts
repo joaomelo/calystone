@@ -25,6 +25,10 @@ export class Tags {
     return allNames.filter(name => !todoNames.includes(name));
   }
 
+  get(name: string): Tag | undefined {
+    return this.hash.get(name);
+  }
+
   list(): Tag[] {
     const list = Array.from(this.hash.values());
     return list;
@@ -34,5 +38,4 @@ export class Tags {
     const names = this.list().map(tag => tag.name);
     return names;
   }
-
 }
