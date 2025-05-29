@@ -1,6 +1,7 @@
-import type { Nodes } from "@/domain";
+import type { Nodes, Tag } from "@/domain";
 
 import { Tags, TodoArtifact } from "@/domain";
+import { throwError } from "@/utils";
 
 export class ComputeTagsService {
   readonly nodes: Nodes;
@@ -18,5 +19,12 @@ export class ComputeTagsService {
       }
     }
     return tags;
+  }
+
+  getTagOrThrow(name: string): Tag {
+    const tags = this.compute();
+    const tag = tags.get(name);
+    if (!tag) throwError("TAG_NOT_FOUND");
+    return tag;
   }
 }
