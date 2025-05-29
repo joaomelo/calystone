@@ -17,6 +17,10 @@ export class Tagger {
     return this.tags.has(tag);
   }
 
+  hasTags() {
+    return this.tags.size > 0;
+  }
+
   list(): string[] {
     return Array.from(this.tags).sort();
   }

@@ -76,6 +76,14 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     return this.recurrer !== undefined;
   }
 
+  hasTags() {
+    return this.tagger.hasTags();
+  }
+
+  listTags() {
+    return this.tagger.list();
+  }
+
   performFromBinary(binary: ArrayBuffer): void {
     const data = this.parser.convertBinaryToState(binary);
     this.details = data.details;

@@ -55,6 +55,7 @@ function resolveKey(node?: TreeNode) {
     <PrimeVueTree
       v-model:expanded-keys="expandedKeys"
       v-model:selection-keys="selectedKey"
+      class="outline-nodes__tree"
       selection-mode="single"
       data-test="nodes-outline-tree"
       :value="tree"
@@ -68,3 +69,8 @@ function resolveKey(node?: TreeNode) {
     </PrimeVueTree>
   </ScrollPanel>
 </template>
+<style scoped>
+.outline-nodes__tree :deep(.p-tree-node-label) {
+  flex: 1;
+}
+</style>
