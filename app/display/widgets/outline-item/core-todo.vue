@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { TodoArtifact } from "@/domain";
 
+import { formatDateTime, throwCritical, truncate } from "@/utils";
 import { computed } from "vue";
-import { useI18n } from "vue-i18n";
 
 import CoreBase from "./core-base.vue";
 
@@ -10,49 +10,70 @@ const { todo } = defineProps<{
   todo: TodoArtifact;
 }>();
 
-const { t } = useI18n();
-
-const visuals = computed<{ icon: string; strikethrough: boolean }>(() => {
+const icon = computed(() => {
   const iconPrefix = "bx bx-sm";
   const loadingEffect = todo.isBusy() ? "bx-flashing" : "";
 
   if (!todo.isLoaded()) {
-    return {
-      icon: `${iconPrefix} ${loadingEffect} bx-task`,
-      strikethrough: false
-    };
+    return `${iconPrefix} ${loadingEffect} bx-task`;
   }
 
   if (todo.completed()) {
-    return {
-      icon: `${iconPrefix} ${loadingEffect} bx-checkbox-checked`,
-      strikethrough: true
-    };
+    return `${iconPrefix} ${loadingEffect} bx-checkbox-checked`;
   }
 
   const iconGlyph = todo.progress() === "doing"
     ? "bx-checkbox-minus"
     : "bx-checkbox";
 
-  return {
-    icon: `${iconPrefix} ${loadingEffect} ${iconGlyph}`,
-    strikethrough: false
-  };
+  return `${iconPrefix} ${loadingEffect} ${iconGlyph}`;
 });
 
+const details = computed(() => {
+  return todo.hasDetails()
+    ? truncate(todo.details, { ellipsis: "...", length: 20 })
+    : "";
+});
+
+const strikethrough = computed(() => {
+  return todo.completed();
+});
+
+const dates = computed(() => {
+  if (!todo.hasDates()) return "";
+
+  const dateStart = todo.dateStart();
+  const dateDue = todo.dateDue();
+  if (!dateStart || !dateDue) throwCritical("TODO_MUST_HAVE_DATES");
+
+  const ocurrence = `${formatDateTime(dateStart)} - ${formatDateTime(dateDue)}`;
+  const recurrence = todo.hasRecurrence() ? " ↻" : "";
+
+  return `${ocurrence}${recurrence}`;
+});
+
+const tags = computed(() => {
+  return todo.listTags().join(", ");
+});
 </script>
 
 <template>
   <CoreBase
-    :class="{ 'strikethrough': visuals.strikethrough }"
-    :icon="visuals.icon"
+    :class="{ 'strikethrough': strikethrough }"
+    :icon="icon"
     :label="todo.name"
     class="core-todo"
   >
     <template #meta>
       <div class="core-todo__meta">
-        <span v-if="todo.hasTags()">
-          {{ t("common.tags") }}: {{ todo.listTags().join(", ") }}
+        <span v-if="dates">
+          {{ dates }}
+        </span>
+        <span v-if="tags.length">
+          {{ tags }}
+        </span>
+        <span v-if="details">
+          {{ details }}
         </span>
       </div>
     </template>
@@ -65,6 +86,9 @@ const visuals = computed<{ icon: string; strikethrough: boolean }>(() => {
 }
 
 .core-todo__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
   font-size: var(--font-size-0);
 }
 </style>

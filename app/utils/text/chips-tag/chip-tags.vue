@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { kebabCase } from "@/utils/text/kebab-case";
+import { kebabCase } from "@/utils/text/transformations";
 
 import ChipTag from "./chip-tag.vue";
 

@@ -72,6 +72,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     return this.dater !== undefined;
   }
 
+  hasDetails() {
+    return this.details.length > 0;
+  }
+
   hasRecurrence(): this is { recurrer: Recurrer } {
     return this.recurrer !== undefined;
   }
