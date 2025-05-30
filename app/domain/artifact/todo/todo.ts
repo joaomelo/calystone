@@ -15,7 +15,7 @@ import { Progressor } from "./progressor";
 import { Tagger } from "./tagger";
 
 export class TodoArtifact extends Artifact implements TodoArtifactState {
-  dater? = new Dater();
+  dater?: Dater;
   details = "";
   parser = new Parser();
   prioritizer = new Prioritizer();
@@ -31,8 +31,7 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
   }
 
   allDay() {
-    if (!this.hasDates()) return false;
-    return this.dater.allDay();
+    return this.dater?.allDay() ?? false;
   }
 
   clearDates() {
