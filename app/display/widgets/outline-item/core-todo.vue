@@ -31,7 +31,7 @@ const icon = computed(() => {
 
 const details = computed(() => {
   return todo.hasDetails()
-    ? truncate(todo.details, { ellipsis: "...", length: 20 })
+    ? truncate(todo.details, { ellipsis: "...", length: 30 })
     : "";
 });
 
