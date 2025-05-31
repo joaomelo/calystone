@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import type { OutlineItemData } from "@/display/widgets";
+import type { OutlineItemData } from "@/display/views/outline-item";
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorSwitcher, FrameDashboard, OutlineTags } from "@/display/widgets";
+import { EditorSwitcher } from "@/display/views/editor-switcher";
+import { FrameDashboard } from "@/display/views/frame-dashboard";
+import { OutlineTags } from "@/display/views/outline-tags";
 import { MasterDetail } from "@/utils";
 import { ref } from "vue";
 

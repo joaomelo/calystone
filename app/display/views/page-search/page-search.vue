@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { Node } from "@/domain";
 
-import { EditorSwitcher, FrameDashboard, PanelSearch } from "@/display/widgets";
+import { EditorSwitcher } from "@/display/views/editor-switcher";
+import { FrameDashboard } from "@/display/views/frame-dashboard";
+import { PanelSearch } from "@/display/views/panel-search";
 import { MasterDetail } from "@/utils";
 import { computed, ref } from "vue";
 

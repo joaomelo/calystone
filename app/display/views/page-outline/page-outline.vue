@@ -2,7 +2,9 @@
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorSwitcher, FrameDashboard, OutlineNodes } from "@/display/widgets";
+import { EditorSwitcher } from "@/display/views/editor-switcher";
+import { FrameDashboard } from "@/display/views/frame-dashboard";
+import { OutlineNodes } from "@/display/views/outline-nodes";
 import { Directory } from "@/domain";
 import { MasterDetail, useDispatch } from "@/utils";
 import { ref } from "vue";

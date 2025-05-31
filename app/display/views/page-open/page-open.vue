@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Frameplain } from "@/display/widgets";
+import { Frameplain } from "@/display/views/frame-plain";
 import { useI18n } from "@/utils";
 
 import AppFeatures from "./app-features.vue";

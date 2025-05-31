@@ -2,7 +2,9 @@
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorSwitcher, FrameDashboard, PanelCalendar } from "@/display/widgets";
+import { EditorSwitcher } from "@/display/views/editor-switcher";
+import { FrameDashboard } from "@/display/views/frame-dashboard";
+import { PanelCalendar } from "@/display/views/panel-calendar";
 import { MasterDetail } from "@/utils";
 import { ref } from "vue";
 

@@ -2,7 +2,7 @@
 import type { Source } from "@/infra";
 
 import { Store } from "@/display/store";
-import { Frameplain } from "@/display/widgets";
+import { Frameplain } from "@/display/views/frame-plain";
 import { useI18n } from "@/utils";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
