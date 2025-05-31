@@ -41,7 +41,17 @@ const yesterday = {
   start: addDays(today.start, - 1),
 } as const;
 
+function dayOfMonth(day: number) {
+  const dayOfMonthBase = new Date(today.start.getFullYear(), today.start.getMonth(), day);
+  const dayOfMonth = {
+    end: endOfDay(dayOfMonthBase),
+    start: startOfDay(dayOfMonthBase),
+  } as const;
+  return dayOfMonth;
+}
+
 export const typicalDates = {
+  dayOfMonth,
   today,
   tomorrow,
   yesterday,

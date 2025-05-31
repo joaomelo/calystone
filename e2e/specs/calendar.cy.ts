@@ -1,6 +1,10 @@
 import { createArtifact, editorTodo, outlineNodes, pageCalendar, pageOpen, typicalDates } from "../helpers";
 
 describe("calendar", () => {
+  const dayOne = typicalDates.dayOfMonth(1);
+  const dayTwo = typicalDates.dayOfMonth(2);
+  const dayThree = typicalDates.dayOfMonth(3);
+
   beforeEach(() => {
     pageOpen.macros.openMemory();
 
@@ -12,32 +16,32 @@ describe("calendar", () => {
     outlineNodes.nodeLabeledAs(openTodoName).click();
     editorTodo.dates.tab().click();
 
-    editorTodo.dates.inputStart.typeDateTime(typicalDates.yesterday.start);
-    editorTodo.dates.inputDue.typeDateTime(typicalDates.today.end);
+    editorTodo.dates.inputStart.typeDateTime(dayOne.start);
+    editorTodo.dates.inputDue.typeDateTime(dayTwo.end);
 
     outlineNodes.rootNodeContent().click();
     const doneTodoName = "done-todo.todo";
     createArtifact(doneTodoName);
     outlineNodes.nodeLabeledAs(doneTodoName).click();
     editorTodo.dates.tab().click();
-    editorTodo.dates.inputStart.typeDateTime(typicalDates.yesterday.start);
-    editorTodo.dates.inputDue.typeDateTime(typicalDates.tomorrow.end);
+    editorTodo.dates.inputStart.typeDateTime(dayOne.start);
+    editorTodo.dates.inputDue.typeDateTime(dayThree.end);
     editorTodo.main.progress.done().click();
 
     pageCalendar.calendar().click();
   });
 
   it("highlights calendar dates with uncompleted todos active in that day", () => {
-    pageCalendar.monthViewer.date(typicalDates.yesterday.start.getDate()).should("have.attr", "data-test-highlighted", "true");
-    pageCalendar.monthViewer.date(typicalDates.today.start.getDate()).should("have.attr", "data-test-highlighted", "true");
-    pageCalendar.monthViewer.date(typicalDates.tomorrow.start.getDate()).should("have.attr", "data-test-highlighted", "false");
+    pageCalendar.monthViewer.date(dayOne.start.getDate()).should("have.attr", "data-test-highlighted", "true");
+    pageCalendar.monthViewer.date(dayTwo.start.getDate()).should("have.attr", "data-test-highlighted", "true");
+    pageCalendar.monthViewer.date(dayThree.start.getDate()).should("have.attr", "data-test-highlighted", "false");
   });
 
   it("shows todos' timeline for the selected date in calendar", () => {
-    pageCalendar.monthViewer.date(typicalDates.yesterday.start.getDate()).click();
+    pageCalendar.monthViewer.date(dayOne.start.getDate()).click();
     pageCalendar.timelineViewer.todos().should("have.length", 2);
 
-    pageCalendar.monthViewer.date(typicalDates.tomorrow.start.getDate()).click();
+    pageCalendar.monthViewer.date(dayThree.start.getDate()).click();
     pageCalendar.timelineViewer.todos().should("have.length", 1);
   });
 });
