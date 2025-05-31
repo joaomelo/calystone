@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import type { Id, Nodes } from "@/domain";
-import type { TreeExpandedKeys } from "primevue/tree";
-import type { TreeNode } from "primevue/treenode";
+import type { TreeGridExpandedKeys, TreeGridSelectionKeys } from "@/utils";
 
 import { OutlineItem } from "@/display/views/outline-item";
-import { isId } from "@/domain";
-import { isObjectLike, ScrollPanel } from "@/utils";
-import PrimeVueTree from "primevue/tree";
+import { ScrollPanel, TreeGrid } from "@/utils";
 import { computed, ref } from "vue";
 
 import { convert } from "./convert";
@@ -19,58 +16,36 @@ const emit = defineEmits<{
   selected: [id: Id | undefined];
 }>();
 
-const selectedKey = ref(); // this is nedeed so the prime vue component can visualy show the selected node
-const expandedKeys = ref<TreeExpandedKeys>({});
-const tree = computed(() =>
+const selectedKeys = ref<TreeGridSelectionKeys | undefined>();
+const expandedKeys = ref<TreeGridExpandedKeys>({});
+
+const items = computed(() =>
   nodes.list()
     .filter(n => n.isRoot())
     .map((root) => convert({ expanded: expandedKeys.value, node: root }))
 );
 
-function handleNodeExpand(node: TreeNode) {
-  const id = resolveKey(node);
-  if (id) emit("expanded", id);
+function handleNodeExpand(key: string) {
+  emit("expanded", key);
 }
 
-function handleNodeSelect(node: TreeNode) {
-  emit("selected", resolveKey(node));
+function handleNodeSelect(key?: string) {
+  emit("selected", key);
 }
-
-function handleNodeUnselect() {
-  emit("selected", undefined);
-}
-
-function resolveKey(node?: TreeNode) {
-  if (!isObjectLike(node)) {
-    return undefined;
-  }
-  if (!isId(node.key)) {
-    return undefined;
-  }
-  return node.key;
-};
 </script>
 <template>
   <ScrollPanel>
-    <PrimeVueTree
+    <TreeGrid
       v-model:expanded-keys="expandedKeys"
-      v-model:selection-keys="selectedKey"
-      class="outline-nodes__tree"
-      selection-mode="single"
+      v-model:selected-keys="selectedKeys"
       data-test="nodes-outline-tree"
-      :value="tree"
-      @node-expand="handleNodeExpand"
-      @node-select="handleNodeSelect"
-      @node-unselect="handleNodeUnselect"
+      :items="items"
+      @expanded="handleNodeExpand"
+      @selected="handleNodeSelect"
     >
       <template #default="slotProps">
         <OutlineItem :item="slotProps.node.data" />
       </template>
-    </PrimeVueTree>
+    </TreeGrid>
   </ScrollPanel>
 </template>
-<style scoped>
-.outline-nodes__tree :deep(.p-tree-node-label) {
-  flex: 1;
-}
-</style>

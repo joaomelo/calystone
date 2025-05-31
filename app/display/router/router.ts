@@ -1,4 +1,4 @@
-import { PageBootstrap, PageCalendar, PageOpen, PageOutline, PagePrivacy, PageSearch, PageTags, PageTerms } from "@/display/views";
+import { PageBootstrap, PageCalendar, PageNodes, PageOpen, PagePrivacy, PageSearch, PageTags, PageTerms } from "@/display/views";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 export function createRouter() {
@@ -20,7 +20,7 @@ export function createRouter() {
     { component: PageTerms, name: "terms", path: "/terms" },
 
     { component: PageCalendar, name: "calendar", path: "/calendar" },
-    { component: PageOutline, name: "outline", path: "/outline" },
+    { component: PageNodes, name: "outline", path: "/outline" },
     { component: PageSearch, name: "search", path: "/search" },
     { component: PageTags, name: "tags", path: "/tags" },
 

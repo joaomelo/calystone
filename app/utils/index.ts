@@ -3,6 +3,7 @@ export * from "./arrays";
 export * from "./async";
 export * from "./dialogs";
 export * from "./errors";
+export * from "./grids";
 export * from "./i18n";
 export * from "./inputs";
 export * from "./objects";

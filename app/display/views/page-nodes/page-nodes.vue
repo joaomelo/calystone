@@ -42,7 +42,7 @@ function solveNode(id?: Id) {
   <FrameDashboard>
     <MasterDetail
       v-model="showDetail"
-      class="page-outline"
+      class="page-nodes"
     >
       <template #master>
         <OutlineNodes
@@ -61,7 +61,7 @@ function solveNode(id?: Id) {
   </FrameDashboard>
 </template>
 <style scoped>
-.page-outline {
+.page-nodes {
   height: 100%;
 }
 </style>
