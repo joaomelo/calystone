@@ -1,11 +1,26 @@
 import type { OutlineItemData } from "@/display/views/outline-item";
 import type { Node } from "@/domain";
+import type { TreeGridExpandedKeys, TreeGridItem } from "@/utils";
 import type { TreeExpandedKeys } from "primevue/tree";
-import type { TreeNode } from "primevue/treenode";
 
+import { Store } from "@/display/store";
 import { Artifact, Directory } from "@/domain";
+import { computed, ref } from "vue";
 
-export function convert(options: { expanded: TreeExpandedKeys; node: Node }): TreeNode {
+export function useItems() {
+  const { nodes } = Store.use();
+
+  const expandedKeys = ref<TreeGridExpandedKeys>({});
+  const items = computed(() =>
+    nodes.list()
+      .filter(n => n.isRoot())
+      .map((root) => convert({ expanded: expandedKeys.value, node: root }))
+  );
+
+  return { expandedKeys, items };
+}
+
+function convert(options: { expanded: TreeExpandedKeys; node: Node }): TreeGridItem {
   const { expanded, node } = options;
 
   const key = node.id;
@@ -21,7 +36,7 @@ export function convert(options: { expanded: TreeExpandedKeys; node: Node }): Tr
     type: "node"
   };
 
-  return { children: visibleChildren, data: data as unknown, key, label, leaf };
+  return { children: visibleChildren, data, key, label, leaf };
 }
 
 function isImpossibleToHaveChildren(node: Node): boolean {

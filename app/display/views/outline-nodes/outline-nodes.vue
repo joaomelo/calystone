@@ -1,29 +1,21 @@
 <script setup lang="ts">
-import type { Id, Nodes } from "@/domain";
-import type { TreeGridExpandedKeys, TreeGridSelectionKeys } from "@/utils";
+import type { Id } from "@/domain";
+import type { TreeGridSelectionKeys } from "@/utils";
 
 import { OutlineItem } from "@/display/views/outline-item";
 import { ScrollPanel, TreeGrid } from "@/utils";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
-import { convert } from "./convert";
+import { useItems } from "./use-items";
 
-const { nodes } = defineProps<{
-  nodes: Nodes // is important to use the reactive data structure with all nodes to trigger the reactivity system. passing a array with only the root objects will not secure ui updates for deeper nodes.
-}>();
 const emit = defineEmits<{
   expanded: [id: Id];
   selected: [id: Id | undefined];
 }>();
 
-const selectedKeys = ref<TreeGridSelectionKeys | undefined>();
-const expandedKeys = ref<TreeGridExpandedKeys>({});
+const { expandedKeys, items } = useItems();
 
-const items = computed(() =>
-  nodes.list()
-    .filter(n => n.isRoot())
-    .map((root) => convert({ expanded: expandedKeys.value, node: root }))
-);
+const selectedKeys = ref<TreeGridSelectionKeys | undefined>();
 
 function handleNodeExpand(key: string) {
   emit("expanded", key);

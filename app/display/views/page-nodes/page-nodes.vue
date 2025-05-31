@@ -46,7 +46,6 @@ function solveNode(id?: Id) {
     >
       <template #master>
         <OutlineNodes
-          :nodes="nodes"
           @selected="handleSelected"
           @expanded="handleExpanded"
         />
