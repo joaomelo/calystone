@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import type { OutlineItemData } from "./outline-item-data";
+import type { ItemData } from "./item";
 
 import { useCore } from "./use-core";
 import { useDragAndDrop } from "./use-drag-and-drop";
 
-const { item } = defineProps<{
-  item: OutlineItemData
+const { data } = defineProps<{
+  data: ItemData
 }>();
 
-const { handleDragdrop, handleDragover, handleDragstart, moveable } = useDragAndDrop(item);
-const coreComponent = useCore(item);
+const { handleDragdrop, handleDragover, handleDragstart, moveable } = useDragAndDrop(data);
+const coreComponent = useCore(data);
 
 </script>
 <template>
   <div
     :draggable="moveable.isOk()"
     data-test-type="outline-item"
-    :data-test="item.key"
+    :data-test="data.key"
     class="outline-item"
     @dragstart="handleDragstart"
     @drop="handleDragdrop"

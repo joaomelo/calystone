@@ -3,10 +3,10 @@ import { Directory } from "@/domain";
 import { Status, useDispatch } from "@/utils";
 import { computed } from "vue";
 
-import type { OutlineItemData } from "./outline-item-data";
+import type { ItemData } from "./item";
 
-export function useDragAndDrop(item: OutlineItemData) {
-  return item.type === "tag" ? useDragAndDropTag() : useDranAndDropNode(item.key);
+export function useDragAndDrop(data: ItemData) {
+  return data.type === "tag" ? useDragAndDropTag() : useDranAndDropNode(data.key);
 }
 
 function useDragAndDropTag() {

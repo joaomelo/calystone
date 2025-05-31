@@ -4,7 +4,7 @@ import { throwError } from "@/utils";
 import { computed } from "vue";
 import { h } from "vue";
 
-import type { OutlineItemData } from "./outline-item-data";
+import type { ItemData } from "./item";
 
 import CoreBinary from "./core-binary.vue";
 import CoreDirectory from "./core-directory.vue";
@@ -12,15 +12,15 @@ import CoreTag from "./core-tag.vue";
 import CoreText from "./core-text.vue";
 import CoreTodo from "./core-todo.vue";
 
-export function useCore(item: OutlineItemData) {
+export function useCore(data: ItemData) {
   const { nodes, services } = Store.use();
   return computed(() => {
-    if (item.type === "tag") {
-      const tag = services.computeTags.getTagOrThrow(item.key);
+    if (data.type === "tag") {
+      const tag = services.computeTags.getTagOrThrow(data.key);
       return h(CoreTag, { tag });
     };
 
-    const node = nodes.getOrThrow(item.key);
+    const node = nodes.getOrThrow(data.key);
     if (node instanceof Directory) {
       return h(CoreDirectory, { directory: node });
     };
