@@ -1,7 +1,6 @@
-import type { OutlineItemData } from "@/display/views/outline-item";
+import type { Item, ItemData } from "@/display/views/outline-item";
 import type { Node } from "@/domain";
-import type { TreeGridExpandedKeys, TreeGridItem } from "@/utils";
-import type { TreeExpandedKeys } from "primevue/tree";
+import type { TreeGridExpandedKeys } from "@/utils";
 
 import { Store } from "@/display/store";
 import { Artifact, Directory } from "@/domain";
@@ -11,7 +10,7 @@ export function useItems() {
   const { nodes } = Store.use();
 
   const expandedKeys = ref<TreeGridExpandedKeys>({});
-  const items = computed(() =>
+  const items = computed<Item[]>(() =>
     nodes.list()
       .filter(n => n.isRoot())
       .map((root) => convert({ expanded: expandedKeys.value, node: root }))
@@ -20,7 +19,7 @@ export function useItems() {
   return { expandedKeys, items };
 }
 
-function convert(options: { expanded: TreeExpandedKeys; node: Node }): TreeGridItem {
+function convert(options: { expanded: TreeGridExpandedKeys; node: Node }): Item {
   const { expanded, node } = options;
 
   const key = node.id;
@@ -31,7 +30,7 @@ function convert(options: { expanded: TreeExpandedKeys; node: Node }): TreeGridI
 
   const leaf = isImpossibleToHaveChildren(node);
 
-  const data: OutlineItemData = {
+  const data: ItemData = {
     key,
     type: "node"
   };
@@ -45,7 +44,7 @@ function isImpossibleToHaveChildren(node: Node): boolean {
   return node.children().length === 0;
 }
 
-function solveChildren(options: { expanded: TreeExpandedKeys; node: Node }): Node[] {
+function solveChildren(options: { expanded: TreeGridExpandedKeys; node: Node }): Node[] {
   const { expanded, node } = options;
   if (!expanded[node.id]) return [];
   if (!(node instanceof Directory)) return [];

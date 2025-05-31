@@ -1,16 +1,20 @@
 <script setup lang="ts">
+import type { ItemData } from "@/display/views/outline-item";
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
-import { OutlineNodes } from "@/display/views/outline-nodes";
+import { OutlineItems } from "@/display/views/outline-items";
 import { Directory } from "@/domain";
 import { MasterDetail, useDispatch } from "@/utils";
 import { ref } from "vue";
 
+import { useItems } from "./use-items";
+
 const { dispatchOrToast } = useDispatch();
 const { nodes, services } = Store.use();
+const { expandedKeys, items } = useItems();
 
 const selectedNode = ref<Node | undefined>();
 const showDetail = ref(false);
@@ -20,16 +24,16 @@ function handleClose() {
   selectedNode.value = undefined;
 }
 
-async function handleExpanded(id: Id) {
-  const node = solveNode(id);
+async function handleExpanded(itemData: ItemData) {
+  const node = solveNode(itemData.key);
   if (node instanceof Directory) {
     await dispatchOrToast(() => services.openDirectory.open(node));
   }
 }
 
-function handleSelected(id?: Id) {
+function handleSelected(itemData?: ItemData) {
   // selection does not trigger directory opening or artifact content fetching. selection opens the editor for the selected node. each editor is going to manage what is the best approach regarding content. maybe auto opening or offering a affordances for the user to do it at their convenience.
-  selectedNode.value = solveNode(id);
+  selectedNode.value = solveNode(itemData?.key);
   showDetail.value = Boolean(selectedNode.value);
 }
 
@@ -45,7 +49,9 @@ function solveNode(id?: Id) {
       class="page-nodes"
     >
       <template #master>
-        <OutlineNodes
+        <OutlineItems
+          :expanded-keys="expandedKeys"
+          :items="items"
           @selected="handleSelected"
           @expanded="handleExpanded"
         />
