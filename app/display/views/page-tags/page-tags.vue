@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import type { OutlineItemData } from "@/display/views/outline-item";
+import type { ItemData } from "@/display/views/outline-item";
 import type { Id, Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
-import { OutlineTags } from "@/display/views/outline-tags";
+import { OutlineItems } from "@/display/views/outline-items";
 import { MasterDetail } from "@/utils";
 import { ref } from "vue";
 
+import { useItems } from "./use-items";
+
 const { nodes } = Store.use();
+const { expandedKeys, items } = useItems();
 
 const selectedNode = ref<Node | undefined>();
 const showDetail = ref(false);
@@ -18,7 +21,7 @@ function handleClose() {
   resetState();
 }
 
-function handleSelected(data?: OutlineItemData) {
+function handleSelected(data?: ItemData) {
   if (!data) {
     resetState();
     return;
@@ -51,7 +54,11 @@ function solveNode(id: Id) {
       class="page-tags"
     >
       <template #master>
-        <OutlineTags @selected="handleSelected" />
+        <OutlineItems
+          :expanded-keys="expandedKeys"
+          :items="items"
+          @selected="handleSelected"
+        />
       </template>
       <template #detail>
         <EditorSwitcher

@@ -1,1 +1,0 @@
-export { default as OutlineTags } from "./outline-tags.vue";
