@@ -1,9 +1,9 @@
-import type { Nodes } from "@/domain";
+import type { Id, Nodes } from "@/domain";
 
 import { TodoArtifact } from "@/domain";
 import Fuse from "fuse.js";
 
-export class SearchNodesService {
+export class RetrieveNodesService {
   private readonly fuseOptions = {
     ignoreLocation: true,
     includeScore: true,
@@ -30,6 +30,18 @@ export class SearchNodesService {
 
   constructor(nodes: Nodes) {
     this.nodes = nodes;
+  }
+
+  get(id: Id) {
+    return this.nodes.get(id);
+  }
+
+  getOrThrow(id: Id) {
+    return this.nodes.getOrThrow(id);
+  }
+
+  list() {
+    return this.nodes.list();
   }
 
   search(text: string) {

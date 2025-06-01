@@ -15,7 +15,7 @@ import { MoveNodeService } from "@/services/move-node-service";
 import { OpenDirectoryService } from "@/services/open-directory-service";
 import { RemoveNodeService } from "@/services/remove-node-service";
 import { RenameNodeService } from "@/services/rename-node-service";
-import { SearchNodesService } from "@/services/search-nodes-service";
+import { RetrieveNodesService } from "@/services/retrieve-nodes-service";
 import { ShareNodeService } from "@/services/share-node-service";
 import { TrackTodosService } from "@/services/track-todos-service";
 
@@ -39,7 +39,7 @@ export class ServicesPortolfio {
   openDirectory: OpenDirectoryService;
   removeNode: RemoveNodeService;
   renameNode: RenameNodeService;
-  searchNodes: SearchNodesService;
+  retrieveNodes: RetrieveNodesService;
   shareAdapter: ShareAdapter;
   shareNode: ShareNodeService;
   trackTodos: TrackTodosService;
@@ -58,7 +58,7 @@ export class ServicesPortolfio {
     this.exportNode = new ExportNodeService(this.exportAdapter);
     this.loadNodes = new LoadNodesService(this.nodes);
     this.computeTags = new ComputeTagsService(this.nodes);
-    this.searchNodes = new SearchNodesService(this.nodes);
+    this.retrieveNodes = new RetrieveNodesService(this.nodes);
     this.exchangeArtifact = new ExchangeArtifactService();
     this.ensureDescriptor = new EnsureDescriptorService(this.exchangeArtifact);
     this.openDirectory = new OpenDirectoryService({ ensureDescriptor: this.ensureDescriptor, nodes: this.nodes });
