@@ -10,11 +10,11 @@ export function useItems() {
   const { nodes } = Store.use();
 
   const expandedKeys = ref<OutlineGridExpandedKeys>({});
-  const items = computed<Item[]>(() =>
-    nodes.list()
+  const items = computed<Item[]>(() =>{
+    return nodes.list()
       .filter(n => n.isRoot())
-      .map((root) => convert({ expanded: expandedKeys.value, node: root }))
-  );
+      .map((root) => convert({ expanded: expandedKeys.value, node: root }));
+  });
 
   return { expandedKeys, items };
 }

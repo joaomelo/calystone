@@ -53,8 +53,8 @@ function solveNode(id: Id) {
     >
       <template #master>
         <OutlineItems
+          v-model:expanded-keys="expandedKeys"
           data-test="page-tags__outline-items"
-          :expanded-keys="expandedKeys"
           :items="items"
           mode="tree"
           @selected="handleSelected"

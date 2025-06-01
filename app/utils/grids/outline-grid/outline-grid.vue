@@ -18,8 +18,12 @@ const emit = defineEmits<{
   selected: [key: OutlineGridItem | undefined];
 }>();
 
-const expandedKeys = defineModel<OutlineGridExpandedKeys>("expandedKeys", { default: [] });
-const selectedKeys = defineModel<OutlineGridSelectionKeys>("selectedKeys", { default: [] });
+const expandedKeys = defineModel<OutlineGridExpandedKeys>("expandedKeys", {
+  default: () => ({})
+});
+const selectedKeys = defineModel<OutlineGridSelectionKeys>("selectedKeys", {
+  default: () => ({})
+});
 
 function handleItemExpand(item: OutlineGridItem) {
   emit("expanded", item);

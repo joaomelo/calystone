@@ -21,7 +21,7 @@ const emit = defineEmits<{
   expanded: [itemData: ItemData];
   selected: [itemData: ItemData | undefined];
 }>();
-const expandedKeys = defineModel<OutlineGridExpandedKeys>("expandedKeys", { default: [] });
+const expandedKeys = defineModel<OutlineGridExpandedKeys>("expandedKeys", { default: () => ({}) });
 
 const selectedKeys = ref<OutlineGridSelectionKeys | undefined>();
 
