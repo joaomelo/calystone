@@ -53,6 +53,7 @@ function solveNode(id: Id) {
     >
       <template #master>
         <OutlineItems
+          data-test="page-tags__outline-items"
           :expanded-keys="expandedKeys"
           :items="items"
           mode="tree"
