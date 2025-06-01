@@ -4,7 +4,7 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { OutlineItems } from "@/display/views/outline-items";
-import { MonthViewer, ScrollPanel } from "@/utils";
+import { MonthViewer } from "@/utils";
 import { ref } from "vue";
 
 import { useHighlight } from "./use-highlight";
@@ -50,14 +50,12 @@ function handleUpdateMonthViewed(data: Month) {
       @update:selected="handleUpdateDateSelected"
       @update:viewed="handleUpdateMonthViewed"
     />
-    <ScrollPanel>
-      <OutlineItems
-        data-test="outline-calendar__items"
-        :items="items"
-        mode="list"
-        @selected="handleSelected"
-      />
-    </ScrollPanel>
+    <OutlineItems
+      data-test="outline-calendar__items"
+      :items="items"
+      mode="list"
+      @selected="handleSelected"
+    />
   </div>
 </template>
 <style scoped>

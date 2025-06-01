@@ -4,7 +4,7 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { OutlineItems } from "@/display/views/outline-items";
-import { debounce, InputText, ScrollPanel } from "@/utils";
+import { debounce, InputText } from "@/utils";
 import { ref } from "vue";
 
 import { useItems } from "./use-items";
@@ -33,23 +33,21 @@ function handleSelected(data?: ItemData) {
 }
 </script>
 <template>
-  <ScrollPanel>
-    <div class="outline-search">
-      <div class="outline-search__input-wrapper">
-        <InputText
-          autofocus
-          data-test="outline-search__input"
-          @update:model-value="handleSearch"
-        />
-      </div>
-      <OutlineItems
-        data-test="outline-search__results"
-        :items="items"
-        mode="list"
-        @selected="handleSelected"
+  <div class="outline-search">
+    <div class="outline-search__input-wrapper">
+      <InputText
+        autofocus
+        data-test="outline-search__input"
+        @update:model-value="handleSearch"
       />
     </div>
-  </ScrollPanel>
+    <OutlineItems
+      data-test="outline-search__results"
+      :items="items"
+      mode="list"
+      @selected="handleSelected"
+    />
+  </div>
 </template>
 <style scoped>
 .outline-search {
