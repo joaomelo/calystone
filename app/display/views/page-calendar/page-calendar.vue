@@ -1,40 +1,21 @@
 <script setup lang="ts">
-import type { Id, Node } from "@/domain";
+import type { Node } from "@/domain";
 
-import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
-import { PanelCalendar } from "@/display/views/panel-calendar";
+import { OutlineCalendar } from "@/display/views/outline-calendar";
 import { MasterDetail } from "@/utils";
-import { ref } from "vue";
-
-const { nodes } = Store.use();
+import { computed, ref } from "vue";
 
 const selectedNode = ref<Node | undefined>();
-const showDetail = ref(false);
+const showDetail = computed(() => Boolean(selectedNode.value));
 
 function handleClose() {
-  resetState();
-}
-
-function handleSelected(id?: string) {
-  if (!id) {
-    resetState();
-    return;
-  }
-
-  selectedNode.value = solveNode(id);
-  showDetail.value = Boolean(selectedNode.value);
-}
-
-function resetState() {
   selectedNode.value = undefined;
-  showDetail.value = false;
 }
 
-function solveNode(id: Id) {
-  const node = nodes.get(id);
-  return node;
+function handleSelected(node?: Node) {
+  selectedNode.value = node;
 }
 </script>
 <template>
@@ -44,7 +25,7 @@ function solveNode(id: Id) {
       class="page-calendar"
     >
       <template #master>
-        <PanelCalendar @selected="handleSelected" />
+        <OutlineCalendar @selected="handleSelected" />
       </template>
       <template #detail>
         <EditorSwitcher

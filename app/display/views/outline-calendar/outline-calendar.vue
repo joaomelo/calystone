@@ -1,30 +1,37 @@
 <script setup lang="ts">
-import { Store } from "@/display/store";
-import { MonthViewer } from "@/utils";
-import { computed, ref } from "vue";
+import type { ItemData } from "@/display/views/outline-item";
+import type { Node } from "@/domain";
 
-import TimelineViewer from "./timeline-viewer.vue";
+import { Store } from "@/display/store";
+import { OutlineItems } from "@/display/views/outline-items";
+import { MonthViewer, ScrollPanel } from "@/utils";
+import { ref } from "vue";
+
+import { useHighlight } from "./use-highlight";
+import { useItems } from "./use-items";
 
 interface Month { month: number, year: number }
 
 const emit = defineEmits<{
-  "selected": [id?: string]
+  "selected": [node: Node | undefined]
 }>();
 
 const { services } = Store.use();
 
-const today = new Date();
-const selectedDate = ref<Date>(today);
-const viewedMonth = ref<Month>({ month: today.getMonth(), year: today.getFullYear() });
+const { highlightedDays, viewedMonth } = useHighlight();
 
-const highlightedDays = computed(() => {
-  const { month, year } = viewedMonth.value;
+const selectedDate = ref<Date>(new Date());
+const items = useItems(selectedDate);
 
-  const start = new Date(year, month, 1, 0, 0, 0, 0);
-  const end = new Date(year, month + 1, 0, 23, 59, 59, 999);
-  const datesWithTodos = services.trackTodos.datesWithTodosWithin({ end, start });
-  return datesWithTodos;
-});
+function handleSelected(data?: ItemData) {
+  if (!data) {
+    emit("selected", undefined);
+    return;
+  };
+
+  const node = services.retrieveNodes.get(data.key);
+  emit("selected", node);
+}
 
 function handleUpdateDateSelected(date: Date) {
   selectedDate.value = date;
@@ -33,28 +40,33 @@ function handleUpdateDateSelected(date: Date) {
 function handleUpdateMonthViewed(data: Month) {
   viewedMonth.value = data;
 }
-
-function handleUpdateTodoSelected(id?: string) {
-  emit("selected", id);
-}
 </script>
 <template>
-  <div class="panel-calendar">
+  <div class="outline-calendar">
     <MonthViewer
       borderless
       :highlights="highlightedDays"
+      class="outline-calendar__month-viewer"
       @update:selected="handleUpdateDateSelected"
       @update:viewed="handleUpdateMonthViewed"
     />
-    <TimelineViewer
-      :date="selectedDate"
-      @selected="handleUpdateTodoSelected"
-    />
+    <ScrollPanel>
+      <OutlineItems
+        data-test="outline-calendar__items"
+        :items="items"
+        mode="list"
+        @selected="handleSelected"
+      />
+    </ScrollPanel>
   </div>
 </template>
 <style scoped>
-.panel-calendar {
+.outline-calendar {
   display: flex;
   flex-direction: column;
+}
+
+.outline-calendar__month-viewer :deep(.p-datepicker-panel) {
+  padding: 0;
 }
 </style>

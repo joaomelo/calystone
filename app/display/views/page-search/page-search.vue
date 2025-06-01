@@ -3,7 +3,7 @@ import type { Node } from "@/domain";
 
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
-import { PanelSearch } from "@/display/views/panel-search";
+import { OutlineSearch } from "@/display/views/outline-search";
 import { MasterDetail } from "@/utils";
 import { computed, ref } from "vue";
 
@@ -25,7 +25,7 @@ function handleSelected(node?: Node) {
       class="page-search"
     >
       <template #master>
-        <PanelSearch @selected="handleSelected" />
+        <OutlineSearch @selected="handleSelected" />
       </template>
       <template #detail>
         <EditorSwitcher
