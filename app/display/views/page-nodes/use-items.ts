@@ -1,6 +1,6 @@
 import type { Item, ItemData } from "@/display/views/outline-item";
 import type { Node } from "@/domain";
-import type { TreeGridExpandedKeys } from "@/utils";
+import type { OutlineGridExpandedKeys } from "@/utils";
 
 import { Store } from "@/display/store";
 import { Artifact, Directory } from "@/domain";
@@ -9,7 +9,7 @@ import { computed, ref } from "vue";
 export function useItems() {
   const { nodes } = Store.use();
 
-  const expandedKeys = ref<TreeGridExpandedKeys>({});
+  const expandedKeys = ref<OutlineGridExpandedKeys>({});
   const items = computed<Item[]>(() =>
     nodes.list()
       .filter(n => n.isRoot())
@@ -19,7 +19,7 @@ export function useItems() {
   return { expandedKeys, items };
 }
 
-function convert(options: { expanded: TreeGridExpandedKeys; node: Node }): Item {
+function convert(options: { expanded: OutlineGridExpandedKeys; node: Node }): Item {
   const { expanded, node } = options;
 
   const key = node.id;
@@ -44,7 +44,7 @@ function isImpossibleToHaveChildren(node: Node): boolean {
   return node.children().length === 0;
 }
 
-function solveChildren(options: { expanded: TreeGridExpandedKeys; node: Node }): Node[] {
+function solveChildren(options: { expanded: OutlineGridExpandedKeys; node: Node }): Node[] {
   const { expanded, node } = options;
   if (!expanded[node.id]) return [];
   if (!(node instanceof Directory)) return [];

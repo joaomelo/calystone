@@ -7,7 +7,7 @@ import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { OutlineItems } from "@/display/views/outline-items";
 import { MasterDetail } from "@/utils";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import { useItems } from "./use-items";
 
@@ -15,7 +15,7 @@ const { nodes } = Store.use();
 const { expandedKeys, items } = useItems();
 
 const selectedNode = ref<Node | undefined>();
-const showDetail = ref(false);
+const showDetail = computed(() => Boolean(selectedNode.value));
 
 function handleClose() {
   resetState();
@@ -34,12 +34,10 @@ function handleSelected(data?: ItemData) {
   }
 
   selectedNode.value = solveNode(key);
-  showDetail.value = Boolean(selectedNode.value);
 }
 
 function resetState() {
   selectedNode.value = undefined;
-  showDetail.value = false;
 }
 
 function solveNode(id: Id) {
@@ -57,6 +55,7 @@ function solveNode(id: Id) {
         <OutlineItems
           :expanded-keys="expandedKeys"
           :items="items"
+          mode="tree"
           @selected="handleSelected"
         />
       </template>

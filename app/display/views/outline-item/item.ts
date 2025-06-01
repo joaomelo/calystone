@@ -1,10 +1,10 @@
-import type { TreeGridItem } from "@/utils";
+import type { OutlineGridItem } from "@/utils";
 
 import { isObjectLike } from "@/utils";
 
 const validTypes = ["node", "tag"] as const;
 
-export interface Item extends TreeGridItem {
+export interface Item extends OutlineGridItem {
   data: ItemData;
 }
 

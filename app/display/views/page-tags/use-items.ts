@@ -1,6 +1,6 @@
 import type { Item, ItemData } from "@/display/views/outline-item";
 import type { Tag } from "@/domain";
-import type { TreeGridExpandedKeys } from "@/utils";
+import type { OutlineGridExpandedKeys } from "@/utils";
 
 import { Store } from "@/display/store";
 import { computed, ref } from "vue";
@@ -8,7 +8,7 @@ import { computed, ref } from "vue";
 export function useItems() {
   const { services } = Store.use();
 
-  const expandedKeys = ref<TreeGridExpandedKeys>({});
+  const expandedKeys = ref<OutlineGridExpandedKeys>({});
 
   const items = computed<Item[]>(() => {
     const tags = services.computeTags.compute();
@@ -19,7 +19,7 @@ export function useItems() {
   return { expandedKeys, items };
 }
 
-function convert(options: { expanded: TreeGridExpandedKeys; tag: Tag }): Item {
+function convert(options: { expanded: OutlineGridExpandedKeys; tag: Tag }): Item {
   const { expanded, tag } = options;
 
   const key = tag.name;
@@ -39,7 +39,7 @@ function isImpossibleToHaveChildren(tag: Tag): boolean {
   return todos.length === 0;
 }
 
-function solveChildren(options: { expanded: TreeGridExpandedKeys; tag: Tag }): Item[] {
+function solveChildren(options: { expanded: OutlineGridExpandedKeys; tag: Tag }): Item[] {
   const { expanded, tag } = options;
   if (!expanded[tag.name]) return [];
 

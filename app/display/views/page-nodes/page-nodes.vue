@@ -8,7 +8,7 @@ import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { OutlineItems } from "@/display/views/outline-items";
 import { Directory } from "@/domain";
 import { MasterDetail, useDispatch } from "@/utils";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import { useItems } from "./use-items";
 
@@ -17,10 +17,9 @@ const { nodes, services } = Store.use();
 const { expandedKeys, items } = useItems();
 
 const selectedNode = ref<Node | undefined>();
-const showDetail = ref(false);
+const showDetail = computed(() => Boolean(selectedNode.value));
 
 function handleClose() {
-  showDetail.value = false;
   selectedNode.value = undefined;
 }
 
@@ -34,7 +33,6 @@ async function handleExpanded(itemData: ItemData) {
 function handleSelected(itemData?: ItemData) {
   // selection does not trigger directory opening or artifact content fetching. selection opens the editor for the selected node. each editor is going to manage what is the best approach regarding content. maybe auto opening or offering a affordances for the user to do it at their convenience.
   selectedNode.value = solveNode(itemData?.key);
-  showDetail.value = Boolean(selectedNode.value);
 }
 
 function solveNode(id?: Id) {
@@ -52,6 +50,7 @@ function solveNode(id?: Id) {
         <OutlineItems
           :expanded-keys="expandedKeys"
           :items="items"
+          mode="tree"
           @selected="handleSelected"
           @expanded="handleExpanded"
         />

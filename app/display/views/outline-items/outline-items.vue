@@ -1,29 +1,35 @@
 <script setup lang="ts">
 import type { Item, ItemData } from "@/display/views/outline-item";
-import type { TreeGridExpandedKeys, TreeGridItem, TreeGridSelectionKeys } from "@/utils";
+import type {
+  OutlineGridExpandedKeys,
+  OutlineGridItem,
+  OutlineGridMode,
+  OutlineGridSelectionKeys
+} from "@/utils";
 
 import { isItemData } from "@/display/views/outline-item";
 import { OutlineItem } from "@/display/views/outline-item";
-import { ScrollPanel, TreeGrid } from "@/utils";
+import { OutlineGrid, ScrollPanel } from "@/utils";
 import { ref } from "vue";
 
 defineProps<{
-  expandedKeys: TreeGridExpandedKeys;
   items: Item[];
+  mode?: OutlineGridMode;
 }>();
 const emit = defineEmits<{
   expanded: [itemData: ItemData];
   selected: [itemData: ItemData | undefined];
 }>();
+const expandedKeys = defineModel<OutlineGridExpandedKeys>("expandedKeys", { default: [] });
 
-const selectedKeys = ref<TreeGridSelectionKeys | undefined>();
+const selectedKeys = ref<OutlineGridSelectionKeys | undefined>();
 
-function handleNodeExpand(item: TreeGridItem) {
+function handleNodeExpand(item: OutlineGridItem) {
   if (!isItemData(item.data)) return;
   emit("expanded", item.data);
 }
 
-function handleNodeSelect(item?: TreeGridItem) {
+function handleNodeSelect(item?: OutlineGridItem) {
   if (!item) {
     emit("selected", undefined);
     return;
@@ -35,17 +41,18 @@ function handleNodeSelect(item?: TreeGridItem) {
 </script>
 <template>
   <ScrollPanel class="outline-items">
-    <TreeGrid
+    <OutlineGrid
       v-model:expanded-keys="expandedKeys"
       v-model:selected-keys="selectedKeys"
       data-test="outline-items__tree"
       :items="items"
+      :mode="mode"
       @expanded="handleNodeExpand"
       @selected="handleNodeSelect"
     >
       <template #default="slotProps">
         <OutlineItem :data="slotProps.node.data" />
       </template>
-    </TreeGrid>
+    </OutlineGrid>
   </ScrollPanel>
 </template>
