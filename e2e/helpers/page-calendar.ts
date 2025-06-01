@@ -9,7 +9,7 @@ export const pageCalendar = {
     },
   },
   timelineViewer: {
-    todos: () => cy.get(dataTest("timeline-viewer__item")),
+    todos: () => cy.get(`${dataTest("outline-calendar__items")} [role='treeitem']`),
   },
   ...frameDashboard
 } as const;
