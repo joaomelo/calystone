@@ -13,6 +13,7 @@ import { OutlineGrid, ScrollPanel } from "@/utils";
 import { ref } from "vue";
 
 defineProps<{
+  dataTest: string;
   items: Item[];
   mode?: OutlineGridMode;
 }>();
@@ -40,11 +41,11 @@ function handleNodeSelect(item?: OutlineGridItem) {
 }
 </script>
 <template>
-  <ScrollPanel class="outline-items">
+  <ScrollPanel>
     <OutlineGrid
       v-model:expanded-keys="expandedKeys"
       v-model:selected-keys="selectedKeys"
-      data-test="outline-items__tree"
+      :data-test="dataTest"
       :items="items"
       :mode="mode"
       @expanded="handleNodeExpand"
