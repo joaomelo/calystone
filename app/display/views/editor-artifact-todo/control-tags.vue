@@ -27,11 +27,6 @@ async function handleAddTag() {
   await services.exchangeArtifact.postFrom(artifact);
 }
 
-function handleOptionSelect(option: string) {
-  tag.value = option;
-  void handleAddTag();
-}
-
 async function handleRemoveTag(tag: string) {
   artifact.tagger.remove(tag);
   await services.exchangeArtifact.postFrom(artifact);
@@ -46,7 +41,6 @@ async function handleRemoveTag(tag: string) {
         class="section-tags__input"
         :suggestions="suggestions"
         @keydown.enter="handleAddTag"
-        @option-select="handleOptionSelect"
       />
       <ButtonBase
         :label="t('add')"
