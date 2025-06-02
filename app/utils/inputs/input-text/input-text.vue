@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { AutoCompleteOptionSelectEvent } from "primevue/autocomplete";
-
 import { hasElements } from "@/utils/arrays";
-import InputAutoCompletePrimeVue from "primevue/autocomplete";
+import { kebabCase } from "@/utils/text";
 import InputTextPrimeVue from "primevue/inputtext";
 import { computed } from "vue";
 
@@ -13,43 +11,34 @@ const { suggestions = [] } = defineProps<{
   dataTest: string
   suggestions?: string[]
 }>();
-const emit = defineEmits<{
-  "option-select": [option: string]
-}>();
 const model = defineModel<string>();
 
 const hasSuggestions = computed(() => hasElements(suggestions));
 
-function handleOptionSelect(event: AutoCompleteOptionSelectEvent) {
-  if ("value" in event && typeof event.value === "string") {
-    emit("option-select", event.value);
-  }
-}
+const formDatalistName = (baseId: string) => kebabCase(baseId, "suggestions");
 </script>
 <template>
   <InputWrapper :data-test="dataTest">
     <template #default="{ id, invalid, inputDataTest }">
-      <InputAutoCompletePrimeVue
-        v-if="hasSuggestions"
-        :id="id"
-        v-model="model"
-        :invalid="invalid"
-        :data-test="inputDataTest"
-        :suggestions="suggestions"
-        fluid
-        :autofocus="autofocus"
-        dropdown
-        @option-select="handleOptionSelect"
-      />
       <InputTextPrimeVue
-        v-else
         :id="id"
         v-model="model"
         :invalid="invalid"
         :data-test="inputDataTest"
         fluid
         :autofocus="autofocus"
+        :list="formDatalistName(id)"
       />
+      <datalist
+        v-if="hasSuggestions"
+        :id="formDatalistName(id)"
+      >
+        <option
+          v-for="suggestion in suggestions"
+          :key="suggestion"
+          :value="suggestion"
+        />
+      </datalist>
     </template>
   </InputWrapper>
 </template>
