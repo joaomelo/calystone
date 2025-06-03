@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { Source } from "@/infra";
+import type { SourceProvider } from "@/infra";
 
 import { Store } from "@/display/store";
 import { ButtonBase, useDispatch, useI18n } from "@/utils";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 
-const { source } = defineProps<{
+const { provider } = defineProps<{
   dataTest: string;
   icon: string;
   label: string;
-  source: Source;
+  provider: SourceProvider;
 }>();
 
 const { t } = useI18n();
@@ -18,11 +18,11 @@ const { dispatchOrToast, loading } = useDispatch();
 const { services } = Store.use();
 const router = useRouter();
 
-const show = computed(() => services.availSource.avail(source).isOk());
+const show = computed(() => services.availSource.avail(provider).isOk());
 
 async function handleClick() {
   await dispatchOrToast(async () => {
-    await services.connectSource.connect(source);
+    await services.connectSource.connect(provider);
     void router.push({ name: "outline" });
   });
 }

@@ -1,4 +1,5 @@
 import { PageBootstrap, PageCalendar, PageNodes, PageOpen, PagePrivacy, PageSearch, PageTags, PageTerms } from "@/display/views";
+import { sources } from "@/infra";
 import { createRouter as createVueRouter, createWebHistory } from "vue-router";
 
 export function createRouter() {
@@ -8,13 +9,13 @@ export function createRouter() {
 
     {
       path: "/transfer-dropbox",
-      redirect: { name: "bootstrap", params: { source: "dropbox" } }
+      redirect: { name: "bootstrap", params: { "provider": sources.dropbox.provider } }
     },
     {
       path: "/transfer-one-drive",
-      redirect: { name: "bootstrap", params: { source: "one-drive" } }
+      redirect: { name: "bootstrap", params: { "provider": sources.oneDrive.provider } }
     },
-    { component: PageBootstrap, name: "bootstrap", path: "/bootstrap/:source", props: true },
+    { component: PageBootstrap, name: "bootstrap", path: "/bootstrap/:provider", props: true },
 
     { component: PagePrivacy, name: "privacy", path: "/privacy" },
     { component: PageTerms, name: "terms", path: "/terms" },

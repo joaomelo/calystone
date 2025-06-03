@@ -1,4 +1,4 @@
-import type { Source } from "@/infra/source";
+import type { SourceProvider } from "@/infra/source";
 
 import type { Options } from "./options";
 
@@ -18,15 +18,15 @@ export class AvailabilityFacade {
     this.oneDrive = new EnabledAvailabilityAdapter(options.oneDrive);
   }
 
-  available(source: Source) {
-    switch (source) {
+  available(provider: SourceProvider) {
+    switch (provider) {
       case "dropbox":
         return this.dropbox.available();
       case "fsa":
         return this.fsa.available();
       case "memory":
         return this.memory.available();
-      case "one-drive":
+      case "oneDrive":
         return this.oneDrive.available();
     }
   }

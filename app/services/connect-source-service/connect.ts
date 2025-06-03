@@ -1,5 +1,5 @@
 import type { Nodes } from "@/domain";
-import type { AccessAdaptersFactory, FileSystemAdapter, Source } from "@/infra";
+import type { AccessAdaptersFactory, FileSystemAdapter, SourceProvider } from "@/infra";
 
 import { createNode } from "@/domain";
 import { throwCritical } from "@/utils";
@@ -21,9 +21,9 @@ export class ConnectSourceService {
     this.statusObservable = new StatusObservable();
   }
 
-  async connect(source: Source) {
+  async connect(provider: SourceProvider) {
 
-    const accessAdapter = this.accessAdaptersFactory.create(source);
+    const accessAdapter = this.accessAdaptersFactory.create(provider);
     this.fileSystemAdapter = await accessAdapter.request();
 
     this.reconnect();

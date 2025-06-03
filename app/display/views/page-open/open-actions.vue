@@ -8,10 +8,10 @@ import OpenAction from "./open-action.vue";
       label="page-open.actions.memory"
       data-test="open-memory"
       icon="bx bx-memory-card"
-      source="memory"
+      provider="memory"
     />
     <OpenAction
-      source="fsa"
+      provider="fsa"
       label="page-open.actions.fsa"
       data-test="open-fsa"
       icon="bx bx-hdd"
@@ -20,13 +20,13 @@ import OpenAction from "./open-action.vue";
       label="page-open.actions.one-drive"
       data-test="open-one-drive"
       icon="bx bx-cloud"
-      source="one-drive"
+      provider="oneDrive"
     />
     <OpenAction
       label="page-open.actions.dropbox"
       data-test="open-dropbox"
       icon="bx bxl-dropbox"
-      source="dropbox"
+      provider="dropbox"
     />
   </div>
 </template>

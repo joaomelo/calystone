@@ -1,4 +1,4 @@
-import type { Source } from "@/infra/source";
+import type { SourceProvider } from "@/infra/source";
 
 import { throwCritical } from "@/utils";
 
@@ -16,8 +16,8 @@ export class AccessAdaptersFactory {
     this.configurations = configurations;
   }
 
-  create(source: Source) {
-    switch (source) {
+  create(provider: SourceProvider) {
+    switch (provider) {
       case "dropbox":{
         if (!this.configurations.dropbox) {
           throwCritical("DROPBOX_CONFIGURATION_NOT_FOUND");
@@ -31,7 +31,7 @@ export class AccessAdaptersFactory {
         const delayInMilliseconds = this.configurations.memory?.delayInMilliseconds ?? 0;
         return new MemoryAccessAdapter(delayInMilliseconds);
       }
-      case "one-drive":{
+      case "oneDrive":{
         if (!this.configurations.oneDrive) {
           throwCritical("ONE_DRIVE_CONFIGURATION_NOT_FOUND");
         }

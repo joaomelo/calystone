@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Source } from "@/infra";
+import type { SourceProvider } from "@/infra";
 
 import { Store } from "@/display/store";
 import { Frameplain } from "@/display/views/frame-plain";
@@ -7,8 +7,8 @@ import { useI18n } from "@/utils";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 
-const { source } = defineProps<{
-  source: Source
+const { provider } = defineProps<{
+  provider: SourceProvider
 }>();
 
 const { t } = useI18n();
@@ -17,7 +17,7 @@ const router = useRouter();
 
 onMounted(async () => {
   try {
-    await services.connectSource.connect(source);
+    await services.connectSource.connect(provider);
     void router.push({ name: "outline" });
   } catch {
     void router.push({ name: "open" });

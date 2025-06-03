@@ -1,4 +1,4 @@
-import type { AvailabilityFacade, Source } from "@/infra";
+import type { AvailabilityFacade, SourceProvider } from "@/infra";
 
 export class AvailSourceService {
   availabilityFacade: AvailabilityFacade;
@@ -7,8 +7,8 @@ export class AvailSourceService {
     this.availabilityFacade = availabilityFacade;
   }
 
-  avail(source: Source) {
-    return this.availabilityFacade.available(source);
+  avail(provider: SourceProvider) {
+    return this.availabilityFacade.available(provider);
   }
 
 }
