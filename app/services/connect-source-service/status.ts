@@ -1,10 +1,19 @@
 import type { Nodes } from "@/domain";
-import type { FileSystemAdapter } from "@/infra";
+import type { FileSystemAdapter, Source } from "@/infra";
 
-export type ObserverOptions = { fileSystemAdapter: FileSystemAdapter; nodes: Nodes; status: "connected" } | { status: "disconnected" };
+export type ObserverOptions = ObserverOptionsConnected | ObserverOptionsDisconnected;
 export type Observers = Set<StatusObserver>;
 export type Status = "connected" | "disconnected";
+
 export type StatusObserver = (options: ObserverOptions) => void;
+
+interface ObserverOptionsConnected {
+  fileSystemAdapter: FileSystemAdapter;
+  nodes: Nodes;
+  source: Source;
+  status: "connected"
+}
+interface ObserverOptionsDisconnected { status: "disconnected" }
 
 export class StatusObservable {
   status: Status = "disconnected";

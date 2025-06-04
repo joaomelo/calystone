@@ -82,7 +82,7 @@ export class ServicesPortolfio {
       return;
     }
 
-    const { fileSystemAdapter } = options;
+    const { fileSystemAdapter, source } = options;
 
     this.renameNode.provide(fileSystemAdapter);
     this.removeNode.provide(fileSystemAdapter);
@@ -91,6 +91,6 @@ export class ServicesPortolfio {
     this.createDirectory.provide(fileSystemAdapter);
     this.createArtifact.provide(fileSystemAdapter);
     this.exchangeArtifact.provide(fileSystemAdapter);
-    this.preloadNodes.provide({ exchangeArtifact: this.exchangeArtifact, openDirectory: this.openDirectory });
+    this.preloadNodes.provide({ sourceOrigin: source.origin });
   };
 }

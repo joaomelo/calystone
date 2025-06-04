@@ -2,6 +2,7 @@ import type { Nodes } from "@/domain";
 import type { AccessAdaptersFactory, FileSystemAdapter, SourceProvider } from "@/infra";
 
 import { createNode } from "@/domain";
+import { sources } from "@/infra";
 import { throwCritical } from "@/utils";
 
 import type { StatusObserver } from "./status";
@@ -24,11 +25,12 @@ export class ConnectSourceService {
   async connect(provider: SourceProvider) {
 
     const accessAdapter = this.accessAdaptersFactory.create(provider);
+    const source = sources[provider];
     this.fileSystemAdapter = await accessAdapter.request();
 
     this.reconnect();
 
-    this.statusObservable.next({ fileSystemAdapter: this.fileSystemAdapter, nodes: this.nodes, status: "connected" });
+    this.statusObservable.next({ fileSystemAdapter: this.fileSystemAdapter, nodes: this.nodes, source, status: "connected" });
   }
 
   disconnect() {
