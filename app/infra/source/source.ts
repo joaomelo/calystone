@@ -1,8 +1,9 @@
 export interface Source {
+  origin: SourceOrigin;
   provider: SourceProvider;
-  origin: "local" | "network";
 }
 
+export type SourceOrigin = "local" | "network";
 export type SourceProvider = "dropbox" | "fsa" | "memory" | "oneDrive";
 
 type Sources = Record<SourceProvider, Source>;

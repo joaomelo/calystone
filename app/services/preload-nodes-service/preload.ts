@@ -1,9 +1,10 @@
 import type { Nodes } from "@/domain";
+import type { SourceOrigin } from "@/infra";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 
 import { Artifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
-import { idle, throwCritical } from "@/utils";
+import { idle, Status, throwCritical } from "@/utils";
 
 import { Observable, type Observer } from "./observable";
 import { Queue } from "./queue";
@@ -17,9 +18,19 @@ export class PreloadNodesService {
   private readonly oneMegabyte = 1024 * 1024;
   private openDirectory?: OpenDirectoryService;
   private readonly scheduleInterval = 1500;
+  private sourceOrigin?: SourceOrigin;
 
   constructor(nodes: Nodes) {
     this.nodes = nodes;
+  }
+
+  available(): Status {
+    if (!this.exchangeArtifact) return Status.fail("NO_EXCHANGE_ARTIFACT");
+    if (!this.openDirectory) return Status.fail("NO_OPEN_DIRECTORY");
+    if (!this.sourceOrigin) return Status.fail("NO_SOURCE_ORIGIN");
+
+    if (this.sourceOrigin !== "local") return Status.fail("NO_SOURCE_ORIGIN");
+    return Status.ok();
   }
 
   pause(): void {
@@ -29,10 +40,15 @@ export class PreloadNodesService {
     this.observable.next({ status: "idle" });
   }
 
-  provide(options: { exchangeArtifact: ExchangeArtifactService; openDirectory: OpenDirectoryService }): void {
-    const { exchangeArtifact, openDirectory } = options;
+  provide(options: {
+    exchangeArtifact: ExchangeArtifactService;
+    openDirectory: OpenDirectoryService;
+    sourceOrigin: SourceOrigin
+  }): void {
+    const { exchangeArtifact, openDirectory, sourceOrigin } = options;
     this.exchangeArtifact = exchangeArtifact;
     this.openDirectory = openDirectory;
+    this.sourceOrigin = sourceOrigin;
   }
 
   start(): void {
@@ -75,10 +91,17 @@ export class PreloadNodesService {
     this.nodesToLoad.add(directories);
   }
 
-  private inject(): { exchangeArtifact: ExchangeArtifactService; nodes: Nodes; openDirectory: OpenDirectoryService; } {
+  private inject() {
     if (!this.exchangeArtifact) throwCritical("NO_EXCHANGE_ARTIFACT");
     if (!this.openDirectory) throwCritical("NO_OPEN_DIRECTORY");
-    return { exchangeArtifact: this.exchangeArtifact, nodes: this.nodes, openDirectory: this.openDirectory };
+    if (!this.sourceOrigin) throwCritical("NO_SOURCE_ORIGIN");
+
+    return {
+      exchangeArtifact: this.exchangeArtifact,
+      nodes: this.nodes,
+      openDirectory: this.openDirectory,
+      sourceOrigin: this.sourceOrigin,
+    };
   }
 
   private async load() {
