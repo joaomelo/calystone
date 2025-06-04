@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
 import { SideItem, useI18n } from "@/utils";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 const { t } = useI18n();
 const { services } = Store.use();
@@ -15,6 +15,12 @@ const isAvailable = computed(() => services.preloadNodes.available().isOk());
 const icon = computed(() => loading.value ? "bx bx-md bx-loader bx-spin" : "bx bx-md bx-loader");
 const title = computed(() => loading.value ? t("load-nodes.loading") : t("load-nodes.idle"));
 const dataTest = computed(() => loading.value ? "load-nodes-loading" : "load-nodes-idle");
+
+onMounted(() => {
+  if (isAvailable.value) {
+    services.preloadNodes.start();
+  }
+});
 
 function handleLoading() {
   if (loading.value) {
