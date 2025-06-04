@@ -49,6 +49,8 @@ export class PreloadNodesService {
   }
 
   start(): void {
+    this.available().throwOnFail();
+
     void this.tick();
     this.observable.next({ status: "loading" });
   }
