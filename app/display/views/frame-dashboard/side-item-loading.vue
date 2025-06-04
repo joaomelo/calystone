@@ -11,6 +11,7 @@ services.preloadNodes.subscribe(({ status }) => {
   loading.value = status === "loading";
 });
 
+const isAvailable = computed(() => services.preloadNodes.available().isOk());
 const icon = computed(() => loading.value ? "bx bx-md bx-loader bx-spin" : "bx bx-md bx-loader");
 const title = computed(() => loading.value ? t("load-nodes.loading") : t("load-nodes.idle"));
 const dataTest = computed(() => loading.value ? "load-nodes-loading" : "load-nodes-idle");
@@ -25,6 +26,7 @@ function handleLoading() {
 </script>
 <template>
   <SideItem
+    v-if="isAvailable"
     id="loading"
     :icon="icon"
     :title="title"
