@@ -1,9 +1,9 @@
-export type LoadNodesObserver = (options: ObserverOptions) => void;
+export type Observer = (options: ObserverOptions) => void;
 export interface ObserverOptions { status: Status }
 export type Status = "idle" | "loading";
 
-export class LoadNodesObservable {
-  private observers = new Set<LoadNodesObserver>();
+export class Observable {
+  private observers = new Set<Observer>();
   private status: Status = "idle";
 
   next(options: ObserverOptions) {
@@ -11,7 +11,7 @@ export class LoadNodesObservable {
     this.observers.forEach(observer => { observer(options); });
   }
 
-  subscribe(observer: LoadNodesObserver) {
+  subscribe(observer: Observer) {
     observer({ status: this.status });
 
     this.observers.add(observer);

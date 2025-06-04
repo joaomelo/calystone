@@ -10,9 +10,9 @@ import { CreateDirectoryService } from "@/services/create-directory-service";
 import { EnsureDescriptorService } from "@/services/ensure-descriptor-service";
 import { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import { ExportNodeService } from "@/services/export-node-service";
-import { LoadNodesService } from "@/services/load-nodes-service";
 import { MoveNodeService } from "@/services/move-node-service";
 import { OpenDirectoryService } from "@/services/open-directory-service";
+import { PreloadNodesService } from "@/services/preload-nodes-service";
 import { RemoveNodeService } from "@/services/remove-node-service";
 import { RenameNodeService } from "@/services/rename-node-service";
 import { RetrieveNodesService } from "@/services/retrieve-nodes-service";
@@ -33,10 +33,10 @@ export class ServicesPortolfio {
   exchangeArtifact: ExchangeArtifactService;
   exportAdapter: ExportAdapter;
   exportNode: ExportNodeService;
-  loadNodes: LoadNodesService;
   moveNode: MoveNodeService;
   nodes: Nodes;
   openDirectory: OpenDirectoryService;
+  preloadNodes: PreloadNodesService;
   removeNode: RemoveNodeService;
   renameNode: RenameNodeService;
   retrieveNodes: RetrieveNodesService;
@@ -56,7 +56,7 @@ export class ServicesPortolfio {
     this.connectSource = new ConnectSourceService({ accessAdaptersFactory: this.accessAdaptersFactory, nodes: this.nodes });
     this.shareNode = new ShareNodeService(this.shareAdapter);
     this.exportNode = new ExportNodeService(this.exportAdapter);
-    this.loadNodes = new LoadNodesService(this.nodes);
+    this.preloadNodes = new PreloadNodesService(this.nodes);
     this.computeTags = new ComputeTagsService(this.nodes);
     this.retrieveNodes = new RetrieveNodesService(this.nodes);
     this.exchangeArtifact = new ExchangeArtifactService();
@@ -74,7 +74,7 @@ export class ServicesPortolfio {
 
   rotateServices(options: ObserverOptions) {
     if (options.status === "disconnected" ) {
-      this.loadNodes.stop();
+      this.preloadNodes.stop();
       return;
     }
 
@@ -87,6 +87,6 @@ export class ServicesPortolfio {
     this.createDirectory.provide(fileSystemAdapter);
     this.createArtifact.provide(fileSystemAdapter);
     this.exchangeArtifact.provide(fileSystemAdapter);
-    this.loadNodes.provide({ exchangeArtifact: this.exchangeArtifact, openDirectory: this.openDirectory });
+    this.preloadNodes.provide({ exchangeArtifact: this.exchangeArtifact, openDirectory: this.openDirectory });
   };
 }

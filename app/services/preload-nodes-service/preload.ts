@@ -5,15 +5,15 @@ import type { OpenDirectoryService } from "@/services/open-directory-service";
 import { Artifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
 import { idle, throwCritical } from "@/utils";
 
-import { LoadNodesObservable, type LoadNodesObserver } from "./observable";
+import { Observable, type Observer } from "./observable";
 import { Queue } from "./queue";
 
-export class LoadNodesService {
+export class PreloadNodesService {
   private clearId?: number;
   private exchangeArtifact?: ExchangeArtifactService;
   private nodes: Nodes;
   private readonly nodesToLoad: Queue = new Queue();
-  private readonly observable = new LoadNodesObservable();
+  private readonly observable = new Observable();
   private readonly oneMegabyte = 1024 * 1024;
   private openDirectory?: OpenDirectoryService;
   private readonly scheduleInterval = 1500;
@@ -50,7 +50,7 @@ export class LoadNodesService {
     this.observable.next({ status: "idle" });
   }
 
-  subscribe(observer: LoadNodesObserver) {
+  subscribe(observer: Observer) {
     this.observable.subscribe(observer);
   }
 

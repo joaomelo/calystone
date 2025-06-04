@@ -7,7 +7,7 @@ const { t } = useI18n();
 const { services } = Store.use();
 
 const loading = ref(false);
-services.loadNodes.subscribe(({ status }) => {
+services.preloadNodes.subscribe(({ status }) => {
   loading.value = status === "loading";
 });
 
@@ -17,9 +17,9 @@ const dataTest = computed(() => loading.value ? "load-nodes-loading" : "load-nod
 
 function handleLoading() {
   if (loading.value) {
-    services.loadNodes.pause();
+    services.preloadNodes.pause();
   } else {
-    services.loadNodes.start();
+    services.preloadNodes.start();
   }
 }
 </script>
