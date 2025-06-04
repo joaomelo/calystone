@@ -56,7 +56,6 @@ export class ServicesPortolfio {
     this.connectSource = new ConnectSourceService({ accessAdaptersFactory: this.accessAdaptersFactory, nodes: this.nodes });
     this.shareNode = new ShareNodeService(this.shareAdapter);
     this.exportNode = new ExportNodeService(this.exportAdapter);
-    this.preloadNodes = new PreloadNodesService(this.nodes);
     this.computeTags = new ComputeTagsService(this.nodes);
     this.retrieveNodes = new RetrieveNodesService(this.nodes);
     this.exchangeArtifact = new ExchangeArtifactService();
@@ -68,6 +67,11 @@ export class ServicesPortolfio {
     this.createDirectory = new CreateDirectoryService({ nodes: this.nodes, openDirectory: this.openDirectory });
     this.createArtifact = new CreateArtifactService({ exchangeArtifact: this.exchangeArtifact, nodes: this.nodes, openDirectory: this.openDirectory });
     this.trackTodos = new TrackTodosService(this.nodes);
+    this.preloadNodes = new PreloadNodesService({
+      exchangeArtifact: this.exchangeArtifact,
+      nodes: this.nodes,
+      openDirectory: this.openDirectory
+    });
 
     this.connectSource.subscribe((options) => { this.rotateServices(options); });
   }
