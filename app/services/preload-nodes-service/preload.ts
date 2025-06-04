@@ -17,7 +17,7 @@ export class PreloadNodesService {
   private readonly observable = new Observable();
   private readonly oneMegabyte = 1024 * 1024;
   private openDirectory: OpenDirectoryService;
-  private readonly scheduleInterval = 1500;
+  private readonly scheduleInterval = 750;
   private sourceOrigin?: SourceOrigin;
 
   constructor(options: {
