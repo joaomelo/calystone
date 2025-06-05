@@ -11,6 +11,9 @@
     "search": "search",
     "calendar": "calendar"
   },
+  "dashboard": {
+    "preloading": "preloading nodes in the background"
+  },
   "complete": "complete",
   "completed": "completed",
   "connect": "connect",
@@ -70,10 +73,6 @@
   "focus": "focus",
   "items": "items",
   "last-modified": "last modified",
-  "load-nodes": {
-    "idle": "click to enable the background loading",
-    "loading": "click to disable the background loading"
-  },
   "loading": "loading",
   "name": "name",
   "node": "node",

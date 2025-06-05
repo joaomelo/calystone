@@ -27,6 +27,10 @@ export class Nodes {
     return node;
   }
 
+  has(node: Node): boolean {
+    return this.map.has(node.id);
+  }
+
   list(): Node[] {
     return Array.from(this.map.values());
   }

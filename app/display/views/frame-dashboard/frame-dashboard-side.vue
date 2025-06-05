@@ -6,13 +6,13 @@ import { SideBar, SideItem, useI18n } from "@/utils";
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-import SideItemLoading from "./side-item-loading.vue";
+import { usePreloading } from "./use-preloading";
 
 const { t } = useI18n();
 const { services } = Store.use();
-
 const route = useRoute();
 const router = useRouter();
+const preloading = usePreloading();
 
 const baseIcon = "bx bx-md";
 
@@ -69,7 +69,15 @@ function handleReload() {
       />
     </template>
     <template #bottom>
-      <SideItemLoading />
+      <SideItem
+        v-if="preloading"
+        id="preloading"
+        disabled
+        :icon="`${baseIcon} bx-loader bx-spin`"
+        :title="t('dashboard.preloading')"
+        data-test="sidebar-preloading"
+        class="sidebar-preload"
+      />
       <SideItem
         id="reload"
         :icon="`${baseIcon} bx-refresh`"
@@ -89,7 +97,7 @@ function handleReload() {
 </template>
 
 <style scoped>
-.loading :deep(.side-item-icon) {
+.sidebar-preload :deep(.side-item-icon) {
   animation-duration: 7s;
 }
 </style>

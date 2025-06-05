@@ -1,26 +1,27 @@
 import type { Nodes } from "@/domain";
-import type { SourceOrigin } from "@/infra";
+import type { ConnectSourceService } from "@/services/connect-source-service";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 
 import { Artifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
-import { idle, Status } from "@/utils";
+import { idle } from "@/utils";
 
 import { Observable, type Observer } from "./observable";
 import { Queue } from "./queue";
 
 export class PreloadNodesService {
   private clearId?: number;
-  private exchangeArtifact: ExchangeArtifactService;
-  private nodes: Nodes;
+  private readonly connectSource: ConnectSourceService;
+  private readonly exchangeArtifact: ExchangeArtifactService;
+  private readonly nodes: Nodes;
   private readonly nodesToLoad: Queue = new Queue();
   private readonly observable = new Observable();
   private readonly oneMegabyte = 1024 * 1024;
-  private openDirectory: OpenDirectoryService;
+  private readonly openDirectory: OpenDirectoryService;
   private readonly scheduleInterval = 750;
-  private sourceOrigin?: SourceOrigin;
 
   constructor(options: {
+    connectSource: ConnectSourceService,
     exchangeArtifact: ExchangeArtifactService,
     nodes: Nodes,
     openDirectory: OpenDirectoryService,
@@ -28,34 +29,31 @@ export class PreloadNodesService {
     this.exchangeArtifact = options.exchangeArtifact;
     this.nodes = options.nodes;
     this.openDirectory = options.openDirectory;
-  }
+    this.connectSource = options.connectSource;
 
-  available(): Status {
-    if (!this.sourceOrigin) return Status.fail("NO_SOURCE_ORIGIN");
-    if (this.sourceOrigin !== "local") return Status.fail("LOCAL_SOURCE_ORIGIN_REQUIRED");
-    return Status.ok();
-  }
+    this.connectSource.subscribe((options) => {
+      if (options.status === "disconnected") {
+        this.stop();
+        return;
+      }
 
-  pause(): void {
-    clearTimeout(this.clearId);
-
-    this.nodesToLoad.clear();
-    this.observable.next({ status: "idle" });
-  }
-
-  provide(options: { sourceOrigin: SourceOrigin, }): void {
-    const { sourceOrigin } = options;
-    this.sourceOrigin = sourceOrigin;
+      const { source } = options;
+      if (source.origin === "local") {
+        this.start();
+      }
+    });
   }
 
   start(): void {
-    this.available().throwOnFail();
+    if (this.observable.value() === "loading") return;
 
     void this.tick();
     this.observable.next({ status: "loading" });
   }
 
   stop(): void {
+    clearTimeout(this.clearId);
+
     this.nodesToLoad.clear();
     this.observable.next({ status: "idle" });
   }
@@ -86,7 +84,7 @@ export class PreloadNodesService {
   private async load() {
     const node = this.nodesToLoad.next();
     if (!node) return;
-
+    if (!this.nodes.has(node)) return;
     if (node.isBusy() || node.isLoaded()) return;
 
     if (node instanceof Artifact) {

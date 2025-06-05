@@ -11,6 +11,9 @@
     "search": "busca",
     "calendar": "calendário"
   },
+  "dashboard": {
+    "preloading": "carregando itens em segundo plano"
+  },
   "complete": "concluir",
   "completed": "concluído",
   "connect": "conectar",
@@ -70,10 +73,6 @@
   "focus": "focar",
   "items": "itens",
   "last-modified": "última modificação",
-  "load-nodes": {
-    "idle": "clique para ativar o carregamento em segundo plano",
-    "loading": "clique para desativar o carregamento em segundo plano"
-  },
   "loading": "carregando",
   "name": "nome",
   "node": "nó",

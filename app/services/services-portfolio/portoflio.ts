@@ -68,6 +68,7 @@ export class ServicesPortolfio {
     this.createArtifact = new CreateArtifactService({ exchangeArtifact: this.exchangeArtifact, nodes: this.nodes, openDirectory: this.openDirectory });
     this.trackTodos = new TrackTodosService(this.nodes);
     this.preloadNodes = new PreloadNodesService({
+      connectSource: this.connectSource,
       exchangeArtifact: this.exchangeArtifact,
       nodes: this.nodes,
       openDirectory: this.openDirectory
@@ -77,13 +78,9 @@ export class ServicesPortolfio {
   }
 
   rotateServices(options: ObserverOptions) {
-    if (options.status === "disconnected" ) {
-      this.preloadNodes.stop();
-      return;
-    }
+    if (options.status === "disconnected") return;
 
-    const { fileSystemAdapter, source } = options;
-
+    const { fileSystemAdapter } = options;
     this.renameNode.provide(fileSystemAdapter);
     this.removeNode.provide(fileSystemAdapter);
     this.moveNode.provide(fileSystemAdapter);
@@ -91,6 +88,5 @@ export class ServicesPortolfio {
     this.createDirectory.provide(fileSystemAdapter);
     this.createArtifact.provide(fileSystemAdapter);
     this.exchangeArtifact.provide(fileSystemAdapter);
-    this.preloadNodes.provide({ sourceOrigin: source.origin });
   };
 }

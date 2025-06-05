@@ -17,4 +17,8 @@ export class Observable {
     this.observers.add(observer);
     return () => this.observers.delete(observer);
   }
+
+  value(): Status {
+    return this.status;
+  }
 }

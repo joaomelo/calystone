@@ -18,4 +18,8 @@ export class Queue {
   next(): Node | undefined {
     return this.queue.shift();
   }
+
+  size(): number {
+    return this.queue.length;
+  }
 }
