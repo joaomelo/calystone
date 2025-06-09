@@ -1,9 +1,9 @@
-import { dialogCreateArtifact, editorTodo, outlineNodes, outlineTags, pageOpen, toolbarNode } from "../helpers";
+import { dialogCreateArtifact, editorTodo, openMacros, outlineNodes, outlineTags, toolbarNode } from "../helpers";
 import { pageTags } from "../helpers/page-tags";
 
 describe("show tags", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   it("show tags based on todos", () => {

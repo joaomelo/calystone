@@ -1,8 +1,8 @@
-import { dataTest, outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { dataTest, openMacros, outlineNodes, toolbarNode } from "../helpers";
 
 describe("rename", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   const selectors = {

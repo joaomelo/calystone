@@ -1,8 +1,8 @@
-import { editorDirectory, outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { editorDirectory, openMacros, outlineNodes, toolbarNode } from "../helpers";
 
 describe("open-directory", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   it("can open directory via expand", () => {

@@ -1,8 +1,8 @@
-import { dataTest, outlineNodes, pageOpen } from "../helpers";
+import { dataTest, openMacros, outlineNodes } from "../helpers";
 
 describe("move", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
   });
 

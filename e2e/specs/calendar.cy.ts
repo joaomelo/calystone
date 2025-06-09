@@ -1,4 +1,4 @@
-import { createArtifact, editorTodo, outlineNodes, pageCalendar, pageOpen, typicalDates } from "../helpers";
+import { createArtifact, editorTodo, openMacros, outlineNodes, pageCalendar, typicalDates } from "../helpers";
 
 describe("calendar", () => {
   const dayOne = typicalDates.dayOfMonth(1);
@@ -6,7 +6,7 @@ describe("calendar", () => {
   const dayThree = typicalDates.dayOfMonth(3);
 
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
 
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
 

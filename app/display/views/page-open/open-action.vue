@@ -23,7 +23,7 @@ const show = computed(() => services.availSource.avail(provider).isOk());
 async function handleClick() {
   await dispatchOrToast(async () => {
     await services.connectSource.connect(provider);
-    void router.push({ name: "outline" });
+    void router.push({ name: "nodes" });
   });
 }
 

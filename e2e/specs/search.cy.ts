@@ -1,8 +1,8 @@
-import { dialogCreateArtifact, dialogCreateDirectory, editorText, editorTodo, outlineNodes, pageOpen, pageSearch, toolbarNode } from "../helpers";
+import { dialogCreateArtifact, dialogCreateDirectory, editorText, editorTodo, openMacros, outlineNodes, pageSearch, toolbarNode } from "../helpers";
 
 describe("editor-directory", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   it("fuzzy searches considering name and inner data of nodes", () => {

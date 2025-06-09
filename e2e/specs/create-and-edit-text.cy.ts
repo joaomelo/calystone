@@ -1,8 +1,8 @@
-import { dialogCreateArtifact, editorText, outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { dialogCreateArtifact, editorText, openMacros, outlineNodes, toolbarNode } from "../helpers";
 
 describe("editor-binary", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   it("creates text file and edits it", () => {

@@ -1,8 +1,8 @@
-import { editorDirectory, outlineNodes, pageOpen } from "../helpers";
+import { editorDirectory, openMacros, outlineNodes } from "../helpers";
 
 describe("editor-directory", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   it("shows and updates tip and directory data according to directory status", () => {

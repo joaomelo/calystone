@@ -1,8 +1,8 @@
-import { dialogCreateDirectory, outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { dialogCreateDirectory, openMacros, outlineNodes, toolbarNode } from "../helpers";
 
 describe("create-directory", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   it("creates directory inside another directory", () => {

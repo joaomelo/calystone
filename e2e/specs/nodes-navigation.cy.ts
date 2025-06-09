@@ -1,8 +1,8 @@
-import { outlineNodes, pageOpen } from "../helpers";
+import { openMacros, outlineNodes } from "../helpers";
 
-describe("outlineNodes", () => {
+describe("nodes-navigation", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   it("enables outlineNodes navigation", () => {

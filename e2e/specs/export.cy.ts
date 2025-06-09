@@ -1,4 +1,4 @@
-import { outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { openMacros, outlineNodes, toolbarNode } from "../helpers";
 
 declare global {
   interface Window {
@@ -8,7 +8,7 @@ declare global {
 
 describe("export", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
   });
 

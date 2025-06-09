@@ -6,16 +6,10 @@ export const pageOpen = {
     label: () => cy.get(dataTest("input-locale-label")),
     option: (locale: string) => pageOpen.locale.input().find("button").contains(locale),
   },
-  macros: {
-    openMemory() {
-      cy.visit("/");
-      pageOpen.selectors.buttonOpenMemory().click();
-    }
+  open: {
+    memory: () => cy.get(dataTest("open-memory"))
   },
-  selectors: {
-    buttonOpenMemory: () => cy.get(dataTest("open-memory")),
-    privacyLink: () => cy.get(dataTest("privacy-link")),
-    termsLink: () => cy.get(dataTest("terms-link")),
-    url: () => "/"
-  }
+  privacyLink: () => cy.get(dataTest("privacy-link")),
+  termsLink: () => cy.get(dataTest("terms-link")),
+  url: () => "/"
 } as const;

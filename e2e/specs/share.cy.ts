@@ -1,8 +1,8 @@
-import { outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { openMacros, outlineNodes, toolbarNode } from "../helpers";
 
 describe("share", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
   });
 

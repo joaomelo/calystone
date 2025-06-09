@@ -1,5 +1,5 @@
 import { frameDashboard } from "./frame-dashboard";
-export const pageOutline = {
-  url: () => "/outline",
+export const pageNodes = {
+  url: () => "/nodes",
   ...frameDashboard
 } as const;

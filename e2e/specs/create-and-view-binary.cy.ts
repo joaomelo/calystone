@@ -1,8 +1,8 @@
-import { dialogCreateArtifact, editorBinary, outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { dialogCreateArtifact, editorBinary, openMacros, outlineNodes, toolbarNode } from "../helpers";
 
 describe("editor-binary", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   it("shows artifact binary data according to directory status", () => {

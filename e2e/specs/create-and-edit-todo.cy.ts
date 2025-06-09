@@ -1,8 +1,8 @@
-import { dialogCreateArtifact, editorTodo, outlineNodes, pageOpen, toolbarNode, typeableDate, typicalDates } from "../helpers";
+import { dialogCreateArtifact, editorTodo, openMacros, outlineNodes, toolbarNode, typeableDate, typicalDates } from "../helpers";
 
 describe("create-and-edit-todo", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
   });
 
   it("creates todo inside a directory and edits it", () => {

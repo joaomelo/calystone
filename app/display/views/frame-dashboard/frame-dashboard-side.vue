@@ -18,7 +18,7 @@ const baseIcon = "bx bx-md";
 
 const active: ComputedRef<string> = computed(() => {
   if (typeof route.name === "string") return route.name;
-  return "outline";
+  return "nodes";
 });
 
 function handleClickPage(name: string) {
@@ -44,7 +44,7 @@ function handleReload() {
         :title="t('common.outline')"
         :icon="`${baseIcon} bx-list-ul`"
         data-test="sidebar-outline"
-        @click="handleClickPage('outline')"
+        @click="handleClickPage('nodes')"
       />
       <SideItem
         id="tags"

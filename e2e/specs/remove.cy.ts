@@ -1,8 +1,8 @@
-import { dataTest, editorEmpty, outlineNodes, pageOpen, toolbarNode } from "../helpers";
+import { dataTest, editorEmpty, openMacros, outlineNodes, toolbarNode } from "../helpers";
 
 describe("remove", () => {
   beforeEach(() => {
-    pageOpen.macros.openMemory();
+    openMacros.openMemory();
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
   });
 
