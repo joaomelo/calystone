@@ -21,7 +21,7 @@ export function createRouter() {
     { component: PageTerms, name: "terms", path: "/terms" },
 
     { component: PageCalendar, name: "calendar", path: "/calendar" },
-    { component: PageNodes, name: "outline", path: "/outline" },
+    { component: PageNodes, name: "nodes", path: "/nodes" },
     { component: PageSearch, name: "search", path: "/search" },
     { component: PageTags, name: "tags", path: "/tags" },
 

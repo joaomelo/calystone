@@ -18,7 +18,7 @@ const router = useRouter();
 onMounted(async () => {
   try {
     await services.connectSource.connect(provider);
-    void router.push({ name: "outline" });
+    void router.push({ name: "nodes" });
   } catch {
     void router.push({ name: "open" });
   }
