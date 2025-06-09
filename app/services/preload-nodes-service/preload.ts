@@ -32,10 +32,9 @@ export class PreloadNodesService {
     this.connectSource = options.connectSource;
 
     this.connectSource.subscribe((options) => {
-      if (options.status === "disconnected") {
-        this.stop();
-        return;
-      }
+      this.stop();
+
+      if (options.status === "disconnected") return;
 
       const { source } = options;
       if (source.origin === "local") {

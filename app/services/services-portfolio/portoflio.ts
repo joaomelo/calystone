@@ -74,11 +74,14 @@ export class ServicesPortolfio {
       openDirectory: this.openDirectory
     });
 
-    this.connectSource.subscribe((options) => { this.rotateServices(options); });
+    this.connectSource.subscribe((options) => {
+      this.rotateServices(options);
+    });
   }
 
   rotateServices(options: ObserverOptions) {
     if (options.status === "disconnected") return;
+    if (options.status === "reconnected") return;
 
     const { fileSystemAdapter } = options;
     this.renameNode.provide(fileSystemAdapter);
