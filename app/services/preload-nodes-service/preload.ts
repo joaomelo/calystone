@@ -7,6 +7,7 @@ import { Artifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
 import { idle } from "@/utils";
 
 import { Observable, type Observer } from "./observable";
+import { PreloadTracker } from "./preload-tracker";
 import { Queue } from "./queue";
 
 export class PreloadNodesService {
@@ -18,7 +19,8 @@ export class PreloadNodesService {
   private readonly observable = new Observable();
   private readonly oneMegabyte = 1024 * 1024;
   private readonly openDirectory: OpenDirectoryService;
-  private readonly scheduleInterval = 750;
+  private readonly preloadTracker: PreloadTracker;
+  private readonly scheduleInterval = 50;
 
   constructor(options: {
     connectSource: ConnectSourceService,
@@ -30,6 +32,7 @@ export class PreloadNodesService {
     this.nodes = options.nodes;
     this.openDirectory = options.openDirectory;
     this.connectSource = options.connectSource;
+    this.preloadTracker = new PreloadTracker(this.nodes);
 
     this.connectSource.subscribe((options) => {
       this.stop();
@@ -103,6 +106,8 @@ export class PreloadNodesService {
     } else {
       await this.load();
     }
+
+    this.preloadTracker.mark();
 
     this.clearId = window.setTimeout(() => void this.tick(), this.scheduleInterval);
   }
