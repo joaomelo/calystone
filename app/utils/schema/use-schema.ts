@@ -1,6 +1,6 @@
 import type { ZodSchema } from "zod";
 
-import { Exception, Exceptions, Severity } from "@/utils/errors";
+import { Exception, Exceptions, Severity } from "@/utils/telemetry";
 import { z } from "zod";
 
 type Builder<T> = (builder: typeof z) => ZodSchema<T>;
