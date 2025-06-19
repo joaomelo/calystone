@@ -1,18 +1,18 @@
 import type { Nodes } from "@/domain";
 
-import { getPerformanceSummary, recordPerformance } from "@/utils";
+import { LoggerContainer, Tracker } from "@/utils";
 
 export class PreloadTracker {
   private readonly benchmark = 1_000;
-  private readonly label = `preload-${this.benchmark.toString()}`;
   private lastBenchmark = 0;
   private readonly nodes: Nodes;
   private stopwatch: () => void;
+  private tracker: Tracker = new Tracker(`preload-${this.benchmark.toString()}`);
 
   constructor(nodes: Nodes) {
     this.nodes = nodes;
     this.lastBenchmark = nodes.size();
-    this.stopwatch = recordPerformance(this.label);
+    this.stopwatch = this.tracker.record();
   }
 
   mark() {
@@ -20,10 +20,11 @@ export class PreloadTracker {
     if (progress >= this.benchmark) {
       this.stopwatch();
       this.lastBenchmark = this.nodes.size();
-      this.stopwatch = recordPerformance(this.label);
+      this.stopwatch = this.tracker.record();
 
-      const summary = getPerformanceSummary();
-      console.info(`${this.label}: ${summary[this.label].avg.toString()}ms`);
+      const logger = LoggerContainer.use();
+      const summary = this.tracker.summary();
+      logger.debug(summary);
     }
   }
 }
