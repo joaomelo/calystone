@@ -12,6 +12,7 @@ import App from "./app.vue";
 export function initApp(elementId: string) {
   const loggerLevel = numberOrUndefined(import.meta.env.VITE_LOGGER_LEVEL);
   const logger = LoggerContainer.create(loggerLevel);
+  window.$logger = logger;
 
   if (typeof name !== "string" || typeof version !== "string") {
     throwCritical("INVALID_PACKAGE_JSON");
