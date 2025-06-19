@@ -63,11 +63,12 @@ export function initApp(elementId: string) {
 
   const shareAdapter = new BrowserShareAdapter();
   const exportAdapter = new BrowserExportAdapter();
-
+  const preloadEnabled = asBoolean(import.meta.env.VITE_PRELOAD_ENABLED);
   const servicesPortolfio = new ServicesPortolfio({
     accessAdaptersFactory,
     availabilityFacade,
     exportAdapter,
+    preloadEnabled,
     shareAdapter,
   });
 

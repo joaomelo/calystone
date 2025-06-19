@@ -71,7 +71,8 @@ export class ServicesPortolfio {
       connectSource: this.connectSource,
       exchangeArtifact: this.exchangeArtifact,
       nodes: this.nodes,
-      openDirectory: this.openDirectory
+      openDirectory: this.openDirectory,
+      preloadEnabled: options.preloadEnabled,
     });
 
     this.connectSource.subscribe((options) => {

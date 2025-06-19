@@ -27,6 +27,7 @@ export class PreloadNodesService {
     exchangeArtifact: ExchangeArtifactService,
     nodes: Nodes,
     openDirectory: OpenDirectoryService,
+    preloadEnabled: boolean,
   }) {
     this.exchangeArtifact = options.exchangeArtifact;
     this.nodes = options.nodes;
@@ -34,12 +35,13 @@ export class PreloadNodesService {
     this.connectSource = options.connectSource;
     this.preloadTracker = new PreloadTracker(this.nodes);
 
-    this.connectSource.subscribe((options) => {
+    this.connectSource.subscribe((connectStatusOptions) => {
       this.stop();
 
-      if (options.status === "disconnected") return;
+      if (!options.preloadEnabled) return;
+      if (connectStatusOptions.status === "disconnected") return;
 
-      const { source } = options;
+      const { source } = connectStatusOptions;
       if (source.origin === "local") {
         this.start();
       }
