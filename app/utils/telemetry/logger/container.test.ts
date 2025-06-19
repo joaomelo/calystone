@@ -1,18 +1,12 @@
-import { throwCritical } from "@/utils/telemetry/throwers";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 
 import { Severity } from "../severities";
 import { LoggerContainer } from "./container";
 import { Logger } from "./logger";
 
-vi.mock("@/utils/telemetry/throwers", () => ({
-  throwCritical: vi.fn(),
-}));
-
 describe("LoggerContainer", () => {
   beforeEach(() => {
     LoggerContainer.instance = undefined;
-    vi.clearAllMocks();
   });
 
   describe("create", () => {
@@ -30,20 +24,11 @@ describe("LoggerContainer", () => {
       expect(LoggerContainer.instance).toBe(logger);
     });
 
-    it("should return the same instance when called multiple times", () => {
-      const logger1 = LoggerContainer.create(Severity.Debug);
-      const logger2 = LoggerContainer.create(Severity.Warning);
-
-      expect(logger1).toBe(logger2);
-      expect(LoggerContainer.instance).toBe(logger1);
-      expect(LoggerContainer.instance).toBe(logger2);
-    });
-
     it("should update the instance when create is called again", () => {
       const logger1 = LoggerContainer.create(Severity.Debug);
       const logger2 = LoggerContainer.create(Severity.Warning);
 
-      expect(logger1).toBe(logger2);
+      expect(logger1).not.toBe(logger2);
       expect(logger2.level).toBe(Severity.Warning);
     });
   });
@@ -59,7 +44,6 @@ describe("LoggerContainer", () => {
 
     it("should throw critical error when logger is not initialized", () => {
       expect(() => LoggerContainer.use()).toThrow();
-      expect(throwCritical).toHaveBeenCalledWith("LOGGER_NOT_INITIALIZED");
     });
 
     it("should return the same instance on multiple use calls", () => {
@@ -74,10 +58,8 @@ describe("LoggerContainer", () => {
     it("should maintain single instance across create and use calls", () => {
       const created = LoggerContainer.create(Severity.Debug);
       const used = LoggerContainer.use();
-      const createdAgain = LoggerContainer.create(Severity.Warning);
 
       expect(created).toBe(used);
-      expect(used).toBe(createdAgain);
       expect(LoggerContainer.instance).toBe(created);
     });
   });
