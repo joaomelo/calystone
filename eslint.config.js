@@ -37,6 +37,15 @@ export default tseslint.config(
           prefer: "type-imports",
         },
       ],
+      "@typescript-eslint/no-extraneous-class": [
+        "error",
+        {
+          allowConstructorOnly: false,
+          allowEmpty: false,
+          allowStaticOnly: true,
+          allowWithDecorator: false,
+        }
+      ],
       "@typescript-eslint/no-unsafe-call": "off"
     }
   },
