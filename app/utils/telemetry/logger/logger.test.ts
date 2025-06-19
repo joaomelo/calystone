@@ -11,29 +11,29 @@ describe("Logger", () => {
   });
 
   it("should create logger with default Error level", () => {
-    const logger = new Logger();
+    const logger = Logger.create();
     expect(logger.level).toBe(Severity.Error);
   });
 
   it("should create logger with custom level", () => {
-    const logger = new Logger(Severity.Warning);
+    const logger = Logger.create(Severity.Warning);
     expect(logger.level).toBe(Severity.Warning);
   });
 
   it("should log message when severity is more important than logger level", () => {
-    const logger = new Logger(Severity.Warning);
+    const logger = Logger.create(Severity.Warning);
     logger.log("test message", Severity.Warning);
     expect(consoleSpy).toHaveBeenCalledWith("test message");
   });
 
   it("should not log message when severity is less important than logger level", () => {
-    const logger = new Logger(Severity.Error);
+    const logger = Logger.create(Severity.Error);
     logger.log("test message", Severity.Notice);
     expect(consoleSpy).not.toHaveBeenCalled();
   });
 
   it("should use Debug severity as default when not specified", () => {
-    const logger = new Logger(Severity.Debug);
+    const logger = Logger.create(Severity.Debug);
     logger.log("test message");
     expect(consoleSpy).toHaveBeenCalledWith("test message");
   });
