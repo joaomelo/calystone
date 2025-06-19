@@ -2,7 +2,7 @@ import { name, version } from "@/../package.json";
 import { createI18n, createRouter, Store, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
 import { AccessAdaptersFactory, AvailabilityFacade, BrowserExportAdapter, BrowserShareAdapter } from "@/infra";
 import { ServicesPortolfio } from "@/services";
-import { ToastService } from "@/utils";
+import { LoggerContainer, throwCritical, ToastService } from "@/utils";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -10,9 +10,14 @@ import { createApp } from "vue";
 import App from "./app.vue";
 
 export function initApp(elementId: string) {
-  if (typeof name !== "string" || typeof version !== "string") throw new Error("Invalid package.json");
+  const loggerLevel = numberOrUndefined(import.meta.env.VITE_LOGGER_LEVEL);
+  const logger = LoggerContainer.create(loggerLevel);
+
+  if (typeof name !== "string" || typeof version !== "string") {
+    throwCritical("INVALID_PACKAGE_JSON");
+  }
   const appData = { name, version };
-  console.info(`${name} v${version}`);
+  logger.info(`${name} v${version}`);
 
   const app = createApp(App);
 
@@ -85,6 +90,11 @@ function asNumber(value: unknown): number {
   if (typeof value === "number") return value;
   if (typeof value === "string") return Number(value);
   return 0;
+}
+
+function numberOrUndefined(value: unknown): number | undefined {
+  if (value === undefined || value === null) return undefined;
+  return asNumber(value);
 }
 
 function stringOrUndefined(value: unknown): string | undefined {
