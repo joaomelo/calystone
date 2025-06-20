@@ -1,47 +1,50 @@
 import { Severity } from "../severities";
 
+interface Stringable {
+  toString(): string;
+}
+
 export class Logger {
-  static instance?: Logger;
   level: Severity;
 
   constructor(level?: Severity) {
     this.level = level ?? Severity.Error;
   }
 
-  alert(message: string) {
+  alert(message: Stringable) {
     this.log(message, Severity.Alert);
   }
 
-  critical(message: string) {
+  critical(message: Stringable) {
     this.log(message, Severity.Critical);
   }
 
-  debug(message: string) {
+  debug(message: Stringable) {
     this.log(message, Severity.Debug);
   }
 
-  emergency(message: string) {
+  emergency(message: Stringable) {
     this.log(message, Severity.Emergency);
   }
 
-  error(message: string) {
+  error(message: Stringable) {
     this.log(message, Severity.Error);
   }
 
-  info(message: string) {
+  info(message: Stringable) {
     this.log(message, Severity.Info);
   }
 
-  log(message: string, severity: Severity = Severity.Debug) {
+  log(message: Stringable, severity: Severity = Severity.Debug) {
     if (severity > this.level) return;
     console.info(message);
   }
 
-  notice(message: string) {
+  notice(message: Stringable) {
     this.log(message, Severity.Notice);
   }
 
-  warning(message: string) {
+  warning(message: Stringable) {
     this.log(message, Severity.Warning);
   }
 }
