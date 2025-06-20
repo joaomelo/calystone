@@ -3,7 +3,7 @@ import type { Nodes } from "@/domain";
 import { LoggerContainer, Tracker } from "@/utils";
 
 export class PreloadTracker {
-  private readonly benchmark = 1_000;
+  private readonly benchmark = 100;
   private lastBenchmark = 0;
   private readonly nodes: Nodes;
   private stopwatch: () => void;

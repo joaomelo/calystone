@@ -3,21 +3,19 @@ import type { ConnectSourceService } from "@/services/connect-source-service";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 
-import { Artifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
-import { Exception, idle, LoggerContainer } from "@/utils";
+import { idle } from "@/utils";
 
+import { Loader } from "./loader";
 import { Observable, type Observer } from "./observable";
 import { PreloadTracker } from "./preload-tracker";
-import { Queue } from "./queue";
 
 export class PreloadNodesService {
   private clearId?: number;
   private readonly connectSource: ConnectSourceService;
   private readonly exchangeArtifact: ExchangeArtifactService;
+  private readonly loader: Loader;
   private readonly nodes: Nodes;
-  private readonly nodesToLoad: Queue = new Queue();
   private readonly observable = new Observable();
-  private readonly oneMegabyte = 1024 * 1024;
   private readonly openDirectory: OpenDirectoryService;
   private readonly preloadTracker: PreloadTracker;
   private readonly scheduleInterval = 50;
@@ -34,6 +32,16 @@ export class PreloadNodesService {
     this.openDirectory = options.openDirectory;
     this.connectSource = options.connectSource;
     this.preloadTracker = new PreloadTracker(this.nodes);
+
+    const isOneMegabyte = 1024 * 1024;
+    const batchSize = 100;
+    this.loader = new Loader({
+      batchSize,
+      exchangeArtifact: this.exchangeArtifact,
+      nodes: this.nodes,
+      openDirectory: this.openDirectory,
+      textArtifactSizeLimit: isOneMegabyte,
+    });
 
     this.connectSource.subscribe((connectStatusOptions) => {
       this.stop();
@@ -57,8 +65,7 @@ export class PreloadNodesService {
 
   stop(): void {
     clearTimeout(this.clearId);
-
-    this.nodesToLoad.clear();
+    this.loader.reset();
     this.observable.next({ status: "idle" });
   }
 
@@ -66,57 +73,10 @@ export class PreloadNodesService {
     this.observable.subscribe(observer);
   }
 
-  private feed(): void {
-    const todoArtifacts = this.nodes
-      .list()
-      .filter(node => node instanceof TodoArtifact && !node.isLoaded());
-    this.nodesToLoad.add(todoArtifacts);
-    if (!this.nodesToLoad.empty()) return;
-
-    const textArtifacts = this.nodes
-      .list()
-      .filter(node => node instanceof TextArtifact && !node.isLoaded() && node.sizeBelow(this.oneMegabyte));
-    this.nodesToLoad.add(textArtifacts);
-    if (!this.nodesToLoad.empty()) return;
-
-    const directories = this.nodes
-      .list()
-      .filter(node => node instanceof Directory && !node.isLoaded());
-    this.nodesToLoad.add(directories);
-  }
-
-  private async load() {
-    const node = this.nodesToLoad.next();
-    if (!node) return;
-    if (!this.nodes.has(node)) return;
-    if (node.isBusy() || node.isLoaded()) return;
-
-    try {
-      if (node instanceof Artifact) {
-        await this.exchangeArtifact.fetchInto(node);
-      }
-
-      if (node instanceof Directory) {
-        await this.openDirectory.open(node);
-      }
-    } catch (error) {
-      const exception = new Exception({ cause: error, message: "UNABLE_TO_PRELOAD_NODE", });
-      const logger = LoggerContainer.use();
-      logger.error(exception);
-    }
-  }
-
   private async tick() {
     await idle();
-
-    if (this.nodesToLoad.empty()) {
-      this.feed();
-    } else {
-      await this.load();
-    }
-
+    await this.loader.run();
     this.preloadTracker.mark();
-
     this.clearId = window.setTimeout(() => void this.tick(), this.scheduleInterval);
   }
 
