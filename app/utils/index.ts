@@ -1,6 +1,7 @@
 export * from "./actions";
 export * from "./arrays";
 export * from "./async";
+export * from "./collections";
 export * from "./dialogs";
 export * from "./grids";
 export * from "./i18n";
