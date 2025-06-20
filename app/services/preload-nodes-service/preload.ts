@@ -4,7 +4,7 @@ import type { ExchangeArtifactService } from "@/services/exchange-artifact-servi
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 
 import { Artifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
-import { idle } from "@/utils";
+import { Exception, idle, LoggerContainer } from "@/utils";
 
 import { Observable, type Observer } from "./observable";
 import { PreloadTracker } from "./preload-tracker";
@@ -91,12 +91,18 @@ export class PreloadNodesService {
     if (!this.nodes.has(node)) return;
     if (node.isBusy() || node.isLoaded()) return;
 
-    if (node instanceof Artifact) {
-      await this.exchangeArtifact.fetchInto(node);
-    }
+    try {
+      if (node instanceof Artifact) {
+        await this.exchangeArtifact.fetchInto(node);
+      }
 
-    if (node instanceof Directory) {
-      await this.openDirectory.open(node);
+      if (node instanceof Directory) {
+        await this.openDirectory.open(node);
+      }
+    } catch (error) {
+      const exception = new Exception({ cause: error, message: "UNABLE_TO_PRELOAD_NODE", });
+      const logger = LoggerContainer.use();
+      logger.error(exception);
     }
   }
 
