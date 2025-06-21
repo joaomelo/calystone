@@ -3,7 +3,7 @@ import type { Node } from "@/domain";
 import type { OutlineGridExpandedKeys } from "@/utils";
 
 import { Store } from "@/display/store";
-import { Artifact, Directory } from "@/domain";
+import { Artifact, Directory, Progressor, TodoArtifact } from "@/domain";
 import { computed, ref } from "vue";
 
 export function useItems() {
@@ -56,7 +56,24 @@ function solveChildren(options: { expanded: OutlineGridExpandedKeys; node: Node 
   children.sort((a: Node, b: Node) => {
     if (a instanceof Directory && b instanceof Artifact) return -1;
     if (a instanceof Artifact && b instanceof Directory) return 1;
+
+    if (a instanceof Directory && b instanceof Directory) {
+      return a.name.localeCompare(b.name);
+    }
+    if (!(a instanceof TodoArtifact) && !(b instanceof TodoArtifact)) {
+      return a.name.localeCompare(b.name);
+    }
+
+    if (a instanceof TodoArtifact && !(b instanceof TodoArtifact)) return -1;
+    if (!(a instanceof TodoArtifact) && b instanceof TodoArtifact) return 1;
+
+    if (a instanceof TodoArtifact && b instanceof TodoArtifact) {
+      const progressOrder = Progressor.compare(a.progress(), b.progress());
+      if (progressOrder !== 0) return progressOrder;
+    }
+
     return a.name.localeCompare(b.name);
   });
+
   return children;
 }
