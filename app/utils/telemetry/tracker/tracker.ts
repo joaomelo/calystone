@@ -1,26 +1,31 @@
+import type { PerformanceData } from "./performance";
+
 export class Tracker {
-  private readonly data: number[] = [];
+  private readonly data: PerformanceData[] = [];
   private readonly label: string;
 
   constructor(label: string) {
     this.label = label;
   }
 
-  avg() {
-    if (this.iterations() === 0) return 0;
-    return parseFloat((this.total() / this.iterations()).toFixed(2));
+  amount() {
+    return this.data.reduce((acc, { amount }) => acc + amount, 0);
   }
 
-  iterations() {
-    return this.data.length;
+  avg() {
+    const time = this.time();
+    const amount = this.amount();
+    if (amount === 0) return 0;
+    return time / amount;
   }
 
   record() {
     const start = performance.now();
 
-    return () => {
+    return (amount = 1) => {
       const end = performance.now();
-      this.data.push(end - start);
+      const time = end - start;
+      this.data.push({ amount, time });
     };
   }
 
@@ -29,11 +34,15 @@ export class Tracker {
   }
 
   summary() {
-    return `${this.label}: avg=${this.avg().toString()}s, total=${this.total().toString()}s, iterations=${this.iterations().toString()}`;
+    const label = this.label;
+    const avg = this.avg().toFixed(2);
+    const time = this.time().toFixed(2);
+    const amount = this.amount().toFixed(2);
+
+    return `${label}: avg=${avg}ms, total=${time}ms, amount=${amount}`;
   }
 
-  total() {
-    const total = this.data.reduce((acc, time) => acc + time, 0);
-    return parseFloat((total / 1000).toFixed(2));
+  time() {
+    return this.data.reduce((acc, { time }) => acc + time, 0);
   }
 }

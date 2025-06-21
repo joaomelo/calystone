@@ -12,8 +12,8 @@ describe("Tracker", () => {
   });
 
   it("should initialize with empty data", () => {
-    expect(tracker.iterations()).toBe(0);
-    expect(tracker.total()).toBe(0);
+    expect(tracker.amount()).toBe(0);
+    expect(tracker.time()).toBe(0);
     expect(tracker.avg()).toBe(0);
   });
 
@@ -24,9 +24,9 @@ describe("Tracker", () => {
     performanceNowSpy.mockImplementationOnce(() => 2000);
     stop();
 
-    expect(tracker.iterations()).toBe(1);
-    expect(tracker.total()).toBe(1);
-    expect(tracker.avg()).toBe(1);
+    expect(tracker.amount()).toBe(1);
+    expect(tracker.time()).toBe(1000);
+    expect(tracker.avg()).toBe(1000);
   });
 
   it("should calculate average correctly with multiple iterations", () => {
@@ -40,9 +40,21 @@ describe("Tracker", () => {
     performanceNowSpy.mockImplementationOnce(() => 4000);
     stop2();
 
-    expect(tracker.iterations()).toBe(2);
-    expect(tracker.total()).toBe(2);
-    expect(tracker.avg()).toBe(1);
+    expect(tracker.amount()).toBe(2);
+    expect(tracker.time()).toBe(2000);
+    expect(tracker.avg()).toBe(1000);
+  });
+
+  it("should handle amount parameter correctly", () => {
+    performanceNowSpy.mockImplementationOnce(() => 1000);
+    const stop = tracker.record();
+
+    performanceNowSpy.mockImplementationOnce(() => 2000);
+    stop(5);
+
+    expect(tracker.amount()).toBe(5);
+    expect(tracker.time()).toBe(1000);
+    expect(tracker.avg()).toBe(200);
   });
 
   it("should reset data correctly", () => {
@@ -51,11 +63,11 @@ describe("Tracker", () => {
     performanceNowSpy.mockImplementationOnce(() => 2000);
     stop();
 
-    expect(tracker.iterations()).toBe(1);
+    expect(tracker.amount()).toBe(1);
 
     tracker.reset();
-    expect(tracker.iterations()).toBe(0);
-    expect(tracker.total()).toBe(0);
+    expect(tracker.amount()).toBe(0);
+    expect(tracker.time()).toBe(0);
     expect(tracker.avg()).toBe(0);
   });
 
@@ -65,6 +77,6 @@ describe("Tracker", () => {
     performanceNowSpy.mockImplementationOnce(() => 2000);
     stop();
 
-    expect(tracker.summary()).toBe("test: avg=1s, total=1s, iterations=1");
+    expect(tracker.summary()).toBe("test: avg=1000.00ms, total=1000.00ms, amount=1.00");
   });
 });
