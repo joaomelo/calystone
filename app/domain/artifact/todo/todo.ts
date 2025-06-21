@@ -97,6 +97,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.tagger = data.tagger;
   }
 
+  priority() {
+    return this.prioritizer.priority();
+  }
+
   progress() {
     return this.progressor.progress;
   }

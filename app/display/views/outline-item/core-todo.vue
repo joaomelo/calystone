@@ -29,6 +29,13 @@ const icon = computed(() => {
   return `${iconPrefix} ${loadingEffect} ${iconGlyph}`;
 });
 
+const label = computed(() => {
+  const name = todo.name;
+  const priority = todo.priority().toFixed(2);
+  const priorityLabel = priority > 0 ? ` (${priority})` : "";
+  return `${name}${priorityLabel}`;
+});
+
 const details = computed(() => {
   return todo.hasDetails()
     ? truncate(todo.details, { ellipsis: "...", length: 30 })
@@ -61,7 +68,7 @@ const tags = computed(() => {
   <CoreBase
     :class="{ 'strikethrough': strikethrough }"
     :icon="icon"
-    :label="todo.name"
+    :label="label"
     class="core-todo"
   >
     <template #meta>
