@@ -3,6 +3,7 @@ import type { Tag } from "@/domain";
 import type { OutlineGridExpandedKeys } from "@/utils";
 
 import { Store } from "@/display/store";
+import { Prioritizer } from "@/domain";
 import { computed, ref } from "vue";
 
 export function useItems() {
@@ -35,7 +36,7 @@ function convert(options: { expanded: OutlineGridExpandedKeys; tag: Tag }): Item
 }
 
 function isImpossibleToHaveChildren(tag: Tag): boolean {
-  const todos = tag.prioritize();
+  const todos = tag.list();
   return todos.length === 0;
 }
 
@@ -43,13 +44,19 @@ function solveChildren(options: { expanded: OutlineGridExpandedKeys; tag: Tag })
   const { expanded, tag } = options;
   if (!expanded[tag.name]) return [];
 
-  const todos = tag.prioritize();
+  const todos = tag.list();
+  todos.sort((a, b) => {
+    const priorityOrder = Prioritizer.compare(a.prioritizer, b.prioritizer);
+    if (priorityOrder !== 0) return priorityOrder;
+
+    return a.basename().localeCompare(b.basename());
+  });
+
   return todos.map(todo => {
-    const label = `${todo.basename()} ${todo.prioritizer.priority().toString()}`;
     const data: ItemData = {
       key: todo.id,
       type: "node"
     };
-    return { children: [], data, key: todo.id, label, leaf: true, };
+    return { children: [], data, key: todo.id, label: todo.name, leaf: true, };
   });
 }
