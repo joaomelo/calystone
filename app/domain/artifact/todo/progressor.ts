@@ -3,11 +3,33 @@ export type Progress = (typeof progresses)[number];
 const progresses = ["open", "doing", "done", "skipped" ] as const;
 const defaultProgress: Progress = "open";
 
+const progressOrder: Record<Progress, number> = {
+  doing: 3,
+  done: 1,
+  open: 2,
+  skipped: 0
+} as const;
+
 export class Progressor {
   progress: Progress;
 
   constructor(progress: Progress = defaultProgress) {
     this.progress = progress;
+  }
+
+  static compare(a: Progress, b: Progress): number {
+    const orderA = progressOrder[a];
+    const orderB = progressOrder[b];
+
+    const aHasMoreOrder = orderA > orderB;
+    const aComesBeforeB = -1;
+    if (aHasMoreOrder) return aComesBeforeB;
+
+    const aHasLessOrder = orderA < orderB;
+    const aComesAfterB = 1;
+    if (aHasLessOrder) return aComesAfterB;
+
+    return 0;
   }
 
   static completed(progressOrProgressor: Progress | Progressor) {
