@@ -56,7 +56,8 @@
       "done": "done",
       "open": "open",
       "skipped": "skipped",
-      "progress": "progress"
+      "progress": "progress",
+      "update": "update progress"
     }
   },
   "email": "email",

@@ -3,7 +3,7 @@ import type { Progress, TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import { Progressor } from "@/domain";
-import { ButtonBase, useI18n } from "@/utils";
+import { InputRadio, useI18n } from "@/utils";
 import { computed } from "vue";
 
 const { artifact } = defineProps<{
@@ -29,29 +29,11 @@ async function handleUpdatedProgress(progress?: string) {
 }
 </script>
 <template>
-  <div>
-    <p>{{ t('editor-todo.progress.update') }}</p>
-    <div class="control-progress__buttons">
-      <template
-        v-for="option in options"
-        :key="option.value"
-      >
-        <ButtonBase
-          :disabled="option.value === progress"
-          :label="option.label"
-          severity="secondary"
-          :data-test="`button-${option.value}`"
-          @click="handleUpdatedProgress(option.value)"
-        />
-      </template>
-    </div>
-  </div>
+  <InputRadio
+    data-test="input-progress"
+    :model-value="progress"
+    :options="options"
+    :label="t('editor-todo.progress.progress')"
+    @update:model-value="handleUpdatedProgress"
+  />
 </template>
-<style scoped>
-.control-progress__buttons {
-  display: flex;
-  flex-direction: row;
-  gap: var(--size-2);
-  margin-block-start: var(--size-2)
-}
-</style>
