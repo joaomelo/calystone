@@ -14,6 +14,7 @@ const propertySheetRows = computed(() => {
   return [
     { label: t("path"), value: artifact.mountPath() },
     { label: t("last-modified"), value: formatDateTime(new Date(artifact.lastModified)) },
+    { label: t("editor-todo.progress.progress"), value: artifact.progress() },
   ];
 });
 </script>
