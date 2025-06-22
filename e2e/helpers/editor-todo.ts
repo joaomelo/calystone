@@ -42,10 +42,10 @@ export const editorTodo = {
   },
   main: {
     progress: {
-      doing: () => cy.get("[data-test='input-progress-input'] button").eq(1),
-      done: () => cy.get("[data-test='input-progress-input'] button").eq(2),
-      open: () => cy.get("[data-test='input-progress-input'] button").eq(0),
-      skipped: () => cy.get("[data-test='input-progress-input'] button").eq(3),
+      doing: () => cy.get("[data-test='button-doing']"),
+      done: () => cy.get("[data-test='button-done']"),
+      open: () => cy.get("[data-test='button-open']"),
+      skipped: () => cy.get("[data-test='button-skipped']"),
     }
   },
   priority: {
