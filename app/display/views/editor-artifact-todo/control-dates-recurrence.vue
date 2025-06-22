@@ -3,7 +3,7 @@ import type { RecurrenceReferenceValue, RecurrenceUnitValue, TodoArtifact } from
 
 import { Store } from "@/display/store";
 import { RecurrenceReference, RecurrenceStep, RecurrenceUnit } from "@/domain";
-import { InputNumber, InputSelectButton, throwCritical, useI18n } from "@/utils";
+import { InputNumber, InputRadio, throwCritical, useI18n } from "@/utils";
 import { computed } from "vue";
 
 const { artifact } = defineProps<{
@@ -62,12 +62,13 @@ async function handleUpdateUnit(unit: string | undefined) {
 }
 </script>
 <template>
-  <InputSelectButton
+  <InputRadio
     :label="t('editor-todo.dates.recurring-by')"
     data-test="input-reference"
     :model-value="referenceValue"
     :options="referenceOptions"
     :disabled="!artifact.hasDates()"
+    direction="row"
     @update:model-value="handleUpdateReference"
   />
   <div class="control-dates__step-unit">
@@ -79,12 +80,13 @@ async function handleUpdateUnit(unit: string | undefined) {
       :model-value="artifact.recurrenceStep()"
       @update:model-value="handleUpdateStep"
     />
-    <InputSelectButton
+    <InputRadio
       :label="t('editor-todo.dates.unit')"
       data-test="input-unit"
       :options="unitOptions"
       :disabled="!artifact.hasDates()"
       :model-value="artifact.recurrenceUnit()"
+      direction="row"
       @update:model-value="handleUpdateUnit"
     />
   </div>

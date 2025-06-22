@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { InputSelectButton, useI18n } from "@/utils";
+import { InputRadio, useI18n } from "@/utils";
 
 const { availableLocales, locale, t } = useI18n();
 
@@ -9,10 +9,11 @@ const options = availableLocales.map((locale) => ({
 }));
 </script>
 <template>
-  <InputSelectButton
+  <InputRadio
     v-model="locale"
     :options="options"
     :label="t('page-open.language')"
+    direction="row"
     justify="center"
     data-test="input-locale"
   />

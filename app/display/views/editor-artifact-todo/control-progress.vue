@@ -3,7 +3,7 @@ import type { Progress, TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import { Progressor } from "@/domain";
-import { InputSelectButton, useI18n } from "@/utils";
+import { InputRadio, useI18n } from "@/utils";
 import { computed } from "vue";
 
 const { artifact } = defineProps<{
@@ -29,12 +29,12 @@ async function handleUpdatedProgress(progress?: string) {
 }
 </script>
 <template>
-  <InputSelectButton
+  <InputRadio
     data-test="input-progress"
     :model-value="progress"
-    default-value="open"
     :options="options"
     :label="t('editor-todo.progress.progress')"
+    direction="row"
     @update:model-value="handleUpdatedProgress"
   />
 </template>
