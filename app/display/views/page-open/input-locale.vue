@@ -13,7 +13,6 @@ const options = availableLocales.map((locale) => ({
     v-model="locale"
     :options="options"
     :label="t('page-open.language')"
-    direction="row"
     justify="center"
     data-test="input-locale"
   />

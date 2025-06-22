@@ -68,7 +68,6 @@ async function handleUpdateUnit(unit: string | undefined) {
     :model-value="referenceValue"
     :options="referenceOptions"
     :disabled="!artifact.hasDates()"
-    direction="row"
     @update:model-value="handleUpdateReference"
   />
   <div class="control-dates__step-unit">
@@ -86,7 +85,6 @@ async function handleUpdateUnit(unit: string | undefined) {
       :options="unitOptions"
       :disabled="!artifact.hasDates()"
       :model-value="artifact.recurrenceUnit()"
-      direction="row"
       @update:model-value="handleUpdateUnit"
     />
   </div>

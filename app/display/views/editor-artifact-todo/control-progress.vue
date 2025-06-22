@@ -34,7 +34,6 @@ async function handleUpdatedProgress(progress?: string) {
     :model-value="progress"
     :options="options"
     :label="t('editor-todo.progress.progress')"
-    direction="row"
     @update:model-value="handleUpdatedProgress"
   />
 </template>
