@@ -1,19 +1,14 @@
-import type { NodeDataOptions } from "@/domain/node";
-import type { Nodes } from "@/domain/nodes";
+import type { NodeOptions } from "@/domain/node";
 
-import { isNodeDataOptions } from "@/domain/node";
+import { isNodeOptions } from "@/domain/node";
 
-export interface ArtifactDataOptions extends NodeDataOptions {
+export interface ArtifactOptions extends NodeOptions {
   lastModified: number;
   size: number;
 }
 
-export interface ArtifactOptions extends ArtifactDataOptions {
-  nodes: Nodes;
-};
-
-export function isArtifactDataOptions(value: unknown): value is ArtifactDataOptions {
-  if (!isNodeDataOptions(value)) return false;
+export function isArtifactOptions(value: unknown): value is ArtifactOptions {
+  if (!isNodeOptions(value)) return false;
   if (!("lastModified" in value) || (typeof value.lastModified !== "number")) return false;
   if (!("size" in value) || (typeof value.size !== "number")) return false;
   return true;
