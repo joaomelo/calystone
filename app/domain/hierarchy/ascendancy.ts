@@ -1,16 +1,16 @@
 import type { Directory } from "@/domain/directory";
-import type { NodeOrId } from "@/domain/node";
+import type { Node, NodeOrId } from "@/domain/node";
 import type { Nodes } from "@/domain/nodes";
 
 import { resolveParent } from "./resolve-parent";
 
 export class Ascendancy {
-  node: NodeOrId;
+  node: Node;
   nodes: Nodes;
 
   constructor(options: { node: NodeOrId; nodes: Nodes }) {
-    this.node = options.node;
     this.nodes = options.nodes;
+    this.node = this.nodes.getOrThrow(options.node);
   }
 
   ascendants(): Directory[] {
@@ -42,5 +42,11 @@ export class Ascendancy {
 
   parent(): Directory | undefined {
     return resolveParent({ node: this.node, nodes: this.nodes });
+  }
+
+  path(): string {
+    const ascendants = this.ascendants();
+    const ascendantsPlusNode = ascendants.toReversed().concat(this.node);
+    return ascendantsPlusNode.map(a => a.name).join("/");
   }
 }
