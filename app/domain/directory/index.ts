@@ -1,2 +1,2 @@
+export * from "./descriptor";
 export * from "./directory";
-export * from "./options";
