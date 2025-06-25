@@ -47,6 +47,6 @@ export class Ascendancy {
   path(): string {
     const ascendants = this.ascendants();
     const ascendantsPlusNode = ascendants.toReversed().concat(this.node);
-    return ascendantsPlusNode.map(a => a.name).join("/");
+    return ascendantsPlusNode.map(a => `/${a.name}`).join("");
   }
 }
