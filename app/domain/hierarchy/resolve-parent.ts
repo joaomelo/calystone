@@ -1,4 +1,5 @@
-import type { NodeOrId, Nodes } from "@/domain/nodes";
+import type { NodeOrId } from "@/domain/node";
+import type { Nodes } from "@/domain/nodes";
 
 import { Directory } from "@/domain/directory";
 
