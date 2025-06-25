@@ -1,5 +1,6 @@
-import type { Id, Node } from "@/domain";
+import type { Id, Node, Nodes } from "@/domain";
 
+import { Descendancy } from "@/domain";
 import { Directory } from "@/domain";
 import { throwCritical } from "@/utils";
 
@@ -7,12 +8,15 @@ import type { DirectoryMetadataContainer, FileMetadataContainer, RootMetadataCon
 
 export class Metadatas<R, D, F> {
   private readonly map: Map<Id, DirectoryMetadataContainer<D> | FileMetadataContainer<F> | RootMetadataContainer<R>>;
+  private readonly nodes: Nodes;
   private readonly rootContainer: RootMetadataContainer<R>;
   private readonly rootId: Id;
 
-  constructor(options: { rootId: Id, rootMetadata: R }) {
-    const { rootId, rootMetadata } = options;
+  constructor(options: { nodes: Nodes; rootId: Id, rootMetadata: R, }) {
     this.map = new Map();
+
+    const { nodes, rootId, rootMetadata } = options;
+    this.nodes = nodes;
     this.rootId = rootId;
     this.rootContainer = {
       id: this.rootId,
@@ -20,6 +24,7 @@ export class Metadatas<R, D, F> {
       metadata: rootMetadata,
       root: true,
     };
+
     this.reset();
   }
 
@@ -48,7 +53,8 @@ export class Metadatas<R, D, F> {
   remove(node: Node) {
     this.map.delete(node.id);
     if (node instanceof Directory) {
-      for (const child of node.children()) {
+      const descendancy = new Descendancy({ directory: node, nodes: this.nodes });
+      for (const child of descendancy.descendants()) {
         this.remove(child);
       }
     }

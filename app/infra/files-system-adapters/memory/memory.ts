@@ -1,11 +1,11 @@
-import type { Artifact, ArtifactDataOptions, DirectoryDataOptions, Node } from "@/domain";
+import type { Artifact, ArtifactOptions, Directory, DirectoryOptions, Node, Nodes } from "@/domain";
 
-import { createId, Directory } from "@/domain";
+import { createId, Descriptor } from "@/domain";
 import { fakeDirectory, fakeFile, Status, throwError } from "@/utils";
 import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";
 
-import type { ArtifactOrDirectoryDataOptions } from "../file-system";
+import type { ArtifactOrDirectoryOptions } from "../file-system";
 
 import { BaseFileSystemAdapter } from "../base";
 
@@ -16,18 +16,18 @@ type RootMetadata = undefined;
 export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, DirectoryMetadata, ArtifactMetadata> {
   private readonly delayInMilliseconds: number;
 
-  constructor(options: { delayInMilliseconds: number; rootDirectoryName: string }) {
-    const { delayInMilliseconds, rootDirectoryName } = options;
-    const rootData: DirectoryDataOptions = {
+  constructor(options: { delayInMilliseconds: number; nodes: Nodes; rootDirectoryName: string }) {
+    const { delayInMilliseconds, nodes, rootDirectoryName } = options;
+    const rootData: DirectoryOptions = {
       id: createId(),
       name: rootDirectoryName,
       parentId: undefined
     };
-    super({ rootData, rootMetadata: undefined });
+    super({ nodes, rootData, rootMetadata: undefined });
     this.delayInMilliseconds = delayInMilliseconds;
   }
 
-  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactDataOptions> {
+  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactOptions> {
     await this.delay();
 
     const { name, parent: { id: parentId } } = options;
@@ -36,7 +36,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
     const emptyBuffer = new ArrayBuffer(0);
     this.metadatas.setFile({ id, metadata: emptyBuffer });
 
-    const data: ArtifactDataOptions = {
+    const data: ArtifactOptions = {
       id,
       lastModified: Date.now(),
       name,
@@ -47,14 +47,14 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
     return data;
   }
 
-  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
+  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryOptions> {
     await this.delay();
 
     const id = createId();
     this.metadatas.setDirectory({ id, metadata: undefined });
 
     const { name, parent: { id: parentId } } = options;
-    const data: DirectoryDataOptions = { id, name, parentId };
+    const data: DirectoryOptions = { id, name, parentId };
 
     return data;
   }
@@ -69,23 +69,24 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
   async move(options: { subject: Node, target: Directory }): Promise<void> {
     await this.delay();
 
-    const moveable = this.moveable(options.subject);
-    moveable.throwOnFail();
+    const { subject, target } = options;
+    this.moveable(subject).throwOnFail();
+    this.nodes.moveable({ subject, target }).throwOnFail();
   }
 
   moveable(subject: Node) {
     return this.failIfRoot(subject);
   }
 
-  async open(parent: Directory): Promise<ArtifactOrDirectoryDataOptions[]> {
+  async open(parent: Directory): Promise<ArtifactOrDirectoryOptions[]> {
     await this.delay();
 
-    const childrenData: ArtifactOrDirectoryDataOptions[] = [];
+    const childrenData: ArtifactOrDirectoryOptions[] = [];
 
     const shouldGaranteeDataExpectedByE2e = parent.id === this.rootData.id;
     if (shouldGaranteeDataExpectedByE2e) {
       const descriptorFile = fakeFile("txt");
-      descriptorFile.name = `${Directory.descriptorBasename}.txt`;
+      descriptorFile.name = `${Descriptor.descriptorBasename}.txt`;
       const descriptorFileId = createId();
       childrenData.push({ id: descriptorFileId, parentId: parent.id, ...descriptorFile });
       this.metadatas.setFile({ id: descriptorFileId, metadata: descriptorFile.content });

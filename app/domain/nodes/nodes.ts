@@ -66,7 +66,7 @@ export class Nodes {
     if (!(node instanceof Directory)) return;
 
     const descendancy = new Descendancy({ directory: node, nodes: this });
-    for (const child of descendancy.children()) {
+    for (const child of descendancy.descendants()) {
       this.map.delete(child.id);
     }
   }

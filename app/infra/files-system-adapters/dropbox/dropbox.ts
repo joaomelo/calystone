@@ -1,28 +1,29 @@
-import type { ArtifactDataOptions, Directory, DirectoryDataOptions, Node } from "@/domain";
+import type { ArtifactOptions, Directory, DirectoryOptions, Node, Nodes } from "@/domain";
 
 import { Artifact, createId } from "@/domain";
 import { throwError } from "@/utils";
 import { Dropbox } from "dropbox";
 
-import type { ArtifactOrDirectoryDataOptions } from "../file-system";
+import type { ArtifactOrDirectoryOptions } from "../file-system";
 
 import { BaseFileSystemAdapter } from "../base";
 
 export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, string, string> {
   dropboxClient: Dropbox;
 
-  constructor(accessToken: string) {
+  constructor(options: { accessToken: string; nodes: Nodes; }) {
+    const { accessToken, nodes } = options;
     const rootLowerPath = "";
-    const rootData: DirectoryDataOptions = {
+    const rootData: DirectoryOptions = {
       id: createId(),
       name: "Dropbox",
       parentId: undefined
     };
-    super({ rootData, rootMetadata: rootLowerPath });
+    super({ nodes, rootData, rootMetadata: rootLowerPath });
     this.dropboxClient = new Dropbox({ accessToken });
   }
 
-  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactDataOptions> {
+  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactOptions> {
     const { name, parent: { id: parentId } } = options;
 
     const container = this.metadatas.getOfDirectoryOrThrow(parentId);
@@ -37,7 +38,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
 
     const id = createId();
     this.metadatas.setFile({ id, metadata: newPath });
-    const data: ArtifactDataOptions = {
+    const data: ArtifactOptions = {
       id,
       lastModified: Date.now(),
       name,
@@ -47,7 +48,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     return data;
   }
 
-  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
+  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryOptions> {
     const { name, parent: { id: parentId } } = options;
 
     const { metadata: parentPath } = this.metadatas.getOfDirectoryOrThrow(parentId);
@@ -59,7 +60,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
 
     const id = createId();
     this.metadatas.setDirectory({ id, metadata: newPath });
-    const newDirectoryData: DirectoryDataOptions = { id, name, parentId };
+    const newDirectoryData: DirectoryOptions = { id, name, parentId };
     return newDirectoryData;
   }
 
@@ -78,8 +79,8 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
   async move(options: { subject: Node, target: Directory }): Promise<void> {
     const { subject, target } = options;
 
-    const able = subject.moveable(target);
-    able.throwOnFail();
+    this.moveable(subject).throwOnFail();
+    this.nodes.moveable({ subject, target }).throwOnFail();
 
     const { metadata: oldPath } = this.metadatas.getOrThrow(subject.id);
     const { metadata: targetPath } = this.metadatas.getOrThrow(target.id);
@@ -102,12 +103,12 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     return this.failIfRoot(subject);
   }
 
-  async open(parent: Directory): Promise<ArtifactOrDirectoryDataOptions[]> {
+  async open(parent: Directory): Promise<ArtifactOrDirectoryOptions[]> {
     const { id: parentId } = parent;
     const { metadata: path } = this.metadatas.getOfDirectoryOrThrow(parentId);
     const result = await this.dropboxClient.filesListFolder({ path });
 
-    const childrenData: ArtifactOrDirectoryDataOptions[] = [];
+    const childrenData: ArtifactOrDirectoryOptions[] = [];
 
     for (const childResult of result.result.entries) {
       if (typeof childResult.path_lower !== "string") {
@@ -119,7 +120,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
       const childId = createId();
 
       if (kind === "folder") {
-        const childData: DirectoryDataOptions = {
+        const childData: DirectoryOptions = {
           id: childId,
           name: childResult.name,
           parentId,
@@ -133,7 +134,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
       const lastModified = childResult.server_modified
         ? new Date(childResult.server_modified).getTime()
         : Date.now();
-      const childData: ArtifactDataOptions = {
+      const childData: ArtifactOptions = {
         id: childId,
         lastModified,
         name: childResult.name,

@@ -1,4 +1,4 @@
-import type { Artifact, ArtifactDataOptions, DirectoryDataOptions, Id, Node } from "@/domain";
+import type { Artifact, ArtifactOptions, DirectoryOptions, Id, Node, Nodes } from "@/domain";
 import type { Directory } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
@@ -6,20 +6,21 @@ import { isId } from "@/domain";
 import { throwError } from "@/utils";
 import { Client } from "@microsoft/microsoft-graph-client";
 
-import type { ArtifactOrDirectoryDataOptions } from "../file-system";
+import type { ArtifactOrDirectoryOptions } from "../file-system";
 
 import { BaseFileSystemAdapter } from "../base";
 
 export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, undefined, undefined> {
   graphClient: Client;
 
-  constructor(accessToken: string) {
-    const rootData: DirectoryDataOptions = {
+  constructor(options: { accessToken: string; nodes: Nodes; }) {
+    const { accessToken, nodes } = options;
+    const rootData: DirectoryOptions = {
       id: "root", // onedrive convention that will work to retrieve children in url paths
       name: "OneDrive",
       parentId: undefined
     };
-    super({ rootData, rootMetadata: undefined });
+    super({ nodes, rootData, rootMetadata: undefined });
 
     this.graphClient = Client.init({
       authProvider: (done) => {
@@ -28,7 +29,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     });
   }
 
-  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactDataOptions> {
+  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactOptions> {
     const { name, parent: { id: parentId } } = options;
 
     const item = await this.graphClient
@@ -40,7 +41,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     return data;
   }
 
-  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
+  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryOptions> {
     const { name, parent: { id: parentId } } = options;
 
     const item = await this.graphClient
@@ -70,8 +71,8 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
   async move(options: { subject: Node, target: Directory }): Promise<void> {
     const { subject, target } = options;
 
-    const able = subject.moveable(target);
-    able.throwOnFail();
+    this.moveable(subject).throwOnFail();
+    this.nodes.moveable({ subject, target }).throwOnFail();
 
     await this.graphClient
       .api(`/me/drive/items/${subject.id}`)
@@ -86,7 +87,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     return this.failIfRoot(subject);
   }
 
-  async open(parent: Directory): Promise<ArtifactOrDirectoryDataOptions[]> {
+  async open(parent: Directory): Promise<ArtifactOrDirectoryOptions[]> {
     const { id: parentId } = parent;
 
     const response = await this.graphClient
@@ -94,7 +95,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
       .get() as { value: DriveItem[] };
     const { value: childrenResponse } = response;
 
-    const childrenData: ArtifactOrDirectoryDataOptions[] = [];
+    const childrenData: ArtifactOrDirectoryOptions[] = [];
     for (const childResponse of childrenResponse) {
       const driveItem = { item: childResponse, parentId };
 
@@ -150,7 +151,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     return this.failIfRoot(node);
   }
 
-  private convertDriveItemToArtifactData(options: { item: DriveItem, parentId: Id }): ArtifactDataOptions {
+  private convertDriveItemToArtifactData(options: { item: DriveItem, parentId: Id }): ArtifactOptions {
     const { item, parentId } = options;
 
     if (!isId(item.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
@@ -168,7 +169,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     };
   }
 
-  private convertDriveItemToDirectoryData(options: { item: DriveItem, parentId: Id }): DirectoryDataOptions {
+  private convertDriveItemToDirectoryData(options: { item: DriveItem, parentId: Id }): DirectoryOptions {
     const { item, parentId } = options;
     if (!isId(item.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
     if (typeof item.name !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_NAME");

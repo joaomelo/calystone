@@ -1,9 +1,9 @@
-import type { Artifact, ArtifactDataOptions, Directory, DirectoryDataOptions, Node } from "@/domain";
+import type { Artifact, ArtifactOptions, Directory, DirectoryOptions, Node, Nodes } from "@/domain";
 
 import { createId } from "@/domain";
 import { Status, throwCritical } from "@/utils";
 
-import type { ArtifactOrDirectoryDataOptions } from "../file-system";
+import type { ArtifactOrDirectoryOptions } from "../file-system";
 
 import { BaseFileSystemAdapter } from "../base";
 
@@ -21,8 +21,9 @@ interface RootMetadata {
 }
 
 export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, DirectoryMetadata, FileMetadata> {
-  constructor(rootHandle: FileSystemDirectoryHandle) {
-    const rootData: DirectoryDataOptions = {
+  constructor(options: { nodes: Nodes; rootHandle: FileSystemDirectoryHandle }) {
+    const { nodes, rootHandle } = options;
+    const rootData: DirectoryOptions = {
       id: createId(),
       name: rootHandle.name,
       parentId: undefined
@@ -31,10 +32,10 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
       handle: rootHandle,
       parentHandle: undefined
     };
-    super({ rootData, rootMetadata });
+    super({ nodes, rootData, rootMetadata });
   }
 
-  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactDataOptions> {
+  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactOptions> {
     const { name, parent: { id: parentId } } = options;
     const id = createId();
 
@@ -51,7 +52,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
     this.metadatas.setFile({ id, metadata: fileMetadata });
 
     const { lastModified, size } = await newFileHandle.getFile();
-    const data: ArtifactDataOptions = {
+    const data: ArtifactOptions = {
       id,
       lastModified,
       name,
@@ -62,7 +63,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
     return data;
   }
 
-  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryDataOptions> {
+  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryOptions> {
     const { name, parent: { id: parentId } } = options;
     const id = createId();
 
@@ -76,7 +77,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
 
     this.metadatas.setDirectory({ id, metadata: directoryMetadata });
 
-    const data: DirectoryDataOptions = { id, name, parentId };
+    const data: DirectoryOptions = { id, name, parentId };
     return data;
   }
 
@@ -90,8 +91,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
   async move(options: { subject: Node; target: Directory }): Promise<void> {
     const { subject, target } = options;
 
-    const able = subject.moveable(target);
-    able.throwOnFail();
+    this.moveable(subject).throwOnFail();
+    this.nodes.moveable({ subject, target }).throwOnFail();
 
     const { metadata: fileMetadata } = this.metadatas.getOfFileOrThrow(subject.id);
     const { handle: oldHandle, parentHandle: oldParentHandle } = fileMetadata;
@@ -115,9 +116,9 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
     return Status.ok();
   }
 
-  async open(parent: Directory): Promise<ArtifactOrDirectoryDataOptions[]> {
+  async open(parent: Directory): Promise<ArtifactOrDirectoryOptions[]> {
     const { metadata: { handle } } = this.metadatas.getOfDirectoryOrThrow(parent.id);
-    const childrenData: ArtifactOrDirectoryDataOptions[] = [];
+    const childrenData: ArtifactOrDirectoryOptions[] = [];
 
     for await (const childHandle of handle.values()) {
       const { kind, name } = childHandle;
@@ -125,7 +126,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
 
       if (kind === "file") {
         const { lastModified, size } = await childHandle.getFile();
-        const childData: ArtifactDataOptions = {
+        const childData: ArtifactOptions = {
           id: childId,
           lastModified,
           name,
@@ -141,7 +142,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
         continue;
       }
 
-      const childData: DirectoryDataOptions = {
+      const childData: DirectoryOptions = {
         id: childId,
         name,
         parentId: parent.id,
