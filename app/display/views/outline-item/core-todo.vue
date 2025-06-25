@@ -32,7 +32,7 @@ const icon = computed(() => {
 const label = computed(() => {
   const name = todo.name;
   const priority = todo.priority().toFixed(2);
-  const priorityLabel = priority > 0 ? ` (${priority})` : "";
+  const priorityLabel = todo.priority() > 0 ? ` (${priority})` : "";
   return `${name}${priorityLabel}`;
 });
 

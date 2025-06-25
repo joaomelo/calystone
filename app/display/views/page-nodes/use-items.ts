@@ -1,8 +1,9 @@
 import type { Item, ItemData } from "@/display/views/outline-item";
-import type { Node } from "@/domain";
+import type { Node, Nodes } from "@/domain";
 import type { OutlineGridExpandedKeys } from "@/utils";
 
 import { Store } from "@/display/store";
+import { Descendancy } from "@/domain";
 import { Artifact, Directory, Progressor, TodoArtifact } from "@/domain";
 import { computed, ref } from "vue";
 
@@ -13,22 +14,22 @@ export function useItems() {
   const items = computed<Item[]>(() =>{
     return nodes.list()
       .filter(n => n.isRoot())
-      .map((root) => convert({ expanded: expandedKeys.value, node: root }));
+      .map((root) => convert({ expanded: expandedKeys.value, node: root, nodes }));
   });
 
   return { expandedKeys, items };
 }
 
-function convert(options: { expanded: OutlineGridExpandedKeys; node: Node }): Item {
-  const { expanded, node } = options;
+function convert(options: { expanded: OutlineGridExpandedKeys; node: Node, nodes: Nodes }): Item {
+  const { expanded, node, nodes } = options;
 
   const key = node.id;
   const label = node.name;
 
-  const visibleChildrenNodes = solveChildren({ expanded, node });
-  const visibleChildren = visibleChildrenNodes.map((child) => convert({ expanded, node: child }));
+  const visibleChildrenNodes = solveChildren({ expanded, node, nodes });
+  const visibleChildren = visibleChildrenNodes.map((child) => convert({ expanded, node: child, nodes }));
 
-  const leaf = isImpossibleToHaveChildren(node);
+  const leaf = isImpossibleToHaveChildren({ node, nodes });
 
   const data: ItemData = {
     key,
@@ -38,18 +39,22 @@ function convert(options: { expanded: OutlineGridExpandedKeys; node: Node }): It
   return { children: visibleChildren, data, key, label, leaf };
 }
 
-function isImpossibleToHaveChildren(node: Node): boolean {
+function isImpossibleToHaveChildren(options: { node: Node, nodes: Nodes }): boolean {
+  const { node, nodes } = options;
   if (!(node instanceof Directory)) return true;
   if (!node.isLoaded()) return false;
-  return node.children().length === 0;
+
+  const descendancy = new Descendancy({ directory: node, nodes });
+  return !descendancy.hasChildren();
 }
 
-function solveChildren(options: { expanded: OutlineGridExpandedKeys; node: Node }): Node[] {
-  const { expanded, node } = options;
+function solveChildren(options: { expanded: OutlineGridExpandedKeys; node: Node, nodes: Nodes }): Node[] {
+  const { expanded, node, nodes } = options;
   if (!expanded[node.id]) return [];
   if (!(node instanceof Directory)) return [];
 
-  const children = node.children();
+  const descendancy = new Descendancy({ directory: node, nodes });
+  const children = descendancy.children();
 
   if (children.length === 0) return [];
 

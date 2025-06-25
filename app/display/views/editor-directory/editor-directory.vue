@@ -3,6 +3,7 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/views/editor-node-workspace";
+import { Ascendancy, Descendancy, Descriptor } from "@/domain";
 import { PropertySheet, TextMarkdown, TextMessage, useI18n } from "@/utils";
 import { computed } from "vue";
 
@@ -11,17 +12,20 @@ const { content } = defineProps<{
 }>();
 
 const { t } = useI18n();
-const { services } = Store.use();
+const { nodes, services } = Store.use();
 
+const ascendancy = new Ascendancy({ node: content, nodes });
+const descendancy = new Descendancy({ directory: content, nodes });
 const propertySheetRows = computed(() => {
   return [
-    { label: t("path"), value: content.mountPath() },
-    { label: t("items"), value: content.descendants().length },
+    { label: t("path"), value: ascendancy.path() },
+    { label: t("items"), value: descendancy.descendants().length },
   ];
 });
 
+const descriptor = new Descriptor({ directory: content, nodes });
 const description = computed(() => {
-  return content.description();
+  return descriptor.description();
 });
 
 const descriptorMissing = computed(() => {

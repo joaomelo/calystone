@@ -21,6 +21,10 @@ export class Descendancy {
     return resolveDescendants({ directory: this.directory, nodes: this.nodes });
   }
 
+  hasChildren(): boolean {
+    return this.children().length > 0;
+  }
+
   isChild(maybeChild: Node): boolean {
     const children = this.children();
     if (children.length === 0) return false;

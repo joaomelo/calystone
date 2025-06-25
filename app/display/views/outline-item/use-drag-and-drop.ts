@@ -38,8 +38,7 @@ function useDranAndDropNode(id: string) {
 
     await dispatchOrToast(async () => {
       const subject = nodes.getOrThrow(id);
-      const moveable = subject.moveable(node);
-      moveable.throwOnFail();
+      nodes.moveable({ subject, target: node }).throwOnFail();
 
       await services.moveNode.move({ subject, target: node });
     });
