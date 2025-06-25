@@ -1,10 +1,15 @@
-import type { Directory, Node } from "@/domain";
+import type { Directory, Node, Nodes } from "@/domain";
 import type { FileSystemAdapter } from "@/infra";
 
 import { throwError } from "@/utils";
 
 export class MoveNodeService {
   private fileSystemAdapter?: FileSystemAdapter;
+  private readonly nodes: Nodes;
+
+  constructor(nodes: Nodes) {
+    this.nodes = nodes;
+  }
 
   async move(options: { subject: Node, target: Directory }) {
     const fileSystemAdapter = this.inject();
@@ -16,7 +21,7 @@ export class MoveNodeService {
       target.busy();
 
       await fileSystemAdapter.move(options);
-      options.subject.move(options.target);
+      this.nodes.move(options);
     } finally {
       subject.idle();
       target.idle();

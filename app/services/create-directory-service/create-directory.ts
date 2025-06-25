@@ -24,8 +24,8 @@ export class CreateDirectoryService {
     try {
       parent.busy();
       await this.openDirectory.open(parent);
-      const data = await fileSystemAdapter.createDirectory(options);
-      const directory = createNode({ nodes: this.nodes, ...data });
+      const directoryOptions = await fileSystemAdapter.createDirectory(options);
+      const directory = createNode(directoryOptions);
       this.nodes.set(directory);
       await this.openDirectory.open(directory);
     } finally {

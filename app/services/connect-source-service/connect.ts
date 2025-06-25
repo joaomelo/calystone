@@ -76,7 +76,7 @@ export class ConnectSourceService {
     const { fileSystemAdapter } = this.inject();
 
     const rootOptions = fileSystemAdapter.resetToRootOnly();
-    const rootDirectory = createNode({ nodes: this.nodes, ...rootOptions });
+    const rootDirectory = createNode(rootOptions);
 
     this.nodes.clear();
     this.nodes.set(rootDirectory);

@@ -26,8 +26,8 @@ export class CreateArtifactService {
     try {
       parent.busy();
       await this.openDirectory.open(parent);
-      const data = await fileSystemAdapter.createArtifact(options);
-      const artifact = createNode({ nodes: this.nodes, ...data });
+      const artifactOptions = await fileSystemAdapter.createArtifact(options);
+      const artifact = createNode(artifactOptions);
       this.nodes.set(artifact);
       await this.exchangeArtifact.fetchInto(artifact);
     } finally {

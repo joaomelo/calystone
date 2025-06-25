@@ -26,9 +26,9 @@ export class OpenDirectoryService {
 
     directory.busy();
     try {
-      const nodesData = await fileSystemAdapter.open(directory);
-      for (const data of nodesData) {
-        const node = createNode({ nodes: this.nodes, ...data });
+      const nodesOptions = await fileSystemAdapter.open(directory);
+      for (const nodeOptions of nodesOptions) {
+        const node = createNode(nodeOptions);
         this.nodes.set(node);
       }
       directory.load();

@@ -59,11 +59,11 @@ export class ServicesPortolfio {
     this.computeTags = new ComputeTagsService(this.nodes);
     this.retrieveNodes = new RetrieveNodesService(this.nodes);
     this.exchangeArtifact = new ExchangeArtifactService();
-    this.ensureDescriptor = new EnsureDescriptorService(this.exchangeArtifact);
+    this.ensureDescriptor = new EnsureDescriptorService({ exchangeArtifact: this.exchangeArtifact, nodes: this.nodes });
     this.openDirectory = new OpenDirectoryService({ ensureDescriptor: this.ensureDescriptor, nodes: this.nodes });
     this.renameNode = new RenameNodeService(this.nodes);
     this.removeNode = new RemoveNodeService(this.nodes);
-    this.moveNode = new MoveNodeService();
+    this.moveNode = new MoveNodeService(this.nodes);
     this.createDirectory = new CreateDirectoryService({ nodes: this.nodes, openDirectory: this.openDirectory });
     this.createArtifact = new CreateArtifactService({ exchangeArtifact: this.exchangeArtifact, nodes: this.nodes, openDirectory: this.openDirectory });
     this.trackTodos = new TrackTodosService(this.nodes);
