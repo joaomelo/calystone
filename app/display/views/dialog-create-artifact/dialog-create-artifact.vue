@@ -2,7 +2,7 @@
 import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
-import { ButtonsSaveCancel } from "@/display/views/buttons-save-cancel";
+import { SaveCancel } from "@/display/views/save-cancel";
 import { InputText, ModalBase, useDispatch, useI18n } from "@/utils";
 import { reactive, useTemplateRef } from "vue";
 
@@ -49,7 +49,7 @@ function open() {
       />
     </template>
     <template #buttons="{ close }">
-      <ButtonsSaveCancel
+      <SaveCancel
         :saving="loading"
         @cancel="close"
         @save="handleSave"
