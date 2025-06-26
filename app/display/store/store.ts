@@ -1,32 +1,26 @@
-import type { Nodes } from "@/domain";
 import type { ServicesPortolfio } from "@/services";
 import type { App, Ref } from "vue";
 
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 
 import type { AppData } from "./app-data";
 
 import { key } from "./key";
 import { useStore } from "./use";
 
-interface Options {
-  services: ServicesPortolfio
-  appData: AppData;
-};
-
 export class Store {
   appData: AppData;
   connected: Ref<boolean>;
-  nodes: Nodes;
   services: ServicesPortolfio;
 
-  constructor({ appData, services }: Options) {
+  constructor(options: { appData: AppData, services: ServicesPortolfio }) {
+    const { appData, services } = options;
+
     this.appData = appData;
     this.services = services;
-    this.nodes = reactive(services.nodes);
 
     this.connected = ref(false);
-    this.services.connectSource.subscribe(({ status }) => {
+    services.connectSource.subscribe(({ status }) => {
       this.connected.value = status === "connected" || status === "reconnected";
     });
   }
