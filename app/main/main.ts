@@ -1,6 +1,6 @@
 import { name, version } from "@/../package.json";
 import { createI18n, createRouter, Store, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
-import { AccessAdaptersFactory, AvailabilityFacade, BrowserExportAdapter, BrowserShareAdapter } from "@/infra";
+import { AccessAdaptersFactory, AvailabilityFacade, BrowserExportAdapter, BrowserShareAdapter, FileSystemAdaptersFactory } from "@/infra";
 import { ServicesPortolfio } from "@/services";
 import { LoggerContainer, throwCritical, ToastService } from "@/utils";
 import PrimeVue from "primevue/config";
@@ -10,7 +10,7 @@ import { createApp } from "vue";
 import App from "./app.vue";
 
 export function initApp(elementId: string) {
-  const loggerLevel = numberOrUndefined(import.meta.env.VITE_LOGGER_LEVEL);
+  const loggerLevel = asNumberOrUndefined(import.meta.env.VITE_LOGGER_LEVEL);
   const logger = LoggerContainer.create(loggerLevel);
   window.$logger = logger;
 
@@ -40,19 +40,24 @@ export function initApp(elementId: string) {
   const router = createRouter();
   app.use(router);
 
-  const dropboxClientId = stringOrUndefined(import.meta.env.VITE_DROPBOX_CLIENT_ID);
+  const dropboxClientId = asString(import.meta.env.VITE_DROPBOX_CLIENT_ID);
   const dropboxRedirectUrl = `${window.location.origin}/transfer-dropbox`;
   const memoryDelayInMilliseconds = asNumber(import.meta.env.VITE_MEMORY_DELAY_IN_MILLISECONDS);
   const memoryEnabled = asBoolean(import.meta.env.VITE_ENABLE_MEMORY);
-  const oneDriveClientId = stringOrUndefined(import.meta.env.VITE_ONE_DRIVE_CLIENT_ID);
+  const oneDriveClientId = asString(import.meta.env.VITE_ONE_DRIVE_CLIENT_ID);
   const oneDriveRedirectUrl = `${window.location.origin}/transfer-one-drive`;
 
   const accessConfiguration = {
-    dropbox: typeof dropboxClientId === "string" ? { clientId: dropboxClientId, redirectUrl: dropboxRedirectUrl } : undefined,
-    memory: memoryEnabled ? { delayInMilliseconds: memoryDelayInMilliseconds } : undefined,
-    oneDrive: typeof oneDriveClientId === "string" ? { clientId: oneDriveClientId, redirectUrl: oneDriveRedirectUrl } : undefined,
+    dropbox: { clientId: dropboxClientId, redirectUrl: dropboxRedirectUrl },
+    memory: { delayInMilliseconds: memoryDelayInMilliseconds },
+    oneDrive: { clientId: oneDriveClientId, redirectUrl: oneDriveRedirectUrl },
   };
   const accessAdaptersFactory = new AccessAdaptersFactory(accessConfiguration);
+
+  const fileSystemConfiguration = {
+    memory: { delayInMilliseconds: memoryDelayInMilliseconds },
+  };
+  const fileSystemAdaptersFactory = new FileSystemAdaptersFactory(fileSystemConfiguration);
 
   const availabilityOptions = {
     dropbox: typeof dropboxClientId === "string",
@@ -68,6 +73,7 @@ export function initApp(elementId: string) {
     accessAdaptersFactory,
     availabilityFacade,
     exportAdapter,
+    fileSystemAdaptersFactory,
     preloadEnabled,
     shareAdapter,
   });
@@ -94,12 +100,18 @@ function asNumber(value: unknown): number {
   return 0;
 }
 
-function numberOrUndefined(value: unknown): number | undefined {
+function asNumberOrUndefined(value: unknown): number | undefined {
   if (value === undefined || value === null) return undefined;
   return asNumber(value);
 }
 
-function stringOrUndefined(value: unknown): string | undefined {
+function asString(value: unknown): string {
+  const stringOrUndefined = asStringOrUndefined(value);
+  if (stringOrUndefined === undefined) throwCritical("INVALID_STRING");
+  return stringOrUndefined;
+}
+
+function asStringOrUndefined(value: unknown): string | undefined {
   if (typeof value === "string") return value;
   return undefined;
 }
