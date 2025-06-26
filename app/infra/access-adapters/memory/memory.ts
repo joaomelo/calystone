@@ -1,9 +1,8 @@
-import { MemoryFileSystemAdapter } from "@/infra/files-system-adapters";
 import { delay, fakeDirectory } from "@/utils";
 
 import type { AccessAdapter } from "../access";
 
-export class MemoryAccessAdapter implements AccessAdapter {
+export class MemoryAccessAdapter implements AccessAdapter<{ rootDirectoryName: string }> {
   private readonly delayInMilliseconds: number;
 
   constructor(delayInMilliseconds: number) {
@@ -16,6 +15,6 @@ export class MemoryAccessAdapter implements AccessAdapter {
     const dir = fakeDirectory();
     const rootDirectoryName = dir.name;
 
-    return new MemoryFileSystemAdapter({ delayInMilliseconds: this.delayInMilliseconds, rootDirectoryName });
+    return { rootDirectoryName };
   }
 }

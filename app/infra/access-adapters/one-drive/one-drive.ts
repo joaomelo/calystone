@@ -1,4 +1,3 @@
-import { OneDriveFileSystemAdapter } from "@/infra/files-system-adapters";
 import { throwError } from "@/utils";
 import { PublicClientApplication } from "@azure/msal-browser";
 
@@ -8,7 +7,7 @@ interface Options {
   redirectUrl: string;
 }
 
-export class OneDriveAccessAdapter implements AccessAdapter {
+export class OneDriveAccessAdapter implements AccessAdapter<{ accessToken: string }> {
   clientId: string;
   msalInstance: PublicClientApplication;
 
@@ -46,7 +45,7 @@ export class OneDriveAccessAdapter implements AccessAdapter {
     });
     const { accessToken } = tokenResponse;
 
-    return new OneDriveFileSystemAdapter(accessToken);
+    return { accessToken };
   }
 
   private async authenticateUserAtTheOneDriveWebsite() {
