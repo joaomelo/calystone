@@ -1,7 +1,6 @@
 import type { SourceProvider } from "@/infra/source";
 
-import { throwCritical } from "@/utils";
-
+import type { AccessAdapter } from "../access";
 import type { AccessConfiguration } from "./configuration";
 
 import { DropboxAccessAdapter } from "../dropbox";
@@ -16,25 +15,18 @@ export class AccessAdaptersFactory {
     this.configurations = configurations;
   }
 
-  create(provider: SourceProvider) {
+  create(provider: SourceProvider): AccessAdapter<unknown> {
     switch (provider) {
       case "dropbox":{
-        if (!this.configurations.dropbox) {
-          throwCritical("DROPBOX_CONFIGURATION_NOT_FOUND");
-        }
         return new DropboxAccessAdapter(this.configurations.dropbox);
       }
       case "fsa":{
         return new FsaAccessAdapter();
       }
       case "memory": {
-        const delayInMilliseconds = this.configurations.memory?.delayInMilliseconds ?? 0;
-        return new MemoryAccessAdapter(delayInMilliseconds);
+        return new MemoryAccessAdapter(this.configurations.memory.delayInMilliseconds);
       }
       case "oneDrive":{
-        if (!this.configurations.oneDrive) {
-          throwCritical("ONE_DRIVE_CONFIGURATION_NOT_FOUND");
-        }
         return new OneDriveAccessAdapter(this.configurations.oneDrive);
       }
     }
