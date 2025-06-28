@@ -17,7 +17,7 @@ export abstract class Node {
     this.name = name;
     this.parentId = parentId;
 
-    // unfortunately placing this vue wrapper was the only way the ui was able to reactively react to state changes of new nodes created in some services like create directory or create artifact.
+    // unfortunately placing this vue wrapper was the only way the ui was able to reactively respond to state changes of new nodes created in some services like create directory or create artifact.
     return reactive(this);
   }
 
