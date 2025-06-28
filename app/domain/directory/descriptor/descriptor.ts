@@ -1,24 +1,25 @@
-import type { Directory } from "@/domain/directory/directory";
 import type { NodeOrId } from "@/domain/node";
 import type { Nodes } from "@/domain/nodes";
 
 import { TextArtifact } from "@/domain/artifact";
+import { Directory } from "@/domain/directory/directory";
 import { Descendancy } from "@/domain/hierarchy";
 
 export class Descriptor {
   static readonly descriptorBasename = "README";
 
-  directory: Directory;
   nodes: Nodes;
 
-  constructor(options: { directory: NodeOrId; nodes: Nodes }) {
-    this.nodes = options.nodes;
-    this.directory = this.nodes.getOrThrow(options.directory);
+  constructor(nodes: Nodes) {
+    this.nodes = nodes;
   }
 
-  artifact(): TextArtifact | undefined {
-    const descendancy = new Descendancy({ directory: this.directory, nodes: this.nodes });
-    const children = descendancy.children();
+  artifact(directoryOrId: NodeOrId): TextArtifact | undefined {
+    const directory = this.nodes.getOrThrow(directoryOrId);
+    if (!(directory instanceof Directory)) return;
+
+    const descendancy = new Descendancy(this.nodes);
+    const children = descendancy.children(directory);
 
     if (children.length === 0) return;
 
@@ -31,8 +32,8 @@ export class Descriptor {
     return artifact;
   }
 
-  description(): string {
-    const artifact = this.artifact();
+  description(directoryOrId: NodeOrId): string {
+    const artifact = this.artifact(directoryOrId);
     if (!artifact) return "";
     return artifact.content;
   }

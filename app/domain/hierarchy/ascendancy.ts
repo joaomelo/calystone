@@ -1,52 +1,69 @@
-import type { Directory } from "@/domain/directory";
-import type { Node, NodeOrId } from "@/domain/node";
+import type { NodeOrId } from "@/domain/node";
 import type { Nodes } from "@/domain/nodes";
 
-import { resolveParent } from "./resolve-parent";
+import { Directory } from "@/domain/directory";
 
 export class Ascendancy {
-  node: Node;
   nodes: Nodes;
 
-  constructor(options: { node: NodeOrId; nodes: Nodes }) {
-    this.nodes = options.nodes;
-    this.node = this.nodes.getOrThrow(options.node);
+  constructor(nodes: Nodes) {
+    this.nodes = nodes;
   }
 
-  ascendants(): Directory[] {
-    const node = this.nodes.get(this.node);
+  ascendants(nodeOrId: NodeOrId): Directory[] {
+    const node = this.nodes.get(nodeOrId);
     if (!node) return [];
 
     const ascendants: Directory[] = [];
-
-    let parent = resolveParent({ node: this.node, nodes: this.nodes });
+    let parent = this.parent(nodeOrId);
     while (parent) {
       ascendants.push(parent);
-      parent = resolveParent({ node: parent, nodes: this.nodes });
+      parent = this.parent(parent);
     }
 
     return ascendants;
   }
 
-  isAscendant(maybeAscendant: Directory): boolean {
-    const ascendants = this.ascendants();
+  isAscendant({
+    ascendant,
+    child
+  }: {
+    ascendant: Directory;
+    child: NodeOrId;
+  }): boolean {
+    const ascendants = this.ascendants(child);
     if (ascendants.length === 0) return false;
-    return ascendants.some(a => a.isEqualTo(maybeAscendant));
+    return ascendants.some(a => a.isEqualTo(ascendant));
   }
 
-  isParent(maybeParent: Directory): boolean {
-    const realParent = this.parent();
+  isParent({
+    child,
+    parent
+  }: {
+    child: NodeOrId;
+    parent: Directory;
+  }): boolean {
+    const realParent = this.parent(child);
     if (!realParent) return false;
-    return realParent.isEqualTo(maybeParent);
+    return realParent.isEqualTo(parent);
   }
 
-  parent(): Directory | undefined {
-    return resolveParent({ node: this.node, nodes: this.nodes });
+  parent(nodeOrId: NodeOrId): Directory | undefined {
+    const node = this.nodes.get(nodeOrId);
+    if (!node) return;
+    if (!node.parentId) return;
+
+    const parent = this.nodes.get(node.parentId);
+    if (!parent) return;
+    if (!(parent instanceof Directory)) return;
+
+    return parent;
   }
 
-  path(): string {
-    const ascendants = this.ascendants();
-    const ascendantsPlusNode = ascendants.toReversed().concat(this.node);
+  path(nodeOrId: NodeOrId): string {
+    const node = this.nodes.getOrThrow(nodeOrId);
+    const ascendants = this.ascendants(node);
+    const ascendantsPlusNode = ascendants.toReversed().concat(node);
     return ascendantsPlusNode.map(a => `/${a.name}`).join("");
   }
 }
