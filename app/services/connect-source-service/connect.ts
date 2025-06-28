@@ -1,87 +1,88 @@
-import type { Nodes } from "@/domain";
-import type { AccessAdaptersFactory, FileSystemAdapter, Source, SourceProvider } from "@/infra";
+import type { AccessAdaptersFactory, FileSystemAdaptersFactory, SourceProvider } from "@/infra";
 
+import { Nodes } from "@/domain";
 import { createNode } from "@/domain";
 import { sources } from "@/infra";
-import { throwError } from "@/utils";
+import { throwCritical } from "@/utils";
+import { BehaviorSubject } from "rxjs";
 
-import type { StatusObserver } from "./status";
-
-import { StatusObservable } from "./status";
+import type { ConnectionState } from "./state";
 
 export class ConnectSourceService {
   private readonly accessAdaptersFactory: AccessAdaptersFactory;
-  private fileSystemAdapter?: FileSystemAdapter;
-  private readonly nodes: Nodes;
-  private source?: Source;
-  private readonly statusObservable: StatusObservable;
+  private readonly fileSystemAdaptersFactory: FileSystemAdaptersFactory;
+  private readonly observable: BehaviorSubject<ConnectionState>;
 
-  constructor(options: { accessAdaptersFactory: AccessAdaptersFactory, nodes: Nodes, }) {
-    const { accessAdaptersFactory, nodes } = options;
-    this.nodes = nodes;
-    this.accessAdaptersFactory = accessAdaptersFactory;
-    this.statusObservable = new StatusObservable();
+  constructor(options:{
+    accessAdaptersFactory: AccessAdaptersFactory,
+    fileSystemAdaptersFactory: FileSystemAdaptersFactory
+  }) {
+    this.accessAdaptersFactory = options.accessAdaptersFactory;
+    this.fileSystemAdaptersFactory = options.fileSystemAdaptersFactory;
+    this.observable = new BehaviorSubject<ConnectionState>({
+      fileSystemAdapter: undefined,
+      nodes: undefined,
+      source: undefined,
+      status: "disconnected"
+    });
   }
 
   async connect(provider: SourceProvider) {
+    const source = sources[provider];
+    const nodes = new Nodes();
 
     const accessAdapter = this.accessAdaptersFactory.create(provider);
-    this.source = sources[provider];
-    this.fileSystemAdapter = await accessAdapter.request();
+    const accessData = await accessAdapter.request();
+    const fileSystemAdapter = this.fileSystemAdaptersFactory.create({
+      accessData,
+      nodes,
+      provider
+    });
 
-    this.reset();
+    const rootOptions = fileSystemAdapter.resetToRootOnly();
+    const rootDirectory = createNode(rootOptions);
 
-    this.statusObservable.next({
-      fileSystemAdapter: this.fileSystemAdapter,
-      nodes: this.nodes,
-      source: this.source,
+    nodes.clear();
+    nodes.set(rootDirectory);
+
+    this.observable.next({
+      fileSystemAdapter,
+      nodes,
+      source,
       status: "connected"
     });
   }
 
   disconnect() {
-    this.statusObservable.next({ status: "disconnected" });
-
-    this.fileSystemAdapter = undefined;
-    this.nodes.clear();
-  }
-
-  reconnect() {
-    this.reset();
-
-    const { fileSystemAdapter, source } = this.inject();
-
-    this.statusObservable.next({
-      fileSystemAdapter,
-      nodes: this.nodes,
-      source,
-      status: "reconnected"
+    this.observable.next({
+      fileSystemAdapter: undefined,
+      nodes: undefined,
+      source: undefined,
+      status: "disconnected"
     });
   }
 
-  subscribe(observer: StatusObserver) {
-    return this.statusObservable.subscribe(observer);
-  }
-
-  private inject() {
-    if (!this.fileSystemAdapter) throwError("FILE_SYSTEM_ADAPTER_NOT_PROVIDED");
-    if (!this.source) throwError("SOURCE_NOT_PROVIDED");
-    return {
-      fileSystemAdapter: this.fileSystemAdapter,
-      source: this.source
-    };
-  }
-
-  private reset() {
-    const { fileSystemAdapter } = this.inject();
+  reconnect() {
+    const { fileSystemAdapter, nodes } = this.stateConnectedOrThrow();
 
     const rootOptions = fileSystemAdapter.resetToRootOnly();
     const rootDirectory = createNode(rootOptions);
 
-    this.nodes.clear();
-    this.nodes.set(rootDirectory);
+    nodes.clear();
+    nodes.set(rootDirectory);
+  }
 
-    return true;
-  };
+  state() {
+    return this.observable.value;
+  }
 
+  stateConnectedOrThrow() {
+    const state = this.state();
+    if (state.status !== "connected") throwCritical("NOT_CONNECTED");
+    return state;
+  }
+
+  subscribe(observer: (state: ConnectionState) => void) {
+    return this.observable.subscribe(observer);
+  }
 }
