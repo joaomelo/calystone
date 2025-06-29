@@ -26,12 +26,12 @@ describe("editor-directory", () => {
     editorDirectory.descriptorContent().should("not.be.empty");
   });
 
-  it("show descriptor tip if it is sure it does not exist", () => {
+  it("show descriptor tip if it is not found", () => {
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
     outlineNodes.directoryOf(outlineNodes.rootNode()).eq(0).as("directory");
 
     cy.get("@directory").click();
-    editorDirectory.descriptorTip().should("not.exist");
+    editorDirectory.descriptorTip().should("not.be.empty");
 
     outlineNodes.toogleOf(cy.get("@directory")).click();
     cy.get("@directory").click();
