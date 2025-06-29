@@ -53,9 +53,10 @@ export class Metadatas<R, D, F> {
   remove(node: Node) {
     this.map.delete(node.id);
     if (node instanceof Directory) {
-      const descendancy = new Descendancy({ directory: node, nodes: this.nodes });
-      for (const child of descendancy.descendants()) {
-        this.remove(child);
+      const descendancy = new Descendancy(this.nodes);
+      const descendants = descendancy.descendants(node);
+      for (const descendant of descendants) {
+        this.map.delete(descendant.id);
       }
     }
   }

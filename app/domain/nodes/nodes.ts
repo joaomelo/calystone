@@ -64,10 +64,10 @@ export class Nodes {
   }
 
   remove(node: Node) {
-    this.map.delete(node.id);
-    if (!(node instanceof Directory)) return;
+    const descendants = this.descendancy.descendants(node);
 
-    for (const child of this.descendancy.descendants(node)) {
+    this.map.delete(node.id);
+    for (const child of descendants) {
       this.map.delete(child.id);
     }
   }
