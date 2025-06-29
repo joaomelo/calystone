@@ -1,24 +1,20 @@
-import type { Directory, Nodes } from "@/domain";
-import type { FileSystemAdapter } from "@/infra";
+import type { Directory } from "@/domain";
+import type { ConnectSourceService } from "@/services/connect-source-service/connect";
+import type { OpenDirectoryService } from "@/services/open-directory-service";
 
 import { createNode } from "@/domain";
-import { throwError } from "@/utils";
-
-import type { OpenDirectoryService } from "../open-directory-service";
 
 export class CreateDirectoryService {
-  private fileSystemAdapter?: FileSystemAdapter;
-  private readonly nodes: Nodes;
+  private readonly connectSourceService: ConnectSourceService;
   private readonly openDirectory: OpenDirectoryService;
 
-  constructor(options: { nodes: Nodes, openDirectory: OpenDirectoryService }) {
-    const { nodes, openDirectory } = options;
-    this.nodes = nodes;
-    this.openDirectory = openDirectory;
+  constructor(options: { connectSourceService: ConnectSourceService, openDirectory: OpenDirectoryService }) {
+    this.connectSourceService = options.connectSourceService;
+    this.openDirectory = options.openDirectory;
   }
 
   async create(options: { name: string, parent: Directory }): Promise<void> {
-    const fileSystemAdapter = this.inject();
+    const { fileSystemAdapter, nodes } = this.connectSourceService.stateConnectedOrThrow();
     const { parent } = options;
 
     try {
@@ -26,19 +22,10 @@ export class CreateDirectoryService {
       await this.openDirectory.open(parent);
       const directoryOptions = await fileSystemAdapter.createDirectory(options);
       const directory = createNode(directoryOptions);
-      this.nodes.set(directory);
+      nodes.set(directory);
       await this.openDirectory.open(directory);
     } finally {
       parent.idle();
     }
-  }
-
-  provide(fileSystemAdapter: FileSystemAdapter) {
-    this.fileSystemAdapter = fileSystemAdapter;
-  }
-
-  private inject() {
-    if (!this.fileSystemAdapter) throwError("FILE_SYSTEM_ADAPTER_NOT_PROVIDED");
-    return this.fileSystemAdapter;
   }
 }

@@ -1,55 +1,50 @@
-import type { Nodes } from "@/domain";
 import type { ConnectSourceService } from "@/services/connect-source-service";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 
 import { idle } from "@/utils";
+import { BehaviorSubject } from "rxjs";
 
 import { Loader } from "./loader";
-import { Observable, type Observer } from "./observable";
-import { PreloadTracker } from "./preload-tracker";
+
+export type PreloadState = { status: "idle" } | { status: "loading" };
 
 export class PreloadNodesService {
   private clearId?: number;
   private readonly connectSource: ConnectSourceService;
   private readonly exchangeArtifact: ExchangeArtifactService;
   private readonly loader: Loader;
-  private readonly nodes: Nodes;
-  private readonly observable = new Observable();
+  private readonly observable: BehaviorSubject<PreloadState>;
   private readonly openDirectory: OpenDirectoryService;
-  private readonly preloadTracker: PreloadTracker;
   private readonly scheduleInterval = 50;
 
   constructor(options: {
     connectSource: ConnectSourceService,
     exchangeArtifact: ExchangeArtifactService,
-    nodes: Nodes,
     openDirectory: OpenDirectoryService,
     preloadEnabled: boolean,
   }) {
     this.exchangeArtifact = options.exchangeArtifact;
-    this.nodes = options.nodes;
     this.openDirectory = options.openDirectory;
     this.connectSource = options.connectSource;
-    this.preloadTracker = new PreloadTracker(this.nodes);
+    this.observable = new BehaviorSubject<PreloadState>({ status: "idle" });
 
-    const isOneMegabyte = 1024 * 1024;
+    const oneMegabyte = 1024 * 1024;
     const batchSize = 100;
     this.loader = new Loader({
       batchSize,
+      connectSource: this.connectSource,
       exchangeArtifact: this.exchangeArtifact,
-      nodes: this.nodes,
       openDirectory: this.openDirectory,
-      textArtifactSizeLimit: isOneMegabyte,
+      textArtifactSizeLimit: oneMegabyte,
     });
 
-    this.connectSource.subscribe((connectStatusOptions) => {
+    this.connectSource.subscribe(({ source, status }) => {
       this.stop();
 
       if (!options.preloadEnabled) return;
-      if (connectStatusOptions.status === "disconnected") return;
+      if (status === "disconnected") return;
 
-      const { source } = connectStatusOptions;
       if (source.origin === "local") {
         this.start();
       }
@@ -57,10 +52,14 @@ export class PreloadNodesService {
   }
 
   start(): void {
-    if (this.observable.value() === "loading") return;
+    if (this.state().status === "loading") return;
 
     void this.tick();
     this.observable.next({ status: "loading" });
+  }
+
+  state() {
+    return this.observable.value;
   }
 
   stop(): void {
@@ -69,14 +68,13 @@ export class PreloadNodesService {
     this.observable.next({ status: "idle" });
   }
 
-  subscribe(observer: Observer) {
+  subscribe(observer: (state: PreloadState) => void) {
     this.observable.subscribe(observer);
   }
 
   private async tick() {
     await idle();
     await this.loader.run();
-    this.preloadTracker.mark();
     this.clearId = window.setTimeout(() => void this.tick(), this.scheduleInterval);
   }
 

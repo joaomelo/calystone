@@ -1,13 +1,13 @@
-import type { Nodes } from "@/domain";
+import type { RetrieveNodesService } from "@/services/retrieve-nodes-service";
 
 import { TodoArtifact } from "@/domain";
 import { throwError } from "@/utils";
 
 export class TrackTodosService {
-  private readonly nodes: Nodes;
+  private readonly retrieveNodes: RetrieveNodesService;
 
-  constructor(nodes: Nodes) {
-    this.nodes = nodes;
+  constructor(retrieveNodes: RetrieveNodesService) {
+    this.retrieveNodes = retrieveNodes;
   }
 
   datesWithTodosWithin(options: { end: Date; start: Date }): Date[] {
@@ -46,7 +46,7 @@ export class TrackTodosService {
 
   private selectLoadedTodos() {
     const loadedTodos: TodoArtifact[] = [];
-    const nodes = this.nodes.list();
+    const nodes = this.retrieveNodes.list();
     for (const node of nodes) {
       if (!(node instanceof TodoArtifact)) continue;
       if (!node.isLoaded()) continue;

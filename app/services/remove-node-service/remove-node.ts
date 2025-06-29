@@ -1,34 +1,22 @@
-import type { Node, Nodes } from "@/domain";
-import type { FileSystemAdapter } from "@/infra";
-
-import { throwError } from "@/utils";
+import type { Node } from "@/domain";
+import type { ConnectSourceService } from "@/services/connect-source-service";
 
 export class RemoveNodeService {
-  private fileSystemAdapter?: FileSystemAdapter;
-  private readonly nodes: Nodes;
+  private readonly connectSource: ConnectSourceService;
 
-  constructor(nodes: Nodes) {
-    this.nodes = nodes;
-  }
-
-  provide(fileSystemAdapter: FileSystemAdapter) {
-    this.fileSystemAdapter = fileSystemAdapter;
+  constructor(connectSource: ConnectSourceService) {
+    this.connectSource = connectSource;
   }
 
   async remove(node: Node): Promise<void> {
-    const fileSystemAdapter = this.inject();
+    const { fileSystemAdapter, nodes } = this.connectSource.stateConnectedOrThrow();
     await fileSystemAdapter.remove(node);
-    this.nodes.remove(node);
+    nodes.remove(node);
   }
 
   removeable(node: Node) {
-    const fileSystemAdapter = this.inject();
+    const { fileSystemAdapter } = this.connectSource.stateConnectedOrThrow();
     return fileSystemAdapter.removeable(node);
-  }
-
-  private inject() {
-    if (!this.fileSystemAdapter) throwError("FILE_SYSTEM_ADAPTER_NOT_PROVIDED");
-    return this.fileSystemAdapter;
   }
 
 }

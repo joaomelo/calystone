@@ -1,14 +1,13 @@
 import type { Directory, Node, NodeOrId } from "@/domain";
+import type { ConnectSourceService } from "@/services/connect-source-service";
 
 import { Ascendancy, Descendancy } from "@/domain";
-
-import type { ConnectSourceService } from "../connect-source-service/connect";
 
 export class QueryHierarchyService {
   private readonly connectSourceService: ConnectSourceService;
 
-  constructor(options: { connectSourceService: ConnectSourceService }) {
-    this.connectSourceService = options.connectSourceService;
+  constructor(connectSourceService: ConnectSourceService) {
+    this.connectSourceService = connectSourceService;
   }
 
   ascendants(nodeOrId: NodeOrId): Directory[] {

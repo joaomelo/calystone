@@ -1,18 +1,15 @@
-import type { Directory, Node, Nodes } from "@/domain";
-import type { FileSystemAdapter } from "@/infra";
-
-import { throwError } from "@/utils";
+import type { Directory, Node } from "@/domain";
+import type { ConnectSourceService } from "@/services/connect-source-service/connect";
 
 export class MoveNodeService {
-  private fileSystemAdapter?: FileSystemAdapter;
-  private readonly nodes: Nodes;
+  private readonly connectSourceService: ConnectSourceService;
 
-  constructor(nodes: Nodes) {
-    this.nodes = nodes;
+  constructor(connectSourceService: ConnectSourceService) {
+    this.connectSourceService = connectSourceService;
   }
 
   async move(options: { subject: Node, target: Directory }) {
-    const fileSystemAdapter = this.inject();
+    const { fileSystemAdapter, nodes } = this.connectSourceService.stateConnectedOrThrow();
     const { subject, target } = options;
     const moveable = fileSystemAdapter.moveable(subject);
     moveable.throwOnFail();
@@ -21,7 +18,7 @@ export class MoveNodeService {
       target.busy();
 
       await fileSystemAdapter.move(options);
-      this.nodes.move(options);
+      nodes.move(options);
     } finally {
       subject.idle();
       target.idle();
@@ -29,16 +26,7 @@ export class MoveNodeService {
   }
 
   moveable(node: Node) {
-    const fileSystemAdapter = this.inject();
+    const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
     return fileSystemAdapter.moveable(node);
-  }
-
-  provide(fileSystemAdapter: FileSystemAdapter) {
-    this.fileSystemAdapter = fileSystemAdapter;
-  }
-
-  private inject() {
-    if (!this.fileSystemAdapter) throwError("FILE_SYSTEM_ADAPTER_NOT_PROVIDED");
-    return this.fileSystemAdapter;
   }
 }

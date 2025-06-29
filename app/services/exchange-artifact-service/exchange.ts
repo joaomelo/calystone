@@ -1,15 +1,20 @@
 import type { Artifact } from "@/domain";
-import type { FileSystemAdapter } from "@/infra";
 
 import { throwError } from "@/utils";
 
+import type { ConnectSourceService } from "../connect-source-service/connect";
+
 export class ExchangeArtifactService {
-  private fileSystemAdapter?: FileSystemAdapter;
+  private readonly connectSourceService: ConnectSourceService;
+
+  constructor(connectSourceService: ConnectSourceService) {
+    this.connectSourceService = connectSourceService;
+  }
 
   async fetchInto(artifact: Artifact) {
     if (artifact.isLoaded()) return;
 
-    const fileSystemAdapter = this.inject();
+    const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
 
     artifact.busy();
     try {
@@ -25,16 +30,7 @@ export class ExchangeArtifactService {
   }
 
   async postFrom(artifact: Artifact) {
-    const fileSystemAdapter = this.inject();
+    const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
     await fileSystemAdapter.postContent(artifact);
-  }
-
-  provide(fileSystemAdapter: FileSystemAdapter) {
-    this.fileSystemAdapter = fileSystemAdapter;
-  }
-
-  private inject() {
-    if (!this.fileSystemAdapter) throwError("FILE_SYSTEM_ADAPTER_NOT_PROVIDED");
-    return this.fileSystemAdapter;
   }
 }

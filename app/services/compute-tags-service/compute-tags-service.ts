@@ -1,18 +1,19 @@
-import type { Nodes, Tag } from "@/domain";
+import type { Tag } from "@/domain";
+import type { RetrieveNodesService } from "@/services/retrieve-nodes-service";
 
 import { Tags, TodoArtifact } from "@/domain";
 import { throwError } from "@/utils";
 
 export class ComputeTagsService {
-  readonly nodes: Nodes;
+  private readonly retrieveNodesService: RetrieveNodesService;
 
-  constructor(nodes: Nodes) {
-    this.nodes = nodes;
+  constructor(retrieveNodesService: RetrieveNodesService) {
+    this.retrieveNodesService = retrieveNodesService;
   }
 
   compute(): Tags {
     const tags = new Tags();
-    const nodes = this.nodes.list();
+    const nodes = this.retrieveNodesService.list();
     for (const node of nodes) {
       if (node instanceof TodoArtifact) {
         tags.add(node);

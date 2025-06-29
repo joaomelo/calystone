@@ -8,8 +8,8 @@ export class RetrieveNodesService {
   private readonly connectSourceService: ConnectSourceService;
   private readonly searcher: Searcher;
 
-  constructor(options: { connectSourceService: ConnectSourceService }) {
-    this.connectSourceService = options.connectSourceService;
+  constructor(connectSourceService: ConnectSourceService) {
+    this.connectSourceService = connectSourceService;
     this.searcher = new Searcher();
   }
 
