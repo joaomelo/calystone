@@ -36,7 +36,8 @@ export function useItems() {
   function isImpossibleToHaveChildren(node: Node): boolean {
     if (!(node instanceof Directory)) return true;
     if (!node.isLoaded()) return false;
-    return services.queryHierarchy.hasChildren(node);
+    const hasChildren = services.queryHierarchy.hasChildren(node);
+    return !hasChildren;
   }
 
   function solveChildren(node: Node): Node[] {

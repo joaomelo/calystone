@@ -13,7 +13,8 @@ export class Descendancy {
   children(directoryOrId: NodeOrId): Node[] {
     const directory = this.nodes.getOrThrow(directoryOrId);
     if (!(directory instanceof Directory)) return [];
-    return this.nodes.list().filter(node => node.parentId === directory.id);
+    const children = this.nodes.list().filter(node => node.parentId === directory.id);
+    return children;
   }
 
   descendants(directoryOrId: NodeOrId): Node[] {
