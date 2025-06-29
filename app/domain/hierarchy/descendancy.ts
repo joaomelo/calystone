@@ -19,7 +19,7 @@ export class Descendancy {
 
   descendants(directoryOrId: NodeOrId): Node[] {
     const children = this.children(directoryOrId);
-    return children.flatMap(child => this.descendants(child));
+    return children.flatMap(child => [child, ...this.descendants(child)]);
   }
 
   hasChildren(directoryOrId: NodeOrId): boolean {
