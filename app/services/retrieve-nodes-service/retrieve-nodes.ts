@@ -1,53 +1,40 @@
-import type { Id, Nodes } from "@/domain";
+import type { NodeOrId } from "@/domain";
 
-import { TodoArtifact } from "@/domain";
-import Fuse from "fuse.js";
+import type { ConnectSourceService } from "../connect-source-service/connect";
+
+import { Searcher } from "./searcher";
 
 export class RetrieveNodesService {
-  private readonly fuseOptions = {
-    ignoreLocation: true,
-    includeScore: true,
-    keys: [
-      { name: "name", weight: 2 },
-      { name: "content", weight: 1.5 },
-      { name: "details", weight: 1.5 },
-      {
-        getFn: (obj: unknown): string[] => {
-          if (!(obj instanceof TodoArtifact)) return [];
-          return obj.tags();
-        },
-        name: "tags",
-        weight: 1,
-      },
-      { name: "mime.type", weight: 0.5 },
-      { name: "mime.media", weight: 0.5 },
-    ],
-    shouldSort: true,
-    threshold: 0.3,
-    useExtendedSearch: true,
-  };
-  private nodes: Nodes;
+  private readonly connectSourceService: ConnectSourceService;
+  private readonly searcher: Searcher;
 
-  constructor(nodes: Nodes) {
-    this.nodes = nodes;
+  constructor(options: { connectSourceService: ConnectSourceService }) {
+    this.connectSourceService = options.connectSourceService;
+    this.searcher = new Searcher();
   }
 
-  get(id: Id) {
-    return this.nodes.get(id);
+  get(nodeOrId: NodeOrId) {
+    const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    return nodes.get(nodeOrId);
   }
 
-  getOrThrow(id: Id) {
-    return this.nodes.getOrThrow(id);
+  getOrThrow(nodeOrId: NodeOrId) {
+    const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    return nodes.getOrThrow(nodeOrId);
+  }
+
+  has(nodeOrId: NodeOrId) {
+    const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    return nodes.has(nodeOrId);
   }
 
   list() {
-    return this.nodes.list();
+    const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    return nodes.list();
   }
 
   search(text: string) {
-    if (!text.trim()) return [];
-    const fuse = new Fuse(this.nodes.list(), this.fuseOptions);
-    const results = fuse.search(text, { limit: 100 });
-    return results.map(result => result.item);
+    const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    return this.searcher.search({ nodes: nodes.list(), text });
   }
 }
