@@ -13,7 +13,7 @@ import { computed, ref } from "vue";
 import { useItems } from "./use-items";
 
 const { dispatchOrToast } = useDispatch();
-const { nodes, services } = Store.use();
+const { services } = Store.use();
 const { expandedKeys, items } = useItems();
 
 const selectedNode = ref<Node | undefined>();
@@ -36,7 +36,7 @@ function handleSelected(itemData?: ItemData) {
 }
 
 function solveNode(id?: Id) {
-  const node = (id) ? nodes.get(id) : undefined;
+  const node = (id) ? services.retrieveNodes.get(id) : undefined;
   return node;
 }
 </script>

@@ -13,14 +13,14 @@ import CoreText from "./core-text.vue";
 import CoreTodo from "./core-todo.vue";
 
 export function useCore(data: ItemData) {
-  const { nodes, services } = Store.use();
+  const { services } = Store.use();
   return computed(() => {
     if (data.type === "tag") {
       const tag = services.computeTags.getTagOrThrow(data.key);
       return h(CoreTag, { tag });
     };
 
-    const node = nodes.getOrThrow(data.key);
+    const node = services.retrieveNodes.getOrThrow(data.key);
     if (node instanceof Directory) {
       return h(CoreDirectory, { directory: node });
     };

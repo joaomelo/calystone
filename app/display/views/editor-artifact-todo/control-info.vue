@@ -2,7 +2,6 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { Ascendancy } from "@/domain";
 import { formatDateTime, PropertySheet, useI18n } from "@/utils";
 import { computed } from "vue";
 
@@ -11,11 +10,10 @@ const { artifact } = defineProps<{
 }>();
 
 const { t } = useI18n();
-const { nodes } = Store.use();
-const ascendancy = new Ascendancy({ node: artifact, nodes });
+const { services } = Store.use();
 const propertySheetRows = computed(() => {
   return [
-    { label: t("path"), value: ascendancy.path() },
+    { label: t("path"), value: services.queryHierarchy.path(artifact) },
     { label: t("last-modified"), value: formatDateTime(new Date(artifact.lastModified)) },
     { label: t("editor-todo.progress.progress"), value: artifact.progress() },
   ];

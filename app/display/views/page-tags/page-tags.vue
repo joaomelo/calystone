@@ -11,7 +11,7 @@ import { computed, ref } from "vue";
 
 import { useItems } from "./use-items";
 
-const { nodes } = Store.use();
+const { services } = Store.use();
 const { expandedKeys, items } = useItems();
 
 const selectedNode = ref<Node | undefined>();
@@ -41,7 +41,7 @@ function resetState() {
 }
 
 function solveNode(id: Id) {
-  const node = nodes.get(id);
+  const node = services.retrieveNodes.get(id);
   return node;
 }
 </script>

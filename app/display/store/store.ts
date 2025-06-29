@@ -21,7 +21,7 @@ export class Store {
 
     this.connected = ref(false);
     services.connectSource.subscribe(({ status }) => {
-      this.connected.value = status === "connected" || status === "reconnected";
+      this.connected.value = status === "connected";
     });
   }
 

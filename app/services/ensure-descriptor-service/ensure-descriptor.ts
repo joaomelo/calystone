@@ -15,6 +15,12 @@ export class EnsureDescriptorService {
     this.exchangeArtifact = options.exchangeArtifact;
   }
 
+  description(directory: Directory): string {
+    const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    const descriptor = new Descriptor(nodes);
+    return descriptor.description(directory);
+  }
+
   async ensure(directory: Directory): Promise<void> {
     const { nodes } = this.connectSourceService.stateConnectedOrThrow();
     const descriptor = new Descriptor(nodes);

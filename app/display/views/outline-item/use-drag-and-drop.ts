@@ -20,10 +20,10 @@ function useDragAndDropTag() {
 }
 
 function useDranAndDropNode(id: string) {
-  const { nodes, services } = Store.use();
+  const { services } = Store.use();
   const { dispatchOrToast } = useDispatch();
 
-  const node = nodes.getOrThrow(id);
+  const node = services.retrieveNodes.getOrThrow(id);
 
   const moveable = computed(() => services.moveNode.moveable(node));
   const dragFormat = "application/outline-item";
@@ -37,8 +37,8 @@ function useDranAndDropNode(id: string) {
     const id = event.dataTransfer.getData(dragFormat);
 
     await dispatchOrToast(async () => {
-      const subject = nodes.getOrThrow(id);
-      nodes.moveable({ subject, target: node }).throwOnFail();
+      const subject = services.retrieveNodes.getOrThrow(id);
+      services.moveNode.moveable(subject).throwOnFail();
 
       await services.moveNode.move({ subject, target: node });
     });

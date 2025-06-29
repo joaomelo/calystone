@@ -3,7 +3,6 @@ import type { Artifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorNodeWorkspace } from "@/display/views/editor-node-workspace";
-import { Ascendancy } from "@/domain";
 import { formatDateTime, PropertySheet, useI18n } from "@/utils";
 import { filesize } from "filesize";
 import { computed } from "vue";
@@ -12,12 +11,11 @@ const { content } = defineProps<{
 }>();
 
 const { t } = useI18n();
-const { nodes } = Store.use();
-const ascendancy = new Ascendancy({ node: content, nodes });
+const { services } = Store.use();
 const propertySheetRows = computed(() => {
   return [
     { label: t("type"), value: content.mime.media() },
-    { label: t("path"), value: ascendancy.path() },
+    { label: t("path"), value: services.queryHierarchy.path(content) },
     { label: t("size"), value: filesize(content.size) },
     { label: t("last-modified"), value: formatDateTime(new Date(content.lastModified)) },
   ];

@@ -3,7 +3,7 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { DialogCreateArtifact } from "@/display/views/dialog-create-artifact";
-import { Ascendancy, Directory } from "@/domain";
+import { Directory } from "@/domain";
 import { ToolbarButton, useI18n } from "@/utils";
 import { computed, useTemplateRef } from "vue";
 
@@ -12,14 +12,13 @@ const { node } = defineProps<{
 }>();
 
 const { t } = useI18n();
-const { nodes } = Store.use();
+const { services } = Store.use();
 const dialogCreateArtifact = useTemplateRef("dialogCreateArtifact");
 
 const parentOfNewArtifact = computed<Directory | undefined>(() => {
   if (node instanceof Directory) return node;
 
-  const ascendancy = new Ascendancy({ node, nodes });
-  return ascendancy.parent();
+  return services.queryHierarchy.parent(node);
 });
 </script>
 <template>
