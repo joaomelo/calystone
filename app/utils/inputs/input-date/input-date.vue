@@ -39,6 +39,7 @@ onMounted(() => {
         :show-time="showTime"
         hide-on-date-time-select
         date-format="yy-mm-dd"
+        :show-on-focus="false"
       />
     </template>
   </InputWrapper>
