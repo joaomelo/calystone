@@ -33,7 +33,7 @@ const panels = computed<PanelsList>(() => {
   const priorityLegend = `${t("editor-todo.priority.priority")}: ${artifact.prioritizer.priority().toString()}`;
 
   const dueDate = artifact.dateDue();
-  const formattedDueDate = dueDate ? formatDateTime(dueDate) : "";
+  const formattedDueDate = dueDate ? ` ${formatDateTime(dueDate)}` : "";
   const recurringSignal = artifact.hasRecurrence() ? " ↻" : "";
   const datesLegend = `${t("editor-todo.dates.dates")}${formattedDueDate}${recurringSignal}`;
 
