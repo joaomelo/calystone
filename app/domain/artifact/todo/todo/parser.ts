@@ -1,5 +1,5 @@
 import { Dater } from "@/domain/artifact/todo/dater";
-import { Prioritizer } from "@/domain/artifact/todo/prioritizer";
+import { isCriteria, Prioritizer } from "@/domain/artifact/todo/prioritizer";
 import { Progressor } from "@/domain/artifact/todo/progressor";
 import { RecurrenceReference, RecurrenceStep, RecurrenceUnit, Recurrer } from "@/domain/artifact/todo/recurrer";
 import { Tagger } from "@/domain/artifact/todo/tagger";
@@ -48,12 +48,8 @@ export class Parser {
       data.progressor = new Progressor(rawData.progress);
     }
 
-    if ("importance" in rawData && typeof rawData.importance === "number") {
-      data.prioritizer.importance = rawData.importance;
-    }
-
-    if ("urgency" in rawData && typeof rawData.urgency === "number") {
-      data.prioritizer.urgency = rawData.urgency;
+    if ("criteria" in rawData && isCriteria(rawData.criteria)) {
+      data.prioritizer.update(rawData.criteria);
     }
 
     if (
@@ -92,16 +88,15 @@ export class Parser {
     const { reference, step, unit } = data.recurrer?.stringify() ?? {};
 
     const jsonString = JSON.stringify({
+      criteria: data.prioritizer.criteria(),
       dateDue: due,
       dateStart: start,
       details: data.details,
-      importance: data.prioritizer.importance,
       progress: data.progressor.progress,
       recurrenceReference: reference,
       recurrenceStep: step,
       recurrenceUnit: unit,
       tags: data.tagger.list(),
-      urgency: data.prioritizer.urgency,
       version: Parser.VERSION,
     });
     return this.encoder.encode(jsonString).buffer as ArrayBuffer;

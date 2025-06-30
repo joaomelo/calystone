@@ -1,12 +1,13 @@
+import { asCriterionValue, type Criteria } from "./criteria";
+
 export class Prioritizer {
-  importance = 0;
-  urgency = 0;
+  private readonly state: Criteria;
 
-  constructor(options?: { importance?: number, urgency?: number }) {
-    const { importance = 0, urgency = 0 } = options ?? {};
-
-    this.importance = importance;
-    this.urgency = urgency;
+  constructor(criteria?: Criteria) {
+    this.state = criteria ?? [
+      { label: "importance", value: asCriterionValue(0) },
+      { label: "urgency", value: asCriterionValue(0) },
+    ];
   }
 
   static compare(a: Prioritizer, b: Prioritizer): number {
@@ -28,6 +29,15 @@ export class Prioritizer {
     return Prioritizer.compare(this, other);
   }
 
+  criteria() {
+    return this.state;
+  }
+
+  criterion(label: string) {
+    const criterion = this.state.find((c) => c.label === label);
+    return criterion?.value;
+  }
+
   isEqualTo(other: Prioritizer): boolean {
     return this.compareTo(other) === 0;
   }
@@ -41,6 +51,19 @@ export class Prioritizer {
   }
 
   priority() {
-    return this.importance * this.urgency;
+    const sum = this.state.reduce((sum, criterion) => sum + criterion.value, 0);
+    const average = sum / this.state.length;
+    return average;
+  }
+
+  update(criteria: Criteria) {
+    for (const criterion of criteria) {
+      const index = this.state.findIndex((c) => c.label === criterion.label);
+      if (index !== -1) {
+        this.state[index] = criterion;
+      } else {
+        this.state.push(criterion);
+      }
+    }
   }
 }

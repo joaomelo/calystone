@@ -4,7 +4,7 @@ import type { RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue
 
 import { Artifact } from "@/domain/artifact/artifact";
 import { Dater, type UpdateDateOptions } from "@/domain/artifact/todo/dater";
-import { Prioritizer } from "@/domain/artifact/todo/prioritizer";
+import { type Criteria, Prioritizer } from "@/domain/artifact/todo/prioritizer";
 import { Progressor } from "@/domain/artifact/todo/progressor";
 import { Recurrer } from "@/domain/artifact/todo/recurrer";
 import { Tagger } from "@/domain/artifact/todo/tagger";
@@ -16,18 +16,24 @@ import { Parser } from "./parser";
 
 export class TodoArtifact extends Artifact implements TodoArtifactState {
   dater?: Dater;
-  details = "";
-  parser = new Parser();
-  prioritizer = new Prioritizer();
-  progressor = new Progressor();
+  details: string;
+  parser: Parser;
+  prioritizer: Prioritizer;
+  progressor: Progressor;
   recurrer?: Recurrer;
-  tagger = new Tagger();
+  tagger: Tagger;
 
   constructor(options: ArtifactOptions) {
     super(options);
     if (this.mime.media() !== "application/todo") {
       throwCritical("INVALID_MIME_TYPE");
     }
+
+    this.details = "";
+    this.parser = new Parser();
+    this.prioritizer = new Prioritizer();
+    this.progressor = new Progressor();
+    this.tagger = new Tagger();
   }
 
   allDay() {
@@ -41,6 +47,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
 
   completed() {
     return this.progressor.completed();
+  }
+
+  criterion(label: string) {
+    return this.prioritizer.criterion(label);
   }
 
   cycleRecurrence() {
@@ -95,6 +105,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.dater = data.dater;
     this.recurrer = data.recurrer;
     this.tagger = data.tagger;
+  }
+
+  prioritize(criteria: Criteria) {
+    this.prioritizer.update(criteria);
   }
 
   priority() {
