@@ -8,7 +8,12 @@ const { buttons = false, disabled = false, locale = "en", size } = defineProps<{
   dataTest: string
   disabled?: boolean
   locale?: string
+  max?: number
+  maxFractionDigits?: number
+  min?: number
+  minFractionDigits?: number
   size?: "large" | "small"
+  step?: number
 }>();
 const model = defineModel({ type: Number });
 </script>
@@ -24,9 +29,14 @@ const model = defineModel({ type: Number });
         fluid
         :locale="locale"
         :show-buttons="buttons"
+        :max="max"
+        :min="min"
+        :step="step"
         :size="size"
         button-layout="horizontal"
         :disabled="disabled"
+        :max-fraction-digits="maxFractionDigits"
+        :min-fraction-digits="minFractionDigits"
       />
     </template>
   </InputWrapper>
