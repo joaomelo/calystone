@@ -1,18 +1,18 @@
-import type { RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue } from "@/domain/artifact/recurrer";
+import type { ArtifactOptions } from "@/domain/artifact/artifact";
+import type { Progress } from "@/domain/artifact/todo/progressor";
+import type { RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue } from "@/domain/artifact/todo/recurrer";
 
-import { Dater, type UpdateDateOptions } from "@/domain/artifact/dater";
-import { Recurrer } from "@/domain/artifact/recurrer";
+import { Artifact } from "@/domain/artifact/artifact";
+import { Dater, type UpdateDateOptions } from "@/domain/artifact/todo/dater";
+import { Prioritizer } from "@/domain/artifact/todo/prioritizer";
+import { Progressor } from "@/domain/artifact/todo/progressor";
+import { Recurrer } from "@/domain/artifact/todo/recurrer";
+import { Tagger } from "@/domain/artifact/todo/tagger";
 import { throwCritical } from "@/utils";
 
-import type { ArtifactOptions } from "../artifact";
-import type { Progress } from "./progressor";
 import type { TodoArtifactState } from "./state";
 
-import { Artifact } from "../artifact";
 import { Parser } from "./parser";
-import { Prioritizer } from "./prioritizer";
-import { Progressor } from "./progressor";
-import { Tagger } from "./tagger";
 
 export class TodoArtifact extends Artifact implements TodoArtifactState {
   dater?: Dater;

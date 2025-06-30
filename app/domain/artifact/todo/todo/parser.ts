@@ -1,12 +1,11 @@
-import { Dater } from "@/domain/artifact/dater";
+import { Dater } from "@/domain/artifact/todo/dater";
+import { Prioritizer } from "@/domain/artifact/todo/prioritizer";
+import { Progressor } from "@/domain/artifact/todo/progressor";
+import { RecurrenceReference, RecurrenceStep, RecurrenceUnit, Recurrer } from "@/domain/artifact/todo/recurrer";
+import { Tagger } from "@/domain/artifact/todo/tagger";
 import { isJsonParseable, isObjectLike } from "@/utils";
 
 import type { TodoArtifactState } from "./state";
-
-import { RecurrenceReference, RecurrenceStep, RecurrenceUnit, Recurrer } from "../recurrer";
-import { Prioritizer } from "./prioritizer";
-import { Progressor } from "./progressor";
-import { Tagger } from "./tagger";
 
 export class Parser {
   static readonly VERSION = 1;
