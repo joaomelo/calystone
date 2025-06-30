@@ -15,12 +15,12 @@ describe("show tags", () => {
     const highPriorityTodoName = `${highPriorityBaseName}.todo`;
     const highPriorityTodoTag = `${highPriorityBaseName}-tag`;
     const sharedTodosTag = "shared-todos-tag";
-    createTodo({ importance: "2", name: highPriorityTodoName, tags: [highPriorityTodoTag, sharedTodosTag], urgency: "2" });
+    createTodo({ importance: "1", name: highPriorityTodoName, tags: [highPriorityTodoTag, sharedTodosTag], urgency: "1" });
 
     const lowPriorityBaseName = "low-priority-todo";
     const lowPriorityTodoName = `${lowPriorityBaseName}.todo`;
     const lowPriorityTodoTag = `${lowPriorityBaseName}-tag`;
-    createTodo({ importance: "1", name: lowPriorityTodoName, tags: [lowPriorityTodoTag, sharedTodosTag], urgency: "1" });
+    createTodo({ importance: "1", name: lowPriorityTodoName, tags: [lowPriorityTodoTag, sharedTodosTag], urgency: "0" });
 
     pageTags.tags().click();
 
@@ -51,7 +51,7 @@ describe("show tags", () => {
     });
 
     editorTodo.priority.tab().click();
-    editorTodo.priority.inputImportance().type(options.importance);
-    editorTodo.priority.inputUrgency().type(options.urgency);
+    editorTodo.priority.inputImportance().clear().type(options.importance);
+    editorTodo.priority.inputUrgency().clear().type(options.urgency);
   }
 });
