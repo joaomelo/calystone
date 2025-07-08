@@ -5,25 +5,20 @@
   "cancel": "cancel",
   "cancelled": "cancelled",
   "common": {
-    "tags": "tags",
+    "calendar": "calendar",
     "disabled": "disabled",
     "outline": "outline",
     "search": "search",
-    "calendar": "calendar",
-    "priority": {
-      "importance": "importance",
-      "priority": "priority",
-      "urgency": "urgency"
-    }
-  },
-  "dashboard": {
-    "preloading": "preloading nodes in the background"
+    "tags": "tags"
   },
   "complete": "complete",
   "completed": "completed",
   "connect": "connect",
   "create-artifact": "create file",
   "create-directory": "create directory",
+  "dashboard": {
+    "preloading": "preloading nodes in the background"
+  },
   "date-end": "end date",
   "date-start": "start date",
   "delete": "delete",
@@ -36,27 +31,32 @@
   "editor-todo": {
     "dates": {
       "allDay": "all day",
+      "clear": "clear dates",
       "completion": "completion",
       "dates": "dates",
-      "clear": "clear dates",
+      "days": "days",
       "due": "due",
+      "months": "months",
       "recurring-by": "recurring by",
       "reference": "reference",
       "start": "start",
       "step": "step",
       "unit": "unit",
-      "days": "days",
       "weeks": "weeks",
-      "months": "months",
       "years": "years"
     },
     "details": "details",
+    "priority": {
+      "importance": "importance",
+      "priority": "priority",
+      "urgency": "urgency"
+    },
     "progress": {
       "doing": "doing",
       "done": "done",
       "open": "open",
-      "skipped": "skipped",
       "progress": "progress",
+      "skipped": "skipped",
       "update": "update progress"
     }
   },

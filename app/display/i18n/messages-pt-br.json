@@ -5,25 +5,20 @@
   "cancel": "cancelar",
   "cancelled": "cancelado",
   "common": {
-    "tags": "rótulos",
+    "calendar": "calendário",
     "disabled": "desabilitado",
     "outline": "hierarquia",
     "search": "busca",
-    "calendar": "calendário",
-    "priority": {
-      "importance": "importância",
-      "priority": "prioridade",
-      "urgency": "urgência"
-    }
-  },
-  "dashboard": {
-    "preloading": "carregando itens em segundo plano"
+    "tags": "rótulos"
   },
   "complete": "concluir",
   "completed": "concluído",
   "connect": "conectar",
   "create-artifact": "criar arquivo",
   "create-directory": "criar diretório",
+  "dashboard": {
+    "preloading": "carregando itens em segundo plano"
+  },
   "date-end": "data final",
   "date-start": "data inicial",
   "delete": "excluir",
@@ -36,27 +31,32 @@
   "editor-todo": {
     "dates": {
       "allDay": "dia inteiro",
+      "clear": "limpar data",
       "completion": "conclusão",
       "dates": "datas",
-      "clear": "limpar data",
+      "days": "dias",
       "due": "até",
+      "months": "meses",
       "recurring-by": "recorrente por",
       "reference": "referência",
       "start": "início",
       "step": "passo",
       "unit": "unidade",
-      "days": "dias",
       "weeks": "semanas",
-      "months": "meses",
       "years": "anos"
     },
     "details": "detalhes",
+    "priority": {
+      "importance": "importância",
+      "priority": "prioridade",
+      "urgency": "urgência"
+    },
     "progress": {
       "doing": "fazendo",
       "done": "pronta",
       "open": "aberta",
-      "skipped": "descartada",
       "progress": "progresso",
+      "skipped": "descartada",
       "update": "atualizar progresso"
     }
   },

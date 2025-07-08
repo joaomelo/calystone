@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TodoArtifact } from "@/domain";
 
-import { formatDateTime, throwCritical, truncate, useI18n } from "@/utils";
+import { formatDateTime, throwCritical, truncate } from "@/utils";
 import { computed } from "vue";
 
 import CoreBase from "./core-base.vue";
@@ -9,8 +9,6 @@ import CoreBase from "./core-base.vue";
 const { todo } = defineProps<{
   todo: TodoArtifact;
 }>();
-
-const { t } = useI18n();
 
 const icon = computed(() => {
   const iconPrefix = "bx bx-sm";
@@ -36,11 +34,9 @@ const label = computed(() => {
 });
 
 const priority = computed(() => {
-  const priority = todo.priority().toFixed(2);
-  const priorityLabel = todo.priority() > 0
-    ? `${t("common.priority.priority")}: ${priority}`
+  return todo.priority() > 0
+    ? todo.priority().toFixed(2)
     : "";
-  return priorityLabel;
 });
 
 const details = computed(() => {
