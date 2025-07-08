@@ -9,7 +9,12 @@
     "disabled": "desabilitado",
     "outline": "hierarquia",
     "search": "busca",
-    "calendar": "calendário"
+    "calendar": "calendário",
+    "priority": {
+      "importance": "importância",
+      "priority": "prioridade",
+      "urgency": "urgência"
+    }
   },
   "dashboard": {
     "preloading": "carregando itens em segundo plano"
@@ -46,11 +51,6 @@
       "years": "anos"
     },
     "details": "detalhes",
-    "priority": {
-      "importance": "importância",
-      "priority": "prioridade",
-      "urgency": "urgência"
-    },
     "progress": {
       "doing": "fazendo",
       "done": "pronta",

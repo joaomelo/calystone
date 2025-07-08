@@ -29,7 +29,7 @@ const handleUpdateImportance = debounce(async (importance?: number) => {
 <template>
   <div class="control-priority">
     <InputNumber
-      :label="t('editor-todo.priority.importance')"
+      :label="t('common.priority.importance')"
       data-test="input-importance"
       :locale="locale"
       :model-value="importance"
@@ -43,7 +43,7 @@ const handleUpdateImportance = debounce(async (importance?: number) => {
       @update:model-value="handleUpdateImportance"
     />
     <InputNumber
-      :label="t('editor-todo.priority.urgency')"
+      :label="t('common.priority.urgency')"
       data-test="input-urgency"
       :locale="locale"
       :model-value="urgency"

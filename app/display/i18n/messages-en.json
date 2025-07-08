@@ -9,7 +9,12 @@
     "disabled": "disabled",
     "outline": "outline",
     "search": "search",
-    "calendar": "calendar"
+    "calendar": "calendar",
+    "priority": {
+      "importance": "importance",
+      "priority": "priority",
+      "urgency": "urgency"
+    }
   },
   "dashboard": {
     "preloading": "preloading nodes in the background"
@@ -46,11 +51,6 @@
       "years": "years"
     },
     "details": "details",
-    "priority": {
-      "importance": "importance",
-      "priority": "priority",
-      "urgency": "urgency"
-    },
     "progress": {
       "doing": "doing",
       "done": "done",

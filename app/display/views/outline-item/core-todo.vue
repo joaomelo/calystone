@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TodoArtifact } from "@/domain";
 
-import { formatDateTime, throwCritical, truncate } from "@/utils";
+import { formatDateTime, throwCritical, truncate, useI18n } from "@/utils";
 import { computed } from "vue";
 
 import CoreBase from "./core-base.vue";
@@ -9,6 +9,8 @@ import CoreBase from "./core-base.vue";
 const { todo } = defineProps<{
   todo: TodoArtifact;
 }>();
+
+const { t } = useI18n();
 
 const icon = computed(() => {
   const iconPrefix = "bx bx-sm";
@@ -30,10 +32,15 @@ const icon = computed(() => {
 });
 
 const label = computed(() => {
-  const name = todo.name;
+  return todo.name;
+});
+
+const priority = computed(() => {
   const priority = todo.priority().toFixed(2);
-  const priorityLabel = todo.priority() > 0 ? ` (${priority})` : "";
-  return `${name}${priorityLabel}`;
+  const priorityLabel = todo.priority() > 0
+    ? `${t("common.priority.priority")}: ${priority}`
+    : "";
+  return priorityLabel;
 });
 
 const details = computed(() => {
@@ -73,6 +80,9 @@ const tags = computed(() => {
   >
     <template #meta>
       <div class="core-todo__meta">
+        <span v-if="priority">
+          {{ priority }}
+        </span>
         <span v-if="dates">
           {{ dates }}
         </span>
