@@ -26,6 +26,5 @@ defineProps<{
 .core-base__content {
   display: flex;
   flex-direction: column;
-  gap: var(--size-1);
 }
 </style>

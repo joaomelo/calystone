@@ -101,7 +101,6 @@ const tags = computed(() => {
 .core-todo__meta {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
   font-size: var(--font-size-0);
 }
 </style>
