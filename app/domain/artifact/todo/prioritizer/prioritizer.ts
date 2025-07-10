@@ -1,13 +1,10 @@
-import { asCriterionValue, type Criteria } from "./criteria";
+import { type Criteria } from "./criteria";
 
 export class Prioritizer {
   private readonly state: Criteria;
 
   constructor(criteria?: Criteria) {
-    this.state = criteria ?? [
-      { label: "importance", value: asCriterionValue(0) },
-      { label: "urgency", value: asCriterionValue(0) },
-    ];
+    this.state = criteria ?? [];
   }
 
   static compare(a: Prioritizer, b: Prioritizer): number {
@@ -51,6 +48,8 @@ export class Prioritizer {
   }
 
   priority() {
+    if (this.state.length === 0) return 0;
+
     const sum = this.state.reduce((sum, criterion) => sum + criterion.value, 0);
     const average = sum / this.state.length;
     return average;

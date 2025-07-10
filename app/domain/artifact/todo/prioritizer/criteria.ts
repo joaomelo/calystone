@@ -1,6 +1,6 @@
 import { isObjectLike } from "@/utils";
 
-export type Criteria = [Criterion, ...Criterion[]];
+export type Criteria = Criterion[];
 
 export interface Criterion {
   label: string;
