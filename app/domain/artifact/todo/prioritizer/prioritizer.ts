@@ -1,4 +1,4 @@
-import { type Criteria } from "./criteria";
+import { type Criteria, type Criterion } from "./criteria";
 
 export class Prioritizer {
   private readonly state: Criteria;
@@ -47,15 +47,7 @@ export class Prioritizer {
     return this.compareTo(other) < 0;
   }
 
-  priority() {
-    if (this.state.length === 0) return 0;
-
-    const sum = this.state.reduce((sum, criterion) => sum + criterion.value, 0);
-    const average = sum / this.state.length;
-    return average;
-  }
-
-  update(criteria: Criteria) {
+  patch(criteria: Criteria) {
     for (const criterion of criteria) {
       const index = this.state.findIndex((c) => c.label === criterion.label);
       if (index !== -1) {
@@ -65,4 +57,29 @@ export class Prioritizer {
       }
     }
   }
+
+  priority() {
+    if (this.state.length === 0) return 0;
+
+    const sum = this.state.reduce((sum, criterion) => sum + criterion.value, 0);
+    const average = sum / this.state.length;
+    return average;
+  }
+
+  remove(label: string) {
+    const index = this.state.findIndex((c) => c.label === label);
+    if (index !== -1) {
+      this.state.splice(index, 1);
+    }
+  }
+
+  update(criterion: Criterion) {
+    const index = this.state.findIndex((c) => c.label === criterion.label);
+    if (index !== -1) {
+      this.state[index] = criterion;
+    } else {
+      this.state.push(criterion);
+    }
+  }
+
 }
