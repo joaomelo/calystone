@@ -32,7 +32,7 @@ export class Prioritizer {
 
   criterion(label: string) {
     const criterion = this.state.find((c) => c.label === label);
-    return criterion?.value;
+    return criterion;
   }
 
   isEqualTo(other: Prioritizer): boolean {

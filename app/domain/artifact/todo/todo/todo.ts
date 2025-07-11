@@ -54,7 +54,11 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
   }
 
   criterion(label: string) {
-    return this.prioritizer.criterion(label);
+    const criterion = this.prioritizer.criterion(label);
+    if (!criterion) {
+      throwCritical("TODO_ARTIFACT_HAS_NO_CRITERION");
+    }
+    return criterion;
   }
 
   cycleRecurrence() {
@@ -132,6 +136,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
   recurrenceUnit() {
     if (!this.recurrer) return undefined;
     return this.recurrer.unit.value;
+  }
+
+  removeCriterion(label: string) {
+    this.prioritizer.remove(label);
   }
 
   spansOn(options: { end: Date; start: Date }): boolean {
