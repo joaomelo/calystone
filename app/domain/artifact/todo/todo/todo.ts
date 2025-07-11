@@ -4,7 +4,7 @@ import type { RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue
 
 import { Artifact } from "@/domain/artifact/artifact";
 import { Dater, type UpdateDateOptions } from "@/domain/artifact/todo/dater";
-import { type Criteria, Prioritizer } from "@/domain/artifact/todo/prioritizer";
+import { type Criterion, Prioritizer } from "@/domain/artifact/todo/prioritizer";
 import { Progressor } from "@/domain/artifact/todo/progressor";
 import { Recurrer } from "@/domain/artifact/todo/recurrer";
 import { Tagger } from "@/domain/artifact/todo/tagger";
@@ -47,6 +47,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
 
   completed() {
     return this.progressor.completed();
+  }
+
+  criteria() {
+    return this.prioritizer.criteria();
   }
 
   criterion(label: string) {
@@ -107,10 +111,6 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.tagger = data.tagger;
   }
 
-  prioritize(criteria: Criteria) {
-    this.prioritizer.update(criteria);
-  }
-
   priority() {
     return this.prioritizer.priority();
   }
@@ -156,6 +156,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
 
   uncompleted() {
     return this.progressor.uncompleted();
+  }
+
+  updateCriterion(criterion: Criterion) {
+    this.prioritizer.update(criterion);
   }
 
   updateDateDue(options: UpdateDateOptions) {
