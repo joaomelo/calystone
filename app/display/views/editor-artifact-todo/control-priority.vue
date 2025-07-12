@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type TodoArtifact } from "@/domain";
+import type { TodoArtifact } from "@/domain";
+
 import { computed } from "vue";
 
 import ControlCriterionAdd from "./control-criterion-add.vue";

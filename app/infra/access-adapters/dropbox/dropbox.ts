@@ -1,5 +1,4 @@
-import { LocalStorage } from "@/utils";
-import { throwError } from "@/utils";
+import { LocalStorage, throwError } from "@/utils";
 import { DropboxAuth } from "dropbox";
 
 import type { AccessAdapter } from "../access";

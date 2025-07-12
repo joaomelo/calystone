@@ -1,10 +1,12 @@
 import type { ArtifactOptions } from "@/domain/artifact/artifact";
+import type { UpdateDateOptions } from "@/domain/artifact/todo/dater";
+import type { Criterion } from "@/domain/artifact/todo/prioritizer";
 import type { Progress } from "@/domain/artifact/todo/progressor";
 import type { RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue } from "@/domain/artifact/todo/recurrer";
 
 import { Artifact } from "@/domain/artifact/artifact";
-import { Dater, type UpdateDateOptions } from "@/domain/artifact/todo/dater";
-import { type Criterion, Prioritizer } from "@/domain/artifact/todo/prioritizer";
+import { Dater } from "@/domain/artifact/todo/dater";
+import { Prioritizer } from "@/domain/artifact/todo/prioritizer";
 import { Progressor } from "@/domain/artifact/todo/progressor";
 import { Recurrer } from "@/domain/artifact/todo/recurrer";
 import { Tagger } from "@/domain/artifact/todo/tagger";

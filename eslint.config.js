@@ -1,17 +1,20 @@
+/* eslint-disable import-x/no-named-as-default-member */
+/* eslint-disable import-x/no-nodejs-modules */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginChaiFriendly from "eslint-plugin-chai-friendly";
 import pluginCypress from "eslint-plugin-cypress/flat";
+import { importX } from "eslint-plugin-import-x";
 import mochaPlugin from "eslint-plugin-mocha";
 import perfectionist from "eslint-plugin-perfectionist";
 import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
 import { resolve } from "path";
 import tseslint from "typescript-eslint";
-
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 export default tseslint.config(
   { ignores: ["dist", ".legacy"] },
@@ -33,7 +36,7 @@ export default tseslint.config(
         "error",
         {
           disallowTypeAnnotations: true,
-          fixStyle: "separate-type-imports",
+          fixStyle: "inline-type-imports",
           prefer: "type-imports",
         },
       ],
@@ -59,6 +62,18 @@ export default tseslint.config(
   },
 
   //style linters
+  importX.flatConfigs.recommended,
+  importX.flatConfigs.typescript,
+  {
+    rules: {
+      "import-x/consistent-type-specifier-style": ["error", "prefer-top-level"],
+      "import-x/first": ["error", "absolute-first"],
+      "import-x/newline-after-import": "error",
+      "import-x/no-dynamic-require": "error",
+      "import-x/no-nodejs-modules": "error",
+    }
+  },
+
   {
     plugins: { "@stylistic": stylistic },
     rules: {

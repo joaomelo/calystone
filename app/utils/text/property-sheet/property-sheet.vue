@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PropertySheetRow } from "./row";
+
 defineProps<{
   rows: PropertySheetRow[];
   title?: string;

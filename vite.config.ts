@@ -1,3 +1,5 @@
+/* eslint-disable import-x/no-named-as-default */
+/* eslint-disable import-x/no-nodejs-modules */
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";

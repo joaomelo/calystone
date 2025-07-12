@@ -1,8 +1,7 @@
 import { Store } from "@/display/store";
 import { BinaryArtifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
 import { throwError } from "@/utils";
-import { computed } from "vue";
-import { h } from "vue";
+import { computed, h } from "vue";
 
 import type { ItemData } from "./item";
 

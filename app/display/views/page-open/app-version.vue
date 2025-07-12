@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
+
 const { appData } = Store.use();
 const { version } = appData;
 </script>

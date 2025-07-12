@@ -1,4 +1,6 @@
-import { inject, type InjectionKey, type MaybeRefOrGetter, provide } from "vue";
+import type { InjectionKey, MaybeRefOrGetter } from "vue";
+
+import { inject, provide } from "vue";
 
 interface Provider {
   active: MaybeRefOrGetter<string>,

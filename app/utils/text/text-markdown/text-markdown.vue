@@ -1,3 +1,4 @@
+<!-- eslint-disable import-x/no-named-as-default -->
 <script setup lang="ts">
 import DOMPurify from "dompurify";
 import { marked } from "marked";

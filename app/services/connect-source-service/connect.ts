@@ -1,7 +1,6 @@
 import type { AccessAdaptersFactory, FileSystemAdaptersFactory, SourceProvider } from "@/infra";
 
-import { Nodes } from "@/domain";
-import { createNode } from "@/domain";
+import { createNode, Nodes } from "@/domain";
 import { sources } from "@/infra";
 import { throwCritical } from "@/utils";
 import { BehaviorSubject } from "rxjs";

@@ -6,6 +6,7 @@ import AppFeatures from "./app-features.vue";
 import AppVersion from "./app-version.vue";
 import InputLocale from "./input-locale.vue";
 import OpenActions from "./open-actions.vue";
+
 const { t } = useI18n();
 </script>
 <template>

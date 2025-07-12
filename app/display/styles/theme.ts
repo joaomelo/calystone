@@ -1,3 +1,4 @@
+/* eslint-disable import-x/default */
 import { definePreset } from "@primevue/themes";
 import Aura from "@primevue/themes/aura";
 

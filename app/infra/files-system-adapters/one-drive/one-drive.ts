@@ -1,5 +1,4 @@
-import type { Artifact, ArtifactOptions, DirectoryOptions, Id, Node, Nodes } from "@/domain";
-import type { Directory } from "@/domain";
+import type { Artifact, ArtifactOptions, Directory, DirectoryOptions, Id, Node, Nodes } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";

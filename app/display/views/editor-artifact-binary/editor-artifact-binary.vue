@@ -6,6 +6,7 @@ import { EditorNodeWorkspace } from "@/display/views/editor-node-workspace";
 import { formatDateTime, PropertySheet, useI18n } from "@/utils";
 import { filesize } from "filesize";
 import { computed } from "vue";
+
 const { content } = defineProps<{
   content: Artifact;
 }>();

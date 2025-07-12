@@ -1,7 +1,6 @@
 import type { Id, Node, Nodes } from "@/domain";
 
-import { Descendancy } from "@/domain";
-import { Directory } from "@/domain";
+import { Descendancy, Directory } from "@/domain";
 import { throwCritical } from "@/utils";
 
 import type { DirectoryMetadataContainer, FileMetadataContainer, RootMetadataContainer } from "./metadata";

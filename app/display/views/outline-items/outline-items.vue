@@ -7,8 +7,7 @@ import type {
   OutlineGridSelectionKeys
 } from "@/utils";
 
-import { isItemData } from "@/display/views/outline-item";
-import { OutlineItem } from "@/display/views/outline-item";
+import { isItemData, OutlineItem } from "@/display/views/outline-item";
 import { OutlineGrid, ScrollPanel } from "@/utils";
 import { ref } from "vue";
 

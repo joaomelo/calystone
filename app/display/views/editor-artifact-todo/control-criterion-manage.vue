@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { TodoArtifact } from "@/domain";
+
 import { Store } from "@/display/store";
-import { asCriterionValue, type TodoArtifact } from "@/domain";
+import { asCriterionValue } from "@/domain";
 import { ButtonBase, debounce, InputNumber, InputText, useI18n } from "@/utils";
 import { computed } from "vue";
 
