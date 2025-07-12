@@ -57,6 +57,10 @@ const id = useId();
   }
 }
 
+.input-wrapper-content {
+  flex: 1;
+}
+
 .justify-center {
   label {
     text-align: center

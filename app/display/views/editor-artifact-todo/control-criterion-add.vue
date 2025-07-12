@@ -50,11 +50,12 @@ async function handleAdd() {
 </template>
 <style scoped>
 .control-criterion-add {
-  display: flex;
-  gap: var(--size-2);
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
 }
 
 .control-criterion-add__input {
-  flex: 1;
+  grid-column: span 2;
 }
 </style>

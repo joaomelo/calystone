@@ -9,6 +9,7 @@ import { InputWrapper } from "../input-wrapper";
 const { suggestions = [] } = defineProps<{
   autofocus?: boolean
   dataTest: string
+  readonly?: boolean;
   suggestions?: string[]
 }>();
 const model = defineModel<string>();
@@ -28,6 +29,7 @@ const formDatalistName = (baseId: string) => kebabCase(baseId, "suggestions");
         fluid
         :autofocus="autofocus"
         :list="formDatalistName(id)"
+        :readonly="readonly"
       />
       <datalist
         v-if="hasSuggestions"

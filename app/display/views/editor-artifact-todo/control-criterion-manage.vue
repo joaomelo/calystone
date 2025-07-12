@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Store } from "@/display/store";
 import { asCriterionValue, type TodoArtifact } from "@/domain";
-import { ButtonBase, debounce, InputNumber, useI18n } from "@/utils";
+import { ButtonBase, debounce, InputNumber, InputText, useI18n } from "@/utils";
 import { computed } from "vue";
 
 const { artifact, label } = defineProps<{
@@ -27,14 +27,17 @@ async function handleDelete() {
 </script>
 <template>
   <div class="control-criterion-manage">
+    <InputText
+      :model-value="criterion.label"
+      data-test="control-criterion-manage__label"
+      readonly
+    />
     <InputNumber
       class="control-criterion-manage__input"
-      :label="criterion.label"
-      :data-test="`input-${criterion.label}`"
+      data-test="control-criterion-manage__value"
       :locale="locale"
       :model-value="criterion.value"
       buttons
-      size="small"
       :max="1"
       :min="0"
       :step="0.05"
@@ -51,11 +54,9 @@ async function handleDelete() {
 </template>
 <style scoped>
 .control-criterion-manage {
-  display: flex;
-  gap: var(--size-2);
-}
+  grid-column: 1 / -1;
 
-.control-criterion-manage__input {
-  flex: 1;
+  display: grid;
+  grid-template-columns: subgrid;
 }
 </style>

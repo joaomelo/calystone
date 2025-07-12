@@ -27,8 +27,8 @@ const criteria = computed(() => artifact.criteria());
 </template>
 <style scoped>
 .control-priority {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-3);
+  display: grid;
+  grid-template-columns: 1fr 1fr max-content;
+  gap: var(--size-2);
 }
 </style>
