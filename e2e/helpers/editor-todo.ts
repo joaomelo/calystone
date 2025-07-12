@@ -60,7 +60,8 @@ export const editorTodo = {
       label: (label: string) => cy.get(dataTest(`control-criterion-manage-${label}__label`)),
       value: (label: string) => cy.get(dataTest(`control-criterion-manage-${label}__value`)),
     },
-    tab: () => cy.get(dataTest("accordion-panels-panel-priority"))
+    tab: () => cy.get(dataTest("accordion-panels-panel-priority")),
+    title: () => editorTodo.priority.tab().find(".p-accordionheader").invoke("text"),
   },
   tags: {
     buttonAdd: () => cy.get(dataTest("button-add-tag")),

@@ -1,4 +1,4 @@
-import { dialogCreateArtifact, editorTodo, openMacros, outlineNodes, toolbarNode, typeableDate, typicalDates } from "../helpers";
+import { createTodo, dialogCreateArtifact, editorTodo, openMacros, outlineNodes, toolbarNode, typeableDate, typicalDates } from "../helpers";
 
 describe("create-and-edit-todo", () => {
   beforeEach(() => {
@@ -53,6 +53,27 @@ describe("create-and-edit-todo", () => {
     editorTodo.main.progress.done().click();
 
     editorTodo.dates.inputStart.input().should("have.value", typeableDate(typicalDates.tomorrow.start));
+  });
+
+  it.only("adds, set and remove prioriti criteria", () => {
+    outlineNodes.rootNode().click();
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+
+    const todoBaseName = "low-priority-todo";
+    const todoName = `${todoBaseName}.todo`;
+    createTodo({
+      criteria: [
+        { label: "importance", value: "1" },
+        { label: "urgency", value: "0" }
+      ],
+      name: todoName,
+      tags: [],
+    });
+
+    editorTodo.priority.title().should("contain", "0.50");
+
+    editorTodo.priority.manage.delete("urgency").click();
+    editorTodo.priority.title().should("contain", "1.00");
   });
 
 });
