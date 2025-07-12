@@ -1,4 +1,4 @@
-import { dialogCreateArtifact, editorTodo, openMacros, outlineNodes, outlineTags, toolbarNode } from "../helpers";
+import { createTodo, openMacros, outlineNodes, outlineTags } from "../helpers";
 import { pageTags } from "../helpers/page-tags";
 
 describe("show tags", () => {
@@ -15,12 +15,26 @@ describe("show tags", () => {
     const highPriorityTodoName = `${highPriorityBaseName}.todo`;
     const highPriorityTodoTag = `${highPriorityBaseName}-tag`;
     const sharedTodosTag = "shared-todos-tag";
-    createTodo({ importance: "1", name: highPriorityTodoName, tags: [highPriorityTodoTag, sharedTodosTag], urgency: "1" });
+    createTodo({
+      criteria: [
+        { label: "importance", value: "1" },
+        { label: "urgency", value: "1" }
+      ],
+      name: highPriorityTodoName,
+      tags: [highPriorityTodoTag, sharedTodosTag],
+    });
 
     const lowPriorityBaseName = "low-priority-todo";
     const lowPriorityTodoName = `${lowPriorityBaseName}.todo`;
     const lowPriorityTodoTag = `${lowPriorityBaseName}-tag`;
-    createTodo({ importance: "1", name: lowPriorityTodoName, tags: [lowPriorityTodoTag, sharedTodosTag], urgency: "0" });
+    createTodo({
+      criteria: [
+        { label: "importance", value: "1" },
+        { label: "urgency", value: "0" }
+      ],
+      name: lowPriorityTodoName,
+      tags: [lowPriorityTodoTag, sharedTodosTag],
+    });
 
     pageTags.tags().click();
 
@@ -35,23 +49,4 @@ describe("show tags", () => {
     outlineTags.todosOf(sharedTodosTag).eq(1).should("include.text", lowPriorityBaseName);
   });
 
-  function createTodo(options: { importance: string, name: string, tags: string[], urgency: string }) {
-    const { name, tags } = options;
-    toolbarNode.buttonCreateArtifact().click();
-    dialogCreateArtifact.inputName().clear().type(name);
-    dialogCreateArtifact.buttonSave().click();
-
-    outlineNodes.nodeLabeledAs(name).click();
-
-    editorTodo.tags.tab().click();
-
-    tags.forEach((tag) => {
-      editorTodo.tags.input().clear().type(tag);
-      editorTodo.tags.buttonAdd().click();
-    });
-
-    editorTodo.priority.tab().click();
-    editorTodo.priority.inputImportance().clear().type(options.importance);
-    editorTodo.priority.inputUrgency().clear().type(options.urgency);
-  }
 });

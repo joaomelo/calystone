@@ -49,9 +49,18 @@ export const editorTodo = {
     }
   },
   priority: {
+    add: {
+      button: () => cy.get(dataTest("control-criterion-add__button")),
+      input: () => cy.get(dataTest("control-criterion-add__input")),
+    },
     inputImportance: () => cy.get(dataTest("input-importance")).find("input"),
     inputUrgency: () => cy.get(dataTest("input-urgency")).find("input"),
-    tab: () => cy.get(dataTest("accordion-panels-panel-priority")),
+    manage: {
+      delete: (label: string) => cy.get(dataTest(`control-criterion-manage-${label}__delete`)),
+      label: (label: string) => cy.get(dataTest(`control-criterion-manage-${label}__label`)),
+      value: (label: string) => cy.get(dataTest(`control-criterion-manage-${label}__value`)),
+    },
+    tab: () => cy.get(dataTest("accordion-panels-panel-priority"))
   },
   tags: {
     buttonAdd: () => cy.get(dataTest("button-add-tag")),
