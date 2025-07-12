@@ -49,7 +49,7 @@ export class Parser {
     }
 
     if ("criteria" in rawData && isCriteria(rawData.criteria)) {
-      data.prioritizer.update(rawData.criteria);
+      data.prioritizer.patch(rawData.criteria);
     }
 
     if (
