@@ -35,6 +35,10 @@ export class Prioritizer {
     return criterion;
   }
 
+  empty() {
+    return this.state.length === 0;
+  }
+
   isEqualTo(other: Prioritizer): boolean {
     return this.compareTo(other) === 0;
   }

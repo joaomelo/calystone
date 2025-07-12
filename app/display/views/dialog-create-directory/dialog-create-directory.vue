@@ -3,8 +3,7 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import { SaveCancel } from "@/display/views/save-cancel";
-import { InputText, ModalBase, useDispatch } from "@/utils";
-import { useI18n } from "@/utils/i18n";
+import { InputText, ModalBase, useDispatch, useI18n } from "@/utils";
 import { reactive, useTemplateRef } from "vue";
 
 const { parent } = defineProps<{

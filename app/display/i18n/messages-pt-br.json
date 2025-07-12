@@ -49,7 +49,8 @@
     "priority": {
       "importance": "importância",
       "priority": "prioridade",
-      "urgency": "urgência"
+      "urgency": "urgência",
+      "tip-empty": "A prioridade é calculada como a média dos seus critérios. Adicione um ou mais critérios abaixo"
     },
     "progress": {
       "doing": "fazendo",

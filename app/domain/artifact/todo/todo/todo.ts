@@ -121,6 +121,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     return this.prioritizer.priority();
   }
 
+  priorityEmpty() {
+    return this.prioritizer.empty();
+  }
+
   progress() {
     return this.progressor.progress;
   }
