@@ -1,6 +1,7 @@
 import type { AccessAdaptersFactory, AvailabilityFacade, ExportAdapter, FileSystemAdaptersFactory, ShareAdapter } from "@/infra";
 
 import { AvailSourceService } from "@/services/avail-source-service";
+import { ComputeCriteriaService } from "@/services/compute-criteria-service";
 import { ComputeTagsService } from "@/services/compute-tags-service";
 import { ConnectSourceService } from "@/services/connect-source-service";
 import { CreateArtifactService } from "@/services/create-artifact-service";
@@ -20,6 +21,7 @@ import { TrackTodosService } from "@/services/track-todos-service";
 
 export class ServicesPortolfio {
   availSource: AvailSourceService;
+  computeCriteria: ComputeCriteriaService;
   computeTags: ComputeTagsService;
   connectSource: ConnectSourceService;
   createArtifact: CreateArtifactService;
@@ -62,6 +64,7 @@ export class ServicesPortolfio {
     });
     this.availSource = new AvailSourceService(availabilityFacade);
     this.retrieveNodes = new RetrieveNodesService(this.connectSource);
+    this.computeCriteria = new ComputeCriteriaService(this.retrieveNodes);
     this.computeTags = new ComputeTagsService(this.retrieveNodes);
     this.exchangeArtifact = new ExchangeArtifactService(this.connectSource);
     this.ensureDescriptor = new EnsureDescriptorService({

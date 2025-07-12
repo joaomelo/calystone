@@ -1,31 +1,29 @@
-import type { Tag } from "@/domain";
 import type { RetrieveNodesService } from "@/services/retrieve-nodes-service";
 
-import { Tags, TodoArtifact } from "@/domain";
-import { throwError } from "@/utils";
+import { TodoArtifact } from "@/domain";
 
-export class ComputeTagsService {
+export class ComputeCriteriaService {
   private readonly retrieveNodesService: RetrieveNodesService;
 
   constructor(retrieveNodesService: RetrieveNodesService) {
     this.retrieveNodesService = retrieveNodesService;
   }
 
-  compute(): Tags {
-    const tags = new Tags();
+  labels() {
+    const labels = new Set<string>();
+
+    const feed = (todo: TodoArtifact) => {
+      const criteria = todo.criteria();
+      criteria.forEach(({ label }) => labels.add(label));
+    };
+
     const nodes = this.retrieveNodesService.list();
     for (const node of nodes) {
       if (node instanceof TodoArtifact) {
-        tags.add(node);
+        feed(node);
       }
     }
-    return tags;
-  }
 
-  getTagOrThrow(name: string): Tag {
-    const tags = this.compute();
-    const tag = tags.get(name);
-    if (!tag) throwError("TAG_NOT_FOUND");
-    return tag;
+    return labels;
   }
 }

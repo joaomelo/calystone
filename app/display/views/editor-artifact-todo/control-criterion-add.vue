@@ -16,11 +16,13 @@ const { t } = useI18n();
 const label = ref("");
 
 const suggestions = computed(() => {
-  return [];
-  // const tags = services.computeTags.compute();
-  // const list = tags.difference(artifact);
-  // list.sort((a, b) => a.localeCompare(b));
-  // return list;
+  const allLabels = services.computeCriteria.labels();
+  const usedLabels = artifact.criteria().map(({ label }) => label);
+  const availableLabels = allLabels.difference(new Set(usedLabels));
+
+  const list = Array.from(availableLabels);
+  list.sort((a, b) => a.localeCompare(b));
+  return list;
 });
 
 async function handleAdd() {
