@@ -2,7 +2,7 @@
 import type { TextArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorNodeWorkspace } from "@/display/views/editor-node-workspace";
+import { EditorWorkspace } from "@/display/views/editor-workspace";
 import { EditorNotLoaded } from "@/display/views/editors-message";
 import { debounce, InputRichText } from "@/utils";
 import { onMounted, ref } from "vue";
@@ -26,7 +26,7 @@ const handleUpdate = debounce(async (text: string) => {
 });
 </script>
 <template>
-  <EditorNodeWorkspace
+  <EditorWorkspace
     v-if="artifact.isLoaded()"
     :node="artifact"
   >
@@ -36,6 +36,6 @@ const handleUpdate = debounce(async (text: string) => {
       borderless
       @update:model-value="handleUpdate"
     />
-  </EditorNodeWorkspace>
+  </EditorWorkspace>
   <EditorNotLoaded v-else />
 </template>

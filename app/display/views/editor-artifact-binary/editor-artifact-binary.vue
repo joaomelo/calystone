@@ -2,7 +2,7 @@
 import type { Artifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorNodeWorkspace } from "@/display/views/editor-node-workspace";
+import { EditorWorkspace } from "@/display/views/editor-workspace";
 import { formatDateTime, PropertySheet, useI18n } from "@/utils";
 import { filesize } from "filesize";
 import { computed } from "vue";
@@ -23,7 +23,7 @@ const propertySheetRows = computed(() => {
 });
 </script>
 <template>
-  <EditorNodeWorkspace :node="content">
+  <EditorWorkspace :node="content">
     <template #default>
       <div class="editor-artifact">
         <PropertySheet
@@ -32,7 +32,7 @@ const propertySheetRows = computed(() => {
         />
       </div>
     </template>
-  </EditorNodeWorkspace>
+  </EditorWorkspace>
 </template>
 <style scoped>
 .editor-artifact {

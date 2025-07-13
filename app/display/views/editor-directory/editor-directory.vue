@@ -2,7 +2,7 @@
 import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorNodeWorkspace } from "@/display/views/editor-node-workspace";
+import { EditorWorkspace } from "@/display/views/editor-workspace";
 import { PropertySheet, TextMarkdown, TextMessage, useI18n } from "@/utils";
 import { computed } from "vue";
 
@@ -30,7 +30,7 @@ const descriptorMissing = computed(() => {
 });
 </script>
 <template>
-  <EditorNodeWorkspace :node="content">
+  <EditorWorkspace :node="content">
     <template #default>
       <div class="editor-directory">
         <PropertySheet
@@ -56,7 +56,7 @@ const descriptorMissing = computed(() => {
         />
       </div>
     </template>
-  </EditorNodeWorkspace>
+  </EditorWorkspace>
 </template>
 <style scoped>
 .editor-directory {

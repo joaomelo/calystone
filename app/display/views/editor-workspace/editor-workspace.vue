@@ -13,8 +13,8 @@ defineEmits<{
 
 </script>
 <template>
-  <div class="editor-node-workspace">
-    <div class="editor-node-workspace__header">
+  <div class="editor-workspace">
+    <div class="editor-workspace__header">
       <ToolbarNode
         :node="node"
         @removed="$emit('close')"
@@ -27,18 +27,18 @@ defineEmits<{
         </template>
       </ToolbarNode>
     </div>
-    <div class="editor-node-workspace__content">
+    <div class="editor-workspace__content">
       <slot />
     </div>
   </div>
 </template>
 <style scoped>
-.editor-node-workspace {
+.editor-workspace {
   display: flex;
   flex-direction: column;
 }
 
-.editor-node-workspace__header {
+.editor-workspace__header {
   flex: 0 0 auto;
 
   & :deep(.p-toolbar) {
@@ -47,7 +47,7 @@ defineEmits<{
   }
 }
 
-.editor-node-workspace__content {
+.editor-workspace__content {
   flex: 1 1 auto;
 }
 </style>

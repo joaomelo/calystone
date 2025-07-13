@@ -3,7 +3,7 @@ import type { TodoArtifact } from "@/domain";
 import type { PanelsList } from "@/utils";
 
 import { Store } from "@/display/store";
-import { EditorNodeWorkspace } from "@/display/views/editor-node-workspace";
+import { EditorWorkspace } from "@/display/views/editor-workspace";
 import { EditorNotLoaded } from "@/display/views/editors-message";
 import { AccordionPanels, formatDateTime, useI18n } from "@/utils";
 import { computed, onMounted, ref } from "vue";
@@ -52,7 +52,7 @@ const panels = computed<PanelsList>(() => {
 });
 </script>
 <template>
-  <EditorNodeWorkspace
+  <EditorWorkspace
     v-if="artifact.isLoaded()"
     :node="artifact"
   >
@@ -84,7 +84,7 @@ const panels = computed<PanelsList>(() => {
         <ControlDetails :artifact="artifact" />
       </template>
     </AccordionPanels>
-  </EditorNodeWorkspace>
+  </EditorWorkspace>
   <EditorNotLoaded v-else />
 </template>
 <style scoped>
