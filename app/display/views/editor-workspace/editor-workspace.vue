@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import type { Node } from "@/domain";
 
-import { ToolbarNode } from "@/display/views/toolbar-node";
-import { ToolbarButton } from "@/utils";
+import { ToolbarButtonCreateArtifact, ToolbarButtonCreateDirectory, ToolbarButtonExportNode, ToolbarButtonOpenDirectory, ToolbarButtonRemoveNode, ToolbarButtonRenameNode, ToolbarButtonShareNode } from "@/display/views/toolbar-buttons";
+import { Directory } from "@/domain";
+import { ToolbarBase, ToolbarButton } from "@/utils";
 
 defineProps<{
   node: Node;
@@ -14,22 +15,48 @@ defineEmits<{
 </script>
 <template>
   <div class="editor-workspace">
-    <div class="editor-workspace__header">
-      <ToolbarNode
-        :node="node"
-        @removed="$emit('close')"
-      >
-        <template #end>
-          <ToolbarButton
-            icon="bx-x"
-            @click="$emit('close')"
+    <ToolbarBase
+      :node="node"
+      @removed="$emit('close')"
+    >
+      <template #start>
+        <template v-if="node">
+          <ToolbarButtonOpenDirectory
+            v-if="(node instanceof Directory)"
+            :parent="node"
+          />
+          <ToolbarButtonCreateDirectory
+            v-if="(node instanceof Directory)"
+            :parent="node"
+          />
+          <ToolbarButtonCreateArtifact
+            :node="node"
+          />
+          <ToolbarButtonRenameNode
+            :node="node"
+          />
+          <ToolbarButtonExportNode
+            :node="node"
+          />
+          <ToolbarButtonShareNode
+            :node="node"
+          />
+          <ToolbarButtonRemoveNode
+            :node="node"
+            @removed="$emit('close')"
           />
         </template>
-      </ToolbarNode>
-    </div>
-    <div class="editor-workspace__content">
-      <slot />
-    </div>
+      </template>
+      <template #end>
+        <ToolbarButton
+          icon="bx-x"
+          @click="$emit('close')"
+        />
+      </template>
+    </ToolbarBase>
+  </div>
+  <div class="editor-workspace__content">
+    <slot />
   </div>
 </template>
 <style scoped>
