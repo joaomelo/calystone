@@ -1,4 +1,4 @@
-import type { ServicesPortolfio } from "@/services";
+import type { ServicesPortfolio } from "@/services";
 import type {
   App, Ref
 } from "vue";
@@ -13,11 +13,11 @@ import { useStore } from "./use";
 export class Store {
   appData: AppData;
   connected: Ref<boolean>;
-  services: ServicesPortolfio;
+  services: ServicesPortfolio;
 
   constructor(options: {
     appData: AppData,
-    services: ServicesPortolfio
+    services: ServicesPortfolio
   }) {
     const {
       appData, services

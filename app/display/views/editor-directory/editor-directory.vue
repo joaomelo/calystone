@@ -7,7 +7,8 @@ import {
   ToolbarButtonCreateArtifact,
   ToolbarButtonCreateDirectory,
   ToolbarButtonOpenDirectory,
-  ToolbarButtonRemoveNode,
+  ToolbarButtonReloadDirectory,
+  ToolbarButtonRemoveNode
 } from "@/display/views/toolbar-buttons";
 import {
   PropertySheet, TextMarkdown, TextMessage, useI18n
@@ -49,7 +50,10 @@ const descriptorMissing = computed(() => {
   >
     <template #toolbar>
       <ToolbarButtonOpenDirectory
-        :parent="content"
+        :directory="content"
+      />
+      <ToolbarButtonReloadDirectory
+        :directory="content"
       />
       <ToolbarButtonCreateDirectory
         :parent="content"

@@ -81,13 +81,13 @@ export class Metadatas<R, D, F> {
     this.map.set(container.id, container);
   }
 
-  setDirectory(options: {
+  setDirectory({
+    id,
+    metadata
+  }: {
     id: Id,
     metadata: D
   }) {
-    const {
-      id, metadata
-    } = options;
     this.set({
       id,
       kind: "directory",

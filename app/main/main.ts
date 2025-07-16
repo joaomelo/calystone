@@ -7,7 +7,7 @@ import {
 import {
   AccessAdaptersFactory, AvailabilityFacade, BrowserExportAdapter, BrowserShareAdapter, FileSystemAdaptersFactory
 } from "@/infra";
-import { ServicesPortolfio } from "@/services";
+import { ServicesPortfolio } from "@/services";
 import {
   LoggerContainer, throwCritical, ToastService
 } from "@/utils";
@@ -80,7 +80,7 @@ export function initApp(elementId: string) {
   const shareAdapter = new BrowserShareAdapter();
   const exportAdapter = new BrowserExportAdapter();
   const preloadEnabled = asBoolean(import.meta.env.VITE_PRELOAD_ENABLED);
-  const servicesPortolfio = new ServicesPortolfio({
+  const servicesPortfolio = new ServicesPortfolio({
     accessAdaptersFactory,
     availabilityFacade,
     exportAdapter,
@@ -91,7 +91,7 @@ export function initApp(elementId: string) {
 
   const store = new Store({
     appData,
-    services: servicesPortolfio
+    services: servicesPortfolio
   });
   window.$store = store;
   app.use(store);

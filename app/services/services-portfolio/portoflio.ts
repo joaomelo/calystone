@@ -1,5 +1,9 @@
 import type {
-  AccessAdaptersFactory, AvailabilityFacade, ExportAdapter, FileSystemAdaptersFactory, ShareAdapter
+  AccessAdaptersFactory,
+  AvailabilityFacade,
+  ExportAdapter,
+  FileSystemAdaptersFactory,
+  ShareAdapter
 } from "@/infra";
 
 import { AvailSourceService } from "@/services/avail-source-service";
@@ -15,13 +19,14 @@ import { MoveNodeService } from "@/services/move-node-service";
 import { OpenDirectoryService } from "@/services/open-directory-service";
 import { PreloadNodesService } from "@/services/preload-nodes-service";
 import { QueryHierarchyService } from "@/services/query-hierarchy-service";
+import { ReloadDirectoryService } from "@/services/reload-directory-service";
 import { RemoveNodeService } from "@/services/remove-node-service";
 import { RenameNodeService } from "@/services/rename-node-service";
 import { RetrieveNodesService } from "@/services/retrieve-nodes-service";
 import { ShareNodeService } from "@/services/share-node-service";
 import { TrackTodosService } from "@/services/track-todos-service";
 
-export class ServicesPortolfio {
+export class ServicesPortfolio {
   availSource: AvailSourceService;
   computeCriteria: ComputeCriteriaService;
   computeTags: ComputeTagsService;
@@ -35,6 +40,7 @@ export class ServicesPortolfio {
   openDirectory: OpenDirectoryService;
   preloadNodes: PreloadNodesService;
   queryHierarchy: QueryHierarchyService;
+  reloadDirectory: ReloadDirectoryService;
   removeNode: RemoveNodeService;
   renameNode: RenameNodeService;
   retrieveNodes: RetrieveNodesService;
@@ -95,6 +101,10 @@ export class ServicesPortolfio {
       preloadEnabled,
     });
     this.queryHierarchy = new QueryHierarchyService(this.connectSource);
+    this.reloadDirectory = new ReloadDirectoryService({
+      connectSourceService: this.connectSource,
+      ensureDescriptor: this.ensureDescriptor
+    });
     this.removeNode = new RemoveNodeService(this.connectSource);
     this.renameNode = new RenameNodeService(this.connectSource);
     this.shareNode = new ShareNodeService(shareAdapter);

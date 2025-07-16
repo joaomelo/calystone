@@ -1,12 +1,17 @@
 import type {
-  Artifact, ArtifactOptions, DirectoryOptions, Node, Nodes
+  Artifact,
+  ArtifactOptions,
+  DirectoryOptions,
+  Node,
+  Nodes
 } from "@/domain";
 
 import { Directory } from "@/domain";
 import { Status } from "@/utils";
 
 import type {
-  ArtifactOrDirectoryOptions, FileSystemAdapter
+  ArtifactOrDirectoryOptions,
+  FileSystemAdapter
 } from "../file-system";
 
 import { Metadatas } from "./metadatas";
