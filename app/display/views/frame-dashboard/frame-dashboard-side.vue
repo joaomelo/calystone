@@ -35,10 +35,6 @@ function handleExit() {
     services.connectSource.disconnect();
   });
 }
-
-function handleReload() {
-  services.connectSource.reconnect();
-}
 </script>
 <template>
   <SideBar :active="active">
@@ -81,13 +77,6 @@ function handleReload() {
         :title="t('dashboard.preloading')"
         data-test="sidebar-preloading"
         class="sidebar-preload"
-      />
-      <SideItem
-        id="reload"
-        :icon="`${baseIcon} bx-refresh`"
-        :title="t('reload')"
-        data-test="sidebar-reload"
-        @click="handleReload"
       />
       <SideItem
         id="exit"
