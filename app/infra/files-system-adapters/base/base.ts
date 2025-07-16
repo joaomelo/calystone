@@ -19,20 +19,22 @@ import { Metadatas } from "./metadatas";
 export abstract class BaseFileSystemAdapter<DirectoryMetadata, FileMetadata> implements FileSystemAdapter {
   protected readonly metadatas: Metadatas<DirectoryMetadata, FileMetadata>;
   protected readonly nodes: Nodes;
+  private readonly rootOptions: DirectoryOptions;
 
   constructor({
     nodes,
-    rootData,
-    rootMetadata
+    rootMetadata,
+    rootOptions
   }: {
     nodes: Nodes;
-    rootData: DirectoryOptions,
     rootMetadata: DirectoryMetadata
+    rootOptions: DirectoryOptions,
   }) {
     this.nodes = nodes;
+    this.rootOptions = rootOptions;
     this.metadatas = new Metadatas({
       nodes,
-      rootId: rootData.id,
+      rootId: rootOptions.id,
       rootMetadata
     });
   }
@@ -64,6 +66,10 @@ export abstract class BaseFileSystemAdapter<DirectoryMetadata, FileMetadata> imp
     node: Node,
   }): Promise<void>;
   abstract renameable(node: Node): Status;
+
+  resolveRootOptions(): DirectoryOptions {
+    return this.rootOptions;
+  }
 
   protected failIfDirectory(node: Node) {
     if (node instanceof Directory) return Status.fail("DIRECTORY_NODE");

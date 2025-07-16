@@ -11,6 +11,7 @@ export type ArtifactOrDirectoryOptions = ArtifactOptions | DirectoryOptions;
 
 export interface FileSystemAdapter {
   clear(directory: Directory): void;
+  resolveRootOptions(): DirectoryOptions;
   createArtifact(options: {
     name: string,
     parent: Directory

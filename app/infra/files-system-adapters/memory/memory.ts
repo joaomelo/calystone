@@ -29,15 +29,15 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
     const {
       delayInMilliseconds, nodes, rootDirectoryName
     } = options;
-    const rootData: DirectoryOptions = {
+    const rootOptions: DirectoryOptions = {
       id: createId(),
       name: rootDirectoryName,
       parentId: undefined
     };
     super({
       nodes,
-      rootData,
-      rootMetadata: undefined
+      rootMetadata: undefined,
+      rootOptions
     });
     this.delayInMilliseconds = delayInMilliseconds;
   }

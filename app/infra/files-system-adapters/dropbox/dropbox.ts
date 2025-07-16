@@ -23,15 +23,15 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     nodes: Nodes;
   }) {
     const rootLowerPath = "";
-    const rootData: DirectoryOptions = {
+    const rootOptions: DirectoryOptions = {
       id: createId(),
       name: "Dropbox",
       parentId: undefined
     };
     super({
       nodes,
-      rootData,
-      rootMetadata: rootLowerPath
+      rootMetadata: rootLowerPath,
+      rootOptions
     });
     this.dropboxClient = new Dropbox({ accessToken });
   }

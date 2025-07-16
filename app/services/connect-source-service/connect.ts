@@ -42,10 +42,8 @@ export class ConnectSourceService {
       provider
     });
 
-    const rootOptions = fileSystemAdapter.resetToRootOnly();
+    const rootOptions = fileSystemAdapter.resolveRootOptions();
     const rootDirectory = createNode(rootOptions);
-
-    nodes.clear();
     nodes.set(rootDirectory);
 
     this.observable.next({

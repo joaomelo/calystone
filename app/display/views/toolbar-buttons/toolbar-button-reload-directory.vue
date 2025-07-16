@@ -15,7 +15,7 @@ const { services } = Store.use();
 const { t } = useI18n();
 
 const reloadable = computed(() => {
-  return services.reloadDirectory.reloadable(directory);
+  return services.reloadDirectory.reloadable(directory).isOk();
 });
 
 async function handleReloadDirectory() {

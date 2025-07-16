@@ -21,15 +21,15 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     const {
       accessToken, nodes
     } = options;
-    const rootData: DirectoryOptions = {
+    const rootOptions: DirectoryOptions = {
       id: "root", // onedrive convention that will work to retrieve children in url paths
       name: "OneDrive",
       parentId: undefined
     };
     super({
       nodes,
-      rootData,
-      rootMetadata: undefined
+      rootMetadata: undefined,
+      rootOptions
     });
 
     this.graphClient = Client.init({ authProvider: (done) => {

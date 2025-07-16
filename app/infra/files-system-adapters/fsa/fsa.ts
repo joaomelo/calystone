@@ -28,7 +28,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     const {
       nodes, rootHandle
     } = options;
-    const rootData: DirectoryOptions = {
+    const rootOptions: DirectoryOptions = {
       id: createId(),
       name: rootHandle.name,
       parentId: undefined
@@ -39,8 +39,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     };
     super({
       nodes,
-      rootData,
-      rootMetadata
+      rootMetadata,
+      rootOptions
     });
   }
 
