@@ -11,7 +11,7 @@ import type { ArtifactOrDirectoryOptions } from "../file-system";
 
 import { BaseFileSystemAdapter } from "../base";
 
-export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, undefined, undefined> {
+export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, undefined> {
   graphClient: Client;
 
   constructor(options: {

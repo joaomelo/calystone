@@ -17,9 +17,8 @@ import { BaseFileSystemAdapter } from "../base";
 
 type ArtifactMetadata = ArrayBuffer;
 type DirectoryMetadata = undefined;
-type RootMetadata = undefined;
 
-export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, DirectoryMetadata, ArtifactMetadata> {
+export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadata, ArtifactMetadata> {
   private readonly delayInMilliseconds: number;
 
   constructor(options: {
@@ -127,7 +126,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
 
     const childrenData: ArtifactOrDirectoryOptions[] = [];
 
-    const shouldGaranteeDataExpectedByE2e = parent.id === this.rootData.id;
+    const shouldGaranteeDataExpectedByE2e = parent.isRoot();
     if (shouldGaranteeDataExpectedByE2e) {
       const descriptorFile = fakeFile("txt");
       descriptorFile.name = `${Descriptor.descriptorBasename}.txt`;

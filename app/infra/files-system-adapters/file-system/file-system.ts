@@ -1,11 +1,16 @@
 import type {
-  Artifact, ArtifactOptions, Directory, DirectoryOptions, Node
+  Artifact,
+  ArtifactOptions,
+  Directory,
+  DirectoryOptions,
+  Node
 } from "@/domain";
 import type { Status } from "@/utils";
 
 export type ArtifactOrDirectoryOptions = ArtifactOptions | DirectoryOptions;
 
 export interface FileSystemAdapter {
+  clear(directory: Directory): void;
   createArtifact(options: {
     name: string,
     parent: Directory
@@ -29,5 +34,4 @@ export interface FileSystemAdapter {
     name: string;
     node: Node,
   }): Promise<void>;
-  resetToRootOnly(): DirectoryOptions;
 }

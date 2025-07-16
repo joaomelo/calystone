@@ -20,15 +20,15 @@ export class FileSystemAdaptersFactory {
     this.configurations = configurations;
   }
 
-  create(options: {
+  create({
+    accessData,
+    nodes,
+    provider
+  }: {
     accessData: unknown,
     nodes: Nodes;
     provider: SourceProvider
   }): FileSystemAdapter {
-    const {
-      accessData, nodes, provider
-    } = options;
-
     switch (provider) {
       case "dropbox":{
         if (!isObjectLike(accessData)

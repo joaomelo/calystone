@@ -1,61 +1,61 @@
 import type {
-  Id, Node, Nodes
+  Id,
+  Node,
+  Nodes
 } from "@/domain";
 
 import {
-  Descendancy, Directory
+  Descendancy,
+  Directory
 } from "@/domain";
 import { throwCritical } from "@/utils";
 
 import type {
-  DirectoryMetadataContainer, FileMetadataContainer, RootMetadataContainer
+  DirectoryMetadataContainer,
+  FileMetadataContainer
 } from "./metadata";
 
-export class Metadatas<R, D, F> {
-  private readonly map: Map<Id, DirectoryMetadataContainer<D> | FileMetadataContainer<F> | RootMetadataContainer<R>>;
+export class Metadatas<DirectoryMetadata, FileMetadata> {
+  private readonly map: Map<Id, DirectoryMetadataContainer<DirectoryMetadata> | FileMetadataContainer<FileMetadata>>;
   private readonly nodes: Nodes;
-  private readonly rootContainer: RootMetadataContainer<R>;
-  private readonly rootId: Id;
 
-  constructor(options: {
+  constructor({
+    nodes,
+    rootId,
+    rootMetadata
+  }: {
     nodes: Nodes;
     rootId: Id,
-    rootMetadata: R,
+    rootMetadata: DirectoryMetadata,
   }) {
-    this.map = new Map();
-
-    const {
-      nodes, rootId, rootMetadata
-    } = options;
     this.nodes = nodes;
-    this.rootId = rootId;
-    this.rootContainer = {
-      id: this.rootId,
+
+    this.map = new Map();
+    const rootContainer: DirectoryMetadataContainer<DirectoryMetadata> = {
+      id: rootId,
       kind: "directory",
       metadata: rootMetadata,
-      root: true,
     };
-
-    this.reset();
+    this.map.set(rootId, rootContainer);
   }
 
-  getOfDirectoryOrThrow(id: Id): DirectoryMetadataContainer<D> | RootMetadataContainer<R> {
+  clear(directory: Directory) {
+    this.removeDescendants(directory);
+  }
+
+  getOfDirectoryOrThrow(id: Id): DirectoryMetadataContainer<DirectoryMetadata> {
     const container = this.getOrThrow(id);
     if (container.kind !== "directory") throwCritical("NO_DIRECTORY_CONTAINER");
     return container;
   }
 
-  getOfFileOrThrow(id: Id): FileMetadataContainer<F> {
+  getOfFileOrThrow(id: Id): FileMetadataContainer<FileMetadata> {
     const metadata = this.getOrThrow(id);
     if ((metadata.kind !== "file")) throwCritical("NO_FILE_CONTAINER");
     return metadata;
   }
 
-  getOfRootOrThrow(): RootMetadataContainer<R> {
-    return this.rootContainer;
-  }
-
-  getOrThrow(id: Id): DirectoryMetadataContainer<D> | FileMetadataContainer<F> | RootMetadataContainer<R> {
+  getOrThrow(id: Id): DirectoryMetadataContainer<DirectoryMetadata> | FileMetadataContainer<FileMetadata> {
     const container = this.map.get(id);
     if (container === undefined) throwCritical("NO_CONTAINER");
     return container;
@@ -64,20 +64,11 @@ export class Metadatas<R, D, F> {
   remove(node: Node) {
     this.map.delete(node.id);
     if (node instanceof Directory) {
-      const descendancy = new Descendancy(this.nodes);
-      const descendants = descendancy.descendants(node);
-      for (const descendant of descendants) {
-        this.map.delete(descendant.id);
-      }
+      this.removeDescendants(node);
     }
   }
 
-  reset() {
-    this.map.clear();
-    this.map.set(this.rootId, this.rootContainer);
-  }
-
-  set(container: DirectoryMetadataContainer<D> | FileMetadataContainer<F>) {
+  set(container: DirectoryMetadataContainer<DirectoryMetadata> | FileMetadataContainer<FileMetadata>) {
     this.map.set(container.id, container);
   }
 
@@ -86,7 +77,7 @@ export class Metadatas<R, D, F> {
     metadata
   }: {
     id: Id,
-    metadata: D
+    metadata: DirectoryMetadata
   }) {
     this.set({
       id,
@@ -95,18 +86,26 @@ export class Metadatas<R, D, F> {
     });
   }
 
-  setFile(options: {
+  setFile({
+    id,
+    metadata
+  }: {
     id: Id,
-    metadata: F
+    metadata: FileMetadata
   }) {
-    const {
-      id, metadata
-    } = options;
     this.set({
       id,
       kind: "file",
       metadata,
     });
+  }
+
+  private removeDescendants(directory: Directory) {
+    const descendancy = new Descendancy(this.nodes);
+    const descendants = descendancy.descendants(directory);
+    for (const descendant of descendants) {
+      this.map.delete(descendant.id);
+    }
   }
 
 }

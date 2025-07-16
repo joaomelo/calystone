@@ -16,27 +16,29 @@ import type {
 
 import { Metadatas } from "./metadatas";
 
-export abstract class BaseFileSystemAdapter<R, D, F> implements FileSystemAdapter {
-  protected readonly metadatas: Metadatas<R, D, F>;
+export abstract class BaseFileSystemAdapter<DirectoryMetadata, FileMetadata> implements FileSystemAdapter {
+  protected readonly metadatas: Metadatas<DirectoryMetadata, FileMetadata>;
   protected readonly nodes: Nodes;
-  protected readonly rootData: DirectoryOptions;
 
-  constructor(options: {
+  constructor({
+    nodes,
+    rootData,
+    rootMetadata
+  }: {
     nodes: Nodes;
     rootData: DirectoryOptions,
-    rootMetadata: R
+    rootMetadata: DirectoryMetadata
   }) {
-    const {
-      nodes, rootData, rootMetadata
-    } = options;
     this.nodes = nodes;
-    this.rootData = rootData;
     this.metadatas = new Metadatas({
       nodes,
       rootId: rootData.id,
       rootMetadata
     });
-    this.resetToRootOnly();
+  }
+
+  clear(directory: Directory): void {
+    this.metadatas.clear(directory);
   }
 
   abstract createArtifact(options: {
@@ -48,7 +50,6 @@ export abstract class BaseFileSystemAdapter<R, D, F> implements FileSystemAdapte
     parent: Directory
   }): Promise<DirectoryOptions>;
   abstract fetchContent(artifact: Artifact): Promise<ArrayBuffer>;
-
   abstract move(options: {
     subject: Node,
     target: Directory
@@ -58,17 +59,11 @@ export abstract class BaseFileSystemAdapter<R, D, F> implements FileSystemAdapte
   abstract postContent(artifact: Artifact): Promise<void>;
   abstract remove(node: Node): Promise<void>;
   abstract removeable(node: Node): Status;
-
   abstract rename(options: {
     name: string;
     node: Node,
   }): Promise<void>;
   abstract renameable(node: Node): Status;
-
-  resetToRootOnly() {
-    this.metadatas.reset();
-    return this.rootData;
-  }
 
   protected failIfDirectory(node: Node) {
     if (node instanceof Directory) return Status.fail("DIRECTORY_NODE");

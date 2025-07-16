@@ -1,15 +1,13 @@
 import type { Id } from "@/domain";
 
-export interface DirectoryMetadataContainer<T> {
+export interface DirectoryMetadataContainer<DirectoryMetadata> {
   kind: "directory";
   id: Id;
-  metadata: T
+  metadata: DirectoryMetadata
 }
 
-export interface FileMetadataContainer<T> {
+export interface FileMetadataContainer<FileMetadata> {
   kind: "file";
   id: Id;
-  metadata: T
+  metadata: FileMetadata
 }
-
-export interface RootMetadataContainer<T> extends DirectoryMetadataContainer<T> {root: true;}

@@ -12,16 +12,16 @@ import type { ArtifactOrDirectoryOptions } from "../file-system";
 
 import { BaseFileSystemAdapter } from "../base";
 
-export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, string, string> {
+export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, string> {
   dropboxClient: Dropbox;
 
-  constructor(options: {
+  constructor({
+    accessToken,
+    nodes
+  }: {
     accessToken: string;
     nodes: Nodes;
   }) {
-    const {
-      accessToken, nodes
-    } = options;
     const rootLowerPath = "";
     const rootData: DirectoryOptions = {
       id: createId(),
@@ -36,13 +36,14 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     this.dropboxClient = new Dropbox({ accessToken });
   }
 
-  async createArtifact(options: {
+  async createArtifact({
+    name,
+    parent
+  }: {
     name: string,
     parent: Directory
   }): Promise<ArtifactOptions> {
-    const {
-      name, parent: { id: parentId }
-    } = options;
+    const { id: parentId } = parent;
 
     const container = this.metadatas.getOfDirectoryOrThrow(parentId);
     const { metadata: parentPath } = container;

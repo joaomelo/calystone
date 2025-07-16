@@ -13,18 +13,14 @@ import { BaseFileSystemAdapter } from "../base";
 
 interface DirectoryMetadata {
   handle: FileSystemDirectoryHandle,
-  parentHandle: FileSystemDirectoryHandle;
+  parentHandle?: FileSystemDirectoryHandle;
 }
 interface FileMetadata {
   handle: FileSystemFileHandle;
   parentHandle: FileSystemDirectoryHandle;
 }
-interface RootMetadata {
-  handle: FileSystemDirectoryHandle,
-  parentHandle: undefined;
-}
 
-export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, DirectoryMetadata, FileMetadata> {
+export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadata, FileMetadata> {
   constructor(options: {
     nodes: Nodes;
     rootHandle: FileSystemDirectoryHandle
@@ -37,7 +33,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, Di
       name: rootHandle.name,
       parentId: undefined
     };
-    const rootMetadata: RootMetadata = {
+    const rootMetadata: DirectoryMetadata = {
       handle: rootHandle,
       parentHandle: undefined
     };
