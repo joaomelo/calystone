@@ -1,4 +1,6 @@
-import { openMacros, outlineNodes } from "../helpers";
+import {
+  openMacros, outlineNodes
+} from "../helpers";
 
 describe("nodes-navigation", () => {
   beforeEach(() => {

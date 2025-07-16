@@ -5,8 +5,12 @@ import type { PanelsList } from "@/utils";
 import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editor-workspace";
 import { EditorNotLoaded } from "@/display/views/editors-message";
-import { AccordionPanels, formatDateTime, useI18n } from "@/utils";
-import { computed, onMounted, ref } from "vue";
+import {
+  AccordionPanels, formatDateTime, useI18n
+} from "@/utils";
+import {
+  computed, onMounted, ref
+} from "vue";
 
 import ControlDatesClear from "./control-dates-clear.vue";
 import ControlDatesRecurrence from "./control-dates-recurrence.vue";
@@ -17,9 +21,7 @@ import ControlPriority from "./control-priority.vue";
 import ControlProgress from "./control-progress.vue";
 import ControlTags from "./control-tags.vue";
 
-const { content: artifact } = defineProps<{
-  content: TodoArtifact;
-}>();
+const { content: artifact } = defineProps<{ content: TodoArtifact; }>();
 
 const { services } = Store.use();
 const { t } = useI18n();

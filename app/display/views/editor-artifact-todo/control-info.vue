@@ -2,20 +2,29 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { formatDateTime, PropertySheet, useI18n } from "@/utils";
+import {
+  formatDateTime, PropertySheet, useI18n
+} from "@/utils";
 import { computed } from "vue";
 
-const { artifact } = defineProps<{
-  artifact: TodoArtifact;
-}>();
+const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { t } = useI18n();
 const { services } = Store.use();
 const propertySheetRows = computed(() => {
   return [
-    { label: t("path"), value: services.queryHierarchy.path(artifact) },
-    { label: t("last-modified"), value: formatDateTime(new Date(artifact.lastModified)) },
-    { label: t("editor-todo.progress.progress"), value: artifact.progress() },
+    {
+      label: t("path"),
+      value: services.queryHierarchy.path(artifact)
+    },
+    {
+      label: t("last-modified"),
+      value: formatDateTime(new Date(artifact.lastModified))
+    },
+    {
+      label: t("editor-todo.progress.progress"),
+      value: artifact.progress()
+    },
   ];
 });
 </script>

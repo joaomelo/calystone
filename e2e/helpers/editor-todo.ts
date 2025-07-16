@@ -1,5 +1,7 @@
 import { dataTest } from "./data-test";
-import { typeableDate, typeableDateTime } from "./dates";
+import {
+  typeableDate, typeableDateTime
+} from "./dates";
 
 const inputStartInput = () => cy.get(dataTest("input-start")).find("input");
 const inputDueInput = () => cy.get(dataTest("input-due")).find("input");
@@ -40,14 +42,12 @@ export const editorTodo = {
     },
     tab: () => cy.get(dataTest("accordion-panels-panel-dates")),
   },
-  main: {
-    progress: {
-      doing: () => cy.get("[data-test='button-doing']"),
-      done: () => cy.get("[data-test='button-done']"),
-      open: () => cy.get("[data-test='button-open']"),
-      skipped: () => cy.get("[data-test='button-skipped']"),
-    }
-  },
+  main: { progress: {
+    doing: () => cy.get("[data-test='button-doing']"),
+    done: () => cy.get("[data-test='button-done']"),
+    open: () => cy.get("[data-test='button-open']"),
+    skipped: () => cy.get("[data-test='button-skipped']"),
+  } },
   priority: {
     add: {
       button: () => cy.get(dataTest("control-criterion-add__button")),

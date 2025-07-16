@@ -3,26 +3,31 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import { SaveCancel } from "@/display/views/save-cancel";
-import { InputText, ModalBase, useDispatch, useI18n } from "@/utils";
-import { reactive, useTemplateRef } from "vue";
+import {
+  InputText, ModalBase, useDispatch, useI18n
+} from "@/utils";
+import {
+  reactive, useTemplateRef
+} from "vue";
 
-const { parent } = defineProps<{
-  parent: Directory
-}>();
+const { parent } = defineProps<{ parent: Directory }>();
 defineExpose({ open });
 
 const { services } = Store.use();
 const { t } = useI18n();
 const modal = useTemplateRef("modal");
 
-const data = reactive({
-  name: "",
-});
+const data = reactive({ name: "", });
 
-const { dispatch, errors, loading } = useDispatch();
+const {
+  dispatch, errors, loading
+} = useDispatch();
 
 async function handleSave() {
-  const success = await dispatch(() => services.createArtifact.create({ name: data.name, parent }));
+  const success = await dispatch(() => services.createArtifact.create({
+    name: data.name,
+    parent
+  }));
   if (!success) return;
   modal.value?.close();
 }

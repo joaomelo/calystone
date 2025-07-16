@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { computed, toValue } from "vue";
+import {
+  computed, toValue
+} from "vue";
 
 import { useProvider } from "./provider";
 
-const { disabled = false, icon, id, title } = defineProps<{
+const {
+  disabled = false, icon, id, title
+} = defineProps<{
   dataTest: string,
   disabled?: boolean
   icon: string
   id: string,
   title: string,
 }>();
-const emit = defineEmits<{
-  click: []
-}>();
+const emit = defineEmits<{ click: [] }>();
 
 const provider = useProvider();
 const active = computed(() => id === toValue(provider.active));

@@ -3,24 +3,26 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { SaveCancel } from "@/display/views/save-cancel";
-import { InputText, ModalBase, useDispatch } from "@/utils";
+import {
+  InputText, ModalBase, useDispatch
+} from "@/utils";
 import { useI18n } from "@/utils/i18n";
-import { reactive, useTemplateRef } from "vue";
+import {
+  reactive, useTemplateRef
+} from "vue";
 
-const { node } = defineProps<{
-  node: Node
-}>();
+const { node } = defineProps<{ node: Node }>();
 defineExpose({ open });
 
 const { services } = Store.use();
 const { t } = useI18n();
 const modal = useTemplateRef("modal");
 
-const data = reactive({
-  name: node.name,
-});
+const data = reactive({ name: node.name, });
 
-const { dispatch, errors, loading } = useDispatch();
+const {
+  dispatch, errors, loading
+} = useDispatch();
 
 function open() {
   data.name = node.name;
@@ -28,7 +30,10 @@ function open() {
 }
 
 async function save() {
-  const success = await dispatch(() => services.renameNode.rename({ name: data.name, node: node }));
+  const success = await dispatch(() => services.renameNode.rename({
+    name: data.name,
+    node: node
+  }));
   if (!success) return;
   modal.value?.close();
 }

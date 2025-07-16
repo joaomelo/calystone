@@ -8,9 +8,7 @@ import Tabs from "primevue/tabs";
 
 import type { PanelsList } from "../panels-list";
 
-const { panels } = defineProps<{
-  panels: PanelsList;
-}>();
+const { panels } = defineProps<{ panels: PanelsList; }>();
 </script>
 <template>
   <Tabs

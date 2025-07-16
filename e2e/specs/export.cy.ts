@@ -1,9 +1,9 @@
-import { openMacros, outlineNodes, toolbarNode } from "../helpers";
+import {
+  openMacros, outlineNodes, toolbarNode
+} from "../helpers";
 
 declare global {
-  interface Window {
-    showSaveFilePicker: (options?: { suggestedName?: string }) => Promise<FileSystemFileHandle>;
-  }
+  interface Window {showSaveFilePicker: (options?: { suggestedName?: string }) => Promise<FileSystemFileHandle>;}
 }
 
 describe("export", () => {
@@ -19,9 +19,7 @@ describe("export", () => {
         write: cy.stub().resolves()
       };
 
-      cy.stub(win, "showSaveFilePicker").resolves({
-        createWritable: () => Promise.resolve(createWritableStub)
-      });
+      cy.stub(win, "showSaveFilePicker").resolves({ createWritable: () => Promise.resolve(createWritableStub) });
     });
 
     outlineNodes.artifactTextOf(outlineNodes.rootNode()).first().as("artifact");

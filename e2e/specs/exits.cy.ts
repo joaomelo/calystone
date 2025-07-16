@@ -1,4 +1,6 @@
-import { openMacros, pageNodes, pageOpen } from "../helpers";
+import {
+  openMacros, pageNodes, pageOpen
+} from "../helpers";
 
 describe("exits", () => {
   beforeEach(() => {

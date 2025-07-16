@@ -2,9 +2,7 @@ import type { DebouncedFunc } from "lodash-es";
 
 import { debounce as debounceLodash } from "lodash-es";
 
-interface Options {
-  wait?: number,
-}
+interface Options {wait?: number,}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function debounce<T extends (...args: any[]) => any>(

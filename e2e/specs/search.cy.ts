@@ -1,4 +1,6 @@
-import { dialogCreateArtifact, dialogCreateDirectory, editorText, editorTodo, openMacros, outlineNodes, pageSearch, toolbarNode } from "../helpers";
+import {
+  dialogCreateArtifact, dialogCreateDirectory, editorText, editorTodo, openMacros, outlineNodes, pageSearch, toolbarNode
+} from "../helpers";
 
 describe("editor-directory", () => {
   beforeEach(() => {

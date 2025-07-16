@@ -35,6 +35,9 @@ export class RetrieveNodesService {
 
   search(text: string) {
     const { nodes } = this.connectSourceService.stateConnectedOrThrow();
-    return this.searcher.search({ nodes: nodes.list(), text });
+    return this.searcher.search({
+      nodes: nodes.list(),
+      text
+    });
   }
 }

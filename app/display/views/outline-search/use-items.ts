@@ -1,4 +1,6 @@
-import type { Item, ItemData } from "@/display/views/outline-item";
+import type {
+  Item, ItemData
+} from "@/display/views/outline-item";
 import type { Node } from "@/domain";
 import type { Ref } from "vue";
 
@@ -26,5 +28,11 @@ function convert(node: Node): Item {
     key,
     type: "node"
   };
-  return { children: [], data, key, label, leaf: true };
+  return {
+    children: [],
+    data,
+    key,
+    label,
+    leaf: true
+  };
 }

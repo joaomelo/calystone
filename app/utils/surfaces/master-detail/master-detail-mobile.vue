@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import Drawer from "primevue/drawer";
 
-const visible = defineModel({
-  type: Boolean
-});
+const visible = defineModel({ type: Boolean });
 </script>
 <template>
   <div class="master-detail-mobile">

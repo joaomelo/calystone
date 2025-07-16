@@ -1,4 +1,6 @@
-import { docs, pageOpen } from "../helpers";
+import {
+  docs, pageOpen
+} from "../helpers";
 
 describe("docs", function() {
   beforeEach(() => {

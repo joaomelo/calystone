@@ -3,9 +3,7 @@ import type { Tag } from "@/domain";
 
 import CoreBase from "./core-base.vue";
 
-const { tag } = defineProps<{
-  tag: Tag;
-}>();
+const { tag } = defineProps<{ tag: Tag; }>();
 
 </script>
 

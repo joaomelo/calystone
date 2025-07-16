@@ -2,11 +2,11 @@
 import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
-import { ToolbarButton, useDispatch, useI18n } from "@/utils";
+import {
+  ToolbarButton, useDispatch, useI18n
+} from "@/utils";
 
-const { node } = defineProps<{
-  node: Directory;
-}>();
+const { node } = defineProps<{ node: Directory; }>();
 
 const { dispatchOrToast } = useDispatch();
 const { services } = Store.use();

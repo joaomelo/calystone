@@ -1,4 +1,6 @@
-import { dialogCreateArtifact, editorText, openMacros, outlineNodes, toolbarNode } from "../helpers";
+import {
+  dialogCreateArtifact, editorText, openMacros, outlineNodes, toolbarNode
+} from "../helpers";
 
 describe("editor-binary", () => {
   beforeEach(() => {

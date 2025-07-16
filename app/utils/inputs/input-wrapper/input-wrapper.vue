@@ -3,7 +3,9 @@ import { kebabCase } from "@/utils/text";
 import Message from "primevue/message";
 import { useId } from "vue";
 
-const { direction = "column", justify = "start", label } = defineProps<{
+const {
+  direction = "column", justify = "start", label
+} = defineProps<{
   dataTest: string;
   direction?: "column" | "column-reverse" | "row" | "row-reverse";
   error?: string;

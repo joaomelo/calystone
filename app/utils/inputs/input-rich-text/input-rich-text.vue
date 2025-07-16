@@ -1,17 +1,29 @@
 <script setup lang="ts">
-import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
-import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
+import {
+  autocompletion, closeBrackets
+} from "@codemirror/autocomplete";
+import {
+  defaultKeymap, history, historyKeymap
+} from "@codemirror/commands";
 import { markdown } from "@codemirror/lang-markdown";
-import { bracketMatching, defaultHighlightStyle, indentOnInput, syntaxHighlighting } from "@codemirror/language";
+import {
+  bracketMatching, defaultHighlightStyle, indentOnInput, syntaxHighlighting
+} from "@codemirror/language";
 import { highlightSelectionMatches, } from "@codemirror/search";
 import { EditorState } from "@codemirror/state";
-import { drawSelection, EditorView, highlightActiveLine, highlightActiveLineGutter, keymap, lineNumbers, } from "@codemirror/view";
-import { onMounted, onUnmounted, useTemplateRef, watch } from "vue";
+import {
+  drawSelection, EditorView, highlightActiveLine, highlightActiveLineGutter, keymap, lineNumbers,
+} from "@codemirror/view";
+import {
+  onMounted, onUnmounted, useTemplateRef, watch
+} from "vue";
 
 import { InputWrapper } from "../input-wrapper";
 import { areTextEqual } from "./text-equality";
 
-const { borderless = false, lineless = false } = defineProps<{
+const {
+  borderless = false, lineless = false
+} = defineProps<{
   borderless?: boolean
   dataTest: string
   lineless?: boolean
@@ -71,13 +83,11 @@ watch(
   (newContent) => {
     if (areTextEqual(newContent, editorView.state.doc.toString())) return;
 
-    const update = editorView.state.update({
-      changes: {
-        from: 0,
-        insert: newContent,
-        to: editorView.state.doc.length,
-      },
-    });
+    const update = editorView.state.update({ changes: {
+      from: 0,
+      insert: newContent,
+      to: editorView.state.doc.length,
+    }, });
     editorView.update([update]);
   }
 );

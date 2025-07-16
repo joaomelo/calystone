@@ -10,15 +10,18 @@ import { ref } from "vue";
 import { useHighlight } from "./use-highlight";
 import { useItems } from "./use-items";
 
-interface Month { month: number, year: number }
+interface Month {
+  month: number,
+  year: number
+}
 
-const emit = defineEmits<{
-  "selected": [node: Node | undefined]
-}>();
+const emit = defineEmits<{ "selected": [node: Node | undefined] }>();
 
 const { services } = Store.use();
 
-const { highlightedDays, viewedMonth } = useHighlight();
+const {
+  highlightedDays, viewedMonth
+} = useHighlight();
 
 const selectedDate = ref<Date>(new Date());
 const items = useItems(selectedDate);

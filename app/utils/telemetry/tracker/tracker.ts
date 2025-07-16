@@ -25,7 +25,10 @@ export class Tracker {
     return (amount = 1) => {
       const end = performance.now();
       const time = end - start;
-      this.data.push({ amount, time });
+      this.data.push({
+        amount,
+        time
+      });
     };
   }
 

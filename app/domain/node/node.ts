@@ -12,7 +12,9 @@ export abstract class Node {
   name: string;
   parentId?: Id;
 
-  constructor({ id, name, parentId }: NodeOptions) {
+  constructor({
+    id, name, parentId
+  }: NodeOptions) {
     this.id = id;
     this.name = name;
     this.parentId = parentId;

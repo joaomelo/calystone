@@ -9,9 +9,18 @@ export class Searcher {
     ignoreLocation: true,
     includeScore: true,
     keys: [
-      { name: "name", weight: 2 },
-      { name: "content", weight: 1.5 },
-      { name: "details", weight: 1.5 },
+      {
+        name: "name",
+        weight: 2
+      },
+      {
+        name: "content",
+        weight: 1.5
+      },
+      {
+        name: "details",
+        weight: 1.5
+      },
       {
         getFn: (obj: unknown): string[] => {
           if (!(obj instanceof TodoArtifact)) return [];
@@ -20,8 +29,14 @@ export class Searcher {
         name: "tags",
         weight: 1,
       },
-      { name: "mime.type", weight: 0.5 },
-      { name: "mime.media", weight: 0.5 },
+      {
+        name: "mime.type",
+        weight: 0.5
+      },
+      {
+        name: "mime.media",
+        weight: 0.5
+      },
     ],
     shouldSort: true,
     threshold: 0.3,
@@ -32,7 +47,10 @@ export class Searcher {
     this.limit = limit;
   }
 
-  search(options: { nodes: Node[]; text: string, }) {
+  search(options: {
+    nodes: Node[];
+    text: string,
+  }) {
     if (!options.text.trim()) return [];
     const fuse = new Fuse(options.nodes, this.options);
     const results = fuse.search(options.text, { limit: this.limit });

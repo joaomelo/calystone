@@ -1,4 +1,6 @@
-import { describe, expect, it } from "vitest";
+import {
+  describe, expect, it
+} from "vitest";
 
 import { Dater } from "./dater";
 
@@ -12,7 +14,10 @@ describe("dater", () => {
   });
 
   it("should use the same date for due if start is not passed", () => {
-    const dater = new Dater({ allDay: true, start: new Date(2025, 0, 1) });
+    const dater = new Dater({
+      allDay: true,
+      start: new Date(2025, 0, 1)
+    });
 
     expect(dater.start.getFullYear()).toBe(2025);
     expect(dater.start.getMonth()).toBe(0);
@@ -28,7 +33,10 @@ describe("dater", () => {
   });
 
   it("should use the same date for start if due is not passed", () => {
-    const dater = new Dater({ allDay: true, due: new Date(2025, 0, 1) });
+    const dater = new Dater({
+      allDay: true,
+      due: new Date(2025, 0, 1)
+    });
 
     expect(dater.start.getFullYear()).toBe(2025);
     expect(dater.start.getMonth()).toBe(0);
@@ -59,10 +67,16 @@ describe("dater", () => {
 
     const periodStart = new Date(beginOfToday);
     const periodEnd = new Date(endOfToday);
-    const period = { end: periodEnd, start: periodStart };
+    const period = {
+      end: periodEnd,
+      start: periodStart
+    };
 
     it("negates if the dater starts and ends before a period", () => {
-      const dater = new Dater({ allDay: true, due: beginOfYesterday });
+      const dater = new Dater({
+        allDay: true,
+        due: beginOfYesterday
+      });
       expect(dater.spansOn(period)).toBe(false);
     });
 
@@ -70,7 +84,11 @@ describe("dater", () => {
       const start = new Date(beginOfYesterday);
       const due = new Date(endOfToday);
       due.setHours(14);
-      const dater = new Dater({ allDay: false, due, start });
+      const dater = new Dater({
+        allDay: false,
+        due,
+        start
+      });
       expect(dater.spansOn(period)).toBe(true);
     });
 
@@ -79,7 +97,11 @@ describe("dater", () => {
       start.setHours(10);
       const due = new Date(start);
       due.setHours(11);
-      const dater = new Dater({ allDay: false, due, start });
+      const dater = new Dater({
+        allDay: false,
+        due,
+        start
+      });
       expect(dater.spansOn(period)).toBe(true);
     });
 
@@ -87,14 +109,22 @@ describe("dater", () => {
       const start = new Date(beginOfToday);
       start.setHours(10);
       const due = new Date(endOfTomorrow);
-      const dater = new Dater({ allDay: false, due, start });
+      const dater = new Dater({
+        allDay: false,
+        due,
+        start
+      });
       expect(dater.spansOn(period)).toBe(true);
     });
 
     it("negates if the dater starts and ends after a period", () => {
       const start = new Date(beginOfTomorrow);
       const due = new Date(endOfTomorrow);
-      const dater = new Dater({ allDay: false, due, start });
+      const dater = new Dater({
+        allDay: false,
+        due,
+        start
+      });
       expect(dater.spansOn(period)).toBe(false);
     });
   });

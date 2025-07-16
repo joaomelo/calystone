@@ -1,4 +1,6 @@
-import { openMacros, outlineNodes, pageNodes } from "../helpers";
+import {
+  openMacros, outlineNodes, pageNodes
+} from "../helpers";
 
 describe("reload", () => {
   beforeEach(() => {

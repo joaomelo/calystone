@@ -1,4 +1,6 @@
-import type { Directory, Node } from "@/domain";
+import type {
+  Directory, Node
+} from "@/domain";
 import type { ConnectSourceService } from "@/services/connect-source-service/connect";
 
 export class MoveNodeService {
@@ -8,9 +10,16 @@ export class MoveNodeService {
     this.connectSourceService = connectSourceService;
   }
 
-  async move(options: { subject: Node, target: Directory }) {
-    const { fileSystemAdapter, nodes } = this.connectSourceService.stateConnectedOrThrow();
-    const { subject, target } = options;
+  async move(options: {
+    subject: Node,
+    target: Directory
+  }) {
+    const {
+      fileSystemAdapter, nodes
+    } = this.connectSourceService.stateConnectedOrThrow();
+    const {
+      subject, target
+    } = options;
     const moveable = fileSystemAdapter.moveable(subject);
     moveable.throwOnFail();
     try {

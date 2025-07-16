@@ -3,8 +3,6 @@ export interface FailData {
   cause: string;
 }
 
-export interface OkData {
-  ok: true;
-}
+export interface OkData {ok: true;}
 
 export type StatusData = FailData | OkData;

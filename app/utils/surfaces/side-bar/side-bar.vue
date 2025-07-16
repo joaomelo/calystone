@@ -3,13 +3,9 @@ import { computed } from "vue";
 
 import { provideProvider } from "./provider";
 
-const { active } = defineProps<{
-  active: string
-}>();
+const { active } = defineProps<{ active: string }>();
 
-provideProvider({
-  active: computed(() => active),
-});
+provideProvider({ active: computed(() => active), });
 </script>
 <template>
   <aside class="side-bar">

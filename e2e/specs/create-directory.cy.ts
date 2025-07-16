@@ -1,4 +1,6 @@
-import { dialogCreateDirectory, openMacros, outlineNodes, toolbarNode } from "../helpers";
+import {
+  dialogCreateDirectory, openMacros, outlineNodes, toolbarNode
+} from "../helpers";
 
 describe("create-directory", () => {
   beforeEach(() => {

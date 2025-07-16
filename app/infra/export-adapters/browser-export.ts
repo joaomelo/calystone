@@ -1,7 +1,9 @@
 import type { Node } from "@/domain";
 
 import { Artifact } from "@/domain";
-import { Status, throwCritical } from "@/utils";
+import {
+  Status, throwCritical
+} from "@/utils";
 
 import type { ExportAdapter } from "./export";
 
@@ -13,9 +15,7 @@ export class BrowserExportAdapter implements ExportAdapter {
 
     if (!(node instanceof Artifact)) throwCritical("NODE_NOT_ARTIFACT");
 
-    const handle = await window.showSaveFilePicker({
-      suggestedName: node.name,
-    });
+    const handle = await window.showSaveFilePicker({ suggestedName: node.name, });
     const writable = await handle.createWritable();
     await writable.write(node.toBinary());
     await writable.close();

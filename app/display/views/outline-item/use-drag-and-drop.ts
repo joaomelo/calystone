@@ -1,6 +1,8 @@
 import { Store } from "@/display/store";
 import { Directory } from "@/domain";
-import { Status, useDispatch } from "@/utils";
+import {
+  Status, useDispatch
+} from "@/utils";
 import { computed } from "vue";
 
 import type { ItemData } from "./item";
@@ -40,7 +42,10 @@ function useDranAndDropNode(id: string) {
       const subject = services.retrieveNodes.getOrThrow(id);
       services.moveNode.moveable(subject).throwOnFail();
 
-      await services.moveNode.move({ subject, target: node });
+      await services.moveNode.move({
+        subject,
+        target: node
+      });
     });
   };
 

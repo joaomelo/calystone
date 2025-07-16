@@ -1,4 +1,6 @@
-import { editorDirectory, openMacros, outlineNodes, toolbarNode } from "../helpers";
+import {
+  editorDirectory, openMacros, outlineNodes, toolbarNode
+} from "../helpers";
 
 describe("open-directory", () => {
   beforeEach(() => {

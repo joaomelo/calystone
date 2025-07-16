@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { TodoArtifact } from "@/domain";
 
-import { formatDateTime, throwCritical, truncate } from "@/utils";
+import {
+  formatDateTime, throwCritical, truncate
+} from "@/utils";
 import { computed } from "vue";
 
 import CoreBase from "./core-base.vue";
 
-const { todo } = defineProps<{
-  todo: TodoArtifact;
-}>();
+const { todo } = defineProps<{ todo: TodoArtifact; }>();
 
 const icon = computed(() => {
   const iconPrefix = "bx bx-sm";
@@ -41,7 +41,10 @@ const priority = computed(() => {
 
 const details = computed(() => {
   return todo.hasDetails()
-    ? truncate(todo.details, { ellipsis: "...", length: 30 })
+    ? truncate(todo.details, {
+      ellipsis: "...",
+      length: 30
+    })
     : "";
 });
 

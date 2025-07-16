@@ -10,7 +10,9 @@ export function isDateRange(value: unknown): value is DateRange {
   if (!("start" in value)) return false;
   if (!("due" in value)) return false;
 
-  const { due, start } = value;
+  const {
+    due, start
+  } = value;
   if (!(start instanceof Date)) return false;
   if (!(due instanceof Date)) return false;
 

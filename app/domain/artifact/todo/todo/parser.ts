@@ -1,9 +1,15 @@
 import { Dater } from "@/domain/artifact/todo/dater";
-import { isCriteria, Prioritizer } from "@/domain/artifact/todo/prioritizer";
+import {
+  isCriteria, Prioritizer
+} from "@/domain/artifact/todo/prioritizer";
 import { Progressor } from "@/domain/artifact/todo/progressor";
-import { RecurrenceReference, RecurrenceStep, RecurrenceUnit, Recurrer } from "@/domain/artifact/todo/recurrer";
+import {
+  RecurrenceReference, RecurrenceStep, RecurrenceUnit, Recurrer
+} from "@/domain/artifact/todo/recurrer";
 import { Tagger } from "@/domain/artifact/todo/tagger";
-import { isJsonParseable, isObjectLike } from "@/utils";
+import {
+  isJsonParseable, isObjectLike
+} from "@/utils";
 
 import type { TodoArtifactState } from "./state";
 
@@ -60,7 +66,11 @@ export class Parser {
     ) {
       const start = new Date(rawData.dateStart);
       const due = new Date(rawData.dateDue);
-      const dater = new Dater({ allDay: false, due, start });
+      const dater = new Dater({
+        allDay: false,
+        due,
+        start
+      });
       data.dater = dater;
     }
 
@@ -72,7 +82,11 @@ export class Parser {
       && "recurrenceUnit" in rawData
       && RecurrenceUnit.isRecurrenceUnitValue(rawData.recurrenceUnit)
     ) {
-      const recurrer = new Recurrer({ reference: rawData.recurrenceReference, step: rawData.recurrenceStep, unit: rawData.recurrenceUnit });
+      const recurrer = new Recurrer({
+        reference: rawData.recurrenceReference,
+        step: rawData.recurrenceStep,
+        unit: rawData.recurrenceUnit
+      });
       data.recurrer = recurrer;
     }
 
@@ -84,8 +98,12 @@ export class Parser {
   }
 
   convertDataToBinary(data: TodoArtifactState): ArrayBuffer {
-    const { due, start } = data.dater?.stringify() ?? {};
-    const { reference, step, unit } = data.recurrer?.stringify() ?? {};
+    const {
+      due, start
+    } = data.dater?.stringify() ?? {};
+    const {
+      reference, step, unit
+    } = data.recurrer?.stringify() ?? {};
 
     const jsonString = JSON.stringify({
       criteria: data.prioritizer.criteria(),

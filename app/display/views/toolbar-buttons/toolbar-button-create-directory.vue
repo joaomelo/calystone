@@ -2,12 +2,12 @@
 import type { Directory } from "@/domain";
 
 import { DialogCreateDirectory } from "@/display/views/dialog-create-directory";
-import { ToolbarButton, useI18n } from "@/utils";
+import {
+  ToolbarButton, useI18n
+} from "@/utils";
 import { useTemplateRef } from "vue";
 
-const { parent } = defineProps<{
-  parent: Directory;
-}>();
+const { parent } = defineProps<{ parent: Directory; }>();
 
 const { t } = useI18n();
 const dialogCreateDirectory = useTemplateRef("dialogCreateDirectory");

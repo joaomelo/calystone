@@ -4,11 +4,11 @@ import type { ItemData } from "./item";
 import { useCore } from "./use-core";
 import { useDragAndDrop } from "./use-drag-and-drop";
 
-const { data } = defineProps<{
-  data: ItemData
-}>();
+const { data } = defineProps<{ data: ItemData }>();
 
-const { handleDragdrop, handleDragover, handleDragstart, moveable } = useDragAndDrop(data);
+const {
+  handleDragdrop, handleDragover, handleDragstart, moveable
+} = useDragAndDrop(data);
 const coreComponent = useCore(data);
 
 </script>

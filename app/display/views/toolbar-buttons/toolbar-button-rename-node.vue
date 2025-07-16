@@ -3,12 +3,14 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { DialogRename } from "@/display/views/dialog-rename";
-import { ToolbarButton, useI18n } from "@/utils";
-import { computed, useTemplateRef } from "vue";
+import {
+  ToolbarButton, useI18n
+} from "@/utils";
+import {
+  computed, useTemplateRef
+} from "vue";
 
-const { node } = defineProps<{
-  node: Node;
-}>();
+const { node } = defineProps<{ node: Node; }>();
 
 const { services } = Store.use();
 const { t } = useI18n();

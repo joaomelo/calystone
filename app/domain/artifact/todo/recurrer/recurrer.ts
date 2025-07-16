@@ -20,7 +20,9 @@ export class Recurrer {
   unit: RecurrenceUnit;
 
   constructor(options: RecurrerOptions = {}) {
-    const { reference, step, unit } = options;
+    const {
+      reference, step, unit
+    } = options;
 
     if (reference && !RecurrenceReference.isRecurrenceReferenceValue(reference)) {
       throwCritical("INVALID_RECURRENCE_REFERENCE");
@@ -39,7 +41,10 @@ export class Recurrer {
     this.unit = new RecurrenceUnit(unit);
   }
 
-  next(options: { due: Date, start: Date }) {
+  next(options: {
+    due: Date,
+    start: Date
+  }) {
     const baseDate = this.reference.value === "completion" ? new Date() : options.due;
     const newDue = new Date(baseDate);
     newDue.setHours(options.due.getHours(), options.due.getMinutes(), options.due.getSeconds(), options.due.getMilliseconds());

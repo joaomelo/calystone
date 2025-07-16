@@ -3,15 +3,15 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { DialogRemove } from "@/display/views/dialog-remove";
-import { ToolbarButton, useI18n } from "@/utils";
-import { computed, useTemplateRef } from "vue";
+import {
+  ToolbarButton, useI18n
+} from "@/utils";
+import {
+  computed, useTemplateRef
+} from "vue";
 
-const { node } = defineProps<{
-  node: Node;
-}>();
-const emit = defineEmits<{
-  removed: [Node];
-}>();
+const { node } = defineProps<{ node: Node; }>();
+const emit = defineEmits<{ removed: [Node]; }>();
 
 const { services } = Store.use();
 const { t } = useI18n();

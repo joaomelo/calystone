@@ -1,9 +1,15 @@
-import type { Id, Node, Nodes } from "@/domain";
+import type {
+  Id, Node, Nodes
+} from "@/domain";
 
-import { Descendancy, Directory } from "@/domain";
+import {
+  Descendancy, Directory
+} from "@/domain";
 import { throwCritical } from "@/utils";
 
-import type { DirectoryMetadataContainer, FileMetadataContainer, RootMetadataContainer } from "./metadata";
+import type {
+  DirectoryMetadataContainer, FileMetadataContainer, RootMetadataContainer
+} from "./metadata";
 
 export class Metadatas<R, D, F> {
   private readonly map: Map<Id, DirectoryMetadataContainer<D> | FileMetadataContainer<F> | RootMetadataContainer<R>>;
@@ -11,10 +17,16 @@ export class Metadatas<R, D, F> {
   private readonly rootContainer: RootMetadataContainer<R>;
   private readonly rootId: Id;
 
-  constructor(options: { nodes: Nodes; rootId: Id, rootMetadata: R, }) {
+  constructor(options: {
+    nodes: Nodes;
+    rootId: Id,
+    rootMetadata: R,
+  }) {
     this.map = new Map();
 
-    const { nodes, rootId, rootMetadata } = options;
+    const {
+      nodes, rootId, rootMetadata
+    } = options;
     this.nodes = nodes;
     this.rootId = rootId;
     this.rootContainer = {
@@ -69,8 +81,13 @@ export class Metadatas<R, D, F> {
     this.map.set(container.id, container);
   }
 
-  setDirectory(options: { id: Id, metadata: D }) {
-    const { id, metadata } = options;
+  setDirectory(options: {
+    id: Id,
+    metadata: D
+  }) {
+    const {
+      id, metadata
+    } = options;
     this.set({
       id,
       kind: "directory",
@@ -78,8 +95,13 @@ export class Metadatas<R, D, F> {
     });
   }
 
-  setFile(options: { id: Id, metadata: F }) {
-    const { id, metadata } = options;
+  setFile(options: {
+    id: Id,
+    metadata: F
+  }) {
+    const {
+      id, metadata
+    } = options;
     this.set({
       id,
       kind: "file",

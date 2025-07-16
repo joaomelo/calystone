@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { InputRadio, useI18n } from "@/utils";
+import {
+  InputRadio, useI18n
+} from "@/utils";
 
-const { availableLocales, locale, t } = useI18n();
+const {
+  availableLocales, locale, t
+} = useI18n();
 
 const options = availableLocales.map((locale) => ({
   label: locale,

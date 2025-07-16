@@ -1,10 +1,12 @@
-import type { InjectionKey, MaybeRefOrGetter } from "vue";
+import type {
+  InjectionKey, MaybeRefOrGetter
+} from "vue";
 
-import { inject, provide } from "vue";
+import {
+  inject, provide
+} from "vue";
 
-interface Provider {
-  active: MaybeRefOrGetter<string>,
-};
+interface Provider {active: MaybeRefOrGetter<string>,};
 
 export const key = Symbol() as InjectionKey<Provider>;
 

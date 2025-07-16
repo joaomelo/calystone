@@ -1,8 +1,16 @@
-import { name, version } from "@/../package.json";
-import { createI18n, createRouter, Store, ThemePreset } from "@/display"; // this will also apply the css styles as a side effect
-import { AccessAdaptersFactory, AvailabilityFacade, BrowserExportAdapter, BrowserShareAdapter, FileSystemAdaptersFactory } from "@/infra";
+import {
+  name, version
+} from "@/../package.json";
+import {
+  createI18n, createRouter, Store, ThemePreset
+} from "@/display"; // this will also apply the css styles as a side effect
+import {
+  AccessAdaptersFactory, AvailabilityFacade, BrowserExportAdapter, BrowserShareAdapter, FileSystemAdaptersFactory
+} from "@/infra";
 import { ServicesPortolfio } from "@/services";
-import { LoggerContainer, throwCritical, ToastService } from "@/utils";
+import {
+  LoggerContainer, throwCritical, ToastService
+} from "@/utils";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";
 import { createApp } from "vue";
@@ -17,16 +25,15 @@ export function initApp(elementId: string) {
   if (typeof name !== "string" || typeof version !== "string") {
     throwCritical("INVALID_PACKAGE_JSON");
   }
-  const appData = { name, version };
+  const appData = {
+    name,
+    version
+  };
   logger.info(`${name} v${version}`);
 
   const app = createApp(App);
 
-  app.use(PrimeVue, {
-    theme: {
-      preset: ThemePreset
-    }
-  });
+  app.use(PrimeVue, { theme: { preset: ThemePreset } });
   app.use(ToastService);
 
   app.directive("tooltip", {
@@ -48,15 +55,19 @@ export function initApp(elementId: string) {
   const oneDriveRedirectUrl = `${window.location.origin}/transfer-one-drive`;
 
   const accessConfiguration = {
-    dropbox: { clientId: dropboxClientId, redirectUrl: dropboxRedirectUrl },
+    dropbox: {
+      clientId: dropboxClientId,
+      redirectUrl: dropboxRedirectUrl
+    },
     memory: { delayInMilliseconds: memoryDelayInMilliseconds },
-    oneDrive: { clientId: oneDriveClientId, redirectUrl: oneDriveRedirectUrl },
+    oneDrive: {
+      clientId: oneDriveClientId,
+      redirectUrl: oneDriveRedirectUrl
+    },
   };
   const accessAdaptersFactory = new AccessAdaptersFactory(accessConfiguration);
 
-  const fileSystemConfiguration = {
-    memory: { delayInMilliseconds: memoryDelayInMilliseconds },
-  };
+  const fileSystemConfiguration = { memory: { delayInMilliseconds: memoryDelayInMilliseconds }, };
   const fileSystemAdaptersFactory = new FileSystemAdaptersFactory(fileSystemConfiguration);
 
   const availabilityOptions = {
@@ -78,7 +89,10 @@ export function initApp(elementId: string) {
     shareAdapter,
   });
 
-  const store = new Store({ appData, services: servicesPortolfio });
+  const store = new Store({
+    appData,
+    services: servicesPortolfio
+  });
   window.$store = store;
   app.use(store);
 

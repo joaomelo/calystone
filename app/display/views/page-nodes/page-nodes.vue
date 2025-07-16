@@ -1,20 +1,28 @@
 <script setup lang="ts">
 import type { ItemData } from "@/display/views/outline-item";
-import type { Id, Node } from "@/domain";
+import type {
+  Id, Node
+} from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { OutlineItems } from "@/display/views/outline-items";
 import { Directory } from "@/domain";
-import { MasterDetail, useDispatch } from "@/utils";
-import { computed, ref } from "vue";
+import {
+  MasterDetail, useDispatch
+} from "@/utils";
+import {
+  computed, ref
+} from "vue";
 
 import { useItems } from "./use-items";
 
 const { dispatchOrToast } = useDispatch();
 const { services } = Store.use();
-const { expandedKeys, items } = useItems();
+const {
+  expandedKeys, items
+} = useItems();
 
 const selectedNode = ref<Node | undefined>();
 const showDetail = computed(() => Boolean(selectedNode.value));

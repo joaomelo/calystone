@@ -1,4 +1,6 @@
-import { dataTest, dataTestType } from "./data-test";
+import {
+  dataTest, dataTestType
+} from "./data-test";
 
 export const outlineNodes = {
   artifactBinaryOf: (node: Cypress.Chainable) => outlineNodes.artifactOf(node).filter((_, el) => !outlineNodes.labelOfElement(el).includes(".txt") && !outlineNodes.labelOfElement(el).includes(".todo")),

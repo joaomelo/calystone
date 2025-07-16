@@ -2,11 +2,11 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { debounce, InputRichText } from "@/utils";
+import {
+  debounce, InputRichText
+} from "@/utils";
 
-const { artifact } = defineProps<{
-  artifact: TodoArtifact;
-}>();
+const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { services } = Store.use();
 

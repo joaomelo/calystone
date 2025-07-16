@@ -1,14 +1,19 @@
 import type { ConnectSourceService } from "@/services/connect-source-service";
 import type { EnsureDescriptorService } from "@/services/ensure-descriptor-service";
 
-import { createNode, Directory } from "@/domain";
+import {
+  createNode, Directory
+} from "@/domain";
 import { throwError } from "@/utils";
 
 export class OpenDirectoryService {
   private readonly connectSourceService: ConnectSourceService;
   private readonly ensureDescriptor: EnsureDescriptorService;
 
-  constructor(options: { connectSourceService: ConnectSourceService; ensureDescriptor: EnsureDescriptorService, }) {
+  constructor(options: {
+    connectSourceService: ConnectSourceService;
+    ensureDescriptor: EnsureDescriptorService,
+  }) {
     this.ensureDescriptor = options.ensureDescriptor;
     this.connectSourceService = options.connectSourceService;
   }

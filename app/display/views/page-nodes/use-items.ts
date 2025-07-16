@@ -1,10 +1,16 @@
-import type { Item, ItemData } from "@/display/views/outline-item";
+import type {
+  Item, ItemData
+} from "@/display/views/outline-item";
 import type { Node } from "@/domain";
 import type { OutlineGridExpandedKeys } from "@/utils";
 
 import { Store } from "@/display/store";
-import { Artifact, Directory, Progressor, TodoArtifact } from "@/domain";
-import { computed, ref } from "vue";
+import {
+  Artifact, Directory, Progressor, TodoArtifact
+} from "@/domain";
+import {
+  computed, ref
+} from "vue";
 
 export function useItems() {
   const { services } = Store.use();
@@ -30,7 +36,13 @@ export function useItems() {
       type: "node"
     };
 
-    return { children: visibleChildren, data, key, label, leaf };
+    return {
+      children: visibleChildren,
+      data,
+      key,
+      label,
+      leaf
+    };
   }
 
   function isImpossibleToHaveChildren(node: Node): boolean {
@@ -72,5 +84,8 @@ export function useItems() {
     return children;
   }
 
-  return { expandedKeys, items };
+  return {
+    expandedKeys,
+    items
+  };
 }

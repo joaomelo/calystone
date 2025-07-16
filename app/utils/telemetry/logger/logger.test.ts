@@ -1,4 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  beforeEach, describe, expect, it, vi
+} from "vitest";
 
 import { Severity } from "../severities";
 import { Logger } from "./logger";

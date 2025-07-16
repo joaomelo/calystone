@@ -4,12 +4,14 @@ import type { Node } from "@/domain";
 import { Store } from "@/display/store";
 import { DialogCreateArtifact } from "@/display/views/dialog-create-artifact";
 import { Directory } from "@/domain";
-import { ToolbarButton, useI18n } from "@/utils";
-import { computed, useTemplateRef } from "vue";
+import {
+  ToolbarButton, useI18n
+} from "@/utils";
+import {
+  computed, useTemplateRef
+} from "vue";
 
-const { node } = defineProps<{
-  node: Node;
-}>();
+const { node } = defineProps<{ node: Node; }>();
 
 const { t } = useI18n();
 const { services } = Store.use();

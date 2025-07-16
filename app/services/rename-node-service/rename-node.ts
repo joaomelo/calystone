@@ -6,19 +6,25 @@ import { z } from "zod";
 
 export class RenameNodeService {
   private readonly connectSource: ConnectSourceService;
-  private readonly schema = useSchema(builder => builder.object({
-    name: z.string().nonempty({ message: "EMPTY_NAME" }),
-  }));
+  private readonly schema = useSchema(builder => builder.object({ name: z.string().nonempty({ message: "EMPTY_NAME" }), }));
 
   constructor(connectSource: ConnectSourceService) {
     this.connectSource = connectSource;
   }
 
-  async rename(options: { name: string, node: Node }): Promise<void> {
-    const { fileSystemAdapter, nodes } = this.connectSource.stateConnectedOrThrow();
+  async rename(options: {
+    name: string,
+    node: Node
+  }): Promise<void> {
+    const {
+      fileSystemAdapter, nodes
+    } = this.connectSource.stateConnectedOrThrow();
     this.schema.validate(options);
 
-    const adapterOptions = { name: options.name, node: options.node };
+    const adapterOptions = {
+      name: options.name,
+      node: options.node
+    };
     await fileSystemAdapter.rename(adapterOptions);
     const node = nodes.getOrThrow(options.node.id);
     node.name = options.name;

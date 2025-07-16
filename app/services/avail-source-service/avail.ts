@@ -1,4 +1,6 @@
-import type { AvailabilityFacade, SourceProvider } from "@/infra";
+import type {
+  AvailabilityFacade, SourceProvider
+} from "@/infra";
 
 export class AvailSourceService {
   availabilityFacade: AvailabilityFacade;

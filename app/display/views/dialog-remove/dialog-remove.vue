@@ -2,20 +2,22 @@
 import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { ModalConfirm, useDispatch } from "@/utils";
+import {
+  ModalConfirm, useDispatch
+} from "@/utils";
 import { useI18n } from "@/utils/i18n";
 import { useTemplateRef } from "vue";
 
-const { node } = defineProps<{
-  node: Node
-}>();
+const { node } = defineProps<{ node: Node }>();
 defineExpose({ remove });
 
 const { services } = Store.use();
 const { t } = useI18n();
 const modalRemove = useTemplateRef("modalRemove");
 
-const { dispatchOrToast, loading } = useDispatch();
+const {
+  dispatchOrToast, loading
+} = useDispatch();
 
 async function remove() {
   if (!modalRemove.value) return false;

@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import type { DatePickerDateSlotOptions, DatePickerMonthChangeEvent } from "primevue/datepicker";
+import type {
+  DatePickerDateSlotOptions, DatePickerMonthChangeEvent
+} from "primevue/datepicker";
 
 import DatePicker from "primevue/datepicker";
 
-const { borderless = false, highlights = [] } = defineProps<{
+const {
+  borderless = false, highlights = []
+} = defineProps<{
   borderless?: boolean,
   highlights?: Date[]
 }>();
@@ -18,9 +22,14 @@ function handleUpdateSelected(selected: unknown) {
 }
 
 function handleUpdateViewed(data: DatePickerMonthChangeEvent) {
-  const { month, year } = data;
+  const {
+    month, year
+  } = data;
   const monthIndex = month - 1;
-  emit("update:viewed", { month: monthIndex, year });
+  emit("update:viewed", {
+    month: monthIndex,
+    year
+  });
 }
 
 function shouldHighlight(viewerDate: DatePickerDateSlotOptions): boolean {

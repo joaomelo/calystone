@@ -1,4 +1,6 @@
-import { onMounted, onUnmounted, ref } from "vue";
+import {
+  onMounted, onUnmounted, ref
+} from "vue";
 
 export function useAutoScroll() {
   const scrollSpeed = 10;

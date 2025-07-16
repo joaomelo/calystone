@@ -5,7 +5,9 @@ import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { OutlineCalendar } from "@/display/views/outline-calendar";
 import { MasterDetail } from "@/utils";
-import { computed, ref } from "vue";
+import {
+  computed, ref
+} from "vue";
 
 const selectedNode = ref<Node | undefined>();
 const showDetail = computed(() => Boolean(selectedNode.value));

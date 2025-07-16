@@ -1,4 +1,6 @@
-import type { Item, ItemData } from "@/display/views/outline-item";
+import type {
+  Item, ItemData
+} from "@/display/views/outline-item";
 import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
@@ -14,7 +16,10 @@ export function useItems(date: Ref<Date>) {
     const end = new Date(date.value);
     end.setHours(23, 59, 59, 999);
 
-    const todos = services.trackTodos.todosWithin({ end, start });
+    const todos = services.trackTodos.todosWithin({
+      end,
+      start
+    });
     todos.sort((a, b) => {
       const aStart = a.dateStart();
       const bStart = b.dateStart();
@@ -29,7 +34,13 @@ export function useItems(date: Ref<Date>) {
         key,
         type: "node"
       };
-      return { children: [], data, key, label, leaf: true };
+      return {
+        children: [],
+        data,
+        key,
+        label,
+        leaf: true
+      };
     });
   });
 

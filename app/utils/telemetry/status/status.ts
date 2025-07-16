@@ -1,4 +1,6 @@
-import type { FailData, OkData, StatusData } from "./data";
+import type {
+  FailData, OkData, StatusData
+} from "./data";
 
 import { throwError } from "../throwers";
 
@@ -14,7 +16,10 @@ export class Status {
   }
 
   static fail(cause: string): Status {
-    return new Status({ cause, ok: false });
+    return new Status({
+      cause,
+      ok: false
+    });
   }
 
   static ok(): Status {

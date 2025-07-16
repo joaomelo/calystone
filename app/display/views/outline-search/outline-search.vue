@@ -4,14 +4,14 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { OutlineItems } from "@/display/views/outline-items";
-import { debounce, InputText } from "@/utils";
+import {
+  debounce, InputText
+} from "@/utils";
 import { ref } from "vue";
 
 import { useItems } from "./use-items";
 
-const emit = defineEmits<{
-  "selected": [node: Node | undefined]
-}>();
+const emit = defineEmits<{ "selected": [node: Node | undefined] }>();
 
 const { services } = Store.use();
 

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import type { TodoArtifact } from "@/domain";
 
-import { TextMessage, useI18n } from "@/utils";
+import {
+  TextMessage, useI18n
+} from "@/utils";
 import { computed } from "vue";
 
 import ControlCriterionAdd from "./control-criterion-add.vue";
 import ControlCriterionManage from "./control-criterion-manage.vue";
 
-const { artifact } = defineProps<{
-  artifact: TodoArtifact;
-}>();
+const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { t } = useI18n();
 const criteria = computed(() => artifact.criteria());

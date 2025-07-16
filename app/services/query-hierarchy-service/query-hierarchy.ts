@@ -1,7 +1,11 @@
-import type { Directory, Node, NodeOrId } from "@/domain";
+import type {
+  Directory, Node, NodeOrId
+} from "@/domain";
 import type { ConnectSourceService } from "@/services/connect-source-service";
 
-import { Ascendancy, Descendancy } from "@/domain";
+import {
+  Ascendancy, Descendancy
+} from "@/domain";
 
 export class QueryHierarchyService {
   private readonly connectSourceService: ConnectSourceService;
@@ -26,19 +30,31 @@ export class QueryHierarchyService {
     return this.descendancy().hasChildren(directoryOrId);
   }
 
-  isAscendant(options: { ascendant: Directory; child: NodeOrId }): boolean {
+  isAscendant(options: {
+    ascendant: Directory;
+    child: NodeOrId
+  }): boolean {
     return this.ascendancy().isAscendant(options);
   }
 
-  isChild(options: { child: Node; parent: NodeOrId }): boolean {
+  isChild(options: {
+    child: Node;
+    parent: NodeOrId
+  }): boolean {
     return this.descendancy().isChild(options);
   }
 
-  isDescendant(options: { descendant: Node; parent: NodeOrId }): boolean {
+  isDescendant(options: {
+    descendant: Node;
+    parent: NodeOrId
+  }): boolean {
     return this.descendancy().isDescendant(options);
   }
 
-  isParent(options: { child: NodeOrId; parent: Directory }): boolean {
+  isParent(options: {
+    child: NodeOrId;
+    parent: Directory
+  }): boolean {
     return this.ascendancy().isParent(options);
   }
 

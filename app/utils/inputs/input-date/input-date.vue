@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import InputDatePrimeVue from "primevue/datepicker";
-import { onMounted, useTemplateRef } from "vue";
+import {
+  onMounted, useTemplateRef
+} from "vue";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { defaultTime = undefined, disabled = false, showTime = false } = defineProps<{
+const {
+  defaultTime = undefined, disabled = false, showTime = false
+} = defineProps<{
   dataTest: string
   defaultTime?: string
   disabled?: boolean

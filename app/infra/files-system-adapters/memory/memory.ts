@@ -1,7 +1,13 @@
-import type { Artifact, ArtifactOptions, Directory, DirectoryOptions, Node, Nodes } from "@/domain";
+import type {
+  Artifact, ArtifactOptions, Directory, DirectoryOptions, Node, Nodes
+} from "@/domain";
 
-import { createId, Descriptor } from "@/domain";
-import { fakeDirectory, fakeFile, Status, throwError } from "@/utils";
+import {
+  createId, Descriptor
+} from "@/domain";
+import {
+  fakeDirectory, fakeFile, Status, throwError
+} from "@/utils";
 import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";
 
@@ -16,25 +22,43 @@ type RootMetadata = undefined;
 export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata, DirectoryMetadata, ArtifactMetadata> {
   private readonly delayInMilliseconds: number;
 
-  constructor(options: { delayInMilliseconds: number; nodes: Nodes; rootDirectoryName: string }) {
-    const { delayInMilliseconds, nodes, rootDirectoryName } = options;
+  constructor(options: {
+    delayInMilliseconds: number;
+    nodes: Nodes;
+    rootDirectoryName: string
+  }) {
+    const {
+      delayInMilliseconds, nodes, rootDirectoryName
+    } = options;
     const rootData: DirectoryOptions = {
       id: createId(),
       name: rootDirectoryName,
       parentId: undefined
     };
-    super({ nodes, rootData, rootMetadata: undefined });
+    super({
+      nodes,
+      rootData,
+      rootMetadata: undefined
+    });
     this.delayInMilliseconds = delayInMilliseconds;
   }
 
-  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactOptions> {
+  async createArtifact(options: {
+    name: string,
+    parent: Directory
+  }): Promise<ArtifactOptions> {
     await this.delay();
 
-    const { name, parent: { id: parentId } } = options;
+    const {
+      name, parent: { id: parentId }
+    } = options;
 
     const id = createId();
     const emptyBuffer = new ArrayBuffer(0);
-    this.metadatas.setFile({ id, metadata: emptyBuffer });
+    this.metadatas.setFile({
+      id,
+      metadata: emptyBuffer
+    });
 
     const data: ArtifactOptions = {
       id,
@@ -47,14 +71,26 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
     return data;
   }
 
-  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryOptions> {
+  async createDirectory(options: {
+    name: string,
+    parent: Directory
+  }): Promise<DirectoryOptions> {
     await this.delay();
 
     const id = createId();
-    this.metadatas.setDirectory({ id, metadata: undefined });
+    this.metadatas.setDirectory({
+      id,
+      metadata: undefined
+    });
 
-    const { name, parent: { id: parentId } } = options;
-    const data: DirectoryOptions = { id, name, parentId };
+    const {
+      name, parent: { id: parentId }
+    } = options;
+    const data: DirectoryOptions = {
+      id,
+      name,
+      parentId
+    };
 
     return data;
   }
@@ -66,12 +102,20 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
     return cachedData;
   }
 
-  async move(options: { subject: Node, target: Directory }): Promise<void> {
+  async move(options: {
+    subject: Node,
+    target: Directory
+  }): Promise<void> {
     await this.delay();
 
-    const { subject, target } = options;
+    const {
+      subject, target
+    } = options;
     this.moveable(subject).throwOnFail();
-    this.nodes.moveable({ subject, target }).throwOnFail();
+    this.nodes.moveable({
+      subject,
+      target
+    }).throwOnFail();
   }
 
   moveable(subject: Node) {
@@ -88,42 +132,94 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
       const descriptorFile = fakeFile("txt");
       descriptorFile.name = `${Descriptor.descriptorBasename}.txt`;
       const descriptorFileId = createId();
-      childrenData.push({ id: descriptorFileId, parentId: parent.id, ...descriptorFile });
-      this.metadatas.setFile({ id: descriptorFileId, metadata: descriptorFile.content });
+      childrenData.push({
+        id: descriptorFileId,
+        parentId: parent.id,
+        ...descriptorFile
+      });
+      this.metadatas.setFile({
+        id: descriptorFileId,
+        metadata: descriptorFile.content
+      });
 
       const todoFile = fakeFile("todo");
       const todoFileId = createId();
-      childrenData.push({ id: todoFileId, parentId: parent.id, ...todoFile });
-      this.metadatas.setFile({ id: todoFileId, metadata: todoFile.content });
+      childrenData.push({
+        id: todoFileId,
+        parentId: parent.id,
+        ...todoFile
+      });
+      this.metadatas.setFile({
+        id: todoFileId,
+        metadata: todoFile.content
+      });
 
       const binaryFile = fakeFile("exe");
       const binaryFileId = createId();
-      childrenData.push({ id: binaryFileId, parentId: parent.id, ...binaryFile });
-      this.metadatas.setFile({ id: binaryFileId, metadata: binaryFile.content });
+      childrenData.push({
+        id: binaryFileId,
+        parentId: parent.id,
+        ...binaryFile
+      });
+      this.metadatas.setFile({
+        id: binaryFileId,
+        metadata: binaryFile.content
+      });
 
       const oneDirectory = fakeDirectory();
       const oneDirectoryId = createId();
-      childrenData.push({ id: oneDirectoryId, parentId: parent.id, ...oneDirectory });
-      this.metadatas.setDirectory({ id: oneDirectoryId, metadata: undefined });
+      childrenData.push({
+        id: oneDirectoryId,
+        parentId: parent.id,
+        ...oneDirectory
+      });
+      this.metadatas.setDirectory({
+        id: oneDirectoryId,
+        metadata: undefined
+      });
 
       const moreThanOneDirectory = fakeDirectory();
       const moreThanOneDirectoryId = createId();
-      childrenData.push({ id: moreThanOneDirectoryId, parentId: parent.id, ...moreThanOneDirectory });
-      this.metadatas.setDirectory({ id: moreThanOneDirectoryId, metadata: undefined });
+      childrenData.push({
+        id: moreThanOneDirectoryId,
+        parentId: parent.id,
+        ...moreThanOneDirectory
+      });
+      this.metadatas.setDirectory({
+        id: moreThanOneDirectoryId,
+        metadata: undefined
+      });
     }
 
-    const howManyChildren = faker.helpers.rangeToNumber({ max: 5, min: 1 });
+    const howManyChildren = faker.helpers.rangeToNumber({
+      max: 5,
+      min: 1
+    });
     for (let i = 0; i < howManyChildren; i++) {
       const id = createId();
       const kind = faker.helpers.arrayElement(["file", "directory"]);
       if (kind === "file") {
         const entry = fakeFile();
-        this.metadatas.setFile({ id, metadata: entry.content });
-        childrenData.push({ id, parentId: parent.id, ...entry });
+        this.metadatas.setFile({
+          id,
+          metadata: entry.content
+        });
+        childrenData.push({
+          id,
+          parentId: parent.id,
+          ...entry
+        });
       } else {
         const entry = fakeDirectory();
-        this.metadatas.setDirectory({ id, metadata: undefined });
-        childrenData.push({ id, parentId: parent.id, ...entry });
+        this.metadatas.setDirectory({
+          id,
+          metadata: undefined
+        });
+        childrenData.push({
+          id,
+          parentId: parent.id,
+          ...entry
+        });
       }
     }
 
@@ -135,7 +231,10 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<RootMetadata,
 
     const { id } = artifact;
     const content = artifact.toBinary();
-    this.metadatas.setFile({ id, metadata: content });
+    this.metadatas.setFile({
+      id,
+      metadata: content
+    });
   }
 
   async remove(node: Node): Promise<void> {

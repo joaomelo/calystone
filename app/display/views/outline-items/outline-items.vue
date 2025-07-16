@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import type { Item, ItemData } from "@/display/views/outline-item";
+import type {
+  Item, ItemData
+} from "@/display/views/outline-item";
 import type {
   OutlineGridExpandedKeys,
   OutlineGridItem,
@@ -7,8 +9,12 @@ import type {
   OutlineGridSelectionKeys
 } from "@/utils";
 
-import { isItemData, OutlineItem } from "@/display/views/outline-item";
-import { OutlineGrid, ScrollPanel } from "@/utils";
+import {
+  isItemData, OutlineItem
+} from "@/display/views/outline-item";
+import {
+  OutlineGrid, ScrollPanel
+} from "@/utils";
 import { ref } from "vue";
 
 defineProps<{

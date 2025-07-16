@@ -4,9 +4,7 @@ import { isObjectLike } from "@/utils";
 
 const validTypes = ["node", "tag"] as const;
 
-export interface Item extends OutlineGridItem {
-  data: ItemData;
-}
+export interface Item extends OutlineGridItem {data: ItemData;}
 
 export interface ItemData {
   type: typeof validTypes[number];
@@ -18,7 +16,9 @@ export function isItemData(data: unknown): data is ItemData {
   if (!("type" in data)) return false;
   if (!("key" in data)) return false;
 
-  const { key, type } = data;
+  const {
+    key, type
+  } = data;
 
   if (!validTypes.includes(type as typeof validTypes[number])) return false;
   if (typeof key !== "string") return false;

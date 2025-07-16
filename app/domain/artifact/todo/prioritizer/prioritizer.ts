@@ -1,4 +1,6 @@
-import type { Criteria, Criterion } from "./criteria";
+import type {
+  Criteria, Criterion
+} from "./criteria";
 
 export class Prioritizer {
   private readonly state: Criteria;

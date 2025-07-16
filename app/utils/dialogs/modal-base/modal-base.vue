@@ -9,7 +9,10 @@ defineProps<{
   error?: string,
   header: string,
 }>();
-defineExpose({ close, open });
+defineExpose({
+  close,
+  open
+});
 
 const visible = ref(false);
 

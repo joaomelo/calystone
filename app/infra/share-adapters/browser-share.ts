@@ -1,7 +1,9 @@
 import type { Node } from "@/domain";
 
 import { Artifact } from "@/domain";
-import { Status, throwCritical } from "@/utils";
+import {
+  Status, throwCritical
+} from "@/utils";
 
 import type { ShareAdapter } from "./share";
 

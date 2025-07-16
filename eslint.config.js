@@ -21,73 +21,66 @@ export default tseslint.config(
 
   // javascript
   js.configs.recommended,
-  {
-    rules: {
-      "no-console": ["warn", { allow: ["warn", "error", "info"] }],
-    }
-  },
+  { rules: { "no-console": ["warn", { allow: ["warn", "error", "info"] }], } },
 
   // typescript
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
-  {
-    rules: {
-      "@typescript-eslint/consistent-type-imports": [
-        "error",
-        {
-          disallowTypeAnnotations: true,
-          fixStyle: "inline-type-imports",
-          prefer: "type-imports",
-        },
-      ],
-      "@typescript-eslint/no-extraneous-class": [
-        "error",
-        {
-          allowConstructorOnly: false,
-          allowEmpty: false,
-          allowStaticOnly: true,
-          allowWithDecorator: false,
-        }
-      ],
-      "@typescript-eslint/no-unsafe-call": "off"
-    }
-  },
+  { rules: {
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        disallowTypeAnnotations: true,
+        fixStyle: "inline-type-imports",
+        prefer: "type-imports",
+      },
+    ],
+    "@typescript-eslint/no-extraneous-class": [
+      "error",
+      {
+        allowConstructorOnly: false,
+        allowEmpty: false,
+        allowStaticOnly: true,
+        allowWithDecorator: false,
+      }
+    ],
+    "@typescript-eslint/no-unsafe-call": "off"
+  } },
 
   // vue
   ...pluginVue.configs["flat/recommended"],
-  {
-    rules: {
-      "vue/no-mutating-props": "off"
-    }
-  },
+  { rules: { "vue/no-mutating-props": "off" } },
 
   //style linters
   importX.flatConfigs.recommended,
   importX.flatConfigs.typescript,
-  {
-    rules: {
-      "import-x/consistent-type-specifier-style": ["error", "prefer-top-level"],
-      "import-x/first": ["error", "absolute-first"],
-      "import-x/newline-after-import": "error",
-      "import-x/no-dynamic-require": "error",
-      "import-x/no-nodejs-modules": "error",
-    }
-  },
+  { rules: {
+    "import-x/consistent-type-specifier-style": ["error", "prefer-top-level"],
+    "import-x/first": ["error", "absolute-first"],
+    "import-x/newline-after-import": "error",
+    "import-x/no-dynamic-require": "error",
+    "import-x/no-nodejs-modules": "error",
+  } },
 
   {
     plugins: { "@stylistic": stylistic },
     rules: {
-      "@stylistic/comma-spacing": ["error", { "after": true, "before": false }],
+      "@stylistic/comma-spacing": ["error", {
+        "after": true,
+        "before": false
+      }],
       "@stylistic/indent": ["error", 2],
       "@stylistic/key-spacing": "error",
       "@stylistic/keyword-spacing": "error",
       "@stylistic/lines-between-class-members": [
         "error",
-        {
-          enforce: [
-            { blankLine: "always", next: "method", prev: "*" }
-          ],
-        },
+        { enforce: [
+          {
+            blankLine: "always",
+            next: "method",
+            prev: "*"
+          }
+        ], },
         {
           exceptAfterOverload: true,
           exceptAfterSingleLine: true
@@ -95,19 +88,18 @@ export default tseslint.config(
       ],
       "@stylistic/multiline-ternary": ["error", "always-multiline"],
       "@stylistic/no-multi-spaces": "error",
-      "@stylistic/no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 0, "maxEOF": 0 }],
+      "@stylistic/no-multiple-empty-lines": ["error", {
+        "max": 1,
+        "maxBOF": 0,
+        "maxEOF": 0
+      }],
       "@stylistic/no-trailing-spaces": "error",
       "@stylistic/object-curly-newline": [
         "error",
-        {
-          ExportDeclaration: { consistent: true },
-          ImportDeclaration: { consistent: true },
-          ObjectExpression: { consistent: true },
-          ObjectPattern: { consistent: true },
-        },
+        { minProperties: 2 },
       ],
       "@stylistic/object-curly-spacing": ["error", "always"],
-      "@stylistic/object-property-newline": ["error", { allowAllPropertiesOnSameLine: true }],
+      "@stylistic/object-property-newline": "error",
       "@stylistic/operator-linebreak": ["error", "before"],
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": ["error", "always"],
@@ -117,22 +109,18 @@ export default tseslint.config(
   },
 
   perfectionist.configs["recommended-natural"],
-  {
-    rules: {
-      "perfectionist/sort-interfaces": "off",
-      // vue plugin already has a standard way to sort that considers the attribute type like if it is an event or a id definition
-      "perfectionist/sort-vue-attributes": "off",
-    }
-  },
+  { rules: {
+    "perfectionist/sort-interfaces": "off",
+    // vue plugin already has a standard way to sort that considers the attribute type like if it is an event or a id definition
+    "perfectionist/sort-vue-attributes": "off",
+  } },
 
   // language settings
   {
     // this line tells eslint to link the typescript service with all file types used by the project
     files: ["**/*.vue", "**/*.ts", "**/*.js"],
     languageOptions: {
-      globals: {
-        ...globals.browser
-      },
+      globals: { ...globals.browser },
       parserOptions: {
         extraFileExtensions: [".vue"],
         parser: "@typescript-eslint/parser",

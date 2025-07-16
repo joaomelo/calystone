@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ButtonBase } from "@/utils";
 import { useI18n } from "@/utils/i18n";
-import { onMounted, onUnmounted } from "vue";
+import {
+  onMounted, onUnmounted
+} from "vue";
 
-const props = defineProps<{
-  saving: boolean
-}>();
+const props = defineProps<{ saving: boolean }>();
 const emit = defineEmits<{
   cancel: []
   save: []

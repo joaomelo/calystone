@@ -8,13 +8,21 @@ export class CreateDirectoryService {
   private readonly connectSourceService: ConnectSourceService;
   private readonly openDirectory: OpenDirectoryService;
 
-  constructor(options: { connectSourceService: ConnectSourceService, openDirectory: OpenDirectoryService }) {
+  constructor(options: {
+    connectSourceService: ConnectSourceService,
+    openDirectory: OpenDirectoryService
+  }) {
     this.connectSourceService = options.connectSourceService;
     this.openDirectory = options.openDirectory;
   }
 
-  async create(options: { name: string, parent: Directory }): Promise<void> {
-    const { fileSystemAdapter, nodes } = this.connectSourceService.stateConnectedOrThrow();
+  async create(options: {
+    name: string,
+    parent: Directory
+  }): Promise<void> {
+    const {
+      fileSystemAdapter, nodes
+    } = this.connectSourceService.stateConnectedOrThrow();
     const { parent } = options;
 
     try {

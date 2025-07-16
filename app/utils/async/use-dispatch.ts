@@ -1,11 +1,15 @@
 import { useToast } from "@/utils/dialogs";
-import { Severity, useErrors } from "@/utils/telemetry";
+import {
+  Severity, useErrors
+} from "@/utils/telemetry";
 import { ref } from "vue";
 
 type Nullary = () => Promise<unknown>;
 
 export function useDispatch() {
-  const { apply, errors } = useErrors();
+  const {
+    apply, errors
+  } = useErrors();
   const { toast } = useToast();
   const loading = ref(false);
 
@@ -31,5 +35,10 @@ export function useDispatch() {
     return result;
   }
 
-  return { dispatch, dispatchOrToast, errors, loading };
+  return {
+    dispatch,
+    dispatchOrToast,
+    errors,
+    loading
+  };
 }

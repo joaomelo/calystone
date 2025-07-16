@@ -3,22 +3,31 @@ import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import { asCriterionValue } from "@/domain";
-import { ButtonBase, debounce, InputNumber, InputText, kebabCase, useI18n } from "@/utils";
+import {
+  ButtonBase, debounce, InputNumber, InputText, kebabCase, useI18n
+} from "@/utils";
 import { computed } from "vue";
 
-const { artifact, label } = defineProps<{
+const {
+  artifact, label
+} = defineProps<{
   artifact: TodoArtifact;
   label: string;
 }>();
 
 const { services } = Store.use();
-const { locale, t } = useI18n();
+const {
+  locale, t
+} = useI18n();
 
 const criterion = computed(() => artifact.criterion(label));
 const kebabedLabel = computed(() => kebabCase(label));
 
 const handleUpdate = debounce(async (value?: number) => {
-  const criterion = { label, value: asCriterionValue(value) };
+  const criterion = {
+    label,
+    value: asCriterionValue(value)
+  };
   artifact.updateCriterion(criterion);
   await services.exchangeArtifact.postFrom(artifact);
 });

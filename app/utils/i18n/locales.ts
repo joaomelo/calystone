@@ -11,7 +11,9 @@ export function isLocale(value: unknown, supported: Locales): value is Locale {
   return supported.includes(value);
 }
 
-export function matchLocale({ supported, value }: Options): Locale | undefined {
+export function matchLocale({
+  supported, value
+}: Options): Locale | undefined {
   if (typeof value !== "string") return undefined;
 
   const maybeLower = value.toLowerCase();

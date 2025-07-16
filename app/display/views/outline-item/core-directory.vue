@@ -5,9 +5,7 @@ import { computed } from "vue";
 
 import CoreBase from "./core-base.vue";
 
-const { directory } = defineProps<{
-  directory: Directory;
-}>();
+const { directory } = defineProps<{ directory: Directory; }>();
 
 const icon = computed(() => {
   const iconPrefix = "bx bx-sm";

@@ -1,7 +1,9 @@
 import type { Tag } from "@/domain";
 import type { RetrieveNodesService } from "@/services/retrieve-nodes-service";
 
-import { Tags, TodoArtifact } from "@/domain";
+import {
+  Tags, TodoArtifact
+} from "@/domain";
 import { throwError } from "@/utils";
 
 export class ComputeTagsService {

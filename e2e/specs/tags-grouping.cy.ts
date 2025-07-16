@@ -1,4 +1,6 @@
-import { createTodo, openMacros, outlineNodes, outlineTags } from "../helpers";
+import {
+  createTodo, openMacros, outlineNodes, outlineTags
+} from "../helpers";
 import { pageTags } from "../helpers/page-tags";
 
 describe("show tags", () => {
@@ -17,8 +19,14 @@ describe("show tags", () => {
     const sharedTodosTag = "shared-todos-tag";
     createTodo({
       criteria: [
-        { label: "importance", value: "1" },
-        { label: "urgency", value: "1" }
+        {
+          label: "importance",
+          value: "1"
+        },
+        {
+          label: "urgency",
+          value: "1"
+        }
       ],
       name: highPriorityTodoName,
       tags: [highPriorityTodoTag, sharedTodosTag],
@@ -29,8 +37,14 @@ describe("show tags", () => {
     const lowPriorityTodoTag = `${lowPriorityBaseName}-tag`;
     createTodo({
       criteria: [
-        { label: "importance", value: "1" },
-        { label: "urgency", value: "0" }
+        {
+          label: "importance",
+          value: "1"
+        },
+        {
+          label: "urgency",
+          value: "0"
+        }
       ],
       name: lowPriorityTodoName,
       tags: [lowPriorityTodoTag, sharedTodosTag],

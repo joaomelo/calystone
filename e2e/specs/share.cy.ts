@@ -1,4 +1,6 @@
-import { openMacros, outlineNodes, toolbarNode } from "../helpers";
+import {
+  openMacros, outlineNodes, toolbarNode
+} from "../helpers";
 
 describe("share", () => {
   beforeEach(() => {

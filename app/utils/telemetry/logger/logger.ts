@@ -1,8 +1,6 @@
 import { Severity } from "../severities";
 
-interface Stringable {
-  toString(): string;
-}
+interface Stringable {toString(): string;}
 
 export class Logger {
   level: Severity;

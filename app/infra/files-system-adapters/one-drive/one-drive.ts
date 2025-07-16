@@ -1,4 +1,6 @@
-import type { Artifact, ArtifactOptions, Directory, DirectoryOptions, Id, Node, Nodes } from "@/domain";
+import type {
+  Artifact, ArtifactOptions, Directory, DirectoryOptions, Id, Node, Nodes
+} from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
@@ -12,36 +14,59 @@ import { BaseFileSystemAdapter } from "../base";
 export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, undefined, undefined> {
   graphClient: Client;
 
-  constructor(options: { accessToken: string; nodes: Nodes; }) {
-    const { accessToken, nodes } = options;
+  constructor(options: {
+    accessToken: string;
+    nodes: Nodes;
+  }) {
+    const {
+      accessToken, nodes
+    } = options;
     const rootData: DirectoryOptions = {
       id: "root", // onedrive convention that will work to retrieve children in url paths
       name: "OneDrive",
       parentId: undefined
     };
-    super({ nodes, rootData, rootMetadata: undefined });
-
-    this.graphClient = Client.init({
-      authProvider: (done) => {
-        done(null, accessToken);
-      },
+    super({
+      nodes,
+      rootData,
+      rootMetadata: undefined
     });
+
+    this.graphClient = Client.init({ authProvider: (done) => {
+      done(null, accessToken);
+    }, });
   }
 
-  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactOptions> {
-    const { name, parent: { id: parentId } } = options;
+  async createArtifact(options: {
+    name: string,
+    parent: Directory
+  }): Promise<ArtifactOptions> {
+    const {
+      name, parent: { id: parentId }
+    } = options;
 
     const item = await this.graphClient
       .api(`/me/drive/items/${parentId}:/${name}:/content`)
       .put("") as DriveItem;
 
-    const data = this.convertDriveItemToArtifactData({ item, parentId });
-    this.metadatas.setFile({ id: data.id, metadata: undefined });
+    const data = this.convertDriveItemToArtifactData({
+      item,
+      parentId
+    });
+    this.metadatas.setFile({
+      id: data.id,
+      metadata: undefined
+    });
     return data;
   }
 
-  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryOptions> {
-    const { name, parent: { id: parentId } } = options;
+  async createDirectory(options: {
+    name: string,
+    parent: Directory
+  }): Promise<DirectoryOptions> {
+    const {
+      name, parent: { id: parentId }
+    } = options;
 
     const item = await this.graphClient
       .api(`/me/drive/items/${parentId}/children`)
@@ -51,8 +76,14 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
         name
       }) as DriveItem;
 
-    const data = this.convertDriveItemToDirectoryData({ item, parentId });
-    this.metadatas.setDirectory({ id: data.id, metadata: undefined });
+    const data = this.convertDriveItemToDirectoryData({
+      item,
+      parentId
+    });
+    this.metadatas.setDirectory({
+      id: data.id,
+      metadata: undefined
+    });
     return data;
   }
 
@@ -67,19 +98,23 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     return content;
   }
 
-  async move(options: { subject: Node, target: Directory }): Promise<void> {
-    const { subject, target } = options;
+  async move(options: {
+    subject: Node,
+    target: Directory
+  }): Promise<void> {
+    const {
+      subject, target
+    } = options;
 
     this.moveable(subject).throwOnFail();
-    this.nodes.moveable({ subject, target }).throwOnFail();
+    this.nodes.moveable({
+      subject,
+      target
+    }).throwOnFail();
 
     await this.graphClient
       .api(`/me/drive/items/${subject.id}`)
-      .update({
-        parentReference: {
-          id: target.id
-        }
-      });
+      .update({ parentReference: { id: target.id } });
   }
 
   moveable(subject: Node) {
@@ -96,17 +131,26 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
 
     const childrenData: ArtifactOrDirectoryOptions[] = [];
     for (const childResponse of childrenResponse) {
-      const driveItem = { item: childResponse, parentId };
+      const driveItem = {
+        item: childResponse,
+        parentId
+      };
 
       if (childResponse.folder) {
         const data = this.convertDriveItemToDirectoryData(driveItem);
-        this.metadatas.setDirectory({ id: data.id, metadata: undefined });
+        this.metadatas.setDirectory({
+          id: data.id,
+          metadata: undefined
+        });
         childrenData.push(data);
         continue;
       }
 
       const data = this.convertDriveItemToArtifactData(driveItem);
-      this.metadatas.setFile({ id: data.id, metadata: undefined });
+      this.metadatas.setFile({
+        id: data.id,
+        metadata: undefined
+      });
       childrenData.push(data);
     }
 
@@ -134,11 +178,16 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     return this.failIfRoot(node);
   }
 
-  async rename(options: { name: string; node: Node, }): Promise<void> {
+  async rename(options: {
+    name: string;
+    node: Node,
+  }): Promise<void> {
     const renameable = this.renameable(options.node);
     renameable.throwOnFail();
 
-    const { name, node } = options;
+    const {
+      name, node
+    } = options;
     const { id } = node;
 
     await this.graphClient
@@ -150,8 +199,13 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     return this.failIfRoot(node);
   }
 
-  private convertDriveItemToArtifactData(options: { item: DriveItem, parentId: Id }): ArtifactOptions {
-    const { item, parentId } = options;
+  private convertDriveItemToArtifactData(options: {
+    item: DriveItem,
+    parentId: Id
+  }): ArtifactOptions {
+    const {
+      item, parentId
+    } = options;
 
     if (!isId(item.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
     if (typeof item.name !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_NAME");
@@ -168,8 +222,13 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     };
   }
 
-  private convertDriveItemToDirectoryData(options: { item: DriveItem, parentId: Id }): DirectoryOptions {
-    const { item, parentId } = options;
+  private convertDriveItemToDirectoryData(options: {
+    item: DriveItem,
+    parentId: Id
+  }): DirectoryOptions {
+    const {
+      item, parentId
+    } = options;
     if (!isId(item.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
     if (typeof item.name !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_NAME");
 

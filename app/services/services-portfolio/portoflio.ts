@@ -1,4 +1,6 @@
-import type { AccessAdaptersFactory, AvailabilityFacade, ExportAdapter, FileSystemAdaptersFactory, ShareAdapter } from "@/infra";
+import type {
+  AccessAdaptersFactory, AvailabilityFacade, ExportAdapter, FileSystemAdaptersFactory, ShareAdapter
+} from "@/infra";
 
 import { AvailSourceService } from "@/services/avail-source-service";
 import { ComputeCriteriaService } from "@/services/compute-criteria-service";

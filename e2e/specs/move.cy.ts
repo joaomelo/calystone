@@ -1,4 +1,6 @@
-import { dataTest, openMacros, outlineNodes } from "../helpers";
+import {
+  dataTest, openMacros, outlineNodes
+} from "../helpers";
 
 describe("move", () => {
   beforeEach(() => {

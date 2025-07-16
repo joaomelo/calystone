@@ -2,12 +2,12 @@
 import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import { ToolbarButton, useDispatch, useI18n } from "@/utils";
+import {
+  ToolbarButton, useDispatch, useI18n
+} from "@/utils";
 import { computed } from "vue";
 
-const { node } = defineProps<{
-  node: Node;
-}>();
+const { node } = defineProps<{ node: Node; }>();
 
 const { services } = Store.use();
 const { t } = useI18n();

@@ -1,6 +1,10 @@
-import type { AccessAdaptersFactory, FileSystemAdaptersFactory, SourceProvider } from "@/infra";
+import type {
+  AccessAdaptersFactory, FileSystemAdaptersFactory, SourceProvider
+} from "@/infra";
 
-import { createNode, Nodes } from "@/domain";
+import {
+  createNode, Nodes
+} from "@/domain";
 import { sources } from "@/infra";
 import { throwCritical } from "@/utils";
 import { BehaviorSubject } from "rxjs";
@@ -62,7 +66,9 @@ export class ConnectSourceService {
   }
 
   reconnect() {
-    const { fileSystemAdapter, nodes } = this.stateConnectedOrThrow();
+    const {
+      fileSystemAdapter, nodes
+    } = this.stateConnectedOrThrow();
 
     const rootOptions = fileSystemAdapter.resetToRootOnly();
     const rootDirectory = createNode(rootOptions);

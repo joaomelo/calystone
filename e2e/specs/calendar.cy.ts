@@ -1,4 +1,6 @@
-import { createArtifact, editorTodo, openMacros, outlineNodes, pageCalendar, typicalDates } from "../helpers";
+import {
+  createArtifact, editorTodo, openMacros, outlineNodes, pageCalendar, typicalDates
+} from "../helpers";
 
 describe("calendar", () => {
   const dayOne = typicalDates.dayOfMonth(1);

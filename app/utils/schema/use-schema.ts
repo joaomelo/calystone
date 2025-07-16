@@ -1,6 +1,8 @@
 import type { ZodSchema } from "zod";
 
-import { Exception, Exceptions, Severity } from "@/utils/telemetry";
+import {
+  Exception, Exceptions, Severity
+} from "@/utils/telemetry";
 import { z } from "zod";
 
 type Builder<T> = (builder: typeof z) => ZodSchema<T>;
@@ -12,15 +14,24 @@ export function useSchema<T>(builder: Builder<T>) {
     const result = parser.safeParse(data);
     if (!result.success) {
       const exceptions: Exception[] = [];
-      const { fieldErrors, formErrors } = result.error.flatten();
+      const {
+        fieldErrors, formErrors
+      } = result.error.flatten();
 
       formErrors.forEach((error) => {
-        exceptions.push(new Exception({ message: error, severity: Severity.Warning }));
+        exceptions.push(new Exception({
+          message: error,
+          severity: Severity.Warning
+        }));
       });
 
       Object.entries(fieldErrors).forEach(([fieldName, fieldErrors]) => {
         if (Array.isArray(fieldErrors) && typeof fieldErrors[0] === "string") {
-          exceptions.push(new Exception({ message: fieldErrors[0], path: fieldName, severity: Severity.Warning }));
+          exceptions.push(new Exception({
+            message: fieldErrors[0],
+            path: fieldName,
+            severity: Severity.Warning
+          }));
         }
       });
 

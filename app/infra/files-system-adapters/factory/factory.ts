@@ -1,7 +1,9 @@
 import type { Nodes } from "@/domain";
 import type { SourceProvider } from "@/infra/source";
 
-import { isObjectLike, throwCritical } from "@/utils";
+import {
+  isObjectLike, throwCritical
+} from "@/utils";
 
 import type { FileSystemAdapter } from "../file-system";
 import type { FileSystemConfiguration } from "./configuration";
@@ -18,8 +20,14 @@ export class FileSystemAdaptersFactory {
     this.configurations = configurations;
   }
 
-  create(options: { accessData: unknown, nodes: Nodes; provider: SourceProvider }): FileSystemAdapter {
-    const { accessData, nodes, provider } = options;
+  create(options: {
+    accessData: unknown,
+    nodes: Nodes;
+    provider: SourceProvider
+  }): FileSystemAdapter {
+    const {
+      accessData, nodes, provider
+    } = options;
 
     switch (provider) {
       case "dropbox":{
@@ -29,7 +37,10 @@ export class FileSystemAdaptersFactory {
         ) {
           throwCritical("DROPBOX_ACCESS_DATA_NOT_FOUND");
         }
-        return new DropboxFileSystemAdapter({ accessToken: accessData.accessToken, nodes });
+        return new DropboxFileSystemAdapter({
+          accessToken: accessData.accessToken,
+          nodes
+        });
       }
       case "fsa":{
         if (!isObjectLike(accessData)
@@ -38,7 +49,10 @@ export class FileSystemAdaptersFactory {
         ) {
           throwCritical("FSA_ACCESS_DATA_NOT_FOUND");
         }
-        return new FsaFileSystemAdapter({ nodes, rootHandle: accessData.rootHandle });
+        return new FsaFileSystemAdapter({
+          nodes,
+          rootHandle: accessData.rootHandle
+        });
       }
       case "memory": {
         if (!isObjectLike(accessData)
@@ -48,7 +62,11 @@ export class FileSystemAdaptersFactory {
           throwCritical("MEMORY_ACCESS_DATA_NOT_FOUND");
         }
         const delayInMilliseconds = this.configurations.memory.delayInMilliseconds;
-        return new MemoryFileSystemAdapter({ delayInMilliseconds, nodes, rootDirectoryName: accessData.rootDirectoryName });
+        return new MemoryFileSystemAdapter({
+          delayInMilliseconds,
+          nodes,
+          rootDirectoryName: accessData.rootDirectoryName
+        });
       }
       case "oneDrive":{
         if (!isObjectLike(accessData)
@@ -57,7 +75,10 @@ export class FileSystemAdaptersFactory {
         ) {
           throwCritical("ONE_DRIVE_ACCESS_DATA_NOT_FOUND");
         }
-        return new OneDriveFileSystemAdapter({ accessToken: accessData.accessToken, nodes });
+        return new OneDriveFileSystemAdapter({
+          accessToken: accessData.accessToken,
+          nodes
+        });
       }
     }
   }

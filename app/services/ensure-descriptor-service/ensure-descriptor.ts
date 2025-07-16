@@ -10,7 +10,10 @@ export class EnsureDescriptorService {
   private readonly connectSourceService: ConnectSourceService;
   private readonly exchangeArtifact: ExchangeArtifactService;
 
-  constructor(options: { connectSourceService: ConnectSourceService, exchangeArtifact: ExchangeArtifactService }) {
+  constructor(options: {
+    connectSourceService: ConnectSourceService,
+    exchangeArtifact: ExchangeArtifactService
+  }) {
     this.connectSourceService = options.connectSourceService;
     this.exchangeArtifact = options.exchangeArtifact;
   }

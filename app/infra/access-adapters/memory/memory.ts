@@ -1,4 +1,6 @@
-import { delay, fakeDirectory } from "@/utils";
+import {
+  delay, fakeDirectory
+} from "@/utils";
 
 import type { AccessAdapter } from "../access";
 

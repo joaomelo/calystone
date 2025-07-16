@@ -2,12 +2,14 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { ButtonBase, ChipTags, InputText, useI18n } from "@/utils";
-import { computed, ref } from "vue";
+import {
+  ButtonBase, ChipTags, InputText, useI18n
+} from "@/utils";
+import {
+  computed, ref
+} from "vue";
 
-const { artifact } = defineProps<{
-  artifact: TodoArtifact;
-}>();
+const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { services } = Store.use();
 const { t } = useI18n();

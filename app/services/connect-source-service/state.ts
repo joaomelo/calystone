@@ -1,5 +1,7 @@
 import type { Nodes } from "@/domain";
-import type { FileSystemAdapter, Source } from "@/infra";
+import type {
+  FileSystemAdapter, Source
+} from "@/infra";
 
 export type ConnectionState = ConnectionStateConnected | ConnectionStateDisconnected;
 

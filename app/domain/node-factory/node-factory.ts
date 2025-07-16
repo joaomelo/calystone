@@ -1,8 +1,12 @@
-import type { Artifact, ArtifactOptions } from "../artifact";
+import type {
+  Artifact, ArtifactOptions
+} from "../artifact";
 import type { DirectoryOptions } from "../directory";
 import type { NodeOptions } from "../node";
 
-import { BinaryArtifact, isArtifactOptions, Mime, TextArtifact, TodoArtifact } from "../artifact";
+import {
+  BinaryArtifact, isArtifactOptions, Mime, TextArtifact, TodoArtifact
+} from "../artifact";
 import { Directory } from "../directory";
 
 export function createNode(options: ArtifactOptions): Artifact;

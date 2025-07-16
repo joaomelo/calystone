@@ -1,4 +1,6 @@
-import { openMacros, pageNodes } from "../helpers";
+import {
+  openMacros, pageNodes
+} from "../helpers";
 
 describe("connects", () => {
   beforeEach(() => {

@@ -4,9 +4,7 @@ import DOMPurify from "dompurify";
 import { marked } from "marked";
 import { computed } from "vue";
 
-const { markdown } = defineProps<{
-  markdown: string;
-}>();
+const { markdown } = defineProps<{ markdown: string; }>();
 
 const renderedMarkdown = computed(() => {
   if (!markdown) return "";

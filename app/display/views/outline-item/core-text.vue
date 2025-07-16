@@ -5,9 +5,7 @@ import { computed } from "vue";
 
 import CoreBase from "./core-base.vue";
 
-const { text } = defineProps<{
-  text: TextArtifact;
-}>();
+const { text } = defineProps<{ text: TextArtifact; }>();
 
 const icon = computed(() => {
   const iconPrefix = "bx bx-sm";

@@ -12,13 +12,21 @@ interface Options<MessageSchema> {
   storageKey: string;
 }
 
-export function createI18n<MessageSchema>({ messages, storageKey }: Options<MessageSchema>) {
+export function createI18n<MessageSchema>({
+  messages, storageKey
+}: Options<MessageSchema>) {
   const supported = Object.keys(messages);
   const fallbackLocale = supported[0];
 
-  const localeStorage = new LocaleStorage({ storageKey, supported });
+  const localeStorage = new LocaleStorage({
+    storageKey,
+    supported
+  });
   const locale: Locale = localeStorage.load()
-    ?? matchLocale({ supported, value: navigator.language })
+    ?? matchLocale({
+      supported,
+      value: navigator.language
+    })
     ?? fallbackLocale;
 
   const i18n = createVueI18n<[MessageSchema], Locale, false>({

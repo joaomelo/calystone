@@ -1,4 +1,6 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import {
+  beforeEach, describe, expect, it
+} from "vitest";
 
 import { Queue } from "./queue";
 
@@ -133,10 +135,19 @@ describe("Queue", () => {
     });
 
     it("should work with object type", () => {
-      const objectQueue = new Queue<{ id: number; name: string }>();
+      const objectQueue = new Queue<{
+        id: number;
+        name: string
+      }>();
       const items = [
-        { id: 1, name: "Alice" },
-        { id: 2, name: "Bob" },
+        {
+          id: 1,
+          name: "Alice"
+        },
+        {
+          id: 2,
+          name: "Bob"
+        },
       ];
       objectQueue.add(items);
       expect(objectQueue.next()).toEqual([items[0]]);

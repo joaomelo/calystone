@@ -8,7 +8,9 @@ import type {
   OutlineGridSelectionKeys
 } from "./types";
 
-const { dataTest, items, mode = "list" } = defineProps<{
+const {
+  dataTest, items, mode = "list"
+} = defineProps<{
   dataTest: string;
   items: OutlineGridItem[];
   mode?: OutlineGridMode;
@@ -18,12 +20,8 @@ const emit = defineEmits<{
   selected: [key: OutlineGridItem | undefined];
 }>();
 
-const expandedKeys = defineModel<OutlineGridExpandedKeys>("expandedKeys", {
-  default: () => ({})
-});
-const selectedKeys = defineModel<OutlineGridSelectionKeys>("selectedKeys", {
-  default: () => ({})
-});
+const expandedKeys = defineModel<OutlineGridExpandedKeys>("expandedKeys", { default: () => ({}) });
+const selectedKeys = defineModel<OutlineGridSelectionKeys>("selectedKeys", { default: () => ({}) });
 
 function handleItemExpand(item: OutlineGridItem) {
   emit("expanded", item);

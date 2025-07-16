@@ -2,7 +2,9 @@ import type { ArtifactOptions } from "@/domain/artifact/artifact";
 import type { UpdateDateOptions } from "@/domain/artifact/todo/dater";
 import type { Criterion } from "@/domain/artifact/todo/prioritizer";
 import type { Progress } from "@/domain/artifact/todo/progressor";
-import type { RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue } from "@/domain/artifact/todo/recurrer";
+import type {
+  RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue
+} from "@/domain/artifact/todo/recurrer";
 
 import { Artifact } from "@/domain/artifact/artifact";
 import { Dater } from "@/domain/artifact/todo/dater";
@@ -70,9 +72,20 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     const currentStart = this.dateStart();
     if (!currentDue || !currentStart) throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
 
-    const { due, start } = this.recurrer.next({ due: currentDue, start: currentStart });
-    this.updateDateStart({ allDay: false, date: start });
-    this.updateDateDue({ allDay: false, date: due });
+    const {
+      due, start
+    } = this.recurrer.next({
+      due: currentDue,
+      start: currentStart
+    });
+    this.updateDateStart({
+      allDay: false,
+      date: start
+    });
+    this.updateDateDue({
+      allDay: false,
+      date: due
+    });
   }
 
   dateDue() {
@@ -148,7 +161,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.prioritizer.remove(label);
   }
 
-  spansOn(options: { end: Date; start: Date }): boolean {
+  spansOn(options: {
+    end: Date;
+    start: Date
+  }): boolean {
     if (!this.hasDates()) return false;
     return this.dater.spansOn(options);
   }
@@ -178,8 +194,13 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
 
   updateDateDue(options: UpdateDateOptions) {
     if (!this.dater) {
-      const { allDay, date: due } = options;
-      this.dater = new Dater({ allDay, due });
+      const {
+        allDay, date: due
+      } = options;
+      this.dater = new Dater({
+        allDay,
+        due
+      });
     } else {
       this.dater.updateDue(options);
     }
@@ -187,8 +208,13 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
 
   updateDateStart(options: UpdateDateOptions) {
     if (!this.dater) {
-      const { allDay, date: start } = options;
-      this.dater = new Dater({ allDay, start });
+      const {
+        allDay, date: start
+      } = options;
+      this.dater = new Dater({
+        allDay,
+        start
+      });
     } else {
       this.dater.updateStart(options);
     }

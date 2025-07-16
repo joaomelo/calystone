@@ -2,9 +2,13 @@
 import type { ComputedRef } from "vue";
 
 import { Store } from "@/display/store";
-import { SideBar, SideItem, useI18n } from "@/utils";
+import {
+  SideBar, SideItem, useI18n
+} from "@/utils";
 import { computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import {
+  useRoute, useRouter
+} from "vue-router";
 
 import { usePreloading } from "./use-preloading";
 

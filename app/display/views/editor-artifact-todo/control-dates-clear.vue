@@ -2,11 +2,11 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { ButtonBase, useI18n } from "@/utils";
+import {
+  ButtonBase, useI18n
+} from "@/utils";
 
-const { artifact } = defineProps<{
-  artifact: TodoArtifact;
-}>();
+const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { services } = Store.use();
 const { t } = useI18n();

@@ -12,7 +12,9 @@ export class OneDriveAccessAdapter implements AccessAdapter<{ accessToken: strin
   clientId: string;
   msalInstance: PublicClientApplication;
 
-  constructor({ clientId, redirectUrl }: Options) {
+  constructor({
+    clientId, redirectUrl
+  }: Options) {
     this.clientId = clientId;
 
     const msalConfig = {

@@ -2,9 +2,7 @@
 import { EditorWorkspace } from "@/display/views/editor-workspace";
 import { useI18n } from "@/utils";
 
-defineProps<{
-  message: string;
-}>();
+defineProps<{ message: string; }>();
 const { t } = useI18n();
 </script>
 <template>

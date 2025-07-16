@@ -12,9 +12,7 @@ import { editorEmptySwitch } from "@/display/views/editors-message";
 import { ScrollPanel } from "@/utils";
 import { computed } from "vue";
 
-const { node } = defineProps<{
-  node?: Node;
-}>();
+const { node } = defineProps<{ node?: Node; }>();
 
 const { services } = Store.use();
 

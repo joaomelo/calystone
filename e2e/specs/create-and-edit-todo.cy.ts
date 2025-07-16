@@ -1,4 +1,6 @@
-import { createTodo, dialogCreateArtifact, editorTodo, openMacros, outlineNodes, toolbarNode, typeableDate, typicalDates } from "../helpers";
+import {
+  createTodo, dialogCreateArtifact, editorTodo, openMacros, outlineNodes, toolbarNode, typeableDate, typicalDates
+} from "../helpers";
 
 describe("create-and-edit-todo", () => {
   beforeEach(() => {
@@ -63,8 +65,14 @@ describe("create-and-edit-todo", () => {
     const todoName = `${todoBaseName}.todo`;
     createTodo({
       criteria: [
-        { label: "importance", value: "1" },
-        { label: "urgency", value: "0" }
+        {
+          label: "importance",
+          value: "1"
+        },
+        {
+          label: "urgency",
+          value: "0"
+        }
       ],
       name: todoName,
       tags: [],

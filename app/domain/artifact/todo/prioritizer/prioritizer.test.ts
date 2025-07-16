@@ -1,4 +1,6 @@
-import { describe, expect, it } from "vitest";
+import {
+  describe, expect, it
+} from "vitest";
 
 import { asCriterionValue } from "./criteria";
 import { Prioritizer } from "./prioritizer";

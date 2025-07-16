@@ -39,7 +39,9 @@ export class PreloadNodesService {
       textArtifactSizeLimit: oneMegabyte,
     });
 
-    this.connectSource.subscribe(({ source, status }) => {
+    this.connectSource.subscribe(({
+      source, status
+    }) => {
       this.stop();
 
       if (!options.preloadEnabled) return;

@@ -5,9 +5,7 @@ import { computed } from "vue";
 
 import CoreBase from "./core-base.vue";
 
-const { binary } = defineProps<{
-  binary: BinaryArtifact;
-}>();
+const { binary } = defineProps<{ binary: BinaryArtifact; }>();
 
 const icon = computed(() => {
   const iconPrefix = "bx bx-sm";

@@ -2,7 +2,9 @@
 import type { SourceProvider } from "@/infra";
 
 import { Store } from "@/display/store";
-import { ButtonBase, useDispatch, useI18n } from "@/utils";
+import {
+  ButtonBase, useDispatch, useI18n
+} from "@/utils";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 
@@ -14,7 +16,9 @@ const { provider } = defineProps<{
 }>();
 
 const { t } = useI18n();
-const { dispatchOrToast, loading } = useDispatch();
+const {
+  dispatchOrToast, loading
+} = useDispatch();
 const { services } = Store.use();
 const router = useRouter();
 

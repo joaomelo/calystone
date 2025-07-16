@@ -3,7 +3,9 @@ import InputNumberPrimeVue from "primevue/inputnumber";
 
 import { InputWrapper } from "../input-wrapper";
 
-const { buttons = false, disabled = false, locale = "en", size } = defineProps<{
+const {
+  buttons = false, disabled = false, locale = "en", size
+} = defineProps<{
   buttons?: boolean
   dataTest: string
   disabled?: boolean

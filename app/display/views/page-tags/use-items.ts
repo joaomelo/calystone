@@ -1,10 +1,14 @@
-import type { Item, ItemData } from "@/display/views/outline-item";
+import type {
+  Item, ItemData
+} from "@/display/views/outline-item";
 import type { Tag } from "@/domain";
 import type { OutlineGridExpandedKeys } from "@/utils";
 
 import { Store } from "@/display/store";
 import { Prioritizer } from "@/domain";
-import { computed, ref } from "vue";
+import {
+  computed, ref
+} from "vue";
 
 export function useItems() {
   const { services } = Store.use();
@@ -14,25 +18,45 @@ export function useItems() {
   const items = computed<Item[]>(() => {
     const tags = services.computeTags.compute();
     const list = tags.list();
-    return list.map((tag) => convert({ expanded: expandedKeys.value, tag }));
+    return list.map((tag) => convert({
+      expanded: expandedKeys.value,
+      tag
+    }));
   });
 
-  return { expandedKeys, items };
+  return {
+    expandedKeys,
+    items
+  };
 }
 
-function convert(options: { expanded: OutlineGridExpandedKeys; tag: Tag }): Item {
-  const { expanded, tag } = options;
+function convert(options: {
+  expanded: OutlineGridExpandedKeys;
+  tag: Tag
+}): Item {
+  const {
+    expanded, tag
+  } = options;
 
   const key = tag.name;
   const label = tag.name;
-  const visibleChildren = solveChildren({ expanded, tag });
+  const visibleChildren = solveChildren({
+    expanded,
+    tag
+  });
   const leaf = isImpossibleToHaveChildren(tag);
   const data: ItemData = {
     key,
     type: "tag"
   };
 
-  return { children: visibleChildren, data, key, label, leaf };
+  return {
+    children: visibleChildren,
+    data,
+    key,
+    label,
+    leaf
+  };
 }
 
 function isImpossibleToHaveChildren(tag: Tag): boolean {
@@ -40,8 +64,13 @@ function isImpossibleToHaveChildren(tag: Tag): boolean {
   return todos.length === 0;
 }
 
-function solveChildren(options: { expanded: OutlineGridExpandedKeys; tag: Tag }): Item[] {
-  const { expanded, tag } = options;
+function solveChildren(options: {
+  expanded: OutlineGridExpandedKeys;
+  tag: Tag
+}): Item[] {
+  const {
+    expanded, tag
+  } = options;
   if (!expanded[tag.name]) return [];
 
   const todos = tag.list();
@@ -57,6 +86,12 @@ function solveChildren(options: { expanded: OutlineGridExpandedKeys; tag: Tag })
       key: todo.id,
       type: "node"
     };
-    return { children: [], data, key: todo.id, label: todo.name, leaf: true, };
+    return {
+      children: [],
+      data,
+      key: todo.id,
+      label: todo.name,
+      leaf: true,
+    };
   });
 }

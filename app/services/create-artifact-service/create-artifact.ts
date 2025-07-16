@@ -20,7 +20,10 @@ export class CreateArtifactService {
     this.openDirectory = options.openDirectory;
   }
 
-  async create(options: { name: string, parent: Directory }): Promise<void> {
+  async create(options: {
+    name: string,
+    parent: Directory
+  }): Promise<void> {
     const {
       fileSystemAdapter,
       nodes

@@ -12,6 +12,4 @@ export interface FileMetadataContainer<T> {
   metadata: T
 }
 
-export interface RootMetadataContainer<T> extends DirectoryMetadataContainer<T> {
-  root: true;
-}
+export interface RootMetadataContainer<T> extends DirectoryMetadataContainer<T> {root: true;}

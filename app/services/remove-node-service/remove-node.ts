@@ -9,7 +9,9 @@ export class RemoveNodeService {
   }
 
   async remove(node: Node): Promise<void> {
-    const { fileSystemAdapter, nodes } = this.connectSource.stateConnectedOrThrow();
+    const {
+      fileSystemAdapter, nodes
+    } = this.connectSource.stateConnectedOrThrow();
     await fileSystemAdapter.remove(node);
     nodes.remove(node);
   }

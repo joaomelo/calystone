@@ -2,9 +2,7 @@
 import { Frameplain } from "@/display/views/frame-plain";
 import { TextMarkdown } from "@/utils";
 
-defineProps<{
-  text: string;
-}>();
+defineProps<{ text: string; }>();
 </script>
 <template>
   <Frameplain>

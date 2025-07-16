@@ -9,7 +9,9 @@ export abstract class Artifact extends Node {
   readonly mime: Mime;
   size: number;
 
-  constructor({ lastModified, size, ...options }: ArtifactOptions) {
+  constructor({
+    lastModified, size, ...options
+  }: ArtifactOptions) {
     super(options);
     this.lastModified = lastModified;
     this.size = size;
@@ -49,7 +51,10 @@ export abstract class Artifact extends Node {
     return this.size < bytes;
   }
 
-  sizeBetween(options: { max: number; min: number, }): boolean {
+  sizeBetween(options: {
+    max: number;
+    min: number,
+  }): boolean {
     return this.size >= options.min && this.size <= options.max;
   }
 

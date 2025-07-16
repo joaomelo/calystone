@@ -1,6 +1,10 @@
-import type { ArtifactOptions, Directory, DirectoryOptions, Node, Nodes } from "@/domain";
+import type {
+  ArtifactOptions, Directory, DirectoryOptions, Node, Nodes
+} from "@/domain";
 
-import { Artifact, createId } from "@/domain";
+import {
+  Artifact, createId
+} from "@/domain";
 import { throwError } from "@/utils";
 import { Dropbox } from "dropbox";
 
@@ -11,20 +15,34 @@ import { BaseFileSystemAdapter } from "../base";
 export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, string, string> {
   dropboxClient: Dropbox;
 
-  constructor(options: { accessToken: string; nodes: Nodes; }) {
-    const { accessToken, nodes } = options;
+  constructor(options: {
+    accessToken: string;
+    nodes: Nodes;
+  }) {
+    const {
+      accessToken, nodes
+    } = options;
     const rootLowerPath = "";
     const rootData: DirectoryOptions = {
       id: createId(),
       name: "Dropbox",
       parentId: undefined
     };
-    super({ nodes, rootData, rootMetadata: rootLowerPath });
+    super({
+      nodes,
+      rootData,
+      rootMetadata: rootLowerPath
+    });
     this.dropboxClient = new Dropbox({ accessToken });
   }
 
-  async createArtifact(options: { name: string, parent: Directory }): Promise<ArtifactOptions> {
-    const { name, parent: { id: parentId } } = options;
+  async createArtifact(options: {
+    name: string,
+    parent: Directory
+  }): Promise<ArtifactOptions> {
+    const {
+      name, parent: { id: parentId }
+    } = options;
 
     const container = this.metadatas.getOfDirectoryOrThrow(parentId);
     const { metadata: parentPath } = container;
@@ -37,7 +55,10 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     });
 
     const id = createId();
-    this.metadatas.setFile({ id, metadata: newPath });
+    this.metadatas.setFile({
+      id,
+      metadata: newPath
+    });
     const data: ArtifactOptions = {
       id,
       lastModified: Date.now(),
@@ -48,8 +69,13 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     return data;
   }
 
-  async createDirectory(options: { name: string, parent: Directory }): Promise<DirectoryOptions> {
-    const { name, parent: { id: parentId } } = options;
+  async createDirectory(options: {
+    name: string,
+    parent: Directory
+  }): Promise<DirectoryOptions> {
+    const {
+      name, parent: { id: parentId }
+    } = options;
 
     const { metadata: parentPath } = this.metadatas.getOfDirectoryOrThrow(parentId);
     const newPath = `${parentPath}/${name}`;
@@ -59,8 +85,15 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     });
 
     const id = createId();
-    this.metadatas.setDirectory({ id, metadata: newPath });
-    const newDirectoryData: DirectoryOptions = { id, name, parentId };
+    this.metadatas.setDirectory({
+      id,
+      metadata: newPath
+    });
+    const newDirectoryData: DirectoryOptions = {
+      id,
+      name,
+      parentId
+    };
     return newDirectoryData;
   }
 
@@ -76,11 +109,19 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     return content;
   }
 
-  async move(options: { subject: Node, target: Directory }): Promise<void> {
-    const { subject, target } = options;
+  async move(options: {
+    subject: Node,
+    target: Directory
+  }): Promise<void> {
+    const {
+      subject, target
+    } = options;
 
     this.moveable(subject).throwOnFail();
-    this.nodes.moveable({ subject, target }).throwOnFail();
+    this.nodes.moveable({
+      subject,
+      target
+    }).throwOnFail();
 
     const { metadata: oldPath } = this.metadatas.getOrThrow(subject.id);
     const { metadata: targetPath } = this.metadatas.getOrThrow(target.id);
@@ -93,9 +134,15 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     });
 
     if (subject instanceof Artifact) {
-      this.metadatas.setFile({ id: subject.id, metadata: newPath });
+      this.metadatas.setFile({
+        id: subject.id,
+        metadata: newPath
+      });
     } else {
-      this.metadatas.setDirectory({ id: subject.id, metadata: newPath });
+      this.metadatas.setDirectory({
+        id: subject.id,
+        metadata: newPath
+      });
     }
   }
 
@@ -125,7 +172,10 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
           name: childResult.name,
           parentId,
         };
-        this.metadatas.setDirectory({ id: childId, metadata: childResult.path_lower });
+        this.metadatas.setDirectory({
+          id: childId,
+          metadata: childResult.path_lower
+        });
         childrenData.push(childData);
         continue;
       }
@@ -141,7 +191,10 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
         parentId: parent.id,
         size,
       };
-      this.metadatas.setFile({ id: childId, metadata: childResult.path_lower });
+      this.metadatas.setFile({
+        id: childId,
+        metadata: childResult.path_lower
+      });
       childrenData.push(childData);
     };
 
@@ -170,11 +223,16 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     return this.failIfRoot(node);
   }
 
-  async rename(options: { name: string; node: Node, }): Promise<void> {
+  async rename(options: {
+    name: string;
+    node: Node,
+  }): Promise<void> {
     const renameable = this.renameable(options.node);
     renameable.throwOnFail();
 
-    const { name, node } = options;
+    const {
+      name, node
+    } = options;
     const { id } = node;
 
     const { metadata: oldPath } = this.metadatas.getOrThrow(id);
@@ -187,9 +245,15 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     });
 
     if (node instanceof Artifact) {
-      this.metadatas.setFile({ id, metadata: newPath });
+      this.metadatas.setFile({
+        id,
+        metadata: newPath
+      });
     } else {
-      this.metadatas.setDirectory({ id, metadata: newPath });
+      this.metadatas.setDirectory({
+        id,
+        metadata: newPath
+      });
     }
   }
 

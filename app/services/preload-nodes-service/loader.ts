@@ -3,8 +3,12 @@ import type { ConnectSourceService } from "@/services/connect-source-service";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 
-import { Artifact, Directory, TextArtifact, TodoArtifact } from "@/domain";
-import { Exception, LoggerContainer, Queue } from "@/utils";
+import {
+  Artifact, Directory, TextArtifact, TodoArtifact
+} from "@/domain";
+import {
+  Exception, LoggerContainer, Queue
+} from "@/utils";
 
 export class Loader {
   private readonly batchSize: number;
@@ -79,7 +83,10 @@ export class Loader {
           await this.openDirectory.open(node);
         }
       } catch (error) {
-        const exception = new Exception({ cause: error, message: "UNABLE_TO_PRELOAD_NODE", });
+        const exception = new Exception({
+          cause: error,
+          message: "UNABLE_TO_PRELOAD_NODE",
+        });
         const logger = LoggerContainer.use();
         logger.error(exception);
       }

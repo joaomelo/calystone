@@ -1,4 +1,6 @@
-import { LocalStorage, throwError } from "@/utils";
+import {
+  LocalStorage, throwError
+} from "@/utils";
 import { DropboxAuth } from "dropbox";
 
 import type { AccessAdapter } from "../access";
@@ -8,8 +10,13 @@ export class DropboxAccessAdapter implements AccessAdapter<{ accessToken: string
   redirectUrl: string;
   storage: LocalStorage<string>;
 
-  constructor(options: { clientId: string, redirectUrl: string, }) {
-    const { clientId, redirectUrl } = options;
+  constructor(options: {
+    clientId: string,
+    redirectUrl: string,
+  }) {
+    const {
+      clientId, redirectUrl
+    } = options;
     this.auth = new DropboxAuth({ clientId });
     this.redirectUrl = redirectUrl;
 

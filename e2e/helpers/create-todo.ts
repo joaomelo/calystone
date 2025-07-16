@@ -13,7 +13,9 @@ export function createTodo(options: {
   name: string,
   tags: string[],
 }) {
-  const { criteria, name, tags } = options;
+  const {
+    criteria, name, tags
+  } = options;
 
   toolbarNode.buttonCreateArtifact().click();
   dialogCreateArtifact.inputName().clear().type(name);

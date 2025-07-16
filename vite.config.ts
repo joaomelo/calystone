@@ -1,7 +1,9 @@
 /* eslint-disable import-x/no-named-as-default */
 /* eslint-disable import-x/no-nodejs-modules */
 import vue from "@vitejs/plugin-vue";
-import { fileURLToPath, URL } from "node:url";
+import {
+  fileURLToPath, URL
+} from "node:url";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 
@@ -26,18 +28,12 @@ export default defineConfig(() => {
           lintCommand: "eslint",
           useFlatConfig: true
         },
-        overlay: {
-          initialIsOpen: false
-        },
+        overlay: { initialIsOpen: false },
         vueTsc: true
       }),
     ],
     publicDir: pathBasedOnRootStartinAtProject("assets"),
-    resolve: {
-      alias: {
-        "@": pathBasedOnCofingStartingAtProject("app"),
-      },
-    },
+    resolve: { alias: { "@": pathBasedOnCofingStartingAtProject("app"), }, },
     root,
     server: {
       port: 8081,

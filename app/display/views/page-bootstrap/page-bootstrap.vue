@@ -7,9 +7,7 @@ import { useI18n } from "@/utils";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 
-const { provider } = defineProps<{
-  provider: SourceProvider
-}>();
+const { provider } = defineProps<{ provider: SourceProvider }>();
 
 const { t } = useI18n();
 const { services } = Store.use();

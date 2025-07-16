@@ -16,7 +16,10 @@ export function useToast() {
     });
   };
 
-  return { Severity, toast };
+  return {
+    Severity,
+    toast
+  };
 
 }
 function convertSeverityToPrime(severity: Severity): PrimeSeverity {

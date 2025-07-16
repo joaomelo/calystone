@@ -1,22 +1,38 @@
 <script setup lang="ts">
-import type { RecurrenceReferenceValue, RecurrenceUnitValue, TodoArtifact } from "@/domain";
+import type {
+  RecurrenceReferenceValue, RecurrenceUnitValue, TodoArtifact
+} from "@/domain";
 
 import { Store } from "@/display/store";
-import { RecurrenceReference, RecurrenceStep, RecurrenceUnit } from "@/domain";
-import { InputNumber, InputRadio, throwCritical, useI18n } from "@/utils";
+import {
+  RecurrenceReference, RecurrenceStep, RecurrenceUnit
+} from "@/domain";
+import {
+  InputNumber, InputRadio, throwCritical, useI18n
+} from "@/utils";
 import { computed } from "vue";
 
-const { artifact } = defineProps<{
-  artifact: TodoArtifact;
-}>();
+const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { services } = Store.use();
 const { t } = useI18n();
 
-const referenceOptions: { label: string; value: "disabled" | RecurrenceReferenceValue }[] = [
-  { label: t("common.disabled"), value: "disabled" },
-  { label: t("editor-todo.dates.completion"), value: "completion" },
-  { label: t("editor-todo.dates.due"), value: "due" },
+const referenceOptions: {
+  label: string;
+  value: "disabled" | RecurrenceReferenceValue
+}[] = [
+  {
+    label: t("common.disabled"),
+    value: "disabled"
+  },
+  {
+    label: t("editor-todo.dates.completion"),
+    value: "completion"
+  },
+  {
+    label: t("editor-todo.dates.due"),
+    value: "due"
+  },
 ] as const;
 
 const referenceValue = computed(() => {
@@ -25,11 +41,26 @@ const referenceValue = computed(() => {
   return value;
 });
 
-const unitOptions: { label: string; value: RecurrenceUnitValue }[] = [
-  { label: t("editor-todo.dates.days"), value: "days" },
-  { label: t("editor-todo.dates.weeks"), value: "weeks" },
-  { label: t("editor-todo.dates.months"), value: "months" },
-  { label: t("editor-todo.dates.years"), value: "years" },
+const unitOptions: {
+  label: string;
+  value: RecurrenceUnitValue
+}[] = [
+  {
+    label: t("editor-todo.dates.days"),
+    value: "days"
+  },
+  {
+    label: t("editor-todo.dates.weeks"),
+    value: "weeks"
+  },
+  {
+    label: t("editor-todo.dates.months"),
+    value: "months"
+  },
+  {
+    label: t("editor-todo.dates.years"),
+    value: "years"
+  },
 ] as const;
 
 async function handleUpdateReference(reference: string | undefined) {

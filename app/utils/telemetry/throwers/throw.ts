@@ -34,5 +34,9 @@ export function throwWarning(message: string, cause?: unknown): never {
 }
 
 function throwException(message: string, cause?: unknown, severity?: Severity): never {
-  throw new Exception({ cause, message, severity });
+  throw new Exception({
+    cause,
+    message,
+    severity
+  });
 }

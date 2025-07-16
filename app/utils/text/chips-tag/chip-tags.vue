@@ -8,9 +8,7 @@ const { removable = false } = defineProps<{
   labels: string[],
   removable?: boolean,
 }>();
-defineEmits<{
-  remove: [label: string];
-}>();
+defineEmits<{ remove: [label: string]; }>();
 </script>
 <template>
   <div

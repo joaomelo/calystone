@@ -10,9 +10,14 @@ export class TrackTodosService {
     this.retrieveNodes = retrieveNodes;
   }
 
-  datesWithTodosWithin(options: { end: Date; start: Date }): Date[] {
+  datesWithTodosWithin(options: {
+    end: Date;
+    start: Date
+  }): Date[] {
     this.throwIfDatesAreInvalid(options);
-    const { end, start } = options;
+    const {
+      end, start
+    } = options;
 
     const loadedTodos = this.selectLoadedTodos();
     const uncompletedDatedTodos = loadedTodos.filter(todo =>
@@ -26,7 +31,10 @@ export class TrackTodosService {
       currentDateStart.setHours(0, 0, 0, 0);
       const currentDateEnd = new Date(currentDateStart);
       currentDateEnd.setHours(23, 59, 59, 999);
-      const options = { end: currentDateEnd, start: currentDateStart };
+      const options = {
+        end: currentDateEnd,
+        start: currentDateStart
+      };
 
       const hasTodoOnDate = uncompletedDatedTodos.some(todo => todo.spansOn(options));
       if (hasTodoOnDate) datesWithTodos.push(new Date(currentDateStart));
@@ -37,7 +45,10 @@ export class TrackTodosService {
     return datesWithTodos;
   }
 
-  todosWithin(options: { end: Date; start: Date, }) {
+  todosWithin(options: {
+    end: Date;
+    start: Date,
+  }) {
     this.throwIfDatesAreInvalid(options);
     const loadedTodos = this.selectLoadedTodos();
     const todosWithin = loadedTodos.filter(todo => todo.spansOn(options));
@@ -55,8 +66,13 @@ export class TrackTodosService {
     return loadedTodos;
   }
 
-  private throwIfDatesAreInvalid(options: { end: Date; start: Date }) {
-    const { end, start } = options;
+  private throwIfDatesAreInvalid(options: {
+    end: Date;
+    start: Date
+  }) {
+    const {
+      end, start
+    } = options;
     if (start > end) throwError("START_DATE_IS_AFTER_END_DATE");
   }
 

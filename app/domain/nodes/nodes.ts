@@ -1,10 +1,14 @@
 import type { Id } from "@/domain/id";
-import type { Node, NodeOrId } from "@/domain/node";
+import type {
+  Node, NodeOrId
+} from "@/domain/node";
 
 import { Directory } from "@/domain/directory/directory";
 import { Descendancy } from "@/domain/hierarchy";
 import { isId } from "@/domain/id";
-import { Status, throwCritical } from "@/utils";
+import {
+  Status, throwCritical
+} from "@/utils";
 import { reactive } from "vue";
 
 export class Nodes {
@@ -42,23 +46,37 @@ export class Nodes {
     return Array.from(this.map.values());
   }
 
-  move(options: { subject: Node; target: Directory }): void {
+  move(options: {
+    subject: Node;
+    target: Directory
+  }): void {
     const moveable = this.moveable(options);
     moveable.throwOnFail();
     options.subject.parentId = options.target.id;
   }
 
-  moveable(options: { subject: Node; target: Directory }): Status {
-    const { subject, target } = options;
+  moveable(options: {
+    subject: Node;
+    target: Directory
+  }): Status {
+    const {
+      subject, target
+    } = options;
 
     if (subject.isRoot()) return Status.fail("CANNOT_MOVE_ROOT");
     if (subject.isEqualTo(target)) return Status.fail("CANNOT_MOVE_TO_ITSELF");
 
-    if (this.descendancy.isChild({ child: subject, parent: target })) return Status.fail("CANNOT_MOVE_TO_SAME_PARENT");
+    if (this.descendancy.isChild({
+      child: subject,
+      parent: target
+    })) return Status.fail("CANNOT_MOVE_TO_SAME_PARENT");
 
     if (!(subject instanceof Directory)) return Status.ok();
 
-    if (this.descendancy.isDescendant({ descendant: target, parent: subject })) return Status.fail("CANNOT_MOVE_TO_DESCENDANT");
+    if (this.descendancy.isDescendant({
+      descendant: target,
+      parent: subject
+    })) return Status.fail("CANNOT_MOVE_TO_DESCENDANT");
 
     return Status.ok();
   }

@@ -1,4 +1,6 @@
-import { describe, expect, it } from "vitest";
+import {
+  describe, expect, it
+} from "vitest";
 
 import { Recurrer } from "./recurrer";
 
@@ -14,7 +16,10 @@ describe("recurrer", () => {
     const todayEnd = new Date(today);
     todayEnd.setHours(23, 59, 59, 999);
 
-    const result = recurrer.next({ due: todayEnd, start: today });
+    const result = recurrer.next({
+      due: todayEnd,
+      start: today
+    });
 
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -37,7 +42,10 @@ describe("recurrer", () => {
     const tomorrowEnd = new Date(tomorrow);
     tomorrowEnd.setHours(23, 59, 59, 999);
 
-    const result = recurrer.next({ due: tomorrowEnd, start: tomorrow });
+    const result = recurrer.next({
+      due: tomorrowEnd,
+      start: tomorrow
+    });
 
     expect(result.start.getTime()).toBe(tomorrow.getTime());
     expect(result.due.getTime()).toBe(tomorrowEnd.getTime());
@@ -55,7 +63,10 @@ describe("recurrer", () => {
     const yesterdayEnd = new Date(yesterday);
     yesterdayEnd.setHours(21, 0, 0, 0);
 
-    const result = recurrer.next({ due: yesterdayEnd, start: yesterday });
+    const result = recurrer.next({
+      due: yesterdayEnd,
+      start: yesterday
+    });
 
     const nextWeek = new Date(yesterday);
     nextWeek.setDate(nextWeek.getDate() + 7);
@@ -77,7 +88,10 @@ describe("recurrer", () => {
     const originalDue = new Date(today);
     originalDue.setHours(15, 0, 0, 0);
 
-    const result = recurrer.next({ due: originalDue, start: today });
+    const result = recurrer.next({
+      due: originalDue,
+      start: today
+    });
 
     const nextYear = new Date(today);
     nextYear.setFullYear(nextYear.getFullYear() + 1);
@@ -100,7 +114,10 @@ describe("recurrer", () => {
     const yesterdayEnd = new Date(yesterday);
     yesterdayEnd.setHours(20, 0, 0, 0);
 
-    const result = recurrer.next({ due: yesterdayEnd, start: yesterday });
+    const result = recurrer.next({
+      due: yesterdayEnd,
+      start: yesterday
+    });
 
     const twoWeeksLater = new Date(yesterday);
     twoWeeksLater.setDate(twoWeeksLater.getDate() + 14);
@@ -124,7 +141,10 @@ describe("recurrer", () => {
     const lastDayOfMonthEnd = new Date(lastDayOfMonth);
     lastDayOfMonthEnd.setHours(15, 0, 0, 0);
 
-    const result = recurrer.next({ due: lastDayOfMonthEnd, start: lastDayOfMonth });
+    const result = recurrer.next({
+      due: lastDayOfMonthEnd,
+      start: lastDayOfMonth
+    });
 
     const nextMonth = new Date(lastDayOfMonth);
     nextMonth.setMonth(1);
@@ -148,7 +168,10 @@ describe("recurrer", () => {
     const lastDayOfYearEnd = new Date(lastDayOfYear);
     lastDayOfYearEnd.setHours(23, 0, 0, 0);
 
-    const result = recurrer.next({ due: lastDayOfYearEnd, start: lastDayOfYear });
+    const result = recurrer.next({
+      due: lastDayOfYearEnd,
+      start: lastDayOfYear
+    });
 
     const nextYear = new Date(lastDayOfYear);
     nextYear.setFullYear(nextYear.getFullYear() + 1);
