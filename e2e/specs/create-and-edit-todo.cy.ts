@@ -57,7 +57,7 @@ describe("create-and-edit-todo", () => {
     editorTodo.dates.inputStart.input().should("have.value", typeableDate(typicalDates.tomorrow.start));
   });
 
-  it.only("adds, set and remove prioriti criteria", () => {
+  it("adds, set and remove prioriti criteria", () => {
     outlineNodes.rootNode().click();
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
 
