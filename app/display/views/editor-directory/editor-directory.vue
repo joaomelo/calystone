@@ -3,16 +3,20 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editor-workspace";
-import { ToolbarButtonCreateArtifact, ToolbarButtonCreateDirectory, ToolbarButtonExportNode, ToolbarButtonOpenDirectory, ToolbarButtonRemoveNode, ToolbarButtonRenameNode, ToolbarButtonShareNode } from "@/display/views/toolbar-buttons";
-import { PropertySheet, TextMarkdown, TextMessage, useI18n } from "@/utils";
+import {
+  ToolbarButtonCreateArtifact,
+  ToolbarButtonCreateDirectory,
+  ToolbarButtonOpenDirectory,
+  ToolbarButtonRemoveNode,
+  ToolbarButtonRenameNode
+} from "@/display/views/toolbar-buttons";
+import {
+  PropertySheet, TextMarkdown, TextMessage, useI18n
+} from "@/utils";
 import { computed } from "vue";
 
-const { content } = defineProps<{
-  content: Directory;
-}>();
-defineEmits<{
-  close: []
-}>();
+const { content } = defineProps<{ content: Directory; }>();
+defineEmits<{ close: [] }>();
 
 const { t } = useI18n();
 const { services } = Store.use();
@@ -20,8 +24,14 @@ const { services } = Store.use();
 const propertySheetRows = computed(() => {
   const descendants = services.queryHierarchy.descendants(content);
   return [
-    { label: t("path"), value: services.queryHierarchy.path(content) },
-    { label: t("items"), value: descendants.length },
+    {
+      label: t("path"),
+      value: services.queryHierarchy.path(content)
+    },
+    {
+      label: t("items"),
+      value: descendants.length
+    },
   ];
 });
 

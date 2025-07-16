@@ -1,13 +1,10 @@
 <script lang="ts" setup>
-import type { Node } from "@/domain";
+import {
+  ToolbarBase,
+  ToolbarButton
+} from "@/utils";
 
-import { ToolbarButtonCreateArtifact, ToolbarButtonCreateDirectory, ToolbarButtonExportNode, ToolbarButtonOpenDirectory, ToolbarButtonRemoveNode, ToolbarButtonRenameNode, ToolbarButtonShareNode } from "@/display/views/toolbar-buttons";
-import { Directory } from "@/domain";
-import { ToolbarBase, ToolbarButton } from "@/utils";
-
-defineEmits<{
-  close: []
-}>();
+defineEmits<{ close: [] }>();
 
 </script>
 <template>
@@ -15,16 +12,6 @@ defineEmits<{
     <ToolbarBase>
       <template #start>
         <slot name="toolbar" />
-        <template v-if="node">
-          <ToolbarButtonOpenDirectory
-            v-if="(node instanceof Directory)"
-            :parent="node"
-          />
-          <ToolbarButtonCreateDirectory
-            v-if="(node instanceof Directory)"
-            :parent="node"
-          />
-        </template>
       </template>
       <template #end>
         <ToolbarButton
