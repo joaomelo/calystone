@@ -25,7 +25,7 @@ function handleKeyDown(event: KeyboardEvent) {
   if (props.saving) return;
   if (!["Enter", "Escape"].includes(event.key)) return;
 
-  const target = event.target;
+  const { target } = event;
   if (!(target instanceof HTMLElement)) return;
 
   if (target.tagName === "TEXTAREA") return;

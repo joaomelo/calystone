@@ -19,7 +19,7 @@ export abstract class Artifact extends Node {
   }
 
   basename(): string {
-    const name = this.name;
+    const { name } = this;
     if (!name) return "";
 
     const lastDotIndex = name.lastIndexOf(".");
@@ -34,7 +34,7 @@ export abstract class Artifact extends Node {
   }
 
   nameWithoutExtension(): string {
-    const name = this.name;
+    const { name } = this;
     if (!name) return "";
 
     const lastDotIndex = name.lastIndexOf(".");

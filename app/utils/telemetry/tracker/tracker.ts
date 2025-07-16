@@ -37,7 +37,7 @@ export class Tracker {
   }
 
   summary() {
-    const label = this.label;
+    const { label } = this;
     const avg = this.avg().toFixed(2);
     const time = this.time().toFixed(2);
     const amount = this.amount().toFixed(2);

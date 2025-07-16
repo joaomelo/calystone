@@ -180,7 +180,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
         continue;
       }
 
-      const size = childResult.size;
+      const { size } = childResult;
       const lastModified = childResult.server_modified
         ? new Date(childResult.server_modified).getTime()
         : Date.now();

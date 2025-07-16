@@ -21,7 +21,13 @@ export default tseslint.config(
 
   // javascript
   js.configs.recommended,
-  { rules: { "no-console": ["warn", { allow: ["warn", "error", "info"] }], } },
+  { rules: {
+    "no-console": ["warn", { allow: ["warn", "error", "info"] }],
+    "prefer-destructuring": ["error", {
+      "array": true,
+      "object": true
+    }],
+  } },
 
   // typescript
   ...tseslint.configs.strictTypeChecked,
@@ -104,7 +110,7 @@ export default tseslint.config(
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": ["error", "always"],
       "@stylistic/space-infix-ops": "error",
-      "@stylistic/type-generic-spacing": ["error"]
+      "@stylistic/type-generic-spacing": ["error"],
     }
   },
 

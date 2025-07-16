@@ -61,7 +61,7 @@ export class FileSystemAdaptersFactory {
         ) {
           throwCritical("MEMORY_ACCESS_DATA_NOT_FOUND");
         }
-        const delayInMilliseconds = this.configurations.memory.delayInMilliseconds;
+        const { delayInMilliseconds } = this.configurations.memory;
         return new MemoryFileSystemAdapter({
           delayInMilliseconds,
           nodes,
