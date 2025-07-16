@@ -8,7 +8,6 @@ import {
   ToolbarButtonCreateDirectory,
   ToolbarButtonOpenDirectory,
   ToolbarButtonRemoveNode,
-  ToolbarButtonRenameNode
 } from "@/display/views/toolbar-buttons";
 import {
   PropertySheet, TextMarkdown, TextMessage, useI18n
@@ -44,7 +43,10 @@ const descriptorMissing = computed(() => {
 });
 </script>
 <template>
-  <EditorWorkspace :node="content">
+  <EditorWorkspace
+    :node="content"
+    @close="$emit('close')"
+  >
     <template #toolbar>
       <ToolbarButtonOpenDirectory
         :parent="content"
@@ -53,9 +55,6 @@ const descriptorMissing = computed(() => {
         :parent="content"
       />
       <ToolbarButtonCreateArtifact
-        :node="content"
-      />
-      <ToolbarButtonRenameNode
         :node="content"
       />
       <ToolbarButtonRemoveNode

@@ -4,7 +4,11 @@ import type { Artifact } from "@/domain";
 import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editor-workspace";
 import {
-  ToolbarButtonCreateArtifact, ToolbarButtonExportNode, ToolbarButtonRemoveNode, ToolbarButtonRenameNode, ToolbarButtonShareNode
+  ToolbarButtonCreateArtifact,
+  ToolbarButtonExportNode,
+  ToolbarButtonRemoveNode,
+  ToolbarButtonRenameNode,
+  ToolbarButtonShareNode
 } from "@/display/views/toolbar-buttons";
 import {
   formatDateTime, PropertySheet, useI18n
@@ -39,7 +43,10 @@ const propertySheetRows = computed(() => {
 });
 </script>
 <template>
-  <EditorWorkspace :node="content">
+  <EditorWorkspace
+    :node="content"
+    @close="$emit('close')"
+  >
     <template #toolbar>
       <ToolbarButtonCreateArtifact
         :node="content"

@@ -6,10 +6,21 @@ import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editor-workspace";
 import { EditorNotLoaded } from "@/display/views/editors-message";
 import {
-  AccordionPanels, formatDateTime, useI18n
+  ToolbarButtonCreateArtifact,
+  ToolbarButtonExportNode,
+  ToolbarButtonRemoveNode,
+  ToolbarButtonRenameNode,
+  ToolbarButtonShareNode
+} from "@/display/views/toolbar-buttons";
+import {
+  AccordionPanels,
+  formatDateTime,
+  useI18n
 } from "@/utils";
 import {
-  computed, onMounted, ref
+  computed,
+  onMounted,
+  ref
 } from "vue";
 
 import ControlDatesClear from "./control-dates-clear.vue";
@@ -22,6 +33,7 @@ import ControlProgress from "./control-progress.vue";
 import ControlTags from "./control-tags.vue";
 
 const { content: artifact } = defineProps<{ content: TodoArtifact; }>();
+defineEmits<{ close: [] }>();
 
 const { services } = Store.use();
 const { t } = useI18n();
@@ -57,35 +69,56 @@ const panels = computed<PanelsList>(() => {
   <EditorWorkspace
     v-if="artifact.isLoaded()"
     :node="artifact"
+    @close="$emit('close')"
   >
-    <AccordionPanels
-      v-model="panelsState"
-      :panels="panels"
-      multiple
-    >
-      <template #main>
-        <div class="editor-artifact-todo__main">
-          <ControlInfo :artifact="artifact" />
-          <ControlProgress :artifact="artifact" />
-        </div>
-      </template>
-      <template #dates>
-        <div class="editor-artifact-todo__control-dates">
-          <ControlDatesStartDue :artifact="artifact" />
-          <ControlDatesRecurrence :artifact="artifact" />
-          <ControlDatesClear :artifact="artifact" />
-        </div>
-      </template>
-      <template #tags>
-        <ControlTags :artifact="artifact" />
-      </template>
-      <template #priority>
-        <ControlPriority :artifact="artifact" />
-      </template>
-      <template #details>
-        <ControlDetails :artifact="artifact" />
-      </template>
-    </AccordionPanels>
+    <template #toolbar>
+      <ToolbarButtonCreateArtifact
+        :node="content"
+      />
+      <ToolbarButtonRenameNode
+        :node="content"
+      />
+      <ToolbarButtonExportNode
+        :node="content"
+      />
+      <ToolbarButtonShareNode
+        :node="content"
+      />
+      <ToolbarButtonRemoveNode
+        :node="content"
+        @removed="$emit('close')"
+      />
+    </template>
+    <template #default>
+      <AccordionPanels
+        v-model="panelsState"
+        :panels="panels"
+        multiple
+      >
+        <template #main>
+          <div class="editor-artifact-todo__main">
+            <ControlInfo :artifact="artifact" />
+            <ControlProgress :artifact="artifact" />
+          </div>
+        </template>
+        <template #dates>
+          <div class="editor-artifact-todo__control-dates">
+            <ControlDatesStartDue :artifact="artifact" />
+            <ControlDatesRecurrence :artifact="artifact" />
+            <ControlDatesClear :artifact="artifact" />
+          </div>
+        </template>
+        <template #tags>
+          <ControlTags :artifact="artifact" />
+        </template>
+        <template #priority>
+          <ControlPriority :artifact="artifact" />
+        </template>
+        <template #details>
+          <ControlDetails :artifact="artifact" />
+        </template>
+      </AccordionPanels>
+    </template>
   </EditorWorkspace>
   <EditorNotLoaded v-else />
 </template>

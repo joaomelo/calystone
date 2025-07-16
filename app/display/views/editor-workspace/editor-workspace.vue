@@ -9,20 +9,22 @@ defineEmits<{ close: [] }>();
 </script>
 <template>
   <div class="editor-workspace">
-    <ToolbarBase>
-      <template #start>
-        <slot name="toolbar" />
-      </template>
-      <template #end>
-        <ToolbarButton
-          icon="bx-x"
-          @click="$emit('close')"
-        />
-      </template>
-    </ToolbarBase>
-  </div>
-  <div class="editor-workspace__content">
-    <slot />
+    <div class="editor-workspace__header">
+      <ToolbarBase>
+        <template #start>
+          <slot name="toolbar" />
+        </template>
+        <template #end>
+          <ToolbarButton
+            icon="bx-x"
+            @click="$emit('close')"
+          />
+        </template>
+      </ToolbarBase>
+    </div>
+    <div class="editor-workspace__content">
+      <slot />
+    </div>
   </div>
 </template>
 <style scoped>
