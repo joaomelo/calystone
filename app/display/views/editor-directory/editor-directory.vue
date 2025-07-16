@@ -11,7 +11,10 @@ import {
   ToolbarButtonRemoveNode
 } from "@/display/views/toolbar-buttons";
 import {
-  PropertySheet, TextMarkdown, TextMessage, useI18n
+  PropertySheet,
+  TextMarkdown,
+  TextMessage,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 
