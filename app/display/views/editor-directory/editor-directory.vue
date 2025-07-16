@@ -3,11 +3,15 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editor-workspace";
+import { ToolbarButtonCreateArtifact, ToolbarButtonCreateDirectory, ToolbarButtonExportNode, ToolbarButtonOpenDirectory, ToolbarButtonRemoveNode, ToolbarButtonRenameNode, ToolbarButtonShareNode } from "@/display/views/toolbar-buttons";
 import { PropertySheet, TextMarkdown, TextMessage, useI18n } from "@/utils";
 import { computed } from "vue";
 
 const { content } = defineProps<{
   content: Directory;
+}>();
+defineEmits<{
+  close: []
 }>();
 
 const { t } = useI18n();
@@ -31,6 +35,24 @@ const descriptorMissing = computed(() => {
 </script>
 <template>
   <EditorWorkspace :node="content">
+    <template #toolbar>
+      <ToolbarButtonOpenDirectory
+        :parent="content"
+      />
+      <ToolbarButtonCreateDirectory
+        :parent="content"
+      />
+      <ToolbarButtonCreateArtifact
+        :node="content"
+      />
+      <ToolbarButtonRenameNode
+        :node="content"
+      />
+      <ToolbarButtonRemoveNode
+        :node="content"
+        @removed="$emit('close')"
+      />
+    </template>
     <template #default>
       <div class="editor-directory">
         <PropertySheet

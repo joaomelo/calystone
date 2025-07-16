@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { EditorWorkspace } from "@/display/views/editor-workspace";
 import { useI18n } from "@/utils";
 
 defineProps<{
@@ -7,9 +8,11 @@ defineProps<{
 const { t } = useI18n();
 </script>
 <template>
-  <div class="editor-message">
-    {{ t(message) }}
-  </div>
+  <EditorWorkspace>
+    <div class="editor-message">
+      {{ t(message) }}
+    </div>
+  </EditorWorkspace>
 </template>
 <style scoped>
 .editor-message {

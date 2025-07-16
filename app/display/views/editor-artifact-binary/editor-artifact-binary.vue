@@ -3,12 +3,16 @@ import type { Artifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editor-workspace";
+import { ToolbarButtonCreateArtifact, ToolbarButtonExportNode, ToolbarButtonRemoveNode, ToolbarButtonRenameNode, ToolbarButtonShareNode } from "@/display/views/toolbar-buttons";
 import { formatDateTime, PropertySheet, useI18n } from "@/utils";
 import { filesize } from "filesize";
 import { computed } from "vue";
 
 const { content } = defineProps<{
   content: Artifact;
+}>();
+defineEmits<{
+  close: []
 }>();
 
 const { t } = useI18n();
@@ -24,6 +28,24 @@ const propertySheetRows = computed(() => {
 </script>
 <template>
   <EditorWorkspace :node="content">
+    <template #toolbar>
+      <ToolbarButtonCreateArtifact
+        :node="content"
+      />
+      <ToolbarButtonRenameNode
+        :node="content"
+      />
+      <ToolbarButtonExportNode
+        :node="content"
+      />
+      <ToolbarButtonShareNode
+        :node="content"
+      />
+      <ToolbarButtonRemoveNode
+        :node="content"
+        @removed="$emit('close')"
+      />
+    </template>
     <template #default>
       <div class="editor-artifact">
         <PropertySheet

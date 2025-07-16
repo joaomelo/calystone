@@ -4,11 +4,15 @@ import type { TextArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editor-workspace";
 import { EditorNotLoaded } from "@/display/views/editors-message";
+import { ToolbarButtonCreateArtifact, ToolbarButtonExportNode, ToolbarButtonRemoveNode, ToolbarButtonRenameNode, ToolbarButtonShareNode } from "@/display/views/toolbar-buttons";
 import { debounce, InputRichText } from "@/utils";
 import { onMounted, ref } from "vue";
 
 const { content: artifact } = defineProps<{
   content: TextArtifact;
+}>();
+defineEmits<{
+  close: []
 }>();
 
 const { services } = Store.use();
@@ -30,6 +34,24 @@ const handleUpdate = debounce(async (text: string) => {
     v-if="artifact.isLoaded()"
     :node="artifact"
   >
+    <template #toolbar>
+      <ToolbarButtonCreateArtifact
+        :node="content"
+      />
+      <ToolbarButtonRenameNode
+        :node="content"
+      />
+      <ToolbarButtonExportNode
+        :node="content"
+      />
+      <ToolbarButtonShareNode
+        :node="content"
+      />
+      <ToolbarButtonRemoveNode
+        :node="content"
+        @removed="$emit('close')"
+      />
+    </template>
     <InputRichText
       data-test="editor-text"
       :model-value="text"

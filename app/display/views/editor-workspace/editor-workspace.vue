@@ -5,9 +5,6 @@ import { ToolbarButtonCreateArtifact, ToolbarButtonCreateDirectory, ToolbarButto
 import { Directory } from "@/domain";
 import { ToolbarBase, ToolbarButton } from "@/utils";
 
-defineProps<{
-  node: Node;
-}>();
 defineEmits<{
   close: []
 }>();
@@ -15,11 +12,9 @@ defineEmits<{
 </script>
 <template>
   <div class="editor-workspace">
-    <ToolbarBase
-      :node="node"
-      @removed="$emit('close')"
-    >
+    <ToolbarBase>
       <template #start>
+        <slot name="toolbar" />
         <template v-if="node">
           <ToolbarButtonOpenDirectory
             v-if="(node instanceof Directory)"
@@ -28,22 +23,6 @@ defineEmits<{
           <ToolbarButtonCreateDirectory
             v-if="(node instanceof Directory)"
             :parent="node"
-          />
-          <ToolbarButtonCreateArtifact
-            :node="node"
-          />
-          <ToolbarButtonRenameNode
-            :node="node"
-          />
-          <ToolbarButtonExportNode
-            :node="node"
-          />
-          <ToolbarButtonShareNode
-            :node="node"
-          />
-          <ToolbarButtonRemoveNode
-            :node="node"
-            @removed="$emit('close')"
           />
         </template>
       </template>
