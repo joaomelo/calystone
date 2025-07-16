@@ -16,12 +16,12 @@ export class Mime {
   }
 
   subtype() {
-    const subtype = this.mimeMedia.split("/")[1];
+    const [, subtype] = this.mimeMedia.split("/");
     return subtype;
   };
 
   type() {
-    const type = this.mimeMedia.split("/")[0];
+    const [type] = this.mimeMedia.split("/");
     return type;
   }
 }

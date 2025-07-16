@@ -16,7 +16,7 @@ export function createI18n<MessageSchema>({
   messages, storageKey
 }: Options<MessageSchema>) {
   const supported = Object.keys(messages);
-  const fallbackLocale = supported[0];
+  const [fallbackLocale] = supported;
 
   const localeStorage = new LocaleStorage({
     storageKey,
