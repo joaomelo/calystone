@@ -65,18 +65,6 @@ export class ConnectSourceService {
     });
   }
 
-  reconnect() {
-    const {
-      fileSystemAdapter, nodes
-    } = this.stateConnectedOrThrow();
-
-    const rootOptions = fileSystemAdapter.resetToRootOnly();
-    const rootDirectory = createNode(rootOptions);
-
-    nodes.clear();
-    nodes.set(rootDirectory);
-  }
-
   state() {
     return this.observable.value;
   }

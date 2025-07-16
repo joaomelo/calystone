@@ -1,13 +1,15 @@
 import type { Id } from "@/domain/id";
 import type {
-  Node, NodeOrId
+  Node,
+  NodeOrId
 } from "@/domain/node";
 
 import { Directory } from "@/domain/directory/directory";
 import { Descendancy } from "@/domain/hierarchy";
 import { isId } from "@/domain/id";
 import {
-  Status, throwCritical
+  Status,
+  throwCritical
 } from "@/utils";
 import { reactive } from "vue";
 
@@ -22,8 +24,8 @@ export class Nodes {
     this.map = reactive(new Map());
   }
 
-  clear(): void {
-    this.map.clear();
+  clear(directory: Directory): void {
+    this.removeDescendants(directory);
   }
 
   get(nodeOrId: NodeOrId): Node | undefined {
@@ -82,12 +84,8 @@ export class Nodes {
   }
 
   remove(node: Node) {
-    const descendants = this.descendancy.descendants(node);
-
+    this.removeDescendants(node);
     this.map.delete(node.id);
-    for (const child of descendants) {
-      this.map.delete(child.id);
-    }
   }
 
   set(node: Node): void {
@@ -96,5 +94,12 @@ export class Nodes {
 
   size() {
     return this.map.size;
+  }
+
+  private removeDescendants(directory: Directory) {
+    const descendants = this.descendancy.descendants(directory);
+    for (const descendant of descendants) {
+      this.map.delete(descendant.id);
+    }
   }
 }

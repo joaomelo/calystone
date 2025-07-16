@@ -103,7 +103,7 @@ export class ServicesPortfolio {
     this.queryHierarchy = new QueryHierarchyService(this.connectSource);
     this.reloadDirectory = new ReloadDirectoryService({
       connectSourceService: this.connectSource,
-      ensureDescriptor: this.ensureDescriptor
+      openDirectory: this.openDirectory
     });
     this.removeNode = new RemoveNodeService(this.connectSource);
     this.renameNode = new RenameNodeService(this.connectSource);
