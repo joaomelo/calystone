@@ -1,6 +1,6 @@
 import {
   openMacros,
-  pageNodes
+  pageNodes,
 } from "../helpers";
 
 describe("connects", () => {
@@ -10,16 +10,23 @@ describe("connects", () => {
   });
 
   it("redirects to one drive oauth", () => {
+    cy.intercept("GET", "https://login.microsoftonline.com/**").as("oneDriveAuth");
+
     openMacros.openOneDrive();
-    cy.origin("https://login.live.com", () => {
-      cy.url().should("include", "login.live.com");
+
+    cy.wait("@oneDriveAuth").then((interception) => {
+      expect(interception.request.url).to.include("login.microsoftonline.com");
     });
   });
 
   it("redirects to dropbox oauth", () => {
+    cy.intercept("GET", "https://*.dropbox.com/**").as("dropboxAuth");
+
     openMacros.openDropbox();
-    cy.origin("https://www.dropbox.com", () => {
-      cy.url().should("include", "www.dropbox.com");
+
+    cy.wait("@dropboxAuth").then((interception) => {
+      expect(interception.request.url).to.include("dropbox.com");
     });
   });
+
 });
