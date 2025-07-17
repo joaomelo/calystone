@@ -11,8 +11,9 @@ export default defineConfig({
   fixturesFolder: "e2e/fixtures",
   retries: {
     openMode: 0,
-    runMode: 2,
+    runMode: 3,
   },
   screenshotsFolder: "e2e/screenshots",
+  video: true,
   videosFolder: "e2e/videos",
 });
