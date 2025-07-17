@@ -39,4 +39,30 @@ describe("editor-directory", () => {
     cy.get("@directory").click();
     editorDirectory.descriptorTip().should("not.be.empty");
   });
+
+  it("does not show reload button if directory is not loaded", () => {
+    outlineNodes.rootNode().click();
+    editorDirectory.buttonReload().should("not.exist");
+  });
+
+  it("reloads directory", () => {
+    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+
+    outlineNodes.directoryOf(outlineNodes.rootNode()).eq(0).as("directory");
+    outlineNodes.toogleOf(cy.get("@directory")).click();
+    cy.get("@directory").click();
+
+    outlineNodes.childrenOf(cy.get("@directory")).then(children => {
+      const initialTexts = children.map((i, el) => Cypress.$(el).text()).get();
+
+      editorDirectory.buttonReload().click();
+
+      outlineNodes.childrenOf(cy.get("@directory")).then(newChildren => {
+        const newTexts = newChildren.map((i, el) => Cypress.$(el).text()).get();
+
+        expect(newTexts).not.to.deep.equal(initialTexts);
+      });
+
+    });
+  });
 });

@@ -1,6 +1,7 @@
 import { dataTest } from "./data-test";
 
 export const editorDirectory = {
+  buttonReload: () => cy.get(dataTest("button-reload-directory")),
   descriptorContent: () => cy.get(dataTest("descriptor-content")),
   descriptorTip: () => cy.get(dataTest("descriptor-tip")),
   itemsLabel: () => cy.get(dataTest("property-sheet-1-label")),
