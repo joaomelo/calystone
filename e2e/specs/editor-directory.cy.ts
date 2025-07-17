@@ -48,9 +48,10 @@ describe("editor-directory", () => {
   it("reloads directory", () => {
     outlineNodes.toogleOf(outlineNodes.rootNode()).click();
 
-    outlineNodes.directoryOf(outlineNodes.rootNode()).eq(0).as("directory");
+    outlineNodes.directoryOf(outlineNodes.rootNode()).first().as("directory");
+
     outlineNodes.toogleOf(cy.get("@directory")).click();
-    cy.get("@directory").click();
+    outlineNodes.inlineNodeOf(cy.get("@directory")).click();
 
     outlineNodes.childrenOf(cy.get("@directory")).then(children => {
       const initialTexts = children.map((i, el) => Cypress.$(el).text()).get();
