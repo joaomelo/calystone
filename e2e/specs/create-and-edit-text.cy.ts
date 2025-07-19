@@ -1,5 +1,5 @@
 import {
-  dialogCreateArtifact, editorText, openMacros, outlineNodes, toolbarNode
+  dialogCreateArtifact, editorText, openMacros, outlineNodesLegacy, toolbarNode
 } from "../helpers";
 
 describe("editor-binary", () => {
@@ -10,15 +10,15 @@ describe("editor-binary", () => {
   it("creates text file and edits it", () => {
     const textArtifactName = "sibling.txt";
 
-    outlineNodes.rootNode().click();
+    outlineNodesLegacy.rootNode().click();
     toolbarNode.buttonCreateArtifact().click();
     dialogCreateArtifact.inputName().clear().type(textArtifactName);
     dialogCreateArtifact.buttonSave().click();
 
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.artifactTextOf(outlineNodes.rootNode()).should("contain.text", textArtifactName);
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+    outlineNodesLegacy.artifactTextOf(outlineNodesLegacy.rootNode()).should("contain.text", textArtifactName);
 
-    outlineNodes.nodeLabeledAs(textArtifactName).first().click();
+    outlineNodesLegacy.nodeLabeledAs(textArtifactName).first().click();
     editorText.input().should("exist");
   });
 });

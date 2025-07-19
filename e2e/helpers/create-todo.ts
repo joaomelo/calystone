@@ -1,6 +1,6 @@
 import { dialogCreateArtifact } from "./dialog-create-artifact";
 import { editorTodo } from "./editor-todo";
-import { outlineNodes } from "./outline-nodes";
+import { outlineNodesLegacy } from "./outline-nodes";
 import { toolbarNode } from "./toolbar-node";
 
 interface Criterion {
@@ -21,7 +21,7 @@ export function createTodo(options: {
   dialogCreateArtifact.inputName().clear().type(name);
   dialogCreateArtifact.buttonSave().click();
 
-  outlineNodes.nodeLabeledAs(name).click();
+  outlineNodesLegacy.nodeLabeledAs(name).click();
 
   if (tags.length > 0) {
     editorTodo.tags.tab().click();

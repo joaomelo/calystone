@@ -1,5 +1,5 @@
 import {
-  createTodo, dialogCreateArtifact, editorTodo, openMacros, outlineNodes, toolbarNode, typeableDate, typicalDates
+  createTodo, dialogCreateArtifact, editorTodo, openMacros, outlineNodesLegacy, toolbarNode, typeableDate, typicalDates
 } from "../helpers";
 
 describe("create-and-edit-todo", () => {
@@ -10,14 +10,14 @@ describe("create-and-edit-todo", () => {
   it("creates todo inside a directory and edits it", () => {
     const todoName = "new-todo-name.todo";
 
-    outlineNodes.rootNode().click();
+    outlineNodesLegacy.rootNode().click();
     toolbarNode.buttonCreateArtifact().click();
     dialogCreateArtifact.inputName().clear().type(todoName);
     dialogCreateArtifact.buttonSave().click();
 
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.artifactTodoOf(outlineNodes.rootNode())
-      .filter((_, el) => outlineNodes.labelOfElement(el) === todoName)
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+    outlineNodesLegacy.artifactTodoOf(outlineNodesLegacy.rootNode())
+      .filter((_, el) => outlineNodesLegacy.labelOfElement(el) === todoName)
       .click();
 
     editorTodo.dates.tab().click();
@@ -27,8 +27,8 @@ describe("create-and-edit-todo", () => {
   });
 
   it("adds and removes tags", () => {
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.artifactTodoOf(outlineNodes.rootNode()).eq(0).click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+    outlineNodesLegacy.artifactTodoOf(outlineNodesLegacy.rootNode()).eq(0).click();
 
     editorTodo.tags.tab().click();
 
@@ -45,8 +45,8 @@ describe("create-and-edit-todo", () => {
   });
 
   it("set recurrence that cycle dates when todo is completed", () => {
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.artifactTodoOf(outlineNodes.rootNode()).eq(0).click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+    outlineNodesLegacy.artifactTodoOf(outlineNodesLegacy.rootNode()).eq(0).click();
 
     editorTodo.dates.tab().click();
     editorTodo.dates.inputAllDay().click();
@@ -58,8 +58,8 @@ describe("create-and-edit-todo", () => {
   });
 
   it("adds, set and remove prioriti criteria", () => {
-    outlineNodes.rootNode().click();
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodesLegacy.rootNode().click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
 
     const todoBaseName = "low-priority-todo";
     const todoName = `${todoBaseName}.todo`;

@@ -1,5 +1,5 @@
 import {
-  createArtifact, editorTodo, openMacros, outlineNodes, pageCalendar, typicalDates
+  createArtifact, editorTodo, openMacros, outlineNodesLegacy, pageCalendar, typicalDates
 } from "../helpers";
 
 describe("calendar", () => {
@@ -10,21 +10,21 @@ describe("calendar", () => {
   beforeEach(() => {
     openMacros.openMemory();
 
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
 
-    outlineNodes.rootNodeContent().click();
+    outlineNodesLegacy.rootNodeContent().click();
     const openTodoName = "open-todo.todo";
     createArtifact(openTodoName);
-    outlineNodes.nodeLabeledAs(openTodoName).click();
+    outlineNodesLegacy.nodeLabeledAs(openTodoName).click();
     editorTodo.dates.tab().click();
 
     editorTodo.dates.inputStart.typeDateTime(dayOne.start);
     editorTodo.dates.inputDue.typeDateTime(dayTwo.end);
 
-    outlineNodes.rootNodeContent().click();
+    outlineNodesLegacy.rootNodeContent().click();
     const doneTodoName = "done-todo.todo";
     createArtifact(doneTodoName);
-    outlineNodes.nodeLabeledAs(doneTodoName).click();
+    outlineNodesLegacy.nodeLabeledAs(doneTodoName).click();
     editorTodo.dates.tab().click();
     editorTodo.dates.inputStart.typeDateTime(dayOne.start);
     editorTodo.dates.inputDue.typeDateTime(dayThree.end);

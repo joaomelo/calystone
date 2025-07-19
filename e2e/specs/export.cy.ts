@@ -1,5 +1,5 @@
 import {
-  openMacros, outlineNodes, toolbarNode
+  openMacros, outlineNodesLegacy, toolbarNode
 } from "../helpers";
 
 declare global {
@@ -9,7 +9,7 @@ declare global {
 describe("export", () => {
   beforeEach(() => {
     openMacros.openMemory();
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
   });
 
   it("allows text artifact export", () => {
@@ -22,7 +22,7 @@ describe("export", () => {
       cy.stub(win, "showSaveFilePicker").resolves({ createWritable: () => Promise.resolve(createWritableStub) });
     });
 
-    outlineNodes.artifactTextOf(outlineNodes.rootNode()).first().as("artifact");
+    outlineNodesLegacy.artifactTextOf(outlineNodesLegacy.rootNode()).first().as("artifact");
     cy.get("@artifact").click();
     toolbarNode.buttonExport().click();
 
@@ -32,7 +32,7 @@ describe("export", () => {
   });
 
   it("does not allow directory export", () => {
-    outlineNodes.directoryOf(outlineNodes.rootNode()).first().as("directory");
+    outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).first().as("directory");
     cy.get("@directory").click();
     toolbarNode.buttonExport().should("not.exist");
   });

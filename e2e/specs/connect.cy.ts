@@ -4,7 +4,7 @@ import {
 } from "../helpers";
 
 describe("connects", () => {
-  it("opens memory outlineNodes", () => {
+  it("opens memory outlineNodesLegacy", () => {
     openMacros.openMemory();
     cy.url().should("include", pageNodes.url());
   });

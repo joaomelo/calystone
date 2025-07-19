@@ -1,5 +1,5 @@
 import {
-  dialogCreateArtifact, dialogCreateDirectory, editorText, editorTodo, openMacros, outlineNodes, pageSearch, toolbarNode
+  dialogCreateArtifact, dialogCreateDirectory, editorText, editorTodo, openMacros, outlineNodesLegacy, pageSearch, toolbarNode
 } from "../helpers";
 
 describe("editor-directory", () => {
@@ -8,8 +8,8 @@ describe("editor-directory", () => {
   });
 
   it("fuzzy searches considering name and inner data of nodes", () => {
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.rootNodeContent().click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+    outlineNodesLegacy.rootNodeContent().click();
 
     const directoryName = "téste";
     toolbarNode.buttonCreateDirectory().click();
@@ -28,17 +28,17 @@ describe("editor-directory", () => {
     dialogCreateArtifact.inputName().clear().type(textName);
     dialogCreateArtifact.buttonSave().click();
     dialogCreateArtifact.buttonSave().should("not.exist");
-    outlineNodes.nodeLabeledAs(textName).click();
+    outlineNodesLegacy.nodeLabeledAs(textName).click();
     editorText.type("meu teste de texto");
 
-    outlineNodes.rootNodeContent().click();
+    outlineNodesLegacy.rootNodeContent().click();
 
     const todoName = "file.todo";
     toolbarNode.buttonCreateArtifact().click();
     dialogCreateArtifact.inputName().clear().type(todoName);
     dialogCreateArtifact.buttonSave().click();
     dialogCreateArtifact.buttonSave().should("not.exist");
-    outlineNodes.nodeLabeledAs(todoName).click();
+    outlineNodesLegacy.nodeLabeledAs(todoName).click();
     editorTodo.tags.tab().click();
     editorTodo.tags.input().type("TESTE");
     editorTodo.tags.buttonAdd().click();

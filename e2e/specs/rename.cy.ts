@@ -1,5 +1,5 @@
 import {
-  dataTest, openMacros, outlineNodes, toolbarNode
+  dataTest, openMacros, outlineNodesLegacy, toolbarNode
 } from "../helpers";
 
 describe("rename", () => {
@@ -9,7 +9,7 @@ describe("rename", () => {
 
   const selectors = {
     buttonSave: () => cy.get(dataTest("button-save")),
-    firstArtifact: () => outlineNodes.artifactOf(outlineNodes.rootNode()).first(),
+    firstArtifact: () => outlineNodesLegacy.artifactOf(outlineNodesLegacy.rootNode()).first(),
     inputError: () => cy.get(dataTest("input-name-error")),
     inputName: () => cy.get(dataTest("input-name-input")),
     modalError: () => cy.get(dataTest("modal-rename-error"))
@@ -17,7 +17,7 @@ describe("rename", () => {
 
   it("allows new name for artifacts", () => {
     const newName = "_new-artifact-name";
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     selectors.firstArtifact().click();
     toolbarNode.buttonRename().click();
     selectors.inputName().clear().type(newName);
@@ -26,7 +26,7 @@ describe("rename", () => {
   });
 
   it("fails if name is empty", () => {
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     selectors.firstArtifact().click();
 
     toolbarNode.buttonRename().click();
@@ -36,7 +36,7 @@ describe("rename", () => {
   });
 
   it("show backend errors", () => {
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     selectors.firstArtifact().click();
     toolbarNode.buttonRename().click();
     selectors.inputName().clear().type("/\\|");

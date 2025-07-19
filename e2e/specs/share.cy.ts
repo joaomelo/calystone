@@ -1,11 +1,11 @@
 import {
-  openMacros, outlineNodes, toolbarNode
+  openMacros, outlineNodesLegacy, toolbarNode
 } from "../helpers";
 
 describe("share", () => {
   beforeEach(() => {
     openMacros.openMemory();
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
   });
 
   it("allows text artifact share", () => {
@@ -21,7 +21,7 @@ describe("share", () => {
 
       const stub = cy.stub(win.navigator, "share").resolves();
 
-      outlineNodes.artifactTextOf(outlineNodes.rootNode()).first().as("artifact");
+      outlineNodesLegacy.artifactTextOf(outlineNodesLegacy.rootNode()).first().as("artifact");
       cy.get("@artifact").click();
       toolbarNode.buttonShare().click();
       cy.wrap(stub).should("have.been.calledOnce");
@@ -29,7 +29,7 @@ describe("share", () => {
   });
 
   it("does not allow directory share", () => {
-    outlineNodes.directoryOf(outlineNodes.rootNode()).first().as("directory");
+    outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).first().as("directory");
     cy.get("@directory").click();
     toolbarNode.buttonShare().should("not.exist");
   });

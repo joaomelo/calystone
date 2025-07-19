@@ -1,5 +1,5 @@
 import {
-  editorDirectory, openMacros, outlineNodes, toolbarNode
+  editorDirectory, openMacros, outlineNodesLegacy, toolbarNode
 } from "../helpers";
 
 describe("open-directory", () => {
@@ -8,12 +8,12 @@ describe("open-directory", () => {
   });
 
   it("can open directory via expand", () => {
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.childrenOf(outlineNodes.rootNode()).should("have.length.greaterThan", 0);
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+    outlineNodesLegacy.childrenOf(outlineNodesLegacy.rootNode()).should("have.length.greaterThan", 0);
   });
 
   it("can open directory via toolbar button", () => {
-    outlineNodes.rootNode().click();
+    outlineNodesLegacy.rootNode().click();
     toolbarNode.buttonOpenDirectory().click();
     editorDirectory.tipUnloaded().should("not.exist");
   });

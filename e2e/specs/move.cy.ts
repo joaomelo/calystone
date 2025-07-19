@@ -1,22 +1,22 @@
 import {
-  dataTest, openMacros, outlineNodes
+  dataTest, openMacros, outlineNodesLegacy
 } from "../helpers";
 
 describe("move", () => {
   beforeEach(() => {
     openMacros.openMemory();
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
   });
 
   const dragFormat = "application/outline-item";
 
   it("allows directory move", () => {
-    outlineNodes
-      .inlineNodeOf(outlineNodes.directoryOf(outlineNodes.rootNode()).eq(0))
+    outlineNodesLegacy
+      .inlineNodeOf(outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).eq(0))
       .as("sourceNode");
 
-    outlineNodes
-      .inlineNodeOf(outlineNodes.directoryOf(outlineNodes.rootNode()).eq(1))
+    outlineNodesLegacy
+      .inlineNodeOf(outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).eq(1))
       .as("targetNode");
 
     cy.get("@sourceNode")
@@ -35,16 +35,16 @@ describe("move", () => {
           .trigger("dragover", { dataTransfer })
           .trigger("drop", { dataTransfer });
 
-        outlineNodes
-          .directoryOf(outlineNodes.rootNode()).eq(0)
+        outlineNodesLegacy
+          .directoryOf(outlineNodesLegacy.rootNode()).eq(0)
           .find(dataTest(dataTestString))
           .should("not.exist");
 
-        outlineNodes
-          .directoryOf(outlineNodes.rootNode()).eq(0)
+        outlineNodesLegacy
+          .directoryOf(outlineNodesLegacy.rootNode()).eq(0)
           .as("targetNodeRecatch");
 
-        outlineNodes
+        outlineNodesLegacy
           .toogleOf(cy.get("@targetNodeRecatch"))
           .click();
 
@@ -55,23 +55,23 @@ describe("move", () => {
   });
 
   it("cant move to descendant", () => {
-    outlineNodes
-      .directoryOf(outlineNodes.rootNode()).eq(0)
+    outlineNodesLegacy
+      .directoryOf(outlineNodesLegacy.rootNode()).eq(0)
       .as("sourceNodeWrapper");
 
-    outlineNodes
+    outlineNodesLegacy
       .inlineNodeOf(cy.get("@sourceNodeWrapper")).eq(0)
       .as("sourceNode");
 
-    outlineNodes
+    outlineNodesLegacy
       .toogleOf(cy.get("@sourceNodeWrapper"))
       .click();
 
-    outlineNodes
+    outlineNodesLegacy
       .childrenOf(cy.get("@sourceNodeWrapper")).eq(0)
       .as("targetNodeWrapper");
 
-    outlineNodes
+    outlineNodesLegacy
       .inlineNodeOf(cy.get("@targetNodeWrapper"))
       .as("targetNode");
 

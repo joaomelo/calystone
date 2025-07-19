@@ -1,5 +1,5 @@
 import {
-  dialogCreateArtifact, editorBinary, openMacros, outlineNodes, toolbarNode
+  dialogCreateArtifact, editorBinary, openMacros, outlineNodesLegacy, toolbarNode
 } from "../helpers";
 
 describe("editor-binary", () => {
@@ -10,16 +10,16 @@ describe("editor-binary", () => {
   it("shows artifact binary data according to directory status", () => {
     const artifactName = "new-artifact-name.exe";
 
-    outlineNodes.rootNode().click();
+    outlineNodesLegacy.rootNode().click();
     toolbarNode.buttonCreateArtifact().click();
     dialogCreateArtifact.inputName().clear().type(artifactName);
     dialogCreateArtifact.buttonSave().click();
 
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.artifactBinaryOf(outlineNodes.rootNode()).should("contain.text", artifactName);
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+    outlineNodesLegacy.artifactBinaryOf(outlineNodesLegacy.rootNode()).should("contain.text", artifactName);
 
-    outlineNodes.labelOf(outlineNodes.rootNode()).then(label => {
-      outlineNodes.nodeLabeledAs(artifactName).first().click();
+    outlineNodesLegacy.labelOf(outlineNodesLegacy.rootNode()).then(label => {
+      outlineNodesLegacy.nodeLabeledAs(artifactName).first().click();
       editorBinary.typeLabel().should("exist");
       editorBinary.sizeLabel().should("exist");
       editorBinary.pathLabel().should("exist");

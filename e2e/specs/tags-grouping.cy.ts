@@ -1,5 +1,5 @@
 import {
-  createTodo, openMacros, outlineNodes, outlineTags
+  createTodo, openMacros, outlineNodesLegacy, outlineTags
 } from "../helpers";
 import { pageTags } from "../helpers/page-tags";
 
@@ -9,9 +9,9 @@ describe("show tags", () => {
   });
 
   it("show tags based on todos", () => {
-    outlineNodes.rootNode().click();
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.childrenOf(outlineNodes.rootNode()).should("have.length.greaterThan", 0);
+    outlineNodesLegacy.rootNode().click();
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+    outlineNodesLegacy.childrenOf(outlineNodesLegacy.rootNode()).should("have.length.greaterThan", 0);
 
     const highPriorityBaseName = "high-priority-todo";
     const highPriorityTodoName = `${highPriorityBaseName}.todo`;

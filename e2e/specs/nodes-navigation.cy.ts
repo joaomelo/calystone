@@ -1,5 +1,5 @@
 import {
-  openMacros, outlineNodes
+  openMacros, outlineNodesLegacy
 } from "../helpers";
 
 describe("nodes-navigation", () => {
@@ -7,12 +7,12 @@ describe("nodes-navigation", () => {
     openMacros.openMemory();
   });
 
-  it("enables outlineNodes navigation", () => {
-    outlineNodes.toogleOf(outlineNodes.rootNode()).click();
-    outlineNodes.rootNode().should("have.attr", "aria-expanded", "true");
+  it("enables outlineNodesLegacy navigation", () => {
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+    outlineNodesLegacy.rootNode().should("have.attr", "aria-expanded", "true");
 
-    outlineNodes.directoryOf(outlineNodes.rootNode()).first().as("subdirectory");
-    outlineNodes.toogleOf(cy.get("@subdirectory")).click();
+    outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).first().as("subdirectory");
+    outlineNodesLegacy.toogleOf(cy.get("@subdirectory")).click();
     cy.get("@subdirectory").should("have.attr", "aria-expanded", "true");
   });
 
