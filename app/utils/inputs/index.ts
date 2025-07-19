@@ -4,5 +4,3 @@ export * from "./input-number";
 export * from "./input-radio";
 export * from "./input-rich-text";
 export * from "./input-text";
-export * from "./input-textarea";
-export * from "./input-wrapper";
