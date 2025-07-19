@@ -49,7 +49,3 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CALYSTONE_A5BDF }}"
           projectId: calystone-a5bdf
           channelId: live
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-      - uses: actions/deploy-pages@v4
