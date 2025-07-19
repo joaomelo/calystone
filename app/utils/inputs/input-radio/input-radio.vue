@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { kebabCase } from "@/utils/text";
 import SelectButton from "primevue/selectbutton";
-import { useId, } from "vue";
+import { useId } from "vue";
 
 import { InputLabel } from "../input-label";
 
@@ -27,10 +27,9 @@ const id = useId();
 </script>
 <template>
   <div
-    :label
     :data-test="dataTest"
     class="input-radio"
-    :class="{ centered}"
+    :class="{ centered }"
   >
     <InputLabel
       :label="label"

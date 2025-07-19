@@ -3,7 +3,8 @@ import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  debounce, InputRichText
+  debounce,
+  InputRichText
 } from "@/utils";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();

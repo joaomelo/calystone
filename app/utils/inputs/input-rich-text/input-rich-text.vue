@@ -1,28 +1,44 @@
 <script setup lang="ts">
+import { kebabCase } from "@/utils/text";
 import {
-  autocompletion, closeBrackets
+  autocompletion,
+  closeBrackets
 } from "@codemirror/autocomplete";
 import {
-  defaultKeymap, history, historyKeymap
+  defaultKeymap,
+  history,
+  historyKeymap
 } from "@codemirror/commands";
 import { markdown } from "@codemirror/lang-markdown";
 import {
-  bracketMatching, defaultHighlightStyle, indentOnInput, syntaxHighlighting
+  bracketMatching,
+  defaultHighlightStyle,
+  indentOnInput,
+  syntaxHighlighting
 } from "@codemirror/language";
 import { highlightSelectionMatches, } from "@codemirror/search";
 import { EditorState } from "@codemirror/state";
 import {
-  drawSelection, EditorView, highlightActiveLine, highlightActiveLineGutter, keymap, lineNumbers,
+  drawSelection,
+  EditorView,
+  highlightActiveLine,
+  highlightActiveLineGutter,
+  keymap,
+  lineNumbers,
 } from "@codemirror/view";
 import {
-  onMounted, onUnmounted, useTemplateRef, watch
+  onMounted,
+  onUnmounted,
+  useId,
+  useTemplateRef,
+  watch
 } from "vue";
 
-import { InputWrapper } from "../input-wrapper";
 import { areTextEqual } from "./text-equality";
 
 const {
-  borderless = false, lineless = false
+  borderless = false,
+  lineless = false
 } = defineProps<{
   borderless?: boolean
   dataTest: string
@@ -30,6 +46,8 @@ const {
 }>();
 
 const model = defineModel<string>({ required: true });
+
+const id = useId();
 
 const codeMirrorElement = useTemplateRef("codeMirror");
 let editorView: EditorView;
@@ -93,20 +111,18 @@ watch(
 );
 </script>
 <template>
-  <InputWrapper :data-test="dataTest">
-    <template #default="{ id, inputDataTest }">
-      <div
-        :id="id"
-        ref="codeMirror"
-        class="input-rich-text"
-        :class="{ borderless, lineless }"
-        :data-test="inputDataTest"
-      />
-    </template>
-  </InputWrapper>
+  <div :data-test="dataTest">
+    <div
+      :id="id"
+      ref="codeMirror"
+      class="input-rich-text__input"
+      :class="{ borderless, lineless }"
+      :data-test="kebabCase(dataTest, 'input')"
+    />
+  </div>
 </template>
 <style scoped>
-.input-rich-text {
+.input-rich-text__input {
   height: 100%;
   display: flex;
   justify-content: center;
@@ -118,7 +134,7 @@ watch(
   }
 }
 
-.input-rich-text:not(.borderless) {
+.input-rich-text__input:not(.borderless) {
   border: 1px solid var(--p-form-field-border-color);
   border-radius: var(--p-form-field-border-radius);
   padding-block: var(--p-form-field-padding-y);
@@ -135,22 +151,22 @@ watch(
   }
 }
 
-.input-rich-text :deep(.cm-editor) {
+.input-rich-text__input :deep(.cm-editor) {
   flex-grow: 1;
 }
 
-.input-rich-text :deep(.cm-focused) {
+.input-rich-text__input :deep(.cm-focused) {
   outline: none;
 }
 
-.input-rich-text :deep(.cm-gutters) {
+.input-rich-text__input :deep(.cm-gutters) {
   background-color: revert;
   border-inline-end-color: var(--p-content-border-color);
   border-inline-end-style: dashed;
   color: var(--p-text-muted-color);
 }
 
-.input-rich-text :deep(.cm-content) {
+.input-rich-text__input :deep(.cm-content) {
   padding-block-start: 0;
 }
 </style>
