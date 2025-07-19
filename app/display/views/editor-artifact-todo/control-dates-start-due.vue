@@ -67,5 +67,9 @@ async function handleUpdateStartDate(date: Date | null | undefined) {
 .control-dates-start-due {
   display: flex;
   gap: var(--size-3);
+
+  & > * {
+    flex: 1;
+  }
 }
 </style>
