@@ -15,10 +15,12 @@ const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 const { services } = Store.use();
 const { t } = useI18n();
 
-const options: {
+interface Option {
   label: string;
-  value: Progress
-}[] = [
+  value: Progress;
+}
+
+const options: Option[] = [
   {
     label: t("editor-todo.progress.open"),
     value: "open"

@@ -16,7 +16,7 @@ import { CardPanel } from "@/utils";
   background-color: var(--p-surface-100);
   display: grid;
   place-items: center;
-  padding: var(--size-fluid-2);
+  padding: var(--size-fluid-1);
 }
 
 .frame-plain__card :deep(.p-card-body) {

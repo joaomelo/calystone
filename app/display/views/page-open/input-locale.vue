@@ -17,7 +17,7 @@ const options = availableLocales.map((locale) => ({
     v-model="locale"
     :options="options"
     :label="t('page-open.language')"
-    justify="center"
+    centered
     data-test="input-locale"
   />
 </template>
