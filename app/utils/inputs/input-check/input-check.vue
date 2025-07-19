@@ -1,35 +1,41 @@
 <script setup lang="ts">
+import { kebabCase } from "@/utils/text";
 import InputCheckboxPrimeVue from "primevue/checkbox";
+import { useId } from "vue";
 
-import { InputWrapper } from "../input-wrapper";
+import { InputLabel } from "../input-label";
 
 defineProps<{
   dataTest: string
-  disabled?: boolean
+  label: string;
 }>();
 const model = defineModel<boolean>({ required: true });
+const id = useId();
 </script>
 <template>
-  <InputWrapper
+  <div
     :data-test="dataTest"
     direction="row-reverse"
+    class="input-check"
   >
-    <template #default="{ id, invalid, inputDataTest }">
-      <InputCheckboxPrimeVue
-        v-model="model"
-        :input-id="id"
-        binary
-        variant="filled"
-        class="input-check"
-        :disabled="disabled"
-        :invalid="invalid"
-        :data-test="inputDataTest"
-      />
-    </template>
-  </InputWrapper>
+    <InputCheckboxPrimeVue
+      v-model="model"
+      :input-id="id"
+      binary
+      variant="filled"
+      :data-test="kebabCase(dataTest, 'input')"
+    />
+    <InputLabel
+      :label="label"
+      :data-test="kebabCase(dataTest, 'label')"
+      :for-id="id"
+    />
+  </div>
 </template>
 <style scoped>
 .input-check {
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: var(--size-2);
 }
 </style>

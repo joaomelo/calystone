@@ -23,9 +23,7 @@ import {
   ref
 } from "vue";
 
-import ControlDatesClear from "./control-dates-clear.vue";
-import ControlDatesRecurrence from "./control-dates-recurrence.vue";
-import ControlDatesStartDue from "./control-dates-start-due.vue";
+import ControlDates from "./control-dates.vue";
 import ControlDetails from "./control-details.vue";
 import ControlInfo from "./control-info.vue";
 import ControlPriority from "./control-priority.vue";
@@ -102,11 +100,7 @@ const panels = computed<PanelsList>(() => {
           </div>
         </template>
         <template #dates>
-          <div class="editor-artifact-todo__control-dates">
-            <ControlDatesStartDue :artifact="artifact" />
-            <ControlDatesRecurrence :artifact="artifact" />
-            <ControlDatesClear :artifact="artifact" />
-          </div>
+          <ControlDates :artifact="artifact" />
         </template>
         <template #tags>
           <ControlTags :artifact="artifact" />
