@@ -17,7 +17,7 @@ import { resolve } from "path";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist", ".legacy"] },
+  { ignores: ["dist", ".legacy", "app/main/dev-dist"] },
 
   // javascript
   js.configs.recommended,

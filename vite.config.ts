@@ -2,10 +2,12 @@
 /* eslint-disable import-x/no-nodejs-modules */
 import vue from "@vitejs/plugin-vue";
 import {
-  fileURLToPath, URL
+  fileURLToPath,
+  URL
 } from "node:url";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
+import { VitePWA } from "vite-plugin-pwa";
 
 const root = "./app/main";
 const pathBasedOnRootStartinAtProject = (path: string) => "../../" + path;
@@ -23,6 +25,11 @@ export default defineConfig(() => {
     envDir: pathBasedOnRootStartinAtProject(""),
     plugins: [
       vue(),
+      VitePWA({
+        devOptions: { enabled: false },
+        registerType: "autoUpdate",
+        workbox: { globPatterns: ["**/*.{js,css,html,ico,png,svg}"] }
+      }),
       checker({
         eslint: {
           lintCommand: "eslint",

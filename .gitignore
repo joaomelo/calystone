@@ -1,5 +1,6 @@
 .env
 dist/
+dev-dist/
 dist-web/
 node_modules/
 .firebase/
