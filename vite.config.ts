@@ -59,7 +59,10 @@ export default defineConfig(() => {
           theme_color: "#ffffff"
         },
         registerType: "autoUpdate",
-        workbox: { globPatterns: ["**/*.{js,css,html,ico,png,svg}"] }
+        workbox: {
+          globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+          maximumFileSizeToCacheInBytes: 5_000_000
+        }
       }),
       checker({
         eslint: {
