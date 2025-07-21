@@ -30,13 +30,19 @@ jobs:
           VITE_ENABLE_MEMORY: true
           VITE_PRELOAD_ENABLED: false
       - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bundle-report
+          path: dist/bundle-report.html
+          retention-days: 5             
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-media
           path: |
             e2e/videos
             e2e/screenshots
-          retention-days: 1
+          retention-days: 3
       - run: npm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

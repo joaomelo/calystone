@@ -5,6 +5,7 @@ import {
   fileURLToPath,
   URL
 } from "node:url";
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 import { VitePWA } from "vite-plugin-pwa";
@@ -72,6 +73,13 @@ export default defineConfig(() => {
         overlay: { initialIsOpen: false },
         vueTsc: true
       }),
+      visualizer({
+        brotliSize: true,
+        filename: "dist/bundle-report.html",
+        gzipSize: true,
+        open: false,
+        template: "treemap"
+      })
     ],
     publicDir: pathBasedOnRootStartinAtProject("assets"),
     resolve: { alias: { "@": pathBasedOnCofingStartingAtProject("app"), }, },
