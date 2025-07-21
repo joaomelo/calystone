@@ -1,6 +1,6 @@
 # Calystone
 
-Calystone helps you organize your life through your file system, offering note taking and task management features. Learn more about its capabilities and motivation in the following sections.
+Calystone helps you organize your life through your file system with features like note taking and task management. Learn more about its capabilities and motivation in the following sections.
 
 The project prioritizes privacy. It does not track or store data about you or your files. That said, always review the privacy policies of any services you connect. Read more in the [Privacy Policy](docs/PRIVACY_POLICY.md).
 

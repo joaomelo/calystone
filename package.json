@@ -2,7 +2,7 @@
   "name": "calystone",
   "version": "0.106.7",
   "license": "MIT",
-  "description": "self management system based on your file system",
+  "description": "calystone helps you organize your life through your file system with features like note taking and task management",
   "keywords": [
     "local-first",
     "todo",
