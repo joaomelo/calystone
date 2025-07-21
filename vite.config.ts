@@ -27,6 +27,37 @@ export default defineConfig(() => {
       vue(),
       VitePWA({
         devOptions: { enabled: false },
+        includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
+        manifest: {
+          description: "calystone helps you organize your life through your file system with features like note taking and task management",
+          icons: [
+            {
+              sizes: "192x192",
+              src: "icon-192x192.png",
+              type: "image/png"
+            },
+            {
+              sizes: "512x512",
+              src: "icon-512x512.png",
+              type: "image/png"
+            },
+            {
+              purpose: "any",
+              sizes: "512x512",
+              src: "icon-512x512.png",
+              type: "image/png"
+            },
+            {
+              purpose: "maskable",
+              sizes: "512x512",
+              src: "mask-icon.png",
+              type: "image/png"
+            }
+          ],
+          name: "calystone",
+          short_name: "calystone",
+          theme_color: "#ffffff"
+        },
         registerType: "autoUpdate",
         workbox: { globPatterns: ["**/*.{js,css,html,ico,png,svg}"] }
       }),
