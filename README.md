@@ -1,14 +1,18 @@
 # Calystone
 
-Calystone helps you organize your life through your file system with features like note taking and task management. Learn more about its capabilities and motivation in the following sections.
+Calystone helps you organize your life through your file system with features like note taking and task management.
+
+![app screenshot](assets/screenshot.png)
 
 The project prioritizes privacy. It does not track or store data about you or your files. That said, always review the privacy policies of any services you connect. Read more in the [Privacy Policy](docs/PRIVACY_POLICY.md).
 
-Calystone is open source. You are welcome to run, copy, distribute, and study the software. More about this in the [license](/LICENSE). There is also a [development overview](/docs/DEVELOPMENT.md) that can help you understand the project and its code.
+Calystone is open-source. You are welcome to run, copy, distribute, and study the software. More about this in the [license](/LICENSE). There is also a [development overview](/docs/DEVELOPMENT.md) that can help you understand the project and its code.
 
-The project is developed with care and always strives to improve its reliability, nevertheless, it does not provide any guarantees. Read more in the [Terms of Service](docs/TERMS_OF_SERVICE.md) and always maintain regular backups of your files.
+The project is developed with care and always strives to improve its reliability, nevertheless, it is in early stages and does not provide any guarantees. Read more in the [Terms of Service](docs/TERMS_OF_SERVICE.md) and always maintain regular backups of your files.
 
-## Overview
+You can learn more about the project in the following sections or go directly to the app clicking <a href="http://calyst.one" target="_blank">here</a>.
+
+## Features
 
 Our personal file systems are already a curated organization structure. We can represent areas of life and projects using directories, and within them, aggregate all relevant information.
 
@@ -16,7 +20,11 @@ Calystone harnesses that power by offering features around some of these files w
 
 The two most relevant features are note taking and task management. The goal is to let you create and read text notes so that your file system becomes a knowledge base. It enhances the editing experience by supporting formats like [markdown](https://en.wikipedia.org/wiki/Markdown). 
 
-Secondly, the task management feature is activated when you create a file with the `.todo` extension. These files have a special editor that enables tracking of progress, priority, tags, and dates, for example. Todo files appear within your folder structure and are also organized by priority in a tag-based outline.
+Secondly, the task management feature is activated when you create a file with the `.todo` extension. These files have a special editor that enables tracking of progress, priority, tags, and dates, for example.
+
+Calystone also supports access to files through certain cloud providers, mainly to enhance usability on mobile devices where we usually don't have contextualized files locally. 
+
+Unlike when navigating through our files using the file system directly, be aware that network data is used when accessing files through these services. It’s also important to understand that although the project has a strong position on [privacy](docs/PRIVACY_POLICY.md), when using those services you will be bound to their own terms and policies.
 
 ## Motivation
 
@@ -28,63 +36,15 @@ I don't like it for two reasons. First is the expectation of a central knowledge
 
 For such endeavors, file systems offer an excellent abstraction to organize our digital lives. The directory structure can start very broad with main subjects like health, family and work, and you can freely drill down to categories and individual projects like that trip we were talking about. This organization represents our individual mental models much better than data spread in multiple apps, each one with its own form of organization.
 
-A project’s PDF is more closely related to its spreadsheets and images than to unrelated PDFs elsewhere.
+A project’s PDF is more closely related to spreadsheets and images from the same project than to other projects PDFs.
 
 The second aspect is longevity. Apps can shut down or become inaccessible, perhaps due to rising prices or the removal of essential features. When that happens, our data can be lost. Even when export options exist, they are rarely useful without significant effort on the user's part.
 
-The combination of the file system and open formats like text is the ultimate remedy to this. They are your real personal database. Directories and files can be moved everywhere. We can change to another operating system, save our files in thumb drives, make backups on the cloud and control what to share or delete. 
+The combination of the file system and open formats is the ultimate remedy to this. They are your real personal database. Directories and files can be moved everywhere. We can change to another operating system, save our files in thumb drives, make backups on the cloud and control what to share or delete. 
 
 Moreover, if your data is stored in an open format like text files, you can switch to a new app without concern when the old one is no longer available.
 
-The Calystone project embraces this philosophy. If you find this interesting, there is more like it posts like [this](https://web.archive.org/web/20211227173721/https://www.al3x.net/blog/2009/01/31/the-case-against-everything-buckets) or [this](https://sive.rs/plaintext).
-
-# Features
-
-As mentioned in the beginning, the main features are around note taking and task management. But to do that, we need to get access to the file structure. Let's start by explaining how to do that.
-
-## Sources
-
-### File System Access
-
-You can choose the file system at the initial page. Depending on the source you want to work with, there will be a prompt to select the top root folder the app will provide its features. Everything outside the selected folder is invisible to the app.
-
-Being a web app, it might seem odd that it can access the local file system. If you are curious, this is enabled by a technology called the [File System Access Api](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API). One of the benefits of this is that the browser will sit between the app and the user files, enhancing security.
-
-### About Directories
-
-After the file system is open, the directories and their files will be shown in an outline view on the left side. When a directory is selected, we can see some basic information about it in the editor view at the right side. This can be improved by placing a README.txt or README.md file in any folder. The text of this file will be shown in the directory editor alongside the basic data.
-
-### Background Loading
-
-After the root folder is opened, the app does not immediately load information about all folders and files. Instead, it gathers data progressively as you interact with the controls by expanding directories or opening text files, for example.
-
-We can enable background loading to let the app perform some of this work automatically. When active, it continuously opens directories to discover subfolders and loads the contents of todo and small text files. This feature can be toggled using the loading icon in the left sidebar.
-
-When accessing the file system directly, no network connection is used for any loading tasks. However, this is not the case when using cloud file providers.
-
-### Cloud Providers
-
-Calystone also supports access through certain cloud providers, mainly to enhance usability on mobile devices. We usually don't have contextualized files locally in these devices. Unlike when navigating through our files using the file system directly, be aware that network data is used when accessing files through these services, and performance or privacy may depend on the provider.
-
-It’s also important to understand that although the project has a strong position on [privacy](docs/PRIVACY_POLICY.md), when using those services you will be bound to their own terms and policies regarding that.
-
-## Note Taking
-
-When a text file is selected, the app will load its content and offer a text editor at the right side. In the editor's toolbar at the top, you have access to general file actions like renaming or exporting the file. Below that, there is a minimal text editor where you can read and update your text. The app constantly saves your changes to the file while you update the content.
-
-The editor offers some resources like line numbering and syntax highlighting. The syntax highlight is specially interesting when using [markdown syntax](https://www.markdownguide.org/basic-syntax/). This keeps the text content still detached from any special software, since markdown is supported pretty much everywhere, and helps overcome limitations around formatting and content structure that keep many users away from pure text editors.
-
-This feature was built using the awesome open source project [CodeMirror](https://codemirror.net/).
-
-## Task Management
-
-We can also do task management in Calystone by creating files with the `.todo` extension. When you select a file with that extension, the app offers a editor with specific fields for the many aspects of your task.
-
-You can use the description field to provide context and control inner steps of the task by adding `- [ ]` at the start of each line. There are also fields for progress, dates, tags and priority information about the task.
-
-Regarding tags, while loading the todos files in the current session, Calystone will gradually feed a global view about all todos and tags. The tags page can show an outline with all known tags and their respective todo files. The todos of a tag are ordered by their priority. This feature can be used to aggregate the relevant todos for this week, for example.
-
-Todo files are text files and data inside them is stored using standard format called JSON. You can check this out by opening a todo file in a text editor of your choice.
+The Calystone project embraces this philosophy. If you found this discussion interesting, you can read more stuff about it in posts like [this](https://web.archive.org/web/20211227173721/https://www.al3x.net/blog/2009/01/31/the-case-against-everything-buckets) or [this](https://sive.rs/plaintext).
 
 # Author
 

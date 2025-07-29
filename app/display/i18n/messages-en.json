@@ -97,12 +97,12 @@
       },
       "overview": {
         "link": "overview",
-        "text": "Calystone helps you organize your life through your file system, offering note taking and task management features. Learn more about its capabilities and motivation in this {0}."
+        "text": "Calystone helps you organize your life through your file system with features like note taking and task management. Learn more about its capabilities and motivation in this {0}."
       },
       "privacy": {
         "privacy": "Privacy Policy",
         "terms": "Terms of Service",
-        "text": "The project prioritizes privacy. It does not track or store data about you or your files. That said, be aware of the policies for any service you choose. Read more in the {0} and the {1}."
+        "text": "The project prioritizes privacy. It does not track or store data about you or your files. That said, always review the privacy policies of any services you connect. Read more in the {0} and the {1}."
       }
     },
     "language": "language",
