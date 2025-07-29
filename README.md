@@ -16,7 +16,7 @@ You can learn more in the following sections or go directly to the app clicking 
 
 Our personal file systems are already a curated organization structure. We can represent areas of life and projects using directories, and within them, aggregate all relevant information.
 
-Calystone harnesses that power by offering features around some of these files without limiting what you routinely do by demanding some special folder structure or use of a proprietary file format. **The project imposes itself a restriction that it should connect to the user file system as-is**.
+Calystone harnesses that power by offering features around some of these files without limiting what you routinely do by demanding some special folder structure or use of a proprietary file format. The project imposes itself a restriction that it should connect to the user file system as-is.
 
 The two most relevant features are note taking and task management. The goal is to let you create and read text notes so that your file system becomes a knowledge base. It enhances the editing experience by supporting formats like [markdown](https://en.wikipedia.org/wiki/Markdown). 
 
