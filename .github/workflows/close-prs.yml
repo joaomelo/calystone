@@ -12,10 +12,10 @@ jobs:
         with:
           script: |
             const number = context.payload.number;
-            const body = `
-Thanks for your interest! Calystone is a small hobby project and is not accepting code contributions at this time.
-
-This PR will now be closed. Thanks for understanding! 🙏`;
+            const body = [
+              "Thanks for your interest! Calystone is a small hobby project and is not accepting code contributions at this time.",
+              "This PR will now be closed. Thanks for understanding! 🙏"
+            ].join("\n");
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
