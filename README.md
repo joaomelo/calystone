@@ -44,7 +44,7 @@ The combination of the file system and open formats is the ultimate remedy to th
 
 Moreover, if your data is stored in an open format like text files, you can switch to a new app without concern when the old one is no longer available.
 
-The Calystone project embraces this philosophy. If you found this discussion interesting, you can read more stuff about it in posts like [this](https://web.archive.org/web/20211227173721/https://www.al3x.net/blog/2009/01/31/the-case-against-everything-buckets) or [this](https://sive.rs/plaintext).
+The Calystone project embraces this philosophy.
 
 # Author
 
