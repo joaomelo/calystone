@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Read the contributing guide
+    url: https://github.com/joaomelo/calystone/blob/main/docs/CONTRIBUTING.md
+    about: Please read this before opening an issue.
   - name: Questions (Q&A)
     url: https://github.com/joaomelo/calystone/discussions/categories/q-a
     about: Ask how-to questions or usage doubts here.
