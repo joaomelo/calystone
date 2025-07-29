@@ -10,7 +10,7 @@ Calystone is open-source. You are welcome to run, copy, distribute, and study th
 
 The project is developed with care and always strives to improve its reliability, nevertheless, it is in early stages and does not provide any guarantees. Read more in the [Terms of Service](docs/TERMS_OF_SERVICE.md) and always maintain regular backups of your files.
 
-You can learn more about the project in the following sections or go directly to the app clicking <a href="http://calyst.one" target="_blank">here</a>.
+You can learn more in the following sections or go directly to the app clicking <a href="http://calyst.one" target="_blank">here</a>.
 
 ## Features
 
