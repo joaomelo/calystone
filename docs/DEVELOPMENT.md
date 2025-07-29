@@ -1,10 +1,6 @@
-# Contributions
-
-While I'm passionate about this project, I maintain it alongside my full-time job and family commitments. To ensure sustainable development and maintain mental health, I've decided to keep the project closed to external contributions for now.
-
-*this file is still under construction from this point on, do not consider the information reliable*
-
 # Architecture and Development Guidelines
+
+This file is a bucket for some development guidelines i want to remind myself through the project lifecycle. The information here should not be considered up-to-date, usually is not in sync with the app realtime status and language errors should abound.
 
 ## Modules
 
@@ -151,7 +147,7 @@ Even if this create more boilerplate. The code will be easier to understand and 
 
 ## Do not use global stores
 
-Global store incentivise black holes modules that aim to solve many problems.This creates unintended dependencies. Expose every bit of state carefully by atomic exposure.
+Global store incentivise black holes modules that aim to solve many problems. This creates unintended dependencies. Expose every bit of state carefully by atomic exposure.
 
 ## Test Modules not Files
 

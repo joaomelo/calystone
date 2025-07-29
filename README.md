@@ -6,7 +6,7 @@ Calystone helps you organize your life through your file system with features li
 
 The project prioritizes privacy. It does not track or store data about you or your files. That said, always review the privacy policies of any services you connect. Read more in the [Privacy Policy](docs/PRIVACY_POLICY.md).
 
-Calystone is open-source. You are welcome to run, copy, distribute, and study the software. More about this in the [license](/LICENSE). There is also a [development overview](/docs/DEVELOPMENT.md) that can help you understand the project and its code.
+Calystone is open-source. You are welcome to run, copy, distribute, and study the software. More about this in the [license](/LICENSE) and in the [contributing guide](/docs/CONTRIBUTING.md).
 
 The project is developed with care and always strives to improve its reliability, nevertheless, it is in early stages and does not provide any guarantees. Read more in the [Terms of Service](docs/TERMS_OF_SERVICE.md) and always maintain regular backups of your files.
 
