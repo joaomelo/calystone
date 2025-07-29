@@ -3,7 +3,20 @@ name: deploy
 on:
   push:
     branches:
-      - "main"
+      - main
+    paths:
+      - 'app/**'
+      - 'assets/**'
+      - 'e2e/**'
+      - '.github/workflows/deploy.yml'
+      - '.release-it.json'
+      - 'cypress.config.js'
+      - 'firebase.json'
+      - 'package-lock.json'
+      - 'package.json'
+      - 'tsconfig*.json'
+      - 'vite.config.*'
+      - 'vitest.setup.*'
 
 jobs:
   deploy:
