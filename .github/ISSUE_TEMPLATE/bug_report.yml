@@ -1,0 +1,74 @@
+name: Bug report
+description: Report a reproducible problem in Calystone
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug! Please include clear steps to reproduce.
+        Remove personal data from screenshots/paths.
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: One sentence describing the problem
+      placeholder: e.g., App freezes when opening .todo on OneDrive
+    validations: { required: true }
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Exact steps, numbered
+      placeholder: |
+        1. Open ...
+        2. Click ...
+        3. Observe ...
+    validations: { required: true }
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations: { required: true }
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations: { required: true }
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console logs (if any)
+      description: Open DevTools → Console, copy only the relevant lines
+      render: text
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: Files source in use
+      options: ["Local files", "OneDrive", "Dropbox"]
+    validations: { required: true }
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: e.g., Chrome Version 138.0.7204.169 (Official Build) (64-bit)
+    validations: { required: true }
+
+  - type: input
+    id: os
+    attributes:
+      label: OS and version
+      placeholder: e.g., Windows 11 23H2 / Android 14 / iOS 17
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I removed personal data from screenshots/paths.
+          required: true
