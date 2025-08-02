@@ -6,6 +6,8 @@ import { DropboxAuth } from "dropbox";
 
 import type { AccessAdapter } from "../access";
 
+import { haltExecution } from "./halt";
+
 export class DropboxAccessAdapter implements AccessAdapter<{ accessToken: string }> {
   auth: DropboxAuth;
   redirectUrl: string;
@@ -32,6 +34,7 @@ export class DropboxAccessAdapter implements AccessAdapter<{ accessToken: string
 
     if (!code || !storedVerifier) {
       await this.authenticateUserAtTheDropboxWebsite();
+      await haltExecution();
     }
 
     if (!code) throwError("DROPBOX_CODE_NOT_FOUND");
