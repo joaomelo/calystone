@@ -1,5 +1,6 @@
 import {
-  docs, pageOpen
+  docs,
+  pageOpen
 } from "../helpers";
 
 describe("docs", function() {

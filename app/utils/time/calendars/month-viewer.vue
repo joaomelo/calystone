@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {
-  DatePickerDateSlotOptions, DatePickerMonthChangeEvent
+  DatePickerDateSlotOptions,
+  DatePickerMonthChangeEvent
 } from "primevue/datepicker";
 
 import DatePicker from "primevue/datepicker";

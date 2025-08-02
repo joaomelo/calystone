@@ -1,5 +1,8 @@
 import {
-  dialogCreateDirectory, openMacros, outlineNodesLegacy, toolbarNode
+  dialogCreateDirectory,
+  openMacros,
+  outlineNodesLegacy,
+  toolbarNode
 } from "../helpers";
 
 describe("create-directory", () => {

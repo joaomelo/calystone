@@ -1,11 +1,16 @@
 import type {
-  Artifact, ArtifactOptions
+  Artifact,
+  ArtifactOptions
 } from "../artifact";
 import type { DirectoryOptions } from "../directory";
 import type { NodeOptions } from "../node";
 
 import {
-  BinaryArtifact, isArtifactOptions, Mime, TextArtifact, TodoArtifact
+  BinaryArtifact,
+  isArtifactOptions,
+  Mime,
+  TextArtifact,
+  TodoArtifact
 } from "../artifact";
 import { Directory } from "../directory";
 

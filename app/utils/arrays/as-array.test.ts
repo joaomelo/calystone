@@ -1,5 +1,7 @@
 import {
-  describe, expect, it
+  describe,
+  expect,
+  it
 } from "vitest";
 
 import { asArray } from "./as-array";

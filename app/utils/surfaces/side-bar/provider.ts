@@ -1,9 +1,11 @@
 import type {
-  InjectionKey, MaybeRefOrGetter
+  InjectionKey,
+  MaybeRefOrGetter
 } from "vue";
 
 import {
-  inject, provide
+  inject,
+  provide
 } from "vue";
 
 interface Provider {active: MaybeRefOrGetter<string>,};

@@ -1,5 +1,12 @@
 import {
-  createTodo, dialogCreateArtifact, editorTodo, openMacros, outlineNodesLegacy, toolbarNode, typeableDate, typicalDates
+  createTodo,
+  dialogCreateArtifact,
+  editorTodo,
+  openMacros,
+  outlineNodesLegacy,
+  toolbarNode,
+  typeableDate,
+  typicalDates
 } from "../helpers";
 
 describe("create-and-edit-todo", () => {

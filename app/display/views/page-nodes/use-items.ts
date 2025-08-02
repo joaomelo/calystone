@@ -1,15 +1,20 @@
 import type {
-  Item, ItemData
+  Item,
+  ItemData
 } from "@/display/views/outline-item";
 import type { Node } from "@/domain";
 import type { OutlineGridExpandedKeys } from "@/utils";
 
 import { Store } from "@/display/store";
 import {
-  Artifact, Directory, Progressor, TodoArtifact
+  Artifact,
+  Directory,
+  Progressor,
+  TodoArtifact
 } from "@/domain";
 import {
-  computed, ref
+  computed,
+  ref
 } from "vue";
 
 export function useItems() {

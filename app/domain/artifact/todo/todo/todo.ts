@@ -3,7 +3,9 @@ import type { UpdateDateOptions } from "@/domain/artifact/todo/dater";
 import type { Criterion } from "@/domain/artifact/todo/prioritizer";
 import type { Progress } from "@/domain/artifact/todo/progressor";
 import type {
-  RecurrenceReferenceValue, RecurrenceStepValue, RecurrenceUnitValue
+  RecurrenceReferenceValue,
+  RecurrenceStepValue,
+  RecurrenceUnitValue
 } from "@/domain/artifact/todo/recurrer";
 
 import { Artifact } from "@/domain/artifact/artifact";

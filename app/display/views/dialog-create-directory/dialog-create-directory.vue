@@ -4,10 +4,14 @@ import type { Directory } from "@/domain";
 import { Store } from "@/display/store";
 import { SaveCancel } from "@/display/views/save-cancel";
 import {
-  InputText, ModalBase, useDispatch, useI18n
+  InputText,
+  ModalBase,
+  useDispatch,
+  useI18n
 } from "@/utils";
 import {
-  reactive, useTemplateRef
+  reactive,
+  useTemplateRef
 } from "vue";
 
 const { parent } = defineProps<{ parent: Directory }>();

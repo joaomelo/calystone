@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ButtonBase } from "@/utils/actions";
 import {
-  kebabCase, TextMessage
+  kebabCase,
+  TextMessage
 } from "@/utils/text";
 import { useTemplateRef } from "vue";
 

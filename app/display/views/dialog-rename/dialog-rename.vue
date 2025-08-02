@@ -4,11 +4,14 @@ import type { Node } from "@/domain";
 import { Store } from "@/display/store";
 import { SaveCancel } from "@/display/views/save-cancel";
 import {
-  InputText, ModalBase, useDispatch
+  InputText,
+  ModalBase,
+  useDispatch
 } from "@/utils";
 import { useI18n } from "@/utils/i18n";
 import {
-  reactive, useTemplateRef
+  reactive,
+  useTemplateRef
 } from "vue";
 
 const { node } = defineProps<{ node: Node }>();

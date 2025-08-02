@@ -1,9 +1,17 @@
 import {
-  PageBootstrap, PageCalendar, PageNodes, PageOpen, PagePrivacy, PageSearch, PageTags, PageTerms
+  PageBootstrap,
+  PageCalendar,
+  PageNodes,
+  PageOpen,
+  PagePrivacy,
+  PageSearch,
+  PageTags,
+  PageTerms
 } from "@/display/views";
 import { sources } from "@/infra";
 import {
-  createRouter as createVueRouter, createWebHistory
+  createRouter as createVueRouter,
+  createWebHistory
 } from "vue-router";
 
 export function createRouter() {

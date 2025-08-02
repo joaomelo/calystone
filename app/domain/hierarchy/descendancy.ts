@@ -1,5 +1,6 @@
 import type {
-  Node, NodeOrId
+  Node,
+  NodeOrId
 } from "@/domain/node";
 import type { Nodes } from "@/domain/nodes";
 

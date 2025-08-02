@@ -6,7 +6,8 @@ import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { OutlineSearch } from "@/display/views/outline-search";
 import { MasterDetail } from "@/utils";
 import {
-  computed, ref
+  computed,
+  ref
 } from "vue";
 
 const selectedNode = ref<Node | undefined>();

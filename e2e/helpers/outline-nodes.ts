@@ -1,5 +1,6 @@
 import {
-  dataTest, dataTestType
+  dataTest,
+  dataTestType
 } from "./data-test";
 
 export const outlineNodesLegacy = {

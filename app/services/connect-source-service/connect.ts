@@ -1,9 +1,12 @@
 import type {
-  AccessAdaptersFactory, FileSystemAdaptersFactory, SourceProvider
+  AccessAdaptersFactory,
+  FileSystemAdaptersFactory,
+  SourceProvider
 } from "@/infra";
 
 import {
-  createNode, Nodes
+  createNode,
+  Nodes
 } from "@/domain";
 import { sources } from "@/infra";
 import { throwCritical } from "@/utils";

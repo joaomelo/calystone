@@ -1,5 +1,7 @@
 import {
-  describe, expect, it
+  describe,
+  expect,
+  it
 } from "vitest";
 
 import { isObjectLike } from "./is-object-like";

@@ -1,7 +1,8 @@
 import { LocalStorage } from "@/utils/storages";
 
 import type {
-  Locale, Locales
+  Locale,
+  Locales
 } from "./locales";
 
 import { matchLocale } from "./locales";

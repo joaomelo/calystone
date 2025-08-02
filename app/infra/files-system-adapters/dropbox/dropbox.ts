@@ -1,9 +1,14 @@
 import type {
-  ArtifactOptions, Directory, DirectoryOptions, Node, Nodes
+  ArtifactOptions,
+  Directory,
+  DirectoryOptions,
+  Node,
+  Nodes
 } from "@/domain";
 
 import {
-  Artifact, createId
+  Artifact,
+  createId
 } from "@/domain";
 import { throwError } from "@/utils";
 import { Dropbox } from "dropbox";

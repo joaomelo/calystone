@@ -4,7 +4,12 @@ import type { TodoArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { asCriterionValue } from "@/domain";
 import {
-  ButtonBase, debounce, InputNumber, InputText, kebabCase, useI18n
+  ButtonBase,
+  debounce,
+  InputNumber,
+  InputText,
+  kebabCase,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 

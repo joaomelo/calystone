@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import type {
-  RecurrenceReferenceValue, RecurrenceUnitValue, TodoArtifact
+  RecurrenceReferenceValue,
+  RecurrenceUnitValue,
+  TodoArtifact
 } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  RecurrenceReference, RecurrenceStep, RecurrenceUnit
+  RecurrenceReference,
+  RecurrenceStep,
+  RecurrenceUnit
 } from "@/domain";
 import {
-  InputNumber, InputRadio, throwCritical, useI18n
+  InputNumber,
+  InputRadio,
+  throwCritical,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 

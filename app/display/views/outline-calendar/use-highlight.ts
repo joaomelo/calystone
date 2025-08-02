@@ -1,6 +1,7 @@
 import { Store } from "@/display/store";
 import {
-  computed, ref
+  computed,
+  ref
 } from "vue";
 
 interface Month {

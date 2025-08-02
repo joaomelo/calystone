@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type {
-  Progress, TodoArtifact
+  Progress,
+  TodoArtifact
 } from "@/domain";
 
 import { Store } from "@/display/store";
 import { Progressor } from "@/domain";
 import {
-  InputRadio, useI18n
+  InputRadio,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 

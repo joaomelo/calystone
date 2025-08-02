@@ -1,5 +1,10 @@
 import {
-  createArtifact, editorTodo, openMacros, outlineNodesLegacy, pageCalendar, typicalDates
+  createArtifact,
+  editorTodo,
+  openMacros,
+  outlineNodesLegacy,
+  pageCalendar,
+  typicalDates
 } from "../helpers";
 
 describe("calendar", () => {

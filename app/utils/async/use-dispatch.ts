@@ -1,6 +1,7 @@
 import { useToast } from "@/utils/dialogs";
 import {
-  Severity, useErrors
+  Severity,
+  useErrors
 } from "@/utils/telemetry";
 import { ref } from "vue";
 

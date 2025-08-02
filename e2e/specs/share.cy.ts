@@ -1,5 +1,7 @@
 import {
-  openMacros, outlineNodesLegacy, toolbarNode
+  openMacros,
+  outlineNodesLegacy,
+  toolbarNode
 } from "../helpers";
 
 describe("share", () => {

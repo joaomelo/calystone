@@ -1,5 +1,9 @@
 import {
-  dataTest, editorEmpty, openMacros, outlineNodesLegacy, toolbarNode
+  dataTest,
+  editorEmpty,
+  openMacros,
+  outlineNodesLegacy,
+  toolbarNode
 } from "../helpers";
 
 describe("remove", () => {

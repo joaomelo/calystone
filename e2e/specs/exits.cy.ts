@@ -1,5 +1,7 @@
 import {
-  openMacros, pageNodes, pageOpen
+  openMacros,
+  pageNodes,
+  pageOpen
 } from "../helpers";
 
 describe("exits", () => {

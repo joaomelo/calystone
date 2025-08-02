@@ -1,5 +1,8 @@
 import {
-  createTodo, openMacros, outlineNodesLegacy, outlineTags
+  createTodo,
+  openMacros,
+  outlineNodesLegacy,
+  outlineTags
 } from "../helpers";
 import { pageTags } from "../helpers/page-tags";
 

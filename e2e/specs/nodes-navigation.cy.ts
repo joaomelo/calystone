@@ -1,5 +1,6 @@
 import {
-  openMacros, outlineNodesLegacy
+  openMacros,
+  outlineNodesLegacy
 } from "../helpers";
 
 describe("nodes-navigation", () => {

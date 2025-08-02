@@ -2,7 +2,8 @@
 import type { TodoArtifact } from "@/domain";
 
 import {
-  TextMessage, useI18n
+  TextMessage,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 

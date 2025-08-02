@@ -1,5 +1,6 @@
 import type {
-  Item, ItemData
+  Item,
+  ItemData
 } from "@/display/views/outline-item";
 import type { Tag } from "@/domain";
 import type { OutlineGridExpandedKeys } from "@/utils";
@@ -7,7 +8,8 @@ import type { OutlineGridExpandedKeys } from "@/utils";
 import { Store } from "@/display/store";
 import { Prioritizer } from "@/domain";
 import {
-  computed, ref
+  computed,
+  ref
 } from "vue";
 
 export function useItems() {

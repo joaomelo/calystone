@@ -3,7 +3,9 @@ import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  formatDateTime, PropertySheet, useI18n
+  formatDateTime,
+  PropertySheet,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 

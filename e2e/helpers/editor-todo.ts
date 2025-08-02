@@ -1,6 +1,7 @@
 import { dataTest } from "./data-test";
 import {
-  typeableDate, typeableDateTime
+  typeableDate,
+  typeableDateTime
 } from "./dates";
 
 const inputStartInput = () => cy.get(dataTest("input-start")).find("input");

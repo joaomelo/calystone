@@ -1,5 +1,12 @@
 import {
-  dialogCreateArtifact, dialogCreateDirectory, editorText, editorTodo, openMacros, outlineNodesLegacy, pageSearch, toolbarNode
+  dialogCreateArtifact,
+  dialogCreateDirectory,
+  editorText,
+  editorTodo,
+  openMacros,
+  outlineNodesLegacy,
+  pageSearch,
+  toolbarNode
 } from "../helpers";
 
 describe("editor-directory", () => {

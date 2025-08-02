@@ -3,7 +3,8 @@ import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  ButtonBase, useI18n
+  ButtonBase,
+  useI18n
 } from "@/utils";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();

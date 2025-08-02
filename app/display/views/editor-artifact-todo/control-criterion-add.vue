@@ -4,10 +4,13 @@ import type { TodoArtifact } from "@/domain";
 import { Store } from "@/display/store";
 import { asCriterionValue } from "@/domain";
 import {
-  ButtonBase, InputText, useI18n
+  ButtonBase,
+  InputText,
+  useI18n
 } from "@/utils";
 import {
-  computed, ref
+  computed,
+  ref
 } from "vue";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();

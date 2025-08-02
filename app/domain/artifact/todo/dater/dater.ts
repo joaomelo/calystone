@@ -1,7 +1,9 @@
 import type { DateRange } from "@/utils";
 
 import {
-  isAllDay, isDateRange, throwError
+  isAllDay,
+  isDateRange,
+  throwError
 } from "@/utils";
 
 export interface DaterOptions {

@@ -1,5 +1,6 @@
 import {
-  LocalStorage, throwError
+  LocalStorage,
+  throwError
 } from "@/utils";
 import { DropboxAuth } from "dropbox";
 

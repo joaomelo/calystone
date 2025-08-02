@@ -2,7 +2,9 @@
 import type { TodoArtifact } from "@/domain";
 
 import {
-  formatDateTime, throwCritical, truncate
+  formatDateTime,
+  throwCritical,
+  truncate
 } from "@/utils";
 import { computed } from "vue";
 

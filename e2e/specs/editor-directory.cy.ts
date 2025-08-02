@@ -1,5 +1,8 @@
 import {
-  editorDirectory, openMacros, outlineNodes, outlineNodesLegacy
+  editorDirectory,
+  openMacros,
+  outlineNodes,
+  outlineNodesLegacy
 } from "../helpers";
 
 describe("editor-directory", () => {

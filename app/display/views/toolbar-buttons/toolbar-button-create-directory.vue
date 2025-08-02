@@ -3,7 +3,8 @@ import type { Directory } from "@/domain";
 
 import { DialogCreateDirectory } from "@/display/views/dialog-create-directory";
 import {
-  ToolbarButton, useI18n
+  ToolbarButton,
+  useI18n
 } from "@/utils";
 import { useTemplateRef } from "vue";
 

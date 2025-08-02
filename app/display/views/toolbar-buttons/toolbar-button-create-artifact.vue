@@ -5,10 +5,12 @@ import { Store } from "@/display/store";
 import { DialogCreateArtifact } from "@/display/views/dialog-create-artifact";
 import { Directory } from "@/domain";
 import {
-  ToolbarButton, useI18n
+  ToolbarButton,
+  useI18n
 } from "@/utils";
 import {
-  computed, useTemplateRef
+  computed,
+  useTemplateRef
 } from "vue";
 
 const { node } = defineProps<{ node: Node; }>();

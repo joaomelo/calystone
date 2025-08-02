@@ -1,5 +1,7 @@
 import {
-  onMounted, onUnmounted, ref
+  onMounted,
+  onUnmounted,
+  ref
 } from "vue";
 
 export function useAutoScroll() {

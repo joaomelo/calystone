@@ -1,14 +1,19 @@
 import { Dater } from "@/domain/artifact/todo/dater";
 import {
-  isCriteria, Prioritizer
+  isCriteria,
+  Prioritizer
 } from "@/domain/artifact/todo/prioritizer";
 import { Progressor } from "@/domain/artifact/todo/progressor";
 import {
-  RecurrenceReference, RecurrenceStep, RecurrenceUnit, Recurrer
+  RecurrenceReference,
+  RecurrenceStep,
+  RecurrenceUnit,
+  Recurrer
 } from "@/domain/artifact/todo/recurrer";
 import { Tagger } from "@/domain/artifact/todo/tagger";
 import {
-  isJsonParseable, isObjectLike
+  isJsonParseable,
+  isObjectLike
 } from "@/utils";
 
 import type { TodoArtifactState } from "./state";

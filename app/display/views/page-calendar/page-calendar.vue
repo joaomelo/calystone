@@ -6,7 +6,8 @@ import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { OutlineCalendar } from "@/display/views/outline-calendar";
 import { MasterDetail } from "@/utils";
 import {
-  computed, ref
+  computed,
+  ref
 } from "vue";
 
 const selectedNode = ref<Node | undefined>();

@@ -12,10 +12,12 @@ import {
   ToolbarButtonShareNode
 } from "@/display/views/toolbar-buttons";
 import {
-  debounce, InputRichText
+  debounce,
+  InputRichText
 } from "@/utils";
 import {
-  onMounted, ref
+  onMounted,
+  ref
 } from "vue";
 
 const { content: artifact } = defineProps<{ content: TextArtifact; }>();

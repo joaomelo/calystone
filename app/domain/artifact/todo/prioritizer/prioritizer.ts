@@ -1,5 +1,6 @@
 import type {
-  Criteria, Criterion
+  Criteria,
+  Criterion
 } from "./criteria";
 
 export class Prioritizer {

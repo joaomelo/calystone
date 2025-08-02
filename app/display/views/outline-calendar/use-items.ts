@@ -1,5 +1,6 @@
 import type {
-  Item, ItemData
+  Item,
+  ItemData
 } from "@/display/views/outline-item";
 import type { Ref } from "vue";
 

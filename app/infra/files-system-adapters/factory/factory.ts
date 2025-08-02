@@ -2,7 +2,8 @@ import type { Nodes } from "@/domain";
 import type { SourceProvider } from "@/infra/source";
 
 import {
-  isObjectLike, throwCritical
+  isObjectLike,
+  throwCritical
 } from "@/utils";
 
 import type { FileSystemAdapter } from "../file-system";

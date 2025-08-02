@@ -1,10 +1,16 @@
 import type {
-  Artifact, ArtifactOptions, Directory, DirectoryOptions, Node, Nodes
+  Artifact,
+  ArtifactOptions,
+  Directory,
+  DirectoryOptions,
+  Node,
+  Nodes
 } from "@/domain";
 
 import { createId } from "@/domain";
 import {
-  Status, throwCritical
+  Status,
+  throwCritical
 } from "@/utils";
 
 import type { ArtifactOrDirectoryOptions } from "../file-system";

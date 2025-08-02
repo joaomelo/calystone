@@ -1,5 +1,9 @@
 import {
-  dialogCreateArtifact, editorBinary, openMacros, outlineNodesLegacy, toolbarNode
+  dialogCreateArtifact,
+  editorBinary,
+  openMacros,
+  outlineNodesLegacy,
+  toolbarNode
 } from "../helpers";
 
 describe("editor-binary", () => {

@@ -1,5 +1,6 @@
 import type {
-  Directory, Node
+  Directory,
+  Node
 } from "@/domain";
 import type { ConnectSourceService } from "@/services/connect-source-service/connect";
 

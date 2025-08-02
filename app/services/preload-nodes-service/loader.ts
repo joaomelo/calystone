@@ -4,10 +4,15 @@ import type { ExchangeArtifactService } from "@/services/exchange-artifact-servi
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 
 import {
-  Artifact, Directory, TextArtifact, TodoArtifact
+  Artifact,
+  Directory,
+  TextArtifact,
+  TodoArtifact
 } from "@/domain";
 import {
-  Exception, LoggerContainer, Queue
+  Exception,
+  LoggerContainer,
+  Queue
 } from "@/utils";
 
 export class Loader {

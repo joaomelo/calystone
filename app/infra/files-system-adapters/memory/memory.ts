@@ -1,12 +1,21 @@
 import type {
-  Artifact, ArtifactOptions, Directory, DirectoryOptions, Node, Nodes
+  Artifact,
+  ArtifactOptions,
+  Directory,
+  DirectoryOptions,
+  Node,
+  Nodes
 } from "@/domain";
 
 import {
-  createId, Descriptor
+  createId,
+  Descriptor
 } from "@/domain";
 import {
-  fakeDirectory, fakeFile, Status, throwError
+  fakeDirectory,
+  fakeFile,
+  Status,
+  throwError
 } from "@/utils";
 import { delay } from "@/utils/async";
 import { faker } from "@faker-js/faker";

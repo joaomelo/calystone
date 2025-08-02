@@ -3,11 +3,14 @@ import type { ComputedRef } from "vue";
 
 import { Store } from "@/display/store";
 import {
-  SideBar, SideItem, useI18n
+  SideBar,
+  SideItem,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 import {
-  useRoute, useRouter
+  useRoute,
+  useRouter
 } from "vue-router";
 
 import { usePreloading } from "./use-preloading";

@@ -3,7 +3,9 @@ import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  InputCheck, InputDate, useI18n
+  InputCheck,
+  InputDate,
+  useI18n
 } from "@/utils";
 import { ref } from "vue";
 

@@ -1,5 +1,7 @@
 import type {
-  FailData, OkData, StatusData
+  FailData,
+  OkData,
+  StatusData
 } from "./data";
 
 import { throwError } from "../throwers";

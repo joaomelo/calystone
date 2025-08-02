@@ -1,5 +1,7 @@
 import {
-  dataTest, openMacros, outlineNodesLegacy
+  dataTest,
+  openMacros,
+  outlineNodesLegacy
 } from "../helpers";
 
 describe("move", () => {

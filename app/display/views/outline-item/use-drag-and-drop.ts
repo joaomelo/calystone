@@ -1,7 +1,8 @@
 import { Store } from "@/display/store";
 import { Directory } from "@/domain";
 import {
-  Status, useDispatch
+  Status,
+  useDispatch
 } from "@/utils";
 import { computed } from "vue";
 

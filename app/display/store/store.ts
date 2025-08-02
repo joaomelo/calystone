@@ -1,6 +1,7 @@
 import type { ServicesPortfolio } from "@/services";
 import type {
-  App, Ref
+  App,
+  Ref
 } from "vue";
 
 import { ref } from "vue";

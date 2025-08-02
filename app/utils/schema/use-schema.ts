@@ -1,7 +1,9 @@
 import type { ZodSchema } from "zod";
 
 import {
-  Exception, Exceptions, Severity
+  Exception,
+  Exceptions,
+  Severity
 } from "@/utils/telemetry";
 import { z } from "zod";
 

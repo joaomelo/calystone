@@ -3,7 +3,8 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  ModalConfirm, useDispatch
+  ModalConfirm,
+  useDispatch
 } from "@/utils";
 import { useI18n } from "@/utils/i18n";
 import { useTemplateRef } from "vue";

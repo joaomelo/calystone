@@ -5,7 +5,8 @@ import type { Node } from "@/domain";
 import { Store } from "@/display/store";
 import { OutlineItems } from "@/display/views/outline-items";
 import {
-  debounce, InputText
+  debounce,
+  InputText
 } from "@/utils";
 import { ref } from "vue";
 

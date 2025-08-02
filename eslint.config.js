@@ -8,6 +8,7 @@ import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginChaiFriendly from "eslint-plugin-chai-friendly";
 import pluginCypress from "eslint-plugin-cypress/flat";
+import pluginImportNewlines from "eslint-plugin-import-newlines";
 import { importX } from "eslint-plugin-import-x";
 import mochaPlugin from "eslint-plugin-mocha";
 import perfectionist from "eslint-plugin-perfectionist";
@@ -112,6 +113,14 @@ export default tseslint.config(
       "@stylistic/space-infix-ops": "error",
       "@stylistic/type-generic-spacing": ["error"],
     }
+  },
+
+  {
+    plugins: { "import-newlines": pluginImportNewlines },
+    rules: { "import-newlines/enforce": [
+      "error",
+      { items: 1, }
+    ] }
   },
 
   perfectionist.configs["recommended-natural"],

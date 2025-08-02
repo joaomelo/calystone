@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { ItemData } from "@/display/views/outline-item";
 import type {
-  Id, Node
+  Id,
+  Node
 } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -10,10 +11,12 @@ import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { OutlineItems } from "@/display/views/outline-items";
 import { Directory } from "@/domain";
 import {
-  MasterDetail, useDispatch
+  MasterDetail,
+  useDispatch
 } from "@/utils";
 import {
-  computed, ref
+  computed,
+  ref
 } from "vue";
 
 import { useItems } from "./use-items";

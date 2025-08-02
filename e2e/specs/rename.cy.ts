@@ -1,5 +1,8 @@
 import {
-  dataTest, openMacros, outlineNodesLegacy, toolbarNode
+  dataTest,
+  openMacros,
+  outlineNodesLegacy,
+  toolbarNode
 } from "../helpers";
 
 describe("rename", () => {

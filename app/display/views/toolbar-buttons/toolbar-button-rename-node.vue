@@ -4,10 +4,12 @@ import type { Node } from "@/domain";
 import { Store } from "@/display/store";
 import { DialogRename } from "@/display/views/dialog-rename";
 import {
-  ToolbarButton, useI18n
+  ToolbarButton,
+  useI18n
 } from "@/utils";
 import {
-  computed, useTemplateRef
+  computed,
+  useTemplateRef
 } from "vue";
 
 const { node } = defineProps<{ node: Node; }>();

@@ -3,7 +3,9 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  ToolbarButton, useDispatch, useI18n
+  ToolbarButton,
+  useDispatch,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 

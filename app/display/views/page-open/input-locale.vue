@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
-  InputRadio, useI18n
+  InputRadio,
+  useI18n
 } from "@/utils";
 
 const {

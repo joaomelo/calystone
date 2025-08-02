@@ -11,7 +11,9 @@ import {
   ToolbarButtonShareNode
 } from "@/display/views/toolbar-buttons";
 import {
-  formatDateTime, PropertySheet, useI18n
+  formatDateTime,
+  PropertySheet,
+  useI18n
 } from "@/utils";
 import { filesize } from "filesize";
 import { computed } from "vue";

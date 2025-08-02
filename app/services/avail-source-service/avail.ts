@@ -1,5 +1,6 @@
 import type {
-  AvailabilityFacade, SourceProvider
+  AvailabilityFacade,
+  SourceProvider
 } from "@/infra";
 
 export class AvailSourceService {

@@ -2,7 +2,8 @@ import { useI18n } from "@/utils/i18n";
 import { reactive } from "vue";
 
 import {
-  Exception, Exceptions
+  Exception,
+  Exceptions
 } from "../exceptions";
 
 export function useErrors() {

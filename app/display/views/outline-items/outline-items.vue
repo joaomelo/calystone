@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {
-  Item, ItemData
+  Item,
+  ItemData
 } from "@/display/views/outline-item";
 import type {
   OutlineGridExpandedKeys,
@@ -10,10 +11,12 @@ import type {
 } from "@/utils";
 
 import {
-  isItemData, OutlineItem
+  isItemData,
+  OutlineItem
 } from "@/display/views/outline-item";
 import {
-  OutlineGrid, ScrollPanel
+  OutlineGrid,
+  ScrollPanel
 } from "@/utils";
 import { ref } from "vue";
 

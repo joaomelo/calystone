@@ -1,10 +1,13 @@
 import type {
-  Directory, Node, NodeOrId
+  Directory,
+  Node,
+  NodeOrId
 } from "@/domain";
 import type { ConnectSourceService } from "@/services/connect-source-service";
 
 import {
-  Ascendancy, Descendancy
+  Ascendancy,
+  Descendancy
 } from "@/domain";
 
 export class QueryHierarchyService {

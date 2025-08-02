@@ -3,7 +3,9 @@ import type { SourceProvider } from "@/infra";
 
 import { Store } from "@/display/store";
 import {
-  ButtonBase, useDispatch, useI18n
+  ButtonBase,
+  useDispatch,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 import { useRouter } from "vue-router";

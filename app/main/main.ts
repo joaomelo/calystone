@@ -1,15 +1,25 @@
 import {
-  name, version
+  name,
+  version
 } from "@/../package.json";
 import {
-  createI18n, createRouter, Store, ThemePreset
+  createI18n,
+  createRouter,
+  Store,
+  ThemePreset
 } from "@/display"; // this will also apply the css styles as a side effect
 import {
-  AccessAdaptersFactory, AvailabilityFacade, BrowserExportAdapter, BrowserShareAdapter, FileSystemAdaptersFactory
+  AccessAdaptersFactory,
+  AvailabilityFacade,
+  BrowserExportAdapter,
+  BrowserShareAdapter,
+  FileSystemAdaptersFactory
 } from "@/infra";
 import { ServicesPortfolio } from "@/services";
 import {
-  LoggerContainer, throwCritical, ToastService
+  LoggerContainer,
+  throwCritical,
+  ToastService
 } from "@/utils";
 import PrimeVue from "primevue/config";
 import Tooltip from "primevue/tooltip";

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
-  computed, toValue
+  computed,
+  toValue
 } from "vue";
 
 import { useProvider } from "./provider";
