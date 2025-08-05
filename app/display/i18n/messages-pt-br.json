@@ -9,7 +9,8 @@
     "disabled": "desabilitado",
     "outline": "hierarquia",
     "search": "busca",
-    "tags": "rótulos"
+    "tags": "rótulos",
+    "priority": "prioridade"
   },
   "complete": "concluir",
   "completed": "concluído",
@@ -47,9 +48,6 @@
     },
     "details": "detalhes",
     "priority": {
-      "importance": "importância",
-      "priority": "prioridade",
-      "urgency": "urgência",
       "tip-empty": "A prioridade é calculada como a média dos seus critérios. Adicione um ou mais critérios abaixo"
     },
     "progress": {
@@ -97,7 +95,7 @@
       },
       "overview": {
         "link": "visão geral",
-        "text": "Calystone ajuda você a organizar sua vida através do seu sistema de arquivos, oferecendo como recursos para anotações e gerenciamento de tarefas. Saiba mais sobre suas capacidades e motivação nesta {0}."
+        "text": "Calystone ajuda você a organizar sua vida através do seu sistema de arquivos, oferecendo recursos como anotações e gerenciamento de tarefas. Saiba mais sobre as capacidades e motivação nesta {0}."
       },
       "privacy": {
         "privacy": "Política de Privacidade",

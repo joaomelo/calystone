@@ -9,7 +9,8 @@
     "disabled": "disabled",
     "outline": "outline",
     "search": "search",
-    "tags": "tags"
+    "tags": "tags",
+    "priority": "priority"
   },
   "complete": "complete",
   "completed": "completed",
@@ -47,9 +48,6 @@
     },
     "details": "details",
     "priority": {
-      "importance": "importance",
-      "priority": "priority",
-      "urgency": "urgency",
       "tip-empty": "Priority is calculated as the average of your criteria. Add one or more criterion below."
     },
     "progress": {

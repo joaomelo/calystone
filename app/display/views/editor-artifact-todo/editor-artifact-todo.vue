@@ -43,7 +43,7 @@ onMounted(async () => {
 const panelsState = ref<string[]>(["main"]);
 const panels = computed<PanelsList>(() => {
   const priority = artifact.priority().toFixed(2);
-  const priorityLegend = `${t("editor-todo.priority.priority")}: ${priority}`;
+  const priorityLegend = `${t("common.priority")}: ${priority}`;
 
   const dueDate = artifact.dateDue();
   const formattedDueDate = dueDate ? ` ${formatDateTime(dueDate)}` : "";
