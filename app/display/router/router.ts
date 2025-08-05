@@ -3,6 +3,7 @@ import {
   PageCalendar,
   PageNodes,
   PageOpen,
+  PagePriority,
   PagePrivacy,
   PageSearch,
   PageTags,
@@ -74,6 +75,11 @@ export function createRouter() {
       component: PageTags,
       name: "tags",
       path: "/tags"
+    },
+    {
+      component: PagePriority,
+      name: "priority",
+      path: "/priority"
     },
 
     {
