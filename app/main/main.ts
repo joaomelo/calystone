@@ -101,6 +101,7 @@ export function initApp(elementId: string) {
 
   const store = new Store({
     appData,
+    enablePriorityPage: asBoolean(import.meta.env.VITE_ENABLE_PRIORITY_PAGE),
     services: servicesPortfolio
   });
   window.$store = store;
@@ -115,6 +116,7 @@ export function initApp(elementId: string) {
 function asBoolean(value: unknown): boolean {
   if (value === undefined || value === null) return false;
   if (typeof value === "string" && value === "false") return false;
+  if (typeof value === "string" && value === "true") return true;
   return Boolean(value);
 }
 

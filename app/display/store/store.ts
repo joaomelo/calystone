@@ -14,17 +14,20 @@ import { useStore } from "./use";
 export class Store {
   appData: AppData;
   connected: Ref<boolean>;
+  enablePriorityPage: boolean;
   services: ServicesPortfolio;
 
-  constructor(options: {
+  constructor({
+    appData,
+    enablePriorityPage,
+    services
+  }: {
     appData: AppData,
-    services: ServicesPortfolio
+    enablePriorityPage: boolean,
+    services: ServicesPortfolio,
   }) {
-    const {
-      appData, services
-    } = options;
-
     this.appData = appData;
+    this.enablePriorityPage = enablePriorityPage;
     this.services = services;
 
     this.connected = ref(false);

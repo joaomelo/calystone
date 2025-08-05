@@ -16,7 +16,10 @@ import {
 import { usePreloading } from "./use-preloading";
 
 const { t } = useI18n();
-const { services } = Store.use();
+const {
+  enablePriorityPage,
+  services
+} = Store.use();
 const route = useRoute();
 const router = useRouter();
 const preloading = usePreloading();
@@ -50,6 +53,13 @@ function handleExit() {
         @click="handleClickPage('nodes')"
       />
       <SideItem
+        id="calendar"
+        :title="t('common.calendar')"
+        :icon="`${baseIcon} bxs-calendar`"
+        data-test="sidebar-calendar"
+        @click="handleClickPage('calendar')"
+      />
+      <SideItem
         id="tags"
         :title="t('common.tags')"
         :icon="`${baseIcon} bxs-purchase-tag-alt`"
@@ -57,11 +67,12 @@ function handleExit() {
         @click="handleClickPage('tags')"
       />
       <SideItem
-        id="calendar"
-        :title="t('common.calendar')"
-        :icon="`${baseIcon} bxs-calendar`"
-        data-test="sidebar-calendar"
-        @click="handleClickPage('calendar')"
+        v-if="enablePriorityPage"
+        id="priority"
+        :title="t('common.priority')"
+        :icon="`${baseIcon} bxs-flag-alt`"
+        data-test="sidebar-priority"
+        @click="handleClickPage('priority')"
       />
       <SideItem
         id="search"
