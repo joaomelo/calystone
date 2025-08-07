@@ -17,7 +17,6 @@ import {
   throwError
 } from "@/utils";
 import { delay } from "@/utils/async";
-import { faker } from "@faker-js/faker";
 
 import type { ArtifactOrDirectoryOptions } from "../file-system";
 
@@ -167,36 +166,6 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
       this.metadatas.setFile({
         id: todoFileId,
         metadata: todoFile.content
-      });
-
-      const binaryFile = fakeFile("exe");
-      const binaryFileId = createId();
-      childrenData.push({
-        id: binaryFileId,
-        parentId: parent.id,
-        ...binaryFile
-      });
-      this.metadatas.setFile({
-        id: binaryFileId,
-        metadata: binaryFile.content
-      });
-    }
-
-    const howManyChildren = faker.helpers.rangeToNumber({
-      max: 5,
-      min: 1
-    });
-    for (let i = 0; i < howManyChildren; i++) {
-      const id = createId();
-      const entry = fakeFile();
-      this.metadatas.setFile({
-        id,
-        metadata: entry.content
-      });
-      childrenData.push({
-        id,
-        parentId: parent.id,
-        ...entry
       });
     }
 
