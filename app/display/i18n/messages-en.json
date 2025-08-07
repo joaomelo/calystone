@@ -10,7 +10,8 @@
     "outline": "outline",
     "search": "search",
     "tags": "tags",
-    "priority": "priority"
+    "priority": "priority",
+    "criterion": "criterion"
   },
   "complete": "complete",
   "completed": "completed",
