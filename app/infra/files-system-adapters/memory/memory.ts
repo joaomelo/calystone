@@ -9,10 +9,10 @@ import type {
 
 import {
   createId,
-  Descriptor
+  Descriptor,
+  isArtifactOptions
 } from "@/domain";
 import {
-  fakeDirectory,
   fakeFile,
   Status,
   throwError
@@ -23,6 +23,7 @@ import { faker } from "@faker-js/faker";
 import type { ArtifactOrDirectoryOptions } from "../file-system";
 
 import { BaseFileSystemAdapter } from "../base";
+import { createFixtures } from "./fixtures";
 
 type ArtifactMetadata = ArrayBuffer;
 type DirectoryMetadata = undefined;
@@ -135,6 +136,22 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
 
     const childrenData: ArtifactOrDirectoryOptions[] = [];
 
+    const fixtures = createFixtures(parent);
+    fixtures.forEach(fixture => {
+      if (isArtifactOptions(fixture)) {
+        this.metadatas.setFile({
+          id: fixture.id,
+          metadata: new ArrayBuffer(0)
+        });
+      } else {
+        this.metadatas.setDirectory({
+          id: fixture.id,
+          metadata: undefined
+        });
+      }
+      childrenData.push(fixture);
+    });
+
     const shouldGaranteeDataExpectedByE2e = parent.isRoot();
     if (shouldGaranteeDataExpectedByE2e) {
       const descriptorFile = fakeFile("txt");
@@ -173,30 +190,6 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
         id: binaryFileId,
         metadata: binaryFile.content
       });
-
-      const oneDirectory = fakeDirectory();
-      const oneDirectoryId = createId();
-      childrenData.push({
-        id: oneDirectoryId,
-        parentId: parent.id,
-        ...oneDirectory
-      });
-      this.metadatas.setDirectory({
-        id: oneDirectoryId,
-        metadata: undefined
-      });
-
-      const moreThanOneDirectory = fakeDirectory();
-      const moreThanOneDirectoryId = createId();
-      childrenData.push({
-        id: moreThanOneDirectoryId,
-        parentId: parent.id,
-        ...moreThanOneDirectory
-      });
-      this.metadatas.setDirectory({
-        id: moreThanOneDirectoryId,
-        metadata: undefined
-      });
     }
 
     const howManyChildren = faker.helpers.rangeToNumber({
@@ -205,30 +198,16 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
     });
     for (let i = 0; i < howManyChildren; i++) {
       const id = createId();
-      const kind = faker.helpers.arrayElement(["file", "directory"]);
-      if (kind === "file") {
-        const entry = fakeFile();
-        this.metadatas.setFile({
-          id,
-          metadata: entry.content
-        });
-        childrenData.push({
-          id,
-          parentId: parent.id,
-          ...entry
-        });
-      } else {
-        const entry = fakeDirectory();
-        this.metadatas.setDirectory({
-          id,
-          metadata: undefined
-        });
-        childrenData.push({
-          id,
-          parentId: parent.id,
-          ...entry
-        });
-      }
+      const entry = fakeFile();
+      this.metadatas.setFile({
+        id,
+        metadata: entry.content
+      });
+      childrenData.push({
+        id,
+        parentId: parent.id,
+        ...entry
+      });
     }
 
     return childrenData;
