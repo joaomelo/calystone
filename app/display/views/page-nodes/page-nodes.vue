@@ -24,7 +24,8 @@ import { useItems } from "./use-items";
 const { dispatchOrToast } = useDispatch();
 const { services } = Store.use();
 const {
-  expandedKeys, items
+  expandedKeys,
+  items
 } = useItems();
 
 const selectedNode = ref<Node | undefined>();
@@ -42,7 +43,6 @@ async function handleExpanded(itemData: ItemData) {
 }
 
 function handleSelected(itemData?: ItemData) {
-  // selection does not trigger directory opening or artifact content fetching. selection opens the editor for the selected node. each editor is going to manage what is the best approach regarding content. maybe auto opening or offering a affordances for the user to do it at their convenience.
   selectedNode.value = solveNode(itemData?.key);
 }
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// import type { ItemData } from "@/display/views/outline-item";
+import type { ItemData } from "@/display/views/outline-item";
 import type { Node } from "@/domain";
 
-// import { Store } from "@/display/store";
+import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { MasterDetail } from "@/utils";
@@ -11,40 +11,26 @@ import {
   ref
 } from "vue";
 
-// const { services } = Store.use();
+import type { Filters } from "./filters";
 
+import PagePriorityFilters from "./page-priority-filters.vue";
+import PagePriorityOutline from "./page-priority-outline.vue";
+
+const { services } = Store.use();
+
+const filters = ref<Filters>({});
 const selectedNode = ref<Node | undefined>();
 const showDetail = computed(() => Boolean(selectedNode.value));
 
 function handleClose() {
-  resetState();
-}
-
-// function handleSelected(data?: ItemData) {
-//   if (!data) {
-//     resetState();
-//     return;
-//   }
-
-//   const {
-//     key, type
-//   } = data;
-//   if (type === "tag") {
-//     resetState();
-//     return;
-//   }
-
-//   selectedNode.value = solveNode(key);
-// }
-
-function resetState() {
   selectedNode.value = undefined;
 }
 
-// function solveNode(id: Id) {
-//   const node = services.retrieveNodes.get(id);
-//   return node;
-// }
+function handleSelected(itemData?: ItemData) {
+  const id = itemData?.key;
+  const node = id ? services.retrieveNodes.get(id) : undefined;
+  selectedNode.value = node;
+}
 </script>
 <template>
   <FrameDashboard>
@@ -53,7 +39,11 @@ function resetState() {
       class="page-priority"
     >
       <template #master>
-        priority list
+        <PagePriorityFilters v-model="filters" />
+        <PagePriorityOutline
+          :filters="filters"
+          @selected="handleSelected"
+        />
       </template>
       <template #detail>
         <EditorSwitcher
