@@ -7,10 +7,7 @@ import type {
   Nodes
 } from "@/domain";
 
-import {
-  createId,
-  isArtifactOptions,
-} from "@/domain";
+import { createId } from "@/domain";
 import {
   fakeFile,
   Status,
@@ -21,7 +18,10 @@ import { delay } from "@/utils/async";
 import type { ArtifactOrDirectoryOptions } from "../file-system";
 
 import { BaseFileSystemAdapter } from "../base";
-import { createFixtures } from "./fixtures";
+import {
+  createFixtures,
+  isFileFixture
+} from "./fixtures";
 
 type ArtifactMetadata = ArrayBuffer;
 type DirectoryMetadata = undefined;
@@ -135,23 +135,20 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
     const childrenData: ArtifactOrDirectoryOptions[] = [];
 
     const fixtures = createFixtures(parent);
-    fixtures.forEach(({
-      metadata,
-      options
-    }) => {
-      if (isArtifactOptions(options) && metadata) {
+    fixtures.forEach((fixture) => {
+      if (isFileFixture(fixture)) {
         this.metadatas.setFile({
-          id: options.id,
-          metadata
+          id: fixture.options.id,
+          metadata: fixture.metadata
         });
       } else {
         this.metadatas.setDirectory({
-          id: options.id,
+          id: fixture.options.id,
           metadata: undefined
         });
       }
 
-      childrenData.push(options);
+      childrenData.push(fixture.options);
     });
 
     const shouldGaranteeDataExpectedByE2e = parent.isRoot();

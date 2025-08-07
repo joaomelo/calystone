@@ -14,13 +14,17 @@ import {
 } from "@/utils";
 import { faker } from "@faker-js/faker";
 
-type Fixture = {
-  metadata: ArrayBuffer
-  options: ArtifactOptions
-} | {
+interface DirectoryFixture {
   metadata: undefined
   options: DirectoryOptions
-};
+}
+
+interface FileFixture {
+  metadata: ArrayBuffer
+  options: ArtifactOptions
+}
+
+type Fixture = DirectoryFixture | FileFixture;
 
 export function createFixtures(parent: Directory): Fixture[] {
   const childrenData: Fixture[] = [];
@@ -37,6 +41,10 @@ export function createFixtures(parent: Directory): Fixture[] {
   childrenData.push(...binaries);
 
   return childrenData;
+}
+
+export function isFileFixture(fixture: Fixture): fixture is FileFixture {
+  return fixture.metadata !== undefined;
 }
 
 function createDescriptorFile(parent: Directory) {
