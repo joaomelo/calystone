@@ -9,8 +9,7 @@ import type {
 
 import {
   createId,
-  Descriptor,
-  isArtifactOptions
+  isArtifactOptions,
 } from "@/domain";
 import {
   fakeFile,
@@ -137,36 +136,27 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
     const childrenData: ArtifactOrDirectoryOptions[] = [];
 
     const fixtures = createFixtures(parent);
-    fixtures.forEach(fixture => {
-      if (isArtifactOptions(fixture)) {
+    fixtures.forEach(({
+      metadata,
+      options
+    }) => {
+      if (isArtifactOptions(options) && metadata) {
         this.metadatas.setFile({
-          id: fixture.id,
-          metadata: new ArrayBuffer(0)
+          id: options.id,
+          metadata
         });
       } else {
         this.metadatas.setDirectory({
-          id: fixture.id,
+          id: options.id,
           metadata: undefined
         });
       }
-      childrenData.push(fixture);
+
+      childrenData.push(options);
     });
 
     const shouldGaranteeDataExpectedByE2e = parent.isRoot();
     if (shouldGaranteeDataExpectedByE2e) {
-      const descriptorFile = fakeFile("txt");
-      descriptorFile.name = `${Descriptor.descriptorBasename}.txt`;
-      const descriptorFileId = createId();
-      childrenData.push({
-        id: descriptorFileId,
-        parentId: parent.id,
-        ...descriptorFile
-      });
-      this.metadatas.setFile({
-        id: descriptorFileId,
-        metadata: descriptorFile.content
-      });
-
       const todoFile = fakeFile("todo");
       const todoFileId = createId();
       childrenData.push({

@@ -1,16 +1,60 @@
 import type {
+  ArtifactOptions,
   Directory,
   DirectoryOptions
 } from "@/domain";
 
-import { createId } from "@/domain";
-import { fakeDirectory } from "@/utils";
+import {
+  createId,
+  Descriptor
+} from "@/domain";
+import {
+  fakeDirectory,
+  fakeFile
+} from "@/utils";
 import { faker } from "@faker-js/faker";
 
-import type { ArtifactOrDirectoryOptions } from "../file-system";
+type Fixture = {
+  metadata: ArrayBuffer
+  options: ArtifactOptions
+} | {
+  metadata: undefined
+  options: DirectoryOptions
+};
 
-export function createFixtures(parent: Directory) {
-  const childrenData: ArtifactOrDirectoryOptions[] = [];
+export function createFixtures(parent: Directory): Fixture[] {
+  const childrenData: Fixture[] = [];
+
+  const subDirectories = createSubdirectories(parent);
+  childrenData.push(...subDirectories);
+
+  const descriptorFile = createDescriptorFile(parent);
+  if (descriptorFile) {
+    childrenData.push(descriptorFile);
+  }
+
+  return childrenData;
+}
+
+function createDescriptorFile(parent: Directory) {
+  const hasDescriptorFile = parent.isRoot() || faker.datatype.boolean();
+  if (!hasDescriptorFile) return;
+
+  const descriptorFile = fakeFile("txt");
+  descriptorFile.name = `${Descriptor.descriptorBasename}.txt`;
+  const descriptorFileId = createId();
+  return {
+    metadata: descriptorFile.content,
+    options: {
+      id: descriptorFileId,
+      parentId: parent.id,
+      ...descriptorFile
+    }
+  };
+}
+
+function createSubdirectories(parent: Directory) {
+  const subdirectories: Fixture[] = [];
 
   const maxSubdirectories = 3;
   const minSubdirectories = parent.isRoot() ? 2 : 0;
@@ -19,33 +63,18 @@ export function createFixtures(parent: Directory) {
     min: minSubdirectories
   });
 
-  const subDirectories = createSubdirectories({
-    howMany: howManySubdirectories,
-    parent
-  });
-  childrenData.push(...subDirectories);
-
-  return childrenData;
-}
-
-function createSubdirectories({
-  howMany,
-  parent
-}: {
-  howMany: number,
-  parent: Directory
-}) {
-  const subDirectoriesData: DirectoryOptions[] = [];
-
-  for (let i = 0; i < howMany; i++) {
+  for (let i = 0; i < howManySubdirectories; i++) {
     const id = createId();
     const entry = fakeDirectory();
-    subDirectoriesData.push({
-      id,
-      parentId: parent.id,
-      ...entry
+    subdirectories.push({
+      metadata: undefined,
+      options: {
+        id,
+        parentId: parent.id,
+        ...entry
+      }
     });
   }
 
-  return subDirectoriesData;
+  return subdirectories;
 }
