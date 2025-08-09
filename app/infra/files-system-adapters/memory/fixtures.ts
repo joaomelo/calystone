@@ -147,6 +147,7 @@ function createTodoFiles(parent: Directory) {
     };
     const todo = new TodoArtifact(options);
     feedCriteria(todo);
+    feedTags(todo);
 
     fixtures.push({
       metadata: todo.toBinary(),
@@ -185,5 +186,26 @@ function feedCriteria(todo: TodoArtifact) {
       label,
       value
     });
+  }
+}
+
+function feedTags(todo: TodoArtifact) {
+  const howManyTags = faker.helpers.rangeToNumber({
+    max: 3,
+    min: 0
+  });
+
+  for (let i = 0; i < howManyTags; i++) {
+    const label = faker.helpers.arrayElement([
+      "cycle",
+      "next action",
+      "now",
+      "work",
+      "personal",
+      "delegated",
+      "blocked",
+      "automatic",
+    ]);
+    todo.tagger.add(label);
   }
 }
