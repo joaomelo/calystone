@@ -5,8 +5,10 @@ import type {
 } from "@/domain";
 
 import {
+  asCriterionValue,
   createId,
-  Descriptor
+  Descriptor,
+  TodoArtifact
 } from "@/domain";
 import {
   fakeDirectory,
@@ -131,16 +133,57 @@ function createTodoFiles(parent: Directory) {
 
   for (let i = 0; i < howManyTodos; i++) {
     const id = createId();
-    const binaryFile = fakeFile("todo");
+    const {
+      lastModified,
+      name,
+    } = fakeFile("todo");
+
+    const options: ArtifactOptions = {
+      id,
+      lastModified,
+      name,
+      parentId: parent.id,
+      size: 0
+    };
+    const todo = new TodoArtifact(options);
+    feedCriteria(todo);
+
     fixtures.push({
-      metadata: binaryFile.content,
-      options: {
-        id,
-        parentId: parent.id,
-        ...binaryFile
-      }
+      metadata: todo.toBinary(),
+      options
     });
   }
 
   return fixtures;
+}
+
+function feedCriteria(todo: TodoArtifact) {
+  const howManyCriteria = faker.helpers.rangeToNumber({
+    max: 3,
+    min: 0
+  });
+
+  for (let i = 0; i < howManyCriteria; i++) {
+    const label = faker.helpers.arrayElement([
+      "urgency",
+      "impact",
+      "effort",
+      "risk",
+      "value",
+      "complexity",
+      "clarity",
+      "deadline",
+      "importance",
+      "feasibility"
+    ]);
+    const value = asCriterionValue(faker.number.float({
+      fractionDigits: 2,
+      max: 1,
+      min: 0
+    }));
+    todo.updateCriterion({
+      label,
+      value
+    });
+  }
 }
