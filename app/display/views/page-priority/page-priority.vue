@@ -39,11 +39,13 @@ function handleSelected(itemData?: ItemData) {
       class="page-priority"
     >
       <template #master>
-        <FiltersTodo v-model="filters" />
-        <OutlineTodos
-          :filters="filters"
-          @selected="handleSelected"
-        />
+        <div class="page-priority__master">
+          <FiltersTodo v-model="filters" />
+          <OutlineTodos
+            :filters="filters"
+            @selected="handleSelected"
+          />
+        </div>
       </template>
       <template #detail>
         <EditorSwitcher
@@ -56,6 +58,12 @@ function handleSelected(itemData?: ItemData) {
 </template>
 <style scoped>
 .page-priority {
+  height: 100%;
+}
+
+.page-priority__master {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 </style>

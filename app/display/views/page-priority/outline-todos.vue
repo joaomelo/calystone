@@ -22,22 +22,10 @@ function handleSelected(data?: ItemData) {
 }
 </script>
 <template>
-  <div class="outline-calendar">
-    <OutlineItems
-      data-test="outline-calendar__items"
-      :items="items"
-      mode="list"
-      @selected="handleSelected"
-    />
-  </div>
+  <OutlineItems
+    data-test="outline-calendar__items"
+    :items="items"
+    mode="list"
+    @selected="handleSelected"
+  />
 </template>
-<style scoped>
-.outline-calendar {
-  display: flex;
-  flex-direction: column;
-}
-
-.outline-calendar__month-viewer :deep(.p-datepicker-panel) {
-  padding: 0;
-}
-</style>
