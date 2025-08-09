@@ -101,7 +101,6 @@ export function initApp(elementId: string) {
 
   const store = new Store({
     appData,
-    enablePriorityPage: asBoolean(import.meta.env.VITE_ENABLE_PRIORITY_PAGE),
     services: servicesPortfolio
   });
   window.$store = store;

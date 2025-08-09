@@ -16,10 +16,7 @@ import {
 import { usePreloading } from "./use-preloading";
 
 const { t } = useI18n();
-const {
-  enablePriorityPage,
-  services
-} = Store.use();
+const { services } = Store.use();
 const route = useRoute();
 const router = useRouter();
 const preloading = usePreloading();
@@ -67,7 +64,6 @@ function handleExit() {
         @click="handleClickPage('tags')"
       />
       <SideItem
-        v-if="enablePriorityPage"
         id="priority"
         :title="t('common.priority')"
         :icon="`${baseIcon} bxs-flag-alt`"
