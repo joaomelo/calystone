@@ -9,7 +9,6 @@ import type {
 
 import { createId } from "@/domain";
 import {
-  fakeFile,
   Status,
   throwError
 } from "@/utils";
@@ -150,21 +149,6 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
 
       childrenData.push(fixture.options);
     });
-
-    const shouldGaranteeDataExpectedByE2e = parent.isRoot();
-    if (shouldGaranteeDataExpectedByE2e) {
-      const todoFile = fakeFile("todo");
-      const todoFileId = createId();
-      childrenData.push({
-        id: todoFileId,
-        parentId: parent.id,
-        ...todoFile
-      });
-      this.metadatas.setFile({
-        id: todoFileId,
-        metadata: todoFile.content
-      });
-    }
 
     return childrenData;
   }

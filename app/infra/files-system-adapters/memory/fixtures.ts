@@ -40,6 +40,9 @@ export function createFixtures(parent: Directory): Fixture[] {
   const binaries = createOrdinaryFiles(parent);
   childrenData.push(...binaries);
 
+  const todos = createTodoFiles(parent);
+  childrenData.push(...todos);
+
   return childrenData;
 }
 
@@ -69,7 +72,7 @@ function createOrdinaryFiles(parent: Directory) {
 
   const extensionsToUse = ["txt", "exe"];
   const howManyMoreExtensions = faker.helpers.rangeToNumber({
-    max: 10,
+    max: 5,
     min: 3
   });
   for (let i = 0; i < howManyMoreExtensions; i++) {
@@ -116,4 +119,28 @@ function createSubdirectories(parent: Directory) {
   }
 
   return subdirectories;
+}
+
+function createTodoFiles(parent: Directory) {
+  const fixtures: Fixture[] = [];
+
+  const howManyTodos = faker.helpers.rangeToNumber({
+    max: 5,
+    min: 2
+  });
+
+  for (let i = 0; i < howManyTodos; i++) {
+    const id = createId();
+    const binaryFile = fakeFile("todo");
+    fixtures.push({
+      metadata: binaryFile.content,
+      options: {
+        id,
+        parentId: parent.id,
+        ...binaryFile
+      }
+    });
+  }
+
+  return fixtures;
 }
