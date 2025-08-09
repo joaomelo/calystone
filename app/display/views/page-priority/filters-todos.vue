@@ -2,12 +2,14 @@
 import type { Filters } from "./filters";
 
 import SelectCriterion from "./select-criterion.vue";
+import SelectTag from "./select-tag.vue";
 
 const model = defineModel<Filters>({ required: true });
 </script>
 <template>
   <div class="filters-todo">
     <SelectCriterion v-model="model.criterion" />
+    <SelectTag v-model="model.tag" />
   </div>
 </template>
 <style scoped>
