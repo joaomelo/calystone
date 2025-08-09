@@ -14,7 +14,17 @@ export function useItems(filters: Filters) {
   const items = computed<Item[]>(() => {
     if (!filters.criterion) return [];
 
-    const todos = services.computeCriteria.todosCriterioneddBy(filters.criterion);
+    const { criterion } = filters;
+    const todos = services.computeCriteria.todosCriterioneddBy(criterion);
+
+    todos.sort((a, b) => {
+      const aCriterion = a.criterion(criterion);
+      const aCriterionValue = aCriterion.value;
+      const bCriterion = b.criterion(criterion);
+      const bCriterionValue = bCriterion.value;
+      return bCriterionValue - aCriterionValue;
+    });
+
     return todos.map((todo) => {
       const key = todo.id;
       const label = todo.basename();
