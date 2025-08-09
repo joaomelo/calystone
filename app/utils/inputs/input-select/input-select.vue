@@ -12,12 +12,14 @@ interface Option {
 
 const {
   disabled = false,
-  label
+  label,
+  showClear = false
 } = defineProps<{
   dataTest: string
   disabled?: boolean
   label?: string;
   options: Option[];
+  showClear?: boolean;
 }>();
 const model = defineModel({ type: String });
 
@@ -40,7 +42,7 @@ const id = useId();
       :data-test="kebabCase(dataTest, 'input')"
       :disabled="disabled"
       :options="options"
-      :allow-empty="false"
+      :show-clear="showClear"
       option-label="label"
       option-value="value"
       fluid
