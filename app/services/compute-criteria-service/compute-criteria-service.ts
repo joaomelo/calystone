@@ -26,4 +26,17 @@ export class ComputeCriteriaService {
 
     return labels;
   }
+
+  todosCriterioneddBy(label: string): TodoArtifact[] {
+    const todos: TodoArtifact[] = [];
+    const nodes = this.retrieveNodesService.list();
+
+    for (const node of nodes) {
+      if (!(node instanceof TodoArtifact)) continue;
+      if (!node.hasCriterion(label)) continue;
+      todos.push(node);
+    }
+
+    return todos;
+  }
 }

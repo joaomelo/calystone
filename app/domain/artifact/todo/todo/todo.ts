@@ -102,6 +102,10 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.recurrer = undefined;
   }
 
+  hasCriterion(label: string) {
+    return this.prioritizer.has(label);
+  }
+
   hasDates(): this is { dater: Dater } {
     return this.dater !== undefined;
   }

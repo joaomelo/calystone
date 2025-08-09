@@ -42,6 +42,10 @@ export class Prioritizer {
     return this.state.length === 0;
   }
 
+  has(label: string) {
+    return this.state.some((c) => c.label === label);
+  }
+
   isEqualTo(other: Prioritizer): boolean {
     return this.compareTo(other) === 0;
   }
