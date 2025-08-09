@@ -5,7 +5,7 @@ import { OutlineItems } from "@/display/views/outline-items";
 
 import type { Filters } from "./filters";
 
-import { useItems } from "./page-priority-outline-items";
+import { useItems } from "./use-todos";
 
 const { filters } = defineProps<{ filters: Filters }>();
 const emit = defineEmits<{ "selected": [node: ItemData | undefined] }>();

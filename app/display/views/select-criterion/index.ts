@@ -1,1 +1,0 @@
-export { default as SelectCriterion } from "./select-criterion.vue";

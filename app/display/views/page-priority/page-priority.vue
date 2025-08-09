@@ -13,8 +13,8 @@ import {
 
 import type { Filters } from "./filters";
 
-import PagePriorityFilters from "./page-priority-filters.vue";
-import PagePriorityOutline from "./page-priority-outline.vue";
+import FiltersTodo from "./filters-todos.vue";
+import OutlineTodos from "./outline-todos.vue";
 
 const { services } = Store.use();
 
@@ -39,8 +39,8 @@ function handleSelected(itemData?: ItemData) {
       class="page-priority"
     >
       <template #master>
-        <PagePriorityFilters v-model="filters" />
-        <PagePriorityOutline
+        <FiltersTodo v-model="filters" />
+        <OutlineTodos
           :filters="filters"
           @selected="handleSelected"
         />
