@@ -1,13 +1,13 @@
+import { openMemory } from "../macros";
 import {
   editorDirectory,
-  openMacros,
   outlineNodes,
   outlineNodesLegacy
-} from "../helpers";
+} from "../selectors";
 
 describe("editor-directory", () => {
   beforeEach(() => {
-    openMacros.openMemory();
+    openMemory();
   });
 
   it("shows and updates tip and directory data according to directory status", () => {
