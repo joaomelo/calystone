@@ -8,7 +8,7 @@ import {
   pageTags
 } from "../selectors";
 
-describe("show tags", () => {
+describe("outline-tags", () => {
   beforeEach(() => {
     openMemory();
   });

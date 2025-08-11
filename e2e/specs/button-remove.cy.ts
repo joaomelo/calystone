@@ -1,7 +1,11 @@
-import { openMemory } from "../macros";
+import {
+  createArtifact,
+  openMemory
+} from "../macros";
 import {
   editorEmpty,
   modalRemove,
+  outlineNodes,
   outlineNodesLegacy,
   toolbarNode
 } from "../selectors";
@@ -43,16 +47,13 @@ describe("button-remove", () => {
   });
 
   it("does not remove if user cancels", () => {
-    outlineNodesLegacy.artifactOf(outlineNodesLegacy.rootNode()).first().as("artifact");
-    outlineNodesLegacy.labelOf(cy.get("@artifact")).then((oldLabel) => {
-      cy.get("@artifact").click();
-      toolbarNode.buttonRemove().click();
-      modalRemove.buttonCancel().click();
+    const artifactName = "will-not-be-removed.dll";
+    outlineNodesLegacy.rootNode().click();
+    createArtifact(artifactName);
 
-      outlineNodesLegacy.labelOf(outlineNodesLegacy.artifactOf(outlineNodesLegacy.rootNode()).first())
-        .then((newLabel) => {
-          expect(newLabel).to.equal(oldLabel);
-        });
-    });
+    cy.get(outlineNodes.nodeLabel(artifactName)).click();
+    toolbarNode.buttonRemove().click();
+    modalRemove.buttonCancel().click();
+    cy.get(outlineNodes.nodeLabel(artifactName)).should("exist");
   });
 });

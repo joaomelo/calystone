@@ -7,7 +7,6 @@ const dragFormat = "application/outline-item";
 describe("outline-nodes", () => {
   beforeEach(() => {
     openMemory();
-    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
   });
 
   it("enables outlineNodesLegacy navigation", () => {
@@ -25,6 +24,7 @@ describe("outline-nodes", () => {
   });
 
   it("allows directory move", () => {
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy
       .inlineNodeOf(outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).eq(0))
       .as("sourceNode");
@@ -69,6 +69,8 @@ describe("outline-nodes", () => {
   });
 
   it("cant move to descendant", () => {
+    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
+
     outlineNodesLegacy
       .directoryOf(outlineNodesLegacy.rootNode()).eq(0)
       .as("sourceNodeWrapper");

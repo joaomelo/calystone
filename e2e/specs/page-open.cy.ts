@@ -10,7 +10,7 @@ import {
   pageTerms
 } from "../selectors";
 
-describe("connects", () => {
+describe("page-open", () => {
   it("opens memory", () => {
     openMemory();
     cy.url().should("include", pageNodes.url());
@@ -37,18 +37,21 @@ describe("connects", () => {
   });
 
   it("can open the privacy page", function() {
+    cy.visit("/");
     pageOpen.privacyLink().click();
     cy.contains("privacy policy", { matchCase: false });
     pagePrivacy.openLink().click();
   });
 
   it("can open the terms page", function() {
+    cy.visit("/");
     pageOpen.termsLink().click();
     cy.contains("terms of service", { matchCase: false });
     pageTerms.openLink().click();
   });
 
   it("switches between locales", () => {
+    cy.visit("/");
     pageOpen.locale.option("en").click();
     pageOpen.locale.label().should("have.text", "language");
 

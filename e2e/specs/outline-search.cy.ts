@@ -9,7 +9,7 @@ import {
   toolbarNode
 } from "../selectors";
 
-describe("page-search", () => {
+describe("outline-search", () => {
   beforeEach(() => {
     openMemory();
   });
