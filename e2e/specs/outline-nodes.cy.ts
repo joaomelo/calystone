@@ -1,12 +1,12 @@
-import {
-  dataTest,
-  openMacros,
-  outlineNodesLegacy
-} from "../helpers";
+import { dataTest } from "../helpers";
+import { openMemory } from "../macros";
+import { outlineNodesLegacy } from "../selectors";
 
-describe("move", () => {
+const dragFormat = "application/outline-item";
+
+describe("outline-nodes", () => {
   beforeEach(() => {
-    openMacros.openMemory();
+    openMemory();
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
   });
 
@@ -23,8 +23,6 @@ describe("move", () => {
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy.childrenOf(outlineNodesLegacy.rootNode()).should("have.length.greaterThan", 0);
   });
-
-  const dragFormat = "application/outline-item";
 
   it("allows directory move", () => {
     outlineNodesLegacy

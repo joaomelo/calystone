@@ -1,19 +1,21 @@
+import { typicalDates } from "../helpers";
 import {
   createArtifact,
+  openMemory,
+} from "../macros";
+import {
   editorTodo,
-  openMacros,
   outlineNodesLegacy,
   pageCalendar,
-  typicalDates
-} from "../helpers";
+} from "../selectors";
 
-describe("calendar", () => {
+describe("outline-calendar", () => {
   const dayOne = typicalDates.dayOfMonth(1);
   const dayTwo = typicalDates.dayOfMonth(2);
   const dayThree = typicalDates.dayOfMonth(3);
 
   beforeEach(() => {
-    openMacros.openMemory();
+    openMemory();
 
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
 

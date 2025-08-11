@@ -1,14 +1,16 @@
 import {
   createTodo,
-  openMacros,
+  openMemory,
+} from "../macros";
+import {
   outlineNodesLegacy,
-  outlineTags
-} from "../helpers";
-import { pageTags } from "../helpers/page-tags";
+  outlineTags,
+  pageTags
+} from "../selectors";
 
 describe("show tags", () => {
   beforeEach(() => {
-    openMacros.openMemory();
+    openMemory();
   });
 
   it("show tags based on todos", () => {

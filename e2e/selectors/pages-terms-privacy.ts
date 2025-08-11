@@ -1,3 +1,7 @@
 import { dataTest } from "../helpers";
 
-export const docs = { openLink: () => cy.get(dataTest("open-link")), } as const;
+const pagesTermsPrivacy = { openLink: () => cy.get(dataTest("open-link")), } as const;
+
+export const pageTerms = { ...pagesTermsPrivacy } as const;
+
+export const pagePrivacy = { ...pagesTermsPrivacy } as const;

@@ -1,26 +1,27 @@
 import {
-  createTodo,
-  modalCreateArtifact,
-  editorTodo,
-  openMacros,
-  outlineNodesLegacy,
-  toolbarNode,
   typeableDate,
   typicalDates
 } from "../helpers";
+import {
+  createArtifact,
+  createTodo,
+  openMemory
+} from "../macros";
+import {
+  editorTodo,
+  outlineNodesLegacy,
+} from "../selectors";
 
 describe("create-and-edit-todo", () => {
   beforeEach(() => {
-    openMacros.openMemory();
+    openMemory();
   });
 
-  it("creates todo inside a directory and edits it", () => {
-    const todoName = "new-todo-name.todo";
-
+  it("enables todo editing", () => {
     outlineNodesLegacy.rootNode().click();
-    toolbarNode.buttonCreateArtifact().click();
-    modalCreateArtifact.inputName().clear().type(todoName);
-    modalCreateArtifact.buttonSave().click();
+
+    const todoName = "new-todo-name.todo";
+    createArtifact(todoName);
 
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy.artifactTodoOf(outlineNodesLegacy.rootNode())
@@ -64,7 +65,7 @@ describe("create-and-edit-todo", () => {
     editorTodo.dates.inputStart.input().should("have.value", typeableDate(typicalDates.tomorrow.start));
   });
 
-  it("adds, set and remove prioriti criteria", () => {
+  it("adds, set and remove priority criteria", () => {
     outlineNodesLegacy.rootNode().click();
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
 

@@ -6,6 +6,7 @@ export * from "./editor-todo";
 export * from "./modal-create-artifact";
 export * from "./modal-create-directory";
 export * from "./modal-remove";
+export * from "./modal-rename-artifact";
 export * from "./outline-nodes";
 export * from "./outline-tags";
 export * from "./page-calendar";

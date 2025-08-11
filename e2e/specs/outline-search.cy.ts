@@ -1,17 +1,17 @@
+import { openMemory } from "../macros";
 import {
-  modalCreateArtifact,
-  modalCreateDirectory,
   editorText,
   editorTodo,
-  openMacros,
+  modalCreateArtifact,
+  modalCreateDirectory,
   outlineNodesLegacy,
   pageSearch,
   toolbarNode
-} from "../helpers";
+} from "../selectors";
 
 describe("page-search", () => {
   beforeEach(() => {
-    openMacros.openMemory();
+    openMemory();
   });
 
   it("fuzzy searches considering name and inner data of nodes", () => {

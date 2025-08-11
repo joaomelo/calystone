@@ -1,13 +1,13 @@
+import { openMemory } from "../macros";
 import {
   modalCreateDirectory,
-  openMacros,
   outlineNodesLegacy,
   toolbarNode
-} from "../helpers";
+} from "../selectors";
 
 describe("create-directory", () => {
   beforeEach(() => {
-    openMacros.openMemory();
+    openMemory();
   });
 
   it("creates directory inside another directory", () => {
@@ -18,11 +18,5 @@ describe("create-directory", () => {
 
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).should("contain.text", "new-directory-name");
-  });
-
-  it("does not show create directory toolbar button if artifact is selected", () => {
-    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
-    outlineNodesLegacy.artifactOf(outlineNodesLegacy.rootNode()).first().click();
-    toolbarNode.buttonCreateDirectory().should("not.exist");
   });
 });

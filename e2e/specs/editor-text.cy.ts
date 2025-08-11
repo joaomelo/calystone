@@ -1,23 +1,22 @@
 import {
-  modalCreateArtifact,
+  createArtifact,
+  openMemory
+} from "../macros";
+import {
   editorText,
-  openMacros,
   outlineNodesLegacy,
-  toolbarNode
-} from "../helpers";
+} from "../selectors";
 
-describe("editor-binary", () => {
+describe("editor-text", () => {
   beforeEach(() => {
-    openMacros.openMemory();
+    openMemory();
   });
 
-  it("creates text file and edits it", () => {
+  it("shows text editor", () => {
     const textArtifactName = "sibling.txt";
 
     outlineNodesLegacy.rootNode().click();
-    toolbarNode.buttonCreateArtifact().click();
-    modalCreateArtifact.inputName().clear().type(textArtifactName);
-    modalCreateArtifact.buttonSave().click();
+    createArtifact(textArtifactName);
 
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy.artifactTextOf(outlineNodesLegacy.rootNode()).should("contain.text", textArtifactName);
