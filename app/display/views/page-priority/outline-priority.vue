@@ -1,16 +1,14 @@
 <script setup lang="ts">
+import type { Lenses } from "@/display/views/lenses-todos";
 import type { ItemData } from "@/display/views/outline-item";
 
+import { useTodos } from "@/display/views/lenses-todos";
 import { OutlineItems } from "@/display/views/outline-items";
 
-import type { Filters } from "./filters";
-
-import { useItems } from "./use-todos";
-
-const { filters } = defineProps<{ filters: Filters }>();
+const { lenses } = defineProps<{ lenses: Lenses }>();
 const emit = defineEmits<{ "selected": [node: ItemData | undefined] }>();
 
-const items = useItems(filters);
+const items = useTodos(lenses);
 
 function handleSelected(data?: ItemData) {
   if (!data) {
@@ -23,7 +21,7 @@ function handleSelected(data?: ItemData) {
 </script>
 <template>
   <OutlineItems
-    data-test="outline-calendar__items"
+    data-test="outline-priority"
     :items="items"
     mode="list"
     @selected="handleSelected"

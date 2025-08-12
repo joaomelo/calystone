@@ -12,19 +12,18 @@ const model = defineModel<string | undefined>({ default: undefined });
 
 const { services } = Store.use();
 const options = computed(() => {
-  const tags = services.computeTags.compute();
-  const list = tags.names();
-  return list.map(name => ({
-    label: name,
-    value: name
+  const labels = Array.from(services.computeCriteria.labels());
+  return labels.map(label => ({
+    label,
+    value: label
   }));
 });
 </script>
 <template>
   <InputSelect
     v-model="model"
-    :label="t('common.tags')"
-    data-test="select-tag"
+    data-test="select-criterion"
+    :label="t('common.criterion')"
     :options="options"
     show-clear
   />

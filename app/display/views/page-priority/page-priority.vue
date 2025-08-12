@@ -1,24 +1,23 @@
 <script setup lang="ts">
+import type { Lenses } from "@/display/views/lenses-todos";
 import type { ItemData } from "@/display/views/outline-item";
 import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
+import { InputLenses } from "@/display/views/lenses-todos";
 import { MasterDetail } from "@/utils";
 import {
   computed,
   ref
 } from "vue";
 
-import type { Filters } from "./filters";
-
-import FiltersTodo from "./filters-todos.vue";
-import OutlineTodos from "./outline-todos.vue";
+import OutlinePriority from "./outline-priority.vue";
 
 const { services } = Store.use();
 
-const filters = ref<Filters>({});
+const lenses = ref<Lenses>({});
 const selectedNode = ref<Node | undefined>();
 const showDetail = computed(() => Boolean(selectedNode.value));
 
@@ -40,9 +39,9 @@ function handleSelected(itemData?: ItemData) {
     >
       <template #master>
         <div class="page-priority__master">
-          <FiltersTodo v-model="filters" />
-          <OutlineTodos
-            :filters="filters"
+          <InputLenses v-model="lenses" />
+          <OutlinePriority
+            :lenses="lenses"
             @selected="handleSelected"
           />
         </div>

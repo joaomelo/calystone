@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import type { Filters } from "./filters";
+import type { Lenses } from "../lenses";
 
 import SelectCriterion from "./select-criterion.vue";
 import SelectTag from "./select-tag.vue";
 
-const model = defineModel<Filters>({ required: true });
+const model = defineModel<Lenses>({ required: true });
 </script>
 <template>
-  <div class="filters-todo">
-    <SelectCriterion v-model="model.criterion" />
+  <div class="input-lenses">
     <SelectTag v-model="model.tag" />
+    <SelectCriterion v-model="model.criterion" />
   </div>
 </template>
 <style scoped>
-.filters-todo {
+.input-lenses {
   padding: var(--size-3);
 
   display: flex;
