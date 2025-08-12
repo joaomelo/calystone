@@ -43,12 +43,6 @@ jobs:
           VITE_ENABLE_MEMORY: true
           VITE_PRELOAD_ENABLED: false
       - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: bundle-report
-          path: dist/bundle-report.html
-          retention-days: 5             
-      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-media
@@ -62,6 +56,11 @@ jobs:
           VITE_ENABLE_MEMORY: false
           VITE_LOGGER_LEVEL: 7
           VITE_PRELOAD_ENABLED: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-report
+          path: dist/bundle-report.html
+          retention-days: 5             
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
