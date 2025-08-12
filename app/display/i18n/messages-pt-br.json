@@ -6,12 +6,13 @@
   "cancelled": "cancelado",
   "common": {
     "calendar": "calendário",
+    "criterion": "critério",
     "disabled": "desabilitado",
     "outline": "hierarquia",
-    "search": "busca",
-    "tags": "rótulos",
     "priority": "prioridade",
-    "criterion": "critério"
+    "search": "busca",
+    "tag": "rótulo",
+    "tags": "rótulos"
   },
   "complete": "concluir",
   "completed": "concluído",

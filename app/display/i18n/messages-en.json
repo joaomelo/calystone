@@ -6,12 +6,13 @@
   "cancelled": "cancelled",
   "common": {
     "calendar": "calendar",
+    "criterion": "criterion",
     "disabled": "disabled",
     "outline": "outline",
-    "search": "search",
-    "tags": "tags",
     "priority": "priority",
-    "criterion": "criterion"
+    "search": "search",
+    "tag": "tag",
+    "tags": "tags"
   },
   "complete": "complete",
   "completed": "completed",
