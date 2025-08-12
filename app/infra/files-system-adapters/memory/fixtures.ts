@@ -100,8 +100,10 @@ function createOrdinaryFiles(parent: Directory) {
 function createSubdirectories(parent: Directory) {
   const subdirectories: Fixture[] = [];
 
-  const maxSubdirectories = 3;
-  const minSubdirectories = parent.isRoot() ? 2 : 0;
+  // we want to garantee subdirectories in root and direct a finite depth to not disrupt manual tests
+  const maxSubdirectories = parent.isRoot() ? 5 : 1;
+  const minSubdirectories = parent.isRoot() ? 3 : 0;
+
   const howManySubdirectories = faker.helpers.rangeToNumber({
     max: maxSubdirectories,
     min: minSubdirectories
