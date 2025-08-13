@@ -47,6 +47,10 @@ export abstract class Node {
     return !this.parentId;
   }
 
+  isUnloaded(): boolean {
+    return !this.loaded;
+  }
+
   load(): void {
     this.loaded = true;
   }
