@@ -23,6 +23,7 @@ export function useTodos(lenses: Lenses) {
     const todos: TodoArtifact[] = [];
     const nodes = services.retrieveNodes.list();
     for (const node of nodes) {
+      if (node.isUnloaded()) continue;
       if (!(node instanceof TodoArtifact)) continue;
       if (tag && !node.tagger.has(tag)) continue;
       todos.push(node);
