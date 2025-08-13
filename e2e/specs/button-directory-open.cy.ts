@@ -1,7 +1,7 @@
 import { openMemory } from "../macros";
 import {
   editorDirectory,
-  outlineNodesLegacy,
+  outlineNodes,
   toolbarNode
 } from "../selectors";
 
@@ -11,7 +11,7 @@ describe("button-directory-open", () => {
   });
 
   it("can open directory via toolbar button", () => {
-    outlineNodesLegacy.rootNode().click();
+    cy.get(outlineNodes.nodeInline).first().click();
     toolbarNode.buttonOpenDirectory().click();
     editorDirectory.tipUnloaded().should("not.exist");
   });
