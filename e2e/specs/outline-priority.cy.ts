@@ -1,0 +1,78 @@
+import {
+  createTodo,
+  openMemory,
+} from "../macros";
+import {
+  outlineNodes,
+  outlinePriority,
+  pageNodes,
+} from "../selectors";
+
+describe("outline-priority", () => {
+  const todoOne = "todoOne.todo";
+  const todoTwo = "todoTwo.todo";
+
+  const tagCycle = "cycle";
+  const tagToday = "today";
+  const criterionImportancy = "importancy";
+  const criterionUrgency = "urgency";
+
+  beforeEach(() => {
+    openMemory();
+
+    cy.get(outlineNodes.nodeToogle).first().click();
+    cy.get(outlineNodes.nodeInline).first().click();
+
+    createTodo({
+      criteria: [{
+        label: criterionImportancy,
+        value: "0.25"
+      }, {
+        label: criterionUrgency,
+        value: "0.75"
+      }],
+      name: todoOne,
+      tags: [tagCycle, tagToday]
+    });
+
+    createTodo({
+      criteria: [{
+        label: criterionImportancy,
+        value: "0.80"
+      }, {
+        label: criterionUrgency,
+        value: "0.10"
+      }],
+      name: todoTwo,
+      tags: [tagCycle]
+    });
+
+    pageNodes.priority().click();
+  });
+
+  it("filter by tag", () => {
+    cy.get(outlinePriority.lenses.tag.input).click();
+    cy.get(outlinePriority.lenses.tag.option(tagCycle)).click();
+    cy.get(outlinePriority.nodes.node).should("have.length", 2);
+
+    cy.get(outlinePriority.lenses.tag.input).click();
+    cy.get(outlinePriority.lenses.tag.option(tagToday)).click();
+    cy.get(outlinePriority.nodes.node).should("have.length", 1);
+  });
+
+  it("sort priority or criterion", () => {
+    cy.get(outlinePriority.nodes.node).eq(0).contains(todoOne);
+    cy.get(outlinePriority.nodes.node).eq(1).contains(todoTwo);
+
+    cy.get(outlinePriority.lenses.criterion.input).click();
+    cy.get(outlinePriority.lenses.criterion.option(criterionImportancy)).click();
+    cy.get(outlinePriority.nodes.node).eq(1).contains(todoTwo);
+    cy.get(outlinePriority.nodes.node).eq(0).contains(todoOne);
+
+    cy.get(outlinePriority.lenses.criterion.input).click();
+    cy.get(outlinePriority.lenses.criterion.option(criterionUrgency)).click();
+    cy.get(outlinePriority.nodes.node).eq(0).contains(todoOne);
+    cy.get(outlinePriority.nodes.node).eq(1).contains(todoTwo);
+  });
+
+});
