@@ -45,7 +45,9 @@ const id = useId();
       :show-clear="showClear"
       option-label="label"
       option-value="value"
+      data-key="value"
       fluid
+      :pt:list:data-test="kebabCase(dataTest, 'options')"
     />
   </div>
 </template>
