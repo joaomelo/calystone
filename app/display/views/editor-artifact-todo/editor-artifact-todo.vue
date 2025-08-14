@@ -14,7 +14,7 @@ import {
 } from "@/display/views/toolbar-buttons";
 import {
   AccordionPanels,
-  formatDateTime,
+  formatDateRange,
   useI18n
 } from "@/utils";
 import {
@@ -45,10 +45,17 @@ const panels = computed<PanelsList>(() => {
   const priority = artifact.priority().toFixed(2);
   const priorityLegend = `${t("common.priority")}: ${priority}`;
 
+  const startDate = artifact.dateStart();
   const dueDate = artifact.dateDue();
-  const formattedDueDate = dueDate ? ` ${formatDateTime(dueDate)}` : "";
+  const hasDates = startDate && dueDate;
+  const formattedDateRange = hasDates
+    ? formatDateRange({
+      due: dueDate,
+      start: startDate,
+    })
+    : "";
   const recurringSignal = artifact.hasRecurrence() ? " ↻" : "";
-  const datesLegend = `${t("editor-todo.dates.dates")}${formattedDueDate}${recurringSignal}`;
+  const datesLegend = `${t("editor-todo.dates.dates")}: ${formattedDateRange}${recurringSignal}`;
 
   const tagsTitle = t("common.tags");
   const tagsList = artifact.tagger.list().join(", ");

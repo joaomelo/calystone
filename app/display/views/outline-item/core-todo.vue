@@ -2,7 +2,7 @@
 import type { TodoArtifact } from "@/domain";
 
 import {
-  formatDateTime,
+  formatDateRange,
   throwCritical,
   truncate
 } from "@/utils";
@@ -61,10 +61,13 @@ const dates = computed(() => {
   const dateDue = todo.dateDue();
   if (!dateStart || !dateDue) throwCritical("TODO_MUST_HAVE_DATES");
 
-  const ocurrence = `${formatDateTime(dateStart)} - ${formatDateTime(dateDue)}`;
+  const occurrence = formatDateRange({
+    due: dateDue,
+    start: dateStart
+  });
   const recurrence = todo.hasRecurrence() ? " ↻" : "";
 
-  return `${ocurrence}${recurrence}`;
+  return `${occurrence}${recurrence}`;
 });
 
 const tags = computed(() => {
