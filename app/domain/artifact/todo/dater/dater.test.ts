@@ -7,50 +7,81 @@ import {
 import { Dater } from "./dater";
 
 describe("dater", () => {
-  it("should set start and due to day extremes if created with allDay true", () => {
-    const dater = new Dater({ allDay: true });
-    expect(dater.start.getHours()).toBe(0);
-    expect(dater.start.getMinutes()).toBe(0);
-    expect(dater.due.getHours()).toBe(23);
-    expect(dater.due.getMinutes()).toBe(59);
-  });
-
-  it("should use the same date for due if start is not passed", () => {
-    const dater = new Dater({
-      allDay: true,
-      start: new Date(2025, 0, 1)
+  describe("constructor", () => {
+    it("should set start and due to day extremes if created with allDay true", () => {
+      const dater = new Dater({ allDay: true });
+      expect(dater.start.getHours()).toBe(0);
+      expect(dater.start.getMinutes()).toBe(0);
+      expect(dater.due.getHours()).toBe(23);
+      expect(dater.due.getMinutes()).toBe(59);
     });
 
-    expect(dater.start.getFullYear()).toBe(2025);
-    expect(dater.start.getMonth()).toBe(0);
-    expect(dater.start.getDate()).toBe(1);
-    expect(dater.start.getHours()).toBe(0);
-    expect(dater.start.getMinutes()).toBe(0);
+    it("should use the same date for due if only start is passed", () => {
+      const dater = new Dater({
+        allDay: true,
+        start: new Date(2025, 0, 1)
+      });
 
-    expect(dater.due.getFullYear()).toBe(2025);
-    expect(dater.due.getMonth()).toBe(0);
-    expect(dater.due.getDate()).toBe(1);
-    expect(dater.due.getHours()).toBe(23);
-    expect(dater.due.getMinutes()).toBe(59);
-  });
+      expect(dater.start.getFullYear()).toBe(2025);
+      expect(dater.start.getMonth()).toBe(0);
+      expect(dater.start.getDate()).toBe(1);
+      expect(dater.start.getHours()).toBe(0);
+      expect(dater.start.getMinutes()).toBe(0);
 
-  it("should use the same date for start if due is not passed", () => {
-    const dater = new Dater({
-      allDay: true,
-      due: new Date(2025, 0, 1)
+      expect(dater.due.getFullYear()).toBe(2025);
+      expect(dater.due.getMonth()).toBe(0);
+      expect(dater.due.getDate()).toBe(1);
+      expect(dater.due.getHours()).toBe(23);
+      expect(dater.due.getMinutes()).toBe(59);
     });
 
-    expect(dater.start.getFullYear()).toBe(2025);
-    expect(dater.start.getMonth()).toBe(0);
-    expect(dater.start.getDate()).toBe(1);
-    expect(dater.start.getHours()).toBe(0);
-    expect(dater.start.getMinutes()).toBe(0);
+    it("should use the same date for start if only due is passed", () => {
+      const dater = new Dater({
+        allDay: true,
+        due: new Date(2025, 0, 1)
+      });
 
-    expect(dater.due.getFullYear()).toBe(2025);
-    expect(dater.due.getMonth()).toBe(0);
-    expect(dater.due.getDate()).toBe(1);
-    expect(dater.due.getHours()).toBe(23);
-    expect(dater.due.getMinutes()).toBe(59);
+      expect(dater.start.getFullYear()).toBe(2025);
+      expect(dater.start.getMonth()).toBe(0);
+      expect(dater.start.getDate()).toBe(1);
+      expect(dater.start.getHours()).toBe(0);
+      expect(dater.start.getMinutes()).toBe(0);
+
+      expect(dater.due.getFullYear()).toBe(2025);
+      expect(dater.due.getMonth()).toBe(0);
+      expect(dater.due.getDate()).toBe(1);
+      expect(dater.due.getHours()).toBe(23);
+      expect(dater.due.getMinutes()).toBe(59);
+    });
+  });
+
+  describe("update", () => {
+    describe("bulk update", () => {
+      it("update start and due dates", () => {
+        const dater = new Dater();
+        const newStart = new Date(2025, 0, 1, 10, 5);
+        const newDue = new Date(2025, 0, 1, 10, 6);
+        dater.update({
+          due: newDue,
+          start: newStart
+        });
+        expect(dater.start).toEqual(newStart);
+        expect(dater.due).toEqual(newDue);
+      });
+
+      it("update start and due dates respecting all day flag", () => {
+        const dater = new Dater();
+        const newStart = new Date(2025, 0, 1, 10, 5);
+        const newDue = new Date(2025, 0, 1, 10, 6);
+        dater.update({
+          allDay: true,
+          due: newDue,
+          start: newStart,
+        });
+        expect(dater.start).toEqual(new Date(2025, 0, 1, 0, 0, 0, 0));
+        expect(dater.due).toEqual(new Date(2025, 0, 1, 23, 59, 59, 999));
+      });
+    });
   });
 
   describe("spansOn", () => {
