@@ -14,7 +14,8 @@ import {
 import { computed } from "vue";
 
 const {
-  artifact, label
+  artifact,
+  label
 } = defineProps<{
   artifact: TodoArtifact;
   label: string;
@@ -22,7 +23,8 @@ const {
 
 const { services } = Store.use();
 const {
-  locale, t
+  locale,
+  t
 } = useI18n();
 
 const criterion = computed(() => artifact.criterion(label));

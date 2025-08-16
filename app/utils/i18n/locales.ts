@@ -12,7 +12,8 @@ export function isLocale(value: unknown, supported: Locales): value is Locale {
 }
 
 export function matchLocale({
-  supported, value
+  supported,
+  value
 }: Options): Locale | undefined {
   if (typeof value !== "string") return undefined;
 

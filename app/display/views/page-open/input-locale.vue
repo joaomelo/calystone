@@ -5,7 +5,9 @@ import {
 } from "@/utils";
 
 const {
-  availableLocales, locale, t
+  availableLocales,
+  locale,
+  t
 } = useI18n();
 
 const options = availableLocales.map((locale) => ({

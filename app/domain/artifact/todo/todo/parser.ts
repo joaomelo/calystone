@@ -104,10 +104,13 @@ export class Parser {
 
   convertDataToBinary(data: TodoArtifactState): ArrayBuffer {
     const {
-      due, start
+      due,
+      start
     } = data.dater?.stringify() ?? {};
     const {
-      reference, step, unit
+      reference,
+      step,
+      unit
     } = data.recurrer?.stringify() ?? {};
 
     const jsonString = JSON.stringify({

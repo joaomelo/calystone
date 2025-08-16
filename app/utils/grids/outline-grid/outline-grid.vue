@@ -9,7 +9,9 @@ import type {
 } from "./types";
 
 const {
-  dataTest, items, mode = "list"
+  dataTest,
+  items,
+  mode = "list"
 } = defineProps<{
   dataTest: string;
   items: OutlineGridItem[];

@@ -62,7 +62,8 @@ export class Nodes {
     target: Directory
   }): Status {
     const {
-      subject, target
+      subject,
+      target
     } = options;
 
     if (subject.isRoot()) return Status.fail("CANNOT_MOVE_ROOT");

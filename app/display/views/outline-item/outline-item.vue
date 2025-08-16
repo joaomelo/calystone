@@ -7,7 +7,10 @@ import { useDragAndDrop } from "./use-drag-and-drop";
 const { data } = defineProps<{ data: ItemData }>();
 
 const {
-  handleDragdrop, handleDragover, handleDragstart, moveable
+  handleDragdrop,
+  handleDragover,
+  handleDragstart,
+  moveable
 } = useDragAndDrop(data);
 const coreComponent = useCore(data);
 

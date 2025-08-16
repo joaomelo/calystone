@@ -13,7 +13,8 @@ interface Options<MessageSchema> {
 }
 
 export function createI18n<MessageSchema>({
-  messages, storageKey
+  messages,
+  storageKey
 }: Options<MessageSchema>) {
   const supported = Object.keys(messages);
   const [fallbackLocale] = supported;

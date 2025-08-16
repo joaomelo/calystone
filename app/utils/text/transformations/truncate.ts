@@ -5,7 +5,8 @@ interface Options {
 
 export function truncate(text: string, options?: Options) {
   const {
-    ellipsis = "...", length = 10
+    ellipsis = "...",
+    length = 10
   } = options ?? {};
 
   if (text.length <= length) return text;

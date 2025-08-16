@@ -25,7 +25,8 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     nodes: Nodes;
   }) {
     const {
-      accessToken, nodes
+      accessToken,
+      nodes
     } = options;
     const rootOptions: DirectoryOptions = {
       id: "root", // onedrive convention that will work to retrieve children in url paths
@@ -48,7 +49,8 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     parent: Directory
   }): Promise<ArtifactOptions> {
     const {
-      name, parent: { id: parentId }
+      name,
+      parent: { id: parentId }
     } = options;
 
     const item = await this.graphClient
@@ -71,7 +73,8 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     parent: Directory
   }): Promise<DirectoryOptions> {
     const {
-      name, parent: { id: parentId }
+      name,
+      parent: { id: parentId }
     } = options;
 
     const item = await this.graphClient
@@ -109,7 +112,8 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     target: Directory
   }): Promise<void> {
     const {
-      subject, target
+      subject,
+      target
     } = options;
 
     this.moveable(subject).throwOnFail();
@@ -192,7 +196,8 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     renameable.throwOnFail();
 
     const {
-      name, node
+      name,
+      node
     } = options;
     const { id } = node;
 
@@ -210,7 +215,8 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     parentId: Id
   }): ArtifactOptions {
     const {
-      item, parentId
+      item,
+      parentId
     } = options;
 
     if (!isId(item.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
@@ -233,7 +239,8 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     parentId: Id
   }): DirectoryOptions {
     const {
-      item, parentId
+      item,
+      parentId
     } = options;
     if (!isId(item.id)) throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_ID");
     if (typeof item.name !== "string") throwError("ONE_DRIVE_RESPONSE_WITH_INVALID_NAME");

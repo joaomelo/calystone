@@ -17,7 +17,8 @@ const { t } = useI18n();
 const modalRemove = useTemplateRef("modalRemove");
 
 const {
-  dispatchOrToast, loading
+  dispatchOrToast,
+  loading
 } = useDispatch();
 
 async function remove() {

@@ -21,7 +21,9 @@ export class Recurrer {
 
   constructor(options: RecurrerOptions = {}) {
     const {
-      reference, step, unit
+      reference,
+      step,
+      unit
     } = options;
 
     if (reference && !RecurrenceReference.isRecurrenceReferenceValue(reference)) {

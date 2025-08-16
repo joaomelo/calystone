@@ -17,7 +17,8 @@ export function useSchema<T>(builder: Builder<T>) {
     if (!result.success) {
       const exceptions: Exception[] = [];
       const {
-        fieldErrors, formErrors
+        fieldErrors,
+        formErrors
       } = result.error.flatten();
 
       formErrors.forEach((error) => {

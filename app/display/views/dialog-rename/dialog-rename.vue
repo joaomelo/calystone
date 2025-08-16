@@ -24,7 +24,9 @@ const modal = useTemplateRef("modal");
 const data = reactive({ name: node.name, });
 
 const {
-  dispatch, errors, loading
+  dispatch,
+  errors,
+  loading
 } = useDispatch();
 
 function open() {

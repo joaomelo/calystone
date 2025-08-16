@@ -20,7 +20,8 @@ const emit = defineEmits<{ "selected": [node: Node | undefined] }>();
 const { services } = Store.use();
 
 const {
-  highlightedDays, viewedMonth
+  highlightedDays,
+  viewedMonth
 } = useHighlight();
 
 const selectedDate = ref<Date>(new Date());

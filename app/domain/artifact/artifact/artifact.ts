@@ -10,7 +10,9 @@ export abstract class Artifact extends Node {
   size: number;
 
   constructor({
-    lastModified, size, ...options
+    lastModified,
+    size,
+    ...options
   }: ArtifactOptions) {
     super(options);
     this.lastModified = lastModified;

@@ -75,7 +75,8 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     if (!currentDue || !currentStart) throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
 
     const {
-      due, start
+      due,
+      start
     } = this.recurrer.next({
       due: currentDue,
       start: currentStart
@@ -201,7 +202,8 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
   updateDateDue(options: UpdateDateOptions) {
     if (!this.dater) {
       const {
-        allDay, date: due
+        allDay,
+        date: due
       } = options;
       this.dater = new Dater({
         allDay,
@@ -215,7 +217,8 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
   updateDateStart(options: UpdateDateOptions) {
     if (!this.dater) {
       const {
-        allDay, date: start
+        allDay,
+        date: start
       } = options;
       this.dater = new Dater({
         allDay,

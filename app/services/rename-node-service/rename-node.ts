@@ -17,7 +17,8 @@ export class RenameNodeService {
     node: Node
   }): Promise<void> {
     const {
-      fileSystemAdapter, nodes
+      fileSystemAdapter,
+      nodes
     } = this.connectSource.stateConnectedOrThrow();
     this.schema.validate(options);
 

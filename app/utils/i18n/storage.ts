@@ -14,7 +14,8 @@ interface Options {
 
 export class LocaleStorage extends LocalStorage<Locale> {
   constructor({
-    storageKey, supported
+    storageKey,
+    supported
   }: Options) {
     super(storageKey, (value) => matchLocale({
       supported,

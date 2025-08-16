@@ -13,7 +13,9 @@ export abstract class Node {
   parentId?: Id;
 
   constructor({
-    id, name, parentId
+    id,
+    name,
+    parentId
   }: NodeOptions) {
     this.id = id;
     this.name = name;

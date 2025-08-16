@@ -9,7 +9,8 @@ import AccordionPanel from "primevue/accordionpanel";
 import type { PanelsList } from "../panels-list";
 
 const {
-  multiple = false, panels
+  multiple = false,
+  panels
 } = defineProps<{
   multiple?: boolean;
   panels: PanelsList;

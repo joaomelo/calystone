@@ -5,7 +5,10 @@ export class Exception extends Error {
   readonly severity;
 
   constructor({
-    cause, message, path, severity
+    cause,
+    message,
+    path,
+    severity
   }: {
     cause?: unknown,
     message: string,

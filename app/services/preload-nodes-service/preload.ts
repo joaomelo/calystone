@@ -40,7 +40,8 @@ export class PreloadNodesService {
     });
 
     this.connectSource.subscribe(({
-      source, status
+      source,
+      status
     }) => {
       this.stop();
 

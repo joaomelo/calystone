@@ -16,7 +16,9 @@ export function createTodo(options: {
   tags: string[],
 }) {
   const {
-    criteria, name, tags
+    criteria,
+    name,
+    tags
   } = options;
 
   toolbarNode.buttonCreateArtifact().click();

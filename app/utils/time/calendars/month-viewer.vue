@@ -7,7 +7,8 @@ import type {
 import DatePicker from "primevue/datepicker";
 
 const {
-  borderless = false, highlights = []
+  borderless = false,
+  highlights = []
 } = defineProps<{
   borderless?: boolean,
   highlights?: Date[]
@@ -24,7 +25,8 @@ function handleUpdateSelected(selected: unknown) {
 
 function handleUpdateViewed(data: DatePickerMonthChangeEvent) {
   const {
-    month, year
+    month,
+    year
   } = data;
   const monthIndex = month - 1;
   emit("update:viewed", {

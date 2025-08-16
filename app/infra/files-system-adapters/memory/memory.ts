@@ -34,7 +34,9 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
     rootDirectoryName: string
   }) {
     const {
-      delayInMilliseconds, nodes, rootDirectoryName
+      delayInMilliseconds,
+      nodes,
+      rootDirectoryName
     } = options;
     const rootOptions: DirectoryOptions = {
       id: createId(),
@@ -56,7 +58,8 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
     await this.delay();
 
     const {
-      name, parent: { id: parentId }
+      name,
+      parent: { id: parentId }
     } = options;
 
     const id = createId();
@@ -90,7 +93,8 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
     });
 
     const {
-      name, parent: { id: parentId }
+      name,
+      parent: { id: parentId }
     } = options;
     const data: DirectoryOptions = {
       id,
@@ -115,7 +119,8 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
     await this.delay();
 
     const {
-      subject, target
+      subject,
+      target
     } = options;
     this.moveable(subject).throwOnFail();
     this.nodes.moveable({

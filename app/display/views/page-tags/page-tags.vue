@@ -19,7 +19,8 @@ import { useItems } from "./use-items";
 
 const { services } = Store.use();
 const {
-  expandedKeys, items
+  expandedKeys,
+  items
 } = useItems();
 
 const selectedNode = ref<Node | undefined>();
@@ -36,7 +37,8 @@ function handleSelected(data?: ItemData) {
   }
 
   const {
-    key, type
+    key,
+    type
   } = data;
   if (type === "tag") {
     resetState();

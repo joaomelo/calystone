@@ -8,6 +8,7 @@ import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginChaiFriendly from "eslint-plugin-chai-friendly";
 import pluginCypress from "eslint-plugin-cypress/flat";
+import pluginDestructuringNewline from "eslint-plugin-destructuring-newline";
 import pluginImportNewlines from "eslint-plugin-import-newlines";
 import { importX } from "eslint-plugin-import-x";
 import mochaPlugin from "eslint-plugin-mocha";
@@ -121,6 +122,11 @@ export default tseslint.config(
       "error",
       { items: 1, }
     ] }
+  },
+
+  {
+    plugins: { "destructuring-newline": pluginDestructuringNewline },
+    rules: { "destructuring-newline/object-property-newline": "error" }
   },
 
   perfectionist.configs["recommended-natural"],

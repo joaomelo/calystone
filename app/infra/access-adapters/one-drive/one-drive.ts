@@ -13,7 +13,8 @@ export class OneDriveAccessAdapter implements AccessAdapter<{ accessToken: strin
   msalInstance: PublicClientApplication;
 
   constructor({
-    clientId, redirectUrl
+    clientId,
+    redirectUrl
   }: Options) {
     this.clientId = clientId;
 

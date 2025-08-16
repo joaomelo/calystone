@@ -16,7 +16,8 @@ export class TrackTodosService {
   }): Date[] {
     this.throwIfDatesAreInvalid(options);
     const {
-      end, start
+      end,
+      start
     } = options;
 
     const loadedTodos = this.selectLoadedTodos();
@@ -71,7 +72,8 @@ export class TrackTodosService {
     start: Date
   }) {
     const {
-      end, start
+      end,
+      start
     } = options;
     if (start > end) throwError("START_DATE_IS_AFTER_END_DATE");
   }

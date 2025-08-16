@@ -20,7 +20,8 @@ export function useHighlight() {
 
   const highlightedDays = computed(() => {
     const {
-      month, year
+      month,
+      year
     } = viewedMonth.value;
 
     const start = new Date(year, month, 1, 0, 0, 0, 0);

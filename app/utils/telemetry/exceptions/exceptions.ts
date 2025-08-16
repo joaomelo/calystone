@@ -4,7 +4,8 @@ import { Exception } from "./exception";
 export class Exceptions extends Exception {
   readonly list: Exception[] = [];
   constructor({
-    cause, exceptions
+    cause,
+    exceptions
   }: {
     cause?: unknown;
     exceptions: Exception[],

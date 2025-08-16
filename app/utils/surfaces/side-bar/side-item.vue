@@ -7,7 +7,10 @@ import {
 import { useProvider } from "./provider";
 
 const {
-  disabled = false, icon, id, title
+  disabled = false,
+  icon,
+  id,
+  title
 } = defineProps<{
   dataTest: string,
   disabled?: boolean

@@ -32,7 +32,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     rootHandle: FileSystemDirectoryHandle
   }) {
     const {
-      nodes, rootHandle
+      nodes,
+      rootHandle
     } = options;
     const rootOptions: DirectoryOptions = {
       id: createId(),
@@ -55,7 +56,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     parent: Directory
   }): Promise<ArtifactOptions> {
     const {
-      name, parent: { id: parentId }
+      name,
+      parent: { id: parentId }
     } = options;
     const id = createId();
 
@@ -75,7 +77,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     });
 
     const {
-      lastModified, size
+      lastModified,
+      size
     } = await newFileHandle.getFile();
     const data: ArtifactOptions = {
       id,
@@ -93,7 +96,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     parent: Directory
   }): Promise<DirectoryOptions> {
     const {
-      name, parent: { id: parentId }
+      name,
+      parent: { id: parentId }
     } = options;
     const id = createId();
 
@@ -130,7 +134,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     target: Directory
   }): Promise<void> {
     const {
-      subject, target
+      subject,
+      target
     } = options;
 
     this.moveable(subject).throwOnFail();
@@ -141,7 +146,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
 
     const { metadata: fileMetadata } = this.metadatas.getOfFileOrThrow(subject.id);
     const {
-      handle: oldHandle, parentHandle: oldParentHandle
+      handle: oldHandle,
+      parentHandle: oldParentHandle
     } = fileMetadata;
     const { metadata: { handle: newParentHandle } } = this.metadatas.getOfDirectoryOrThrow(target.id);
 
@@ -179,13 +185,15 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
 
     for await (const childHandle of handle.values()) {
       const {
-        kind, name
+        kind,
+        name
       } = childHandle;
       const childId = createId();
 
       if (kind === "file") {
         const {
-          lastModified, size
+          lastModified,
+          size
         } = await childHandle.getFile();
         const childData: ArtifactOptions = {
           id: childId,
@@ -237,7 +245,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     removeable.throwOnFail();
 
     const {
-      kind, metadata: { parentHandle }
+      kind,
+      metadata: { parentHandle }
     } = this.metadatas.getOrThrow(node.id);
     if (!parentHandle) throwCritical("CANNOT_REMOVE_ROOT");
 
@@ -259,12 +268,14 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     node: Node,
   }): Promise<void> {
     const {
-      name, node: { id }
+      name,
+      node: { id }
     } = options;
 
     const { metadata: fileMetadata } = this.metadatas.getOfFileOrThrow(id);
     const {
-      handle: oldHandle, parentHandle
+      handle: oldHandle,
+      parentHandle
     } = fileMetadata;
 
     const oldName = oldHandle.name;
@@ -296,7 +307,8 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     target: FileSystemFileHandle
   } ): Promise<void> {
     const {
-      source, target
+      source,
+      target
     } = options;
     const sourceFile = await source.getFile();
     const content = await sourceFile.arrayBuffer();

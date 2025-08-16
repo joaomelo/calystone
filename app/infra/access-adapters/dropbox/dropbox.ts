@@ -18,7 +18,8 @@ export class DropboxAccessAdapter implements AccessAdapter<{ accessToken: string
     redirectUrl: string,
   }) {
     const {
-      clientId, redirectUrl
+      clientId,
+      redirectUrl
     } = options;
     this.auth = new DropboxAuth({ clientId });
     this.redirectUrl = redirectUrl;

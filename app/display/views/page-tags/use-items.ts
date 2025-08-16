@@ -37,7 +37,8 @@ function convert(options: {
   tag: Tag
 }): Item {
   const {
-    expanded, tag
+    expanded,
+    tag
   } = options;
 
   const key = tag.name;
@@ -71,7 +72,8 @@ function solveChildren(options: {
   tag: Tag
 }): Item[] {
   const {
-    expanded, tag
+    expanded,
+    tag
   } = options;
   if (!expanded[tag.name]) return [];
 

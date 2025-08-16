@@ -59,7 +59,9 @@ export class Dater implements DateRange {
   }
 
   update({
-    allDay = false, due, start
+    allDay = false,
+    due,
+    start
   }: UpdateDatesOptions) {
     this.updateStart({
       allDay,
@@ -72,7 +74,8 @@ export class Dater implements DateRange {
   }
 
   updateDue({
-    allDay = false, date
+    allDay = false,
+    date
   }: UpdateDateOptions) {
     const allDayDate = new Date(date);
     if (allDay) {
@@ -91,7 +94,8 @@ export class Dater implements DateRange {
   }
 
   updateStart({
-    allDay = false, date
+    allDay = false,
+    date
   }: UpdateDateOptions) {
     const allDayDate = new Date(date);
     if (allDay) {

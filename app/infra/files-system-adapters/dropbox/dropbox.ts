@@ -80,7 +80,8 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     parent: Directory
   }): Promise<DirectoryOptions> {
     const {
-      name, parent: { id: parentId }
+      name,
+      parent: { id: parentId }
     } = options;
 
     const { metadata: parentPath } = this.metadatas.getOfDirectoryOrThrow(parentId);
@@ -120,7 +121,8 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     target: Directory
   }): Promise<void> {
     const {
-      subject, target
+      subject,
+      target
     } = options;
 
     this.moveable(subject).throwOnFail();
@@ -237,7 +239,8 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     renameable.throwOnFail();
 
     const {
-      name, node
+      name,
+      node
     } = options;
     const { id } = node;
 

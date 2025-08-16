@@ -16,10 +16,12 @@ export class MoveNodeService {
     target: Directory
   }) {
     const {
-      fileSystemAdapter, nodes
+      fileSystemAdapter,
+      nodes
     } = this.connectSourceService.stateConnectedOrThrow();
     const {
-      subject, target
+      subject,
+      target
     } = options;
     const moveable = fileSystemAdapter.moveable(subject);
     moveable.throwOnFail();

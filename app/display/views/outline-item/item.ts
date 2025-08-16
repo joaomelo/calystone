@@ -17,7 +17,8 @@ export function isItemData(data: unknown): data is ItemData {
   if (!("key" in data)) return false;
 
   const {
-    key, type
+    key,
+    type
   } = data;
 
   if (!validTypes.includes(type as typeof validTypes[number])) return false;

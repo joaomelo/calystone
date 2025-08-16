@@ -19,7 +19,8 @@ const { provider } = defineProps<{
 
 const { t } = useI18n();
 const {
-  dispatchOrToast, loading
+  dispatchOrToast,
+  loading
 } = useDispatch();
 const { services } = Store.use();
 const router = useRouter();

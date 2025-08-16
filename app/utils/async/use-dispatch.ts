@@ -9,7 +9,8 @@ type Nullary = () => Promise<unknown>;
 
 export function useDispatch() {
   const {
-    apply, errors
+    apply,
+    errors
   } = useErrors();
   const { toast } = useToast();
   const loading = ref(false);

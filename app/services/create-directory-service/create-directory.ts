@@ -21,7 +21,8 @@ export class CreateDirectoryService {
     parent: Directory
   }): Promise<void> {
     const {
-      fileSystemAdapter, nodes
+      fileSystemAdapter,
+      nodes
     } = this.connectSourceService.stateConnectedOrThrow();
     const { parent } = options;
 
