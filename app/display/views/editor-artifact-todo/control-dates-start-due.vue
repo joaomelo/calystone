@@ -16,6 +16,14 @@ const { t } = useI18n();
 
 const allDay = ref(artifact.allDay());
 
+async function handleUpdateAllDay(value: boolean) {
+  allDay.value = value;
+  if (value) {
+    artifact.dater?.makeAllDay();
+  }
+  await services.exchangeArtifact.postFrom(artifact);
+}
+
 async function handleUpdateDueDate(date: Date | null | undefined) {
   if (date) {
     artifact.updateDateDue({
@@ -42,9 +50,10 @@ async function handleUpdateStartDate(date: Date | null | undefined) {
 </script>
 <template>
   <InputCheck
-    v-model="allDay"
+    :model-value="allDay"
     :label="t('editor-todo.dates.allDay')"
     data-test="input-all-day"
+    @update:model-value="handleUpdateAllDay"
   />
   <div class="control-dates-start-due">
     <InputDate
