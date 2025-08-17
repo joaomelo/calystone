@@ -1,6 +1,6 @@
 export * from "./page-bootstrap";
 export * from "./page-calendar";
-export * from "./page-nodes";
+export * from "./page-folders";
 export * from "./page-open";
 export * from "./page-priority";
 export * from "./page-search";

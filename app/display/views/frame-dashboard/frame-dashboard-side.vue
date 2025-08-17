@@ -25,7 +25,7 @@ const baseIcon = "bx bx-md";
 
 const active: ComputedRef<string> = computed(() => {
   if (typeof route.name === "string") return route.name;
-  return "nodes";
+  return "folders";
 });
 
 function handleClickPage(name: string) {
@@ -43,11 +43,11 @@ function handleExit() {
   <SideBar :active="active">
     <template #default>
       <SideItem
-        id="outline"
-        :title="t('common.outline')"
+        id="folders"
+        :title="t('common.folders')"
         :icon="`${baseIcon} bx-list-ul`"
-        data-test="sidebar-outline"
-        @click="handleClickPage('nodes')"
+        data-test="sidebar-folders"
+        @click="handleClickPage('folders')"
       />
       <SideItem
         id="calendar"

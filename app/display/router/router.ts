@@ -1,7 +1,7 @@
 import {
   PageBootstrap,
   PageCalendar,
-  PageNodes,
+  PageFolders,
   PageOpen,
   PagePriority,
   PagePrivacy,
@@ -62,9 +62,9 @@ export function createRouter() {
       path: "/calendar"
     },
     {
-      component: PageNodes,
-      name: "nodes",
-      path: "/nodes"
+      component: PageFolders,
+      name: "folders",
+      path: "/folders"
     },
     {
       component: PageSearch,

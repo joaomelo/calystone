@@ -55,12 +55,12 @@ function solveNode(id?: Id) {
   <FrameDashboard>
     <MasterDetail
       v-model="showDetail"
-      class="page-nodes"
+      class="page-folders"
     >
       <template #master>
         <OutlineItems
           v-model:expanded-keys="expandedKeys"
-          data-test="page-nodes__outline-items"
+          data-test="page-folders__outline-items"
           :items="items"
           mode="tree"
           @selected="handleSelected"
@@ -77,7 +77,7 @@ function solveNode(id?: Id) {
   </FrameDashboard>
 </template>
 <style scoped>
-.page-nodes {
+.page-folders {
   height: 100%;
 }
 </style>
