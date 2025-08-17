@@ -33,10 +33,8 @@ function handleClickPage(name: string) {
 }
 
 function handleExit() {
-  // we push open immediately to avoid rendering the dashboard while the services are being disconnected
-  void router.push({ name: "open" }).then(() => {
-    services.connectSource.disconnect();
-  });
+  services.connectSource.disconnect();
+  void router.push({ name: "open" });
 }
 </script>
 <template>
