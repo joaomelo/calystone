@@ -4,7 +4,7 @@ import {
   openOneDrive
 } from "../macros";
 import {
-  pageNodes,
+  pageFolders,
   pageOpen,
   pagePrivacy,
   pageTerms
@@ -13,7 +13,7 @@ import {
 describe("page-open", () => {
   it("opens memory", () => {
     openMemory();
-    cy.url().should("include", pageNodes.url());
+    cy.url().should("include", pageFolders.url());
   });
 
   it("redirects to one drive oauth", () => {

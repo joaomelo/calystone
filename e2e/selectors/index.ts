@@ -11,7 +11,7 @@ export * from "./outline-nodes";
 export * from "./outline-priority";
 export * from "./outline-tags";
 export * from "./page-calendar";
-export * from "./page-nodes";
+export * from "./page-folders";
 export * from "./page-open";
 export * from "./page-search";
 export * from "./page-tags";

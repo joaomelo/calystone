@@ -1,6 +1,6 @@
 import { openMemory } from "../macros";
 import {
-  pageNodes,
+  pageFolders,
   pageOpen
 } from "../selectors";
 
@@ -10,7 +10,7 @@ describe("button-exit", () => {
   });
 
   it("exit", () => {
-    pageNodes.exit().click();
+    pageFolders.exit().click();
     cy.url().should("include", pageOpen.url());
   });
 });

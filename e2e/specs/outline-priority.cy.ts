@@ -5,7 +5,7 @@ import {
 import {
   outlineNodes,
   outlinePriority,
-  pageNodes,
+  pageFolders,
 } from "../selectors";
 
 describe("outline-priority", () => {
@@ -47,7 +47,7 @@ describe("outline-priority", () => {
       tags: [tagCycle]
     });
 
-    pageNodes.priority().click();
+    pageFolders.priority().click();
   });
 
   it("filter by tag", () => {
