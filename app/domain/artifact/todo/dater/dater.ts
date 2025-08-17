@@ -40,8 +40,19 @@ export class Dater implements DateRange {
     if (!isDateRange(this)) throwError("INVALID_DATE_RANGE");
   }
 
-  allDay() {
+  isAllDay() {
     return isAllDay(this);
+  }
+
+  makeAllDay() {
+    if (this.isAllDay()) return;
+    const currentStart = this.start;
+    const currentDue = this.due;
+    this.update({
+      allDay: true,
+      due: currentDue,
+      start: currentStart
+    });
   }
 
   spansOn(options: {

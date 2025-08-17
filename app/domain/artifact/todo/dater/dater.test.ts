@@ -81,6 +81,18 @@ describe("dater", () => {
         expect(dater.start).toEqual(new Date(2025, 0, 1, 0, 0, 0, 0));
         expect(dater.due).toEqual(new Date(2025, 0, 1, 23, 59, 59, 999));
       });
+
+      it("adjusts time with makeAllDay", () => {
+        const dater = new Dater({
+          due: new Date(2025, 0, 1, 10, 6),
+          start: new Date(2025, 0, 1, 10, 5)
+        });
+        dater.makeAllDay();
+        expect(dater.start.getHours()).toBe(0);
+        expect(dater.start.getMinutes()).toBe(0);
+        expect(dater.due.getHours()).toBe(23);
+        expect(dater.due.getMinutes()).toBe(59);
+      });
     });
   });
 

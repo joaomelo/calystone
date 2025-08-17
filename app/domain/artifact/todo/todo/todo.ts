@@ -43,7 +43,7 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
   }
 
   allDay() {
-    return this.dater?.allDay() ?? false;
+    return this.dater?.isAllDay() ?? false;
   }
 
   clearDates() {
