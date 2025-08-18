@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import type { ItemData } from "@/display/views/outline-item";
-import type {
-  Id,
-  Node
-} from "@/domain";
+import type { Id } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
@@ -14,25 +11,27 @@ import {
   MasterDetail,
   useDispatch
 } from "@/utils";
-import {
-  computed,
-  ref
-} from "vue";
+import { computed } from "vue";
 
+import { useExpanded } from "./use-expanded";
 import { useItems } from "./use-items";
+import { useSelected } from "./use-selected";
 
 const { dispatchOrToast } = useDispatch();
 const { services } = Store.use();
-const {
-  expandedKeys,
-  items
-} = useItems();
 
-const selectedNode = ref<Node | undefined>();
+const expanded = useExpanded();
+const selected = useSelected();
+const items = useItems({
+  expanded,
+  selected
+});
+
+const selectedNode = computed(() => solveNode(selected.value));
 const showDetail = computed(() => Boolean(selectedNode.value));
 
 function handleClose() {
-  selectedNode.value = undefined;
+  selected.value = undefined;
 }
 
 async function handleExpanded(itemData: ItemData) {
@@ -43,10 +42,10 @@ async function handleExpanded(itemData: ItemData) {
 }
 
 function handleSelected(itemData?: ItemData) {
-  selectedNode.value = solveNode(itemData?.key);
+  selected.value = itemData?.key;
 }
 
-function solveNode(id?: Id) {
+function solveNode(id: Id | undefined) {
   const node = (id) ? services.retrieveNodes.get(id) : undefined;
   return node;
 }
@@ -59,7 +58,7 @@ function solveNode(id?: Id) {
     >
       <template #master>
         <OutlineItems
-          v-model:expanded-keys="expandedKeys"
+          v-model:expanded-keys="expanded"
           data-test="page-folders__outline-items"
           :items="items"
           mode="tree"
