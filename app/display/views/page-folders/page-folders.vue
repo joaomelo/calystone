@@ -22,10 +22,7 @@ const { services } = Store.use();
 
 const expanded = useExpanded();
 const selected = useSelected();
-const items = useItems({
-  expanded,
-  selected
-});
+const items = useItems(expanded);
 
 const selectedNode = computed(() => solveNode(selected.value));
 const showDetail = computed(() => Boolean(selectedNode.value));

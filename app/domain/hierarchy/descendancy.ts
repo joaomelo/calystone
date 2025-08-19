@@ -16,6 +16,7 @@ export class Descendancy {
   children(directoryOrId: NodeOrId): Node[] {
     const directory = this.nodes.getOrThrow(directoryOrId);
     if (!(directory instanceof Directory)) return [];
+    if (!directory.isLoaded()) return [];
     const children = this.nodes.list().filter(node => node.parentId === directory.id);
     return children;
   }
@@ -26,7 +27,8 @@ export class Descendancy {
   }
 
   hasChildren(directoryOrId: NodeOrId): boolean {
-    return this.children(directoryOrId).length > 0;
+    const children = this.children(directoryOrId);
+    return children.length > 0;
   }
 
   isChild({

@@ -4,6 +4,7 @@ import type {
 } from "@/display/views/outline-item";
 import type { Node } from "@/domain";
 import type { OutlineGridExpandedKeys } from "@/utils";
+import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
 import {
@@ -12,14 +13,10 @@ import {
   Progressor,
   TodoArtifact
 } from "@/domain";
-import {
-  computed,
-  ref
-} from "vue";
+import { computed } from "vue";
 
-export function useItems() {
+export function useItems(expanded: Ref<OutlineGridExpandedKeys>) {
   const { services } = Store.use();
-  const expandedKeys = ref<OutlineGridExpandedKeys>({});
 
   const items = computed<Item[]>(() =>{
     return services.retrieveNodes.list()
@@ -31,10 +28,13 @@ export function useItems() {
     const key = node.id;
     const label = node.name;
 
-    const visibleChildrenNodes = solveChildren(node);
-    const visibleChildren = visibleChildrenNodes.map((child) => convert(child));
+    const children = services.queryHierarchy.children(node);
 
-    const leaf = isImpossibleToHaveChildren(node);
+    const showToggle = children.length > 0 || maybeHasChildren(node);
+
+    const childrenToRender = expanded.value[node.id] ? children : [];
+    childrenToRender.sort(childrenSort);
+    const childrenItems = childrenToRender.map(convert);
 
     const data: ItemData = {
       key,
@@ -42,55 +42,40 @@ export function useItems() {
     };
 
     return {
-      children: visibleChildren,
+      children: childrenItems,
       data,
       key,
       label,
-      leaf
+      leaf: !showToggle
     };
   }
 
-  function isImpossibleToHaveChildren(node: Node): boolean {
-    if (!(node instanceof Directory)) return true;
-    if (!node.isLoaded()) return false;
-    const hasChildren = services.queryHierarchy.hasChildren(node);
-    return !hasChildren;
+  function maybeHasChildren(node: Node): boolean {
+    if (!(node instanceof Directory)) return false;
+    return node.isUnloaded();
   }
 
-  function solveChildren(node: Node): Node[] {
-    if (!expandedKeys.value[node.id]) return [];
-    if (!(node instanceof Directory)) return [];
+  function childrenSort(a: Node, b: Node) {
+    if (a instanceof Directory && b instanceof Artifact) return -1;
+    if (a instanceof Artifact && b instanceof Directory) return 1;
 
-    const children = services.queryHierarchy.children(node);
-    if (children.length === 0) return [];
-
-    children.sort((a: Node, b: Node) => {
-      if (a instanceof Directory && b instanceof Artifact) return -1;
-      if (a instanceof Artifact && b instanceof Directory) return 1;
-
-      if (a instanceof Directory && b instanceof Directory) {
-        return a.name.localeCompare(b.name);
-      }
-      if (!(a instanceof TodoArtifact) && !(b instanceof TodoArtifact)) {
-        return a.name.localeCompare(b.name);
-      }
-
-      if (a instanceof TodoArtifact && !(b instanceof TodoArtifact)) return -1;
-      if (!(a instanceof TodoArtifact) && b instanceof TodoArtifact) return 1;
-
-      if (a instanceof TodoArtifact && b instanceof TodoArtifact) {
-        const progressOrder = Progressor.compare(a.progress(), b.progress());
-        if (progressOrder !== 0) return progressOrder;
-      }
-
+    if (a instanceof Directory && b instanceof Directory) {
       return a.name.localeCompare(b.name);
-    });
+    }
+    if (!(a instanceof TodoArtifact) && !(b instanceof TodoArtifact)) {
+      return a.name.localeCompare(b.name);
+    }
 
-    return children;
-  }
+    if (a instanceof TodoArtifact && !(b instanceof TodoArtifact)) return -1;
+    if (!(a instanceof TodoArtifact) && b instanceof TodoArtifact) return 1;
 
-  return {
-    expandedKeys,
-    items
+    if (a instanceof TodoArtifact && b instanceof TodoArtifact) {
+      const progressOrder = Progressor.compare(a.progress(), b.progress());
+      if (progressOrder !== 0) return progressOrder;
+    }
+
+    return a.name.localeCompare(b.name);
   };
+
+  return items;
 }
