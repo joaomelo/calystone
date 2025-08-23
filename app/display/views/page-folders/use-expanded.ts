@@ -29,6 +29,12 @@ export function useExpanded() {
     uploadValue
   );
 
+  function downloadValue() {
+    if (isSynced()) return;
+    const queryValue = decodeQueryValue();
+    expanded.value = queryValue;
+  }
+
   function uploadValue() {
     if (isSynced()) return;
     const refValue = encodeRefValue();
@@ -38,17 +44,12 @@ export function useExpanded() {
     } });
   }
 
-  function downloadValue() {
-    if (isSynced()) return;
-    const queryValue = decodeQueryValue();
-    expanded.value = queryValue;
-  }
-
   function isSynced() {
     const queryValue = decodeQueryValue();
     const querySet = new Set(Object.keys(queryValue));
     const expandedSet = new Set(Object.keys(expanded.value));
-    return expandedSet.isSupersetOf(querySet);
+    const difference = querySet.symmetricDifference(expandedSet);
+    return difference.size === 0;
   }
 
   function decodeQueryValue() {

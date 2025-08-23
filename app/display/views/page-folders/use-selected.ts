@@ -28,7 +28,7 @@ export function useSelected() {
 
   function downloadValue() {
     if (isSynced()) return;
-    const queryValue = resolveQueryValue();
+    const queryValue = decodeQueryValue();
     selected.value = queryValue;
   }
 
@@ -41,11 +41,11 @@ export function useSelected() {
   }
 
   function isSynced() {
-    const queryValue = resolveQueryValue();
+    const queryValue = decodeQueryValue();
     return selected.value === queryValue;
   }
 
-  function resolveQueryValue() {
+  function decodeQueryValue() {
     const queryValue = route.query[foldersSelectedKey];
     return typeof queryValue === "string"
       ? queryValue
