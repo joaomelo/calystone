@@ -29,7 +29,11 @@ const active: ComputedRef<string> = computed(() => {
 });
 
 function handleClickPage(name: string) {
-  void router.push({ name });
+  void router.push({
+    name,
+    // this will enable that the current page state can restored when its sidebar link is clicked again in the future
+    query: route.query
+  });
 }
 
 function handleExit() {
