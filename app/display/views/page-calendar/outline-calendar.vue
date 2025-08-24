@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { ItemData } from "@/display/views/outline-item";
-import type { Node } from "@/domain";
+import type { OutlineGridKeys } from "@/utils";
 
-import { Store } from "@/display/store";
+import { OutlineItem } from "@/display/views/outline-item";
 import { OutlineItems } from "@/display/views/outline-items";
 import { MonthViewer } from "@/utils";
 import { ref } from "vue";
@@ -15,9 +14,7 @@ interface Month {
   year: number
 }
 
-const emit = defineEmits<{ "selected": [node: Node | undefined] }>();
-
-const { services } = Store.use();
+const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () => ({}) });
 
 const {
   highlightedDays,
@@ -26,16 +23,6 @@ const {
 
 const selectedDate = ref<Date>(new Date());
 const items = useItems(selectedDate);
-
-function handleSelected(data?: ItemData) {
-  if (!data) {
-    emit("selected", undefined);
-    return;
-  };
-
-  const node = services.retrieveNodes.get(data.key);
-  emit("selected", node);
-}
 
 function handleUpdateDateSelected(date: Date) {
   selectedDate.value = date;
@@ -55,17 +42,22 @@ function handleUpdateMonthViewed(data: Month) {
       @update:viewed="handleUpdateMonthViewed"
     />
     <OutlineItems
+      v-model:selected-keys="selectedKeys"
       data-test="outline-calendar__items"
       :items="items"
       mode="list"
-      @selected="handleSelected"
-    />
+    >
+      <template #default="{ itemData }">
+        <OutlineItem :data="itemData" />
+      </template>
+    </OutlineItems>
   </div>
 </template>
 <style scoped>
 .outline-calendar {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .outline-calendar__month-viewer :deep(.p-datepicker-panel) {

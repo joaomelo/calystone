@@ -1,60 +1,28 @@
 <script setup lang="ts">
-import type { ItemData } from "@/display/views/outline-item";
-import type {
-  Id,
-  Node
-} from "@/domain";
+import type { OutlineGridKeys } from "@/utils";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
-import { OutlineItems } from "@/display/views/outline-items";
 import { MasterDetail } from "@/utils";
 import {
   computed,
   ref
 } from "vue";
 
-import { useItems } from "./use-items";
+import OutlineTags from "./outline-tags.vue";
 
 const { services } = Store.use();
-const {
-  expandedKeys,
-  items
-} = useItems();
+const selectedKeys = ref<OutlineGridKeys>({});
+const maybeEditorNode = computed(() => {
+  const [first] = Object.keys(selectedKeys.value);
+  return services.retrieveNodes.get(first);
+});
 
-const selectedNode = ref<Node | undefined>();
-const showDetail = computed(() => Boolean(selectedNode.value));
+const showDetail = computed(() => Boolean(maybeEditorNode.value));
 
 function handleClose() {
-  resetState();
-}
-
-function handleSelected(data?: ItemData) {
-  if (!data) {
-    resetState();
-    return;
-  }
-
-  const {
-    key,
-    type
-  } = data;
-  if (type === "tag") {
-    resetState();
-    return;
-  }
-
-  selectedNode.value = solveNode(key);
-}
-
-function resetState() {
-  selectedNode.value = undefined;
-}
-
-function solveNode(id: Id) {
-  const node = services.retrieveNodes.get(id);
-  return node;
+  selectedKeys.value = {};
 }
 </script>
 <template>
@@ -64,17 +32,11 @@ function solveNode(id: Id) {
       class="page-tags"
     >
       <template #master>
-        <OutlineItems
-          v-model:expanded-keys="expandedKeys"
-          data-test="page-tags__outline-items"
-          :items="items"
-          mode="tree"
-          @selected="handleSelected"
-        />
+        <OutlineTags v-model:selected-keys="selectedKeys" />
       </template>
       <template #detail>
         <EditorSwitcher
-          :node="selectedNode"
+          :node="maybeEditorNode"
           @close="handleClose"
         />
       </template>

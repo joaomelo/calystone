@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { ItemData } from "@/display/views/outline-item";
-import type { Node } from "@/domain";
+import type { OutlineGridKeys } from "@/utils";
 
-import { Store } from "@/display/store";
 import { OutlineItems } from "@/display/views/outline-items";
 import {
   debounce,
@@ -12,9 +10,7 @@ import { ref } from "vue";
 
 import { useItems } from "./use-items";
 
-const emit = defineEmits<{ "selected": [node: Node | undefined] }>();
-
-const { services } = Store.use();
+const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () => ({}) });
 
 const search = ref<string>("");
 const items = useItems(search);
@@ -22,16 +18,6 @@ const items = useItems(search);
 const handleSearch = debounce((text?: string) => {
   search.value = text ?? "";
 });
-
-function handleSelected(data?: ItemData) {
-  if (!data) {
-    emit("selected", undefined);
-    return;
-  };
-
-  const node = services.retrieveNodes.get(data.key);
-  emit("selected", node);
-}
 </script>
 <template>
   <div class="outline-search">
@@ -43,10 +29,10 @@ function handleSelected(data?: ItemData) {
       />
     </div>
     <OutlineItems
+      v-model:selected-keys="selectedKeys"
       data-test="outline-search__results"
       :items="items"
       mode="list"
-      @selected="handleSelected"
     />
   </div>
 </template>
@@ -54,6 +40,7 @@ function handleSelected(data?: ItemData) {
 .outline-search {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .outline-search__input-wrapper {

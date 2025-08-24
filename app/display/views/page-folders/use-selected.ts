@@ -1,56 +1,33 @@
+import type { OutlineGridKeys } from "@/utils";
+
+import {
+  arrayToGridKeys,
+  gridKeysToArray,
+  useRouteStorage
+} from "@/utils";
 import {
   ref,
   watch
 } from "vue";
-import {
-  useRoute,
-  useRouter
-} from "vue-router";
-
-const foldersSelectedKey = "folders-selected";
 
 export function useSelected() {
-  const route = useRoute();
-  const router = useRouter();
-
-  const selected = ref<string | undefined>();
+  const expandedRaw = useRouteStorage("folders-selected");
+  const expanded = ref<OutlineGridKeys>({});
 
   watch(
-    () => route.query[foldersSelectedKey],
-    downloadValue,
+    expandedRaw,
+    (newRawValue) => {
+      expanded.value = arrayToGridKeys(newRawValue);
+    },
     { immediate: true }
   );
 
   watch(
-    () => selected.value,
-    uploadValue
+    expanded,
+    (newValue) => {
+      expandedRaw.value = gridKeysToArray(newValue);
+    }
   );
 
-  function downloadValue() {
-    if (isSynced()) return;
-    const queryValue = decodeQueryValue();
-    selected.value = queryValue;
-  }
-
-  function uploadValue() {
-    if (isSynced()) return;
-    void router.replace({ query: {
-      ...route.query,
-      [foldersSelectedKey]: selected.value
-    } });
-  }
-
-  function isSynced() {
-    const queryValue = decodeQueryValue();
-    return selected.value === queryValue;
-  }
-
-  function decodeQueryValue() {
-    const queryValue = route.query[foldersSelectedKey];
-    return typeof queryValue === "string"
-      ? queryValue
-      : undefined;
-  }
-
-  return selected;
+  return expanded;
 }

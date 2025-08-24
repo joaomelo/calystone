@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import type { Lenses } from "@/display/views/lenses-todos";
-import type { ItemData } from "@/display/views/outline-item";
-import type { Node } from "@/domain";
+import type { OutlineGridKeys } from "@/utils";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
-import { InputLenses } from "@/display/views/lenses-todos";
 import { MasterDetail } from "@/utils";
 import {
   computed,
@@ -17,18 +14,16 @@ import OutlinePriority from "./outline-priority.vue";
 
 const { services } = Store.use();
 
-const lenses = ref<Lenses>({});
-const selectedNode = ref<Node | undefined>();
-const showDetail = computed(() => Boolean(selectedNode.value));
+const selectedKeys = ref<OutlineGridKeys>({});
+const maybeEditorNode = computed(() => {
+  const [first] = Object.keys(selectedKeys.value);
+  return services.retrieveNodes.get(first);
+});
+
+const showDetail = computed(() => Boolean(maybeEditorNode.value));
 
 function handleClose() {
-  selectedNode.value = undefined;
-}
-
-function handleSelected(itemData?: ItemData) {
-  const id = itemData?.key;
-  const node = id ? services.retrieveNodes.get(id) : undefined;
-  selectedNode.value = node;
+  selectedKeys.value = {};
 }
 </script>
 <template>
@@ -38,17 +33,11 @@ function handleSelected(itemData?: ItemData) {
       class="page-priority"
     >
       <template #master>
-        <div class="page-priority__master">
-          <InputLenses v-model="lenses" />
-          <OutlinePriority
-            :lenses="lenses"
-            @selected="handleSelected"
-          />
-        </div>
+        <OutlinePriority v-model:selected-keys="selectedKeys" />
       </template>
       <template #detail>
         <EditorSwitcher
-          :node="selectedNode"
+          :node="maybeEditorNode"
           @close="handleClose"
         />
       </template>
@@ -57,12 +46,6 @@ function handleSelected(itemData?: ItemData) {
 </template>
 <style scoped>
 .page-priority {
-  height: 100%;
-}
-
-.page-priority__master {
-  display: flex;
-  flex-direction: column;
   height: 100%;
 }
 </style>

@@ -1,24 +1,29 @@
 <script setup lang="ts">
-import type { Node } from "@/domain";
+import type { OutlineGridKeys } from "@/utils";
 
+import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
-import { OutlineCalendar } from "@/display/views/outline-calendar";
 import { MasterDetail } from "@/utils";
 import {
   computed,
   ref
 } from "vue";
 
-const selectedNode = ref<Node | undefined>();
-const showDetail = computed(() => Boolean(selectedNode.value));
+import OutlineCalendar from "./outline-calendar.vue";
+
+const { services } = Store.use();
+
+const selectedKeys = ref<OutlineGridKeys>({});
+const maybeEditorNode = computed(() => {
+  const [first] = Object.keys(selectedKeys.value);
+  return services.retrieveNodes.get(first);
+});
+
+const showDetail = computed(() => Boolean(maybeEditorNode.value));
 
 function handleClose() {
-  selectedNode.value = undefined;
-}
-
-function handleSelected(node?: Node) {
-  selectedNode.value = node;
+  selectedKeys.value = {};
 }
 </script>
 <template>
@@ -28,11 +33,11 @@ function handleSelected(node?: Node) {
       class="page-calendar"
     >
       <template #master>
-        <OutlineCalendar @selected="handleSelected" />
+        <OutlineCalendar v-model:selected-keys="selectedKeys" />
       </template>
       <template #detail>
         <EditorSwitcher
-          :node="selectedNode"
+          :node="maybeEditorNode"
           @close="handleClose"
         />
       </template>

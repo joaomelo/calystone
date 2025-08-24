@@ -4,7 +4,6 @@ import type { OutlineGridKeys } from "@/utils";
 
 import { OutlineItem } from "@/display/views/outline-item";
 import { OutlineItems } from "@/display/views/outline-items";
-import { SelectCriterion } from "@/display/views/select-criterion";
 import { SelectTag } from "@/display/views/select-tag";
 import { useTodos } from "@/display/views/use-todos";
 import { ref } from "vue";
@@ -15,14 +14,13 @@ const filters = ref<TodosFilters>({});
 const items = useTodos(filters);
 </script>
 <template>
-  <div class="outline-priority">
-    <div class="outline-priority__filters">
+  <div class="outline-tags">
+    <div class="outline-tags__filters">
       <SelectTag v-model="filters.tag" />
-      <SelectCriterion v-model="filters.criterion" />
     </div>
     <OutlineItems
       v-model:selected-keys="selectedKeys"
-      data-test="outline-priority__items"
+      data-test="outline-tags__items"
       :items="items"
       mode="list"
     >
@@ -33,13 +31,13 @@ const items = useTodos(filters);
   </div>
 </template>
 <style scoped>
-.outline-priority {
+.outline-tags {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.outline-priority__filters {
+.outline-tags__filters {
   padding: var(--size-3);
 
   display: flex;

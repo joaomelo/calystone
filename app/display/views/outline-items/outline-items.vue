@@ -4,48 +4,50 @@ import type {
   ItemData
 } from "@/display/views/outline-item";
 import type {
-  OutlineGridExpandedKeys,
   OutlineGridItem,
+  OutlineGridKeys,
   OutlineGridMode,
-  OutlineGridSelectionKeys
 } from "@/utils";
 
-import {
-  isItemData,
-  OutlineItem
-} from "@/display/views/outline-item";
+import { isItemData } from "@/display/views/outline-item";
 import {
   OutlineGrid,
   ScrollPanel
 } from "@/utils";
-import { ref } from "vue";
 
 defineProps<{
   dataTest: string;
+  displayMode?: OutlineGridMode;
   items: Item[];
-  mode?: OutlineGridMode;
 }>();
 const emit = defineEmits<{
-  expanded: [itemData: ItemData];
-  selected: [itemData: ItemData | undefined];
+  collapsed: [key: ItemData];
+  expanded: [key: ItemData];
+  selected: [key: ItemData];
+  unselected: [key: ItemData];
 }>();
-const expandedKeys = defineModel<OutlineGridExpandedKeys>("expandedKeys", { default: () => ({}) });
 
-const selectedKeys = ref<OutlineGridSelectionKeys | undefined>();
+const expandedKeys = defineModel<OutlineGridKeys>("expandedKeys", { default: () => ({}) });
+const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () => ({}) });
 
-function handleNodeExpand(item: OutlineGridItem) {
+function handleCollapsed(item: OutlineGridItem) {
+  if (!isItemData(item.data)) return;
+  emit("collapsed", item.data);
+}
+
+function handleExpanded(item: OutlineGridItem) {
   if (!isItemData(item.data)) return;
   emit("expanded", item.data);
 }
 
-function handleNodeSelect(item?: OutlineGridItem) {
-  if (!item) {
-    emit("selected", undefined);
-    return;
-  }
-
+function handleSelected(item: OutlineGridItem) {
   if (!isItemData(item.data)) return;
   emit("selected", item.data);
+}
+
+function handleUnselected(item: OutlineGridItem) {
+  if (!isItemData(item.data)) return;
+  emit("unselected", item.data);
 }
 </script>
 <template>
@@ -55,12 +57,14 @@ function handleNodeSelect(item?: OutlineGridItem) {
       v-model:selected-keys="selectedKeys"
       :data-test="dataTest"
       :items="items"
-      :mode="mode"
-      @expanded="handleNodeExpand"
-      @selected="handleNodeSelect"
+      :display-mode="displayMode"
+      @expanded="handleExpanded"
+      @selected="handleSelected"
+      @unselected="handleUnselected"
+      @collapsed="handleCollapsed"
     >
       <template #default="slotProps">
-        <OutlineItem :data="slotProps.node.data" />
+        <slot :item-data="slotProps.node.data" />
       </template>
     </OutlineGrid>
   </ScrollPanel>

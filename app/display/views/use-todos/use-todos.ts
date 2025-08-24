@@ -2,23 +2,24 @@ import type {
   Item,
   ItemData
 } from "@/display/views/outline-item";
+import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
 import { TodoArtifact } from "@/domain";
 import { computed } from "vue";
 
-import type { Lenses } from "../lenses";
+import type { TodosFilters } from "./filters";
 
 import { createCompare } from "./compare";
 
-export function useTodos(lenses: Lenses) {
+export function useTodos(filters: Ref<TodosFilters>) {
   const { services } = Store.use();
 
   const items = computed<Item[]>(() => {
     const {
       criterion,
       tag
-    } = lenses;
+    } = filters.value;
 
     const todos: TodoArtifact[] = [];
     const nodes = services.retrieveNodes.list();

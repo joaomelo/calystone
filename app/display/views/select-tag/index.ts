@@ -1,0 +1,1 @@
+export { default as SelectTag } from "./select-tag.vue";

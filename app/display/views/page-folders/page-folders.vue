@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { ItemData } from "@/display/views/outline-item";
-import type { Id } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
+import { OutlineItem } from "@/display/views/outline-item";
 import { OutlineItems } from "@/display/views/outline-items";
 import { Directory } from "@/domain";
 import {
@@ -20,31 +20,26 @@ import { useSelected } from "./use-selected";
 const { dispatchOrToast } = useDispatch();
 const { services } = Store.use();
 
-const expanded = useExpanded();
-const selected = useSelected();
-const items = useItems(expanded);
+const expandedKeys = useExpanded();
+const selectedKeys = useSelected();
+const items = useItems(expandedKeys);
 
-const selectedNode = computed(() => solveNode(selected.value));
-const showDetail = computed(() => Boolean(selectedNode.value));
+const maybeEditorNode = computed(() => {
+  const [first] = Object.keys(selectedKeys.value);
+  return services.retrieveNodes.get(first);
+});
+
+const showDetail = computed(() => Boolean(maybeEditorNode.value));
 
 function handleClose() {
-  selected.value = undefined;
+  selectedKeys.value = {};
 }
 
 async function handleExpanded(itemData: ItemData) {
-  const node = solveNode(itemData.key);
+  const node = services.retrieveNodes.get(itemData.key);
   if (node instanceof Directory) {
     await dispatchOrToast(() => services.openDirectory.open(node));
   }
-}
-
-function handleSelected(itemData?: ItemData) {
-  selected.value = itemData?.key;
-}
-
-function solveNode(id: Id | undefined) {
-  const node = (id) ? services.retrieveNodes.get(id) : undefined;
-  return node;
 }
 </script>
 <template>
@@ -55,17 +50,21 @@ function solveNode(id: Id | undefined) {
     >
       <template #master>
         <OutlineItems
-          v-model:expanded-keys="expanded"
+          v-model:expanded-keys="expandedKeys"
+          v-model:selected-keys="selectedKeys"
           data-test="page-folders__outline-items"
           :items="items"
           mode="tree"
-          @selected="handleSelected"
           @expanded="handleExpanded"
-        />
+        >
+          <template #default="{ itemData }">
+            <OutlineItem :data="itemData" />
+          </template>
+        </OutlineItems>
       </template>
       <template #detail>
         <EditorSwitcher
-          :node="selectedNode"
+          :node="maybeEditorNode"
           @close="handleClose"
         />
       </template>

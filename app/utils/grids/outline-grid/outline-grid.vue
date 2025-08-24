@@ -2,53 +2,45 @@
 import PrimeVueTree from "primevue/tree";
 
 import type {
-  OutlineGridExpandedKeys,
   OutlineGridItem,
+  OutlineGridKeys,
   OutlineGridMode,
-  OutlineGridSelectionKeys
 } from "./types";
 
 const {
   dataTest,
+  displayMode = "list",
   items,
-  mode = "list"
+  selectionMode = "single"
 } = defineProps<{
   dataTest: string;
+  displayMode?: OutlineGridMode;
   items: OutlineGridItem[];
-  mode?: OutlineGridMode;
+  selectionMode?: "multiple" | "single";
 }>();
-const emit = defineEmits<{
+defineEmits<{
+  collapsed: [key: OutlineGridItem];
   expanded: [key: OutlineGridItem];
-  selected: [key: OutlineGridItem | undefined];
+  selected: [key: OutlineGridItem];
+  unselected: [key: OutlineGridItem];
 }>();
 
-const expandedKeys = defineModel<OutlineGridExpandedKeys>("expandedKeys", { default: () => ({}) });
-const selectedKeys = defineModel<OutlineGridSelectionKeys>("selectedKeys", { default: () => ({}) });
-
-function handleItemExpand(item: OutlineGridItem) {
-  emit("expanded", item);
-}
-
-function handleNodeSelect(item: OutlineGridItem) {
-  emit("selected", item);
-}
-
-function handleNodeUnselect() {
-  emit("selected", undefined);
-}
+const expandedKeys = defineModel<OutlineGridKeys>("expandedKeys", { default: () => ({}) });
+const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () => ({}) });
 </script>
 <template>
   <PrimeVueTree
     v-model:expanded-keys="expandedKeys"
     v-model:selection-keys="selectedKeys"
-    selection-mode="single"
+    :selection-mode="selectionMode"
     :data-test="dataTest"
     :value="items"
     class="outline-grid"
-    :class="{ tree: mode === 'tree', list: mode === 'list' }"
-    @node-expand="handleItemExpand"
-    @node-select="handleNodeSelect"
-    @node-unselect="handleNodeUnselect"
+    :class="{ tree: displayMode === 'tree', list: displayMode === 'list' }"
+    @node-expand="$emit('expanded', $event)"
+    @node-select="$emit('selected', $event)"
+    @node-unselect="$emit('unselected', $event)"
+    @node-collapse="$emit('collapsed', $event)"
   >
     <template #default="slotProps">
       <slot

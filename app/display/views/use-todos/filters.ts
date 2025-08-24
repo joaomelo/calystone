@@ -1,4 +1,4 @@
-export interface Lenses {
+export interface TodosFilters {
   criterion?: string;
   tag?: string;
 }

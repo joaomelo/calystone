@@ -28,7 +28,9 @@ export class Nodes {
     this.removeDescendants(directory);
   }
 
-  get(nodeOrId: NodeOrId): Node | undefined {
+  get(nodeOrId?: NodeOrId): Node | undefined {
+    if (!nodeOrId) return;
+
     const id = isId(nodeOrId) ? nodeOrId : nodeOrId.id;
     return this.map.get(id);
   }

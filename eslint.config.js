@@ -26,7 +26,8 @@ export default tseslint.config(
   { rules: {
     "no-console": ["warn", { allow: ["warn", "error", "info"] }],
     "prefer-destructuring": ["error", {
-      "array": true,
+      // typescript does not correctly destruct arrays. when we do [first] = array, it does not account for the possibility of the array been empty
+      "array": false,
       "object": true
     }],
   } },
