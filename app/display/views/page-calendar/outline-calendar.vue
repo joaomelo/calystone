@@ -45,7 +45,7 @@ function handleUpdateMonthViewed(data: Month) {
       v-model:selected-keys="selectedKeys"
       data-test="outline-calendar__items"
       :items="items"
-      mode="list"
+      display-mode="list"
     >
       <template #default="{ itemData }">
         <OutlineItem :data="itemData" />

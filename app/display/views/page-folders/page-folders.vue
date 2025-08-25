@@ -54,7 +54,7 @@ async function handleExpanded(itemData: ItemData) {
           v-model:selected-keys="selectedKeys"
           data-test="page-folders__outline-items"
           :items="items"
-          mode="tree"
+          display-mode="tree"
           @expanded="handleExpanded"
         >
           <template #default="{ itemData }">

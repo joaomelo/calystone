@@ -22,7 +22,7 @@ const items = useTodos(filters);
       v-model:selected-keys="selectedKeys"
       data-test="outline-tags__items"
       :items="items"
-      mode="list"
+      display-mode="list"
     >
       <template #default="{ itemData }">
         <OutlineItem :data="itemData" />

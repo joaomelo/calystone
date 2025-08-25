@@ -3,7 +3,7 @@ import type {
   ItemData
 } from "@/display/views/outline-item";
 import type { Node } from "@/domain";
-import type { OutlineGridExpandedKeys } from "@/utils";
+import type { OutlineGridKeys } from "@/utils";
 import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
@@ -15,7 +15,7 @@ import {
 } from "@/domain";
 import { computed } from "vue";
 
-export function useItems(expanded: Ref<OutlineGridExpandedKeys>) {
+export function useItems(expanded: Ref<OutlineGridKeys>) {
   const { services } = Store.use();
 
   const items = computed<Item[]>(() =>{

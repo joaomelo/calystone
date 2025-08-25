@@ -32,7 +32,7 @@ const handleSearch = debounce((text?: string) => {
       v-model:selected-keys="selectedKeys"
       data-test="outline-search__results"
       :items="items"
-      mode="list"
+      display-mode="list"
     />
   </div>
 </template>
