@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { OutlineGridKeys } from "@/utils";
 
+import { OutlineItem } from "@/display/views/outline-item";
 import { OutlineItems } from "@/display/views/outline-items";
 import {
   debounce,
@@ -33,7 +34,11 @@ const handleSearch = debounce((text?: string) => {
       data-test="outline-search__results"
       :items="items"
       display-mode="list"
-    />
+    >
+      <template #default="{ itemData }">
+        <OutlineItem :data="itemData" />
+      </template>
+    </OutlineItems>
   </div>
 </template>
 <style scoped>
