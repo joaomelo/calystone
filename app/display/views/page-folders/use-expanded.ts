@@ -2,32 +2,20 @@ import type { OutlineGridKeys } from "@/utils";
 
 import {
   arrayToGridKeys,
-  gridKeysToArray,
+  gridToArrayKeys,
   useRouteStorage
 } from "@/utils";
-import {
-  ref,
-  watch
-} from "vue";
+import { computed } from "vue";
 
 export function useExpanded() {
-  const expandedRaw = useRouteStorage("folders-expanded");
-  const expanded = ref<OutlineGridKeys>({});
+  const expandedArray = useRouteStorage("folders-expanded");
 
-  watch(
-    expandedRaw,
-    (newRawValue) => {
-      expanded.value = arrayToGridKeys(newRawValue);
-    },
-    { immediate: true }
-  );
-
-  watch(
-    expanded,
-    (newValue) => {
-      expandedRaw.value = gridKeysToArray(newValue);
+  const expandedGrided = computed({
+    get: () => arrayToGridKeys(expandedArray.value),
+    set: (newGridValue: OutlineGridKeys) => {
+      expandedArray.value = gridToArrayKeys(newGridValue);
     }
-  );
+  });
 
-  return expanded;
+  return expandedGrided;
 }

@@ -2,32 +2,20 @@ import type { OutlineGridKeys } from "@/utils";
 
 import {
   arrayToGridKeys,
-  gridKeysToArray,
+  gridToArrayKeys,
   useRouteStorage
 } from "@/utils";
-import {
-  ref,
-  watch
-} from "vue";
+import { computed } from "vue";
 
 export function useSelected() {
-  const expandedRaw = useRouteStorage("folders-selected");
-  const expanded = ref<OutlineGridKeys>({});
+  const selectedArray = useRouteStorage("folders-selected");
 
-  watch(
-    expandedRaw,
-    (newRawValue) => {
-      expanded.value = arrayToGridKeys(newRawValue);
-    },
-    { immediate: true }
-  );
-
-  watch(
-    expanded,
-    (newValue) => {
-      expandedRaw.value = gridKeysToArray(newValue);
+  const selectedGrided = computed({
+    get: () => arrayToGridKeys(selectedArray.value),
+    set: (newGridValue: OutlineGridKeys) => {
+      selectedArray.value = gridToArrayKeys(newGridValue);
     }
-  );
+  });
 
-  return expanded;
+  return selectedGrided;
 }
