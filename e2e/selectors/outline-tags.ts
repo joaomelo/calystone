@@ -1,11 +1,6 @@
+import { selectTag } from "./select-tag";
+
 export const outlineTags = {
-  tagLabeledAs: (label: string) => {
-    return cy.get(`.p-tree-root-children > .p-tree-node[aria-label='${label}']`);
-  },
-  todosOf: (tagLabel: string) => {
-    return cy.get(`.p-tree-root-children > .p-tree-node[aria-label='${tagLabel}'] > ul.p-tree-node-children > li.p-tree-node`);
-  },
-  toogleOf: (itemLabel: string) => {
-    return cy.get(`.p-tree-node[aria-label='${itemLabel}'] .p-tree-node-toggle-button`);
-  }
+  filters: { tag: { ...selectTag } },
+  nodes: { node: ".p-tree-node-content", }
 } as const;

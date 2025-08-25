@@ -51,12 +51,12 @@ describe("outline-priority", () => {
   });
 
   it("filter by tag", () => {
-    cy.get(outlinePriority.lenses.tag.input).click();
-    cy.get(outlinePriority.lenses.tag.option(tagCycle)).click();
+    cy.get(outlinePriority.filters.tag.input).click();
+    cy.get(outlinePriority.filters.tag.option(tagCycle)).click();
     cy.get(outlinePriority.nodes.node).should("have.length", 2);
 
-    cy.get(outlinePriority.lenses.tag.input).click();
-    cy.get(outlinePriority.lenses.tag.option(tagToday)).click();
+    cy.get(outlinePriority.filters.tag.input).click();
+    cy.get(outlinePriority.filters.tag.option(tagToday)).click();
     cy.get(outlinePriority.nodes.node).should("have.length", 1);
   });
 
@@ -64,13 +64,13 @@ describe("outline-priority", () => {
     cy.get(outlinePriority.nodes.node).eq(0).contains(todoOne);
     cy.get(outlinePriority.nodes.node).eq(1).contains(todoTwo);
 
-    cy.get(outlinePriority.lenses.criterion.input).click();
-    cy.get(outlinePriority.lenses.criterion.option(criterionImportancy)).click();
+    cy.get(outlinePriority.filters.criterion.input).click();
+    cy.get(outlinePriority.filters.criterion.option(criterionImportancy)).click();
     cy.get(outlinePriority.nodes.node).eq(1).contains(todoTwo);
     cy.get(outlinePriority.nodes.node).eq(0).contains(todoOne);
 
-    cy.get(outlinePriority.lenses.criterion.input).click();
-    cy.get(outlinePriority.lenses.criterion.option(criterionUrgency)).click();
+    cy.get(outlinePriority.filters.criterion.input).click();
+    cy.get(outlinePriority.filters.criterion.option(criterionUrgency)).click();
     cy.get(outlinePriority.nodes.node).eq(0).contains(todoOne);
     cy.get(outlinePriority.nodes.node).eq(1).contains(todoTwo);
   });

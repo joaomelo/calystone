@@ -57,15 +57,18 @@ describe("outline-tags", () => {
 
     pageTags.tags().click();
 
-    outlineTags.toogleOf(highPriorityTodoTag).click();
-    outlineTags.todosOf(highPriorityTodoTag).should("have.length", 1);
+    cy.get(outlineTags.filters.tag.input).click();
+    cy.get(outlineTags.filters.tag.option(highPriorityTodoTag)).click();
+    cy.get(outlineTags.nodes.node).should("have.length", 1);
 
-    outlineTags.toogleOf(lowPriorityTodoTag).click();
-    outlineTags.todosOf(lowPriorityTodoTag).should("have.length", 1);
+    cy.get(outlineTags.filters.tag.input).click();
+    cy.get(outlineTags.filters.tag.option(lowPriorityTodoTag)).click();
+    cy.get(outlineTags.nodes.node).should("have.length", 1);
 
-    outlineTags.toogleOf(sharedTodosTag).click();
-    outlineTags.todosOf(sharedTodosTag).eq(0).should("include.text", highPriorityBaseName);
-    outlineTags.todosOf(sharedTodosTag).eq(1).should("include.text", lowPriorityBaseName);
+    cy.get(outlineTags.filters.tag.input).click();
+    cy.get(outlineTags.filters.tag.option(sharedTodosTag)).click();
+    cy.get(outlineTags.nodes.node).eq(0).should("include.text", highPriorityBaseName);
+    cy.get(outlineTags.nodes.node).eq(1).should("include.text", lowPriorityBaseName);
   });
 
 });
