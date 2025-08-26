@@ -20,8 +20,8 @@ import { useSelected } from "./use-selected";
 const { dispatchOrToast } = useDispatch();
 const { services } = Store.use();
 
-const expandedKeys = useExpanded();
 const selectedKeys = useSelected();
+const expandedKeys = useExpanded(selectedKeys);
 const items = useItems(expandedKeys);
 
 const maybeEditorNode = computed(() => {

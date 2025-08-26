@@ -1,4 +1,7 @@
-import { isArrayFull } from "@/utils/arrays";
+import {
+  asArray,
+  isArrayFull
+} from "@/utils/arrays";
 import {
   ref,
   watch
@@ -48,7 +51,7 @@ export function useRouteStorage(param: string) {
   function resolveQueryValues() {
     const empty: string[] = [];
 
-    const queryValue = route.query[param];
+    const queryValue = asArray(route.query[param]);
     if (!isArrayFull(queryValue)) return empty;
     if (!queryValue.every(id => typeof id === "string")) return empty;
 
