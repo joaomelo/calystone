@@ -16,18 +16,28 @@ defineProps<{
       {{ title }}
     </p>
     <div
-      v-for="(row, index) in rows"
-      :key="index"
+      v-for="row in rows"
+      :key="row.key"
       class="property-sheet__row"
     >
       <span
         class="property-sheet__row__label"
-        :data-test="`property-sheet-${index}-label`"
-      >{{ row.label }}</span>
+        :data-test="`property-sheet-label-${row.key}`"
+      >
+        <slot
+          :name="`label-${row.key}`"
+          :row="row"
+        >{{ row.label }}</slot>
+      </span>
       <span
         class="property-sheet__row__value"
-        :data-test="`property-sheet-${index}-value`"
-      >{{ row.value }}</span>
+        :data-test="`property-sheet-value-${row.key}`"
+      >
+        <slot
+          :name="`value-${row.key}`"
+          :row="row"
+        >{{ row.value }}</slot>
+      </span>
     </div>
   </div>
 </template>
