@@ -3,6 +3,7 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editor-workspace";
+import { LinkNodePath } from "@/display/views/link-node-path";
 import {
   ToolbarButtonCreateArtifact,
   ToolbarButtonCreateDirectory,
@@ -28,10 +29,12 @@ const propertySheetRows = computed(() => {
   const descendants = services.queryHierarchy.descendants(content);
   return [
     {
+      key: "path",
       label: t("path"),
       value: services.queryHierarchy.path(content)
     },
     {
+      key: "items",
       label: t("items"),
       value: descendants.length
     },
@@ -74,7 +77,14 @@ const descriptorMissing = computed(() => {
         <PropertySheet
           :rows="propertySheetRows"
           :title="`${t('directory')} ${content.name}`"
-        />
+        >
+          <template #value-path="{ row }">
+            <LinkNodePath
+              :id="content.id"
+              :path="row.value.toString()"
+            />
+          </template>
+        </PropertySheet>
         <TextMessage
           v-if="!content.isLoaded()"
           data-test="tip-unloaded"

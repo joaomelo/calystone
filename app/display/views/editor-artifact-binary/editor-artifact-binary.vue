@@ -3,6 +3,7 @@ import type { Artifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editor-workspace";
+import { LinkNodePath } from "@/display/views/link-node-path";
 import {
   ToolbarButtonCreateArtifact,
   ToolbarButtonExportNode,
@@ -26,18 +27,22 @@ const { services } = Store.use();
 const propertySheetRows = computed(() => {
   return [
     {
+      key: "type",
       label: t("type"),
       value: content.mime.media()
     },
     {
+      key: "path",
       label: t("path"),
       value: services.queryHierarchy.path(content)
     },
     {
+      key: "size",
       label: t("size"),
       value: filesize(content.size)
     },
     {
+      key: "last-modified",
       label: t("last-modified"),
       value: formatDateTime(new Date(content.lastModified))
     },
@@ -72,7 +77,14 @@ const propertySheetRows = computed(() => {
         <PropertySheet
           :rows="propertySheetRows"
           :title="content.name"
-        />
+        >
+          <template #value-path="{ row }">
+            <LinkNodePath
+              :id="content.id"
+              :path="row.value.toString()"
+            />
+          </template>
+        </PropertySheet>
       </div>
     </template>
   </EditorWorkspace>
