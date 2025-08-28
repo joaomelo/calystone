@@ -83,7 +83,6 @@ describe("create-and-edit-todo", () => {
         }
       ],
       name: todoName,
-      tags: [],
     });
 
     editorTodo.priority.title().should("contain", "0.50");

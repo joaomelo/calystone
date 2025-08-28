@@ -25,6 +25,7 @@ export const outlineNodesLegacy = {
 } as const;
 
 const nodeTree = "li.p-tree-node";
+const nodeTreeWithLabel = (label: string) => `li.p-tree-node[aria-label='${label}']`;
 const nodeChildren = "ul.p-tree-node-children";
 const nodeInline = ".p-tree-node-label";
 const nodeToogle = "button.p-tree-node-toggle-button";
@@ -41,5 +42,6 @@ export const outlineNodes = {
   nodeLabel,
   nodeToogle,
   nodeTree,
+  nodeTreeWithLabel,
   rootTree
 } as const;

@@ -43,12 +43,19 @@ export const editorTodo = {
     },
     tab: () => cy.get(dataTest("accordion-panels-panel-dates")),
   },
-  main: { progress: {
-    doing: () => cy.get("[data-test='button-doing']"),
-    done: () => cy.get("[data-test='button-done']"),
-    open: () => cy.get("[data-test='button-open']"),
-    skipped: () => cy.get("[data-test='button-skipped']"),
-  } },
+  main: {
+    progress: {
+      doing: () => cy.get("[data-test='button-doing']"),
+      done: () => cy.get("[data-test='button-done']"),
+      open: () => cy.get("[data-test='button-open']"),
+      skipped: () => cy.get("[data-test='button-skipped']"),
+
+    },
+    sheet: {
+      pathLabel: () => cy.get(dataTest("property-sheet-label-path")),
+      pathValue: () => cy.get(dataTest("property-sheet-value-path")),
+    }
+  },
   priority: {
     add: {
       button: () => cy.get(dataTest("control-criterion-add__button")),

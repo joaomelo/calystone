@@ -11,14 +11,14 @@ interface Criterion {
 }
 
 export function createTodo(options: {
-  criteria: Criterion[],
+  criteria?: Criterion[],
   name: string,
-  tags: string[],
+  tags?: string[],
 }) {
   const {
-    criteria,
+    criteria = [],
     name,
-    tags
+    tags = [],
   } = options;
 
   toolbarNode.buttonCreateArtifact().click();

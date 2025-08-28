@@ -3,6 +3,7 @@ export * from "./editor-directory";
 export * from "./editor-empty";
 export * from "./editor-text";
 export * from "./editor-todo";
+export * from "./frame-dashboard";
 export * from "./modal-create-artifact";
 export * from "./modal-create-directory";
 export * from "./modal-remove";

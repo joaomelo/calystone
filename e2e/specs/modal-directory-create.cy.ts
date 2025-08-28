@@ -1,9 +1,8 @@
-import { openMemory } from "../macros";
 import {
-  modalCreateDirectory,
-  outlineNodesLegacy,
-  toolbarNode
-} from "../selectors";
+  createDirectory,
+  openMemory
+} from "../macros";
+import { outlineNodesLegacy } from "../selectors";
 
 describe("create-directory", () => {
   beforeEach(() => {
@@ -12,11 +11,11 @@ describe("create-directory", () => {
 
   it("creates directory inside another directory", () => {
     outlineNodesLegacy.rootNode().click();
-    toolbarNode.buttonCreateDirectory().click();
-    modalCreateDirectory.inputName().clear().type("new-directory-name");
-    modalCreateDirectory.buttonSave().click();
+
+    const directoryName = "new-directory-name";
+    createDirectory(directoryName);
 
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
-    outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).should("contain.text", "new-directory-name");
+    outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).should("contain.text", directoryName);
   });
 });
