@@ -1,0 +1,1 @@
+export { default as OutlineText } from "./outline-text.vue";

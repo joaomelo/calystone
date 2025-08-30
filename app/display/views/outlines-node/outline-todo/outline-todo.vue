@@ -8,7 +8,7 @@ import {
 } from "@/utils";
 import { computed } from "vue";
 
-import CoreBase from "./core-base.vue";
+import { OutlineNode } from "../outline-node";
 
 const { todo } = defineProps<{ todo: TodoArtifact; }>();
 
@@ -29,10 +29,6 @@ const icon = computed(() => {
     : "bx-checkbox";
 
   return `${iconPrefix} ${loadingEffect} ${iconGlyph}`;
-});
-
-const label = computed(() => {
-  return todo.name;
 });
 
 const priority = computed(() => {
@@ -71,19 +67,23 @@ const dates = computed(() => {
 });
 
 const tags = computed(() => {
-  return todo.listTags().join(", ");
+  const list = todo.listTags();
+  list.sort((a, b) => a.localeCompare(b));
+  return list.join(", ");
 });
 </script>
 
 <template>
-  <CoreBase
+  <OutlineNode
     :class="{ 'strikethrough': strikethrough }"
-    :icon="icon"
-    :label="label"
-    class="core-todo"
+    :node="todo"
+    class="outline-todo"
   >
+    <template #icon>
+      <i :class="icon" />
+    </template>
     <template #meta>
-      <div class="core-todo__meta">
+      <div class="outline-todo__meta">
         <span v-if="priority">
           {{ priority }}
         </span>
@@ -98,15 +98,15 @@ const tags = computed(() => {
         </span>
       </div>
     </template>
-  </CoreBase>
+  </OutlineNode>
 </template>
 
 <style scoped>
-.core-todo.strikethrough :deep(.core-base__main_label) {
+.outline-todo.strikethrough :deep(.core-base__main_label) {
   text-decoration: line-through;
 }
 
-.core-todo__meta {
+.outline-todo__meta {
   display: flex;
   flex-direction: column;
   font-size: var(--font-size-0);

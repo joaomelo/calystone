@@ -1,52 +1,50 @@
 <script setup lang="ts">
 import type {
-  Item,
-  ItemData
-} from "@/display/views/outline-item";
-import type {
   OutlineGridItem,
   OutlineGridKeys,
   OutlineGridMode,
 } from "@/utils";
 
-import { isItemData } from "@/display/views/outline-item";
+import { Node } from "@/domain";
 import {
   OutlineGrid,
   ScrollPanel
 } from "@/utils";
 
+import type { OutlineNodesItem } from "./outline-nodes-item";
+
 defineProps<{
   dataTest: string;
   displayMode?: OutlineGridMode;
-  items: Item[];
+  items: OutlineNodesItem[];
 }>();
 const emit = defineEmits<{
-  collapsed: [key: ItemData];
-  expanded: [key: ItemData];
-  selected: [key: ItemData];
-  unselected: [key: ItemData];
+  collapsed: [node: Node];
+  expanded: [node: Node];
+  selected: [node: Node];
+  unselected: [node: Node];
 }>();
 
 const expandedKeys = defineModel<OutlineGridKeys>("expandedKeys", { default: () => ({}) });
 const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () => ({}) });
 
 function handleCollapsed(item: OutlineGridItem) {
-  if (!isItemData(item.data)) return;
+  if (!(item.data instanceof Node)) return;
   emit("collapsed", item.data);
 }
 
 function handleExpanded(item: OutlineGridItem) {
-  if (!isItemData(item.data)) return;
+  if (!(item.data instanceof Node)) return;
   emit("expanded", item.data);
 }
 
 function handleSelected(item: OutlineGridItem) {
-  if (!isItemData(item.data)) return;
+  if (!(item.data instanceof Node)) return;
   emit("selected", item.data);
 }
 
 function handleUnselected(item: OutlineGridItem) {
-  if (!isItemData(item.data)) return;
+  if (!(item.data instanceof Node)) return;
   emit("unselected", item.data);
 }
 </script>
@@ -64,7 +62,9 @@ function handleUnselected(item: OutlineGridItem) {
       @collapsed="handleCollapsed"
     >
       <template #default="slotProps">
-        <slot :item-data="slotProps.node.data" />
+        <slot
+          :node="slotProps.node.data"
+        />
       </template>
     </OutlineGrid>
   </ScrollPanel>

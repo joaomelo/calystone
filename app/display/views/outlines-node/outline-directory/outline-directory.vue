@@ -3,7 +3,7 @@ import type { Directory } from "@/domain";
 
 import { computed } from "vue";
 
-import CoreBase from "./core-base.vue";
+import { OutlineNode } from "../outline-node";
 
 const { directory } = defineProps<{ directory: Directory; }>();
 
@@ -13,12 +13,11 @@ const icon = computed(() => {
   const iconGlyph = directory.isLoaded() ? "bxs-folder" : "bx-folder";
   return `${iconPrefix} ${loadingEffect} ${iconGlyph}`;
 });
-
 </script>
-
 <template>
-  <CoreBase
-    :icon="icon"
-    :label="directory.name"
-  />
+  <OutlineNode :node="directory">
+    <template #icon>
+      <i :class="icon" />
+    </template>
+  </OutlineNode>
 </template>

@@ -1,35 +1,16 @@
+import type { Node } from "@/domain";
+
 import { Store } from "@/display/store";
 import { Directory } from "@/domain";
-import {
-  Status,
-  useDispatch
-} from "@/utils";
+import { useDispatch } from "@/utils";
 import { computed } from "vue";
 
-import type { ItemData } from "./item";
-
-export function useDragAndDrop(data: ItemData) {
-  return data.type === "tag" ? useDragAndDropTag() : useDranAndDropNode(data.key);
-}
-
-function useDragAndDropTag() {
-  const moveable = computed(() => Status.fail("TAGS_DO_NOT_SUPPORT_DRAG_DROP"));
-  return {
-    handleDragdrop: undefined,
-    handleDragover: undefined,
-    handleDragstart: undefined,
-    moveable
-  };
-}
-
-function useDranAndDropNode(id: string) {
+export function useDragAndDrop(node: Node) {
   const { services } = Store.use();
   const { dispatchOrToast } = useDispatch();
 
-  const node = services.retrieveNodes.getOrThrow(id);
-
   const moveable = computed(() => services.moveNode.moveable(node));
-  const dragFormat = "application/outline-item";
+  const dragFormat = "application/outline-node";
 
   async function handleDragdrop(event: DragEvent) {
     if (!event.dataTransfer) return;
@@ -59,7 +40,7 @@ function useDranAndDropNode(id: string) {
 
   function handleDragstart(event: DragEvent) {
     if (!event.dataTransfer) return;
-    event.dataTransfer.setData(dragFormat, id);
+    event.dataTransfer.setData(dragFormat, node.id);
     event.dataTransfer.effectAllowed = "move";
   }
 
