@@ -5,7 +5,7 @@ import { Store } from "@/display/store";
 import { EditorSwitcher } from "@/display/views/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { OutlineItem } from "@/display/views/outline-item";
-import { OutlineItems } from "@/display/views/outline-items";
+import { OutlineNodes } from "@/display/views/outline-nodes";
 import { Directory } from "@/domain";
 import {
   MasterDetail,
@@ -49,10 +49,10 @@ async function handleExpanded(itemData: ItemData) {
       class="page-folders"
     >
       <template #master>
-        <OutlineItems
+        <OutlineNodes
           v-model:expanded-keys="expandedKeys"
           v-model:selected-keys="selectedKeys"
-          data-test="page-folders__outline-items"
+          data-test="page-folders__outline-nodes"
           :items="items"
           display-mode="tree"
           @expanded="handleExpanded"
@@ -60,7 +60,7 @@ async function handleExpanded(itemData: ItemData) {
           <template #default="{ itemData }">
             <OutlineItem :data="itemData" />
           </template>
-        </OutlineItems>
+        </OutlineNodes>
       </template>
       <template #detail>
         <EditorSwitcher

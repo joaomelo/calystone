@@ -1,1 +1,0 @@
-export { default as OutlineItems } from "./outline-items.vue";

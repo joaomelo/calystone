@@ -2,7 +2,7 @@
 import type { OutlineGridKeys } from "@/utils";
 
 import { OutlineItem } from "@/display/views/outline-item";
-import { OutlineItems } from "@/display/views/outline-items";
+import { OutlineNodes } from "@/display/views/outline-nodes";
 import { MonthViewer } from "@/utils";
 import { ref } from "vue";
 
@@ -41,7 +41,7 @@ function handleUpdateMonthViewed(data: Month) {
       @update:selected="handleUpdateDateSelected"
       @update:viewed="handleUpdateMonthViewed"
     />
-    <OutlineItems
+    <OutlineNodes
       v-model:selected-keys="selectedKeys"
       data-test="outline-calendar__items"
       :items="items"
@@ -50,7 +50,7 @@ function handleUpdateMonthViewed(data: Month) {
       <template #default="{ itemData }">
         <OutlineItem :data="itemData" />
       </template>
-    </OutlineItems>
+    </OutlineNodes>
   </div>
 </template>
 <style scoped>

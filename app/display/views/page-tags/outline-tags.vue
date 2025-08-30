@@ -3,7 +3,7 @@ import type { TodosFilters } from "@/display/views/use-todos";
 import type { OutlineGridKeys } from "@/utils";
 
 import { OutlineItem } from "@/display/views/outline-item";
-import { OutlineItems } from "@/display/views/outline-items";
+import { OutlineNodes } from "@/display/views/outline-nodes";
 import { SelectTag } from "@/display/views/select-tag";
 import { useTodos } from "@/display/views/use-todos";
 import { ref } from "vue";
@@ -18,7 +18,7 @@ const items = useTodos(filters);
     <div class="outline-tags__filters">
       <SelectTag v-model="filters.tag" />
     </div>
-    <OutlineItems
+    <OutlineNodes
       v-model:selected-keys="selectedKeys"
       data-test="outline-tags__items"
       :items="items"
@@ -27,7 +27,7 @@ const items = useTodos(filters);
       <template #default="{ itemData }">
         <OutlineItem :data="itemData" />
       </template>
-    </OutlineItems>
+    </OutlineNodes>
   </div>
 </template>
 <style scoped>

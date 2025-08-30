@@ -2,7 +2,7 @@
 import type { OutlineGridKeys } from "@/utils";
 
 import { OutlineItem } from "@/display/views/outline-item";
-import { OutlineItems } from "@/display/views/outline-items";
+import { OutlineNodes } from "@/display/views/outline-nodes";
 import {
   debounce,
   InputText
@@ -29,7 +29,7 @@ const handleSearch = debounce((text?: string) => {
         @update:model-value="handleSearch"
       />
     </div>
-    <OutlineItems
+    <OutlineNodes
       v-model:selected-keys="selectedKeys"
       data-test="outline-search__results"
       :items="items"
@@ -38,7 +38,7 @@ const handleSearch = debounce((text?: string) => {
       <template #default="{ itemData }">
         <OutlineItem :data="itemData" />
       </template>
-    </OutlineItems>
+    </OutlineNodes>
   </div>
 </template>
 <style scoped>
