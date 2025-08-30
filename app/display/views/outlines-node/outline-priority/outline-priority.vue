@@ -4,7 +4,6 @@ import type { TodoArtifact } from "@/domain";
 import {
   formatDateRange,
   throwCritical,
-  truncate
 } from "@/utils";
 import { computed } from "vue";
 
@@ -21,13 +20,16 @@ const priority = computed(() => {
     : "";
 });
 
-const details = computed(() => {
-  return todo.hasDetails()
-    ? truncate(todo.details, {
-      ellipsis: "...",
-      length: 30
-    })
-    : "";
+const criteria = computed(() => {
+  const raw = todo.criteria();
+  raw.sort((a, b) => a.label.localeCompare(b.label));
+  const stringified = raw.map(({
+    label,
+    value
+  }) => {
+    return `${label}: ${value.toFixed(2)}`;
+  });
+  return stringified;
 });
 
 const strikethrough = computed(() => {
@@ -39,7 +41,7 @@ const dates = computed(() => {
 
   const dateStart = todo.dateStart();
   const dateDue = todo.dateDue();
-  if (!dateStart || !dateDue) throwCritical("TODO_MUST_HAVE_DATES");
+  if (!dateStart || !dateDue) throwCritical("IF_TODO_HAS_DATES_IT_MUST_HAVE_DATES");
 
   const occurrence = formatDateRange({
     due: dateDue,
@@ -68,17 +70,20 @@ const tags = computed(() => {
     </template>
     <template #meta>
       <div class="outline-todo__meta">
-        <span v-if="priority">
-          {{ priority }}
+        <span v-if="tags.length">
+          {{ tags }}
         </span>
         <span v-if="dates">
           {{ dates }}
         </span>
-        <span v-if="tags.length">
-          {{ tags }}
+        <span v-if="priority">
+          {{ priority }}
         </span>
-        <span v-if="details">
-          {{ details }}
+        <span
+          v-for="criterion in criteria"
+          :key="criterion"
+        >
+          {{ criterion }}
         </span>
       </div>
     </template>
