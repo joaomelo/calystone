@@ -1,7 +1,4 @@
-import type {
-  Item,
-  ItemData
-} from "@/display/views/outline-item";
+import type { OutlineNodesItem } from "@/display/views/outline-nodes";
 import type { Node } from "@/domain";
 import type { OutlineGridKeys } from "@/utils";
 import type { Ref } from "vue";
@@ -18,13 +15,13 @@ import { computed } from "vue";
 export function useItems(expanded: Ref<OutlineGridKeys>) {
   const { services } = Store.use();
 
-  const items = computed<Item[]>(() =>{
+  const items = computed<OutlineNodesItem[]>(() =>{
     return services.retrieveNodes.list()
       .filter(n => n.isRoot())
       .map((root) => convert(root));
   });
 
-  function convert(node: Node): Item {
+  function convert(node: Node): OutlineNodesItem {
     const key = node.id;
     const label = node.name;
 
@@ -36,14 +33,9 @@ export function useItems(expanded: Ref<OutlineGridKeys>) {
     childrenToRender.sort(childrenSort);
     const childrenItems = childrenToRender.map(convert);
 
-    const data: ItemData = {
-      key,
-      type: "node"
-    };
-
     return {
       children: childrenItems,
-      data,
+      data: node,
       key,
       label,
       leaf: !showToggle
