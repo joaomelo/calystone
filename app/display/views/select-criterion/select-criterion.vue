@@ -13,6 +13,7 @@ const model = defineModel<string | undefined>({ default: undefined });
 const { services } = Store.use();
 const options = computed(() => {
   const labels = Array.from(services.computeCriteria.labels());
+  labels.sort((a, b) => a.localeCompare(b));
   return labels.map(label => ({
     label,
     value: label

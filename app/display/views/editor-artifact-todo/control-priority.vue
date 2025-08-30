@@ -14,8 +14,9 @@ const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { t } = useI18n();
 const criteria = computed(() => {
-  const unorderedList = artifact.criteria();
-  return unorderedList.sort((a, b) => a.label.localeCompare(b.label));
+  const list = artifact.criteria();
+  list.sort((a, b) => a.label.localeCompare(b.label));
+  return list;
 });
 </script>
 <template>
