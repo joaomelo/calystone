@@ -13,7 +13,10 @@ import ControlCriterionManage from "./control-criterion-manage.vue";
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { t } = useI18n();
-const criteria = computed(() => artifact.criteria());
+const criteria = computed(() => {
+  const unorderedList = artifact.criteria();
+  return unorderedList.sort((a, b) => a.label.localeCompare(b.label));
+});
 </script>
 <template>
   <div class="control-priority">
