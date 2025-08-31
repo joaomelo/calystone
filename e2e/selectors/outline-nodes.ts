@@ -32,7 +32,7 @@ const nodeToogle = "button.p-tree-node-toggle-button";
 const rootTree = `ul.p-tree-root-children > ${nodeTree}`;
 const directoryTree = `${nodeTree}:not(.p-tree-node-leaf)`;
 const artifactTree = `${nodeTree}.p-tree-node-leaf`;
-const nodeLabel = (label: string) => dataTest(`outline-item-label-${label}`);
+const nodeLabel = (label: string) => dataTest(`outline-node-label-${label}`);
 
 export const outlineNodes = {
   artifactTree,
