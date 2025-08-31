@@ -4,7 +4,7 @@ import { outlineNodesLegacy } from "../selectors";
 
 const dragFormat = "application/outline-item";
 
-describe("outline-nodes", () => {
+describe("outline-folders", () => {
   beforeEach(() => {
     openMemory();
   });

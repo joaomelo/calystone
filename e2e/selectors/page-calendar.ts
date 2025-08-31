@@ -6,6 +6,6 @@ export const pageCalendar = {
     const dayLabel = Math.floor(day).toString();
     return cy.get(`.p-datepicker-day-cell[aria-label="${dayLabel}"] .month-viewer__date`);
   }, },
-  timelineViewer: { todos: () => cy.get(`${dataTest("outline-calendar__items")} [role='treeitem']`), },
+  timelineViewer: { todos: () => cy.get(`${dataTest("outline-calendar-nodes")} [role='treeitem']`), },
   ...frameDashboard
 } as const;

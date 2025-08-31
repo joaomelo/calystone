@@ -12,7 +12,7 @@ export const outlineNodesLegacy = {
   childrenOf: (node: Cypress.Chainable) => outlineNodesLegacy.childrenContainerOf(node).find("li.p-tree-node"),
   directoryOf: (node: Cypress.Chainable) => outlineNodesLegacy.childrenOf(node).filter(":not(.p-tree-node-leaf)"),
   inlineNodeOf: (nodeWrapper: Cypress.Chainable) =>
-    nodeWrapper.find(dataTestType("outline-item")),
+    nodeWrapper.find(dataTestType("outline-node")),
   labelOf: (node: Cypress.Chainable) => node.find(".p-tree-node-label").first().invoke("text"),
   labelOfElement: (el: HTMLElement) => Cypress.$(el).find(".p-tree-node-label").text(),
   nodeLabeledAs: (label: string) => {
