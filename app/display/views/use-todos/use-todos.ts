@@ -1,7 +1,7 @@
 import type {
-  Item,
-  ItemData
-} from "@/display/views/outline-item";
+  OutlineNodesItem,
+  OutlineNodesItemMetadata
+} from "@/display/views/outlines-node/outline-node";
 import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
@@ -15,7 +15,7 @@ import { createCompare } from "./compare";
 export function useTodos(filters: Ref<TodosFilters>) {
   const { services } = Store.use();
 
-  const items = computed<Item[]>(() => {
+  const items = computed<OutlineNodesItem[]>(() => {
     const {
       criterion,
       tag
@@ -39,7 +39,7 @@ export function useTodos(filters: Ref<TodosFilters>) {
     return todos.map((todo) => {
       const key = todo.id;
       const label = todo.basename();
-      const data: ItemData = {
+      const data: OutlineNodesItemMetadata = {
         key,
         type: "node"
       };

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { OutlineGridKeys } from "@/utils";
 
-import { OutlineItem } from "@/display/views/outline-item";
 import { OutlineNodes } from "@/display/views/outline-nodes";
+import { OutlineTodo } from "@/display/views/outlines-node";
 import { MonthViewer } from "@/utils";
 import { ref } from "vue";
 
@@ -43,12 +43,12 @@ function handleUpdateMonthViewed(data: Month) {
     />
     <OutlineNodes
       v-model:selected-keys="selectedKeys"
-      data-test="outline-calendar__items"
+      data-test="outline-calendar-nodes"
       :items="items"
       display-mode="list"
     >
-      <template #default="{ itemData }">
-        <OutlineItem :data="itemData" />
+      <template #default="{ node }">
+        <OutlineTodo :todo="node" />
       </template>
     </OutlineNodes>
   </div>

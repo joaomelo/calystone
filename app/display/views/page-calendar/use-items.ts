@@ -1,7 +1,7 @@
 import type {
-  Item,
-  ItemData
-} from "@/display/views/outline-item";
+  OutlineNodesItem,
+  OutlineNodesItemMetadata
+} from "@/display/views/outlines-node/outline-node";
 import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
@@ -11,7 +11,7 @@ import { computed } from "vue";
 export function useItems(date: Ref<Date>) {
   const { services } = Store.use();
 
-  const items = computed<Item[]>(() => {
+  const items = computed<OutlineNodesItem[]>(() => {
     const start = new Date(date.value);
     start.setHours(0, 0, 0, 0);
     const end = new Date(date.value);
@@ -31,7 +31,7 @@ export function useItems(date: Ref<Date>) {
     return todos.map(todo => {
       const key = todo.id;
       const label = todo.basename();
-      const data: ItemData = {
+      const data: OutlineNodesItemMetadata = {
         key,
         type: "node"
       };

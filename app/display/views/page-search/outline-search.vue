@@ -1,8 +1,18 @@
 <script setup lang="ts">
 import type { OutlineGridKeys } from "@/utils";
 
-import { OutlineItem } from "@/display/views/outline-item";
 import { OutlineNodes } from "@/display/views/outline-nodes";
+import {
+  OutlineBinary,
+  OutlineDirectory,
+  OutlineText,
+  OutlineTodo
+} from "@/display/views/outlines-node";
+import {
+  Directory,
+  TextArtifact,
+  TodoArtifact
+} from "@/domain";
 import {
   debounce,
   InputText
@@ -35,8 +45,23 @@ const handleSearch = debounce((text?: string) => {
       :items="items"
       display-mode="list"
     >
-      <template #default="{ itemData }">
-        <OutlineItem :data="itemData" />
+      <template #default="{ node }">
+        <OutlineDirectory
+          v-if="(node instanceof Directory)"
+          :directory="node"
+        />
+        <OutlineText
+          v-if="(node instanceof TextArtifact)"
+          :text="node"
+        />
+        <OutlineTodo
+          v-if="(node instanceof TodoArtifact)"
+          :todo="node"
+        />
+        <OutlineBinary
+          v-else
+          :binary="node"
+        />
       </template>
     </OutlineNodes>
   </div>

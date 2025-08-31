@@ -2,8 +2,8 @@
 import type { TodosFilters } from "@/display/views/use-todos";
 import type { OutlineGridKeys } from "@/utils";
 
-import { OutlineItem } from "@/display/views/outline-item";
 import { OutlineNodes } from "@/display/views/outline-nodes";
+import { OutlineTodo } from "@/display/views/outlines-node";
 import { SelectTag } from "@/display/views/select-tag";
 import { useTodos } from "@/display/views/use-todos";
 import { ref } from "vue";
@@ -20,12 +20,12 @@ const items = useTodos(filters);
     </div>
     <OutlineNodes
       v-model:selected-keys="selectedKeys"
-      data-test="outline-tags__items"
+      data-test="outline-tags-items"
       :items="items"
       display-mode="list"
     >
-      <template #default="{ itemData }">
-        <OutlineItem :data="itemData" />
+      <template #default="{ node }">
+        <OutlineTodo :todo="node" />
       </template>
     </OutlineNodes>
   </div>
