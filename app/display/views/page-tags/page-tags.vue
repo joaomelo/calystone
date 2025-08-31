@@ -2,7 +2,7 @@
 import type { OutlineGridKeys } from "@/utils";
 
 import { Store } from "@/display/store";
-import { EditorSwitcher } from "@/display/views/editor-switcher";
+import { EditorSwitcher } from "@/display/views/editors-node/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { MasterDetail } from "@/utils";
 import {
