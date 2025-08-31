@@ -5,7 +5,7 @@ import {
   toolbarNode
 } from "../selectors";
 
-describe("rename", () => {
+describe("modal-artifact-rename", () => {
   beforeEach(() => {
     openMemory();
   });
