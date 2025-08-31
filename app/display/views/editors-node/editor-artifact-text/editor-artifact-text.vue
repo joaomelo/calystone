@@ -2,8 +2,8 @@
 import type { TextArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorWorkspace } from "@/display/views/editor-workspace";
-import { EditorNotLoaded } from "@/display/views/editors-message";
+import { EditorWorkspace } from "@/display/views/editors-node/editor-workspace";
+import { EditorNotLoaded } from "@/display/views/editors-node/editor-empty";
 import {
   ToolbarButtonCreateArtifact,
   ToolbarButtonExportNode,

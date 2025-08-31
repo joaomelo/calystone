@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import type { EditorSwitch } from "@/display/views/editor-switch";
+import type { EditorSwitch } from "@/display/views/editors-node/editor-switch";
 import type { Node } from "@/domain";
 import type { Component } from "vue";
 
 import { Store } from "@/display/store";
-import { editorArtifactBinarySwitch } from "@/display/views/editor-artifact-binary";
-import { editorArtifactTextSwitch } from "@/display/views/editor-artifact-text";
-import { editorArtifactTodoSwitch } from "@/display/views/editor-artifact-todo";
-import { editorDirectorySwitch } from "@/display/views/editor-directory";
-import { editorEmptySwitch } from "@/display/views/editors-message";
 import { ScrollPanel } from "@/utils";
 import { computed } from "vue";
+
+import { editorArtifactBinarySwitch } from "../editor-artifact-binary";
+import { editorArtifactTextSwitch } from "../editor-artifact-text";
+import { editorArtifactTodoSwitch } from "../editor-artifact-todo";
+import { editorDirectorySwitch } from "../editor-directory";
+import { editorEmptySwitch } from "../editor-empty";
 
 const { node } = defineProps<{ node?: Node; }>();
 

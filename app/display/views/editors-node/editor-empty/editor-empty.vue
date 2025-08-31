@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import EditorMessage from "./editor-message.vue";
+import { EditorMessage } from "../editor-message";
 </script>
 <template>
   <EditorMessage

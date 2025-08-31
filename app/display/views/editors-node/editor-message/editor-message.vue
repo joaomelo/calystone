@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EditorWorkspace } from "@/display/views/editor-workspace";
+import { EditorWorkspace } from "@/display/views/editors-node/editor-workspace";
 import { useI18n } from "@/utils";
 
 defineProps<{ message: string; }>();

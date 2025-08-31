@@ -3,8 +3,8 @@ import type { TodoArtifact } from "@/domain";
 import type { PanelsList } from "@/utils";
 
 import { Store } from "@/display/store";
-import { EditorWorkspace } from "@/display/views/editor-workspace";
-import { EditorNotLoaded } from "@/display/views/editors-message";
+import { EditorWorkspace } from "@/display/views/editors-node/editor-workspace";
+import { EditorNotLoaded } from "@/display/views/editors-node/editor-empty";
 import {
   ToolbarButtonCreateArtifact,
   ToolbarButtonExportNode,

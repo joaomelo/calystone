@@ -1,4 +1,4 @@
-import type { EditorSwitch } from "@/display/views/editor-switch";
+import type { EditorSwitch } from "@/display/views/editors-node/editor-switch";
 
 import EditorEmpty from "./editor-empty.vue";
 

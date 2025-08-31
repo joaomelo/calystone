@@ -2,7 +2,7 @@
 import type { Artifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorWorkspace } from "@/display/views/editor-workspace";
+import { EditorWorkspace } from "@/display/views/editors-node/editor-workspace";
 import { LinkNodePath } from "@/display/views/link-node-path";
 import {
   ToolbarButtonCreateArtifact,
