@@ -3,13 +3,7 @@ import type { Node } from "@/domain";
 
 import { useDragAndDrop } from "./use-drag-and-drop";
 
-const {
-  node,
-  label = node.name
-} = defineProps<{
-  label?: string;
-  node: Node,
-}>();
+const { node } = defineProps<{ node: Node, }>();
 
 const {
   handleDragdrop,
@@ -34,9 +28,9 @@ const {
     <div class="outline-node__content">
       <p
         class="outline-node__main_label"
-        :data-test="`outline-node-label-${label}`"
+        :data-test="`outline-node-label-${node.name}`"
       >
-        {{ label }}
+        {{ node.name }}
       </p>
       <div class="outline-node__meta">
         <slot name="meta" />
