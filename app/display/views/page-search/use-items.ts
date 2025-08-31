@@ -1,7 +1,4 @@
-import type {
-  OutlineNodesItem,
-  OutlineNodesItemMetadata
-} from "@/display/views/outlines-node/outline-node";
+import type { OutlineNodesItem } from "@/display/views/outline-nodes";
 import type { Node } from "@/domain";
 import type { Ref } from "vue";
 
@@ -25,13 +22,9 @@ export function useItems(search: Ref<string>) {
 function convert(node: Node): OutlineNodesItem {
   const key = node.id;
   const label = node.name;
-  const data: OutlineNodesItemMetadata = {
-    key,
-    type: "node"
-  };
   return {
     children: [],
-    data,
+    data: node,
     key,
     label,
     leaf: true

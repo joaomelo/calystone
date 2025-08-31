@@ -3,15 +3,6 @@ import type { TodoArtifact } from "@/domain";
 import type { PanelsList } from "@/utils";
 
 import { Store } from "@/display/store";
-import { EditorWorkspace } from "@/display/views/editors-node/editor-workspace";
-import { EditorNotLoaded } from "@/display/views/editors-node/editor-empty";
-import {
-  ToolbarButtonCreateArtifact,
-  ToolbarButtonExportNode,
-  ToolbarButtonRemoveNode,
-  ToolbarButtonRenameNode,
-  ToolbarButtonShareNode
-} from "@/display/views/toolbar-buttons";
 import {
   AccordionPanels,
   formatDateRange,
@@ -23,6 +14,15 @@ import {
   ref
 } from "vue";
 
+import { EditorNotLoaded } from "../editor-not-loaded";
+import { EditorWorkspace } from "../editor-workspace";
+import {
+  ToolbarButtonCreateArtifact,
+  ToolbarButtonExportNode,
+  ToolbarButtonRemoveNode,
+  ToolbarButtonRenameNode,
+  ToolbarButtonShareNode
+} from "../toolbar-buttons";
 import ControlDates from "./control-dates.vue";
 import ControlDetails from "./control-details.vue";
 import ControlInfo from "./control-info.vue";

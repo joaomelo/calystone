@@ -1,7 +1,4 @@
-import type {
-  OutlineNodesItem,
-  OutlineNodesItemMetadata
-} from "@/display/views/outlines-node/outline-node";
+import type { OutlineNodesItem } from "@/display/views/outline-nodes";
 import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
@@ -39,13 +36,9 @@ export function useTodos(filters: Ref<TodosFilters>) {
     return todos.map((todo) => {
       const key = todo.id;
       const label = todo.basename();
-      const data: OutlineNodesItemMetadata = {
-        key,
-        type: "node"
-      };
       return {
         children: [],
-        data,
+        data: todo,
         key,
         label,
         leaf: true

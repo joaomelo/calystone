@@ -5,19 +5,20 @@ import { Store } from "@/display/store";
 import { EditorWorkspace } from "@/display/views/editors-node/editor-workspace";
 import { LinkNodePath } from "@/display/views/link-node-path";
 import {
-  ToolbarButtonCreateArtifact,
-  ToolbarButtonExportNode,
-  ToolbarButtonRemoveNode,
-  ToolbarButtonRenameNode,
-  ToolbarButtonShareNode
-} from "@/display/views/toolbar-buttons";
-import {
   formatDateTime,
   PropertySheet,
   useI18n
 } from "@/utils";
 import { filesize } from "filesize";
 import { computed } from "vue";
+
+import {
+  ToolbarButtonCreateArtifact,
+  ToolbarButtonExportNode,
+  ToolbarButtonRemoveNode,
+  ToolbarButtonRenameNode,
+  ToolbarButtonShareNode
+} from "../toolbar-buttons";
 
 const { content } = defineProps<{ content: Artifact; }>();
 defineEmits<{ close: [] }>();

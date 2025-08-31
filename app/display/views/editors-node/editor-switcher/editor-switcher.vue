@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import type { EditorSwitch } from "@/display/views/editors-node/editor-switch";
 import type { Node } from "@/domain";
 import type { Component } from "vue";
 
 import { Store } from "@/display/store";
 import { ScrollPanel } from "@/utils";
 import { computed } from "vue";
+
+import type { EditorSwitch } from "../editor-switch";
 
 import { editorArtifactBinarySwitch } from "../editor-artifact-binary";
 import { editorArtifactTextSwitch } from "../editor-artifact-text";

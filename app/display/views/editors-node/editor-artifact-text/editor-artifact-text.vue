@@ -2,15 +2,6 @@
 import type { TextArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorWorkspace } from "@/display/views/editors-node/editor-workspace";
-import { EditorNotLoaded } from "@/display/views/editors-node/editor-empty";
-import {
-  ToolbarButtonCreateArtifact,
-  ToolbarButtonExportNode,
-  ToolbarButtonRemoveNode,
-  ToolbarButtonRenameNode,
-  ToolbarButtonShareNode
-} from "@/display/views/toolbar-buttons";
 import {
   debounce,
   InputRichText
@@ -19,6 +10,16 @@ import {
   onMounted,
   ref
 } from "vue";
+
+import { EditorNotLoaded } from "../editor-not-loaded";
+import { EditorWorkspace } from "../editor-workspace";
+import {
+  ToolbarButtonCreateArtifact,
+  ToolbarButtonExportNode,
+  ToolbarButtonRemoveNode,
+  ToolbarButtonRenameNode,
+  ToolbarButtonShareNode
+} from "../toolbar-buttons";
 
 const { content: artifact } = defineProps<{ content: TextArtifact; }>();
 defineEmits<{ close: [] }>();

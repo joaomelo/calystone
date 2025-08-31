@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { EditorWorkspace } from "@/display/views/editors-node/editor-workspace";
 import { useI18n } from "@/utils";
+
+import { EditorWorkspace } from "../editor-workspace";
 
 defineProps<{ message: string; }>();
 defineEmits<{ close: [] }>();

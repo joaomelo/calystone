@@ -2,15 +2,7 @@
 import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
-import { EditorWorkspace } from "@/display/views/editors-node/editor-workspace";
 import { LinkNodePath } from "@/display/views/link-node-path";
-import {
-  ToolbarButtonCreateArtifact,
-  ToolbarButtonCreateDirectory,
-  ToolbarButtonOpenDirectory,
-  ToolbarButtonReloadDirectory,
-  ToolbarButtonRemoveNode
-} from "@/display/views/toolbar-buttons";
 import {
   PropertySheet,
   TextMarkdown,
@@ -18,6 +10,15 @@ import {
   useI18n
 } from "@/utils";
 import { computed } from "vue";
+
+import { EditorWorkspace } from "../editor-workspace";
+import {
+  ToolbarButtonCreateArtifact,
+  ToolbarButtonCreateDirectory,
+  ToolbarButtonOpenDirectory,
+  ToolbarButtonReloadDirectory,
+  ToolbarButtonRemoveNode
+} from "../toolbar-buttons";
 
 const { content } = defineProps<{ content: Directory; }>();
 defineEmits<{ close: [] }>();
