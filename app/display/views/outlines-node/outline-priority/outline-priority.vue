@@ -4,6 +4,7 @@ import type { TodoArtifact } from "@/domain";
 import {
   formatDateRange,
   throwCritical,
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 
@@ -11,12 +12,13 @@ import { OutlineNode } from "../outline-node";
 import { useTodoIcon } from "../use-todo-icon";
 
 const { todo } = defineProps<{ todo: TodoArtifact; }>();
+const { t } = useI18n();
 
 const icon = useTodoIcon(todo);
 
 const priority = computed(() => {
   return todo.priority() > 0
-    ? todo.priority().toFixed(2)
+    ? `${t("common.priority")}: ${todo.priority().toFixed(2)}`
     : "";
 });
 
