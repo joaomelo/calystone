@@ -5,6 +5,7 @@ export * from "./collections";
 export * from "./dialogs";
 export * from "./grids";
 export * from "./i18n";
+export * from "./icons";
 export * from "./inputs";
 export * from "./objects";
 export * from "./schema";

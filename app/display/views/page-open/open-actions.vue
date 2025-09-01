@@ -1,33 +1,51 @@
 <script setup lang="ts">
-import OpenAction from "./open-action.vue";
+import {
+  IconDropbox,
+  IconHardDrive,
+  IconMemory,
+  IconOneDrive
+} from "@/utils";
 
+import OpenAction from "./open-action.vue";
 </script>
 <template>
   <div class="open-actions">
     <OpenAction
       label="page-open.actions.memory"
       data-test="open-memory"
-      icon="bx bx-memory-card"
       provider="memory"
-    />
+    >
+      <template #icon>
+        <IconMemory />
+      </template>
+    </OpenAction>
     <OpenAction
       provider="fsa"
       label="page-open.actions.fsa"
       data-test="open-fsa"
-      icon="bx bx-hdd"
-    />
+    >
+      <template #icon>
+        <IconHardDrive />
+      </template>
+    </OpenAction>
     <OpenAction
       label="page-open.actions.one-drive"
       data-test="open-one-drive"
-      icon="bx bx-cloud"
       provider="oneDrive"
-    />
+    >
+      <template #icon>
+        <IconOneDrive />
+      </template>
+    </OpenAction>
     <OpenAction
       label="page-open.actions.dropbox"
       data-test="open-dropbox"
-      icon="bx bxl-dropbox"
       provider="dropbox"
-    />
+    >
+      <template #icon>
+        <IconDropbox />
+      </template>
+    </OpenAction>
   </div>
 </template>
 <style scoped>

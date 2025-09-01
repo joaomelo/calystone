@@ -12,7 +12,7 @@ import { useRouter } from "vue-router";
 
 const { provider } = defineProps<{
   dataTest: string;
-  icon: string;
+  icon?: string;
   label: string;
   provider: SourceProvider;
 }>();
