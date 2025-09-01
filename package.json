@@ -78,7 +78,7 @@
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-chai-friendly": "^1.0.1",
     "eslint-plugin-cypress": "^4.3.0",
-    "eslint-plugin-destructuring-newline": "^0.1.1",
+    "eslint-plugin-destructuring-newline": "0.1.1",
     "eslint-plugin-import-newlines": "^1.4.0",
     "eslint-plugin-import-x": "^4.16.1",
     "eslint-plugin-mocha": "^10.5.0",
