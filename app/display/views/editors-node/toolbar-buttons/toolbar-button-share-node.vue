@@ -3,6 +3,7 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
+  IconShare,
   ToolbarButton,
   useDispatch,
   useI18n
@@ -25,8 +26,11 @@ async function handleClick() {
   <ToolbarButton
     v-if="shareable.isOk()"
     v-tooltip="{ value: t('share'), showDelay: 500 }"
-    icon="bxs-share-alt"
     data-test="button-share"
     @click="handleClick"
-  />
+  >
+    <template #icon>
+      <IconShare />
+    </template>
+  </ToolbarButton>
 </template>

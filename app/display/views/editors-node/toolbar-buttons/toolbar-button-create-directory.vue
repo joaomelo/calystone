@@ -3,6 +3,7 @@ import type { Directory } from "@/domain";
 
 import { DialogCreateDirectory } from "@/display/views/dialog-create-directory";
 import {
+  IconDirectoryPlus,
   ToolbarButton,
   useI18n
 } from "@/utils";
@@ -16,10 +17,13 @@ const dialogCreateDirectory = useTemplateRef("dialogCreateDirectory");
 <template>
   <ToolbarButton
     v-tooltip="{ value: t('create-directory'), showDelay: 500 }"
-    icon="bxs-folder-plus"
     data-test="button-create-directory"
     @click="dialogCreateDirectory?.open"
-  />
+  >
+    <template #icon>
+      <IconDirectoryPlus />
+    </template>
+  </ToolbarButton>
   <DialogCreateDirectory
     ref="dialogCreateDirectory"
     :parent="parent"

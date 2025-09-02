@@ -5,6 +5,7 @@ import { Store } from "@/display/store";
 import { DialogCreateArtifact } from "@/display/views/dialog-create-artifact";
 import { Directory } from "@/domain";
 import {
+  IconFilePlus,
   ToolbarButton,
   useI18n
 } from "@/utils";
@@ -29,10 +30,13 @@ const parentOfNewArtifact = computed<Directory | undefined>(() => {
   <template v-if="parentOfNewArtifact">
     <ToolbarButton
       v-tooltip="{ value: t('create-artifact'), showDelay: 500 }"
-      icon="bxs-file-plus"
       data-test="button-create-artifact"
       @click="dialogCreateArtifact?.open"
-    />
+    >
+      <template #icon>
+        <IconFilePlus />
+      </template>
+    </ToolbarButton>
     <DialogCreateArtifact
       ref="dialogCreateArtifact"
       :parent="parentOfNewArtifact"

@@ -1,4 +1,12 @@
+export { default as IconCursor } from "./icon-cursor.vue";
+export { default as IconDelete } from "./icon-delete.vue";
+export { default as IconDirectoryOpen } from "./icon-directory-open.vue";
+export { default as IconDirectoryPlus } from "./icon-directory-plus.vue";
 export { default as IconDropbox } from "./icon-dropbox.vue";
+export { default as IconFileExport } from "./icon-file-export.vue";
+export { default as IconFilePlus } from "./icon-file-plus.vue";
 export { default as IconHardDrive } from "./icon-hard-drive.vue";
 export { default as IconMemory } from "./icon-memory.vue";
 export { default as IconOneDrive } from "./icon-one-drive.vue";
+export { default as IconReload } from "./icon-reload.vue";
+export { default as IconShare } from "./icon-share.vue";

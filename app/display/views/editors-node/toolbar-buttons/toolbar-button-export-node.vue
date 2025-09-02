@@ -3,6 +3,7 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
+  IconFileExport,
   ToolbarButton,
   useDispatch,
   useI18n
@@ -25,8 +26,11 @@ async function handleClick() {
   <ToolbarButton
     v-if="exportable.isOk()"
     v-tooltip="{ value: t('export'), showDelay: 500 }"
-    icon="bxs-file-export"
     data-test="button-export"
     @click="handleClick"
-  />
+  >
+    <template #icon>
+      <IconFileExport />
+    </template>
+  </ToolbarButton>
 </template>

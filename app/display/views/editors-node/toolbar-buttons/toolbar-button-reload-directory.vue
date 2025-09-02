@@ -3,6 +3,7 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
+  IconReload,
   ToolbarButton,
   useDispatch,
   useI18n
@@ -26,8 +27,11 @@ async function handleReloadDirectory() {
   <ToolbarButton
     v-if="reloadable"
     v-tooltip="{ value: t('reload'), showDelay: 500 }"
-    icon="bx-refresh"
     data-test="button-reload-directory"
     @click="handleReloadDirectory"
-  />
+  >
+    <template #icon>
+      <IconReload />
+    </template>
+  </ToolbarButton>
 </template>

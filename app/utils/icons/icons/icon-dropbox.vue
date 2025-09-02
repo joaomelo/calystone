@@ -5,14 +5,19 @@ import { BaseIcon } from "../base";
   <BaseIcon>
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 192 192"
+      viewBox="0 0 256 256"
     >
       <path
+        fill="none"
+        d="M0 0h256v256H0z"
+      />
+      <path
+        fill="none"
         stroke="currentColor"
+        stroke-linecap="round"
         stroke-linejoin="round"
-        stroke-width="12"
-        d="M65.7 26.98 22 55.28l30.36 24.36 43.7-27.14zM22 103.54l43.7 28.54 30.36-25.52-43.7-26.92zm74.06 3.13 30.71 25.52L170 103.9l-30.02-24.13zM170 55.28l-43.23-28.3L96.06 52.5l44.04 27.26Zm-73.48 57.08-30.71 25.51-12.98-8.7v9.75l43.7 26.1 43.57-26.22v-9.74l-13.21 8.7z"
+        stroke-width="16"
+        d="M76 48 24 84l52 36 52-36-52-36zM180 48l-52 36 52 36 52-36-52-36zM76 120l-52 36 52 36 52-36-52-36zM180 120l-52 36 52 36 52-36-52-36zM104.11 211.46 128 228l23.89-16.54"
       />
     </svg>
   </BaseIcon>

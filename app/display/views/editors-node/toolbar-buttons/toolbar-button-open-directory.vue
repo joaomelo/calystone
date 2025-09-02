@@ -3,6 +3,7 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
+  IconDirectoryOpen,
   ToolbarButton,
   useDispatch,
   useI18n
@@ -22,8 +23,11 @@ async function handleClick() {
   <ToolbarButton
     v-if="!directory.isLoaded()"
     v-tooltip="{ value: t('open-directory'), showDelay: 500 }"
-    icon="bxs-folder-open"
     data-test="button-open-directory"
     @click="handleClick"
-  />
+  >
+    <template #icon>
+      <IconDirectoryOpen />
+    </template>
+  </ToolbarButton>
 </template>

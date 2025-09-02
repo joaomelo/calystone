@@ -4,6 +4,7 @@ import type { Node } from "@/domain";
 import { Store } from "@/display/store";
 import { DialogRename } from "@/display/views/dialog-rename";
 import {
+  IconCursor,
   ToolbarButton,
   useI18n
 } from "@/utils";
@@ -24,10 +25,13 @@ const renameable = computed(() => services.renameNode.renameable(node));
   <ToolbarButton
     v-if="renameable.isOk()"
     v-tooltip="{ value: t('rename'), showDelay: 500 }"
-    icon="bxs-rename"
     data-test="button-rename"
     @click="dialogRename?.open"
-  />
+  >
+    <template #icon>
+      <IconCursor />
+    </template>
+  </ToolbarButton>
   <DialogRename
     ref="dialogRename"
     :node="node"

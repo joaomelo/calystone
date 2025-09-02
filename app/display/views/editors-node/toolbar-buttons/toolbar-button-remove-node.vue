@@ -4,6 +4,7 @@ import type { Node } from "@/domain";
 import { Store } from "@/display/store";
 import { DialogRemove } from "@/display/views/dialog-remove";
 import {
+  IconDelete,
   ToolbarButton,
   useI18n
 } from "@/utils";
@@ -33,10 +34,13 @@ async function handleClick() {
   <ToolbarButton
     v-if="removeable.isOk()"
     v-tooltip="{ value: t('delete-node', { name: node.name }), showDelay: 500 }"
-    icon="bxs-trash"
     data-test="button-remove"
     @click="handleClick"
-  />
+  >
+    <template #icon>
+      <IconDelete />
+    </template>
+  </ToolbarButton>
   <DialogRemove
     ref="dialogRemove"
     :node="node"
