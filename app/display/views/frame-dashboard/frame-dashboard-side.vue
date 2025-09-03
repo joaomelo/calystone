@@ -3,6 +3,13 @@ import type { ComputedRef } from "vue";
 
 import { Store } from "@/display/store";
 import {
+  IconCalendar,
+  IconDirectories,
+  IconFlag,
+  IconSearch,
+  IconSignOut,
+  IconSpinner,
+  IconTag,
   SideBar,
   SideItem,
   useI18n
@@ -20,8 +27,6 @@ const { services } = Store.use();
 const route = useRoute();
 const router = useRouter();
 const preloading = usePreloading();
-
-const baseIcon = "bx bx-md";
 
 const active: ComputedRef<string> = computed(() => {
   if (typeof route.name === "string") return route.name;
@@ -47,62 +52,67 @@ function handleExit() {
       <SideItem
         id="folders"
         :title="t('common.folders')"
-        :icon="`${baseIcon} bx-list-ul`"
         data-test="sidebar-folders"
         @click="handleClickPage('folders')"
-      />
+      >
+        <IconDirectories />
+      </SideItem>
       <SideItem
         id="calendar"
         :title="t('common.calendar')"
-        :icon="`${baseIcon} bxs-calendar`"
         data-test="sidebar-calendar"
         @click="handleClickPage('calendar')"
-      />
+      >
+        <IconCalendar />
+      </SideItem>
       <SideItem
         id="tags"
         :title="t('common.tags')"
-        :icon="`${baseIcon} bxs-purchase-tag-alt`"
         data-test="sidebar-tags"
         @click="handleClickPage('tags')"
-      />
+      >
+        <IconTag />
+      </SideItem>
       <SideItem
         id="priority"
         :title="t('common.priority')"
-        :icon="`${baseIcon} bxs-flag-alt`"
         data-test="sidebar-priority"
         @click="handleClickPage('priority')"
-      />
+      >
+        <IconFlag />
+      </SideItem>
       <SideItem
         id="search"
         :title="t('common.search')"
-        :icon="`${baseIcon} bx-search-alt`"
         data-test="sidebar-search"
         @click="handleClickPage('search')"
-      />
+      >
+        <IconSearch />
+      </SideItem>
     </template>
     <template #bottom>
       <SideItem
         v-if="preloading"
         id="preloading"
         disabled
-        :icon="`${baseIcon} bx-loader bx-spin`"
         :title="t('dashboard.preloading')"
         data-test="sidebar-preloading"
         class="sidebar-preload"
-      />
+      >
+        <IconSpinner
+          animation="spin"
+          :duration="7"
+        />
+      </SideItem>
       <SideItem
         id="exit"
-        :icon="`${baseIcon} bx-log-out`"
+        :icon="`bx-log-out`"
         :title="t('exit')"
         data-test="sidebar-exit"
         @click="handleExit"
-      />
+      >
+        <IconSignOut />
+      </SideItem>
     </template>
   </SideBar>
 </template>
-
-<style scoped>
-.sidebar-preload :deep(.side-item-icon) {
-  animation-duration: 7s;
-}
-</style>

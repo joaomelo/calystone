@@ -8,13 +8,11 @@ import { useProvider } from "./provider";
 
 const {
   disabled = false,
-  icon,
   id,
   title
 } = defineProps<{
   dataTest: string,
   disabled?: boolean
-  icon: string
   id: string,
   title: string,
 }>();
@@ -35,10 +33,7 @@ function handleClick() {
     :data-test="dataTest"
     @click="handleClick"
   >
-    <i
-      :class="icon"
-      class="side-item-icon"
-    />
+    <slot />
   </li>
 </template>
 
@@ -46,6 +41,7 @@ function handleClick() {
 .side-item {
   padding: var(--size-1);
   border-radius: var(--radius-2);
+  font-size: var(--font-size-4);
 }
 
 .side-item:not(.disabled):not(.active) {
@@ -54,9 +50,5 @@ function handleClick() {
 
 .side-item.active {
   background-color: var(--p-surface-100);
-}
-
-.side-item-icon {
-  font-size: var(--font-size-4);
 }
 </style>
