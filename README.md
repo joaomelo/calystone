@@ -46,6 +46,10 @@ Moreover, if your data is stored in an open format like text files, you can swit
 
 The Calystone project embraces this philosophy.
 
+# Acknowledgements
+
+This project was made possible thanks to the incredible power of open source projects like [CodeMirror](https://codemirror.net/), [Phosphor](https://phosphoricons.com/), [PrimeVue](https://primevue.org/), and [Vue](https://vuejs.org/).
+
 # Author
 
 I hope this app can help you. It was made with ❤️ by [João Melo](http://joao.melo.plus).
