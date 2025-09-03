@@ -12,7 +12,7 @@ const route = useRoute();
   <router-link
     :to="{
       name: 'folders',
-      query: { ...route.query, 'folders-selected': id }
+      query: { ...route.query, 'folders-nodes-selected': id }
     }"
   >
     {{ path }}
