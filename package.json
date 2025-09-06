@@ -41,7 +41,6 @@
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "@primevue/themes": "^4.3.4",
     "@vueuse/core": "^12.4.0",
-    "boxicons": "^2.1.4",
     "dompurify": "^3.2.5",
     "dropbox": "^10.34.0",
     "filesize": "^10.1.6",
