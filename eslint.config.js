@@ -36,6 +36,7 @@ export default tseslint.config(
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   { rules: {
+    "@typescript-eslint/consistent-indexed-object-style": "off",
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {
@@ -136,6 +137,8 @@ export default tseslint.config(
     // vue plugin already has a standard way to sort that considers the attribute type like if it is an event or a id definition
     "perfectionist/sort-vue-attributes": "off",
   } },
+
+  { rules: { "vue/no-v-html": "off" } },
 
   // language settings
   {
