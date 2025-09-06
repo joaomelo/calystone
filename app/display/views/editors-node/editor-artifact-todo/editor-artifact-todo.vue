@@ -55,11 +55,13 @@ const panels = computed<PanelsList>(() => {
     })
     : "";
   const recurringSignal = artifact.hasRecurrence() ? " ↻" : "";
-  const datesLegend = `${t("editor-todo.dates.dates")}: ${formattedDateRange}${recurringSignal}`;
+  const datesLegendSpacer = formattedDateRange || recurringSignal ? ": " : "";
+  const datesLegend = `${t("editor-todo.dates.dates")}${datesLegendSpacer}${formattedDateRange}${recurringSignal}`;
 
   const tagsTitle = t("common.tags");
   const tagsList = artifact.tagger.list().join(", ");
-  const tagsLegend = `${tagsTitle}${tagsList ? `: ${tagsList}` : ""}`;
+  const tagsLegendSpacer = tagsList ? ": " : "";
+  const tagsLegend = `${tagsTitle}${tagsLegendSpacer}${tagsList}`;
 
   return [
     ["main", artifact.basename()],
