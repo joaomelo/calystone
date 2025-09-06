@@ -4,30 +4,32 @@ import type { TodoArtifact } from "@/domain";
 import {
   formatDateRange,
   throwCritical,
-  truncate
+  useI18n
 } from "@/utils";
 import { computed } from "vue";
 
 import { OutlineNode } from "../outline-node";
-import { useTodoIcon } from "../use-todo-icon";
+import TodoIcon from "./todo-icon.vue";
 
 const { todo } = defineProps<{ todo: TodoArtifact; }>();
-
-const icon = useTodoIcon(todo);
+const { t } = useI18n();
 
 const priority = computed(() => {
   return todo.priority() > 0
-    ? todo.priority().toFixed(2)
+    ? `${t("common.priority")}: ${todo.priority().toFixed(2)}`
     : "";
 });
 
-const details = computed(() => {
-  return todo.hasDetails()
-    ? truncate(todo.details, {
-      ellipsis: "...",
-      length: 30
-    })
-    : "";
+const criteria = computed(() => {
+  const raw = todo.criteria();
+  raw.sort((a, b) => a.label.localeCompare(b.label));
+  const stringified = raw.map(({
+    label,
+    value
+  }) => {
+    return `${label}: ${value.toFixed(2)}`;
+  });
+  return stringified;
 });
 
 const strikethrough = computed(() => {
@@ -39,7 +41,7 @@ const dates = computed(() => {
 
   const dateStart = todo.dateStart();
   const dateDue = todo.dateDue();
-  if (!dateStart || !dateDue) throwCritical("TODO_MUST_HAVE_DATES");
+  if (!dateStart || !dateDue) throwCritical("IF_TODO_HAS_DATES_IT_MUST_HAVE_DATES");
 
   const occurrence = formatDateRange({
     due: dateDue,
@@ -64,21 +66,24 @@ const tags = computed(() => {
     class="outline-todo"
   >
     <template #icon>
-      <i :class="icon" />
+      <TodoIcon :todo="todo" />
     </template>
     <template #meta>
       <div class="outline-todo__meta">
-        <span v-if="priority">
-          {{ priority }}
+        <span v-if="tags.length">
+          {{ tags }}
         </span>
         <span v-if="dates">
           {{ dates }}
         </span>
-        <span v-if="tags.length">
-          {{ tags }}
+        <span v-if="priority">
+          {{ priority }}
         </span>
-        <span v-if="details">
-          {{ details }}
+        <span
+          v-for="criterion in criteria"
+          :key="criterion"
+        >
+          {{ criterion }}
         </span>
       </div>
     </template>

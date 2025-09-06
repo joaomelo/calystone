@@ -1,23 +1,28 @@
 <script setup lang="ts">
 import type { BinaryArtifact } from "@/domain";
 
+import { AppIcon } from "@/utils";
 import { computed } from "vue";
 
 import { OutlineNode } from "../outline-node";
 
 const { binary } = defineProps<{ binary: BinaryArtifact; }>();
 
-const icon = computed(() => {
-  const iconPrefix = "bx bx-sm";
-  const loadingEffect = binary.isBusy() ? "bx-flashing" : "";
-  const iconGlyph = binary.isLoaded() ? "bxs-file" : "bx-file";
-  return `${iconPrefix} ${loadingEffect} ${iconGlyph}`;
+const animation = computed(() => {
+  return binary.isBusy() ? "pulse" : "none";
+});
+
+const name = computed(() => {
+  return binary.isLoaded() ? "file" : "file-dashed";
 });
 </script>
 <template>
   <OutlineNode :node="binary">
     <template #icon>
-      <i :class="icon" />
+      <AppIcon
+        :name="name"
+        :animation="animation"
+      />
     </template>
   </OutlineNode>
 </template>
