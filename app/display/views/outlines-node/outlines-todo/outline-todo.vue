@@ -8,8 +8,7 @@ import {
 } from "@/utils";
 import { computed } from "vue";
 
-import { OutlineNode } from "../outline-node";
-import TodoIcon from "./todo-icon.vue";
+import OutlineTodoBase from "./outline-todo-base.vue";
 
 const { todo } = defineProps<{ todo: TodoArtifact; }>();
 
@@ -26,10 +25,6 @@ const details = computed(() => {
       length: 30
     })
     : "";
-});
-
-const strikethrough = computed(() => {
-  return todo.completed();
 });
 
 const dates = computed(() => {
@@ -56,41 +51,20 @@ const tags = computed(() => {
 </script>
 
 <template>
-  <OutlineNode
-    :class="{ 'strikethrough': strikethrough }"
-    :node="todo"
-    class="outline-todo"
+  <OutlineTodoBase
+    :todo="todo"
   >
-    <template #icon>
-      <TodoIcon :todo="todo" />
-    </template>
-    <template #meta>
-      <div class="outline-todo__meta">
-        <span v-if="priority">
-          {{ priority }}
-        </span>
-        <span v-if="dates">
-          {{ dates }}
-        </span>
-        <span v-if="tags.length">
-          {{ tags }}
-        </span>
-        <span v-if="details">
-          {{ details }}
-        </span>
-      </div>
-    </template>
-  </OutlineNode>
+    <span v-if="priority">
+      {{ priority }}
+    </span>
+    <span v-if="dates">
+      {{ dates }}
+    </span>
+    <span v-if="tags.length">
+      {{ tags }}
+    </span>
+    <span v-if="details">
+      {{ details }}
+    </span>
+  </OutlineTodoBase>
 </template>
-
-<style scoped>
-.outline-todo.strikethrough :deep(.core-base__main_label) {
-  text-decoration: line-through;
-}
-
-.outline-todo__meta {
-  display: flex;
-  flex-direction: column;
-  font-size: var(--font-size-0);
-}
-</style>

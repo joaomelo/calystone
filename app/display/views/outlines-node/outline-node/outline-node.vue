@@ -27,7 +27,7 @@ const {
     <slot name="icon" />
     <div class="outline-node__content">
       <p
-        class="outline-node__main_label"
+        class="outline-node__label"
         :data-test="`outline-node-label-${node.name}`"
       >
         {{ node.name }}

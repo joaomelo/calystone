@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import type { TodoArtifact } from "@/domain";
 
-import {
-  formatDateRange,
-  throwCritical,
-  useI18n
-} from "@/utils";
+import { useI18n } from "@/utils";
 import { computed } from "vue";
 
-import { OutlineNode } from "../outline-node";
-import TodoIcon from "./todo-icon.vue";
+import OutlineTodoBase from "./outline-todo-base.vue";
 
 const { todo } = defineProps<{ todo: TodoArtifact; }>();
 const { t } = useI18n();
@@ -32,26 +27,6 @@ const criteria = computed(() => {
   return stringified;
 });
 
-const strikethrough = computed(() => {
-  return todo.completed();
-});
-
-const dates = computed(() => {
-  if (!todo.hasDates()) return "";
-
-  const dateStart = todo.dateStart();
-  const dateDue = todo.dateDue();
-  if (!dateStart || !dateDue) throwCritical("IF_TODO_HAS_DATES_IT_MUST_HAVE_DATES");
-
-  const occurrence = formatDateRange({
-    due: dateDue,
-    start: dateStart
-  });
-  const recurrence = todo.hasRecurrence() ? " ↻" : "";
-
-  return `${occurrence}${recurrence}`;
-});
-
 const tags = computed(() => {
   const list = todo.listTags();
   list.sort((a, b) => a.localeCompare(b));
@@ -60,44 +35,18 @@ const tags = computed(() => {
 </script>
 
 <template>
-  <OutlineNode
-    :class="{ 'strikethrough': strikethrough }"
-    :node="todo"
-    class="outline-todo"
-  >
-    <template #icon>
-      <TodoIcon :todo="todo" />
-    </template>
-    <template #meta>
-      <div class="outline-todo__meta">
-        <span v-if="tags.length">
-          {{ tags }}
-        </span>
-        <span v-if="dates">
-          {{ dates }}
-        </span>
-        <span v-if="priority">
-          {{ priority }}
-        </span>
-        <span
-          v-for="criterion in criteria"
-          :key="criterion"
-        >
-          {{ criterion }}
-        </span>
-      </div>
-    </template>
-  </OutlineNode>
+  <OutlineTodoBase :todo="todo">
+    <span v-if="tags.length">
+      {{ tags }}
+    </span>
+    <span v-if="priority">
+      {{ priority }}
+    </span>
+    <span
+      v-for="criterion in criteria"
+      :key="criterion"
+    >
+      {{ criterion }}
+    </span>
+  </OutlineTodoBase>
 </template>
-
-<style scoped>
-.outline-todo.strikethrough :deep(.core-base__main_label) {
-  text-decoration: line-through;
-}
-
-.outline-todo__meta {
-  display: flex;
-  flex-direction: column;
-  font-size: var(--font-size-0);
-}
-</style>
