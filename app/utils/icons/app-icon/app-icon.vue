@@ -17,21 +17,12 @@ const {
   size?: string
 }>();
 
-const animationStyle = computed(() => {
-  if (animation === "none") return {};
-
-  return {
-    animationDuration: `${Math.round(duration).toFixed(0)}s`,
-    animationIterationCount: "infinite",
-    animationName: animation,
-    animationTimingFunction: animation === "pulse" ? "ease-in-out" : "linear"
-  };
-});
+const durantionInSeconds = computed(() => `${Math.round(duration).toFixed(0)}s`);
 </script>
 <template>
   <span
     class="app-icon"
-    :style="animationStyle"
+    :class="animation"
     v-html="svgIcons[name]"
   />
 </template>
@@ -46,6 +37,14 @@ const animationStyle = computed(() => {
 .app-icon :deep(svg) {
   width: 100%;
   height: 100%;
+}
+
+.app-icon.spin {
+  animation: spin v-bind(durantionInSeconds) linear infinite;
+}
+
+.app-icon.pulse {
+  animation: pulse v-bind(durantionInSeconds) ease-in-out infinite;
 }
 
 @keyframes spin {
