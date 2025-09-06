@@ -30,20 +30,20 @@ const animationStyle = computed(() => {
 </script>
 <template>
   <span
-    class="base-icon"
+    class="app-icon"
     :style="animationStyle"
     v-html="svgIcons[name]"
   />
 </template>
 <style scoped>
-.base-icon {
+.app-icon {
   display: inline-flex;
   width: v-bind(size);
   height: v-bind(size);
   color: v-bind(color);
 }
 
-.base-icon :deep(svg) {
+.app-icon :deep(svg) {
   width: 100%;
   height: 100%;
 }

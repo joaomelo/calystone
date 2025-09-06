@@ -3,7 +3,7 @@ import type { Directory } from "@/domain";
 
 import { DialogCreateDirectory } from "@/display/views/dialog-create-directory";
 import {
-  IconDirectoryPlus,
+  AppIcon,
   ToolbarButton,
   useI18n
 } from "@/utils";
@@ -21,7 +21,7 @@ const dialogCreateDirectory = useTemplateRef("dialogCreateDirectory");
     @click="dialogCreateDirectory?.open"
   >
     <template #icon>
-      <IconDirectoryPlus />
+      <AppIcon name="directory-plus" />
     </template>
   </ToolbarButton>
   <DialogCreateDirectory

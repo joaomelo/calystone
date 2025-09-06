@@ -5,7 +5,7 @@ import { Store } from "@/display/store";
 import { DialogCreateArtifact } from "@/display/views/dialog-create-artifact";
 import { Directory } from "@/domain";
 import {
-  IconFilePlus,
+  AppIcon,
   ToolbarButton,
   useI18n
 } from "@/utils";
@@ -34,7 +34,7 @@ const parentOfNewArtifact = computed<Directory | undefined>(() => {
       @click="dialogCreateArtifact?.open"
     >
       <template #icon>
-        <IconFilePlus />
+        <AppIcon name="file-plus" />
       </template>
     </ToolbarButton>
     <DialogCreateArtifact

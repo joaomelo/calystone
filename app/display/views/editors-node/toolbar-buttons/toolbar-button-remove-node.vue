@@ -4,7 +4,7 @@ import type { Node } from "@/domain";
 import { Store } from "@/display/store";
 import { DialogRemove } from "@/display/views/dialog-remove";
 import {
-  IconDelete,
+  AppIcon,
   ToolbarButton,
   useI18n
 } from "@/utils";
@@ -38,7 +38,7 @@ async function handleClick() {
     @click="handleClick"
   >
     <template #icon>
-      <IconDelete />
+      <AppIcon name="delete" />
     </template>
   </ToolbarButton>
   <DialogRemove

@@ -3,7 +3,7 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  IconDirectoryOpen,
+  AppIcon,
   ToolbarButton,
   useDispatch,
   useI18n
@@ -27,7 +27,7 @@ async function handleClick() {
     @click="handleClick"
   >
     <template #icon>
-      <IconDirectoryOpen />
+      <AppIcon name="directory-open" />
     </template>
   </ToolbarButton>
 </template>

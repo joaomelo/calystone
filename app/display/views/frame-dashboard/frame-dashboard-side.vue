@@ -3,13 +3,7 @@ import type { ComputedRef } from "vue";
 
 import { Store } from "@/display/store";
 import {
-  IconCalendar,
-  IconDirectories,
-  IconFlag,
-  IconSearch,
-  IconSignOut,
-  IconSpinner,
-  IconTag,
+  AppIcon,
   SideBar,
   SideItem,
   useI18n
@@ -55,7 +49,7 @@ function handleExit() {
         data-test="sidebar-folders"
         @click="handleClickPage('folders')"
       >
-        <IconDirectories />
+        <AppIcon name="directories" />
       </SideItem>
       <SideItem
         id="calendar"
@@ -63,7 +57,7 @@ function handleExit() {
         data-test="sidebar-calendar"
         @click="handleClickPage('calendar')"
       >
-        <IconCalendar />
+        <AppIcon name="calendar" />
       </SideItem>
       <SideItem
         id="tags"
@@ -71,7 +65,7 @@ function handleExit() {
         data-test="sidebar-tags"
         @click="handleClickPage('tags')"
       >
-        <IconTag />
+        <AppIcon name="tag" />
       </SideItem>
       <SideItem
         id="priority"
@@ -79,7 +73,7 @@ function handleExit() {
         data-test="sidebar-priority"
         @click="handleClickPage('priority')"
       >
-        <IconFlag />
+        <AppIcon name="flag" />
       </SideItem>
       <SideItem
         id="search"
@@ -87,7 +81,7 @@ function handleExit() {
         data-test="sidebar-search"
         @click="handleClickPage('search')"
       >
-        <IconSearch />
+        <AppIcon name="search" />
       </SideItem>
     </template>
     <template #bottom>
@@ -99,7 +93,8 @@ function handleExit() {
         data-test="sidebar-preloading"
         class="sidebar-preload"
       >
-        <IconSpinner
+        <AppIcon
+          name="spinner"
           animation="spin"
           :duration="7"
         />
@@ -111,7 +106,7 @@ function handleExit() {
         data-test="sidebar-exit"
         @click="handleExit"
       >
-        <IconSignOut />
+        <AppIcon name="sign-out" />
       </SideItem>
     </template>
   </SideBar>

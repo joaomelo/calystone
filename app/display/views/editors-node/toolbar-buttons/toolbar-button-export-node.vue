@@ -3,7 +3,7 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  IconFileExport,
+  AppIcon,
   ToolbarButton,
   useDispatch,
   useI18n
@@ -30,7 +30,7 @@ async function handleClick() {
     @click="handleClick"
   >
     <template #icon>
-      <IconFileExport />
+      <AppIcon name="file-export" />
     </template>
   </ToolbarButton>
 </template>

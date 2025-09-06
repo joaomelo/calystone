@@ -3,7 +3,7 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  IconReload,
+  AppIcon,
   ToolbarButton,
   useDispatch,
   useI18n
@@ -31,7 +31,7 @@ async function handleReloadDirectory() {
     @click="handleReloadDirectory"
   >
     <template #icon>
-      <IconReload />
+      <AppIcon name="reload" />
     </template>
   </ToolbarButton>
 </template>

@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  IconDropbox,
-  IconHardDrive,
-  IconMemory,
-  IconOneDrive
-} from "@/utils";
+import { AppIcon } from "@/utils";
 
 import OpenAction from "./open-action.vue";
 </script>
@@ -16,7 +11,7 @@ import OpenAction from "./open-action.vue";
       provider="memory"
     >
       <template #icon>
-        <IconMemory />
+        <AppIcon name="memory" />
       </template>
     </OpenAction>
     <OpenAction
@@ -25,7 +20,7 @@ import OpenAction from "./open-action.vue";
       data-test="open-fsa"
     >
       <template #icon>
-        <IconHardDrive />
+        <AppIcon name="hard-drive" />
       </template>
     </OpenAction>
     <OpenAction
@@ -34,7 +29,7 @@ import OpenAction from "./open-action.vue";
       provider="oneDrive"
     >
       <template #icon>
-        <IconOneDrive />
+        <AppIcon name="one-drive" />
       </template>
     </OpenAction>
     <OpenAction
@@ -43,7 +38,7 @@ import OpenAction from "./open-action.vue";
       provider="dropbox"
     >
       <template #icon>
-        <IconDropbox />
+        <AppIcon name="dropbox" />
       </template>
     </OpenAction>
   </div>

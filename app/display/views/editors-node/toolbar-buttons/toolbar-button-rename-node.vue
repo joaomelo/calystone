@@ -4,7 +4,7 @@ import type { Node } from "@/domain";
 import { Store } from "@/display/store";
 import { DialogRename } from "@/display/views/dialog-rename";
 import {
-  IconCursor,
+  AppIcon,
   ToolbarButton,
   useI18n
 } from "@/utils";
@@ -29,7 +29,7 @@ const renameable = computed(() => services.renameNode.renameable(node));
     @click="dialogRename?.open"
   >
     <template #icon>
-      <IconCursor />
+      <AppIcon name="cursor" />
     </template>
   </ToolbarButton>
   <DialogRename
