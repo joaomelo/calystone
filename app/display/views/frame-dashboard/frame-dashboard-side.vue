@@ -101,7 +101,6 @@ function handleExit() {
       </SideItem>
       <SideItem
         id="exit"
-        :icon="`bx-log-out`"
         :title="t('exit')"
         data-test="sidebar-exit"
         @click="handleExit"

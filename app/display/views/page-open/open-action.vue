@@ -12,7 +12,6 @@ import { useRouter } from "vue-router";
 
 const { provider } = defineProps<{
   dataTest: string;
-  icon?: string;
   label: string;
   provider: SourceProvider;
 }>();
@@ -41,7 +40,6 @@ async function handleClick() {
     :label="t(label)"
     size="large"
     :data-test="dataTest"
-    :icon="icon"
     class="open-base"
     :loading="loading"
     @click="handleClick"

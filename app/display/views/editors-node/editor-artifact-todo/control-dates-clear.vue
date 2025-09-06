@@ -3,6 +3,7 @@ import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
+  AppIcon,
   ButtonBase,
   useI18n
 } from "@/utils";
@@ -22,8 +23,11 @@ async function handleClearDates() {
   <ButtonBase
     :label="t('editor-todo.dates.clear')"
     data-test="button-clear"
-    icon="bx bx-trash"
     severity="secondary"
     @click="handleClearDates"
-  />
+  >
+    <template #icon>
+      <AppIcon name="delete" />
+    </template>
+  </ButtonBase>
 </template>

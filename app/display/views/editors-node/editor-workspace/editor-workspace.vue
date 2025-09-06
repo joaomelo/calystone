@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {
+  AppIcon,
   ToolbarBase,
   ToolbarButton
 } from "@/utils";
@@ -16,9 +17,12 @@ defineEmits<{ close: [] }>();
         </template>
         <template #end>
           <ToolbarButton
-            icon="bx-x"
             @click="$emit('close')"
-          />
+          >
+            <template #icon>
+              <AppIcon name="circle-x" />
+            </template>
+          </ToolbarButton>
         </template>
       </ToolbarBase>
     </div>
