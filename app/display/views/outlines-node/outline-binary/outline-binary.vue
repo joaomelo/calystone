@@ -13,7 +13,9 @@ const animation = computed(() => {
 });
 
 const name = computed(() => {
-  return binary.isLoaded() ? "file" : "file-dashed";
+  if (binary.isUnloaded()) return "file-dashed";
+  if (binary.mime.subtype() === "pdf") return "file-pdf";
+  return "file";
 });
 </script>
 <template>
