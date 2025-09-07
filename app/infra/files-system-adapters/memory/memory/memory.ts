@@ -14,13 +14,13 @@ import {
 } from "@/utils";
 import { delay } from "@/utils/async";
 
-import type { ArtifactOrDirectoryOptions } from "../file-system";
+import type { ArtifactOrDirectoryOptions } from "../../file-system";
 
-import { BaseFileSystemAdapter } from "../base";
+import { BaseFileSystemAdapter } from "../../base";
 import {
   createFixtures,
   isFileFixture
-} from "./fixtures";
+} from "../fixtures";
 
 type ArtifactMetadata = ArrayBuffer;
 type DirectoryMetadata = undefined;

@@ -1,7 +1,5 @@
-import {
-  delay,
-  fakeDirectory
-} from "@/utils";
+import { delay } from "@/utils";
+import { faker } from "@faker-js/faker";
 
 import type { AccessAdapter } from "../access";
 
@@ -15,8 +13,8 @@ export class MemoryAccessAdapter implements AccessAdapter<{ rootDirectoryName: s
   async request() {
     await delay(this.delayInMilliseconds);
 
-    const dir = fakeDirectory();
-    const rootDirectoryName = dir.name;
+    const names = faker.system.directoryPath().split("/").filter(Boolean);
+    const rootDirectoryName = faker.helpers.arrayElement(names);
 
     return { rootDirectoryName };
   }
