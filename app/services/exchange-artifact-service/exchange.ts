@@ -20,7 +20,6 @@ export class ExchangeArtifactService {
     try {
       const content = await fileSystemAdapter.fetchContent(artifact);
       artifact.fromBinary(content);
-      artifact.load();
     } catch (error) {
       artifact.unload();
       throwError("UNABLE_TO_FETCH_CONTENT", error);
@@ -30,7 +29,12 @@ export class ExchangeArtifactService {
   }
 
   async postFrom(artifact: Artifact) {
-    const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
-    await fileSystemAdapter.postContent(artifact);
+    artifact.busy();
+    try {
+      const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
+      await fileSystemAdapter.postContent(artifact);
+    } finally {
+      artifact.idle();
+    }
   }
 }

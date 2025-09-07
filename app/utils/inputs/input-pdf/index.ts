@@ -1,0 +1,1 @@
+export { default as InputPdf } from "./input-pdf.vue";

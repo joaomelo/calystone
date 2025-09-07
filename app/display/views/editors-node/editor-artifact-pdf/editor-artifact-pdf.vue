@@ -1,73 +1,69 @@
 <script setup lang="ts">
-import type { TextArtifact } from "@/domain";
+import type { BinaryArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-// import { debounce } from "@/utils";
 import {
-  onMounted,
-  ref
+  debounce,
+  InputPdf
+} from "@/utils";
+import {
+  computed,
+  onMounted
 } from "vue";
 
 import { EditorNotLoaded } from "../editor-not-loaded";
 import { EditorWorkspace } from "../editor-workspace";
 import {
-  ToolbarButtonCreateArtifact,
   ToolbarButtonExportNode,
   ToolbarButtonRemoveNode,
   ToolbarButtonRenameNode,
   ToolbarButtonShareNode
 } from "../toolbar-buttons";
 
-const { content: artifact } = defineProps<{ content: TextArtifact; }>();
+const { content: artifact } = defineProps<{ content: BinaryArtifact; }>();
 defineEmits<{ close: [] }>();
 
 const { services } = Store.use();
 
-const text = ref(artifact.content);
+onMounted(() => services.exchangeArtifact.fetchInto(artifact));
 
-onMounted(async () => {
-  await services.exchangeArtifact.fetchInto(artifact);
-  text.value = artifact.content;
+const pdf = computed(() => {
+  if (artifact.isUnloaded()) return undefined;
+  return artifact.toBinary();
 });
 
-// const handleUpdate = debounce(async (text: string) => {
-//   artifact.fromString(text);
-//   await services.exchangeArtifact.postFrom(artifact);
-// });
+const handleUpdate = debounce(async (newContent: ArrayBuffer) => {
+  artifact.fromBinary(newContent);
+  await services.exchangeArtifact.postFrom(artifact);
+});
 </script>
 <template>
   <EditorWorkspace
-    v-if="artifact.isLoaded()"
+    v-if="pdf !== undefined"
     :node="artifact"
     @close="$emit('close')"
   >
     <template #toolbar>
-      <ToolbarButtonCreateArtifact
-        :node="content"
-      />
       <ToolbarButtonRenameNode
-        :node="content"
+        :node="artifact"
       />
       <ToolbarButtonExportNode
-        :node="content"
+        :node="artifact"
       />
       <ToolbarButtonShareNode
-        :node="content"
+        :node="artifact"
       />
       <ToolbarButtonRemoveNode
-        :node="content"
+        :node="artifact"
         @removed="$emit('close')"
       />
     </template>
-    <div class="stay-tunned">
-      an pdf editor is in development. stay tunned
-    </div>
+    <InputPdf
+      :pdf-id="artifact.id"
+      data-test="editor-pdf-input"
+      :model-value="pdf"
+      @update:model-value="handleUpdate"
+    />
   </EditorWorkspace>
   <EditorNotLoaded v-else />
 </template>
-<style scoped>
-.stay-tunned {
-  margin-block-start: var(--size-7);
-  text-align: center;
-}
-</style>
