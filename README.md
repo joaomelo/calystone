@@ -48,7 +48,7 @@ The Calystone project embraces this philosophy.
 
 # Acknowledgements
 
-This project was made possible thanks to the incredible power of open source projects like [CodeMirror](https://codemirror.net/), [Phosphor](https://phosphoricons.com/), [PrimeVue](https://primevue.org/), and [Vue](https://vuejs.org/).
+This project was made possible thanks to the incredible power of open source projects like [CodeMirror](https://codemirror.net/), [EmbedPDF](https://www.embedpdf.com/), [Phosphor](https://phosphoricons.com/), [PrimeVue](https://primevue.org/), and [Vue](https://vuejs.org/).
 
 # Author
 
