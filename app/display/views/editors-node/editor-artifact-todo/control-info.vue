@@ -30,7 +30,7 @@ const propertySheetRows = computed(() => {
     {
       key: "progress",
       label: t("editor-todo.progress.progress"),
-      value: artifact.progress()
+      value: t(`editor-todo.progress.${artifact.progress()}`)
     },
   ];
 });

@@ -7,6 +7,7 @@ import type {
 import { Store } from "@/display/store";
 import { Progressor } from "@/domain";
 import {
+  AppIcon,
   ButtonBase,
   useI18n
 } from "@/utils";
@@ -17,25 +18,32 @@ const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 const { services } = Store.use();
 const { t } = useI18n();
 
-const options: {
-  label: string;
-  value: Progress
-}[] = [
+interface Option {
+  icon: string
+  label: string
+  progress: Progress
+}
+
+const options: Option[] = [
   {
+    icon: "square",
     label: t("editor-todo.progress.open"),
-    value: "open"
+    progress: "open"
   },
   {
+    icon: "square-square",
     label: t("editor-todo.progress.doing"),
-    value: "doing"
+    progress: "doing"
   },
   {
+    icon: "square-check",
     label: t("editor-todo.progress.done"),
-    value: "done"
+    progress: "done"
   },
   {
+    icon: "square-x",
     label: t("editor-todo.progress.skipped"),
-    value: "skipped"
+    progress: "skipped"
   },
 ] as const;
 
@@ -53,15 +61,19 @@ async function handleUpdatedProgress(progress?: string) {
     <div class="control-progress__buttons">
       <template
         v-for="option in options"
-        :key="option.value"
+        :key="option.progress"
       >
         <ButtonBase
-          :disabled="option.value === progress"
+          :disabled="option.progress === progress"
           :label="option.label"
           severity="secondary"
-          :data-test="`button-${option.value}`"
-          @click="handleUpdatedProgress(option.value)"
-        />
+          :data-test="`button-${option.progress}`"
+          @click="handleUpdatedProgress(option.progress)"
+        >
+          <template #icon>
+            <AppIcon :name="option.icon" />
+          </template>
+        </ButtonBase>
       </template>
     </div>
   </div>
