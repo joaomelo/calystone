@@ -9,6 +9,7 @@ import { computed } from "vue";
 import type { EditorSwitch } from "../editor-switch";
 
 import { editorArtifactBinarySwitch } from "../editor-artifact-binary";
+import { editorArtifactPdfSwitch } from "../editor-artifact-pdf";
 import { editorArtifactTextSwitch } from "../editor-artifact-text";
 import { editorArtifactTodoSwitch } from "../editor-artifact-todo";
 import { editorDirectorySwitch } from "../editor-directory";
@@ -19,7 +20,14 @@ const { node } = defineProps<{ node?: Node; }>();
 const { services } = Store.use();
 
 // switches order matters since the first compatible switch will be used, so the most specific should be first.
-const switchs: EditorSwitch[] = [editorEmptySwitch, editorDirectorySwitch, editorArtifactTodoSwitch, editorArtifactTextSwitch, editorArtifactBinarySwitch];
+const switchs: EditorSwitch[] = [
+  editorEmptySwitch,
+  editorDirectorySwitch,
+  editorArtifactTodoSwitch,
+  editorArtifactTextSwitch,
+  editorArtifactPdfSwitch,
+  editorArtifactBinarySwitch
+];
 
 const editor: Component = computed(() => {
   // if the node was removed from the collection, this will secure a empty editor.
