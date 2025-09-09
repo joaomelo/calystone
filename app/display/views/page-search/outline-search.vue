@@ -51,11 +51,11 @@ const handleSearch = debounce((text?: string) => {
           :directory="node"
         />
         <OutlineText
-          v-if="(node instanceof TextArtifact)"
+          v-else-if="(node instanceof TextArtifact)"
           :text="node"
         />
         <OutlineTodo
-          v-if="(node instanceof TodoArtifact)"
+          v-else-if="(node instanceof TodoArtifact)"
           :todo="node"
         />
         <OutlineBinary
