@@ -2,7 +2,11 @@ import type { ConnectSourceService } from "@/services/connect-source-service";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 
-import { idle } from "@/utils";
+import {
+  idle,
+  LoggerContainer,
+  Tracker
+} from "@/utils";
 import { BehaviorSubject } from "rxjs";
 
 import { Loader } from "./loader";
@@ -17,6 +21,8 @@ export class PreloadNodesService {
   private readonly observable: BehaviorSubject<PreloadState>;
   private readonly openDirectory: OpenDirectoryService;
   private readonly scheduleInterval = 50;
+  private readonly scheduleIntervalIdle = 1000;
+  private readonly tracker = new Tracker("loaded-nodes");
 
   constructor(options: {
     connectSource: ConnectSourceService,
@@ -68,6 +74,7 @@ export class PreloadNodesService {
   stop(): void {
     clearTimeout(this.clearId);
     this.loader.reset();
+    this.tracker.reset();
     this.observable.next({ status: "idle" });
   }
 
@@ -76,9 +83,27 @@ export class PreloadNodesService {
   }
 
   private async tick() {
+    const mark = this.track();
+
     await idle();
-    await this.loader.run();
-    this.clearId = window.setTimeout(() => void this.tick(), this.scheduleInterval);
+    const loaded = await this.loader.run();
+
+    mark(loaded);
+
+    const interval = loaded === 0 ? this.scheduleIntervalIdle : this.scheduleInterval;
+    this.clearId = window.setTimeout(() => void this.tick(), interval);
   }
 
+  private track() {
+    const mark = this.tracker.record();
+
+    return (loaded: number) => {
+      const ignore = -1;
+      const amount = loaded === 0 ? ignore : loaded;
+      mark(amount);
+
+      const logger = LoggerContainer.use();
+      logger.debug(this.tracker.summary());
+    };
+  }
 }

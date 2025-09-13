@@ -47,7 +47,8 @@ export class Loader {
       this.feed();
     }
 
-    await this.load();
+    const loaded = await this.load();
+    return loaded;
   }
 
   private feed(): void {
@@ -73,8 +74,8 @@ export class Loader {
 
   private async load() {
     const { nodes } = this.connectSource.stateConnectedOrThrow();
-    const batchOfNodes = this.queue.next(this.batchSize);
 
+    const batchOfNodes = this.queue.next(this.batchSize);
     for (const node of batchOfNodes) {
       if (!nodes.has(node)) continue;
       if (node.isBusy() || node.isLoaded()) continue;
@@ -96,6 +97,8 @@ export class Loader {
         logger.error(exception);
       }
     }
+
+    return batchOfNodes.length;
   }
 
 }

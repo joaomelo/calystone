@@ -23,6 +23,10 @@ export class Tracker {
     const start = performance.now();
 
     return (amount = 1) => {
+
+      const ignore = -1;
+      if (amount === ignore) return;
+
       const end = performance.now();
       const time = end - start;
       this.data.push({
