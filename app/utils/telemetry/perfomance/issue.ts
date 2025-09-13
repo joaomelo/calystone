@@ -1,4 +1,5 @@
 export interface PerformanceIssue {
+  count: number;
   type: PerformanceIssueType;
   details: unknown;
 }

@@ -2,20 +2,31 @@ import { Subject } from "rxjs";
 
 import type { PerformanceIssue } from "./issue";
 
-import { performanceIssueTypes } from "./issue";
 import { PerformanceObserverMetric } from "./observer-metric";
 
 export class PerformanceIssuesMonitor {
+  private longAnimationFrameCount = 0;
+  private longTaskCount = 0;
   private subject = new Subject<PerformanceIssue>();
 
   constructor() {
-    performanceIssueTypes.forEach(type => {
-      const performanceObserverMetric = new PerformanceObserverMetric(type);
-      performanceObserverMetric.subscribe((details) => {
-        this.subject.next({
-          details,
-          type
-        });
+    const longAnimationFrameObserver = new PerformanceObserverMetric("long-animation-frame");
+    longAnimationFrameObserver.subscribe((details) => {
+      this.longAnimationFrameCount += 1;
+      this.subject.next({
+        count: this.longAnimationFrameCount,
+        details,
+        type: "long-animation-frame",
+      });
+    });
+
+    const longTaskObserver = new PerformanceObserverMetric("longtask");
+    longTaskObserver.subscribe((details) => {
+      this.longTaskCount += 1;
+      this.subject.next({
+        count: this.longTaskCount,
+        details,
+        type: "longtask",
       });
     });
   }

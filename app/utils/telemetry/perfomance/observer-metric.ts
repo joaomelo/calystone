@@ -4,7 +4,7 @@ export class PerformanceObserverMetric {
   private readonly observer?: PerformanceObserver;
   private readonly subject = new Subject<unknown>();
 
-  constructor(metric: string) {
+  constructor(metric: "long-animation-frame" | "longtask") {
     if (typeof PerformanceObserver === "undefined") return;
     if (!PerformanceObserver.supportedEntryTypes.includes(metric)) return;
 
