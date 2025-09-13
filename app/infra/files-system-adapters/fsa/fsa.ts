@@ -9,8 +9,10 @@ import type {
 
 import { createId } from "@/domain";
 import {
+  LoggerContainer,
   Status,
-  throwCritical
+  throwCritical,
+  Tracker
 } from "@/utils";
 
 import type { ArtifactOrDirectoryOptions } from "../file-system";
@@ -27,6 +29,9 @@ interface FileMetadata {
 }
 
 export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadata, FileMetadata> {
+  private readonly getFilesTracker = new Tracker("open-directory__get-file");
+  private readonly handleValuesTracker = new Tracker("open-directory__handle-values");
+
   constructor(options: {
     nodes: Nodes;
     rootHandle: FileSystemDirectoryHandle
@@ -183,7 +188,11 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     const { metadata: { handle } } = this.metadatas.getOfDirectoryOrThrow(parent.id);
     const childrenData: ArtifactOrDirectoryOptions[] = [];
 
+    let handleValuesMark = this.handleValuesTracker.record();
+
     for await (const childHandle of handle.values()) {
+      handleValuesMark();
+
       const {
         kind,
         name
@@ -191,10 +200,13 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
       const childId = createId();
 
       if (kind === "file") {
+        const getFilesMark = this.getFilesTracker.record();
         const {
           lastModified,
           size
         } = await childHandle.getFile();
+        getFilesMark();
+
         const childData: ArtifactOptions = {
           id: childId,
           lastModified,
@@ -228,7 +240,13 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
         metadata: childMetadata
       });
       childrenData.push(childData);
+
+      handleValuesMark = this.handleValuesTracker.record();
     }
+
+    const logger = LoggerContainer.use();
+    logger.debug(this.handleValuesTracker.summary());
+    logger.debug(this.getFilesTracker.summary());
 
     return childrenData;
   }

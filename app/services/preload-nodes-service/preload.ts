@@ -18,11 +18,15 @@ export class PreloadNodesService {
   private readonly connectSource: ConnectSourceService;
   private readonly exchangeArtifact: ExchangeArtifactService;
   private readonly loader: Loader;
+  private readonly loaderConfig = {
+    batchSize: 10,
+    scheduleInterval: 100,
+    scheduleIntervalIdle: 1000,
+    textArtifactSizeLimit: 1024 * 1024,
+  } as const;
   private readonly observable: BehaviorSubject<PreloadState>;
   private readonly openDirectory: OpenDirectoryService;
-  private readonly scheduleInterval = 50;
-  private readonly scheduleIntervalIdle = 1000;
-  private readonly tracker = new Tracker("loaded-nodes");
+  private readonly tracker = new Tracker("node-preload");
 
   constructor(options: {
     connectSource: ConnectSourceService,
@@ -35,14 +39,12 @@ export class PreloadNodesService {
     this.connectSource = options.connectSource;
     this.observable = new BehaviorSubject<PreloadState>({ status: "idle" });
 
-    const oneMegabyte = 1024 * 1024;
-    const batchSize = 100;
     this.loader = new Loader({
-      batchSize,
+      batchSize: this.loaderConfig.batchSize,
       connectSource: this.connectSource,
       exchangeArtifact: this.exchangeArtifact,
       openDirectory: this.openDirectory,
-      textArtifactSizeLimit: oneMegabyte,
+      textArtifactSizeLimit: this.loaderConfig.textArtifactSizeLimit,
     });
 
     this.connectSource.subscribe(({
@@ -90,7 +92,9 @@ export class PreloadNodesService {
 
     mark(loaded);
 
-    const interval = loaded === 0 ? this.scheduleIntervalIdle : this.scheduleInterval;
+    const interval = loaded === 0
+      ? this.loaderConfig.scheduleIntervalIdle
+      : this.loaderConfig.scheduleInterval;
     this.clearId = window.setTimeout(() => void this.tick(), interval);
   }
 
