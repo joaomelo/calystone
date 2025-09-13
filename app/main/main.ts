@@ -18,6 +18,7 @@ import {
 import { ServicesPortfolio } from "@/services";
 import {
   LoggerContainer,
+  PerformanceIssuesMonitor,
   throwCritical,
   ToastService
 } from "@/utils";
@@ -110,6 +111,9 @@ export function initApp(elementId: string) {
   app.use(i18n);
 
   app.mount(elementId);
+
+  const performanceIssuesMonitor = new PerformanceIssuesMonitor();
+  performanceIssuesMonitor.subscribe((issue) => { logger.debug(issue); });
 }
 
 function asBoolean(value: unknown): boolean {
