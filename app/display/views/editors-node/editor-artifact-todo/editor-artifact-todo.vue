@@ -75,7 +75,6 @@ const panels = computed<PanelsList>(() => {
 <template>
   <EditorWorkspace
     v-if="artifact.isLoaded()"
-    :node="artifact"
     @close="$emit('close')"
   >
     <template #toolbar>

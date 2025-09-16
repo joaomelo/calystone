@@ -35,6 +35,7 @@ defineEmits<{ close: [] }>();
 .editor-workspace {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .editor-workspace__header {
@@ -48,5 +49,6 @@ defineEmits<{ close: [] }>();
 
 .editor-workspace__content {
   flex: 1 1 auto;
+  overflow: auto;
 }
 </style>

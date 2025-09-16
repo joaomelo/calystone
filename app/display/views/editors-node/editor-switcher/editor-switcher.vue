@@ -3,7 +3,6 @@ import type { Node } from "@/domain";
 import type { Component } from "vue";
 
 import { Store } from "@/display/store";
-import { ScrollPanel } from "@/utils";
 import { computed } from "vue";
 
 import type { EditorSwitch } from "../editor-switch";
@@ -43,12 +42,10 @@ const editor: Component = computed(() => {
 const key = computed(() => node?.id ?? "empty");
 </script>
 <template>
-  <ScrollPanel>
-    <component
-      :is="editor"
-      :key
-      :content="node"
-      v-bind="$attrs"
-    />
-  </ScrollPanel>
+  <component
+    :is="editor"
+    :key
+    :content="node"
+    v-bind="$attrs"
+  />
 </template>

@@ -40,7 +40,6 @@ const handleUpdate = debounce(async (newContent: ArrayBuffer) => {
 <template>
   <EditorWorkspace
     v-if="pdf !== undefined"
-    :node="artifact"
     @close="$emit('close')"
   >
     <template #toolbar>

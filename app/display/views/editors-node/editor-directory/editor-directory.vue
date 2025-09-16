@@ -52,7 +52,6 @@ const descriptorMissing = computed(() => {
 </script>
 <template>
   <EditorWorkspace
-    :node="content"
     @close="$emit('close')"
   >
     <template #toolbar>
