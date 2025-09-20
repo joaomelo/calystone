@@ -10,6 +10,7 @@ type Nullary = () => Promise<unknown>;
 export function useDispatch() {
   const {
     apply,
+    clear,
     errors
   } = useErrors();
   const { toast } = useToast();
@@ -17,6 +18,7 @@ export function useDispatch() {
 
   async function dispatch(nullary: Nullary): Promise<boolean> {
     loading.value = true;
+    clear();
     try {
       await nullary();
       return true;

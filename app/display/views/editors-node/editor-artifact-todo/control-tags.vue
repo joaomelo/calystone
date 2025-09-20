@@ -6,6 +6,7 @@ import {
   ButtonBase,
   ChipTags,
   InputText,
+  useDispatch,
   useI18n
 } from "@/utils";
 import {
@@ -28,15 +29,24 @@ const unusedLabels = computed(() => {
   return unusedTags.labels();
 });
 
+const {
+  dispatch,
+  errors
+} = useDispatch();
+
 async function handleAddTag() {
-  artifact.tagger.add(workingLabel.value);
-  workingLabel.value = "";
-  await services.exchangeArtifact.postFrom(artifact);
+  await dispatch(async () => {
+    artifact.tagger.add(workingLabel.value);
+    workingLabel.value = "";
+    await services.exchangeArtifact.postFrom(artifact);
+  });
 }
 
 async function handleRemoveTag(tag: string) {
-  artifact.tagger.remove(tag);
-  await services.exchangeArtifact.postFrom(artifact);
+  await dispatch(async () => {
+    artifact.tagger.remove(tag);
+    await services.exchangeArtifact.postFrom(artifact);
+  });
 }
 </script>
 <template>
@@ -47,6 +57,7 @@ async function handleRemoveTag(tag: string) {
         data-test="input-tag"
         class="section-tags__input"
         :suggestions="unusedLabels"
+        :error="errors.global"
         @keydown.enter="handleAddTag"
       />
       <ButtonBase
