@@ -24,7 +24,7 @@ export class Searcher {
       {
         getFn: (obj: unknown): string[] => {
           if (!(obj instanceof TodoArtifact)) return [];
-          return obj.tags();
+          return obj.tagger.labels();
         },
         name: "tags",
         weight: 1,

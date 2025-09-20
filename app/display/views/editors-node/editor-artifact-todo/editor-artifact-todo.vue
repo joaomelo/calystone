@@ -59,7 +59,7 @@ const panels = computed<PanelsList>(() => {
   const datesLegend = `${t("editor-todo.dates.dates")}${datesLegendSpacer}${formattedDateRange}${recurringSignal}`;
 
   const tagsTitle = t("common.tags");
-  const tagsList = artifact.tagger.list().join(", ");
+  const tagsList = artifact.tagger.labels().join(", ");
   const tagsLegendSpacer = tagsList ? ": " : "";
   const tagsLegend = `${tagsTitle}${tagsLegendSpacer}${tagsList}`;
 

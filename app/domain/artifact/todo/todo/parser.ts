@@ -1,3 +1,4 @@
+import { Tagger } from "@/domain/artifact/tagger";
 import { Dater } from "@/domain/artifact/todo/dater";
 import {
   isCriteria,
@@ -10,7 +11,6 @@ import {
   RecurrenceUnit,
   Recurrer
 } from "@/domain/artifact/todo/recurrer";
-import { Tagger } from "@/domain/artifact/todo/tagger";
 import {
   isJsonParseable,
   isObjectLike
@@ -122,7 +122,7 @@ export class Parser {
       recurrenceReference: reference,
       recurrenceStep: step,
       recurrenceUnit: unit,
-      tags: data.tagger.list(),
+      tags: data.tagger.labels(),
       version: Parser.VERSION,
     });
     return this.encoder.encode(jsonString).buffer as ArrayBuffer;

@@ -18,18 +18,19 @@ const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 const { services } = Store.use();
 const { t } = useI18n();
 
-const tag = ref("");
+const workingLabel = ref("");
 
-const suggestions = computed(() => {
-  const tags = services.computeTags.compute();
-  const list = tags.difference(artifact);
-  list.sort((a, b) => a.localeCompare(b));
-  return list;
+const currentLabels = computed(() => artifact.tagger.labels());
+
+const unusedLabels = computed(() => {
+  const globalTags = services.computeTags.compute();
+  const unusedTags = globalTags.difference(artifact.tagger);
+  return unusedTags.labels();
 });
 
 async function handleAddTag() {
-  artifact.tagger.add(tag.value);
-  tag.value = "";
+  artifact.tagger.add(workingLabel.value);
+  workingLabel.value = "";
   await services.exchangeArtifact.postFrom(artifact);
 }
 
@@ -42,10 +43,10 @@ async function handleRemoveTag(tag: string) {
   <div>
     <div class="section-tags__input-wrapper">
       <InputText
-        v-model="tag"
+        v-model="workingLabel"
         data-test="input-tag"
         class="section-tags__input"
-        :suggestions="suggestions"
+        :suggestions="unusedLabels"
         @keydown.enter="handleAddTag"
       />
       <ButtonBase
@@ -55,7 +56,7 @@ async function handleRemoveTag(tag: string) {
       />
     </div>
     <ChipTags
-      :labels="artifact.tagger.list()"
+      :labels="currentLabels"
       data-test="chip-tags-tags"
       removable
       @remove="handleRemoveTag"

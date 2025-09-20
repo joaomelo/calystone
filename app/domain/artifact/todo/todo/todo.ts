@@ -9,11 +9,11 @@ import type {
 } from "@/domain/artifact/todo/recurrer";
 
 import { Artifact } from "@/domain/artifact/artifact";
+import { Tagger } from "@/domain/artifact/tagger";
 import { Dater } from "@/domain/artifact/todo/dater";
 import { Prioritizer } from "@/domain/artifact/todo/prioritizer";
 import { Progressor } from "@/domain/artifact/todo/progressor";
 import { Recurrer } from "@/domain/artifact/todo/recurrer";
-import { Tagger } from "@/domain/artifact/todo/tagger";
 import { throwCritical } from "@/utils";
 
 import type { TodoArtifactState } from "./state";
@@ -119,14 +119,6 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     return this.recurrer !== undefined;
   }
 
-  hasTags() {
-    return this.tagger.hasTags();
-  }
-
-  listTags() {
-    return this.tagger.list();
-  }
-
   performFromBinary(binary: ArrayBuffer): void {
     const data = this.parser.convertBinaryToState(binary);
     this.details = data.details;
@@ -174,10 +166,6 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
   }): boolean {
     if (!this.hasDates()) return false;
     return this.dater.spansOn(options);
-  }
-
-  tags() {
-    return this.tagger.list();
   }
 
   toBinary(): ArrayBuffer {

@@ -43,11 +43,7 @@ const dates = computed(() => {
   return `${occurrence}${recurrence}`;
 });
 
-const tags = computed(() => {
-  const list = todo.listTags();
-  list.sort((a, b) => a.localeCompare(b));
-  return list.join(", ");
-});
+const tags = computed(() => todo.tagger.labels().join(", "));
 </script>
 
 <template>

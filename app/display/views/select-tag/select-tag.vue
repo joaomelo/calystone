@@ -12,12 +12,11 @@ const model = defineModel<string | undefined>({ default: undefined });
 
 const { services } = Store.use();
 const options = computed(() => {
-  const tags = services.computeTags.compute();
-  const names = tags.names();
-  names.sort((a, b) => a.localeCompare(b));
-  return names.map(name => ({
-    label: name,
-    value: name
+  const globalTagger = services.computeTags.compute();
+  const labels = globalTagger.labels();
+  return labels.map(label => ({
+    label,
+    value: label
   }));
 });
 </script>

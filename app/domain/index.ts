@@ -5,4 +5,3 @@ export * from "./id";
 export * from "./node";
 export * from "./node-factory";
 export * from "./nodes";
-export * from "./tags";
