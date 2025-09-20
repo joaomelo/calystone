@@ -1,2 +1,3 @@
 export * from "./as-array";
 export * from "./is-array-full";
+export * from './compare'
