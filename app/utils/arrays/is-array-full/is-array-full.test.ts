@@ -4,26 +4,26 @@ import {
   it
 } from "vitest";
 
-import { hasElements } from "./has-elements";
+import { isArrayFull } from "../has-elements";
 
-describe("hasElements", () => {
+describe("isArrayFull", () => {
   it("should return true when given an array with elements", () => {
-    expect(hasElements([1, 2, 3])).toBe(true);
+    expect(isArrayFull([1, 2, 3])).toBe(true);
   });
 
   it("should return false when given an empty array", () => {
-    expect(hasElements([])).toBe(false);
+    expect(isArrayFull([])).toBe(false);
   });
 
   it("should return true when given a non-array element", () => {
-    expect(hasElements(42)).toBe(true);
+    expect(isArrayFull(42)).toBe(true);
   });
 
   it("should return false when given an undefined value", () => {
-    expect(hasElements(undefined)).toBe(false);
+    expect(isArrayFull(undefined)).toBe(false);
   });
 
   it("should return false when given null", () => {
-    expect(hasElements(null)).toBe(false);
+    expect(isArrayFull(null)).toBe(false);
   });
 });

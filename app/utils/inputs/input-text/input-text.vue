@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { hasElements } from "@/utils/arrays";
+import { isArrayFull } from "@/utils/arrays";
 import { kebabCase } from "@/utils/text";
 import InputTextPrimeVue from "primevue/inputtext";
 import {
@@ -20,7 +20,7 @@ const { suggestions = [] } = defineProps<{
 }>();
 const model = defineModel<string>();
 
-const hasSuggestions = computed(() => hasElements(suggestions));
+const hasSuggestions = computed(() => isArrayFull(suggestions));
 
 const id = useId();
 const formDatalistName = (baseId: string) => kebabCase(baseId, "suggestions");

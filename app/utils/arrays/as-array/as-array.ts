@@ -1,4 +1,4 @@
-import type { MaybeArray } from "./maybe-array";
+type MaybeArray<T> = null | T | T[] | undefined;
 
 export function asArray<T>(maybeArray: MaybeArray<T>) {
   if (maybeArray === undefined || maybeArray === null) return [];
