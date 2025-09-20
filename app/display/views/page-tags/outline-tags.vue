@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import type { TodosFilters } from "@/display/views/use-todos";
 import type { OutlineGridKeys } from "@/utils";
 
 import { OutlineNodes } from "@/display/views/outline-nodes";
 import { OutlineTodo } from "@/display/views/outlines-node";
 import { SelectTag } from "@/display/views/select-tag";
-import { useTodos } from "@/display/views/use-todos";
 import { ref } from "vue";
+
+import { useItems } from "./use-items";
 
 const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () => ({}) });
 
-const filters = ref<TodosFilters>({});
-const items = useTodos(filters);
+const tag = ref<string>("");
+const items = useItems(tag);
 </script>
 <template>
   <div class="outline-tags">
     <div class="outline-tags__filters">
-      <SelectTag v-model="filters.tag" />
+      <SelectTag v-model="tag" />
     </div>
     <OutlineNodes
       v-model:selected-keys="selectedKeys"
