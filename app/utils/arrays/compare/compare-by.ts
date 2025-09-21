@@ -1,6 +1,6 @@
 import type { Compare } from "./compare";
 
-export function by<T, V>({
+export function compareBy<T, V>({
   compare = defaultCompare,
   nulls = "last",
   select,
