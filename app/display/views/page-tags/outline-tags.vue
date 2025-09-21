@@ -39,9 +39,5 @@ const items = useItems(tag);
 
 .outline-tags__filters {
   padding: var(--size-3);
-
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-2);
 }
 </style>

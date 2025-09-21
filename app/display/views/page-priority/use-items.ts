@@ -2,14 +2,13 @@ import type { OutlineNodesItem } from "@/display/views/outline-nodes";
 import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
+import { createCompare } from "@/display/views/compare";
 import { TodoArtifact } from "@/domain";
 import { computed } from "vue";
 
-import type { TodosFilters } from "./filters";
+import type { Filters } from "./filters";
 
-import { createCompare } from "./compare";
-
-export function useTodos(filters: Ref<TodosFilters>) {
+export function useItems(filters: Ref<Filters>) {
   const { services } = Store.use();
 
   const items = computed<OutlineNodesItem[]>(() => {
@@ -17,8 +16,10 @@ export function useTodos(filters: Ref<TodosFilters>) {
       criterion,
       tag
     } = filters.value;
+    if (!criterion) return [];
 
     const todos: TodoArtifact[] = [];
+
     const nodes = services.retrieveNodes.list();
     for (const node of nodes) {
       if (node.isUnloaded()) continue;

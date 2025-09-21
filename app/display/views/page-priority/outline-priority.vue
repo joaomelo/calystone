@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import type { TodosFilters } from "@/display/views/use-todos";
 import type { OutlineGridKeys } from "@/utils";
 
 import { OutlineNodes } from "@/display/views/outline-nodes";
 import { OutlinePriority } from "@/display/views/outlines-node";
 import { SelectCriterion } from "@/display/views/select-criterion";
 import { SelectTag } from "@/display/views/select-tag";
-import { useTodos } from "@/display/views/use-todos";
 import { ref } from "vue";
+
+import type { Filters } from "./filters";
+
+import { useItems } from "./use-items";
 
 const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () => ({}) });
 
-const filters = ref<TodosFilters>({});
-const items = useTodos(filters);
+const filters = ref<Filters>({});
+const items = useItems(filters);
 </script>
 <template>
   <div class="outline-priority">
