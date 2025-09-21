@@ -1,7 +1,5 @@
-import type { DateRange } from "./range";
-
-export function isAllDay(range: DateRange) {
-  return isBeginningOfDay(range.start) && isEndOfDay(range.due);
+export function isAllDay(start: Date, end: Date) {
+  return isBeginningOfDay(start) && isEndOfDay(end);
 }
 
 export function isBeginningOfDay(date: Date) {

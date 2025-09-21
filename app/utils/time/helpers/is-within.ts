@@ -1,25 +1,23 @@
-import type { DateRange } from "./range";
-
-export function isWithinDay(range: DateRange) {
-  if (!isWithinMonth(range)) return false;
-  return range.start.getDate() === range.due.getDate();
+export function isWithinDay(start: Date, end: Date) {
+  if (!isWithinMonth(start, end)) return false;
+  return start.getDate() === end.getDate();
 }
 
-export function isWithinHours(range: DateRange) {
-  if (!isWithinDay(range)) return false;
-  return range.start.getHours() === range.due.getHours();
+export function isWithinHours(start: Date, end: Date) {
+  if (!isWithinDay(start, end)) return false;
+  return start.getHours() === end.getHours();
 }
 
-export function isWithinMinutes(range: DateRange) {
-  if (!isWithinHours(range)) return false;
-  return range.start.getMinutes() === range.due.getMinutes();
+export function isWithinMinutes(start: Date, end: Date) {
+  if (!isWithinHours(start, end)) return false;
+  return start.getMinutes() === end.getMinutes();
 }
 
-export function isWithinMonth(range: DateRange) {
-  if (!isWithinYear(range)) return false;
-  return range.start.getMonth() === range.due.getMonth();
+export function isWithinMonth(start: Date, end: Date) {
+  if (!isWithinYear(start, end)) return false;
+  return start.getMonth() === end.getMonth();
 }
 
-export function isWithinYear(range: DateRange) {
-  return range.start.getFullYear() === range.due.getFullYear();
+export function isWithinYear(start: Date, end: Date) {
+  return start.getFullYear() === end.getFullYear();
 }
