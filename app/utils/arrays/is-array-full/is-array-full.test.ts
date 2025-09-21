@@ -4,7 +4,7 @@ import {
   it
 } from "vitest";
 
-import { isArrayFull } from "../has-elements";
+import { isArrayFull } from "./is-array-full";
 
 describe("isArrayFull", () => {
   it("should return true when given an array with elements", () => {
