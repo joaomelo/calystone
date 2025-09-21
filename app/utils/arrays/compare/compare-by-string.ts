@@ -24,7 +24,7 @@ type CompareByStringOptions<T> = CompareByStringCollatorOptions & {
 
 export function compareByString<T>({
   locale,
-  nulls = "last",
+  nulls,
   options,
   select
 }: CompareByStringOptions<T>): Compare<T> {
