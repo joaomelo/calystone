@@ -15,8 +15,8 @@ describe("isArrayFull", () => {
     expect(isArrayFull([])).toBe(false);
   });
 
-  it("should return true when given a non-array element", () => {
-    expect(isArrayFull(42)).toBe(true);
+  it("should return false when given a non-array element", () => {
+    expect(isArrayFull(42)).toBe(false);
   });
 
   it("should return false when given an undefined value", () => {
