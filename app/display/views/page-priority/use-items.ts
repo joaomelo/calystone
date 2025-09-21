@@ -16,7 +16,6 @@ export function useItems(filters: Ref<Filters>) {
       criterion,
       tag
     } = filters.value;
-    if (!criterion) return [];
 
     const todos: TodoArtifact[] = [];
 
