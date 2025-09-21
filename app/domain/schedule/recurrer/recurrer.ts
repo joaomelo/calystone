@@ -44,42 +44,34 @@ export class Recurrer {
   }
 
   next(options: {
-    due: Date,
+    end: Date,
     start: Date
   }) {
-    const baseDate = this.reference.value === "completion" ? new Date() : options.due;
-    const newDue = new Date(baseDate);
-    newDue.setHours(options.due.getHours(), options.due.getMinutes(), options.due.getSeconds(), options.due.getMilliseconds());
+    const baseDate = this.reference.value === "completion" ? new Date() : options.end;
+    const newEnd = new Date(baseDate);
+    newEnd.setHours(options.end.getHours(), options.end.getMinutes(), options.end.getSeconds(), options.end.getMilliseconds());
 
     switch (this.unit.value) {
       case "days":
-        newDue.setDate(newDue.getDate() + this.step.value);
+        newEnd.setDate(newEnd.getDate() + this.step.value);
         break;
       case "months":
-        newDue.setMonth(newDue.getMonth() + this.step.value);
+        newEnd.setMonth(newEnd.getMonth() + this.step.value);
         break;
       case "weeks":
-        newDue.setDate(newDue.getDate() + (this.step.value * 7));
+        newEnd.setDate(newEnd.getDate() + (this.step.value * 7));
         break;
       case "years":
-        newDue.setFullYear(newDue.getFullYear() + this.step.value);
+        newEnd.setFullYear(newEnd.getFullYear() + this.step.value);
         break;
     }
 
-    const originalTimeDiff = options.due.getTime() - options.start.getTime();
-    const newStart = new Date(newDue.getTime() - originalTimeDiff);
+    const originalTimeDiff = options.end.getTime() - options.start.getTime();
+    const newStart = new Date(newEnd.getTime() - originalTimeDiff);
 
     return {
-      due: newDue,
+      end: newEnd,
       start: newStart
-    };
-  }
-
-  stringify() {
-    return {
-      reference: this.reference.value,
-      step: this.step.value,
-      unit: this.unit.value,
     };
   }
 }

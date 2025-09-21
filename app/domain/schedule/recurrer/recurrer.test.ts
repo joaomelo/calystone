@@ -19,7 +19,7 @@ describe("recurrer", () => {
     todayEnd.setHours(23, 59, 59, 999);
 
     const result = recurrer.next({
-      due: todayEnd,
+      end: todayEnd,
       start: today
     });
 
@@ -29,7 +29,7 @@ describe("recurrer", () => {
     tomorrowEnd.setHours(23, 59, 59, 999);
 
     expect(result.start.getTime()).toBe(tomorrow.getTime());
-    expect(result.due.getTime()).toBe(tomorrowEnd.getTime());
+    expect(result.end.getTime()).toBe(tomorrowEnd.getTime());
   });
 
   it("should maintain same time span when using completion reference", () => {
@@ -45,12 +45,12 @@ describe("recurrer", () => {
     tomorrowEnd.setHours(23, 59, 59, 999);
 
     const result = recurrer.next({
-      due: tomorrowEnd,
+      end: tomorrowEnd,
       start: tomorrow
     });
 
     expect(result.start.getTime()).toBe(tomorrow.getTime());
-    expect(result.due.getTime()).toBe(tomorrowEnd.getTime());
+    expect(result.end.getTime()).toBe(tomorrowEnd.getTime());
   });
 
   it("should calculate next occurrence for overdue weekly task", () => {
@@ -66,7 +66,7 @@ describe("recurrer", () => {
     yesterdayEnd.setHours(21, 0, 0, 0);
 
     const result = recurrer.next({
-      due: yesterdayEnd,
+      end: yesterdayEnd,
       start: yesterday
     });
 
@@ -76,7 +76,7 @@ describe("recurrer", () => {
     nextWeekEnd.setDate(nextWeekEnd.getDate() + 7);
 
     expect(result.start.getTime()).toBe(nextWeek.getTime());
-    expect(result.due.getTime()).toBe(nextWeekEnd.getTime());
+    expect(result.end.getTime()).toBe(nextWeekEnd.getTime());
   });
 
   it("should handle yearly recurrence with completion reference", () => {
@@ -91,7 +91,7 @@ describe("recurrer", () => {
     originalDue.setHours(15, 0, 0, 0);
 
     const result = recurrer.next({
-      due: originalDue,
+      end: originalDue,
       start: today
     });
 
@@ -101,7 +101,7 @@ describe("recurrer", () => {
     nextYearDue.setFullYear(nextYearDue.getFullYear() + 1);
 
     expect(result.start.getTime()).toBe(nextYear.getTime());
-    expect(result.due.getTime()).toBe(nextYearDue.getTime());
+    expect(result.end.getTime()).toBe(nextYearDue.getTime());
   });
 
   it("should handle bi-weekly recurrence", () => {
@@ -117,7 +117,7 @@ describe("recurrer", () => {
     yesterdayEnd.setHours(20, 0, 0, 0);
 
     const result = recurrer.next({
-      due: yesterdayEnd,
+      end: yesterdayEnd,
       start: yesterday
     });
 
@@ -127,7 +127,7 @@ describe("recurrer", () => {
     twoWeeksLaterEnd.setDate(twoWeeksLaterEnd.getDate() + 14);
 
     expect(result.start.getTime()).toBe(twoWeeksLater.getTime());
-    expect(result.due.getTime()).toBe(twoWeeksLaterEnd.getTime());
+    expect(result.end.getTime()).toBe(twoWeeksLaterEnd.getTime());
   });
 
   it("should handle month end edge case", () => {
@@ -144,7 +144,7 @@ describe("recurrer", () => {
     lastDayOfMonthEnd.setHours(15, 0, 0, 0);
 
     const result = recurrer.next({
-      due: lastDayOfMonthEnd,
+      end: lastDayOfMonthEnd,
       start: lastDayOfMonth
     });
 
@@ -154,7 +154,7 @@ describe("recurrer", () => {
     nextMonthDue.setMonth(1);
 
     expect(result.start.getTime()).toBe(nextMonth.getTime());
-    expect(result.due.getTime()).toBe(nextMonthDue.getTime());
+    expect(result.end.getTime()).toBe(nextMonthDue.getTime());
   });
 
   it("should handle year", () => {
@@ -171,7 +171,7 @@ describe("recurrer", () => {
     lastDayOfYearEnd.setHours(23, 0, 0, 0);
 
     const result = recurrer.next({
-      due: lastDayOfYearEnd,
+      end: lastDayOfYearEnd,
       start: lastDayOfYear
     });
 
@@ -181,6 +181,6 @@ describe("recurrer", () => {
     nextYearDue.setFullYear(nextYearDue.getFullYear() + 1);
 
     expect(result.start.getTime()).toBe(nextYear.getTime());
-    expect(result.due.getTime()).toBe(nextYearDue.getTime());
+    expect(result.end.getTime()).toBe(nextYearDue.getTime());
   });
 });
