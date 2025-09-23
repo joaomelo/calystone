@@ -1,2 +1,2 @@
-export * from "./criteria";
+export * from "./criterion";
 export * from "./prioritizer";

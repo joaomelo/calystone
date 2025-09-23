@@ -19,8 +19,8 @@ export function useItems(date: Ref<Date>) {
       start
     });
     todos.sort((a, b) => {
-      const aStart = a.dateStart();
-      const bStart = b.dateStart();
+      const aStart = a.scheduler.start;
+      const bStart = b.scheduler.start;
       if (!aStart || !bStart) throwCritical("TODO_MUST_HAVE_DATES");
       return aStart.getTime() - bStart.getTime();
     });

@@ -9,17 +9,15 @@ import { Scheduler } from "@/domain/schedule";
 import { Tagger } from "@/domain/tagger";
 import { throwCritical } from "@/utils";
 
-import type { TodoArtifactState } from "./state";
-
 import { Parser } from "./parser";
 
-export class TodoArtifact extends Artifact implements TodoArtifactState {
-  details: string;
-  parser: Parser;
-  prioritizer: Prioritizer;
-  progressor: Progressor;
-  tagger: Tagger;
-  scheduler: Scheduler;
+export class TodoArtifact extends Artifact {
+  private details: string;
+  private parser: Parser;
+  private prioritizer: Prioritizer;
+  private progressor: Progressor;
+  private tagger: Tagger;
+  private scheduler: Scheduler;
 
   constructor(options: ArtifactOptions) {
     super(options);

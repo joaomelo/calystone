@@ -1,96 +1,74 @@
-import type {
-  Criteria,
-  Criterion
-} from "./criteria";
+import {
+  asArray,
+  comparator,
+  compareBy,
+  reverse
+} from "@/utils";
+
+import type { Criterion } from "./criterion";
 
 export class Prioritizer {
-  private readonly state: Criteria;
-
-  constructor(criteria?: Criteria) {
-    this.state = criteria ?? [];
-  }
 
   static compare(a: Prioritizer, b: Prioritizer): number {
-    const priorityA = a.priority();
-    const priorityB = b.priority();
+    const compareByPrioritySmallFirst = compareBy<Prioritizer, number>({
+      nulls: "last",
+      select: (prioritizer: Prioritizer) => prioritizer.priority,
+    });
+    const compareByPriority = reverse(compareByPrioritySmallFirst);
 
-    const aHasMorePriority = priorityA > priorityB;
-    const aComesBeforeB = -1;
-    if (aHasMorePriority) return aComesBeforeB;
+    const compareBySize = compareBy<Prioritizer, number>({
+      nulls: "last",
+      select: (prioritizer: Prioritizer) => prioritizer.size,
+    });
 
-    const aHasLessPriority = priorityA < priorityB;
-    const aComesAfterB = 1;
-    if (aHasLessPriority) return aComesAfterB;
+    const compare = comparator(compareByPriority, compareBySize);
 
-    return 0;
+    return compare(a, b);
   }
 
-  compareTo(other: Prioritizer): number {
-    return Prioritizer.compare(this, other);
+  private readonly _criteria = new Map<string, Criterion>();
+
+  constructor(criteria?: Criterion[]) {
+    this.update(criteria);
   }
 
-  criteria() {
-    return this.state;
-  }
+  get priority() {
+    if (this.empty) return 0;
 
-  criterion(label: string) {
-    const criterion = this.state.find((c) => c.label === label);
-    return criterion;
-  }
-
-  empty() {
-    return this.state.length === 0;
-  }
-
-  has(label: string) {
-    return this.state.some((c) => c.label === label);
-  }
-
-  isEqualTo(other: Prioritizer): boolean {
-    return this.compareTo(other) === 0;
-  }
-
-  isGreaterThan(other: Prioritizer): boolean {
-    return this.compareTo(other) > 0;
-  }
-
-  isLessThan(other: Prioritizer): boolean {
-    return this.compareTo(other) < 0;
-  }
-
-  patch(criteria: Criteria) {
-    for (const criterion of criteria) {
-      const index = this.state.findIndex((c) => c.label === criterion.label);
-      if (index !== -1) {
-        this.state[index] = criterion;
-      } else {
-        this.state.push(criterion);
-      }
-    }
-  }
-
-  priority() {
-    if (this.state.length === 0) return 0;
-
-    const sum = this.state.reduce((sum, criterion) => sum + criterion.value, 0);
-    const average = sum / this.state.length;
+    const sum = this.criteria.reduce((sum, criterion) => sum + criterion.value, 0);
+    const average = sum / this.size;
     return average;
   }
 
-  remove(label: string) {
-    const index = this.state.findIndex((c) => c.label === label);
-    if (index !== -1) {
-      this.state.splice(index, 1);
+  get criteria() {
+    return Array.from(this._criteria.values());
+  }
+
+  get size() {
+    return this._criteria.size;
+  }
+
+  get empty() {
+    return this.size === 0;
+  }
+
+  criterion(label: string) {
+    return this._criteria.get(label);
+  }
+
+  has(label: string) {
+    return this._criteria.has(label);
+  }
+
+  update(criterionOrCriteria: Criterion | Criterion[] = []) {
+    const criteria = asArray(criterionOrCriteria);
+    for (const criterion of criteria) {
+      this._criteria.set(criterion.label, criterion);
     }
   }
 
-  update(criterion: Criterion) {
-    const index = this.state.findIndex((c) => c.label === criterion.label);
-    if (index !== -1) {
-      this.state[index] = criterion;
-    } else {
-      this.state.push(criterion);
-    }
+  remove(label: string) {
+    this._criteria.delete(label);
   }
 
 }

@@ -8,7 +8,7 @@ export function compareByRank<T, V>({
   select
 }: {
   nulls?: "first" | "last",
-  rank: V[];
+  rank: readonly V[];
   select: (item: T) => null | undefined | V
 }): Compare<T> {
 
