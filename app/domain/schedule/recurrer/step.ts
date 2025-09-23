@@ -1,15 +1,20 @@
-export type RecurrenceStepValue = number;
+export type StepValue = number;
 
-export const defaultStepValue: RecurrenceStepValue = 1;
+export const defaultStepValue: StepValue = 1;
 
-export class RecurrenceStep {
-  value: RecurrenceStepValue;
+export class Step {
 
-  constructor(value: RecurrenceStepValue = defaultStepValue) {
-    this.value = value;
+  static isValue(value: unknown): value is StepValue {
+    return typeof value === "number" && value > 0;
   }
 
-  static isStepValue(value: unknown): value is RecurrenceStepValue {
-    return typeof value === "number" && value > 0;
+  static compare(a: Step, b: Step): number {
+    return a.value - b.value;
+  }
+
+  value: StepValue;
+
+  constructor(value: StepValue = defaultStepValue) {
+    this.value = value;
   }
 }

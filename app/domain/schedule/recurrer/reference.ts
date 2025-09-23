@@ -1,16 +1,21 @@
-export type RecurrenceReferenceValue = typeof recurrenceReferenceValues[number];
+export type ReferenceValue = typeof referenceValues[number];
 
-const recurrenceReferenceValues = ["completion", "due"] as const;
-export const defaultRecurrenceReferenceValue: RecurrenceReferenceValue = "completion";
+const referenceValues = ["due", "completion"] as const;
+export const defaultReferenceValue: ReferenceValue = "completion";
 
-export class RecurrenceReference {
-  value: RecurrenceReferenceValue;
+export class Reference {
 
-  constructor(value: RecurrenceReferenceValue = defaultRecurrenceReferenceValue) {
-    this.value = value;
+  static isValue(value: unknown): value is ReferenceValue {
+    return referenceValues.includes(value as ReferenceValue);
   }
 
-  static isRecurrenceReferenceValue(value: unknown): value is RecurrenceReferenceValue {
-    return recurrenceReferenceValues.includes(value as RecurrenceReferenceValue);
+  static compare(a: Reference, b: Reference): number {
+    return referenceValues.indexOf(a.value) - referenceValues.indexOf(b.value);
+  }
+
+  value: ReferenceValue;
+
+  constructor(value: ReferenceValue = defaultReferenceValue) {
+    this.value = value;
   }
 }

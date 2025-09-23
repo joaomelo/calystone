@@ -1,16 +1,21 @@
-export type RecurrenceUnitValue = typeof recurrenceUnitValues[number];
+export type UnitValue = typeof unitValues[number];
 
-const recurrenceUnitValues = ["days", "months", "weeks", "years"] as const;
-export const defaultRecurrenceUnitValue: RecurrenceUnitValue = "days";
+const unitValues = ["days", "months", "weeks", "years"] as const;
+export const defaultRecurrenceUnitValue: UnitValue = "days";
 
-export class RecurrenceUnit {
-  value: RecurrenceUnitValue;
+export class Unit {
 
-  constructor(value: RecurrenceUnitValue = defaultRecurrenceUnitValue) {
-    this.value = value;
+  static isValue(value: unknown): value is UnitValue {
+    return unitValues.includes(value as UnitValue);
   }
 
-  static isRecurrenceUnitValue(value: unknown): value is RecurrenceUnitValue {
-    return recurrenceUnitValues.includes(value as RecurrenceUnitValue);
+  static compare(a: Unit, b: Unit): number {
+    return unitValues.indexOf(a.value) - unitValues.indexOf(b.value);
+  }
+
+  value: UnitValue;
+
+  constructor(value: UnitValue = defaultRecurrenceUnitValue) {
+    this.value = value;
   }
 }

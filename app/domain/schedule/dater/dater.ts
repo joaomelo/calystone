@@ -22,6 +22,17 @@ export interface UpdateDatesOptions {
 }
 
 export class Dater {
+
+  static compare(a: Dater, b: Dater): number {
+    const compareByStart = compareBy({ select: (item: Dater) => item.start });
+    const compareByEnd = compareBy({ select: (item: Dater) => item.end });
+    const compareDaters = comparator(
+      compareByStart,
+      compareByEnd
+    );
+    return compareDaters(a, b);
+  }
+
   private _end: Date = new Date();
   private _start: Date = new Date();
 
@@ -49,16 +60,6 @@ export class Dater {
 
   get allDay() {
     return isAllDay(this.start, this.end);
-  }
-
-  static compare(a: Dater, b: Dater): number {
-    const compareByStart = compareBy({ select: (item: Dater) => item.start });
-    const compareByEnd = compareBy({ select: (item: Dater) => item.end });
-    const compareDaters = comparator(
-      compareByStart,
-      compareByEnd
-    );
-    return compareDaters(a, b);
   }
 
   spansOn(options: {

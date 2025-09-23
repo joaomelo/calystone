@@ -1,23 +1,55 @@
-import { throwCritical } from "@/utils";
+import {
+  comparator,
+  compareBy,
+  throwCritical
+} from "@/utils";
 
-import type { RecurrenceReferenceValue } from "./reference";
-import type { RecurrenceStepValue } from "./step";
-import type { RecurrenceUnitValue } from "./unit";
+import type { ReferenceValue } from "./reference";
+import type { StepValue } from "./step";
+import type { UnitValue } from "./unit";
 
-import { RecurrenceReference } from "./reference";
-import { RecurrenceStep } from "./step";
-import { RecurrenceUnit } from "./unit";
+import { Reference } from "./reference";
+import { Step } from "./step";
+import { Unit } from "./unit";
 
 export interface RecurrerOptions {
-  reference?: RecurrenceReferenceValue;
-  step?: RecurrenceStepValue;
-  unit?: RecurrenceUnitValue;
+  reference?: ReferenceValue;
+  step?: StepValue;
+  unit?: UnitValue;
 }
 
 export class Recurrer {
-  reference: RecurrenceReference;
-  step: RecurrenceStep;
-  unit: RecurrenceUnit;
+  static compare(a: Recurrer, b: Recurrer): number {
+    const compareByUnit = compareBy<Recurrer, Unit>({
+      compare: (a, b) => Unit.compare(a, b),
+      nulls: "last",
+      select: (item) => item.unit
+    });
+
+    const compareByStep = compareBy<Recurrer, Step>({
+      compare: (a, b) => Step.compare(a, b),
+      nulls: "last",
+      select: (item) => item.step
+    });
+
+    const compareByReference = compareBy<Recurrer, Reference>({
+      compare: (a, b) => Reference.compare(a, b),
+      nulls: "last",
+      select: (item) => item.reference
+    });
+
+    const compareRecurrers = comparator(
+      compareByUnit,
+      compareByStep,
+      compareByReference
+    );
+
+    return compareRecurrers(a, b);
+  }
+
+  reference: Reference;
+  step: Step;
+  unit: Unit;
 
   constructor(options: RecurrerOptions = {}) {
     const {
@@ -26,21 +58,21 @@ export class Recurrer {
       unit
     } = options;
 
-    if (reference && !RecurrenceReference.isRecurrenceReferenceValue(reference)) {
-      throwCritical("INVALID_RECURRENCE_REFERENCE");
-    }
-
-    if (step && !RecurrenceStep.isStepValue(step)) {
-      throwCritical("INVALID_RECURRENCE_STEP");
-    }
-
-    if (unit && !RecurrenceUnit.isRecurrenceUnitValue(unit)) {
+    if (unit && !Unit.isValue(unit)) {
       throwCritical("INVALID_RECURRENCE_UNIT");
     }
 
-    this.reference = new RecurrenceReference(reference);
-    this.step = new RecurrenceStep(step);
-    this.unit = new RecurrenceUnit(unit);
+    if (step && !Step.isValue(step)) {
+      throwCritical("INVALID_RECURRENCE_STEP");
+    }
+
+    if (reference && !Reference.isValue(reference)) {
+      throwCritical("INVALID_RECURRENCE_REFERENCE");
+    }
+
+    this.unit = new Unit(unit);
+    this.step = new Step(step);
+    this.reference = new Reference(reference);
   }
 
   next(options: {

@@ -1,16 +1,42 @@
-import { throwCritical } from "@/utils";
+import {
+  comparator,
+  compareBy,
+  throwCritical
+} from "@/utils";
 
 import type { UpdateDateOptions } from "../dater";
 import type {
-  RecurrenceReferenceValue,
-  RecurrenceStepValue,
-  RecurrenceUnitValue
+  ReferenceValue,
+  StepValue,
+  UnitValue
 } from "../recurrer";
 
 import { Dater } from "../dater";
 import { Recurrer } from "../recurrer";
 
 export class Scheduler {
+  static compare(a: Scheduler, b: Scheduler): number {
+
+    const compareByDater = compareBy<Scheduler, Dater>({
+      compare: (a, b) => Dater.compare(a, b),
+      nulls: "last",
+      select: (item) => item._dater
+    });
+
+    const compareByRecurrer = compareBy<Scheduler, Recurrer>({
+      compare: (a, b) => Recurrer.compare(a, b),
+      nulls: "last",
+      select: (item) => item._recurrer
+    });
+
+    const compareSchedulers = comparator(
+      compareByDater,
+      compareByRecurrer
+    );
+
+    return compareSchedulers(a, b);
+  }
+
   private _dater?: Dater;
   private _recurrer?: Recurrer;
 
@@ -102,39 +128,37 @@ export class Scheduler {
   }
 
   updateStart(options: UpdateDateOptions) {
-    if (!this._dater) {
-      const {
-        allDay,
-        date: start
-      } = options;
-
-      this._dater = new Dater({
-        allDay,
-        start
-      });
-
+    if (this._dater) {
+      this._dater.updateStart(options);
       return;
     }
 
-    this._dater.updateStart(options);
+    const {
+      allDay,
+      date: start
+    } = options;
+
+    this._dater = new Dater({
+      allDay,
+      start
+    });
   }
 
   updateEnd(options: UpdateDateOptions) {
-    if (!this._dater) {
-      const {
-        allDay,
-        date: end
-      } = options;
-
-      this._dater = new Dater({
-        allDay,
-        end
-      });
-
+    if (this._dater) {
+      this._dater.updateEnd(options);
       return;
     }
 
-    this._dater.updateEnd(options);
+    const {
+      allDay,
+      date: end
+    } = options;
+
+    this._dater = new Dater({
+      allDay,
+      end
+    });
   }
 
   private prepareRecurrerForUpdate() {
@@ -149,17 +173,17 @@ export class Scheduler {
     return this._recurrer;
   }
 
-  updateReference(reference: RecurrenceReferenceValue) {
+  updateReference(reference: ReferenceValue) {
     const recurrer = this.prepareRecurrerForUpdate();
     recurrer.reference.value = reference;
   }
 
-  updateRecurrenceStep(step: RecurrenceStepValue) {
+  updateRecurrenceStep(step: StepValue) {
     const recurrer = this.prepareRecurrerForUpdate();
     recurrer.step.value = step;
   }
 
-  updateRecurrenceUnit(unit: RecurrenceUnitValue) {
+  updateRecurrenceUnit(unit: UnitValue) {
     const recurrer = this.prepareRecurrerForUpdate();
     recurrer.unit.value = unit;
   }
