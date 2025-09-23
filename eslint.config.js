@@ -114,7 +114,7 @@ export default tseslint.config(
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": ["error", "always"],
       "@stylistic/space-infix-ops": "error",
-      "@stylistic/type-generic-spacing": ["error"],
+      "@stylistic/type-generic-spacing": ["error"]
     }
   },
 
