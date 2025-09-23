@@ -21,10 +21,7 @@ export class TrackTodosService {
     } = options;
 
     const loadedTodos = this.selectLoadedTodos();
-    const uncompletedDatedTodos = loadedTodos.filter(todo =>
-      todo.uncompleted()
-      && todo.hasDates()
-    );
+    const uncompletedDatedTodos = loadedTodos.filter(todo => todo.uncompleted() && todo.scheduler.hasDates );
 
     const datesWithTodos: Date[] = [];
     const currentDateStart = new Date(start);
@@ -37,7 +34,7 @@ export class TrackTodosService {
         start: currentDateStart
       };
 
-      const hasTodoOnDate = uncompletedDatedTodos.some(todo => todo.spansOn(options));
+      const hasTodoOnDate = uncompletedDatedTodos.some(todo => todo.scheduler.spansOn(options));
       if (hasTodoOnDate) datesWithTodos.push(new Date(currentDateStart));
 
       currentDateStart.setDate(currentDateStart.getDate() + 1);
@@ -52,7 +49,7 @@ export class TrackTodosService {
   }) {
     this.throwIfDatesAreInvalid(options);
     const loadedTodos = this.selectLoadedTodos();
-    const todosWithin = loadedTodos.filter(todo => todo.spansOn(options));
+    const todosWithin = loadedTodos.filter(todo => todo.scheduler.spansOn(options));
     return todosWithin;
   }
 

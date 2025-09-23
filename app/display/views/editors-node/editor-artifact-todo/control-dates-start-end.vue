@@ -14,36 +14,36 @@ const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 const { services } = Store.use();
 const { t } = useI18n();
 
-const allDay = ref(artifact.allDay());
+const allDay = ref(artifact.scheduler.allDay);
 
 async function handleUpdateAllDay(value: boolean) {
   allDay.value = value;
   if (value) {
-    artifact.dater?.makeAllDay();
+    artifact.scheduler.makeAllDay();
   }
   await services.exchangeArtifact.postFrom(artifact);
 }
 
-async function handleUpdateDueDate(date: Date | null | undefined) {
+async function handleUpdateEnd(date: Date | null | undefined) {
   if (date) {
-    artifact.updateDateDue({
+    artifact.scheduler.updateEnd({
       allDay: allDay.value,
       date
     });
   } else {
-    artifact.clearDates();
+    artifact.scheduler.clearDates();
   }
   await services.exchangeArtifact.postFrom(artifact);
 }
 
-async function handleUpdateStartDate(date: Date | null | undefined) {
+async function handleUpdateStart(date: Date | null | undefined) {
   if (date) {
-    artifact.updateDateStart({
+    artifact.scheduler.updateStart({
       allDay: allDay.value,
       date
     });
   } else {
-    artifact.clearDates();
+    artifact.scheduler.clearDates();
   }
   await services.exchangeArtifact.postFrom(artifact);
 }
@@ -59,18 +59,18 @@ async function handleUpdateStartDate(date: Date | null | undefined) {
     <InputDate
       :label="t('editor-todo.dates.start')"
       data-test="input-start"
-      :model-value="artifact.dateStart()"
+      :model-value="artifact.scheduler.start"
       default-time="0:0"
       :show-time="!allDay"
-      @update:model-value="handleUpdateStartDate"
+      @update:model-value="handleUpdateStart"
     />
     <InputDate
-      :label="t('editor-todo.dates.due')"
-      data-test="input-due"
-      :model-value="artifact.dateDue()"
+      :label="t('editor-todo.dates.end')"
+      data-test="input-end"
+      :model-value="artifact.scheduler.end"
       default-time="23:59"
       :show-time="!allDay"
-      @update:model-value="handleUpdateDueDate"
+      @update:model-value="handleUpdateEnd"
     />
   </div>
 </template>

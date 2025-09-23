@@ -43,11 +43,11 @@ export class Scheduler {
   private _dater?: Dater;
   private _recurrer?: Recurrer;
 
-  hasDates() {
+  get hasDates() {
     return this._dater !== undefined;
   }
 
-  hasRecurrence() {
+  get hasRecurrence() {
     return this._recurrer !== undefined;
   }
 
@@ -103,7 +103,7 @@ export class Scheduler {
   }
 
   get allDay() {
-    if (!this._dater) return undefined;
+    if (!this._dater) return false;
     return this._dater.allDay;
   }
 
@@ -136,6 +136,14 @@ export class Scheduler {
       return;
     }
     this._dater = new Dater(options);
+  }
+
+  makeAllDay() {
+    if (this._dater) {
+      this._dater.makeAllDay();
+      return;
+    }
+    this._dater = new Dater({ allDay: true });
   }
 
   updateStart(options: UpdateDateOptions) {

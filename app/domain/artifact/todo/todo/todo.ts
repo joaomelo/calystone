@@ -103,7 +103,7 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
   }
 
   updateProgress(progress: Progress) {
-    const canRecur = this.scheduler.hasRecurrence();
+    const canRecur = this.scheduler.hasRecurrence;
 
     const isCurrentUncompleted = this.uncompleted();
     const isNextCompleted = Progressor.completed(progress);

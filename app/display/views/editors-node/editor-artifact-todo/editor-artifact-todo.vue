@@ -5,7 +5,7 @@ import type { PanelsList } from "@/utils";
 import { Store } from "@/display/store";
 import {
   AccordionPanels,
-  formatDateRange,
+  formatDates,
   useI18n
 } from "@/utils";
 import {
@@ -45,16 +45,13 @@ const panels = computed<PanelsList>(() => {
   const priority = artifact.priority().toFixed(2);
   const priorityLegend = `${t("common.priority")}: ${priority}`;
 
-  const startDate = artifact.dateStart();
-  const dueDate = artifact.dateDue();
-  const hasDates = startDate && dueDate;
+  const startDate = artifact.scheduler.start;
+  const endDate = artifact.scheduler.end;
+  const hasDates = startDate && endDate;
   const formattedDateRange = hasDates
-    ? formatDateRange({
-      due: dueDate,
-      start: startDate,
-    })
+    ? formatDates(startDate, endDate)
     : "";
-  const recurringSignal = artifact.hasRecurrence() ? " ↻" : "";
+  const recurringSignal = artifact.scheduler.hasRecurrence ? " ↻" : "";
   const datesLegendSpacer = formattedDateRange || recurringSignal ? ": " : "";
   const datesLegend = `${t("editor-todo.dates.dates")}${datesLegendSpacer}${formattedDateRange}${recurringSignal}`;
 

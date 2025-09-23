@@ -15,7 +15,7 @@ export function formatDates(start: Date, end: Date) {
   const formattedStart = formatDateTime(start);
 
   if (isWithinMinutes(start, end)) {
-    return start;
+    return formattedStart;
   }
 
   const endTime = formatTime(end);

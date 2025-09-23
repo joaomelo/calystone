@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import type {
-  RecurrenceReferenceValue,
-  RecurrenceUnitValue,
-  TodoArtifact
+  ReferenceValue,
+  TodoArtifact,
+  UnitValue
 } from "@/domain";
 
 import { Store } from "@/display/store";
 import {
-  RecurrenceReference,
-  RecurrenceStep,
-  RecurrenceUnit
+  Reference,
+  Step,
+  Unit
 } from "@/domain";
 import {
   InputNumber,
@@ -26,7 +26,7 @@ const { t } = useI18n();
 
 const referenceOptions: {
   label: string;
-  value: "disabled" | RecurrenceReferenceValue
+  value: "disabled" | ReferenceValue
 }[] = [
   {
     label: t("common.disabled"),
@@ -43,14 +43,14 @@ const referenceOptions: {
 ] as const;
 
 const referenceValue = computed(() => {
-  const value = artifact.recurrenceReference();
+  const value = artifact.scheduler.reference;
   if (!value) return "disabled";
   return value;
 });
 
 const unitOptions: {
   label: string;
-  value: RecurrenceUnitValue
+  value: UnitValue
 }[] = [
   {
     label: t("editor-todo.dates.days"),
@@ -72,9 +72,9 @@ const unitOptions: {
 
 async function handleUpdateReference(reference: string | undefined) {
   if (reference === "disabled") {
-    artifact.disableRecurrence();
-  } else if (RecurrenceReference.isRecurrenceReferenceValue(reference)) {
-    artifact.updateRecurrenceReference(reference);
+    artifact.scheduler.clearRecurrence();
+  } else if (Reference.isValue(reference)) {
+    artifact.scheduler.updateReference(reference);
   } else {
     throwCritical("INVALID_REFERENCE");
   }
@@ -82,8 +82,8 @@ async function handleUpdateReference(reference: string | undefined) {
 }
 
 async function handleUpdateStep(step: number | undefined) {
-  if (RecurrenceStep.isStepValue(step)) {
-    artifact.updateRecurrenceStep(step);
+  if (Step.isValue(step)) {
+    artifact.scheduler.updateStep(step);
   } else {
     throwCritical("INVALID_STEP");
   }
@@ -91,8 +91,8 @@ async function handleUpdateStep(step: number | undefined) {
 }
 
 async function handleUpdateUnit(unit: string | undefined) {
-  if (RecurrenceUnit.isRecurrenceUnitValue(unit)) {
-    artifact.updateRecurrenceUnit(unit);
+  if (Unit.isValue(unit)) {
+    artifact.scheduler.updateUnit(unit);
   } else {
     throwCritical("INVALID_UNIT");
   }
@@ -105,7 +105,7 @@ async function handleUpdateUnit(unit: string | undefined) {
     data-test="input-reference"
     :model-value="referenceValue"
     :options="referenceOptions"
-    :disabled="!artifact.hasDates()"
+    :disabled="!artifact.scheduler.hasDates"
     @update:model-value="handleUpdateReference"
   />
   <div class="control-dates__step-unit">
@@ -113,16 +113,16 @@ async function handleUpdateUnit(unit: string | undefined) {
       :label="t('editor-todo.dates.step')"
       data-test="input-step"
       buttons
-      :disabled="!artifact.hasDates()"
-      :model-value="artifact.recurrenceStep()"
+      :disabled="!artifact.scheduler.hasDates"
+      :model-value="artifact.scheduler.step"
       @update:model-value="handleUpdateStep"
     />
     <InputRadio
       :label="t('editor-todo.dates.unit')"
       data-test="input-unit"
       :options="unitOptions"
-      :disabled="!artifact.hasDates()"
-      :model-value="artifact.recurrenceUnit()"
+      :disabled="!artifact.scheduler.hasDates"
+      :model-value="artifact.scheduler.unit"
       @update:model-value="handleUpdateUnit"
     />
   </div>

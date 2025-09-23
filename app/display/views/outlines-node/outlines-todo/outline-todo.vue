@@ -2,7 +2,7 @@
 import type { TodoArtifact } from "@/domain";
 
 import {
-  formatDateRange,
+  formatDates,
   throwCritical,
   truncate
 } from "@/utils";
@@ -28,17 +28,14 @@ const details = computed(() => {
 });
 
 const dates = computed(() => {
-  if (!todo.hasDates()) return "";
+  if (!todo.scheduler.hasDates) return "";
 
-  const dateStart = todo.dateStart();
-  const dateDue = todo.dateDue();
-  if (!dateStart || !dateDue) throwCritical("TODO_MUST_HAVE_DATES");
+  const dateStart = todo.scheduler.start;
+  const dateEnd = todo.scheduler.end;
+  if (!dateStart || !dateEnd) throwCritical("TODO_MUST_HAVE_DATES");
 
-  const occurrence = formatDateRange({
-    due: dateDue,
-    start: dateStart
-  });
-  const recurrence = todo.hasRecurrence() ? " ↻" : "";
+  const occurrence = formatDates(dateStart, dateEnd);
+  const recurrence = todo.scheduler.hasRecurrence ? " ↻" : "";
 
   return `${occurrence}${recurrence}`;
 });
