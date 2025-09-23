@@ -4,7 +4,10 @@ import {
   throwCritical
 } from "@/utils";
 
-import type { UpdateDateOptions } from "../dater";
+import type {
+  UpdateDateOptions,
+  UpdateDatesOptions
+} from "../dater";
 import type {
   ReferenceValue,
   StepValue,
@@ -127,6 +130,14 @@ export class Scheduler {
     return this._dater.spansOn(options);
   }
 
+  updateDates(options: UpdateDatesOptions) {
+    if (this._dater) {
+      this._dater.update(options);
+      return;
+    }
+    this._dater = new Dater(options);
+  }
+
   updateStart(options: UpdateDateOptions) {
     if (this._dater) {
       this._dater.updateStart(options);
@@ -173,17 +184,31 @@ export class Scheduler {
     return this._recurrer;
   }
 
+  updateRecurrence({
+    reference,
+    step,
+    unit
+  }: {
+    reference: ReferenceValue;
+    step: StepValue;
+    unit: UnitValue
+  }) {
+    this.updateUnit(unit);
+    this.updateStep(step);
+    this.updateReference(reference);
+  }
+
   updateReference(reference: ReferenceValue) {
     const recurrer = this.prepareRecurrerForUpdate();
     recurrer.reference.value = reference;
   }
 
-  updateRecurrenceStep(step: StepValue) {
+  updateStep(step: StepValue) {
     const recurrer = this.prepareRecurrerForUpdate();
     recurrer.step.value = step;
   }
 
-  updateRecurrenceUnit(unit: UnitValue) {
+  updateUnit(unit: UnitValue) {
     const recurrer = this.prepareRecurrerForUpdate();
     recurrer.unit.value = unit;
   }

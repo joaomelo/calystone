@@ -1,19 +1,12 @@
 import type { ArtifactOptions } from "@/domain/artifact/artifact";
-import type { UpdateDateOptions } from "@/domain/artifact/todo/dater";
 import type { Criterion } from "@/domain/artifact/todo/prioritizer";
 import type { Progress } from "@/domain/artifact/todo/progressor";
-import type {
-  RecurrenceReferenceValue,
-  RecurrenceStepValue,
-  RecurrenceUnitValue
-} from "@/domain/artifact/todo/recurrer";
 
 import { Artifact } from "@/domain/artifact/artifact";
-import { Tagger } from "@/domain/artifact/tagger";
-import { Dater } from "@/domain/artifact/todo/dater";
 import { Prioritizer } from "@/domain/artifact/todo/prioritizer";
 import { Progressor } from "@/domain/artifact/todo/progressor";
-import { Recurrer } from "@/domain/artifact/todo/recurrer";
+import { Scheduler } from "@/domain/schedule";
+import { Tagger } from "@/domain/tagger";
 import { throwCritical } from "@/utils";
 
 import type { TodoArtifactState } from "./state";
@@ -21,13 +14,12 @@ import type { TodoArtifactState } from "./state";
 import { Parser } from "./parser";
 
 export class TodoArtifact extends Artifact implements TodoArtifactState {
-  dater?: Dater;
   details: string;
   parser: Parser;
   prioritizer: Prioritizer;
   progressor: Progressor;
-  recurrer?: Recurrer;
   tagger: Tagger;
+  scheduler: Scheduler;
 
   constructor(options: ArtifactOptions) {
     super(options);
@@ -40,15 +32,7 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.prioritizer = new Prioritizer();
     this.progressor = new Progressor();
     this.tagger = new Tagger();
-  }
-
-  allDay() {
-    return this.dater?.isAllDay() ?? false;
-  }
-
-  clearDates() {
-    this.dater = undefined;
-    this.recurrer = undefined;
+    this.scheduler = new Scheduler();
   }
 
   completed() {
@@ -67,56 +51,12 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     return criterion;
   }
 
-  cycleRecurrence() {
-    if (!this.hasRecurrence()) throwCritical("TODO_ARTIFACT_HAS_NO_RECURRENCE");
-
-    const currentDue = this.dateDue();
-    const currentStart = this.dateStart();
-    if (!currentDue || !currentStart) throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
-
-    const {
-      due,
-      start
-    } = this.recurrer.next({
-      due: currentDue,
-      start: currentStart
-    });
-    this.updateDateStart({
-      allDay: false,
-      date: start
-    });
-    this.updateDateDue({
-      allDay: false,
-      date: due
-    });
-  }
-
-  dateDue() {
-    return this.dater?.due;
-  }
-
-  dateStart() {
-    return this.dater?.start;
-  }
-
-  disableRecurrence() {
-    this.recurrer = undefined;
-  }
-
   hasCriterion(label: string) {
     return this.prioritizer.has(label);
   }
 
-  hasDates(): this is { dater: Dater } {
-    return this.dater !== undefined;
-  }
-
   hasDetails() {
     return this.details.length > 0;
-  }
-
-  hasRecurrence(): this is { recurrer: Recurrer } {
-    return this.recurrer !== undefined;
   }
 
   performFromBinary(binary: ArrayBuffer): void {
@@ -124,8 +64,7 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.details = data.details;
     this.progressor = data.progressor;
     this.prioritizer = data.prioritizer;
-    this.dater = data.dater;
-    this.recurrer = data.recurrer;
+    this.scheduler = data.scheduler;
     this.tagger = data.tagger;
   }
 
@@ -141,40 +80,16 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     return this.progressor.progress;
   }
 
-  recurrenceReference() {
-    if (!this.recurrer) return undefined;
-    return this.recurrer.reference.value;
-  }
-
-  recurrenceStep() {
-    if (!this.recurrer) return undefined;
-    return this.recurrer.step.value;
-  }
-
-  recurrenceUnit() {
-    if (!this.recurrer) return undefined;
-    return this.recurrer.unit.value;
-  }
-
   removeCriterion(label: string) {
     this.prioritizer.remove(label);
   }
 
-  spansOn(options: {
-    end: Date;
-    start: Date
-  }): boolean {
-    if (!this.hasDates()) return false;
-    return this.dater.spansOn(options);
-  }
-
   toBinary(): ArrayBuffer {
     return this.parser.convertDataToBinary({
-      dater: this.dater,
       details: this.details,
       prioritizer: this.prioritizer,
       progressor: this.progressor,
-      recurrer: this.recurrer,
+      scheduler: this.scheduler,
       tagger: this.tagger,
     });
   }
@@ -187,38 +102,8 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
     this.prioritizer.update(criterion);
   }
 
-  updateDateDue(options: UpdateDateOptions) {
-    if (!this.dater) {
-      const {
-        allDay,
-        date: due
-      } = options;
-      this.dater = new Dater({
-        allDay,
-        due
-      });
-    } else {
-      this.dater.updateDue(options);
-    }
-  }
-
-  updateDateStart(options: UpdateDateOptions) {
-    if (!this.dater) {
-      const {
-        allDay,
-        date: start
-      } = options;
-      this.dater = new Dater({
-        allDay,
-        start
-      });
-    } else {
-      this.dater.updateStart(options);
-    }
-  }
-
   updateProgress(progress: Progress) {
-    const canRecur = this.hasDates() && this.hasRecurrence();
+    const canRecur = this.scheduler.hasRecurrence();
 
     const isCurrentUncompleted = this.uncompleted();
     const isNextCompleted = Progressor.completed(progress);
@@ -226,41 +111,11 @@ export class TodoArtifact extends Artifact implements TodoArtifactState {
 
     const willRecur = canRecur && willComplete;
     if (willRecur) {
-      this.cycleRecurrence();
+      this.scheduler.cycleRecurrence();
       this.progressor.reset();
       return;
     }
 
     this.progressor.set(progress);
-  }
-
-  updateRecurrenceReference(reference: RecurrenceReferenceValue) {
-    if (!this.hasDates()) {
-      throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
-    }
-    if (!this.recurrer) {
-      this.recurrer = new Recurrer();
-    }
-    this.recurrer.reference.value = reference;
-  }
-
-  updateRecurrenceStep(step: RecurrenceStepValue) {
-    if (!this.hasDates()) {
-      throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
-    }
-    if (!this.recurrer) {
-      this.recurrer = new Recurrer();
-    }
-    this.recurrer.step.value = step;
-  }
-
-  updateRecurrenceUnit(unit: RecurrenceUnitValue) {
-    if (!this.hasDates()) {
-      throwCritical("TODO_ARTIFACT_HAS_NO_DATES");
-    }
-    if (!this.recurrer) {
-      this.recurrer = new Recurrer();
-    }
-    this.recurrer.unit.value = unit;
   }
 }
