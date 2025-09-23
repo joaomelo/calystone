@@ -31,7 +31,7 @@ describe("create-and-edit-todo", () => {
     editorTodo.dates.tab().click();
     editorTodo.dates.inputAllDay().click();
     editorTodo.dates.inputStart.typeDate(typicalDates.today.start);
-    editorTodo.dates.inputDue.input().should("have.value", typeableDate(typicalDates.today.end));
+    editorTodo.dates.inputEnd.input().should("have.value", typeableDate(typicalDates.today.end));
   });
 
   it("adds and removes tags", () => {

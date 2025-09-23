@@ -26,7 +26,7 @@ describe("outline-calendar", () => {
     editorTodo.dates.tab().click();
 
     editorTodo.dates.inputStart.typeDateTime(dayOne.start);
-    editorTodo.dates.inputDue.typeDateTime(dayTwo.end);
+    editorTodo.dates.inputEnd.typeDateTime(dayTwo.end);
 
     outlineNodesLegacy.rootNodeContent().click();
     const doneTodoName = "done-todo.todo";
@@ -34,7 +34,7 @@ describe("outline-calendar", () => {
     outlineNodesLegacy.nodeLabeledAs(doneTodoName).click();
     editorTodo.dates.tab().click();
     editorTodo.dates.inputStart.typeDateTime(dayOne.start);
-    editorTodo.dates.inputDue.typeDateTime(dayThree.end);
+    editorTodo.dates.inputEnd.typeDateTime(dayThree.end);
     editorTodo.main.progress.done().click();
 
     pageCalendar.calendar().click();

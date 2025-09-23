@@ -23,16 +23,16 @@ export function formatDates(start: Date, end: Date) {
     return join(formattedStart, endTime);
   }
 
-  const dueDay = formatDay(end);
+  const endDay = formatDay(end);
   if (isWithinMonth(start, end)) {
-    const due = `${dueDay} ${endTime}`;
-    return join(formattedStart, due);
+    const end = `${endDay} ${endTime}`;
+    return join(formattedStart, end);
   }
 
-  const dueMonth = formatMonth(end);
+  const endMonth = formatMonth(end);
   if (isWithinYear(start, end)) {
-    const due = `${dueMonth}-${dueDay} ${endTime}`;
-    return join(formattedStart, due);
+    const end = `${endMonth}-${endDay} ${endTime}`;
+    return join(formattedStart, end);
   }
 
   const formattedEnd = formatDateTime(end);

@@ -55,7 +55,7 @@ async function handleUpdateStart(date: Date | null | undefined) {
     data-test="input-all-day"
     @update:model-value="handleUpdateAllDay"
   />
-  <div class="control-dates-start-due">
+  <div class="control-dates-start-end">
     <InputDate
       :label="t('editor-todo.dates.start')"
       data-test="input-start"
@@ -75,7 +75,7 @@ async function handleUpdateStart(date: Date | null | undefined) {
   </div>
 </template>
 <style scoped>
-.control-dates-start-due {
+.control-dates-start-end {
   display: flex;
   gap: var(--size-3);
 

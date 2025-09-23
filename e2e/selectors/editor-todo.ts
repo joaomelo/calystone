@@ -5,20 +5,20 @@ import {
 } from "../helpers";
 
 const inputStartInput = () => cy.get(dataTest("input-start")).find("input");
-const inputDueInput = () => cy.get(dataTest("input-due")).find("input");
+const inputEndInput = () => cy.get(dataTest("input-end")).find("input");
 
 export const editorTodo = {
   dates: {
     inputAllDay: () => cy.get(dataTest("input-all-day")).find("input"),
-    inputDue: {
-      input: inputDueInput,
+    inputEnd: {
+      input: inputEndInput,
       typeDate(date: Date) {
-        inputDueInput()
+        inputEndInput()
           .invoke("val", typeableDate(date))
           .trigger("input");
       },
       typeDateTime(date: Date) {
-        inputDueInput()
+        inputEndInput()
           .invoke("val", typeableDateTime(date))
           .trigger("input");
       },
