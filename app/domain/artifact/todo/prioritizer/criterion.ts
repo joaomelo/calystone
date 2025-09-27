@@ -3,17 +3,31 @@ import {
   compareByString
 } from "@/utils";
 
-export type CriterionValue = number;
+import type { CriterionValue } from "./criterion-value";
+
+import { isCriterionOptions } from "./criterion-options";
+import {
+  asCriterionValue,
+  isCriterionValue
+} from "./criterion-value";
+
+interface CriterionOptions {
+  label: string,
+  value?: number
+}
 
 export class Criterion {
 
+  static isOptions(value: unknown): value is CriterionOptions {
+    return isCriterionOptions(value);
+  }
+
   static isValue(value: unknown): value is CriterionValue {
-    return typeof value === "number" && value >= 0 && value <= 1;
+    return isCriterionValue(value);
   }
 
   static asValue(value?: unknown): CriterionValue {
-    if (typeof value !== "number") return 0;
-    return Math.max(0, Math.min(value, 1));
+    return asCriterionValue(value);
   }
 
   static compareByLabel(a: Criterion, b: Criterion): number {
@@ -26,16 +40,18 @@ export class Criterion {
     return compare(a, b);
   }
 
+  static create(value: Criterion | CriterionOptions): Criterion {
+    if (value instanceof Criterion) return value;
+    return new Criterion(value);
+  }
+
   private _label: string;
   private _value: CriterionValue;
 
   constructor({
     label,
     value
-  }: {
-    label: string,
-    value?: number
-  }) {
+  }: CriterionOptions) {
     this._label = label;
     this._value = Criterion.asValue(value);
   }

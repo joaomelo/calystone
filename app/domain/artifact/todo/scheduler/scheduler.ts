@@ -43,11 +43,20 @@ export class Scheduler {
   private _dater?: Dater;
   private _recurrer?: Recurrer;
 
-  get hasDates() {
+  hasDates(): this is {
+    end: Date;
+    start: Date;
+  } {
     return this._dater !== undefined;
   }
 
-  get hasRecurrence() {
+  hasRecurrence(): this is {
+    end: Date;
+    reference: ReferenceValue;
+    start: Date;
+    step: StepValue;
+    unit: UnitValue;
+  } {
     return this._recurrer !== undefined;
   }
 

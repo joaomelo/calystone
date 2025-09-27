@@ -1,7 +1,7 @@
-import type { Prioritizer } from "@/domain/artifact/todo/prioritizer";
-import type { Progressor } from "@/domain/artifact/todo/progressor";
-import type { Scheduler } from "@/domain/schedule";
-import type { Tagger } from "@/domain/tagger";
+import type { Prioritizer } from "../prioritizer";
+import type { Progressor } from "../progressor";
+import type { Scheduler } from "../scheduler";
+import type { Tagger } from "../tagger";
 
 export interface TodoArtifactState {
   details: string;

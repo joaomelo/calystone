@@ -1,21 +1,23 @@
 import {
-  isCriteria,
-  Prioritizer
-} from "@/domain/artifact/todo/prioritizer";
-import { Progressor } from "@/domain/artifact/todo/progressor";
-import {
-  Reference,
-  Scheduler,
-  Step,
-  Unit
-} from "@/domain/schedule";
-import { Tagger } from "@/domain/tagger";
-import {
+  isArrayFull,
   isJsonParseable,
   isObjectLike
 } from "@/utils";
 
 import type { TodoArtifactState } from "./state";
+
+import {
+  Criterion,
+  Prioritizer
+} from "../prioritizer";
+import { Progressor } from "../progressor";
+import {
+  Reference,
+  Step,
+  Unit
+} from "../recurrer";
+import { Scheduler } from "../scheduler";
+import { Tagger } from "../tagger";
 
 export class Parser {
   static readonly VERSION = 1;
@@ -59,8 +61,12 @@ export class Parser {
       data.progressor = new Progressor(rawData.progress);
     }
 
-    if ("criteria" in rawData && isCriteria(rawData.criteria)) {
-      data.prioritizer.patch(rawData.criteria);
+    if ("criteria" in rawData && isArrayFull(rawData.criteria)) {
+      for (const maybeOptions of rawData.criteria) {
+        if (Criterion.isOptions(maybeOptions)) {
+          data.prioritizer.update(maybeOptions);
+        }
+      }
     }
 
     if (
@@ -118,8 +124,16 @@ export class Parser {
     const startString = this.stringifyDate(startDate);
     const endString = this.stringifyDate(endDate);
 
+    const criteria = data.prioritizer.criteria.map(({
+      label,
+      value
+    }) => ({
+      label,
+      value,
+    }));
+
     const jsonString = JSON.stringify({
-      criteria: data.prioritizer.criteria(),
+      criteria,
       dateDue: endString,
       dateStart: startString,
       details: data.details,

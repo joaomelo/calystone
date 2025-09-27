@@ -1,23 +1,23 @@
 import type { ArtifactOptions } from "@/domain/artifact/artifact";
-import type { Criterion } from "@/domain/artifact/todo/prioritizer";
-import type { Progress } from "@/domain/artifact/todo/progressor";
 
 import { Artifact } from "@/domain/artifact/artifact";
-import { Prioritizer } from "@/domain/artifact/todo/prioritizer";
-import { Progressor } from "@/domain/artifact/todo/progressor";
-import { Scheduler } from "@/domain/schedule";
-import { Tagger } from "@/domain/tagger";
 import { throwCritical } from "@/utils";
 
-import { Parser } from "./parser";
+import type { Progress } from "../progressor";
+
+import { Parser } from "../parser";
+import { Prioritizer } from "../prioritizer";
+import { Progressor } from "../progressor";
+import { Scheduler } from "../scheduler";
+import { Tagger } from "../tagger";
 
 export class TodoArtifact extends Artifact {
-  private details: string;
-  private parser: Parser;
-  private prioritizer: Prioritizer;
-  private progressor: Progressor;
-  private tagger: Tagger;
-  private scheduler: Scheduler;
+  private readonly _parser: Parser;
+  private _details: string;
+  private _prioritizer: Prioritizer;
+  private _progressor: Progressor;
+  private _tagger: Tagger;
+  private _scheduler: Scheduler;
 
   constructor(options: ArtifactOptions) {
     super(options);
@@ -25,95 +25,56 @@ export class TodoArtifact extends Artifact {
       throwCritical("INVALID_MIME_TYPE");
     }
 
-    this.details = "";
-    this.parser = new Parser();
-    this.prioritizer = new Prioritizer();
-    this.progressor = new Progressor();
-    this.tagger = new Tagger();
-    this.scheduler = new Scheduler();
+    this._details = "";
+    this._parser = new Parser();
+    this._prioritizer = new Prioritizer();
+    this._progressor = new Progressor();
+    this._tagger = new Tagger();
+    this._scheduler = new Scheduler();
   }
 
-  completed() {
-    return this.progressor.completed();
+  get details() {
+    return this._details;
   }
 
-  criteria() {
-    return this.prioritizer.criteria();
-  }
-
-  criterion(label: string) {
-    const criterion = this.prioritizer.criterion(label);
-    if (!criterion) {
-      throwCritical("TODO_ARTIFACT_HAS_NO_CRITERION");
-    }
-    return criterion;
-  }
-
-  hasCriterion(label: string) {
-    return this.prioritizer.has(label);
-  }
-
-  hasDetails() {
-    return this.details.length > 0;
+  set details(value: string) {
+    this._details = value;
   }
 
   performFromBinary(binary: ArrayBuffer): void {
-    const data = this.parser.convertBinaryToState(binary);
-    this.details = data.details;
-    this.progressor = data.progressor;
-    this.prioritizer = data.prioritizer;
-    this.scheduler = data.scheduler;
-    this.tagger = data.tagger;
-  }
+    const data = this._parser.convertBinaryToState(binary);
 
-  priority() {
-    return this.prioritizer.priority();
-  }
-
-  priorityEmpty() {
-    return this.prioritizer.empty();
-  }
-
-  progress() {
-    return this.progressor.progress;
-  }
-
-  removeCriterion(label: string) {
-    this.prioritizer.remove(label);
+    this._details = data.details;
+    this._progressor = data.progressor;
+    this._prioritizer = data.prioritizer;
+    this._scheduler = data.scheduler;
+    this._tagger = data.tagger;
   }
 
   toBinary(): ArrayBuffer {
-    return this.parser.convertDataToBinary({
-      details: this.details,
-      prioritizer: this.prioritizer,
-      progressor: this.progressor,
-      scheduler: this.scheduler,
-      tagger: this.tagger,
+    return this._parser.convertDataToBinary({
+      details: this._details,
+      prioritizer: this._prioritizer,
+      progressor: this._progressor,
+      scheduler: this._scheduler,
+      tagger: this._tagger,
     });
   }
 
-  uncompleted() {
-    return this.progressor.uncompleted();
-  }
-
-  updateCriterion(criterion: Criterion) {
-    this.prioritizer.update(criterion);
-  }
-
   updateProgress(progress: Progress) {
-    const canRecur = this.scheduler.hasRecurrence;
+    const canRecur = this._scheduler.hasRecurrence();
 
-    const isCurrentUncompleted = this.uncompleted();
+    const isCurrentUncompleted = this._progressor.uncompleted;
     const isNextCompleted = Progressor.completed(progress);
     const willComplete = isCurrentUncompleted && isNextCompleted;
 
     const willRecur = canRecur && willComplete;
     if (willRecur) {
-      this.scheduler.cycleRecurrence();
-      this.progressor.reset();
+      this._scheduler.cycleRecurrence();
+      this._progressor.reset();
       return;
     }
 
-    this.progressor.set(progress);
+    this._progressor.set(progress);
   }
 }
