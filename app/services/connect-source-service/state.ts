@@ -1,4 +1,4 @@
-import type { Nodes } from "@/domain";
+import type { Mover } from "@/domain";
 import type {
   FileSystemAdapter,
   Source
@@ -8,7 +8,7 @@ export type ConnectionState = ConnectionStateConnected | ConnectionStateDisconne
 
 interface ConnectionStateConnected {
   fileSystemAdapter: FileSystemAdapter;
-  nodes: Nodes;
+  nodes: Mover;
   source: Source;
   status: "connected"
 }

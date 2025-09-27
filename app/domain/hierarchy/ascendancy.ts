@@ -16,10 +16,19 @@ export class Ascendancy {
     return compare(a, b);
   }
 
-  ascendants(nodeOrId: NodeOrId): Directory[] {
+  parent(nodeOrId: NodeOrId): Directory | undefined {
     const node = this.nodes.get(nodeOrId);
-    if (!node) return [];
+    if (!node) return;
+    if (!node.parentId) return;
 
+    const parent = this.nodes.get(node.parentId);
+    if (!parent) return;
+    if (!(parent instanceof Directory)) return;
+
+    return parent;
+  }
+
+  ascendants(nodeOrId: NodeOrId): Directory[] {
     const ascendants: Directory[] = [];
     let parent = this.parent(nodeOrId);
     while (parent) {
@@ -52,18 +61,6 @@ export class Ascendancy {
     const realParent = this.parent(child);
     if (!realParent) return false;
     return realParent.isEqualTo(parent);
-  }
-
-  parent(nodeOrId: NodeOrId): Directory | undefined {
-    const node = this.nodes.get(nodeOrId);
-    if (!node) return;
-    if (!node.parentId) return;
-
-    const parent = this.nodes.get(node.parentId);
-    if (!parent) return;
-    if (!(parent instanceof Directory)) return;
-
-    return parent;
   }
 
   path(nodeOrId: NodeOrId): string {

@@ -3,7 +3,7 @@ import type {
   Directory,
   DirectoryOptions,
   Node,
-  Nodes
+  Mover
 } from "@/domain";
 
 import {
@@ -25,7 +25,7 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     nodes
   }: {
     accessToken: string;
-    nodes: Nodes;
+    nodes: Mover;
   }) {
     const rootLowerPath = "";
     const rootOptions: DirectoryOptions = {

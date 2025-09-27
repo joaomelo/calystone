@@ -4,35 +4,36 @@ import type {
   NodeOrId
 } from "@/domain/node";
 
-import { Directory } from "@/domain/directory/directory";
-import { Descendancy } from "@/domain/hierarchy";
 import { isId } from "@/domain/id";
-import {
-  Status,
-  throwCritical
-} from "@/utils";
+import { throwCritical } from "@/utils";
 import { reactive } from "vue";
 
 export class Nodes {
-  descendancy: Descendancy;
-  map: Map<Id, Node>;
+  private _map: Map<Id, Node>;
 
   constructor() {
-    this.descendancy = new Descendancy(this);
-
     // unfortunately placing this vue wrapper was the only way the ui was able to reactively update nodes updates like opening a directory. if trying to make the internal map reactive in the display store level was not enough to make vue able to detect the nodes data updates.
-    this.map = reactive(new Map());
+    this._map = reactive(new Map());
   }
 
-  clear(directory: Directory): void {
-    this.removeDescendants(directory);
+  list(): Node[] {
+    return Array.from(this._map.values());
+  }
+
+  size() {
+    return this._map.size;
+  }
+
+  has(nodeOrId: NodeOrId): boolean {
+    const id = isId(nodeOrId) ? nodeOrId : nodeOrId.id;
+    return this._map.has(id);
   }
 
   get(nodeOrId?: NodeOrId): Node | undefined {
     if (!nodeOrId) return;
 
     const id = isId(nodeOrId) ? nodeOrId : nodeOrId.id;
-    return this.map.get(id);
+    return this._map.get(id);
   }
 
   getOrThrow(nodeOrId: NodeOrId): Node {
@@ -41,68 +42,13 @@ export class Nodes {
     return node;
   }
 
-  has(nodeOrId: NodeOrId): boolean {
-    const id = isId(nodeOrId) ? nodeOrId : nodeOrId.id;
-    return this.map.has(id);
-  }
-
-  list(): Node[] {
-    return Array.from(this.map.values());
-  }
-
-  move(options: {
-    subject: Node;
-    target: Directory
-  }): void {
-    const moveable = this.moveable(options);
-    moveable.throwOnFail();
-    options.subject.parentId = options.target.id;
-  }
-
-  moveable(options: {
-    subject: Node;
-    target: Directory
-  }): Status {
-    const {
-      subject,
-      target
-    } = options;
-
-    if (subject.isRoot()) return Status.fail("CANNOT_MOVE_ROOT");
-    if (subject.isEqualTo(target)) return Status.fail("CANNOT_MOVE_TO_ITSELF");
-
-    if (this.descendancy.isChild({
-      child: subject,
-      parent: target
-    })) return Status.fail("CANNOT_MOVE_TO_SAME_PARENT");
-
-    if (!(subject instanceof Directory)) return Status.ok();
-
-    if (this.descendancy.isDescendant({
-      descendant: target,
-      parent: subject
-    })) return Status.fail("CANNOT_MOVE_TO_DESCENDANT");
-
-    return Status.ok();
-  }
-
-  remove(node: Node) {
-    this.removeDescendants(node);
-    this.map.delete(node.id);
-  }
-
   set(node: Node): void {
-    this.map.set(node.id, node);
+    this._map.set(node.id, node);
   }
 
-  size() {
-    return this.map.size;
+  delete(nodeOrId: NodeOrId) {
+    const id = isId(nodeOrId) ? nodeOrId : nodeOrId.id;
+    this._map.delete(id);
   }
 
-  private removeDescendants(directory: Directory) {
-    const descendants = this.descendancy.descendants(directory);
-    for (const descendant of descendants) {
-      this.map.delete(descendant.id);
-    }
-  }
 }

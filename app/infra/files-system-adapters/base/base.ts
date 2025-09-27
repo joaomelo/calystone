@@ -3,7 +3,7 @@ import type {
   ArtifactOptions,
   DirectoryOptions,
   Node,
-  Nodes
+  Mover
 } from "@/domain";
 
 import { Directory } from "@/domain";
@@ -18,7 +18,7 @@ import { Metadatas } from "./metadatas";
 
 export abstract class BaseFileSystemAdapter<DirectoryMetadata, FileMetadata> implements FileSystemAdapter {
   protected readonly metadatas: Metadatas<DirectoryMetadata, FileMetadata>;
-  protected readonly nodes: Nodes;
+  protected readonly nodes: Mover;
   private readonly rootOptions: DirectoryOptions;
 
   constructor({
@@ -26,7 +26,7 @@ export abstract class BaseFileSystemAdapter<DirectoryMetadata, FileMetadata> imp
     rootMetadata,
     rootOptions
   }: {
-    nodes: Nodes;
+    nodes: Mover;
     rootMetadata: DirectoryMetadata
     rootOptions: DirectoryOptions,
   }) {

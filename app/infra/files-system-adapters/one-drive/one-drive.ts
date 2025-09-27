@@ -5,7 +5,7 @@ import type {
   DirectoryOptions,
   Id,
   Node,
-  Nodes
+  Mover
 } from "@/domain";
 import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
@@ -22,7 +22,7 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
 
   constructor(options: {
     accessToken: string;
-    nodes: Nodes;
+    nodes: Mover;
   }) {
     const {
       accessToken,
