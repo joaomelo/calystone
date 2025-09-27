@@ -2,12 +2,18 @@ import type { NodeOrId } from "@/domain/node";
 import type { Nodes } from "@/domain/nodes";
 
 import { Directory } from "@/domain/directory";
+import { compareByString } from "@/utils";
 
 export class Ascendancy {
   nodes: Nodes;
 
   constructor(nodes: Nodes) {
     this.nodes = nodes;
+  }
+
+  compareByPath(a: NodeOrId, b: NodeOrId): number {
+    const compare = compareByString<NodeOrId>({ select: nodeOrId => this.path(nodeOrId), });
+    return compare(a, b);
   }
 
   ascendants(nodeOrId: NodeOrId): Directory[] {
