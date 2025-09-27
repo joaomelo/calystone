@@ -13,24 +13,21 @@ import { computed } from "vue";
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { t } = useI18n();
+
 const { services } = Store.use();
+const hierarchy = services.spawnHierarchy.spawn();
 
 const propertySheetRows = computed(() => {
   return [
     {
       key: "path",
       label: t("path"),
-      value: services.queryHierarchy.path(artifact)
+      value: hierarchy.path(artifact)
     },
     {
       key: "last-modified",
       label: t("last-modified"),
       value: formatDateTime(new Date(artifact.lastModified))
-    },
-    {
-      key: "progress",
-      label: t("editor-todo.progress.progress"),
-      value: t(`editor-todo.progress.${artifact.progress()}`)
     },
   ];
 });

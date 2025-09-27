@@ -7,7 +7,6 @@ import type {
 } from "@/infra";
 
 import { AvailSourceService } from "@/services/avail-source-service";
-import { ComputeCriteriaService } from "@/services/compute-criteria-service";
 import { ComputeTagsService } from "@/services/compute-tags-service";
 import { ConnectSourceService } from "@/services/connect-source-service";
 import { CreateArtifactService } from "@/services/create-artifact-service";
@@ -18,17 +17,18 @@ import { ExportNodeService } from "@/services/export-node-service";
 import { MoveNodeService } from "@/services/move-node-service";
 import { OpenDirectoryService } from "@/services/open-directory-service";
 import { PreloadNodesService } from "@/services/preload-nodes-service";
-import { SpawnHierarchyService } from "@/services/spawn-hierarchy-service";
+import { QueryCriteriaService } from "@/services/query-criteria-service";
 import { ReloadDirectoryService } from "@/services/reload-directory-service";
 import { RemoveNodeService } from "@/services/remove-node-service";
 import { RenameNodeService } from "@/services/rename-node-service";
 import { RetrieveNodesService } from "@/services/retrieve-nodes-service";
 import { ShareNodeService } from "@/services/share-node-service";
+import { SpawnHierarchyService } from "@/services/spawn-hierarchy-service";
 import { TrackTodosService } from "@/services/track-todos-service";
 
 export class ServicesPortfolio {
   availSource: AvailSourceService;
-  computeCriteria: ComputeCriteriaService;
+  queryCriteria: QueryCriteriaService;
   computeTags: ComputeTagsService;
   connectSource: ConnectSourceService;
   createArtifact: CreateArtifactService;
@@ -72,7 +72,7 @@ export class ServicesPortfolio {
     });
     this.availSource = new AvailSourceService(availabilityFacade);
     this.retrieveNodes = new RetrieveNodesService(this.connectSource);
-    this.computeCriteria = new ComputeCriteriaService(this.retrieveNodes);
+    this.queryCriteria = new QueryCriteriaService(this.retrieveNodes);
     this.computeTags = new ComputeTagsService(this.retrieveNodes);
     this.exchangeArtifact = new ExchangeArtifactService(this.connectSource);
     this.ensureDescriptor = new EnsureDescriptorService({

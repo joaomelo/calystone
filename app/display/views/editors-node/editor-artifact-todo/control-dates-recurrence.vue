@@ -43,7 +43,7 @@ const referenceOptions: {
 ] as const;
 
 const referenceValue = computed(() => {
-  const value = artifact.scheduler.reference;
+  const value = artifact.reference;
   if (!value) return "disabled";
   return value;
 });
@@ -72,9 +72,9 @@ const unitOptions: {
 
 async function handleUpdateReference(reference: string | undefined) {
   if (reference === "disabled") {
-    artifact.scheduler.clearRecurrence();
+    artifact.clearRecurrence();
   } else if (Reference.isValue(reference)) {
-    artifact.scheduler.updateReference(reference);
+    artifact.updateReference(reference);
   } else {
     throwCritical("INVALID_REFERENCE");
   }
@@ -83,7 +83,7 @@ async function handleUpdateReference(reference: string | undefined) {
 
 async function handleUpdateStep(step: number | undefined) {
   if (Step.isValue(step)) {
-    artifact.scheduler.updateStep(step);
+    artifact.updateStep(step);
   } else {
     throwCritical("INVALID_STEP");
   }
@@ -92,7 +92,7 @@ async function handleUpdateStep(step: number | undefined) {
 
 async function handleUpdateUnit(unit: string | undefined) {
   if (Unit.isValue(unit)) {
-    artifact.scheduler.updateUnit(unit);
+    artifact.updateUnit(unit);
   } else {
     throwCritical("INVALID_UNIT");
   }
@@ -105,7 +105,7 @@ async function handleUpdateUnit(unit: string | undefined) {
     data-test="input-reference"
     :model-value="referenceValue"
     :options="referenceOptions"
-    :disabled="!artifact.scheduler.hasDates"
+    :disabled="!artifact.hasDates"
     @update:model-value="handleUpdateReference"
   />
   <div class="control-dates__step-unit">
@@ -113,16 +113,16 @@ async function handleUpdateUnit(unit: string | undefined) {
       :label="t('editor-todo.dates.step')"
       data-test="input-step"
       buttons
-      :disabled="!artifact.scheduler.hasDates"
-      :model-value="artifact.scheduler.step"
+      :disabled="!artifact.hasDates"
+      :model-value="artifact.step"
       @update:model-value="handleUpdateStep"
     />
     <InputRadio
       :label="t('editor-todo.dates.unit')"
       data-test="input-unit"
       :options="unitOptions"
-      :disabled="!artifact.scheduler.hasDates"
-      :model-value="artifact.scheduler.unit"
+      :disabled="!artifact.hasDates"
+      :model-value="artifact.unit"
       @update:model-value="handleUpdateUnit"
     />
   </div>

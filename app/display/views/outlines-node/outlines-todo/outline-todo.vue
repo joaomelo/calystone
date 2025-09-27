@@ -20,7 +20,7 @@ const priority = computed(() => {
 
 const details = computed(() => {
   return todo.hasDetails()
-    ? truncate(todo.details, {
+    ? truncate(todo._details, {
       ellipsis: "...",
       length: 30
     })

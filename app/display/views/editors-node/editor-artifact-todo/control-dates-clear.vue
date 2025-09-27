@@ -14,7 +14,7 @@ const { services } = Store.use();
 const { t } = useI18n();
 
 async function handleClearDates() {
-  artifact.scheduler.clearDates();
+  artifact.clearDates();
   await services.exchangeArtifact.postFrom(artifact);
 }
 

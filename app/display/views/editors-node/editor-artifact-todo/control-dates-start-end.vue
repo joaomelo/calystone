@@ -14,36 +14,36 @@ const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 const { services } = Store.use();
 const { t } = useI18n();
 
-const allDay = ref(artifact.scheduler.allDay);
+const allDay = ref(artifact.allDay);
 
 async function handleUpdateAllDay(value: boolean) {
   allDay.value = value;
   if (value) {
-    artifact.scheduler.makeAllDay();
+    artifact.makeAllDay();
   }
   await services.exchangeArtifact.postFrom(artifact);
 }
 
 async function handleUpdateEnd(date: Date | null | undefined) {
   if (date) {
-    artifact.scheduler.updateEnd({
+    artifact.updateEnd({
       allDay: allDay.value,
       date
     });
   } else {
-    artifact.scheduler.clearDates();
+    artifact.clearDates();
   }
   await services.exchangeArtifact.postFrom(artifact);
 }
 
 async function handleUpdateStart(date: Date | null | undefined) {
   if (date) {
-    artifact.scheduler.updateStart({
+    artifact.updateStart({
       allDay: allDay.value,
       date
     });
   } else {
-    artifact.scheduler.clearDates();
+    artifact.clearDates();
   }
   await services.exchangeArtifact.postFrom(artifact);
 }
@@ -59,7 +59,7 @@ async function handleUpdateStart(date: Date | null | undefined) {
     <InputDate
       :label="t('editor-todo.dates.start')"
       data-test="input-start"
-      :model-value="artifact.scheduler.start"
+      :model-value="artifact.start"
       default-time="0:0"
       :show-time="!allDay"
       @update:model-value="handleUpdateStart"
@@ -67,7 +67,7 @@ async function handleUpdateStart(date: Date | null | undefined) {
     <InputDate
       :label="t('editor-todo.dates.end')"
       data-test="input-end"
-      :model-value="artifact.scheduler.end"
+      :model-value="artifact.end"
       default-time="23:59"
       :show-time="!allDay"
       @update:model-value="handleUpdateEnd"

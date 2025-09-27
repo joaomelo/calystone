@@ -3,7 +3,14 @@ import type { ArtifactOptions } from "@/domain/artifact/artifact";
 import { Artifact } from "@/domain/artifact/artifact";
 import { throwCritical } from "@/utils";
 
+import type { UpdateDateOptions } from "../dater";
+import type { PrioritizerUpdateOptions } from "../prioritizer";
 import type { Progress } from "../progressor";
+import type {
+  ReferenceValue,
+  StepValue,
+  UnitValue
+} from "../recurrer";
 
 import { Parser } from "../parser";
 import { Prioritizer } from "../prioritizer";
@@ -41,6 +48,34 @@ export class TodoArtifact extends Artifact {
     this._details = value;
   }
 
+  get start() {
+    return this._scheduler.start;
+  }
+
+  get end() {
+    return this._scheduler.end;
+  }
+
+  get allDay() {
+    return this._scheduler.allDay;
+  }
+
+  get reference() {
+    return this._scheduler.reference;
+  }
+
+  get step() {
+    return this._scheduler.step;
+  }
+
+  get unit() {
+    return this._scheduler.unit;
+  }
+
+  get criteria() {
+    return this._prioritizer.criteria;
+  }
+
   performFromBinary(binary: ArrayBuffer): void {
     const data = this._parser.convertBinaryToState(binary);
 
@@ -61,6 +96,62 @@ export class TodoArtifact extends Artifact {
     });
   }
 
+  hasDates() {
+    return this._scheduler.hasDates();
+  }
+
+  hasRecurrence() {
+    return this._scheduler.hasRecurrence();
+  }
+
+  clearDates() {
+    this._scheduler.clearDates();
+  }
+
+  clearRecurrence() {
+    this._scheduler.clearRecurrence();
+  }
+
+  makeAllDay() {
+    this._scheduler.makeAllDay();
+  }
+
+  updateStart(options: UpdateDateOptions) {
+    this._scheduler.updateStart(options);
+  }
+
+  updateEnd(options: UpdateDateOptions) {
+    this._scheduler.updateEnd(options);
+  }
+
+  updateReference(reference: ReferenceValue) {
+    this._scheduler.updateReference(reference);
+  }
+
+  updateStep(step: StepValue) {
+    this._scheduler.updateStep(step);
+  }
+
+  updateUnit(unit: UnitValue) {
+    this._scheduler.updateUnit(unit);
+  }
+
+  criterion(label: string) {
+    return this._prioritizer.criterion(label);
+  }
+
+  criterionOrThrow(label: string) {
+    return this._prioritizer.criterionOrThrow(label);
+  }
+
+  updateCriterion(prioritizerUpdateOptions: PrioritizerUpdateOptions) {
+    this._prioritizer.update(prioritizerUpdateOptions);
+  }
+
+  removeCriterion(label: string) {
+    this._prioritizer.remove(label);
+  }
+
   updateProgress(progress: Progress) {
     const canRecur = this._scheduler.hasRecurrence();
 
@@ -77,4 +168,5 @@ export class TodoArtifact extends Artifact {
 
     this._progressor.set(progress);
   }
+
 }

@@ -2,7 +2,6 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { asCriterionValue } from "@/domain";
 import {
   ButtonBase,
   InputText,
@@ -20,22 +19,10 @@ const { t } = useI18n();
 
 const label = ref("");
 
-const suggestions = computed(() => {
-  const allLabels = services.computeCriteria.labels();
-  const usedLabels = artifact.criteria().map(({ label }) => label);
-  const availableLabels = allLabels.difference(new Set(usedLabels));
-
-  const list = Array.from(availableLabels);
-  list.sort((a, b) => a.localeCompare(b));
-  return list;
-});
+const suggestions = computed(() => services.queryCriteria.difference(artifact.criteria));
 
 async function handleAdd() {
-  const criterion = {
-    label: label.value,
-    value: asCriterionValue(0),
-  };
-  artifact.updateCriterion(criterion);
+  artifact.updateCriterion({ label: label.value });
   await services.exchangeArtifact.postFrom(artifact);
 
   label.value = "";

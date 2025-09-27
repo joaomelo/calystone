@@ -27,12 +27,12 @@ const { t } = useI18n();
 const { services } = Store.use();
 
 const propertySheetRows = computed(() => {
-  const descendants = services.queryHierarchy.descendants(content);
+  const descendants = services.spawnHierarchy.descendants(content);
   return [
     {
       key: "path",
       label: t("path"),
-      value: services.queryHierarchy.path(content)
+      value: services.spawnHierarchy.path(content)
     },
     {
       key: "items",

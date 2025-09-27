@@ -23,7 +23,7 @@ const dialogCreateArtifact = useTemplateRef("dialogCreateArtifact");
 const parentOfNewArtifact = computed<Directory | undefined>(() => {
   if (node instanceof Directory) return node;
 
-  return services.queryHierarchy.parent(node);
+  return services.spawnHierarchy.parent(node);
 });
 </script>
 <template>

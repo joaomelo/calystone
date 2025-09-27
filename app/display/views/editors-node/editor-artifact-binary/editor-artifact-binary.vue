@@ -35,7 +35,7 @@ const propertySheetRows = computed(() => {
     {
       key: "path",
       label: t("path"),
-      value: services.queryHierarchy.path(content)
+      value: services.spawnHierarchy.path(content)
     },
     {
       key: "size",

@@ -1,6 +1,7 @@
 import {
   comparator,
-  compareByString
+  compareByString,
+  throwCritical
 } from "@/utils";
 
 import type { CriterionValue } from "./criterion-value";
@@ -52,6 +53,10 @@ export class Criterion {
     label,
     value
   }: CriterionOptions) {
+    if (label.length === 0) {
+      throwCritical("CRITERION_LABEL_CANNOT_BE_EMPTY");
+    }
+
     this._label = label;
     this._value = Criterion.asValue(value);
   }
@@ -62,5 +67,9 @@ export class Criterion {
 
   get value() {
     return this._value;
+  }
+
+  isSame(other: Criterion): boolean {
+    return this.label === other.label;
   }
 }

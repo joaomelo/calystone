@@ -2,7 +2,7 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import { asCriterionValue } from "@/domain";
+import { Criterion } from "@/domain";
 import {
   ButtonBase,
   debounce,
@@ -27,13 +27,13 @@ const {
   t
 } = useI18n();
 
-const criterion = computed(() => artifact.criterion(label));
+const criterion = computed(() => artifact.criterionOrThrow(label));
 const kebabedLabel = computed(() => kebabCase(label));
 
 const handleUpdate = debounce(async (value?: number) => {
   const criterion = {
     label,
-    value: asCriterionValue(value)
+    value: Criterion.asValue(value)
   };
   artifact.updateCriterion(criterion);
   await services.exchangeArtifact.postFrom(artifact);

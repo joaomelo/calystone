@@ -2,14 +2,15 @@ import {
   asArray,
   comparator,
   compareBy,
-  reverse
+  reverse,
+  throwCritical
 } from "@/utils";
 
 import type { CriterionOptions } from "./criterion-options";
 
 import { Criterion } from "./criterion";
 
-type UpdateOptions = Criterion | Criterion[] | CriterionOptions | CriterionOptions[];
+export type PrioritizerUpdateOptions = Criterion | Criterion[] | CriterionOptions | CriterionOptions[];
 
 export class Prioritizer {
 
@@ -32,7 +33,7 @@ export class Prioritizer {
 
   private readonly _criteria = new Map<string, Criterion>();
 
-  constructor(options?: UpdateOptions) {
+  constructor(options?: PrioritizerUpdateOptions) {
     this.update(options);
   }
 
@@ -60,11 +61,19 @@ export class Prioritizer {
     return this._criteria.get(label);
   }
 
+  criterionOrThrow(label: string) {
+    const criterion = this.criterion(label);
+    if (!criterion) {
+      throwCritical("CRITERION_NOT_FOUND");
+    }
+    return criterion;
+  }
+
   has(label: string) {
     return this._criteria.has(label);
   }
 
-  update(singleOrManyOptions: UpdateOptions = []) {
+  update(singleOrManyOptions: PrioritizerUpdateOptions = []) {
     const manyOptions = asArray(singleOrManyOptions);
     for (const singleOptions of manyOptions) {
       const criterion = Criterion.create(singleOptions);
