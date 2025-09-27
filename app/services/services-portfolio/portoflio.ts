@@ -18,7 +18,7 @@ import { ExportNodeService } from "@/services/export-node-service";
 import { MoveNodeService } from "@/services/move-node-service";
 import { OpenDirectoryService } from "@/services/open-directory-service";
 import { PreloadNodesService } from "@/services/preload-nodes-service";
-import { QueryHierarchyService } from "@/services/query-hierarchy-service";
+import { SpawnHierarchyService } from "@/services/spawn-hierarchy-service";
 import { ReloadDirectoryService } from "@/services/reload-directory-service";
 import { RemoveNodeService } from "@/services/remove-node-service";
 import { RenameNodeService } from "@/services/rename-node-service";
@@ -39,7 +39,7 @@ export class ServicesPortfolio {
   moveNode: MoveNodeService;
   openDirectory: OpenDirectoryService;
   preloadNodes: PreloadNodesService;
-  queryHierarchy: QueryHierarchyService;
+  spawnHierarchy: SpawnHierarchyService;
   reloadDirectory: ReloadDirectoryService;
   removeNode: RemoveNodeService;
   renameNode: RenameNodeService;
@@ -100,7 +100,7 @@ export class ServicesPortfolio {
       openDirectory: this.openDirectory,
       preloadEnabled,
     });
-    this.queryHierarchy = new QueryHierarchyService(this.connectSource);
+    this.spawnHierarchy = new SpawnHierarchyService(this.connectSource);
     this.reloadDirectory = new ReloadDirectoryService({
       connectSourceService: this.connectSource,
       openDirectory: this.openDirectory

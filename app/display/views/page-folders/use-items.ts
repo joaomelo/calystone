@@ -25,7 +25,7 @@ export function useItems(expanded: Ref<OutlineGridKeys>) {
     const key = node.id;
     const label = node.name;
 
-    const children = services.queryHierarchy.children(node);
+    const children = services.spawnHierarchy.children(node);
 
     const showToggle = children.length > 0 || maybeHasChildren(node);
 

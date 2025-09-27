@@ -42,8 +42,8 @@ function createCompareByCriterion(criterion: string) {
 
 function createCompareByPath(services: ServicesPortfolio) {
   return (a: TodoArtifact, b: TodoArtifact): number => {
-    const aPath = services.queryHierarchy.path(a);
-    const bPath = services.queryHierarchy.path(b);
+    const aPath = services.spawnHierarchy.path(a);
+    const bPath = services.spawnHierarchy.path(b);
     return aPath.localeCompare(bPath);
   };
 }

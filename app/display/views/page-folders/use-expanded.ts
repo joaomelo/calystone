@@ -27,7 +27,7 @@ export function useExpanded(selectedKeys: Ref<OutlineGridKeys>) {
       const selectedId = selectedIds[0];
 
       const ascendants = services
-        .queryHierarchy
+        .spawnHierarchy
         .ascendants(selectedId)
         .map(({ id }) => id);
       if (!isArrayFull(ascendants)) return;
