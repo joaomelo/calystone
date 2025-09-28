@@ -20,56 +20,58 @@ import {
   ToolbarButtonShareNode
 } from "../toolbar-buttons";
 
-const { content } = defineProps<{ content: Artifact; }>();
+const { content: artifact } = defineProps<{ content: Artifact; }>();
 defineEmits<{ close: [] }>();
 
 const { t } = useI18n();
 const { services } = Store.use();
+const ascendancy = services.spawnCollections.ascendancy();
+
 const propertySheetRows = computed(() => {
   return [
     {
       key: "type",
       label: t("type"),
-      value: content.mime.media()
+      value: artifact.mime.media()
     },
     {
       key: "path",
       label: t("path"),
-      value: services.spawnHierarchy.path(content)
+      value: ascendancy.path(artifact)
     },
     {
       key: "size",
       label: t("size"),
-      value: filesize(content.size)
+      value: filesize(artifact.size)
     },
     {
       key: "last-modified",
       label: t("last-modified"),
-      value: formatDateTime(new Date(content.lastModified))
+      value: formatDateTime(new Date(artifact.lastModified))
     },
   ];
 });
 </script>
 <template>
   <EditorWorkspace
-    :node="content"
+    :node="artifact"
     @close="$emit('close')"
   >
     <template #toolbar>
       <ToolbarButtonCreateArtifact
-        :node="content"
+        :node="artifact"
       />
       <ToolbarButtonRenameNode
-        :node="content"
+        :node="artifact"
       />
       <ToolbarButtonExportNode
-        :node="content"
+        :node="artifact"
       />
       <ToolbarButtonShareNode
-        :node="content"
+        :node="artifact"
       />
       <ToolbarButtonRemoveNode
-        :node="content"
+        :node="artifact"
         @removed="$emit('close')"
       />
     </template>
@@ -77,11 +79,11 @@ const propertySheetRows = computed(() => {
       <div class="editor-artifact">
         <PropertySheet
           :rows="propertySheetRows"
-          :title="content.name"
+          :title="artifact.name"
         >
           <template #value-path="{ row }">
             <LinkNodePath
-              :id="content.id"
+              :id="artifact.id"
               :path="row.value.toString()"
             />
           </template>

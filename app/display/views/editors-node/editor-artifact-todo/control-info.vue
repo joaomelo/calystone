@@ -15,14 +15,14 @@ const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 const { t } = useI18n();
 
 const { services } = Store.use();
-const hierarchy = services.spawnHierarchy.spawn();
+const ascendancy = services.spawnCollections.ascendancy();
 
 const propertySheetRows = computed(() => {
   return [
     {
       key: "path",
       label: t("path"),
-      value: hierarchy.path(artifact)
+      value: ascendancy.path(artifact)
     },
     {
       key: "last-modified",

@@ -3,6 +3,7 @@ import type { TodoArtifact } from "@/domain";
 import type { PanelsList } from "@/utils";
 
 import { Store } from "@/display/store";
+import { Tagger } from "@/domain";
 import {
   AccordionPanels,
   formatDates,
@@ -42,21 +43,23 @@ onMounted(async () => {
 
 const panelsState = ref<string[]>(["main"]);
 const panels = computed<PanelsList>(() => {
-  const priority = artifact.priority().toFixed(2);
+  const priority = artifact.priority.toFixed(2);
   const priorityLegend = `${t("common.priority")}: ${priority}`;
 
-  const startDate = artifact.scheduler.start;
-  const endDate = artifact.scheduler.end;
+  const startDate = artifact.start;
+  const endDate = artifact.end;
   const hasDates = startDate && endDate;
   const formattedDateRange = hasDates
     ? formatDates(startDate, endDate)
     : "";
-  const recurringSignal = artifact.scheduler.hasRecurrence ? " ↻" : "";
+  const recurringSignal = artifact.hasRecurrence ? " ↻" : "";
   const datesLegendSpacer = formattedDateRange || recurringSignal ? ": " : "";
   const datesLegend = `${t("editor-todo.dates.dates")}${datesLegendSpacer}${formattedDateRange}${recurringSignal}`;
 
   const tagsTitle = t("common.tags");
-  const tagsList = artifact.tagger.labels().join(", ");
+
+  const tagger = new Tagger(artifact.tags);
+  const tagsList = tagger.labels.join(", ");
   const tagsLegendSpacer = tagsList ? ": " : "";
   const tagsLegend = `${tagsTitle}${tagsLegendSpacer}${tagsList}`;
 

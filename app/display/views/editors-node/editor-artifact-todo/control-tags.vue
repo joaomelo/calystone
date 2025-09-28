@@ -21,12 +21,13 @@ const { t } = useI18n();
 
 const workingLabel = ref("");
 
-const currentLabels = computed(() => artifact.tagger.labels());
+const currentLabels = computed(() => artifact.tags.map(tag => tag.label));
 
-const unusedLabels = computed(() => {
-  const globalTags = services.computeTags.compute();
-  const unusedTags = globalTags.difference(artifact.tagger);
-  return unusedTags.labels();
+const todos = services.spawnCollections.todos();
+const suggestions = computed(() => {
+  const globalTagger = todos.tagger();
+  const onlyGlobalTagger = globalTagger.difference(artifact.tags);
+  return onlyGlobalTagger.labels;
 });
 
 const {
@@ -36,7 +37,7 @@ const {
 
 async function handleAddTag() {
   await dispatch(async () => {
-    artifact.tagger.add(workingLabel.value);
+    artifact.addTag(workingLabel.value);
     workingLabel.value = "";
     await services.exchangeArtifact.postFrom(artifact);
   });
@@ -44,7 +45,7 @@ async function handleAddTag() {
 
 async function handleRemoveTag(tag: string) {
   await dispatch(async () => {
-    artifact.tagger.remove(tag);
+    artifact.removeTag(tag);
     await services.exchangeArtifact.postFrom(artifact);
   });
 }
@@ -56,7 +57,7 @@ async function handleRemoveTag(tag: string) {
         v-model="workingLabel"
         data-test="input-tag"
         class="section-tags__input"
-        :suggestions="unusedLabels"
+        :suggestions="suggestions"
         :error="errors.global"
         @keydown.enter="handleAddTag"
       />

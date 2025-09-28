@@ -46,7 +46,8 @@ export class Prioritizer {
   }
 
   get criteria() {
-    return Array.from(this._criteria.values());
+    const list = Array.from(this._criteria.values());
+    return list.sort((a, b) => Criterion.compareByLabel(a, b));
   }
 
   get labels() {
@@ -93,17 +94,14 @@ export class Prioritizer {
     this._criteria.clear();
   }
 
-  difference(other: Prioritizer): Prioritizer {
-    const difference = new Prioritizer();
+  difference(options: Prioritizer | PrioritizerUpdateOptions): Prioritizer {
+    const other = options instanceof Prioritizer
+      ? options
+      : new Prioritizer(options);
+
     const myCriteria = this.criteria;
-    const otherCriteria = other.criteria;
+    const criteriaThisHasButOhterDont = myCriteria.filter((criterion) => !other.has(criterion.label));
 
-    for (const myCriterion of myCriteria) {
-      const found = myCriterion.isSome(otherCriteria);
-      if (found) continue;
-      difference.update(myCriterion);
-    }
-
-    return difference;
+    return new Prioritizer(criteriaThisHasButOhterDont);
   }
 }

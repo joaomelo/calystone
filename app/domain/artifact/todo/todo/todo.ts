@@ -11,6 +11,10 @@ import type {
   StepValue,
   UnitValue
 } from "../recurrer";
+import type {
+  TagsManyOptions,
+  TagsSingleOptions
+} from "../tagger";
 
 import { Parser } from "../parser";
 import { Prioritizer } from "../prioritizer";
@@ -82,6 +86,14 @@ export class TodoArtifact extends Artifact {
 
   get criteria() {
     return this._prioritizer.criteria;
+  }
+
+  get priority() {
+    return this._prioritizer.priority;
+  }
+
+  get criteriaEmpty() {
+    return this._prioritizer.empty;
   }
 
   get tags() {
@@ -161,6 +173,14 @@ export class TodoArtifact extends Artifact {
 
   criterion(label: string) {
     return this._prioritizer.criterion(label);
+  }
+
+  addTag(value: TagsManyOptions) {
+    this._tagger.add(value);
+  }
+
+  removeTag(value: TagsSingleOptions) {
+    this._tagger.remove(value);
   }
 
   criterionOrThrow(label: string) {

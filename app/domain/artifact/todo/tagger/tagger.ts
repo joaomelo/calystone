@@ -2,11 +2,14 @@ import { asArray } from "@/utils";
 
 import { Tag } from "./tag";
 
+export type TagsManyOptions = TagsSingleOptions | TagsSingleOptions[];
+export type TagsSingleOptions = string | Tag;
+
 export class Tagger {
   private readonly _tags: Tag[] = [];
 
-  constructor(tags: Tag[] = []) {
-    this.add(tags);
+  constructor(value: TagsManyOptions = []) {
+    this.add(value);
   }
 
   get list(): Tag[] {
@@ -30,12 +33,12 @@ export class Tagger {
     return labels.sort();
   }
 
-  has(value: string | Tag): boolean {
+  has(value: TagsSingleOptions): boolean {
     const tag = Tag.create(value);
     return this._tags.some((t) => t.equals(tag));
   }
 
-  add(value: string | string[] | Tag | Tag[]): void {
+  add(value: TagsManyOptions): void {
     const values = asArray(value);
     const tags = values.map((value) => Tag.create(value));
 
@@ -45,15 +48,21 @@ export class Tagger {
     });
   }
 
-  remove(value: string | Tag): void {
+  remove(value: TagsSingleOptions): void {
     const tag = Tag.create(value);
     const index = this._tags.findIndex((t) => t.equals(tag));
     if (index === -1) return;
     this._tags.splice(index, 1);
   }
 
-  difference(other: Tagger): Tagger {
-    const tagsThisHasButOtherDont = this._tags.filter((tag) => !other.has(tag));
+  difference(value: Tagger | TagsManyOptions): Tagger {
+    const other = value instanceof Tagger
+      ? value
+      : new Tagger(value);
+
+    const myTags = this.list;
+    const tagsThisHasButOtherDont = myTags.filter((tag) => !other.has(tag));
+
     return new Tagger(tagsThisHasButOtherDont);
   }
 }

@@ -47,7 +47,7 @@ const options: Option[] = [
   },
 ] as const;
 
-const progress = computed(() => artifact.progress());
+const progress = computed(() => artifact.progress);
 
 async function handleUpdatedProgress(progress?: string) {
   if (!Progressor.isProgress(progress)) return;

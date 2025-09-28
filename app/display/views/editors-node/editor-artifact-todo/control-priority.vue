@@ -13,16 +13,12 @@ import ControlCriterionManage from "./control-criterion-manage.vue";
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
 const { t } = useI18n();
-const criteria = computed(() => {
-  const list = artifact.criteria();
-  list.sort((a, b) => a.label.localeCompare(b.label));
-  return list;
-});
+const criteria = computed(() => artifact.criteria);
 </script>
 <template>
   <div class="control-priority">
     <TextMessage
-      v-if="artifact.priorityEmpty()"
+      v-if="artifact.criteriaEmpty"
       data-test="tip-priority-empty"
       class="control-priority__tip-priority-empty"
     >

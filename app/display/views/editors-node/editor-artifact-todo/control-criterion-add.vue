@@ -19,7 +19,12 @@ const { t } = useI18n();
 
 const label = ref("");
 
-const suggestions = computed(() => services.queryCriteria.difference(artifact.criteria));
+const todos = services.spawnCollections.todos();
+const suggestions = computed(() => {
+  const globalPrioritizer = todos.prioritizer();
+  const onlyGlobalPriotizer = globalPrioritizer.difference(artifact.criteria);
+  return onlyGlobalPriotizer.labels;
+});
 
 async function handleAdd() {
   artifact.updateCriterion({ label: label.value });
