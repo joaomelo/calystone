@@ -12,6 +12,17 @@ export class RenameNodeService {
     this.connectSource = connectSource;
   }
 
+  private inject() {
+    const {
+      fileSystemAdapter,
+      nodes
+    } = this.connectSource.stateConnectedOrThrow();
+    return {
+      fileSystemAdapter,
+      nodes
+    };
+  }
+
   async rename(options: {
     name: string,
     node: Node
@@ -19,7 +30,7 @@ export class RenameNodeService {
     const {
       fileSystemAdapter,
       nodes
-    } = this.connectSource.stateConnectedOrThrow();
+    } = this.inject();
     this.schema.validate(options);
 
     const adapterOptions = {
@@ -32,7 +43,7 @@ export class RenameNodeService {
   }
 
   renameable(node: Node) {
-    const { fileSystemAdapter } = this.connectSource.stateConnectedOrThrow();
+    const { fileSystemAdapter } = this.inject();
     return fileSystemAdapter.renameable(node);
   }
 

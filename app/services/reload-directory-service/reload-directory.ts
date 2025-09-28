@@ -1,19 +1,36 @@
 import type { Directory } from "@/domain";
 import type { ConnectSourceService } from "@/services/connect-source-service";
 import type { OpenDirectoryService } from "@/services/open-directory-service";
+import type { SpawnCollectionsService } from "@/services/spawn-collections-service";
 
 import { Status } from "@/utils";
 
 export class ReloadDirectoryService {
   private readonly connectSourceService: ConnectSourceService;
   private readonly openDirectory: OpenDirectoryService;
+  private readonly spawnCollectionsService: SpawnCollectionsService;
 
-  constructor(options: {
+  constructor({
+    connectSourceService,
+    openDirectory,
+    spawnCollectionsService,
+  }: {
     connectSourceService: ConnectSourceService;
     openDirectory: OpenDirectoryService,
+    spawnCollectionsService: SpawnCollectionsService;
   }) {
-    this.openDirectory = options.openDirectory;
-    this.connectSourceService = options.connectSourceService;
+    this.openDirectory = openDirectory;
+    this.connectSourceService = connectSourceService;
+    this.spawnCollectionsService = spawnCollectionsService;
+  }
+
+  private inject() {
+    const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
+    const mover = this.spawnCollectionsService.mover();
+    return {
+      fileSystemAdapter,
+      mover
+    };
   }
 
   async reload(directory: Directory) {
@@ -32,10 +49,11 @@ export class ReloadDirectoryService {
   private unload(directory: Directory) {
     const {
       fileSystemAdapter,
-      nodes
-    } = this.connectSourceService.stateConnectedOrThrow();
+      mover
+    } = this.inject();
+
     fileSystemAdapter.clear(directory);
-    nodes.clear(directory);
+    mover.clear(directory);
     directory.unload();
   }
 }

@@ -1,7 +1,7 @@
 import type {
   Id,
   Node,
-  Mover
+  Nodes
 } from "@/domain";
 
 import {
@@ -17,14 +17,14 @@ import type {
 
 export class Metadatas<DirectoryMetadata, FileMetadata> {
   private readonly map: Map<Id, DirectoryMetadataContainer<DirectoryMetadata> | FileMetadataContainer<FileMetadata>>;
-  private readonly nodes: Mover;
+  private readonly nodes: Nodes;
 
   constructor({
     nodes,
     rootId,
     rootMetadata
   }: {
-    nodes: Mover;
+    nodes: Nodes;
     rootId: Id,
     rootMetadata: DirectoryMetadata,
   }) {

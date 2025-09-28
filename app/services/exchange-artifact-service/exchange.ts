@@ -11,10 +11,15 @@ export class ExchangeArtifactService {
     this.connectSourceService = connectSourceService;
   }
 
+  private inject() {
+    const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
+    return fileSystemAdapter;
+  }
+
   async fetchInto(artifact: Artifact) {
     if (artifact.isLoaded()) return;
 
-    const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
+    const fileSystemAdapter = this.inject();
 
     artifact.busy();
     try {
@@ -31,7 +36,7 @@ export class ExchangeArtifactService {
   async postFrom(artifact: Artifact) {
     artifact.busy();
     try {
-      const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
+      const fileSystemAdapter = this.inject();
       await fileSystemAdapter.postContent(artifact);
     } finally {
       artifact.idle();

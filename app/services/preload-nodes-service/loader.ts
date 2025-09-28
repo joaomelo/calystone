@@ -23,19 +23,31 @@ export class Loader {
   private readonly queue: Queue<Node>;
   private readonly textArtifactSizeLimit: number;
 
-  constructor(options: {
+  constructor({
+    batchSize,
+    connectSource,
+    exchangeArtifact,
+    openDirectory,
+    textArtifactSizeLimit,
+  }: {
     batchSize: number,
     connectSource: ConnectSourceService,
     exchangeArtifact: ExchangeArtifactService,
     openDirectory: OpenDirectoryService,
     textArtifactSizeLimit: number,
   }) {
-    this.exchangeArtifact = options.exchangeArtifact;
-    this.connectSource = options.connectSource;
-    this.openDirectory = options.openDirectory;
     this.queue = new Queue();
-    this.textArtifactSizeLimit = options.textArtifactSizeLimit;
-    this.batchSize = options.batchSize;
+
+    this.exchangeArtifact = exchangeArtifact;
+    this.connectSource = connectSource;
+    this.openDirectory = openDirectory;
+    this.textArtifactSizeLimit = textArtifactSizeLimit;
+    this.batchSize = batchSize;
+  }
+
+  private inject() {
+    const { nodes } = this.connectSource.stateConnectedOrThrow();
+    return nodes;
   }
 
   reset(): void {
@@ -52,7 +64,7 @@ export class Loader {
   }
 
   private feed(): void {
-    const { nodes } = this.connectSource.stateConnectedOrThrow();
+    const nodes = this.inject();
 
     const todoArtifacts = nodes
       .list()
@@ -73,7 +85,7 @@ export class Loader {
   }
 
   private async load() {
-    const { nodes } = this.connectSource.stateConnectedOrThrow();
+    const nodes = this.inject();
 
     const batchOfNodes = this.queue.next(this.batchSize);
     for (const node of batchOfNodes) {

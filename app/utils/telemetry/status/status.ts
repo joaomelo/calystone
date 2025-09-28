@@ -28,6 +28,11 @@ export class Status {
     return new Status({ ok: true });
   }
 
+  merge(other: Status): Status {
+    if (this.isFail()) return this;
+    return other;
+  }
+
   isFail(): this is FailData {
     return !this.ok;
   }

@@ -4,7 +4,7 @@ import type {
   Directory,
   DirectoryOptions,
   Node,
-  Mover
+  Nodes
 } from "@/domain";
 
 import { createId } from "@/domain";
@@ -30,7 +30,7 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
 
   constructor(options: {
     delayInMilliseconds: number;
-    nodes: Mover;
+    nodes: Nodes;
     rootDirectoryName: string
   }) {
     const {

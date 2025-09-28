@@ -28,16 +28,22 @@ export class PreloadNodesService {
   private readonly openDirectory: OpenDirectoryService;
   private readonly tracker = new Tracker("node-preload");
 
-  constructor(options: {
+  constructor({
+    connectSource,
+    exchangeArtifact,
+    openDirectory,
+    preloadEnabled,
+  }: {
     connectSource: ConnectSourceService,
     exchangeArtifact: ExchangeArtifactService,
     openDirectory: OpenDirectoryService,
     preloadEnabled: boolean,
   }) {
-    this.exchangeArtifact = options.exchangeArtifact;
-    this.openDirectory = options.openDirectory;
-    this.connectSource = options.connectSource;
     this.observable = new BehaviorSubject<PreloadState>({ status: "idle" });
+
+    this.exchangeArtifact = exchangeArtifact;
+    this.openDirectory = openDirectory;
+    this.connectSource = connectSource;
 
     this.loader = new Loader({
       batchSize: this.loaderConfig.batchSize,
@@ -53,7 +59,7 @@ export class PreloadNodesService {
     }) => {
       this.stop();
 
-      if (!options.preloadEnabled) return;
+      if (!preloadEnabled) return;
       if (status === "disconnected") return;
 
       if (source.origin === "local") {

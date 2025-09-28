@@ -6,7 +6,7 @@ import type {
 
 import {
   createNode,
-  Mover
+  Nodes
 } from "@/domain";
 import { sources } from "@/infra";
 import { throwCritical } from "@/utils";
@@ -35,7 +35,7 @@ export class ConnectSourceService {
 
   async connect(provider: SourceProvider) {
     const source = sources[provider];
-    const nodes = new Mover();
+    const nodes = new Nodes();
 
     const accessAdapter = this.accessAdaptersFactory.create(provider);
     const accessData = await accessAdapter.request();

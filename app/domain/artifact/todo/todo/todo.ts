@@ -76,6 +76,10 @@ export class TodoArtifact extends Artifact {
     return this._prioritizer.criteria;
   }
 
+  get tags() {
+    return this._tagger.list;
+  }
+
   performFromBinary(binary: ArrayBuffer): void {
     const data = this._parser.convertBinaryToState(binary);
 

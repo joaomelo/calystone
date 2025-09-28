@@ -2,9 +2,10 @@ import type {
   Node,
   NodeOrId
 } from "@/domain/node";
-import type { Nodes } from "@/domain/nodes";
 
 import { Directory } from "@/domain/directory";
+
+import type { Nodes } from "./nodes";
 
 export class Descendancy {
   nodes: Nodes;

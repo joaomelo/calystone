@@ -19,7 +19,7 @@ export function useItems(filters: Ref<Filters>) {
 
     const todos: TodoArtifact[] = [];
 
-    const nodes = services.retrieveNodes.list();
+    const nodes = services.spawnCollections.list();
     for (const node of nodes) {
       if (node.isUnloaded()) continue;
       if (!(node instanceof TodoArtifact)) continue;

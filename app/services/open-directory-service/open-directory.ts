@@ -22,11 +22,22 @@ export class OpenDirectoryService {
     this.connectSourceService = connectSourceService;
   }
 
-  async open(directory: Directory) {
+  private inject() {
     const {
       fileSystemAdapter,
       nodes
     } = this.connectSourceService.stateConnectedOrThrow();
+    return {
+      fileSystemAdapter,
+      nodes
+    };
+  }
+
+  async open(directory: Directory) {
+    const {
+      fileSystemAdapter,
+      nodes
+    } = this.inject();
 
     if (directory.isLoaded()) return;
 
@@ -48,7 +59,7 @@ export class OpenDirectoryService {
   }
 
   async openRoots() {
-    const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    const { nodes } = this.inject();
     for (const node of nodes.list()) {
       if (!node.isRoot()) continue;
       if (!(node instanceof Directory)) continue;

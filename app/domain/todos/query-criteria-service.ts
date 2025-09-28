@@ -1,14 +1,14 @@
 import type { Criterion } from "@/domain";
-import type { RetrieveNodesService } from "@/services/retrieve-nodes-service";
+import type { SpawnCollectionsService } from "@/services/spawn-collections-service";
 
 import { TodoArtifact } from "@/domain";
 import { compareByString } from "@/utils";
 
 export class QueryCriteriaService {
-  private readonly retrieveNodesService: RetrieveNodesService;
+  private readonly spawnCollectionsService: SpawnCollectionsService;
 
-  constructor(retrieveNodesService: RetrieveNodesService) {
-    this.retrieveNodesService = retrieveNodesService;
+  constructor(spawnCollectionsService: SpawnCollectionsService) {
+    this.spawnCollectionsService = spawnCollectionsService;
   }
 
   labels() {
@@ -19,7 +19,7 @@ export class QueryCriteriaService {
       criteria.forEach(({ label }) => labelsSet.add(label));
     };
 
-    const nodes = this.retrieveNodesService.list();
+    const nodes = this.spawnCollectionsService.list();
     for (const node of nodes) {
       if (node instanceof TodoArtifact) {
         feed(node);

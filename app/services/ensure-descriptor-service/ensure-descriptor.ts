@@ -18,14 +18,19 @@ export class EnsureDescriptorService {
     this.exchangeArtifact = options.exchangeArtifact;
   }
 
-  description(directory: Directory): string {
+  private inject() {
     const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    return nodes;
+  }
+
+  description(directory: Directory): string {
+    const nodes = this.inject();
     const descriptor = new Descriptor(nodes);
     return descriptor.description(directory);
   }
 
   async ensure(directory: Directory): Promise<void> {
-    const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    const nodes = this.inject();
     const descriptor = new Descriptor(nodes);
 
     if (!directory.isLoaded()) return;
@@ -38,7 +43,7 @@ export class EnsureDescriptorService {
   }
 
   has(directory: Directory): Status {
-    const { nodes } = this.connectSourceService.stateConnectedOrThrow();
+    const nodes = this.inject();
     const descriptor = new Descriptor(nodes);
 
     if (!directory.isLoaded()) return Status.fail("UNABLE_TO_CHECK_DIRECTORY_NOT_LOADED");

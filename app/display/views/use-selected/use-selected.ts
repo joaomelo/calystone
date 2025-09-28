@@ -21,7 +21,7 @@ export function useSelected(routeParam: string) {
   const { services } = Store.use();
   const selectedNode = computed(() => {
     const [first] = Object.keys(selectedKeys.value);
-    return services.retrieveNodes.get(first);
+    return services.spawnCollections.get(first);
   });
 
   const hasSelected = computed(() => Boolean(selectedNode.value));

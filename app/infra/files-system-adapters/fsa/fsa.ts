@@ -4,7 +4,7 @@ import type {
   Directory,
   DirectoryOptions,
   Node,
-  Mover
+  Nodes
 } from "@/domain";
 
 import { createId } from "@/domain";
@@ -33,7 +33,7 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
   private readonly handleValuesTracker = new Tracker("open-directory__handle-values");
 
   constructor(options: {
-    nodes: Mover;
+    nodes: Nodes;
     rootHandle: FileSystemDirectoryHandle
   }) {
     const {

@@ -15,7 +15,7 @@ export function useItems(tagRef: Ref<string>) {
 
     const todos: TodoArtifact[] = [];
 
-    const nodes = services.retrieveNodes.list();
+    const nodes = services.spawnCollections.list();
     for (const node of nodes) {
       if (node.isUnloaded()) continue;
       if (!(node instanceof TodoArtifact)) continue;

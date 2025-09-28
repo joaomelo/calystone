@@ -1,8 +1,9 @@
 import type { NodeOrId } from "@/domain/node";
-import type { Nodes } from "@/domain/nodes";
 
 import { Directory } from "@/domain/directory";
 import { compareByString } from "@/utils";
+
+import type { Nodes } from "./nodes";
 
 export class Ascendancy {
   nodes: Nodes;

@@ -31,7 +31,7 @@ const switchs: EditorSwitch[] = [
 const editor: Component = computed(() => {
   // if the node was removed from the collection, this will secure a empty editor.
   const normalizedNode = node
-    ? services.retrieveNodes.get(node.id)
+    ? services.spawnCollections.get(node.id)
     : undefined;
 
   const specializedSwitch = switchs.find((s) => s.supports(normalizedNode));

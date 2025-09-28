@@ -7,7 +7,6 @@ import type {
 } from "@/infra";
 
 import { AvailSourceService } from "@/services/avail-source-service";
-import { ComputeTagsService } from "@/services/compute-tags-service";
 import { ConnectSourceService } from "@/services/connect-source-service";
 import { CreateArtifactService } from "@/services/create-artifact-service";
 import { CreateDirectoryService } from "@/services/create-directory-service";
@@ -17,19 +16,14 @@ import { ExportNodeService } from "@/services/export-node-service";
 import { MoveNodeService } from "@/services/move-node-service";
 import { OpenDirectoryService } from "@/services/open-directory-service";
 import { PreloadNodesService } from "@/services/preload-nodes-service";
-import { QueryCriteriaService } from "@/services/query-criteria-service";
 import { ReloadDirectoryService } from "@/services/reload-directory-service";
 import { RemoveNodeService } from "@/services/remove-node-service";
 import { RenameNodeService } from "@/services/rename-node-service";
-import { RetrieveNodesService } from "@/services/retrieve-nodes-service";
 import { ShareNodeService } from "@/services/share-node-service";
-import { SpawnHierarchyService } from "@/services/spawn-hierarchy-service";
-import { TrackTodosService } from "@/services/track-todos-service";
+import { SpawnCollectionsService } from "@/services/spawn-collections-service";
 
 export class ServicesPortfolio {
   availSource: AvailSourceService;
-  queryCriteria: QueryCriteriaService;
-  computeTags: ComputeTagsService;
   connectSource: ConnectSourceService;
   createArtifact: CreateArtifactService;
   createDirectory: CreateDirectoryService;
@@ -39,13 +33,11 @@ export class ServicesPortfolio {
   moveNode: MoveNodeService;
   openDirectory: OpenDirectoryService;
   preloadNodes: PreloadNodesService;
-  spawnHierarchy: SpawnHierarchyService;
   reloadDirectory: ReloadDirectoryService;
   removeNode: RemoveNodeService;
   renameNode: RenameNodeService;
-  retrieveNodes: RetrieveNodesService;
+  spawnCollections: SpawnCollectionsService;
   shareNode: ShareNodeService;
-  trackTodos: TrackTodosService;
 
   constructor(
     options: {
@@ -66,14 +58,16 @@ export class ServicesPortfolio {
       shareAdapter,
     } = options;
 
+    this.availSource = new AvailSourceService(availabilityFacade);
+    this.exportNode = new ExportNodeService(exportAdapter);
+    this.shareNode = new ShareNodeService(shareAdapter);
+
     this.connectSource = new ConnectSourceService({
       accessAdaptersFactory,
       fileSystemAdaptersFactory,
     });
-    this.availSource = new AvailSourceService(availabilityFacade);
-    this.retrieveNodes = new RetrieveNodesService(this.connectSource);
-    this.queryCriteria = new QueryCriteriaService(this.retrieveNodes);
-    this.computeTags = new ComputeTagsService(this.retrieveNodes);
+    this.spawnCollections = new SpawnCollectionsService(this.connectSource);
+
     this.exchangeArtifact = new ExchangeArtifactService(this.connectSource);
     this.ensureDescriptor = new EnsureDescriptorService({
       connectSourceService: this.connectSource,
@@ -92,22 +86,25 @@ export class ServicesPortfolio {
       connectSourceService: this.connectSource,
       openDirectory: this.openDirectory
     });
-    this.exportNode = new ExportNodeService(exportAdapter);
-    this.moveNode = new MoveNodeService(this.connectSource);
     this.preloadNodes = new PreloadNodesService({
       connectSource: this.connectSource,
       exchangeArtifact: this.exchangeArtifact,
       openDirectory: this.openDirectory,
       preloadEnabled,
     });
-    this.spawnHierarchy = new SpawnHierarchyService(this.connectSource);
     this.reloadDirectory = new ReloadDirectoryService({
       connectSourceService: this.connectSource,
-      openDirectory: this.openDirectory
+      openDirectory: this.openDirectory,
+      spawnCollectionsService: this.spawnCollections
     });
-    this.removeNode = new RemoveNodeService(this.connectSource);
+    this.moveNode = new MoveNodeService({
+      connectSourceService: this.connectSource,
+      spawnCollectionsService: this.spawnCollections
+    });
+    this.removeNode = new RemoveNodeService({
+      connectSourceService: this.connectSource,
+      spawnCollectionsService: this.spawnCollections
+    });;
     this.renameNode = new RenameNodeService(this.connectSource);
-    this.shareNode = new ShareNodeService(shareAdapter);
-    this.trackTodos = new TrackTodosService(this.retrieveNodes);
   }
 }

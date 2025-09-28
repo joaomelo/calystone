@@ -29,18 +29,19 @@ graph TD
   main
   subgraph core
     direction LR
-    display
-    services
-    infra
+    subgraph layers
+      direction LR
+      display
+      services
+      infra
+    end
     domain
   end
   utils
   main --> core
-  display --> domain
+  layers --> domain
   display --> services
-  services --> domain
   services --> infra
-  infra --> domain
   main --> utils
   core --> utils
 ```

@@ -1,8 +1,9 @@
 import type { Node } from "@/domain/node";
-import type { Nodes } from "@/domain/nodes";
 
 import { Directory } from "@/domain/directory/directory";
 import { Status } from "@/utils";
+
+import type { Nodes } from "./nodes";
 
 import { Descendancy } from "./descendancy";
 

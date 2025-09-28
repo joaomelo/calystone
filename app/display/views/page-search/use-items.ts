@@ -10,7 +10,7 @@ export function useItems(search: Ref<string>) {
 
   const items = computed<OutlineNodesItem[]>(() => {
     const searchedNodes = search.value
-      ? services.retrieveNodes.search(search.value)
+      ? services.spawnCollections.search(search.value)
       : [];
 
     return searchedNodes.map((node) => convert(node));

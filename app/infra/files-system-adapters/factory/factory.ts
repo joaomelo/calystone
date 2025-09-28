@@ -1,4 +1,4 @@
-import type { Mover } from "@/domain";
+import type { Nodes } from "@/domain";
 import type { SourceProvider } from "@/infra/source";
 
 import {
@@ -27,7 +27,7 @@ export class FileSystemAdaptersFactory {
     provider
   }: {
     accessData: unknown,
-    nodes: Mover;
+    nodes: Nodes;
     provider: SourceProvider
   }): FileSystemAdapter {
     switch (provider) {

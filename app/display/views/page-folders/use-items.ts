@@ -16,7 +16,7 @@ export function useItems(expanded: Ref<OutlineGridKeys>) {
   const { services } = Store.use();
 
   const items = computed<OutlineNodesItem[]>(() =>{
-    return services.retrieveNodes.list()
+    return services.spawnCollections.list()
       .filter(n => n.isRoot())
       .map((root) => convert(root));
   });

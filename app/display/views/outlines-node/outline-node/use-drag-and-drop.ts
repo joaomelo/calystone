@@ -21,7 +21,7 @@ export function useDragAndDrop(node: Node) {
     const id = event.dataTransfer.getData(dragFormat);
 
     await dispatchOrToast(async () => {
-      const subject = services.retrieveNodes.getOrThrow(id);
+      const subject = services.spawnCollections.getOrThrow(id);
       services.moveNode.moveable(subject).throwOnFail();
 
       await services.moveNode.move({
