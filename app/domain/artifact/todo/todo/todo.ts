@@ -60,6 +60,14 @@ export class TodoArtifact extends Artifact {
     return this._scheduler.allDay;
   }
 
+  get hasDates() {
+    return this._scheduler.hasDates();
+  }
+
+  get hasRecurrence() {
+    return this._scheduler.hasRecurrence();
+  }
+
   get reference() {
     return this._scheduler.reference;
   }
@@ -78,6 +86,18 @@ export class TodoArtifact extends Artifact {
 
   get tags() {
     return this._tagger.list;
+  }
+
+  get progress() {
+    return this._progressor.progress;
+  }
+
+  get completed() {
+    return this._progressor.completed;
+  }
+
+  get uncompleted() {
+    return this._progressor.uncompleted;
   }
 
   performFromBinary(binary: ArrayBuffer): void {
@@ -100,12 +120,11 @@ export class TodoArtifact extends Artifact {
     });
   }
 
-  hasDates() {
-    return this._scheduler.hasDates();
-  }
-
-  hasRecurrence() {
-    return this._scheduler.hasRecurrence();
+  spansOn(options: {
+    end: Date;
+    start: Date
+  }) {
+    return this._scheduler.spansOn(options);
   }
 
   clearDates() {

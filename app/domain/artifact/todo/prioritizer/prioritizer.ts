@@ -49,6 +49,10 @@ export class Prioritizer {
     return Array.from(this._criteria.values());
   }
 
+  get labels() {
+    return this.criteria.map(criterion => criterion.label);
+  }
+
   get size() {
     return this._criteria.size;
   }
@@ -89,4 +93,17 @@ export class Prioritizer {
     this._criteria.clear();
   }
 
+  difference(other: Prioritizer): Prioritizer {
+    const difference = new Prioritizer();
+    const myCriteria = this.criteria;
+    const otherCriteria = other.criteria;
+
+    for (const myCriterion of myCriteria) {
+      const found = myCriterion.isSome(otherCriteria);
+      if (found) continue;
+      difference.update(myCriterion);
+    }
+
+    return difference;
+  }
 }

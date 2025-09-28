@@ -72,4 +72,12 @@ export class Criterion {
   isSame(other: Criterion): boolean {
     return this.label === other.label;
   }
+
+  isSome(others: Criterion[]): boolean {
+    return others.some(other => this.isSame(other));
+  }
+
+  zeroed(): Criterion {
+    return new Criterion({ label: this.label });
+  }
 }
