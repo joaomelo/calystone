@@ -10,14 +10,13 @@ const { todo } = defineProps<{ todo: TodoArtifact; }>();
 const { t } = useI18n();
 
 const priority = computed(() => {
-  return todo.priority() > 0
-    ? `${t("common.priority")}: ${todo.priority().toFixed(2)}`
+  return todo.priority > 0
+    ? `${t("common.priority")}: ${todo.priority.toFixed(2)}`
     : "";
 });
 
 const criteria = computed(() => {
-  const raw = todo.criteria();
-  raw.sort((a, b) => a.label.localeCompare(b.label));
+  const raw = todo.criteria;
   const stringified = raw.map(({
     label,
     value
@@ -27,7 +26,9 @@ const criteria = computed(() => {
   return stringified;
 });
 
-const tags = computed(() => todo.tagger.labels().join(", "));
+const tags = computed(() => todo
+  .tagsLabels
+  .join(", "));
 </script>
 
 <template>

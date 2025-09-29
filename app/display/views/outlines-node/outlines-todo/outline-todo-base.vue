@@ -8,9 +8,7 @@ import { OutlineNode } from "../outline-node";
 
 const { todo } = defineProps<{ todo: TodoArtifact; }>();
 
-const strikethrough = computed(() => {
-  return todo.completed();
-});
+const strikethrough = computed(() => todo.completed);
 
 const animation = computed(() => {
   return todo.isBusy() ? "pulse" : "none";
@@ -21,7 +19,7 @@ const name = computed(() => {
     return "square-dashed";
   }
 
-  const progress = todo.progress();
+  const { progress } = todo;
   switch (progress) {
     case "doing":
       return "square-square";

@@ -1,3 +1,4 @@
+import { compareByString } from "@/utils";
 import { reactive } from "vue";
 
 import type { Id } from "../id";
@@ -6,6 +7,11 @@ import type { NodeOptions } from "./options";
 type Activity = "busy" | "idle";
 
 export abstract class Node {
+  static compareByName(a: Node, b: Node): number {
+    const compare = compareByString<Node>({ select: (node) => node.name });
+    return compare(a, b);
+  }
+
   activity: Activity = "idle";
   readonly id: Id;
   loaded = false;

@@ -13,7 +13,9 @@ export class Tagger {
   }
 
   get list(): Tag[] {
-    return this._tags;
+    const list = Array.from(this._tags);
+    list.sort((a, b) => Tag.compareByLabel(a, b));
+    return list;
   }
 
   get size() {
@@ -29,7 +31,7 @@ export class Tagger {
   }
 
   get labels(): string[] {
-    const labels = this._tags.map((t) => t.label);
+    const labels = this.list.map((t) => t.label);
     return labels.sort();
   }
 

@@ -1,7 +1,4 @@
-import {
-  Tagger,
-  TodoArtifact
-} from "@/domain/artifact";
+import { TodoArtifact } from "@/domain/artifact";
 
 export const options = {
   ignoreLocation: true,
@@ -22,8 +19,7 @@ export const options = {
     {
       getFn: (obj: unknown): string[] => {
         if (!(obj instanceof TodoArtifact)) return [];
-        const tagger = new Tagger(obj.tags);
-        return tagger.labels();
+        return obj.tagsLabels;
       },
       name: "tags",
       weight: 1,

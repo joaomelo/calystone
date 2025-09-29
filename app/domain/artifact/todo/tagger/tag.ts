@@ -1,9 +1,17 @@
-import { throwCritical } from "@/utils";
+import {
+  compareByString,
+  throwCritical
+} from "@/utils";
 
 export class Tag {
 
   static create(value: string | Tag): Tag {
     return typeof value === "string" ? new Tag(value) : value;
+  }
+
+  static compareByLabel(a: Tag, b: Tag): number {
+    const compare = compareByString<Tag>({ select: (tag) => tag.label, });
+    return compare(a, b);
   }
 
   private readonly _label: string;

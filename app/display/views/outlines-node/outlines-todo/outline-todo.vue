@@ -13,34 +13,30 @@ import OutlineTodoBase from "./outline-todo-base.vue";
 const { todo } = defineProps<{ todo: TodoArtifact; }>();
 
 const priority = computed(() => {
-  return todo.priority() > 0
-    ? todo.priority().toFixed(2)
+  return todo.priority > 0
+    ? todo.priority.toFixed(2)
     : "";
 });
 
-const details = computed(() => {
-  return todo.hasDetails()
-    ? truncate(todo._details, {
-      ellipsis: "...",
-      length: 30
-    })
-    : "";
-});
+const details = computed(() => truncate(todo.details, {
+  ellipsis: "...",
+  length: 30
+}));
 
 const dates = computed(() => {
-  if (!todo.scheduler.hasDates) return "";
+  if (!todo.hasDates) return "";
 
-  const dateStart = todo.scheduler.start;
-  const dateEnd = todo.scheduler.end;
+  const dateStart = todo.start;
+  const dateEnd = todo.end;
   if (!dateStart || !dateEnd) throwCritical("TODO_MUST_HAVE_DATES");
 
   const occurrence = formatDates(dateStart, dateEnd);
-  const recurrence = todo.scheduler.hasRecurrence ? " ↻" : "";
+  const recurrence = todo.hasRecurrence ? " ↻" : "";
 
   return `${occurrence}${recurrence}`;
 });
 
-const tags = computed(() => todo.tagger.labels().join(", "));
+const tags = computed(() => todo.tagsLabels.join(", "));
 </script>
 
 <template>

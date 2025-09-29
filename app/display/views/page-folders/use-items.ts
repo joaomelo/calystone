@@ -1,22 +1,27 @@
 import type { OutlineNodesItem } from "@/display/views/outline-nodes";
-import type { Node } from "@/domain";
-import type { OutlineGridKeys } from "@/utils";
+import type {
+  Compare,
+  OutlineGridKeys
+} from "@/utils";
 import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
 import {
-  Artifact,
+  compareNodesByType,
   Directory,
-  Progressor,
+  Node,
   TodoArtifact
 } from "@/domain";
+import { comparator } from "@/utils";
 import { computed } from "vue";
 
 export function useItems(expanded: Ref<OutlineGridKeys>) {
   const { services } = Store.use();
+  const nodes = services.spawnCollections.nodes();
+  const descendancy = services.spawnCollections.descendancy();
 
   const items = computed<OutlineNodesItem[]>(() =>{
-    return services.spawnCollections.list()
+    return nodes.list()
       .filter(n => n.isRoot())
       .map((root) => convert(root));
   });
@@ -25,12 +30,12 @@ export function useItems(expanded: Ref<OutlineGridKeys>) {
     const key = node.id;
     const label = node.name;
 
-    const children = services.spawnHierarchy.children(node);
+    const children = descendancy.children(node);
 
     const showToggle = children.length > 0 || maybeHasChildren(node);
 
     const childrenToRender = expanded.value[node.id] ? children : [];
-    childrenToRender.sort(childrenSort);
+    childrenToRender.sort(compare);
     const childrenItems = childrenToRender.map(convert);
 
     return {
@@ -47,27 +52,25 @@ export function useItems(expanded: Ref<OutlineGridKeys>) {
     return node.isUnloaded();
   }
 
-  function childrenSort(a: Node, b: Node) {
-    if (a instanceof Directory && b instanceof Artifact) return -1;
-    if (a instanceof Artifact && b instanceof Directory) return 1;
+  return items;
+}
 
-    if (a instanceof Directory && b instanceof Directory) {
-      return a.name.localeCompare(b.name);
-    }
-    if (!(a instanceof TodoArtifact) && !(b instanceof TodoArtifact)) {
-      return a.name.localeCompare(b.name);
-    }
+function compare(a: Node, b: Node): number {
 
-    if (a instanceof TodoArtifact && !(b instanceof TodoArtifact)) return -1;
-    if (!(a instanceof TodoArtifact) && b instanceof TodoArtifact) return 1;
-
-    if (a instanceof TodoArtifact && b instanceof TodoArtifact) {
-      const progressOrder = Progressor.compare(a.progress(), b.progress());
-      if (progressOrder !== 0) return progressOrder;
-    }
-
-    return a.name.localeCompare(b.name);
+  const compareTodos: Compare<Node> = (x, y) => {
+    if (!(x instanceof TodoArtifact && y instanceof TodoArtifact)) return 0;
+    const compare = comparator<TodoArtifact>(
+      (x, y) => TodoArtifact.compareByProgress(x, y),
+      (x, y) => TodoArtifact.compareBySchedules(x, y),
+    );
+    return compare(x, y);
   };
 
-  return items;
+  const compareNodes: Compare<Node> = comparator<Node>(
+    (a, b) => compareNodesByType(a, b),
+    (a, b) => compareTodos(a, b),
+    (a, b) => Node.compareByName(a, b)
+  );
+
+  return compareNodes(a, b);
 }

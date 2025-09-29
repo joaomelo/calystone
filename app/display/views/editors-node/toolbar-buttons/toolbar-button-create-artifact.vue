@@ -17,13 +17,15 @@ import {
 const { node } = defineProps<{ node: Node; }>();
 
 const { t } = useI18n();
+
 const { services } = Store.use();
+const ascendancy = services.spawnCollections.ascendancy();
+
 const dialogCreateArtifact = useTemplateRef("dialogCreateArtifact");
 
 const parentOfNewArtifact = computed<Directory | undefined>(() => {
   if (node instanceof Directory) return node;
-
-  return services.spawnHierarchy.parent(node);
+  return ascendancy.parent(node);
 });
 </script>
 <template>

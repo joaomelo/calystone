@@ -16,6 +16,8 @@ import {
 export function useExpanded(selectedKeys: Ref<OutlineGridKeys>) {
 
   const { services } = Store.use();
+  const ascendancy = services.spawnCollections.ascendancy();
+
   const expandedArray = useRouteStorage("folders-expanded");
 
   watch(
@@ -26,8 +28,7 @@ export function useExpanded(selectedKeys: Ref<OutlineGridKeys>) {
 
       const selectedId = selectedIds[0];
 
-      const ascendants = services
-        .spawnHierarchy
+      const ascendants = ascendancy
         .ascendants(selectedId)
         .map(({ id }) => id);
       if (!isArrayFull(ascendants)) return;

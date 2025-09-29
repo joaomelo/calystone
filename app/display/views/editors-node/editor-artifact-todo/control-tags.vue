@@ -21,7 +21,7 @@ const { t } = useI18n();
 
 const workingLabel = ref("");
 
-const currentLabels = computed(() => artifact.tags.map(tag => tag.label));
+const currentLabels = computed(() => artifact.tagsLabels);
 
 const todos = services.spawnCollections.todos();
 const suggestions = computed(() => {

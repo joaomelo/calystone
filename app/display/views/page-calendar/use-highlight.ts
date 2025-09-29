@@ -11,6 +11,7 @@ interface Month {
 
 export function useHighlight() {
   const { services } = Store.use();
+  const todos = services.spawnCollections.todos();
 
   const today = new Date();
   const viewedMonth = ref<Month>({
@@ -26,7 +27,7 @@ export function useHighlight() {
 
     const start = new Date(year, month, 1, 0, 0, 0, 0);
     const end = new Date(year, month + 1, 0, 23, 59, 59, 999);
-    const datesWithTodos = services.trackTodos.datesWithTodosWithin({
+    const datesWithTodos = todos.datesWithUncompleted({
       end,
       start
     });

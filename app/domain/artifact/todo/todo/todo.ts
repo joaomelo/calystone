@@ -23,6 +23,15 @@ import { Scheduler } from "../scheduler";
 import { Tagger } from "../tagger";
 
 export class TodoArtifact extends Artifact {
+
+  static compareBySchedules(a: TodoArtifact, b: TodoArtifact): number {
+    return Scheduler.compare(a._scheduler, b._scheduler);
+  }
+
+  static compareByProgress(a: TodoArtifact, b: TodoArtifact): number {
+    return Progressor.compare(a._progressor, b._progressor);
+  }
+
   private readonly _parser: Parser;
   private _details: string;
   private _prioritizer: Prioritizer;
@@ -98,6 +107,10 @@ export class TodoArtifact extends Artifact {
 
   get tags() {
     return this._tagger.list;
+  }
+
+  get tagsLabels() {
+    return this._tagger.labels;
   }
 
   get progress() {

@@ -7,9 +7,11 @@ import { computed } from "vue";
 
 export function useDragAndDrop(node: Node) {
   const { services } = Store.use();
+  const nodes = services.spawnCollections.nodes();
+
   const { dispatchOrToast } = useDispatch();
 
-  const moveable = computed(() => services.moveNode.moveable(node));
+  const moveable = computed(() => services.moveNode.moveable({ subject: node }));
   const dragFormat = "application/outline-node";
 
   async function handleDragdrop(event: DragEvent) {
@@ -21,8 +23,9 @@ export function useDragAndDrop(node: Node) {
     const id = event.dataTransfer.getData(dragFormat);
 
     await dispatchOrToast(async () => {
-      const subject = services.spawnCollections.getOrThrow(id);
-      services.moveNode.moveable(subject).throwOnFail();
+      const subject = nodes.getOrThrow(id);
+      const moveable = services.moveNode.moveable({ subject });
+      moveable.throwOnFail();
 
       await services.moveNode.move({
         subject,
