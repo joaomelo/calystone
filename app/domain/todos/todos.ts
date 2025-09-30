@@ -1,3 +1,4 @@
+import type { TagsSingleOptions } from "@/domain/artifact";
 import type { Nodes } from "@/domain/nodes";
 
 import {
@@ -23,6 +24,11 @@ export class Todos {
     return todos;
   }
 
+  hasTag(value: TagsSingleOptions) {
+    const todos = this.list();
+    return todos.filter(todo => todo.hasTag(value));
+  }
+
   spansOn(options: {
     end: Date;
     start: Date,
@@ -40,7 +46,7 @@ export class Todos {
   }) {
     const target = this.list().filter(todo => todo.uncompleted && todo.hasDates);
 
-    const datesWithTodos: Date[] = [];
+    const datesWithUncompletedTodos: Date[] = [];
     const currentDateStart = new Date(start);
     do {
       currentDateStart.setHours(0, 0, 0, 0);
@@ -52,12 +58,12 @@ export class Todos {
       };
 
       const hasTodoOnDate = target.some(todo => todo.spansOn(options));
-      if (hasTodoOnDate) datesWithTodos.push(new Date(currentDateStart));
+      if (hasTodoOnDate) datesWithUncompletedTodos.push(new Date(currentDateStart));
 
       currentDateStart.setDate(currentDateStart.getDate() + 1);
     } while (currentDateStart <= end);
 
-    return datesWithTodos;
+    return datesWithUncompletedTodos;
   }
 
   tagger() {

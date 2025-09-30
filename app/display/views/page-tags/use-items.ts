@@ -1,32 +1,30 @@
 import type { OutlineNodesItem } from "@/display/views/outline-nodes";
+import type { Compare } from "@/utils";
 import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
-import { createCompare } from "@/display/views/compare";
 import { TodoArtifact } from "@/domain";
+import { comparator } from "@/utils";
 import { computed } from "vue";
 
 export function useItems(tagRef: Ref<string>) {
   const { services } = Store.use();
+  const todos = services.spawnCollections.todos();
+  const ascendancy = services.spawnCollections.ascendancy();
 
-  const items = computed<OutlineNodesItem[]>(() => {
+  return computed<OutlineNodesItem[]>(() => {
     const tag = tagRef.value;
     if (!tag) return [];
 
-    const todos: TodoArtifact[] = [];
+    const filteredTodos = todos.hasTag(tag);
 
-    const nodes = services.spawnCollections.list();
-    for (const node of nodes) {
-      if (node.isUnloaded()) continue;
-      if (!(node instanceof TodoArtifact)) continue;
-      if (!node.tagger.has(tag)) continue;
-      todos.push(node);
-    }
+    const compare: Compare<TodoArtifact> = comparator(
+      (a, b) => TodoArtifact.compareByPriority(a, b),
+      (a, b) => ascendancy.compareByPath(a, b)
+    );
+    filteredTodos.sort(compare);
 
-    const compare = createCompare({ services });
-    todos.sort(compare);
-
-    return todos.map((todo) => {
+    return filteredTodos.map((todo) => {
       const key = todo.id;
       const label = todo.basename();
       return {
@@ -38,6 +36,4 @@ export function useItems(tagRef: Ref<string>) {
       };
     });
   });
-
-  return items;
 }

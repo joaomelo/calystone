@@ -1,3 +1,5 @@
+import type { Compare } from "@/utils";
+
 import {
   asArray,
   comparator,
@@ -29,6 +31,13 @@ export class Prioritizer {
     const compare = comparator(compareByPriority, compareBySize);
 
     return compare(a, b);
+  }
+
+  static createCompareByCriterion(label: string): Compare<Prioritizer> {
+    return compareBy<Prioritizer, Criterion>({
+      compare: (a, b) => Criterion.compareByValue(a, b),
+      select: (prioritizer: Prioritizer) => prioritizer.criterion(label) ?? new Criterion({ label }),
+    });
   }
 
   private readonly _criteria = new Map<string, Criterion>();

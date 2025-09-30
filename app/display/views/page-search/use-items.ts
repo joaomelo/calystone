@@ -5,18 +5,17 @@ import type { Ref } from "vue";
 import { Store } from "@/display/store";
 import { computed } from "vue";
 
-export function useItems(search: Ref<string>) {
+export function useItems(searchRef: Ref<string>) {
   const { services } = Store.use();
+  const searcher = services.spawnCollections.searcher();
 
-  const items = computed<OutlineNodesItem[]>(() => {
-    const searchedNodes = search.value
-      ? services.spawnCollections.search(search.value)
-      : [];
+  return computed<OutlineNodesItem[]>(() => {
+    const search = searchRef.value;
+    if (!search.trim()) return [];
 
+    const searchedNodes = searcher.search(search);
     return searchedNodes.map((node) => convert(node));
   });
-
-  return items;
 }
 
 function convert(node: Node): OutlineNodesItem {

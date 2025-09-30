@@ -1,6 +1,7 @@
 import { TodoArtifact } from "@/domain/artifact";
 
 export const options = {
+  ignoreDiacritics: true,
   ignoreLocation: true,
   includeScore: true,
   keys: [

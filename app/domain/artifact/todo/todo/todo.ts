@@ -1,7 +1,10 @@
 import type { ArtifactOptions } from "@/domain/artifact/artifact";
 
 import { Artifact } from "@/domain/artifact/artifact";
-import { throwCritical } from "@/utils";
+import {
+  compareBy,
+  throwCritical
+} from "@/utils";
 
 import type { UpdateDateOptions } from "../dater";
 import type { PrioritizerUpdateOptions } from "../prioritizer";
@@ -30,6 +33,17 @@ export class TodoArtifact extends Artifact {
 
   static compareByProgress(a: TodoArtifact, b: TodoArtifact): number {
     return Progressor.compare(a._progressor, b._progressor);
+  }
+
+  static compareByPriority(a: TodoArtifact, b: TodoArtifact): number {
+    return Prioritizer.compare(a._prioritizer, b._prioritizer);
+  }
+
+  static createCompareByCriterion(label: string) {
+    return compareBy<TodoArtifact, Prioritizer>({
+      compare: Prioritizer.createCompareByCriterion(label),
+      select: (todo: TodoArtifact) => todo._prioritizer,
+    });
   }
 
   private readonly _parser: Parser;
@@ -194,6 +208,10 @@ export class TodoArtifact extends Artifact {
 
   removeTag(value: TagsSingleOptions) {
     this._tagger.remove(value);
+  }
+
+  hasTag(value: TagsSingleOptions) {
+    return this._tagger.has(value);
   }
 
   criterionOrThrow(label: string) {

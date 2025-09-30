@@ -1,39 +1,39 @@
 import type { OutlineNodesItem } from "@/display/views/outline-nodes";
+import type { Compare } from "@/utils";
 import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
-import { createCompare } from "@/display/views/compare";
 import { TodoArtifact } from "@/domain";
+import { comparator } from "@/utils";
 import { computed } from "vue";
 
 import type { Filters } from "./filters";
 
 export function useItems(filters: Ref<Filters>) {
   const { services } = Store.use();
+  const todos = services.spawnCollections.todos();
+  const ascendancy = services.spawnCollections.ascendancy();
 
-  const items = computed<OutlineNodesItem[]>(() => {
+  return computed<OutlineNodesItem[]>(() => {
     const {
       criterion,
       tag
     } = filters.value;
+    if (!tag) return [];
 
-    const todos: TodoArtifact[] = [];
+    const filteredTodos = todos.hasTag(tag);
 
-    const nodes = services.spawnCollections.list();
-    for (const node of nodes) {
-      if (node.isUnloaded()) continue;
-      if (!(node instanceof TodoArtifact)) continue;
-      if (tag && !node.tagger.has(tag)) continue;
-      todos.push(node);
-    }
+    const compareByPriority: Compare<TodoArtifact> = criterion
+      ? TodoArtifact.createCompareByCriterion(criterion)
+      : (a, b) => TodoArtifact.compareByPriority(a, b);
+    const compare = comparator(
+      compareByPriority,
+      (a, b) => ascendancy.compareByPath(a, b)
+    );
 
-    const compare = createCompare({
-      criterion,
-      services
-    });
-    todos.sort(compare);
+    filteredTodos.sort(compare);
 
-    return todos.map((todo) => {
+    return filteredTodos.map((todo) => {
       const key = todo.id;
       const label = todo.basename();
       return {
@@ -46,6 +46,4 @@ export function useItems(filters: Ref<Filters>) {
     });
 
   });
-
-  return items;
 }
