@@ -126,10 +126,6 @@ export class DropboxFileSystemAdapter extends BaseFileSystemAdapter<string, stri
     } = options;
 
     this.moveable(subject).throwOnFail();
-    this.nodes.moveable({
-      subject,
-      target
-    }).throwOnFail();
 
     const { metadata: oldPath } = this.metadatas.getOrThrow(subject.id);
     const { metadata: targetPath } = this.metadatas.getOrThrow(target.id);

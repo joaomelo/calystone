@@ -1,4 +1,3 @@
-export * from "../tagger";
 export * from "./artifact";
 export * from "./binary";
 export * from "./mime";

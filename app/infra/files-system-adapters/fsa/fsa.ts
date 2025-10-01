@@ -144,10 +144,6 @@ export class FsaFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMetadat
     } = options;
 
     this.moveable(subject).throwOnFail();
-    this.nodes.moveable({
-      subject,
-      target
-    }).throwOnFail();
 
     const { metadata: fileMetadata } = this.metadatas.getOfFileOrThrow(subject.id);
     const {

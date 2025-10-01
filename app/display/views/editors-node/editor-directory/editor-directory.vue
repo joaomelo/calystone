@@ -24,15 +24,18 @@ const { content } = defineProps<{ content: Directory; }>();
 defineEmits<{ close: [] }>();
 
 const { t } = useI18n();
+
 const { services } = Store.use();
+const ascendancy = services.spawnCollections.ascendancy();
+const descendancy = services.spawnCollections.descendancy();
 
 const propertySheetRows = computed(() => {
-  const descendants = services.spawnHierarchy.descendants(content);
+  const descendants = descendancy.descendants(content);
   return [
     {
       key: "path",
       label: t("path"),
-      value: services.spawnHierarchy.path(content)
+      value: ascendancy.path(content)
     },
     {
       key: "items",

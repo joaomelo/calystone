@@ -3,7 +3,7 @@ import type { Nodes } from "@/domain/nodes";
 
 import { TextArtifact } from "@/domain/artifact";
 import { Directory } from "@/domain/directory/directory";
-import { Descendancy } from "@/domain/hierarchy";
+import { Descendancy } from "@/domain/nodes";
 
 export class Descriptor {
   static readonly descriptorBasename = "README";

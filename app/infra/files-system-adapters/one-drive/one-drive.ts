@@ -117,10 +117,6 @@ export class OneDriveFileSystemAdapter extends BaseFileSystemAdapter<undefined, 
     } = options;
 
     this.moveable(subject).throwOnFail();
-    this.nodes.moveable({
-      subject,
-      target
-    }).throwOnFail();
 
     await this.graphClient
       .api(`/me/drive/items/${subject.id}`)

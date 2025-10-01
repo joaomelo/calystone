@@ -41,25 +41,13 @@ describe("tagger", () => {
     const tagger = new Tagger();
     tagger.add("test");
     tagger.add(Tag.create("test"));
-    expect(tagger.size()).toBe(1);
-  });
-
-  it("can combine with another tagger and not duplicate", () => {
-    const tagger1 = new Tagger();
-    tagger1.add("test");
-    const tagger2 = new Tagger();
-    tagger2.add("test");
-    tagger2.add("example");
-    const combined = tagger1.combine(tagger2);
-    expect(combined.size()).toBe(2);
-    expect(combined.has("test")).toBe(true);
-    expect(combined.has("example")).toBe(true);
+    expect(tagger.size).toBe(1);
   });
 
   it("can list labels in sorted order", () => {
     const tagger = new Tagger();
     tagger.add(["b", "a", "c"]);
-    expect(tagger.labels()).toEqual(["a", "b", "c"]);
+    expect(tagger.labels).toEqual(["a", "b", "c"]);
   });
 
   it("can remove by label", () => {
@@ -72,9 +60,9 @@ describe("tagger", () => {
 
   it("can report if has items", () => {
     const tagger = new Tagger();
-    expect(tagger.empty()).toBe(true);
+    expect(tagger.empty).toBe(true);
     tagger.add("test");
-    expect(tagger.empty()).toBe(false);
+    expect(tagger.empty).toBe(false);
   });
 
   it("takes another tagger and returns a new one containing elements in this tagger but not in the given tagger", () => {
@@ -83,7 +71,7 @@ describe("tagger", () => {
     const tagger2 = new Tagger();
     tagger2.add(["b", "c", "d"]);
     const difference = tagger1.difference(tagger2);
-    expect(difference.size()).toBe(1);
+    expect(difference.size).toBe(1);
     expect(difference.has("a")).toBe(true);
   });
 });

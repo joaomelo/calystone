@@ -118,15 +118,8 @@ export class MemoryFileSystemAdapter extends BaseFileSystemAdapter<DirectoryMeta
   }): Promise<void> {
     await this.delay();
 
-    const {
-      subject,
-      target
-    } = options;
+    const { subject } = options;
     this.moveable(subject).throwOnFail();
-    this.nodes.moveable({
-      subject,
-      target
-    }).throwOnFail();
   }
 
   moveable(subject: Node) {

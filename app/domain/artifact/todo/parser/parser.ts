@@ -141,7 +141,7 @@ export class Parser {
       recurrenceReference: reference,
       recurrenceStep: step,
       recurrenceUnit: unit,
-      tags: data.tagger.labels(),
+      tags: data.tagger.labels,
       version: Parser.VERSION,
     });
 

@@ -4,8 +4,8 @@ import type {
 } from "@/domain";
 
 import {
-  asCriterionValue,
   createId,
+  Criterion,
   TodoArtifact
 } from "@/domain";
 import { faker } from "@faker-js/faker";
@@ -56,7 +56,7 @@ function feedCriteria(todo: TodoArtifact) {
       "importance",
       "feasibility"
     ]);
-    const value = asCriterionValue(faker.number.float({
+    const value = Criterion.asValue(faker.number.float({
       fractionDigits: 2,
       max: 1,
       min: 0
@@ -85,6 +85,6 @@ function feedTags(todo: TodoArtifact) {
       "blocked",
       "automatic",
     ]);
-    todo.tagger.add(label);
+    todo.addTag(label);
   }
 }
