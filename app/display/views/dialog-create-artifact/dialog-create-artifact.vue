@@ -47,16 +47,16 @@ function open() {
   <ModalBase
     ref="modal"
     data-test="modal-create-artifact"
-    :header="t('create-artifact')"
     :error="errors.global"
+    :header="t('create-artifact')"
   >
     <template #content>
       <InputText
         v-model="data.name"
         autofocus
-        :label="t('name')"
-        :error="errors.name"
         data-test="input-name"
+        :error="errors.name"
+        :label="t('name')"
       />
     </template>
     <template #buttons="{ close }">

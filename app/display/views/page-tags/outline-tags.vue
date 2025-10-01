@@ -21,8 +21,8 @@ const items = useItems(tag);
     <OutlineNodes
       v-model:selected-keys="selectedKeys"
       data-test="outline-tags-items"
-      :items="items"
       display-mode="list"
+      :items="items"
     >
       <template #default="{ node }">
         <OutlineTodo :todo="node" />

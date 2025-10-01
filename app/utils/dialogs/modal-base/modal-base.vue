@@ -27,32 +27,32 @@ function open() {
 <template>
   <Dialog
     v-model:visible="visible"
-    modal
-    :header="header"
-    :style="{ 'width': 'min(var(--size-sm), 90%)' }"
     :data-test="dataTest"
+    :header="header"
+    modal
+    :style="{ 'width': 'min(var(--size-sm), 90%)' }"
   >
     <template #default>
       <template v-if="error">
         <Message
+          class="modal-base__error"
+          :data-test="kebabCase(dataTest, 'error')"
           severity="error"
           size="small"
           variant="simple"
-          class="modal-base__error"
-          :data-test="kebabCase(dataTest, 'error')"
         >
           {{ error }}
         </Message>
       </template>
       <slot
-        name="content"
         :close="close"
+        name="content"
       />
     </template>
     <template #footer>
       <slot
-        name="buttons"
         :close="close"
+        name="buttons"
       />
     </template>
   </Dialog>

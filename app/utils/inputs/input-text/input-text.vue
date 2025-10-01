@@ -27,22 +27,22 @@ const formDatalistName = (baseId: string) => kebabCase(baseId, "suggestions");
 </script>
 <template>
   <div
-    :data-test="dataTest"
     class="input-text"
+    :data-test="dataTest"
   >
     <InputLabel
       v-if="label"
-      :label="label"
       :data-test="kebabCase(dataTest, 'label')"
       :for-id="id"
+      :label="label"
     />
     <InputTextPrimeVue
       :id="id"
       v-model="model"
-      :invalid="!!error"
+      :autofocus="autofocus"
       :data-test="kebabCase(dataTest, 'input')"
       fluid
-      :autofocus="autofocus"
+      :invalid="!!error"
       :list="formDatalistName(id)"
       :readonly="readonly"
     />
@@ -58,8 +58,8 @@ const formDatalistName = (baseId: string) => kebabCase(baseId, "suggestions");
     </datalist>
     <InputError
       v-if="error"
-      :message="error"
       :data-test="kebabCase(dataTest, 'error')"
+      :message="error"
     />
   </div>
 </template>

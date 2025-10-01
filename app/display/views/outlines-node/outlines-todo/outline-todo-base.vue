@@ -37,14 +37,14 @@ const name = computed(() => {
 
 <template>
   <OutlineNode
+    class="outline-todo"
     :class="{ 'strikethrough': strikethrough }"
     :node="todo"
-    class="outline-todo"
   >
     <template #icon>
       <AppIcon
-        :name="name"
         :animation="animation"
+        :name="name"
       />
     </template>
     <template #meta>

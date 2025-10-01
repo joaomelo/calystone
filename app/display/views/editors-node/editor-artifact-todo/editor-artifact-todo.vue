@@ -98,8 +98,8 @@ const panels = computed<PanelsList>(() => {
     <template #default>
       <AccordionPanels
         v-model="panelsState"
-        :panels="panels"
         multiple
+        :panels="panels"
       >
         <template #main>
           <div class="editor-artifact-todo__main">

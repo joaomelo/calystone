@@ -37,11 +37,11 @@ async function handleClick() {
 <template>
   <ButtonBase
     v-if="show"
-    :label="t(label)"
-    size="large"
-    :data-test="dataTest"
     class="open-base"
+    :data-test="dataTest"
+    :label="t(label)"
     :loading="loading"
+    size="large"
     @click="handleClick"
   >
     <template #icon>

@@ -16,8 +16,8 @@ const {
 <template>
   <FrameDashboard>
     <MasterDetail
-      :model-value="hasSelected"
       class="page-search"
+      :model-value="hasSelected"
     >
       <template #master>
         <OutlineSearch v-model:selected-keys="selectedKeys" />

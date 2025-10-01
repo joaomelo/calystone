@@ -18,9 +18,9 @@ const options = availableLocales.map((locale) => ({
 <template>
   <InputRadio
     v-model="locale"
-    :options="options"
-    :label="t('page-open.language')"
     centered
     data-test="input-locale"
+    :label="t('page-open.language')"
+    :options="options"
   />
 </template>

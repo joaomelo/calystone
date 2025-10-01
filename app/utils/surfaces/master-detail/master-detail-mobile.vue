@@ -10,14 +10,14 @@ const visible = defineModel({ type: Boolean });
     </div>
     <Drawer
       v-model:visible="visible"
-      position="full"
       class="master-detail-mobile-detail"
+      position="full"
     >
       <template #container="{ closeCallback }">
         <div class="master-detail-mobile-detail-content">
           <slot
-            name="detail"
             :close="closeCallback"
+            name="detail"
           />
         </div>
       </template>

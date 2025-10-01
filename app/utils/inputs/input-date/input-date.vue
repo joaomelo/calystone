@@ -35,28 +35,28 @@ onMounted(() => {
 </script>
 <template>
   <div
-    :data-test="dataTest"
     class="input-date"
+    :data-test="dataTest"
   >
     <InputLabel
-      :label="label"
       :data-test="kebabCase(dataTest, 'label')"
       :for-id="id"
+      :label="label"
     />
     <InputDatePrimeVue
       ref="input"
       v-model="model"
-      :input-id="id"
-      :disabled="disabled"
       :data-test="kebabCase(dataTest, 'input')"
+      date-format="yy-mm-dd"
+      :disabled="disabled"
       fluid
-      show-icon
+      hide-on-date-time-select
+      :input-id="id"
       select-other-months
       show-button-bar
-      :show-time="showTime"
-      hide-on-date-time-select
-      date-format="yy-mm-dd"
+      show-icon
       :show-on-focus="false"
+      :show-time="showTime"
     />
   </div>
 </template>

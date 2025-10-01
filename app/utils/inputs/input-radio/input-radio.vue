@@ -27,25 +27,25 @@ const id = useId();
 </script>
 <template>
   <div
-    :data-test="dataTest"
     class="input-radio"
     :class="{ centered }"
+    :data-test="dataTest"
   >
     <InputLabel
-      :label="label"
       :data-test="kebabCase(dataTest, 'label')"
       :for-id="id"
+      :label="label"
     />
     <SelectButton
       :id="id"
       v-model="model"
+      :allow-empty="false"
       :data-test="kebabCase(dataTest, 'input')"
       :disabled="disabled"
-      :options="options"
-      :allow-empty="false"
+      fluid
       option-label="label"
       option-value="value"
-      fluid
+      :options="options"
     />
   </div>
 </template>

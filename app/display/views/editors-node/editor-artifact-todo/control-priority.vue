@@ -19,8 +19,8 @@ const criteria = computed(() => artifact.criteria);
   <div class="control-priority">
     <TextMessage
       v-if="artifact.criteriaEmpty"
-      data-test="tip-priority-empty"
       class="control-priority__tip-priority-empty"
+      data-test="tip-priority-empty"
     >
       {{ t('editor-todo.priority.tip-empty') }}
     </TextMessage>
@@ -29,8 +29,8 @@ const criteria = computed(() => artifact.criteria);
       :key="criterion.label"
     >
       <ControlCriterionManage
-        :label="criterion.label"
         :artifact="artifact"
+        :label="criterion.label"
       />
     </template>
     <ControlCriterionAdd :artifact="artifact" />

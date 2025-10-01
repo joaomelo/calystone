@@ -58,9 +58,9 @@ const handleUpdate = debounce(async (newContent: ArrayBuffer) => {
       />
     </template>
     <InputPdf
-      :pdf-id="artifact.id"
       data-test="editor-pdf-input"
       :model-value="pdf"
+      :pdf-id="artifact.id"
       @update:model-value="handleUpdate"
     />
   </EditorWorkspace>

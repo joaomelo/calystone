@@ -32,15 +32,15 @@ const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () 
   <PrimeVueTree
     v-model:expanded-keys="expandedKeys"
     v-model:selection-keys="selectedKeys"
-    :selection-mode="selectionMode"
-    :data-test="dataTest"
-    :value="items"
     class="outline-grid"
     :class="{ tree: displayMode === 'tree', list: displayMode === 'list' }"
+    :data-test="dataTest"
+    :selection-mode="selectionMode"
+    :value="items"
+    @node-collapse="$emit('collapsed', $event)"
     @node-expand="$emit('expanded', $event)"
     @node-select="$emit('selected', $event)"
     @node-unselect="$emit('unselected', $event)"
-    @node-collapse="$emit('collapsed', $event)"
   >
     <template #default="slotProps">
       <slot

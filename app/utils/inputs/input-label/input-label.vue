@@ -7,9 +7,9 @@ defineProps<{
 </script>
 <template>
   <label
-    :for="forId"
-    :data-test="dataTest"
     class="input-label"
+    :data-test="dataTest"
+    :for="forId"
   >
     {{ label }}
   </label>

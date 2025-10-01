@@ -11,9 +11,11 @@ const { t } = useI18n();
 const model = defineModel<string | undefined>({ default: undefined });
 
 const { services } = Store.use();
+const todos = services.spawnCollections.todos();
+
 const options = computed(() => {
-  const labels = Array.from(services.queryCriteria.labels());
-  labels.sort((a, b) => a.localeCompare(b));
+  const prioritizer = todos.tagger();
+  const { labels } = prioritizer;
   return labels.map(label => ({
     label,
     value: label

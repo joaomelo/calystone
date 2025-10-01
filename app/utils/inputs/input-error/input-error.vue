@@ -9,10 +9,10 @@ defineProps<{
 </script>
 <template>
   <Message
+    :data-test="dataTest"
     severity="error"
     size="small"
     variant="simple"
-    :data-test="dataTest"
   >
     {{ message }}
   </Message>

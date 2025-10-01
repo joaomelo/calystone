@@ -14,21 +14,21 @@ const id = useId();
 </script>
 <template>
   <div
+    class="input-check"
     :data-test="dataTest"
     direction="row-reverse"
-    class="input-check"
   >
     <InputCheckboxPrimeVue
       v-model="model"
-      :input-id="id"
       binary
-      variant="filled"
       :data-test="kebabCase(dataTest, 'input')"
+      :input-id="id"
+      variant="filled"
     />
     <InputLabel
-      :label="label"
       :data-test="kebabCase(dataTest, 'label')"
       :for-id="id"
+      :label="label"
     />
   </div>
 </template>

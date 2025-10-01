@@ -35,11 +35,11 @@ async function remove() {
 <template>
   <ModalConfirm
     ref="modalRemove"
-    data-test="modal-remove"
-    :loading="loading"
     :cancel-label="t('cancel')"
     :confirm-label="t('delete')"
+    data-test="modal-remove"
     :header="t('delete')"
+    :loading="loading"
     :message="t('delete-node', { name: node.name })"
   />
 </template>

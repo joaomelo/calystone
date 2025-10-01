@@ -21,8 +21,8 @@ async function handleClearDates() {
 </script>
 <template>
   <ButtonBase
-    :label="t('editor-todo.dates.clear')"
     data-test="button-clear"
+    :label="t('editor-todo.dates.clear')"
     severity="secondary"
     @click="handleClearDates"
   >

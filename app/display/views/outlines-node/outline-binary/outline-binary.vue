@@ -22,8 +22,8 @@ const name = computed(() => {
   <OutlineNode :node="binary">
     <template #icon>
       <AppIcon
-        :name="name"
         :animation="animation"
+        :name="name"
       />
     </template>
   </OutlineNode>

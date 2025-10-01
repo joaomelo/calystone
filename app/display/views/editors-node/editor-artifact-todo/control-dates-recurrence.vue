@@ -101,28 +101,28 @@ async function handleUpdateUnit(unit: string | undefined) {
 </script>
 <template>
   <InputRadio
-    :label="t('editor-todo.dates.recurring-by')"
     data-test="input-reference"
+    :disabled="!artifact.hasDates"
+    :label="t('editor-todo.dates.recurring-by')"
     :model-value="referenceValue"
     :options="referenceOptions"
-    :disabled="!artifact.hasDates"
     @update:model-value="handleUpdateReference"
   />
   <div class="control-dates__step-unit">
     <InputNumber
-      :label="t('editor-todo.dates.step')"
-      data-test="input-step"
       buttons
+      data-test="input-step"
       :disabled="!artifact.hasDates"
+      :label="t('editor-todo.dates.step')"
       :model-value="artifact.step"
       @update:model-value="handleUpdateStep"
     />
     <InputRadio
-      :label="t('editor-todo.dates.unit')"
       data-test="input-unit"
-      :options="unitOptions"
       :disabled="!artifact.hasDates"
+      :label="t('editor-todo.dates.unit')"
       :model-value="artifact.unit"
+      :options="unitOptions"
       @update:model-value="handleUpdateUnit"
     />
   </div>

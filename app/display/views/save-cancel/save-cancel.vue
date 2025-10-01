@@ -41,16 +41,16 @@ function handleKeyDown(event: KeyboardEvent) {
 </script>
 <template>
   <ButtonBase
+    data-test="button-cancel"
     :label="t('cancel')"
     severity="secondary"
-    data-test="button-cancel"
     @click="$emit('cancel')"
   />
   <ButtonBase
-    :label="t('save')"
-    severity="primary"
     data-test="button-save"
+    :label="t('save')"
     :loading="saving"
+    severity="primary"
     @click="$emit('save')"
   />
 </template>

@@ -7,37 +7,37 @@ const { t } = useI18n();
   <div class="app-features">
     <i18n-t
       keypath="page-open.features.overview.text"
-      tag="p"
       scope="global"
+      tag="p"
     >
       <a
+        data-test="overview-link"
         href="https://github.com/joaomelo/calystone/blob/main/README.md"
         target="_blank"
-        data-test="overview-link"
       >{{ t('page-open.features.overview.link') }}</a>
     </i18n-t>
     <i18n-t
       keypath="page-open.features.privacy.text"
-      tag="p"
       scope="global"
+      tag="p"
     >
       <router-link
-        :to="{ name: 'terms' }"
         data-test="terms-link"
+        :to="{ name: 'terms' }"
       >
         {{ t('page-open.features.privacy.terms') }}
       </router-link>
       <router-link
-        :to="{ name: 'privacy' }"
         data-test="privacy-link"
+        :to="{ name: 'privacy' }"
       >
         {{ t('page-open.features.privacy.privacy') }}
       </router-link>
     </i18n-t>
     <i18n-t
       keypath="page-open.features.open-source.text"
-      tag="p"
       scope="global"
+      tag="p"
     >
       <a
         href="https://github.com/joaomelo/calystone"

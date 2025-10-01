@@ -45,40 +45,40 @@ function handleExit() {
     <template #default>
       <SideItem
         id="folders"
-        :title="t('common.folders')"
         data-test="sidebar-folders"
+        :title="t('common.folders')"
         @click="handleClickPage('folders')"
       >
         <AppIcon name="directories" />
       </SideItem>
       <SideItem
         id="calendar"
-        :title="t('common.calendar')"
         data-test="sidebar-calendar"
+        :title="t('common.calendar')"
         @click="handleClickPage('calendar')"
       >
         <AppIcon name="calendar" />
       </SideItem>
       <SideItem
         id="tags"
-        :title="t('common.tags')"
         data-test="sidebar-tags"
+        :title="t('common.tags')"
         @click="handleClickPage('tags')"
       >
         <AppIcon name="tag" />
       </SideItem>
       <SideItem
         id="priority"
-        :title="t('common.priority')"
         data-test="sidebar-priority"
+        :title="t('common.priority')"
         @click="handleClickPage('priority')"
       >
         <AppIcon name="flag" />
       </SideItem>
       <SideItem
         id="search"
-        :title="t('common.search')"
         data-test="sidebar-search"
+        :title="t('common.search')"
         @click="handleClickPage('search')"
       >
         <AppIcon name="search" />
@@ -88,21 +88,21 @@ function handleExit() {
       <SideItem
         v-if="preloading"
         id="preloading"
+        class="sidebar-preload"
+        data-test="sidebar-preloading"
         disabled
         :title="t('dashboard.preloading')"
-        data-test="sidebar-preloading"
-        class="sidebar-preload"
       >
         <AppIcon
-          name="spinner"
           animation="spin"
           :duration="7"
+          name="spinner"
         />
       </SideItem>
       <SideItem
         id="exit"
-        :title="t('exit')"
         data-test="sidebar-exit"
+        :title="t('exit')"
         @click="handleExit"
       >
         <AppIcon name="sign-out" />

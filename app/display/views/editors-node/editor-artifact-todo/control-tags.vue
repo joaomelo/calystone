@@ -55,21 +55,21 @@ async function handleRemoveTag(tag: string) {
     <div class="section-tags__input-wrapper">
       <InputText
         v-model="workingLabel"
-        data-test="input-tag"
         class="section-tags__input"
-        :suggestions="suggestions"
+        data-test="input-tag"
         :error="errors.global"
+        :suggestions="suggestions"
         @keydown.enter="handleAddTag"
       />
       <ButtonBase
-        :label="t('add')"
         data-test="button-add-tag"
+        :label="t('add')"
         @click="handleAddTag"
       />
     </div>
     <ChipTags
-      :labels="currentLabels"
       data-test="chip-tags-tags"
+      :labels="currentLabels"
       removable
       @remove="handleRemoveTag"
     />

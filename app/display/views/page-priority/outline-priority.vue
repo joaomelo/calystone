@@ -25,8 +25,8 @@ const items = useItems(filters);
     <OutlineNodes
       v-model:selected-keys="selectedKeys"
       data-test="outline-priority__items"
-      :items="items"
       display-mode="list"
+      :items="items"
     >
       <template #default="{ node }">
         <OutlinePriority :todo="node" />

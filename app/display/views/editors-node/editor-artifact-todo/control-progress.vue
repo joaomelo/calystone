@@ -64,10 +64,10 @@ async function handleUpdatedProgress(progress?: string) {
         :key="option.progress"
       >
         <ButtonBase
+          :data-test="`button-${option.progress}`"
           :disabled="option.progress === progress"
           :label="option.label"
           severity="secondary"
-          :data-test="`button-${option.progress}`"
           @click="handleUpdatedProgress(option.progress)"
         >
           <template #icon>

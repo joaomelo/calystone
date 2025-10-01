@@ -42,8 +42,8 @@ const handleSearch = debounce((text?: string) => {
     <OutlineNodes
       v-model:selected-keys="selectedKeys"
       data-test="outline-search__results"
-      :items="items"
       display-mode="list"
+      :items="items"
     >
       <template #default="{ node }">
         <OutlineDirectory

@@ -20,8 +20,8 @@ const name = computed(() => {
   <OutlineNode :node="directory">
     <template #icon>
       <AppIcon
-        :name="name"
         :animation="animation"
+        :name="name"
       />
     </template>
   </OutlineNode>

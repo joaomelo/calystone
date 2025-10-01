@@ -16,13 +16,13 @@ const {
 <template>
   <div
     class="outline-node"
-    :draggable="moveable.isOk()"
-    data-test-type="outline-node"
     :data-test="node.id"
+    data-test-type="outline-node"
+    :draggable="moveable.isOk()"
+    @dragenter="handleDragover"
+    @dragover="handleDragover"
     @dragstart="handleDragstart"
     @drop="handleDragdrop"
-    @dragover="handleDragover"
-    @dragenter="handleDragover"
   >
     <slot name="icon" />
     <div class="outline-node__content">

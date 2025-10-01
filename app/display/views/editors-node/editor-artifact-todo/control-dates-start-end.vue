@@ -50,25 +50,25 @@ async function handleUpdateStart(date: Date | null | undefined) {
 </script>
 <template>
   <InputCheck
-    :model-value="allDay"
-    :label="t('editor-todo.dates.allDay')"
     data-test="input-all-day"
+    :label="t('editor-todo.dates.allDay')"
+    :model-value="allDay"
     @update:model-value="handleUpdateAllDay"
   />
   <div class="control-dates-start-end">
     <InputDate
-      :label="t('editor-todo.dates.start')"
       data-test="input-start"
-      :model-value="artifact.start"
       default-time="0:0"
+      :label="t('editor-todo.dates.start')"
+      :model-value="artifact.start"
       :show-time="!allDay"
       @update:model-value="handleUpdateStart"
     />
     <InputDate
-      :label="t('editor-todo.dates.end')"
       data-test="input-end"
-      :model-value="artifact.end"
       default-time="23:59"
+      :label="t('editor-todo.dates.end')"
+      :model-value="artifact.end"
       :show-time="!allDay"
       @update:model-value="handleUpdateEnd"
     />

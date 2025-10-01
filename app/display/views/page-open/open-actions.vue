@@ -6,8 +6,8 @@ import OpenAction from "./open-action.vue";
 <template>
   <div class="open-actions">
     <OpenAction
-      label="page-open.actions.memory"
       data-test="open-memory"
+      label="page-open.actions.memory"
       provider="memory"
     >
       <template #icon>
@@ -15,17 +15,17 @@ import OpenAction from "./open-action.vue";
       </template>
     </OpenAction>
     <OpenAction
-      provider="fsa"
-      label="page-open.actions.fsa"
       data-test="open-fsa"
+      label="page-open.actions.fsa"
+      provider="fsa"
     >
       <template #icon>
         <AppIcon name="hard-drive" />
       </template>
     </OpenAction>
     <OpenAction
-      label="page-open.actions.one-drive"
       data-test="open-one-drive"
+      label="page-open.actions.one-drive"
       provider="oneDrive"
     >
       <template #icon>
@@ -33,8 +33,8 @@ import OpenAction from "./open-action.vue";
       </template>
     </OpenAction>
     <OpenAction
-      label="page-open.actions.dropbox"
       data-test="open-dropbox"
+      label="page-open.actions.dropbox"
       provider="dropbox"
     >
       <template #icon>

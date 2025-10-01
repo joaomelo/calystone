@@ -59,7 +59,26 @@ export default tseslint.config(
 
   // vue
   ...pluginVue.configs["flat/recommended"],
-  { rules: { "vue/no-mutating-props": "off" } },
+  { rules: {
+    "vue/attributes-order": ["error", {
+      "alphabetical": true,
+      "order": [
+        "DEFINITION",
+        "LIST_RENDERING",
+        "CONDITIONALS",
+        "RENDER_MODIFIERS",
+        "GLOBAL",
+        ["UNIQUE", "SLOT"],
+        "TWO_WAY_BINDING",
+        "OTHER_DIRECTIVES",
+        "OTHER_ATTR",
+        "EVENTS",
+        "CONTENT"
+      ],
+    }],
+    "vue/no-mutating-props": "off",
+    "vue/no-v-html": "off"
+  } },
 
   //style linters
   importX.flatConfigs.recommended,
@@ -138,8 +157,6 @@ export default tseslint.config(
     // vue plugin already has a standard way to sort that considers the attribute type like if it is an event or a id definition
     "perfectionist/sort-vue-attributes": "off",
   } },
-
-  { rules: { "vue/no-v-html": "off" } },
 
   // language settings
   {

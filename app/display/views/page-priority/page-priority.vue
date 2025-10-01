@@ -17,8 +17,8 @@ const {
 <template>
   <FrameDashboard>
     <MasterDetail
-      :model-value="hasSelected"
       class="page-priority"
+      :model-value="hasSelected"
     >
       <template #master>
         <OutlinePriority v-model:selected-keys="selectedKeys" />

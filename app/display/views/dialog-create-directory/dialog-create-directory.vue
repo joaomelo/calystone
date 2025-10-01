@@ -47,15 +47,15 @@ function open() {
   <ModalBase
     ref="modal"
     data-test="modal-create-directory"
-    :header="t('create-directory')"
     :error="errors.global"
+    :header="t('create-directory')"
   >
     <template #content>
       <InputText
         v-model="data.name"
-        :label="t('name')"
-        :error="errors.name"
         data-test="input-name"
+        :error="errors.name"
+        :label="t('name')"
       />
     </template>
     <template #buttons="{ close }">

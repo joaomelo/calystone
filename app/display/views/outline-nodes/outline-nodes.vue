@@ -54,12 +54,12 @@ function handleUnselected(item: OutlineGridItem) {
       v-model:expanded-keys="expandedKeys"
       v-model:selected-keys="selectedKeys"
       :data-test="dataTest"
-      :items="items"
       :display-mode="displayMode"
+      :items="items"
+      @collapsed="handleCollapsed"
       @expanded="handleExpanded"
       @selected="handleSelected"
       @unselected="handleUnselected"
-      @collapsed="handleCollapsed"
     >
       <template #default="slotProps">
         <slot

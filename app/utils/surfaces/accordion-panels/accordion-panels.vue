@@ -23,15 +23,15 @@ function handleUpdateValue(value: null | string | string[] | undefined) {
 </script>
 <template>
   <Accordion
-    :value="model"
     :multiple="multiple"
+    :value="model"
     @update:value="handleUpdateValue"
   >
     <AccordionPanel
       v-for="panel in panels"
       :key="panel[0]"
-      :value="panel[0]"
       :data-test="kebabCase('accordion-panels-panel', panel[0])"
+      :value="panel[0]"
     >
       <AccordionHeader>{{ panel[1] }}</AccordionHeader>
       <AccordionContent>

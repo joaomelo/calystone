@@ -16,8 +16,8 @@ const {
 <template>
   <FrameDashboard>
     <MasterDetail
-      :model-value="hasSelected"
       class="page-calendar"
+      :model-value="hasSelected"
     >
       <template #master>
         <OutlineCalendar v-model:selected-keys="selectedKeys" />

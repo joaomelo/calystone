@@ -43,30 +43,30 @@ function handleDone(choice: boolean) {
 <template>
   <ModalBase
     ref="modalBase"
-    :header="header"
     :data-test="dataTest"
+    :header="header"
   >
     <template #content>
       <TextMessage
+        :data-test="kebabCase(dataTest, 'message')"
         severity="warn"
         variant="simple"
-        :data-test="kebabCase(dataTest, 'message')"
       >
         {{ message }}
       </TextMessage>
     </template>
     <template #buttons>
       <ButtonBase
+        :data-test="kebabCase(dataTest, 'cancel')"
         :label="cancelLabel"
         severity="secondary"
-        :data-test="kebabCase(dataTest, 'cancel')"
         @click="handleDone(false)"
       />
       <ButtonBase
-        :label="confirmLabel"
-        severity="primary"
         :data-test="kebabCase(dataTest, 'confirm')"
+        :label="confirmLabel"
         :loading="loading"
+        severity="primary"
         @click="handleDone(true)"
       />
     </template>

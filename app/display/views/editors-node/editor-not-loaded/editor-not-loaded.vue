@@ -3,7 +3,7 @@ import { EditorMessage } from "../editor-message";
 </script>
 <template>
   <EditorMessage
-    message="not-loaded"
     data-test="editor-not-loaded"
+    message="not-loaded"
   />
 </template>

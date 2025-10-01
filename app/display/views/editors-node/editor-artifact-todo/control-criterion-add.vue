@@ -21,7 +21,7 @@ const label = ref("");
 
 const todos = services.spawnCollections.todos();
 const suggestions = computed(() => {
-  const globalPrioritizer = todos.prioritizer();
+  const globalPrioritizer = todos.tagger();
   const onlyGlobalPriotizer = globalPrioritizer.difference(artifact.criteria);
   return onlyGlobalPriotizer.labels;
 });
@@ -37,14 +37,14 @@ async function handleAdd() {
   <div class="control-criterion-add">
     <InputText
       v-model="label"
-      data-test="control-criterion-add__input"
       class="control-criterion-add__input"
+      data-test="control-criterion-add__input"
       :suggestions="suggestions"
       @keydown.enter="handleAdd"
     />
     <ButtonBase
-      :label="t('add')"
       data-test="control-criterion-add__button"
+      :label="t('add')"
       @click="handleAdd"
     />
   </div>

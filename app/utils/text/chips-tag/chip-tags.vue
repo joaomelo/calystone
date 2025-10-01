@@ -18,8 +18,8 @@ defineEmits<{ remove: [label: string]; }>();
     <ChipTag
       v-for="label in labels"
       :key="label"
-      data-test-type="chip-tag"
       :data-test="`${kebabCase(dataTest)}-${label}`"
+      data-test-type="chip-tag"
       :label="label"
       :removable="removable"
       @remove="$emit('remove', label)"

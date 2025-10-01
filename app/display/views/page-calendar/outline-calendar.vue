@@ -36,16 +36,16 @@ function handleUpdateMonthViewed(data: Month) {
   <div class="outline-calendar">
     <MonthViewer
       borderless
-      :highlights="highlightedDays"
       class="outline-calendar__month-viewer"
+      :highlights="highlightedDays"
       @update:selected="handleUpdateDateSelected"
       @update:viewed="handleUpdateMonthViewed"
     />
     <OutlineNodes
       v-model:selected-keys="selectedKeys"
       data-test="outline-calendar-nodes"
-      :items="items"
       display-mode="list"
+      :items="items"
     >
       <template #default="{ node }">
         <OutlineTodo :todo="node" />

@@ -39,8 +39,8 @@ async function handleExpanded(node: Node) {
     v-model:expanded-keys="expandedKeys"
     v-model:selected-keys="selectedKeys"
     data-test="outline-folders"
-    :items="items"
     display-mode="tree"
+    :items="items"
     @expanded="handleExpanded"
   >
     <template #default="{ node }">

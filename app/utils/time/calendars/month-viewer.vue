@@ -50,11 +50,11 @@ function shouldHighlight(viewerDate: DatePickerDateSlotOptions): boolean {
 </script>
 <template>
   <DatePicker
+    class="month-viewer"
+    :class="{ borderless }"
+    fluid
     inline
     :show-other-months="false"
-    fluid
-    :class="{ borderless }"
-    class="month-viewer"
     @month-change="handleUpdateViewed"
     @update:model-value="handleUpdateSelected"
   >

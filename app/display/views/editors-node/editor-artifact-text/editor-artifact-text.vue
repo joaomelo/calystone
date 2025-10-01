@@ -62,9 +62,9 @@ const handleUpdate = debounce(async (text: string) => {
       />
     </template>
     <InputRichText
+      borderless
       data-test="editor-text"
       :model-value="text"
-      borderless
       @update:model-value="handleUpdate"
     />
   </EditorWorkspace>

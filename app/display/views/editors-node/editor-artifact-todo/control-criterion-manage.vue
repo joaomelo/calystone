@@ -47,26 +47,26 @@ async function handleDelete() {
 <template>
   <div class="control-criterion-manage">
     <InputText
-      :model-value="criterion.label"
       :data-test="`control-criterion-manage-${kebabedLabel}__label`"
+      :model-value="criterion.label"
       readonly
     />
     <InputNumber
+      buttons
       class="control-criterion-manage__input"
       :data-test="`control-criterion-manage-${kebabedLabel}__value`"
       :locale="locale"
-      :model-value="criterion.value"
-      buttons
       :max="1"
-      :min="0"
-      :step="0.05"
       :max-fraction-digits="4"
+      :min="0"
       :min-fraction-digits="2"
+      :model-value="criterion.value"
+      :step="0.05"
       @update:model-value="handleUpdate"
     />
     <ButtonBase
-      :label="t('delete')"
       :data-test="`control-criterion-manage-${kebabedLabel}__delete`"
+      :label="t('delete')"
       @click="handleDelete"
     />
   </div>

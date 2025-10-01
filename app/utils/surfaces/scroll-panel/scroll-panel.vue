@@ -13,9 +13,9 @@ const {
   <div
     ref="containerRef"
     class="scroll-panel"
-    @dragover="handleDragOver"
     @dragenter="handleDragEnter"
     @dragleave="handleDragLeave"
+    @dragover="handleDragOver"
     @drop="handleDrop"
   >
     <slot />

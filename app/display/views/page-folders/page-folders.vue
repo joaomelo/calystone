@@ -18,8 +18,8 @@ const expandedKeys = useExpanded(selectedKeys);
 <template>
   <FrameDashboard>
     <MasterDetail
-      :model-value="hasSelected"
       class="page-folders"
+      :model-value="hasSelected"
     >
       <template #master>
         <OutlineFolders

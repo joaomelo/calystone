@@ -28,29 +28,29 @@ const id = useId();
 </script>
 <template>
   <div
-    :data-test="dataTest"
     class="input-number"
+    :data-test="dataTest"
   >
     <InputLabel
       v-if="label"
-      :label="label"
       :data-test="kebabCase(dataTest, 'label')"
       :for-id="id"
+      :label="label"
     />
     <InputNumberPrimeVue
       :id="id"
       v-model="model"
+      button-layout="horizontal"
       :data-test="kebabCase(dataTest, 'input')"
+      :disabled="disabled"
       fluid
       :locale="locale"
-      :show-buttons="buttons"
       :max="max"
-      :min="min"
-      :step="step"
-      button-layout="horizontal"
-      :disabled="disabled"
       :max-fraction-digits="maxFractionDigits"
+      :min="min"
       :min-fraction-digits="minFractionDigits"
+      :show-buttons="buttons"
+      :step="step"
     />
   </div>
 </template>

@@ -27,27 +27,27 @@ const id = useId();
 </script>
 <template>
   <div
-    :data-test="dataTest"
     class="input-select"
+    :data-test="dataTest"
   >
     <InputLabel
       v-if="label"
-      :label="label"
       :data-test="kebabCase(dataTest, 'label')"
       :for-id="id"
+      :label="label"
     />
     <SelectPrimeVue
       :id="id"
       v-model="model"
+      data-key="value"
       :data-test="kebabCase(dataTest, 'input')"
       :disabled="disabled"
-      :options="options"
-      :show-clear="showClear"
+      fluid
       option-label="label"
       option-value="value"
-      data-key="value"
-      fluid
+      :options="options"
       :pt:list:data-test="kebabCase(dataTest, 'options')"
+      :show-clear="showClear"
     />
   </div>
 </template>

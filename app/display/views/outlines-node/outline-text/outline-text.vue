@@ -32,8 +32,8 @@ const excerpt = computed(() => {
   <OutlineNode :node="text">
     <template #icon>
       <AppIcon
-        :name="name"
         :animation="animation"
+        :name="name"
       />
     </template>
     <template #meta>
