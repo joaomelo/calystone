@@ -21,7 +21,7 @@ const label = ref("");
 
 const todos = services.spawnCollections.todos();
 const suggestions = computed(() => {
-  const globalPrioritizer = todos.tagger();
+  const globalPrioritizer = todos.prioritizer();
   const onlyGlobalPriotizer = globalPrioritizer.difference(artifact.criteria);
   return onlyGlobalPriotizer.labels;
 });

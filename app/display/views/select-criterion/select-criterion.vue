@@ -14,7 +14,7 @@ const { services } = Store.use();
 const todos = services.spawnCollections.todos();
 
 const options = computed(() => {
-  const prioritizer = todos.tagger();
+  const prioritizer = todos.prioritizer();
   const { labels } = prioritizer;
   return labels.map(label => ({
     label,

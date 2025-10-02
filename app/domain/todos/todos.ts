@@ -75,7 +75,7 @@ export class Todos {
     return tagger;
   }
 
-  tagger() {
+  prioritizer() {
     const prioritizer = new Prioritizer();
     const todos = this.list();
     for (const todo of todos) {

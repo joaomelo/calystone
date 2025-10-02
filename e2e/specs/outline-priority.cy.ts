@@ -50,6 +50,10 @@ describe("outline-priority", () => {
     pageFolders.priority().click();
   });
 
+  it("does not show items if no tags are selected", () => {
+    cy.get(outlinePriority.nodes.node).should("have.length", 0);
+  });
+
   it("filter by tag", () => {
     cy.get(outlinePriority.filters.tag.input).click();
     cy.get(outlinePriority.filters.tag.option(tagCycle)).click();
@@ -61,6 +65,10 @@ describe("outline-priority", () => {
   });
 
   it("sort priority or criterion", () => {
+    cy.get(outlinePriority.filters.tag.input).click();
+    cy.get(outlinePriority.filters.tag.option(tagCycle)).click();
+    cy.get(outlinePriority.nodes.node).should("have.length", 2);
+
     cy.get(outlinePriority.nodes.node).eq(0).contains(todoOne);
     cy.get(outlinePriority.nodes.node).eq(1).contains(todoTwo);
 
