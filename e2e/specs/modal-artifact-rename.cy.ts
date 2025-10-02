@@ -1,6 +1,10 @@
-import { openMemory } from "../macros";
+import {
+  openMemory,
+  renameArtifact
+} from "../macros";
 import {
   modalRenameArtifact,
+  outlineNodes,
   outlineNodesLegacy,
   toolbarNode
 } from "../selectors";
@@ -14,10 +18,10 @@ describe("modal-artifact-rename", () => {
     const newName = "_new-artifact-name";
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy.artifactOf(outlineNodesLegacy.rootNode()).first().click();
-    toolbarNode.buttonRename().click();
-    modalRenameArtifact.inputName().clear().type(newName);
-    modalRenameArtifact.buttonSave().click();
-    outlineNodesLegacy.artifactOf(outlineNodesLegacy.rootNode()).first().should("contain.text", newName);
+
+    renameArtifact(newName);
+
+    cy.get(outlineNodes.nodeLabel(newName)).should("exist");
   });
 
   it("fails if name is empty", () => {
@@ -27,15 +31,18 @@ describe("modal-artifact-rename", () => {
     toolbarNode.buttonRename().click();
     modalRenameArtifact.inputName().clear();
     modalRenameArtifact.buttonSave().click();
+
     modalRenameArtifact.inputError().should("exist");
   });
 
   it("show backend errors", () => {
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy.artifactOf(outlineNodesLegacy.rootNode()).first().click();
+
     toolbarNode.buttonRename().click();
     modalRenameArtifact.inputName().clear().type("/\\|");
     modalRenameArtifact.buttonSave().click();
+
     modalRenameArtifact.modalError().should("exist");
   });
 });
