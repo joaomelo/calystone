@@ -74,8 +74,8 @@ describe("outline-priority", () => {
 
     cy.get(outlinePriority.filters.criterion.input).click();
     cy.get(outlinePriority.filters.criterion.option(criterionImportancy)).click();
-    cy.get(outlinePriority.nodes.node).eq(1).contains(todoTwo);
-    cy.get(outlinePriority.nodes.node).eq(0).contains(todoOne);
+    cy.get(outlinePriority.nodes.node).eq(0).contains(todoTwo);
+    cy.get(outlinePriority.nodes.node).eq(1).contains(todoOne);
 
     cy.get(outlinePriority.filters.criterion.input).click();
     cy.get(outlinePriority.filters.criterion.option(criterionUrgency)).click();
