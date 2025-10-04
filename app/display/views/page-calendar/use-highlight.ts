@@ -1,8 +1,9 @@
-import { Store } from "@/display/store";
 import {
   computed,
   ref
 } from "vue";
+
+import { Store } from "@/display/store";
 
 interface Month {
   month: number,

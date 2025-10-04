@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { asArray } from "@/utils/arrays";
-import { kebabCase } from "@/utils/text";
 import Accordion from "primevue/accordion";
 import AccordionContent from "primevue/accordioncontent";
 import AccordionHeader from "primevue/accordionheader";
 import AccordionPanel from "primevue/accordionpanel";
+
+import { asArray } from "@/utils/arrays";
+import { kebabCase } from "@/utils/text";
 
 import type { PanelsList } from "../panels-list";
 

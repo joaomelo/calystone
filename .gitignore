@@ -1,5 +1,6 @@
 .env
 dist/
+reports/
 dev-dist/
 dist-web/
 node_modules/

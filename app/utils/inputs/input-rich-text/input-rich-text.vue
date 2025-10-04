@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { kebabCase } from "@/utils/text";
 import {
   autocompletion,
   closeBrackets
@@ -33,6 +32,8 @@ import {
   useTemplateRef,
   watch
 } from "vue";
+
+import { kebabCase } from "@/utils/text";
 
 import { areTextEqual } from "./text-equality";
 

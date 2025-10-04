@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import {
+  computed,
+  useTemplateRef
+} from "vue";
+
 import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -9,10 +14,6 @@ import {
   ToolbarButton,
   useI18n
 } from "@/utils";
-import {
-  computed,
-  useTemplateRef
-} from "vue";
 
 const { node } = defineProps<{ node: Node; }>();
 

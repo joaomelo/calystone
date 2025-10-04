@@ -145,6 +145,6 @@ export class Parser {
       version: Parser.VERSION,
     });
 
-    return this.encoder.encode(jsonString).buffer as ArrayBuffer;
+    return this.encoder.encode(jsonString).buffer;
   }
 }

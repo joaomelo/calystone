@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import {
+  reactive,
+  useTemplateRef
+} from "vue";
+
 import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -9,10 +14,6 @@ import {
   useDispatch,
   useI18n
 } from "@/utils";
-import {
-  reactive,
-  useTemplateRef
-} from "vue";
 
 const { parent } = defineProps<{ parent: Directory }>();
 defineExpose({ open });

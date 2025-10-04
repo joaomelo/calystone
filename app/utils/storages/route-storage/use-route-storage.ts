@@ -1,8 +1,4 @@
 import {
-  asArray,
-  isArrayFull
-} from "@/utils/arrays";
-import {
   ref,
   watch
 } from "vue";
@@ -10,6 +6,11 @@ import {
   useRoute,
   useRouter
 } from "vue-router";
+
+import {
+  asArray,
+  isArrayFull
+} from "@/utils/arrays";
 
 export function useRouteStorage(param: string) {
   const route = useRoute();

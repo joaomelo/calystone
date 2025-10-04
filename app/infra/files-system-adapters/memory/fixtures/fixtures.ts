@@ -1,9 +1,9 @@
+import { faker } from "@faker-js/faker";
+
 import type {
   Directory,
   Id
 } from "@/domain";
-
-import { faker } from "@faker-js/faker";
 
 import type {
   DirectoryFixture,

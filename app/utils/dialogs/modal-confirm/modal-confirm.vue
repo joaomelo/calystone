@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { useTemplateRef } from "vue";
+
 import { ButtonBase } from "@/utils/actions";
 import {
   kebabCase,
   TextMessage
 } from "@/utils/text";
-import { useTemplateRef } from "vue";
 
 import { ModalBase } from "../modal-base";
 

@@ -190,14 +190,8 @@ export class Scheduler {
   }
 
   private prepareRecurrerForUpdate() {
-    if (!this._dater) {
-      this._dater = new Dater();
-    }
-
-    if (!this._recurrer) {
-      this._recurrer = new Recurrer();
-    }
-
+    this._dater ??= new Dater();
+    this._recurrer ??= new Recurrer();
     return this._recurrer;
   }
 

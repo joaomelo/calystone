@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -11,7 +13,6 @@ import {
   kebabCase,
   useI18n
 } from "@/utils";
-import { computed } from "vue";
 
 const {
   artifact,

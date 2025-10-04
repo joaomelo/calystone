@@ -1,9 +1,11 @@
-import type { OutlineNodesItem } from "@/display/views/outline-nodes";
-import type { Node } from "@/domain";
 import type { Ref } from "vue";
 
-import { Store } from "@/display/store";
 import { computed } from "vue";
+
+import type { OutlineNodesItem } from "@/display/views/outline-nodes";
+import type { Node } from "@/domain";
+
+import { Store } from "@/display/store";
 
 export function useItems(searchRef: Ref<string>) {
   const { services } = Store.use();

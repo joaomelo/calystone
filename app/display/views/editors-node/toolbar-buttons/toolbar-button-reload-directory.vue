@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -8,7 +10,6 @@ import {
   useDispatch,
   useI18n
 } from "@/utils";
-import { computed } from "vue";
 
 const { directory } = defineProps<{ directory: Directory; }>();
 const { dispatchOrToast } = useDispatch();

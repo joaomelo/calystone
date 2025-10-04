@@ -1,3 +1,5 @@
+import { BehaviorSubject } from "rxjs";
+
 import type {
   AccessAdaptersFactory,
   FileSystemAdaptersFactory,
@@ -10,7 +12,6 @@ import {
 } from "@/domain";
 import { sources } from "@/infra";
 import { throwCritical } from "@/utils";
-import { BehaviorSubject } from "rxjs";
 
 import type { ConnectionState } from "./state";
 

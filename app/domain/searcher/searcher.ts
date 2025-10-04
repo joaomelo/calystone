@@ -1,7 +1,7 @@
+import Fuse from "fuse.js";
+
 import type { Node } from "@/domain/node";
 import type { Nodes } from "@/domain/nodes";
-
-import Fuse from "fuse.js";
 
 import { options } from "./options";
 

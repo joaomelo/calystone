@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import {
+  computed,
+  onMounted,
+  ref
+} from "vue";
+
 import type { TodoArtifact } from "@/domain";
 import type { PanelsList } from "@/utils";
 
@@ -9,11 +15,6 @@ import {
   formatDates,
   useI18n
 } from "@/utils";
-import {
-  computed,
-  onMounted,
-  ref
-} from "vue";
 
 import { EditorNotLoaded } from "../editor-not-loaded";
 import { EditorWorkspace } from "../editor-workspace";

@@ -1,3 +1,7 @@
+import PrimeVue from "primevue/config";
+import Tooltip from "primevue/tooltip";
+import { createApp } from "vue";
+
 import {
   name,
   version
@@ -22,9 +26,6 @@ import {
   throwCritical,
   ToastService
 } from "@/utils";
-import PrimeVue from "primevue/config";
-import Tooltip from "primevue/tooltip";
-import { createApp } from "vue";
 
 import App from "./app.vue";
 

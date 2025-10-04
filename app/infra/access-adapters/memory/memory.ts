@@ -1,5 +1,6 @@
-import { delay } from "@/utils";
 import { faker } from "@faker-js/faker";
+
+import { delay } from "@/utils";
 
 import type { AccessAdapter } from "../access";
 

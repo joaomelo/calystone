@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { kebabCase } from "@/utils/text";
 import Tab from "primevue/tab";
 import TabList from "primevue/tablist";
 import TabPanel from "primevue/tabpanel";
 import TabPanels from "primevue/tabpanels";
 import Tabs from "primevue/tabs";
+
+import { kebabCase } from "@/utils/text";
 
 import type { PanelsList } from "../panels-list";
 

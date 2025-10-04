@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -7,7 +9,6 @@ import {
   InputDate,
   useI18n
 } from "@/utils";
-import { ref } from "vue";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 

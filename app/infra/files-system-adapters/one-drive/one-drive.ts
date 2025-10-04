@@ -1,3 +1,7 @@
+import type { DriveItem } from "@microsoft/microsoft-graph-types";
+
+import { Client } from "@microsoft/microsoft-graph-client";
+
 import type {
   Artifact,
   ArtifactOptions,
@@ -7,11 +11,9 @@ import type {
   Node,
   Nodes
 } from "@/domain";
-import type { DriveItem } from "@microsoft/microsoft-graph-types";
 
 import { isId } from "@/domain";
 import { throwError } from "@/utils";
-import { Client } from "@microsoft/microsoft-graph-client";
 
 import type { ArtifactOrDirectoryOptions } from "../file-system";
 

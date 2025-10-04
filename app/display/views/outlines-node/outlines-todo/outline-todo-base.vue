@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import type { TodoArtifact } from "@/domain";
 
 import { AppIcon } from "@/utils";
-import { computed } from "vue";
 
 import { OutlineNode } from "../outline-node";
 

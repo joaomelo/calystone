@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import type { Node } from "@/domain";
 import type { Component } from "vue";
 
-import { Store } from "@/display/store";
 import { computed } from "vue";
+
+import type { Node } from "@/domain";
+
+import { Store } from "@/display/store";
 
 import type { EditorSwitch } from "../editor-switch";
 

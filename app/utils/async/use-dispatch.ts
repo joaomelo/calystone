@@ -1,9 +1,10 @@
+import { ref } from "vue";
+
 import { useToast } from "@/utils/dialogs";
 import {
   Severity,
   useErrors
 } from "@/utils/telemetry";
-import { ref } from "vue";
 
 type Nullary = () => Promise<unknown>;
 

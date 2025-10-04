@@ -1,31 +1,29 @@
 /* eslint-disable import-x/no-named-as-default */
-/* eslint-disable import-x/no-nodejs-modules */
-import vue from "@vitejs/plugin-vue";
-import {
-  fileURLToPath,
-  URL
-} from "node:url";
+
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 import { VitePWA } from "vite-plugin-pwa";
 
-const root = "./app/main";
-const pathBasedOnRootStartinAtProject = (path: string) => "../../" + path;
-const pathsBasedOnRootStartinAtProject = (paths: string[]) => paths.map(pathBasedOnRootStartinAtProject);
-const pathBasedOnCofingStartingAtProject = (path: string) => fileURLToPath(new URL(path, import.meta.url));
+import {
+  aliasAtProject,
+  appRoot,
+  projectRoot,
+  resolveAtProject,
+  sharedPlugins
+} from "./configs";
 
 export default defineConfig(() => {
   return {
     build: {
       assetsDir: ".",
       emptyOutDir: true,
-      outDir: pathBasedOnRootStartinAtProject("dist"),
+      outDir: resolveAtProject("dist"),
       sourcemap: true,
     },
-    envDir: pathBasedOnRootStartinAtProject(""),
+    envDir: projectRoot,
     plugins: [
-      vue(),
+      ...sharedPlugins(),
       VitePWA({
         devOptions: { enabled: false },
         includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
@@ -75,24 +73,22 @@ export default defineConfig(() => {
       }),
       visualizer({
         brotliSize: true,
-        filename: "dist/bundle-report.html",
+        filename: "reports/bundle-report.html",
         gzipSize: true,
         open: false,
         template: "treemap"
       })
     ],
-    publicDir: pathBasedOnRootStartinAtProject("assets"),
-    resolve: { alias: { "@": pathBasedOnCofingStartingAtProject("app"), }, },
-    root,
+    preview: {
+      port: 4173, // choose any port different from dev
+      strictPort: true
+    },
+    publicDir: resolveAtProject("assets"),
+    resolve: { alias: aliasAtProject, },
+    root: appRoot,
     server: {
       port: 8081,
       strictPort: true,
-    },
-    test: {
-      environment: "jsdom",
-      exclude: pathsBasedOnRootStartinAtProject(["node_modules/**", ".legacy/**", "e2e/**"]),
-      include: pathsBasedOnRootStartinAtProject(["app/**/*.test.ts"]),
-      setupFiles: pathBasedOnRootStartinAtProject("vitest.setup.ts"),
     },
   };
 });

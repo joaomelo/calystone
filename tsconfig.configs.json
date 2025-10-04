@@ -10,6 +10,7 @@
     "moduleResolution": "Bundler",
   },
   "include": [
+    "./configs/**/*",
     "*.config.*",
     "*.setup.*",
   ],

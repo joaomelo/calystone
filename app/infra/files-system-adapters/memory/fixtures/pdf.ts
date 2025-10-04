@@ -1,9 +1,10 @@
+import { faker } from "@faker-js/faker";
+import { jsPDF } from "jspdf";
+
 import type { Id } from "@/domain";
 
 import { createId } from "@/domain";
 import { throwCritical } from "@/utils";
-import { faker } from "@faker-js/faker";
-import { jsPDF } from "jspdf";
 
 import type { FileFixture } from "./fixture";
 

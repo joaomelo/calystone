@@ -1,10 +1,12 @@
-import type { OutlineNodesItem } from "@/display/views/outline-nodes";
 import type { Ref } from "vue";
+
+import { computed } from "vue";
+
+import type { OutlineNodesItem } from "@/display/views/outline-nodes";
 
 import { Store } from "@/display/store";
 import { TodoArtifact } from "@/domain";
 import { comparator } from "@/utils";
-import { computed } from "vue";
 
 export function useItems(date: Ref<Date>) {
   const { services } = Store.use();

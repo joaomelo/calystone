@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 import type { OutlineGridKeys } from "@/utils";
 
 import { OutlineNodes } from "@/display/views/outline-nodes";
@@ -17,7 +19,6 @@ import {
   debounce,
   InputText
 } from "@/utils";
-import { ref } from "vue";
 
 import { useItems } from "./use-items";
 

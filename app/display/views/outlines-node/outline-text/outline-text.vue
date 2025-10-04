@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import type { TextArtifact } from "@/domain";
 
 import {
   AppIcon,
   truncate
 } from "@/utils";
-import { computed } from "vue";
 
 import { OutlineNode } from "../outline-node";
 

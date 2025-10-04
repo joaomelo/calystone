@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 import type { OutlineGridKeys } from "@/utils";
 
 import { OutlineNodes } from "@/display/views/outline-nodes";
 import { OutlineTodo } from "@/display/views/outlines-node";
 import { MonthViewer } from "@/utils";
-import { ref } from "vue";
 
 import { useHighlight } from "./use-highlight";
 import { useItems } from "./use-items";

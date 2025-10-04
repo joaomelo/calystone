@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import type {
   ReferenceValue,
   TodoArtifact,
@@ -17,7 +19,6 @@ import {
   throwCritical,
   useI18n
 } from "@/utils";
-import { computed } from "vue";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 

@@ -14,11 +14,12 @@ import { importX } from "eslint-plugin-import-x";
 import mochaPlugin from "eslint-plugin-mocha";
 import perfectionist from "eslint-plugin-perfectionist";
 import pluginVue from "eslint-plugin-vue";
+import { defineConfig } from "eslint/config";
 import globals from "globals";
 import { resolve } from "path";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: ["dist", ".legacy", "app/main/dev-dist"] },
 
   // javascript

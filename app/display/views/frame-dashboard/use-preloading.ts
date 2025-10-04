@@ -1,5 +1,6 @@
-import { Store } from "@/display/store";
 import { ref } from "vue";
+
+import { Store } from "@/display/store";
 
 export function usePreloading() {
   const { services } = Store.use();

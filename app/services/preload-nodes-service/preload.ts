@@ -1,3 +1,5 @@
+import { BehaviorSubject } from "rxjs";
+
 import type { ConnectSourceService } from "@/services/connect-source-service";
 import type { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import type { OpenDirectoryService } from "@/services/open-directory-service";
@@ -7,7 +9,6 @@ import {
   LoggerContainer,
   Tracker
 } from "@/utils";
-import { BehaviorSubject } from "rxjs";
 
 import { Loader } from "./loader";
 

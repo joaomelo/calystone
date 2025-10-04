@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { kebabCase } from "@/utils/text";
 import InputCheckboxPrimeVue from "primevue/checkbox";
 import { useId } from "vue";
+
+import { kebabCase } from "@/utils/text";
 
 import { InputLabel } from "../input-label";
 

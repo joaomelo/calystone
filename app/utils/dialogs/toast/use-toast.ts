@@ -1,7 +1,8 @@
 import type { ToastMessageOptions } from "primevue/toast";
 
-import { Severity } from "@/utils";
 import { useToast as usePrimeToast } from "primevue/usetoast";
+
+import { Severity } from "@/utils";
 
 type PrimeSeverity = Exclude<ToastMessageOptions["severity"], undefined>;
 

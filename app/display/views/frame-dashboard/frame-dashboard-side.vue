@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import type { ComputedRef } from "vue";
 
+import { computed } from "vue";
+import {
+  useRoute,
+  useRouter
+} from "vue-router";
+
 import { Store } from "@/display/store";
 import {
   AppIcon,
@@ -8,11 +14,6 @@ import {
   SideItem,
   useI18n
 } from "@/utils";
-import { computed } from "vue";
-import {
-  useRoute,
-  useRouter
-} from "vue-router";
 
 import { usePreloading } from "./use-preloading";
 

@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import {
+  onMounted,
+  ref
+} from "vue";
+
 import type { TextArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -6,10 +11,6 @@ import {
   debounce,
   InputRichText
 } from "@/utils";
-import {
-  onMounted,
-  ref
-} from "vue";
 
 import { EditorNotLoaded } from "../editor-not-loaded";
 import { EditorWorkspace } from "../editor-workspace";

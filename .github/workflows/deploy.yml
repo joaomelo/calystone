@@ -58,8 +58,8 @@ jobs:
           VITE_PRELOAD_ENABLED: true
       - uses: actions/upload-artifact@v4
         with:
-          name: bundle-report
-          path: dist/bundle-report.html
+          name: reports
+          path: reports
           retention-days: 5             
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

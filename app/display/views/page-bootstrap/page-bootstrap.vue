@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+
 import type { SourceProvider } from "@/infra";
 
 import { Store } from "@/display/store";
 import { Frameplain } from "@/display/views/frame-plain";
 import { useI18n } from "@/utils";
-import { onMounted } from "vue";
-import { useRouter } from "vue-router";
 
 const { provider } = defineProps<{ provider: SourceProvider }>();
 

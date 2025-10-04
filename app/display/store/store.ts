@@ -1,10 +1,11 @@
-import type { ServicesPortfolio } from "@/services";
 import type {
   App,
   Ref
 } from "vue";
 
 import { ref } from "vue";
+
+import type { ServicesPortfolio } from "@/services";
 
 import type { AppData } from "./app-data";
 

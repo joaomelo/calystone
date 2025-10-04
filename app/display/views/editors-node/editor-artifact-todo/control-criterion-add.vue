@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import {
+  computed,
+  ref
+} from "vue";
+
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -7,10 +12,6 @@ import {
   InputText,
   useI18n
 } from "@/utils";
-import {
-  computed,
-  ref
-} from "vue";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 

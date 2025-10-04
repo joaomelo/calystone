@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { kebabCase } from "@/utils/text";
 import Dialog from "primevue/dialog";
 import Message from "primevue/message";
 import { ref } from "vue";
+
+import { kebabCase } from "@/utils/text";
 
 defineProps<{
   dataTest: string,

@@ -1,5 +1,6 @@
-import { throwError } from "@/utils";
 import { PublicClientApplication } from "@azure/msal-browser";
+
+import { throwError } from "@/utils";
 
 import type { AccessAdapter } from "../access";
 

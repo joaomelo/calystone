@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import type { TodoArtifact } from "@/domain";
 
 import { useI18n } from "@/utils";
-import { computed } from "vue";
 
 import OutlineTodoBase from "./outline-todo-base.vue";
 

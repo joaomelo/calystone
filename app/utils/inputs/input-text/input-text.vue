@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { isArrayFull } from "@/utils/arrays";
-import { kebabCase } from "@/utils/text";
 import InputTextPrimeVue from "primevue/inputtext";
 import {
   computed,
   useId
 } from "vue";
+
+import { isArrayFull } from "@/utils/arrays";
+import { kebabCase } from "@/utils/text";
 
 import { InputError } from "../input-error";
 import { InputLabel } from "../input-label";

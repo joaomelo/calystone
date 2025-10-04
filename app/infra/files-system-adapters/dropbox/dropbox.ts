@@ -1,3 +1,5 @@
+import { Dropbox } from "dropbox";
+
 import type {
   ArtifactOptions,
   Directory,
@@ -11,7 +13,6 @@ import {
   createId
 } from "@/domain";
 import { throwError } from "@/utils";
-import { Dropbox } from "dropbox";
 
 import type { ArtifactOrDirectoryOptions } from "../file-system";
 

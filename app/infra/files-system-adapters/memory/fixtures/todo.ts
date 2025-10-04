@@ -1,3 +1,5 @@
+import { faker } from "@faker-js/faker";
+
 import type {
   ArtifactOptions,
   Id
@@ -8,7 +10,6 @@ import {
   Criterion,
   TodoArtifact
 } from "@/domain";
-import { faker } from "@faker-js/faker";
 
 import type { FileFixture } from "./fixture";
 

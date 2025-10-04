@@ -1,5 +1,6 @@
-import { compareByString } from "@/utils";
 import { reactive } from "vue";
+
+import { compareByString } from "@/utils";
 
 import type { Id } from "../id";
 import type { NodeOptions } from "./options";

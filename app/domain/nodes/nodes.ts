@@ -1,3 +1,5 @@
+import { reactive } from "vue";
+
 import type { Id } from "@/domain/id";
 import type {
   Node,
@@ -6,7 +8,6 @@ import type {
 
 import { isId } from "@/domain/id";
 import { throwCritical } from "@/utils";
-import { reactive } from "vue";
 
 export class Nodes {
   private _map: Map<Id, Node>;

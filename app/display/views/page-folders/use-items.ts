@@ -1,9 +1,12 @@
+import type { Ref } from "vue";
+
+import { computed } from "vue";
+
 import type { OutlineNodesItem } from "@/display/views/outline-nodes";
 import type {
   Compare,
   OutlineGridKeys
 } from "@/utils";
-import type { Ref } from "vue";
 
 import { Store } from "@/display/store";
 import {
@@ -13,7 +16,6 @@ import {
   TodoArtifact
 } from "@/domain";
 import { comparator } from "@/utils";
-import { computed } from "vue";
 
 export function useItems(expanded: Ref<OutlineGridKeys>) {
   const { services } = Store.use();

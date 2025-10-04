@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import {
+  computed,
+  onMounted
+} from "vue";
+
 import type { BinaryArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -6,10 +11,6 @@ import {
   debounce,
   InputPdf
 } from "@/utils";
-import {
-  computed,
-  onMounted
-} from "vue";
 
 import { EditorNotLoaded } from "../editor-not-loaded";
 import { EditorWorkspace } from "../editor-workspace";

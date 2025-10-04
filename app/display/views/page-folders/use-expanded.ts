@@ -1,5 +1,11 @@
-import type { OutlineGridKeys } from "@/utils";
 import type { Ref } from "vue";
+
+import {
+  computed,
+  watch
+} from "vue";
+
+import type { OutlineGridKeys } from "@/utils";
 
 import { Store } from "@/display/store";
 import {
@@ -8,10 +14,6 @@ import {
   isArrayFull,
   useRouteStorage
 } from "@/utils";
-import {
-  computed,
-  watch
-} from "vue";
 
 export function useExpanded(selectedKeys: Ref<OutlineGridKeys>) {
 

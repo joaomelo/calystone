@@ -1,5 +1,6 @@
-import { useI18n } from "@/utils/i18n";
 import { reactive } from "vue";
+
+import { useI18n } from "@/utils/i18n";
 
 import {
   Exception,

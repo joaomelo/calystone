@@ -1,9 +1,10 @@
+import { computed } from "vue";
+
 import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { Directory } from "@/domain";
 import { useDispatch } from "@/utils";
-import { computed } from "vue";
 
 export function useDragAndDrop(node: Node) {
   const { services } = Store.use();

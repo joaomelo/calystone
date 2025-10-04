@@ -1,8 +1,9 @@
+import { z } from "zod";
+
 import type { Node } from "@/domain";
 import type { ConnectSourceService } from "@/services/connect-source-service";
 
 import { useSchema } from "@/utils";
-import { z } from "zod";
 
 export class RenameNodeService {
   private readonly connectSource: ConnectSourceService;

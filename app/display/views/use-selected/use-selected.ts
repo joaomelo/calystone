@@ -1,3 +1,5 @@
+import { computed } from "vue";
+
 import type { OutlineGridKeys } from "@/utils";
 
 import { Store } from "@/display/store";
@@ -6,7 +8,6 @@ import {
   gridToArrayKeys,
   useRouteStorage
 } from "@/utils";
-import { computed } from "vue";
 
 export function useSelected(routeParam: string) {
   const selectedArray = useRouteStorage(routeParam);

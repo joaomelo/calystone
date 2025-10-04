@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import type {
   Progress,
   TodoArtifact
@@ -11,7 +13,6 @@ import {
   ButtonBase,
   useI18n
 } from "@/utils";
-import { computed } from "vue";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 

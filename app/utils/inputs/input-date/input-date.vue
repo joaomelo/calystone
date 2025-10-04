@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { kebabCase } from "@/utils/text";
 import InputDatePrimeVue from "primevue/datepicker";
 import {
   onMounted,
   useId,
   useTemplateRef
 } from "vue";
+
+import { kebabCase } from "@/utils/text";
 
 import { InputLabel } from "../input-label";
 

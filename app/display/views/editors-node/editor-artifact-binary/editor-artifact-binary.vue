@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { filesize } from "filesize";
+import { computed } from "vue";
+
 import type { Artifact } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -9,8 +12,6 @@ import {
   PropertySheet,
   useI18n
 } from "@/utils";
-import { filesize } from "filesize";
-import { computed } from "vue";
 
 import {
   ToolbarButtonCreateArtifact,

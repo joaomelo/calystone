@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 import type { OutlineGridKeys } from "@/utils";
 
 import { OutlineNodes } from "@/display/views/outline-nodes";
 import { OutlinePriority } from "@/display/views/outlines-node";
 import { SelectCriterion } from "@/display/views/select-criterion";
 import { SelectTag } from "@/display/views/select-tag";
-import { ref } from "vue";
 
 import type { Filters } from "./filters";
 

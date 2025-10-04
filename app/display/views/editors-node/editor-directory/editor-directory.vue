@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
@@ -9,7 +11,6 @@ import {
   TextMessage,
   useI18n
 } from "@/utils";
-import { computed } from "vue";
 
 import { EditorWorkspace } from "../editor-workspace";
 import {

@@ -26,6 +26,6 @@ export class TextArtifact extends Artifact {
   }
 
   toBinary(): ArrayBuffer {
-    return this.encoder.encode(this.content).buffer as ArrayBuffer;
+    return this.encoder.encode(this.content).buffer;
   }
 }

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+
 import type { SourceProvider } from "@/infra";
 
 import { Store } from "@/display/store";
@@ -7,8 +10,6 @@ import {
   useDispatch,
   useI18n
 } from "@/utils";
-import { computed } from "vue";
-import { useRouter } from "vue-router";
 
 const { provider } = defineProps<{
   dataTest: string;
