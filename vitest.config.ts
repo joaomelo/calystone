@@ -18,7 +18,7 @@ export default defineConfig({
     environment: "jsdom",
     exclude: ["node_modules/**", ".legacy/**", "e2e/**"],
     include: ["app/**/*.test.ts"],
-    outputFile: isCI ? "./reports/vitest-results.json" : undefined,
-    reporters: isCI ? ["dot", "json"] : ["default"]
+    outputFile: { json: "./reports/vitest-results.json" },
+    reporters: isCI ? ["dot", "json"] : ["default"],
   }
 });
