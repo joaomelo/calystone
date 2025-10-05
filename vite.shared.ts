@@ -5,7 +5,7 @@ import {
   URL
 } from "node:url";
 
-export const projectRoot = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
+export const projectRoot = resolve(fileURLToPath(new URL(".", import.meta.url)));
 export const appRoot = resolve(projectRoot, "app", "main");
 export const aliasAtProject = { "@": resolve(projectRoot, "app") };
 

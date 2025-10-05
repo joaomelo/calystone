@@ -78,7 +78,7 @@ export default defineConfig(() => {
       })
     ],
     preview: {
-      port: 4173, // choose any port different from dev
+      port: 4173,
       strictPort: true
     },
     publicDir: resolveAtProject("assets"),

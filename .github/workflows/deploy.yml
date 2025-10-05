@@ -50,17 +50,19 @@ jobs:
             e2e/videos
             e2e/screenshots
           retention-days: 3
-      - run: npm run release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_ENABLE_MEMORY: false
-          VITE_LOGGER_LEVEL: 6
-          VITE_PRELOAD_ENABLED: true
       - uses: actions/upload-artifact@v4
         with:
           name: reports
           path: reports
-          retention-days: 5             
+          retention-days: 3             
+      - run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run build
+        env:
+          VITE_ENABLE_MEMORY: false
+          VITE_LOGGER_LEVEL: 6
+          VITE_PRELOAD_ENABLED: true
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
