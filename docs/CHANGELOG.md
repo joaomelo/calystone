@@ -2,6 +2,8 @@
 
 
 
+## [0.111.17](https://github.com/joaomelo/calystone/compare/v0.111.16...v0.111.17) (2025-10-05)
+
 ## [0.111.16](https://github.com/joaomelo/calystone/compare/v0.111.15...v0.111.16) (2025-10-05)
 
 ## [0.111.15](https://github.com/joaomelo/calystone/compare/v0.111.14...v0.111.15) (2025-10-05)
