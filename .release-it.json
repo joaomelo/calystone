@@ -32,5 +32,8 @@
         { "type": "wip", "section": "Work in Progress", "hidden": true }
       ]
     }
-  }
+  },
+  "hooks": {
+    "before:git.commit": "npm run summary:append"
+  }  
 }
