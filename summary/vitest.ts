@@ -21,5 +21,5 @@ export function isVitest(obj: unknown): obj is Vitest {
 }
 
 export function vitestAsString(vitest: Vitest): string {
-  return `- **Unit Tests:** ${vitest.numPassedTests.toFixed(0)}/${vitest.numTotalTests.toFixed(0)} passed, ${vitest.numFailedTests.toFixed(0)} failed`;
+  return `- Unit Tests: ${vitest.numPassedTests.toFixed(0)}/${vitest.numTotalTests.toFixed(0)} passed, ${vitest.numFailedTests.toFixed(0)} failed`;
 }
