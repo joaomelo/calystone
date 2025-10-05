@@ -1,8 +1,10 @@
 import fs from "node:fs";
 
-export function readJSON(p: string): null | unknown {
+export function readJSON<T>(path: string, is: (obj: unknown) => obj is T): null | T {
   try {
-    return JSON.parse(fs.readFileSync(p, "utf8"));
+    const content = fs.readFileSync(path, "utf8");
+    const data = JSON.parse(content);
+    return is(data) ? data : null;
   } catch {
     return null;
   }

@@ -28,7 +28,8 @@
     "lint": "eslint",
     "build": "vite build",
     "quality": "npm run lint && npm run test:ci",
-    "release": "release-it --ci --verbose && npm run build"
+    "release": "release-it --ci --verbose && npm run build",
+    "summary": "tsx summary/index.ts"
   },
   "dependencies": {
     "@azure/msal-browser": "^3.28.0",
@@ -101,6 +102,7 @@
     "jsdom": "^25.0.1",
     "release-it": "^17.0.0",
     "rollup-plugin-visualizer": "^6.0.3",
+    "tsx": "^4.20.6",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^5.0.11",

@@ -193,7 +193,7 @@ export default defineConfig(
 
     languageOptions: {
       globals: { ...globals.node },
-      parser: "@typescript-eslint/parser",
+      parser: tseslint.parser,
       parserOptions: {
         project: [resolve(import.meta.dirname, "./tsconfig.configs.json")],
         projectService: true,
@@ -202,11 +202,11 @@ export default defineConfig(
       },
     },
     rules: {
-      "import-x/no-nodejs-modules": "off", 
-      "import-x/no-named-as-default-member": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "import-x/no-named-as-default-member": "off",
+      "import-x/no-nodejs-modules": "off",
     },
   },
 );
