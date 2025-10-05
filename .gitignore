@@ -1,6 +1,7 @@
 .env
 dist/
 reports/
+coverage/
 dev-dist/
 dist-web/
 node_modules/

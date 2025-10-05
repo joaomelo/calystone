@@ -1,11 +1,10 @@
-// vitest.config.ts
 import { defineConfig } from "vitest/config";
 
 import {
   aliasAtProject,
   projectRoot,
   sharedPlugins
-} from "./configs";
+} from "./vite.shared";
 
 const isCI = process.env.VITEST_MODE === "ci";
 
@@ -15,6 +14,10 @@ export default defineConfig({
   resolve: { alias: aliasAtProject },
   root: projectRoot,
   test: {
+    coverage: {
+      provider: "v8",
+      reportsDirectory: "./reports/coverage"
+    },
     environment: "jsdom",
     exclude: ["node_modules/**", ".legacy/**", "e2e/**"],
     include: ["app/**/*.test.ts"],

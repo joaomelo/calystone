@@ -1,9 +1,3 @@
-/* eslint-disable import-x/no-named-as-default-member */
-/* eslint-disable import-x/no-nodejs-modules */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginChaiFriendly from "eslint-plugin-chai-friendly";
@@ -187,5 +181,32 @@ export default defineConfig(
     ...pluginCypress.configs.recommended,
     ...mochaPlugin.configs.flat.recommended,
     ...pluginChaiFriendly.configs.recommendedFlat,
+  },
+
+  // only for config files
+  {
+    files: [
+      "summary/**/*.{ts,js}",
+      "*.{config,setup,shared}.{ts,js,mts,mjs,cts,cjs}",
+    ],
+    ignores: ["app/**", "e2e/**"],
+
+    languageOptions: {
+      globals: { ...globals.node },
+      parser: "@typescript-eslint/parser",
+      parserOptions: {
+        project: [resolve(import.meta.dirname, "./tsconfig.configs.json")],
+        projectService: true,
+        sourceType: "module",
+        tsconfigRootDir: resolve(import.meta.dirname),
+      },
+    },
+    rules: {
+      "import-x/no-nodejs-modules": "off", 
+      "import-x/no-named-as-default-member": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+    },
   },
 );

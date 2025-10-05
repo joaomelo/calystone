@@ -1,4 +1,4 @@
-/* eslint-disable import-x/no-nodejs-modules */
+import vue from "@vitejs/plugin-vue";
 import { resolve } from "node:path";
 import {
   fileURLToPath,
@@ -11,3 +11,7 @@ export const aliasAtProject = { "@": resolve(projectRoot, "app") };
 
 export const resolveAtProject = (...paths: string[]) => resolve(projectRoot, ...paths);
 export const resolveAtApp = (...paths: string[]) => resolve(appRoot, ...paths);
+
+export function sharedPlugins() {
+  return [vue()];
+}

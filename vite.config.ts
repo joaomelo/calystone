@@ -1,5 +1,3 @@
-/* eslint-disable import-x/no-named-as-default */
-
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
@@ -11,7 +9,7 @@ import {
   projectRoot,
   resolveAtProject,
   sharedPlugins
-} from "./configs";
+} from "./vite.shared";
 
 export default defineConfig(() => {
   return {

@@ -10,9 +10,10 @@
     "moduleResolution": "Bundler",
   },
   "include": [
-    "./configs/**/*",
+    "./summary/**/*",
     "*.config.*",
-    "*.setup.*",
+    "*.setup.*", 
+    "*.shared.*",
   ],
   "exclude": [
     "node_modules",
