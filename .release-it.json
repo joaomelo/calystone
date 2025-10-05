@@ -34,6 +34,6 @@
     }
   },
   "hooks": {
-    "before:git.tag": "npm run -s summary:append && git add docs/CHANGELOG.md && git commit --amend --no-edit"
+    "after:git.commit": "npm run -s summary:append && git add docs/CHANGELOG.md && git commit --amend --no-edit"
   }  
 }
