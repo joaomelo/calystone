@@ -11,7 +11,32 @@ import {
   sharedPlugins
 } from "./vite.shared";
 
-export default defineConfig(() => {
+export default defineConfig(({ command }) => {
+  const isDev = command === "serve";
+  const isProd = command === "build";
+
+  const conditionalPlugins = [];
+  if (isDev) {
+    conditionalPlugins.push(checker({
+      eslint: {
+        lintCommand: "eslint",
+        useFlatConfig: true
+      },
+      overlay: { initialIsOpen: false },
+      vueTsc: true
+    }));
+  }
+
+  if (isProd) {
+    conditionalPlugins.push(visualizer({
+      brotliSize: true,
+      filename: "reports/bundle-report.html",
+      gzipSize: true,
+      open: false,
+      template: "treemap"
+    }));
+  }
+
   return {
     build: {
       assetsDir: ".",
@@ -22,6 +47,7 @@ export default defineConfig(() => {
     envDir: projectRoot,
     plugins: [
       ...sharedPlugins(),
+      ...conditionalPlugins,
       VitePWA({
         devOptions: { enabled: false },
         includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
@@ -60,21 +86,6 @@ export default defineConfig(() => {
           globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
           maximumFileSizeToCacheInBytes: 5_000_000
         }
-      }),
-      checker({
-        eslint: {
-          lintCommand: "eslint",
-          useFlatConfig: true
-        },
-        overlay: { initialIsOpen: false },
-        vueTsc: true
-      }),
-      visualizer({
-        brotliSize: true,
-        filename: "reports/bundle-report.html",
-        gzipSize: true,
-        open: false,
-        template: "treemap"
       })
     ],
     preview: {
