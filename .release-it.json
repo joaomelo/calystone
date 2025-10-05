@@ -14,9 +14,23 @@
   "plugins": {
     "@release-it/conventional-changelog": {
       "preset": "conventionalcommits",
-      "parserOpts": {
-        "mergePattern": "^merge pull request #(\\d+) from (.*)$"
-      }
+      "infile": "docs/CHANGELOG.md",
+      "header": "# Changelog\n\n",
+      "types": [
+        { "type": "feat", "section": "Features", "hidden": false },
+        { "type": "fix", "section": "Bug Fixes", "hidden": false },
+        { "type": "perf", "section": "Performance", "hidden": false },
+        { "type": "revert", "section": "Reverts", "hidden": false },
+
+        { "type": "build", "section": "Build", "hidden": true },
+        { "type": "chore", "section": "Chores", "hidden": true },
+        { "type": "ci", "section": "CI", "hidden": true },
+        { "type": "docs", "section": "Docs", "hidden": true },
+        { "type": "refactor", "section": "Refactor", "hidden": true },
+        { "type": "style", "section": "Style", "hidden": true },
+        { "type": "test", "section": "Tests", "hidden": true },
+        { "type": "wip", "section": "Work in Progress", "hidden": true }
+      ]
     }
   }
 }
