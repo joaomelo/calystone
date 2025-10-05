@@ -34,6 +34,6 @@
     }
   },
   "hooks": {
-    "after:changelog": "npm run -s summary:append"
+    "after:bump": "npm run -s summary:append"
   }  
 }
