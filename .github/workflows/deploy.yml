@@ -58,6 +58,13 @@ jobs:
       - run: npm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run summary:append
+      - run: |
+          if ! git diff --quiet docs/CHANGELOG.md; then
+            git add docs/CHANGELOG.md
+            git commit -m "docs[skip ci]: add quality summary to changelog"
+            git push
+          fi          
       - run: npm run build
         env:
           VITE_ENABLE_MEMORY: false

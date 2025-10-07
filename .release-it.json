@@ -32,8 +32,5 @@
         { "type": "wip", "section": "Work in Progress", "hidden": true }
       ]
     }
-  },
-  "hooks": {
-    "after:git.commit": "npm run -s summary:append && git add docs/CHANGELOG.md && git commit --amend --no-edit"
-  }  
+  }
 }
