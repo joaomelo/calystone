@@ -26,22 +26,24 @@ if (!summary) {
   process.exit(0);
 }
 
-const withLead = "\n" + changelog;
-const match = /(^|\n)## \[[^\]]+\][^\n]*\n/.exec(withLead);
+const changelogNormalized = changelog.replace(/(^# Changelog)\n{2,}/m, "$1\n\n");
 
+const match = /(^|\n)## \[[^\]]+\][^\n]*\n/.exec(changelogNormalized);
 if (!match) {
   console.warn("no release section found.");
   process.exit(0);
 }
 
-const insertPosInWithLead = match.index + match[0].length;
-const insertPos = insertPosInWithLead - 1;
+const insertPos = match.index + match[0].length;
 
-const updated
-  = changelog.slice(0, insertPos)
-  + "\n"
-  + summary
-  + "\n"
-  + changelog.slice(insertPos);
+const alreadyHas = changelogNormalized
+  .slice(insertPos, insertPos + summary.length + 2)
+  .startsWith("\n" + summary);
+if (alreadyHas) process.exit(0);
+
+const before = changelogNormalized.slice(0, insertPos).replace(/\n+$/, "\n");
+const after = changelogNormalized.slice(insertPos).replace(/^\n+/, "");
+
+const updated = `${before}\n${summary}\n\n${after}`;
 
 fs.writeFileSync(changelogPath, updated, "utf8");
