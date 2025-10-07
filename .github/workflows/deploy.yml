@@ -8,6 +8,7 @@ on:
       - 'app/**'
       - 'assets/**'
       - 'e2e/**'
+      - 'summary/**'      
       - '.github/workflows/deploy.yml'
       - '.release-it.json'
       - 'cypress.config.js'
