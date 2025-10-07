@@ -11,7 +11,7 @@ if (!fs.existsSync(changelogPath)) {
 
 const changelog = fs.readFileSync(changelogPath, "utf8");
 if (!changelog) {
-  console.warn("summary file is empty.");
+  console.warn("changelog file is empty.");
   process.exit(0);
 }
 
@@ -26,22 +26,27 @@ if (!summary) {
   process.exit(0);
 }
 
-const withLead = "\n" + changelog;
-const match = /(^|\n)## \[[^\]]+\][^\n]*\n/.exec(withLead);
+const changelogNormalized = changelog
+  .replace(/\r\n/g, "\n")
+  .replace(/(^# Changelog)\n{2,}/m, "$1\n\n");
 
+const match = /(^|\n)## \[[^\]]+\][^\n]*\n/.exec(changelogNormalized);
 if (!match) {
   console.warn("no release section found.");
   process.exit(0);
 }
 
-const insertPosInWithLead = match.index + match[0].length;
-const insertPos = insertPosInWithLead - 1;
+const insertPos = match.index + match[0].length;
 
-const updated
-  = changelog.slice(0, insertPos)
-  + "\n"
-  + summary
-  + "\n"
-  + changelog.slice(insertPos);
+const alreadyHas = changelogNormalized
+  .slice(insertPos, insertPos + summary.length + 2)
+  .startsWith("\n" + summary);
+if (alreadyHas) process.exit(0);
 
-fs.writeFileSync(changelogPath, updated, "utf8");
+const before = changelogNormalized.slice(0, insertPos).replace(/\n+$/, "\n");
+const after = changelogNormalized.slice(insertPos).replace(/^\n+/, "");
+
+const updated = `${before}\n${summary}\n\n${after}`;
+const updatedNormalized = updated.endsWith("\n") ? updated : updated + "\n";
+
+fs.writeFileSync(changelogPath, updatedNormalized, "utf8");
