@@ -43,9 +43,23 @@ export function useDragAndDrop(node: Node) {
   }
 
   function handleDragstart(event: DragEvent) {
+    console.log("dragstart", { node });
     if (!event.dataTransfer) return;
+    const host = promoteHost(event.currentTarget);
+    console.log("promoteHost", { host });
+
     event.dataTransfer.setData(dragFormat, node.id);
     event.dataTransfer.effectAllowed = "move";
+  }
+
+  function promoteHost(el: EventTarget | null) {
+    const li = (el as HTMLElement | null)?.closest<HTMLElement>("[role=\"treeitem\"]");
+    if (!li) return null;
+    if (!li.hasAttribute("draggable")) {
+      li.setAttribute("draggable", "true");
+      li.dataset.tmpDrag = "1";
+    }
+    return li;
   }
 
   return {

@@ -1,28 +1,13 @@
 <script setup lang="ts">
 import type { Node } from "@/domain";
 
-import { useDragAndDrop } from "./use-drag-and-drop";
-
 const { node } = defineProps<{ node: Node, }>();
-
-const {
-  handleDragdrop,
-  handleDragover,
-  handleDragstart,
-  moveable
-} = useDragAndDrop(node);
-
 </script>
 <template>
   <div
     class="outline-node"
     :data-test="node.id"
     data-test-type="outline-node"
-    :draggable="moveable.isOk()"
-    @dragenter="handleDragover"
-    @dragover="handleDragover"
-    @dragstart="handleDragstart"
-    @drop="handleDragdrop"
   >
     <slot name="icon" />
     <div class="outline-node__content">
