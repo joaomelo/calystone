@@ -1,1 +1,1 @@
-// commands
+import "cypress-real-events";
