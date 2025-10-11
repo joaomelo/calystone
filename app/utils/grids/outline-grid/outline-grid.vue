@@ -25,8 +25,8 @@ const {
 const emit = defineEmits<{
   collapsed: [key: OutlineGridItem];
   drop: [event: {
-    drag: OutlineGridItem;
-    drop: OutlineGridItem
+    dragNode: OutlineGridItem;
+    dropNode: OutlineGridItem
   }];
   expanded: [key: OutlineGridItem];
   selected: [key: OutlineGridItem];
@@ -38,16 +38,16 @@ const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () 
 
 const mustBeDefinedToEnableDnD = draggable ? () => undefined : undefined;
 
-function handleDrop(event: TreeNodeDropEvent) {
-  const {
+function handleDrop({
+  dragNode,
+  dropNode,
+}: TreeNodeDropEvent) {
+  emit("drop", {
     dragNode,
     dropNode
-  } = event;
-  emit("drop", {
-    drag: dragNode,
-    drop: dropNode
   });
 }
+
 </script>
 <template>
   <PrimeVueTree
@@ -59,7 +59,6 @@ function handleDrop(event: TreeNodeDropEvent) {
     :draggable-nodes="draggable"
     :droppable-nodes="draggable"
     :selection-mode="selectionMode"
-    :validate-drop="draggable"
     :value="items"
     @node-collapse="$emit('collapsed', $event)"
     @node-drop="handleDrop"

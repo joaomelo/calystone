@@ -9,16 +9,16 @@ export function useDragAndDrop() {
   const { dispatchOrToast } = useDispatch();
 
   async function handleDrop({
-    drag,
-    drop
+    dragNode,
+    dropNode
   }: {
-    drag: OutlineGridItem;
-    drop: OutlineGridItem
+    dragNode: OutlineGridItem;
+    dropNode: OutlineGridItem
   }) {
-    if (!(drag.data instanceof Node) || !(drop.data instanceof Node)) return;
+    if (!(dragNode.data instanceof Node) || !(dropNode.data instanceof Node)) return;
 
-    const target = drop.data;
-    const subject = drag.data;
+    const target = dropNode.data;
+    const subject = dragNode.data;
 
     await dispatchOrToast(async () => {
       const moveable = services.moveNode.moveable({
@@ -32,20 +32,6 @@ export function useDragAndDrop() {
       });
     });
   };
-
-  // function handleDragover(event: DragEvent) {
-  //   if (!(node instanceof Directory)) return;
-  //   if (!event.dataTransfer?.types.includes(dragFormat)) return;
-  //   event.preventDefault();
-  //   event.dataTransfer.dropEffect = "move";
-  // }
-
-  // function handleDragstart(event: DragEvent) {
-  //   if (!event.dataTransfer) return;
-
-  //   event.dataTransfer.setData(dragFormat, node.id);
-  //   event.dataTransfer.effectAllowed = "move";
-  // }
 
   return { handleDrop };
 }
