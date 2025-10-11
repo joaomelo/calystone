@@ -13,6 +13,8 @@ import {
 
 import type { OutlineNodesItem } from "./outline-nodes-item";
 
+import { useDragAndDrop } from "./use-drag-and-drop";
+
 defineProps<{
   dataTest: string;
   displayMode?: OutlineGridMode;
@@ -27,6 +29,8 @@ const emit = defineEmits<{
 
 const expandedKeys = defineModel<OutlineGridKeys>("expandedKeys", { default: () => ({}) });
 const selectedKeys = defineModel<OutlineGridKeys>("selectedKeys", { default: () => ({}) });
+
+const { handleDrop } = useDragAndDrop();
 
 function handleCollapsed(item: OutlineGridItem) {
   if (!(item.data instanceof Node)) return;
@@ -55,8 +59,10 @@ function handleUnselected(item: OutlineGridItem) {
       v-model:selected-keys="selectedKeys"
       :data-test="dataTest"
       :display-mode="displayMode"
+      :draggable="displayMode === 'tree'"
       :items="items"
       @collapsed="handleCollapsed"
+      @drop="handleDrop"
       @expanded="handleExpanded"
       @selected="handleSelected"
       @unselected="handleUnselected"

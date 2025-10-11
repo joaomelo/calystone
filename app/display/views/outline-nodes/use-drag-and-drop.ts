@@ -1,71 +1,51 @@
-import { computed } from "vue";
-
-import type { Node } from "@/domain";
+import type { OutlineGridItem } from "@/utils";
 
 import { Store } from "@/display/store";
-import { Directory } from "@/domain";
+import { Node } from "@/domain";
 import { useDispatch } from "@/utils";
 
-export function useDragAndDrop(node: Node) {
+export function useDragAndDrop() {
   const { services } = Store.use();
-  const nodes = services.spawnCollections.nodes();
-
   const { dispatchOrToast } = useDispatch();
 
-  const moveable = computed(() => services.moveNode.moveable({ subject: node }));
-  const dragFormat = "application/outline-node";
+  async function handleDrop({
+    drag,
+    drop
+  }: {
+    drag: OutlineGridItem;
+    drop: OutlineGridItem
+  }) {
+    if (!(drag.data instanceof Node) || !(drop.data instanceof Node)) return;
 
-  async function handleDragdrop(event: DragEvent) {
-    if (!event.dataTransfer) return;
-    if (!(node instanceof Directory)) return;
-
-    event.preventDefault();
-
-    const id = event.dataTransfer.getData(dragFormat);
+    const target = drop.data;
+    const subject = drag.data;
 
     await dispatchOrToast(async () => {
-      const subject = nodes.getOrThrow(id);
-      const moveable = services.moveNode.moveable({ subject });
+      const moveable = services.moveNode.moveable({
+        subject,
+        target
+      });
       moveable.throwOnFail();
-
       await services.moveNode.move({
         subject,
-        target: node
+        target
       });
     });
   };
 
-  function handleDragover(event: DragEvent) {
-    if (!(node instanceof Directory)) return;
-    if (!event.dataTransfer?.types.includes(dragFormat)) return;
-    event.preventDefault();
-    event.dataTransfer.dropEffect = "move";
-  }
+  // function handleDragover(event: DragEvent) {
+  //   if (!(node instanceof Directory)) return;
+  //   if (!event.dataTransfer?.types.includes(dragFormat)) return;
+  //   event.preventDefault();
+  //   event.dataTransfer.dropEffect = "move";
+  // }
 
-  function handleDragstart(event: DragEvent) {
-    console.log("dragstart", { node });
-    if (!event.dataTransfer) return;
-    const host = promoteHost(event.currentTarget);
-    console.log("promoteHost", { host });
+  // function handleDragstart(event: DragEvent) {
+  //   if (!event.dataTransfer) return;
 
-    event.dataTransfer.setData(dragFormat, node.id);
-    event.dataTransfer.effectAllowed = "move";
-  }
+  //   event.dataTransfer.setData(dragFormat, node.id);
+  //   event.dataTransfer.effectAllowed = "move";
+  // }
 
-  function promoteHost(el: EventTarget | null) {
-    const li = (el as HTMLElement | null)?.closest<HTMLElement>("[role=\"treeitem\"]");
-    if (!li) return null;
-    if (!li.hasAttribute("draggable")) {
-      li.setAttribute("draggable", "true");
-      li.dataset.tmpDrag = "1";
-    }
-    return li;
-  }
-
-  return {
-    handleDragdrop,
-    handleDragover,
-    handleDragstart,
-    moveable
-  };
+  return { handleDrop };
 }

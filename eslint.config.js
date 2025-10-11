@@ -150,8 +150,9 @@ export default defineConfig(
   { rules: {
     "perfectionist/sort-classes": "off",
     "perfectionist/sort-interfaces": "off",
+    "perfectionist/sort-modules": "off",
     // vue plugin already has a standard way to sort that considers the attribute type like if it is an event or a id definition
-    "perfectionist/sort-vue-attributes": "off",
+    "perfectionist/sort-vue-attributes": "off"
   } },
 
   // language settings

@@ -27,12 +27,14 @@ export class Mover {
 
   moveable(options: {
     subject: Node;
-    target: Directory
+    target: Node;
   }): Status {
     const {
       subject,
       target
     } = options;
+
+    if (!(target instanceof Directory)) return Status.fail("CANNOT_MOVE_TO_NON_DIRECTORY");
 
     if (subject.isRoot()) return Status.fail("CANNOT_MOVE_ROOT");
     if (subject.isEqualTo(target)) return Status.fail("CANNOT_MOVE_TO_ITSELF");
