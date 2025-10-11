@@ -1,10 +1,12 @@
 import { dataTest } from "../helpers";
 
+export type Locale = "en" | "pt-br";
+
 export const pageOpen = {
   locale: {
     input: () => cy.get(dataTest("input-locale-input")),
     label: () => cy.get(dataTest("input-locale-label")),
-    option: (locale: string) => pageOpen.locale.input().find("button").contains(locale),
+    option: (locale: Locale) => pageOpen.locale.input().find("button").contains(locale),
   },
   open: {
     dropbox: () => cy.get(dataTest("open-dropbox")),
