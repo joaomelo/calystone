@@ -1,5 +1,9 @@
 # Changelog
 
+
+
+## [0.111.21](https://github.com/joaomelo/calystone/compare/v0.111.20...v0.111.21) (2025-10-11)
+
 ## [0.111.20](https://github.com/joaomelo/calystone/compare/v0.111.19...v0.111.20) (2025-10-11)
 
 **Quality summary**
