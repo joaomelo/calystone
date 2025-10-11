@@ -15,8 +15,7 @@
     "target": "ES2015",
     "types": [
       "cypress",
-      "node",
-      "cypress-real-events"
+      "node"
     ]
   },
   "include": [

@@ -87,7 +87,6 @@
     "concurrently": "^8.2.2",
     "cross-env": "^10.1.0",
     "cypress": "^14.4.0",
-    "cypress-real-events": "^1.15.0",
     "eslint": "^9.9.1",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-chai-friendly": "^1.0.1",

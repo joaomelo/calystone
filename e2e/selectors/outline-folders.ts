@@ -24,12 +24,13 @@ export const outlineNodesLegacy = {
   toogleOf: (node: Cypress.Chainable) => node.find(".p-tree-node-toggle-button")
 } as const;
 
+const nodeToogle = "button.p-tree-node-toggle-button";
 const nodeTree = "li.p-tree-node";
 const nodeTreeWithLabel = (label: string) => `li.p-tree-node[aria-label='${label}']`;
+const rootTree = `ul.p-tree-root-children > ${nodeTree}`;
 const nodeChildren = "ul.p-tree-node-children";
 const nodeInline = ".p-tree-node-label";
-const nodeToogle = "button.p-tree-node-toggle-button";
-const rootTree = `ul.p-tree-root-children > ${nodeTree}`;
+const nodeInlineItem = "[data-test-type='outline-node']";
 const directoryTree = `${nodeTree}:not(.p-tree-node-leaf)`;
 const artifactTree = `${nodeTree}.p-tree-node-leaf`;
 const nodeLabel = (label: string) => dataTest(`outline-node-label-${label}`);
@@ -39,6 +40,7 @@ export const outlineNodes = {
   directoryTree,
   nodeChildren,
   nodeInline,
+  nodeInlineItem,
   nodeLabel,
   nodeToogle,
   nodeTree,

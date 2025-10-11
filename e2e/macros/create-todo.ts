@@ -41,7 +41,6 @@ export function createTodo(options: {
     criteria.forEach((criterion) => {
       editorTodo.priority.add.input().clear().type(criterion.label);
       editorTodo.priority.add.button().click();
-      cy.debug();
       editorTodo.priority.manage.value(criterion.label).clear().type(criterion.value);
     });
   }
