@@ -14,13 +14,15 @@ interface Option {
 const {
   centered = false,
   disabled = false,
-  label
+  label,
+  stretched = false
 } = defineProps<{
   centered?: boolean;
   dataTest: string
   disabled?: boolean
   label: string;
   options: Option[];
+  stretched?: boolean;
 }>();
 const model = defineModel({ type: String });
 
@@ -43,7 +45,7 @@ const id = useId();
       :allow-empty="false"
       :data-test="kebabCase(dataTest, 'input')"
       :disabled="disabled"
-      fluid
+      :fluid="stretched"
       option-label="label"
       option-value="value"
       :options="options"
