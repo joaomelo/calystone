@@ -1,5 +1,14 @@
 # Changelog
 
+
+
+## [0.111.22](https://github.com/joaomelo/calystone/compare/v0.111.21...v0.111.22) (2025-10-12)
+
+
+### Bug Fixes
+
+* input radio now longer auto streches ([30d71ef](https://github.com/joaomelo/calystone/commit/30d71efc0c1e4fec83e54aaf7671a72fdb0f5f1c))
+
 ## [0.111.21](https://github.com/joaomelo/calystone/compare/v0.111.20...v0.111.21) (2025-10-11)
 
 **Quality summary**
