@@ -8,8 +8,7 @@ import type {
 
 import { AvailSourceService } from "@/services/avail-source-service";
 import { ConnectSourceService } from "@/services/connect-source-service";
-import { CreateArtifactService } from "@/services/create-artifact-service";
-import { CreateDirectoryService } from "@/services/create-directory-service";
+import { CreateNodeService } from "@/services/create-node-service";
 import { EnsureDescriptorService } from "@/services/ensure-descriptor-service";
 import { ExchangeArtifactService } from "@/services/exchange-artifact-service";
 import { ExportNodeService } from "@/services/export-node-service";
@@ -25,8 +24,7 @@ import { SpawnCollectionsService } from "@/services/spawn-collections-service";
 export class ServicesPortfolio {
   availSource: AvailSourceService;
   connectSource: ConnectSourceService;
-  createArtifact: CreateArtifactService;
-  createDirectory: CreateDirectoryService;
+  createNode: CreateNodeService;
   ensureDescriptor: EnsureDescriptorService;
   exchangeArtifact: ExchangeArtifactService;
   exportNode: ExportNodeService;
@@ -77,15 +75,11 @@ export class ServicesPortfolio {
       connectSourceService: this.connectSource,
       ensureDescriptor: this.ensureDescriptor
     });
-    this.createArtifact = new CreateArtifactService({
+    this.createNode = new CreateNodeService({
       connectSourceService: this.connectSource,
       exchangeArtifact: this.exchangeArtifact,
       openDirectory: this.openDirectory,
       spawnCollectionsService: this.spawnCollections
-    });
-    this.createDirectory = new CreateDirectoryService({
-      connectSourceService: this.connectSource,
-      openDirectory: this.openDirectory
     });
     this.preloadNodes = new PreloadNodesService({
       connectSource: this.connectSource,

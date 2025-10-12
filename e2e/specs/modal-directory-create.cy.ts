@@ -2,7 +2,12 @@ import {
   createDirectory,
   openMemory
 } from "../macros";
-import { outlineNodesLegacy } from "../selectors";
+import {
+  modalCreateDirectory,
+  outlineNodes,
+  outlineNodesLegacy,
+  toolbarNode
+} from "../selectors";
 
 describe("create-directory", () => {
   beforeEach(() => {
@@ -17,5 +22,20 @@ describe("create-directory", () => {
 
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).should("contain.text", directoryName);
+  });
+
+  it.only("forbids creating directory with the same name as existing directory", () => {
+    const name = "duplicate-directory";
+
+    cy.get(outlineNodes.nodeToogle).first().click();
+    cy.get(outlineNodes.rootTree).click();
+
+    createDirectory(name);
+
+    toolbarNode.buttonCreateDirectory().click();
+    modalCreateDirectory.inputName().clear().type(name);
+    modalCreateDirectory.buttonSave().click();
+
+    modalCreateDirectory.modalError().should("exist");
   });
 });

@@ -4,7 +4,7 @@ import type { ExchangeArtifactService } from "@/services/exchange-artifact-servi
 import type { OpenDirectoryService } from "@/services/open-directory-service";
 import type { SpawnCollectionsService } from "@/services/spawn-collections-service";
 
-export class CreateArtifactService {
+export class CreateNodeService {
   private readonly connectSourceService: ConnectSourceService;
   private readonly exchangeArtifact: ExchangeArtifactService;
   private readonly openDirectory: OpenDirectoryService;
@@ -22,9 +22,30 @@ export class CreateArtifactService {
     this.spawnCollectionsService = options.spawnCollectionsService;
   }
 
-  async create(options: {
+  async createArtifact(options: {
     name: string,
     parent: Directory
+  }): Promise<void> {
+    return this.createNode({
+      ...options,
+      type: "artifact"
+    });
+  }
+
+  async createDirectory(options: {
+    name: string,
+    parent: Directory
+  }): Promise<void> {
+    return this.createNode({
+      ...options,
+      type: "directory"
+    });
+  }
+
+  async createNode(options: {
+    name: string,
+    parent: Directory
+    type: "artifact" | "directory"
   }): Promise<void> {
     const creatable = this.creatable(options);
     creatable.throwOnFail();
@@ -38,9 +59,15 @@ export class CreateArtifactService {
     try {
       parent.busy();
       await this.openDirectory.open(parent);
-      const artifactOptions = await fileSystemAdapter.createArtifact(options);
-      const artifact = creator.create(artifactOptions);
-      await this.exchangeArtifact.fetchInto(artifact);
+      if (options.type === "artifact") {
+        const artifactOptions = await fileSystemAdapter.createArtifact(options);
+        const artifact = creator.create(artifactOptions);
+        await this.exchangeArtifact.fetchInto(artifact);
+      } else {
+        const directoryOptions = await fileSystemAdapter.createDirectory(options);
+        const directory = creator.create(directoryOptions);
+        await this.openDirectory.open(directory);
+      }
     } finally {
       parent.idle();
     }

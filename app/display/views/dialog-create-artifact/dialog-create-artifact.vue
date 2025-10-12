@@ -31,7 +31,7 @@ const {
 } = useDispatch();
 
 async function handleSave() {
-  const success = await dispatch(() => services.createArtifact.create({
+  const success = await dispatch(() => services.createNode.createArtifact({
     name: data.name,
     parent
   }));

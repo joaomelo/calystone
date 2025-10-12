@@ -31,7 +31,7 @@ const {
 } = useDispatch();
 
 async function handleSave() {
-  const success = await dispatch(() => services.createDirectory.create({
+  const success = await dispatch(() => services.createNode.createDirectory({
     name: data.name,
     parent
   }));
