@@ -28,7 +28,7 @@ describe("modal-create-artifact", () => {
     outlineNodesLegacy.nodeLabeledAs(textArtifactName).first().should("exist");
   });
 
-  it.only("forbids creating artifact with the same name as existing artifact", () => {
+  it("forbids creating artifact with the same name as existing artifact", () => {
     const artifactName = "artifact.txt";
 
     cy.get(outlineNodes.nodeToogle).first().click();

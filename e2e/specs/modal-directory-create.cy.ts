@@ -24,7 +24,7 @@ describe("create-directory", () => {
     outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).should("contain.text", directoryName);
   });
 
-  it.only("forbids creating directory with the same name as existing directory", () => {
+  it("forbids creating directory with the same name as existing directory", () => {
     const name = "duplicate-directory";
 
     cy.get(outlineNodes.nodeToogle).first().click();
