@@ -1,8 +1,10 @@
-import type { Id } from "@/domain/id";
 import type {
-  Node,
-  NodeOptions
-} from "@/domain/node";
+  Artifact,
+  ArtifactOptions
+} from "@/domain/artifact";
+import type { DirectoryOptions } from "@/domain/directory";
+import type { Id } from "@/domain/id";
+import type { Node } from "@/domain/node";
 
 import { Directory } from "@/domain/directory";
 import { createNode } from "@/domain/node-ops";
@@ -21,7 +23,9 @@ export class Creator {
     this._descendancy = new Descendancy(nodes);
   }
 
-  create(options: NodeOptions): void {
+  create(options: ArtifactOptions): Artifact;
+  create(options: DirectoryOptions): Directory;
+  create(options: ArtifactOptions | DirectoryOptions): Artifact | Directory {
     const {
       name,
       parentId
@@ -34,6 +38,7 @@ export class Creator {
 
     const node = createNode(options);
     this._nodes.set(node);
+    return node;
   }
 
   createable({

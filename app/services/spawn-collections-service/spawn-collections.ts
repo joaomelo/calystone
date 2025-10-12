@@ -2,6 +2,7 @@ import type { ConnectSourceService } from "@/services/connect-source-service";
 
 import {
   Ascendancy,
+  Creator,
   Descendancy,
   Mover,
   Searcher,
@@ -33,6 +34,11 @@ export class SpawnCollectionsService {
   mover() {
     const nodes = this.nodes();
     return new Mover(nodes);
+  }
+
+  creator() {
+    const nodes = this.nodes();
+    return new Creator(nodes);
   }
 
   searcher() {

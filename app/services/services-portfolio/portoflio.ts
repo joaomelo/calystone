@@ -80,7 +80,8 @@ export class ServicesPortfolio {
     this.createArtifact = new CreateArtifactService({
       connectSourceService: this.connectSource,
       exchangeArtifact: this.exchangeArtifact,
-      openDirectory: this.openDirectory
+      openDirectory: this.openDirectory,
+      spawnCollectionsService: this.spawnCollections
     });
     this.createDirectory = new CreateDirectoryService({
       connectSourceService: this.connectSource,
