@@ -81,11 +81,11 @@ export class CreateNodeService {
     parent: Directory
   }) {
     const { creator } = this.inject();
-    const createableDomain = creator.createable({
+    const creatableDomain = creator.creatable({
       name,
       parent
     });
-    return createableDomain;
+    return creatableDomain;
   }
 
   private inject() {

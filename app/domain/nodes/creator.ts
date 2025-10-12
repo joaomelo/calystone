@@ -30,7 +30,7 @@ export class Creator {
       name,
       parentId
     } = options;
-    const creatable = this.createable({
+    const creatable = this.creatable({
       name,
       parent: parentId
     });
@@ -41,7 +41,7 @@ export class Creator {
     return node;
   }
 
-  createable({
+  creatable({
     name,
     parent: parentOrId
   }: {

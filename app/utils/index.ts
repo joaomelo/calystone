@@ -8,7 +8,6 @@ export * from "./i18n";
 export * from "./icons";
 export * from "./inputs";
 export * from "./objects";
-export * from "./schema";
 export * from "./storages";
 export * from "./surfaces";
 export * from "./telemetry";
