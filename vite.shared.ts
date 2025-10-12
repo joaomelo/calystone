@@ -8,6 +8,7 @@ import {
 export const projectRoot = resolve(fileURLToPath(new URL(".", import.meta.url)));
 export const appRoot = resolve(projectRoot, "app", "main");
 export const aliasAtProject = { "@": resolve(projectRoot, "app") };
+export const cacheDir = resolve(projectRoot, "node_modules/.vite");
 
 export const resolveAtProject = (...paths: string[]) => resolve(projectRoot, ...paths);
 export const resolveAtApp = (...paths: string[]) => resolve(appRoot, ...paths);

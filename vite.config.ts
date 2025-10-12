@@ -6,6 +6,7 @@ import { VitePWA } from "vite-plugin-pwa";
 import {
   aliasAtProject,
   appRoot,
+  cacheDir,
   projectRoot,
   resolveAtProject,
   sharedPlugins
@@ -44,6 +45,7 @@ export default defineConfig(({ command }) => {
       outDir: resolveAtProject("dist"),
       sourcemap: true,
     },
+    cacheDir,
     envDir: projectRoot,
     plugins: [
       ...sharedPlugins(),

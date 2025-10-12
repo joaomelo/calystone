@@ -2,6 +2,7 @@ import { defineConfig } from "vitest/config";
 
 import {
   aliasAtProject,
+  cacheDir,
   projectRoot,
   sharedPlugins
 } from "./vite.shared";
@@ -9,6 +10,7 @@ import {
 const isCI = process.env.VITEST_MODE === "ci";
 
 export default defineConfig({
+  cacheDir,
   envDir: projectRoot,
   plugins: [...sharedPlugins()],
   resolve: { alias: aliasAtProject },
