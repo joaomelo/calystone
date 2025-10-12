@@ -1,6 +1,10 @@
-import { openMemory } from "../macros";
+import {
+  createArtifact,
+  openMemory
+} from "../macros";
 import {
   modalCreateArtifact,
+  outlineNodes,
   outlineNodesLegacy,
   toolbarNode
 } from "../selectors";
@@ -13,14 +17,29 @@ describe("modal-create-artifact", () => {
   it("creates file", () => {
     const textArtifactName = "sibling.txt";
 
-    outlineNodesLegacy.rootNode().click();
-    toolbarNode.buttonCreateArtifact().click();
-    modalCreateArtifact.inputName().clear().type(textArtifactName);
-    modalCreateArtifact.buttonSave().click();
+    cy.get(outlineNodes.nodeToogle).first().click();
+    cy.get(outlineNodes.rootTree).click();
+
+    createArtifact(textArtifactName);
 
     outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy.artifactTextOf(outlineNodesLegacy.rootNode()).should("contain.text", textArtifactName);
 
     outlineNodesLegacy.nodeLabeledAs(textArtifactName).first().should("exist");
+  });
+
+  it.only("forbids creating artifact with the same name as existing artifact", () => {
+    const artifactName = "artifact.txt";
+
+    cy.get(outlineNodes.nodeToogle).first().click();
+    cy.get(outlineNodes.rootTree).click();
+
+    createArtifact(artifactName);
+
+    toolbarNode.buttonCreateArtifact().click();
+    modalCreateArtifact.inputName().clear().type(artifactName);
+    modalCreateArtifact.buttonSave().click();
+
+    modalCreateArtifact.inputError().should("exist");
   });
 });
