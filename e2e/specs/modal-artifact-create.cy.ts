@@ -40,6 +40,6 @@ describe("modal-create-artifact", () => {
     modalCreateArtifact.inputName().clear().type(artifactName);
     modalCreateArtifact.buttonSave().click();
 
-    modalCreateArtifact.inputError().should("exist");
+    modalCreateArtifact.modalError().should("exist");
   });
 });
