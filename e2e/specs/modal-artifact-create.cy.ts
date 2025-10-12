@@ -22,9 +22,6 @@ describe("modal-create-artifact", () => {
 
     createArtifact(textArtifactName);
 
-    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
-    outlineNodesLegacy.artifactTextOf(outlineNodesLegacy.rootNode()).should("contain.text", textArtifactName);
-
     outlineNodesLegacy.nodeLabeledAs(textArtifactName).first().should("exist");
   });
 

@@ -15,12 +15,12 @@ describe("create-directory", () => {
   });
 
   it("creates directory inside another directory", () => {
-    outlineNodesLegacy.rootNode().click();
+    cy.get(outlineNodes.nodeToogle).first().click();
+    cy.get(outlineNodes.rootTree).click();
 
     const directoryName = "new-directory-name";
     createDirectory(directoryName);
 
-    outlineNodesLegacy.toogleOf(outlineNodesLegacy.rootNode()).click();
     outlineNodesLegacy.directoryOf(outlineNodesLegacy.rootNode()).should("contain.text", directoryName);
   });
 
