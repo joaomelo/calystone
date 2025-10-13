@@ -5,6 +5,7 @@ import {
   Creator,
   Descendancy,
   Mover,
+  Renamer,
   Searcher,
   Todos
 } from "@/domain";
@@ -39,6 +40,11 @@ export class SpawnCollectionsService {
   creator() {
     const nodes = this.nodes();
     return new Creator(nodes);
+  }
+
+  renamer() {
+    const nodes = this.nodes();
+    return new Renamer(nodes);
   }
 
   searcher() {

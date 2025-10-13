@@ -27,20 +27,21 @@ export class Renamer {
   }): void {
     const renameable = this.renameable({
       name,
-      nodeOrId: node
+      node
     });
     renameable.throwOnFail();
+
     node.name = name;
   }
 
   renameable({
     name,
-    nodeOrId
+    node
   }: {
     name: string;
-    nodeOrId: Id | Node;
+    node: Id | Node;
   }): Status {
-    const parent = this._ascendancy.parent(nodeOrId);
+    const parent = this._ascendancy.parent(node);
     const creatable = this._creator.creatable({
       name,
       parent

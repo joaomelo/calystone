@@ -1,51 +1,63 @@
-import { z } from "zod";
-
 import type { Node } from "@/domain";
 import type { ConnectSourceService } from "@/services/connect-source-service";
-
-import { useSchema } from "@/utils";
+import type { SpawnCollectionsService } from "@/services/spawn-collections-service";
 
 export class RenameNodeService {
-  private readonly connectSource: ConnectSourceService;
-  private readonly schema = useSchema(builder => builder.object({ name: z.string().nonempty({ message: "EMPTY_NAME" }), }));
+  private readonly connectSourceService: ConnectSourceService;
+  private readonly spawnCollectionsService: SpawnCollectionsService;
 
-  constructor(connectSource: ConnectSourceService) {
-    this.connectSource = connectSource;
-  }
-
-  private inject() {
-    const {
-      fileSystemAdapter,
-      nodes
-    } = this.connectSource.stateConnectedOrThrow();
-    return {
-      fileSystemAdapter,
-      nodes
-    };
+  constructor(options: {
+    connectSourceService: ConnectSourceService,
+    spawnCollectionsService: SpawnCollectionsService
+  }) {
+    this.connectSourceService = options.connectSourceService;
+    this.spawnCollectionsService = options.spawnCollectionsService;
   }
 
   async rename(options: {
     name: string,
     node: Node
   }): Promise<void> {
+    const renameable = this.renameable(options);
+    renameable.throwOnFail();
+
     const {
       fileSystemAdapter,
-      nodes
+      renamer,
     } = this.inject();
-    this.schema.validate(options);
 
-    const adapterOptions = {
-      name: options.name,
-      node: options.node
+    renamer.rename(options);
+    await fileSystemAdapter.rename(options);
+  }
+
+  renameable({
+    name,
+    node
+  }: {
+    name?: string
+    node: Node,
+  }) {
+    const {
+      fileSystemAdapter,
+      renamer
+    } = this.inject();
+    const fileSystemRenameable = fileSystemAdapter.renameable(node);
+    if (!name) return fileSystemRenameable;
+
+    const domainRenamable = renamer.renameable({
+      name,
+      node
+    });
+
+    return fileSystemRenameable.merge(domainRenamable);
+  }
+
+  private inject() {
+    const { fileSystemAdapter } = this.connectSourceService.stateConnectedOrThrow();
+    const renamer = this.spawnCollectionsService.renamer();
+    return {
+      fileSystemAdapter,
+      renamer
     };
-    await fileSystemAdapter.rename(adapterOptions);
-    const node = nodes.getOrThrow(options.node.id);
-    node.name = options.name;
   }
-
-  renameable(node: Node) {
-    const { fileSystemAdapter } = this.inject();
-    return fileSystemAdapter.renameable(node);
-  }
-
 }

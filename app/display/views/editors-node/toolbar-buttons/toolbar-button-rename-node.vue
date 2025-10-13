@@ -20,7 +20,7 @@ const { services } = Store.use();
 const { t } = useI18n();
 const dialogRename = useTemplateRef("dialogRename");
 
-const renameable = computed(() => services.renameNode.renameable(node));
+const renameable = computed(() => services.renameNode.renameable({ node }));
 </script>
 <template>
   <ToolbarButton
