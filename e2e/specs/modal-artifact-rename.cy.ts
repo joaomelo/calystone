@@ -1,4 +1,5 @@
 import {
+  createArtifact,
   openMemory,
   renameArtifact
 } from "../macros";
@@ -32,7 +33,22 @@ describe("modal-artifact-rename", () => {
     modalRenameArtifact.inputName().clear();
     modalRenameArtifact.buttonSave().click();
 
-    modalRenameArtifact.inputError().should("exist");
+    modalRenameArtifact.modalError().should("exist");
+  });
+
+  it("forbids renaming artifact with the same name as existing artifact", () => {
+    const artifactName = "duplicate-artifact.txt";
+
+    cy.get(outlineNodes.nodeToogle).first().click();
+    cy.get(outlineNodes.rootTree).click();
+
+    createArtifact(artifactName);
+
+    toolbarNode.buttonRename().click();
+    modalRenameArtifact.inputName().clear().type(artifactName);
+    modalRenameArtifact.buttonSave().click();
+
+    modalRenameArtifact.modalError().should("exist");
   });
 
   it("show backend errors", () => {
