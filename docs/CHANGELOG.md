@@ -1,5 +1,18 @@
 # Changelog
 
+
+
+## [0.111.23](https://github.com/joaomelo/calystone/compare/v0.111.22...v0.111.23) (2025-10-15)
+
+
+### Bug Fixes
+
+* failing tests ([548881d](https://github.com/joaomelo/calystone/commit/548881dc49065c6617128f44183cafc932194aa4))
+* is not possible to create a artifact with the name of another node in the same parent ([25ae567](https://github.com/joaomelo/calystone/commit/25ae567eac1b8cd266b04ddd7680409fa90e1c1e))
+* is not possible to create a directory with the name of another node in the same parent ([6150321](https://github.com/joaomelo/calystone/commit/6150321273ac9433f7c2d93ee3aa16594b267e31))
+* proper services instantiation ([5046f71](https://github.com/joaomelo/calystone/commit/5046f712d9dc4a87fd3524f6c3524601ef4794f1))
+* rename operation check duplicate name before existence before execution ([2f59b05](https://github.com/joaomelo/calystone/commit/2f59b056b7815f12b404f03859ed68d5c1e3fd7f))
+
 ## [0.111.22](https://github.com/joaomelo/calystone/compare/v0.111.21...v0.111.22) (2025-10-12)
 
 **Quality summary**
