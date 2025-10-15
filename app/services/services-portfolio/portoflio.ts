@@ -99,7 +99,10 @@ export class ServicesPortfolio {
     this.removeNode = new RemoveNodeService({
       connectSourceService: this.connectSource,
       spawnCollectionsService: this.spawnCollections
-    });;
-    this.renameNode = new RenameNodeService(this.connectSource);
+    });
+    this.renameNode = new RenameNodeService({
+      connectSourceService: this.connectSource,
+      spawnCollectionsService: this.spawnCollections
+    });
   }
 }
