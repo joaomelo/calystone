@@ -16,7 +16,7 @@ describe("create-directory", () => {
 
   it("creates directory inside another directory", () => {
     cy.get(outlineNodes.nodeToogle).first().click();
-    cy.get(outlineNodes.rootTree).click();
+    cy.get(outlineNodes.nodeInline).first().click();
 
     const directoryName = "new-directory-name";
     createDirectory(directoryName);
@@ -28,7 +28,7 @@ describe("create-directory", () => {
     const name = "duplicate-directory";
 
     cy.get(outlineNodes.nodeToogle).first().click();
-    cy.get(outlineNodes.rootTree).click();
+    cy.get(outlineNodes.nodeInline).first().click();
 
     createDirectory(name);
 
