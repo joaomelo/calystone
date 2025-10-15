@@ -44,6 +44,7 @@ describe("modal-artifact-rename", () => {
 
     createArtifact(artifactName);
 
+    outlineNodesLegacy.artifactOf(outlineNodesLegacy.rootNode()).first().click();
     toolbarNode.buttonRename().click();
     modalRenameArtifact.inputName().clear().type(artifactName);
     modalRenameArtifact.buttonSave().click();
