@@ -1,9 +1,9 @@
 # Changelog
 
-
-
 ## [0.111.23](https://github.com/joaomelo/calystone/compare/v0.111.22...v0.111.23) (2025-10-15)
 
+**Quality summary**
+- Unit Tests: 116/116 passed, 0 failed
 
 ### Bug Fixes
 
