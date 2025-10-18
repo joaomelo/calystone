@@ -1,8 +1,10 @@
 # Changelog
 
-
-
 ## [0.111.25](https://github.com/joaomelo/calystone/compare/v0.111.24...v0.111.25) (2025-10-18)
+
+### Quality summary
+- Bundle: 3.90 MB raw across 5 chunks (index-BHR0U9V7.js 2.78 MB, worker-engine-Bti7QVbm.js 557 KB, direct-engine-CUVhoRRG.js 248 KB, others 345 KB). Top sources: @embedpdf/engines 21%, primevue 14%, @faker-js/faker 12%.
+- Unit Tests: 116/116 passed
 
 ## [0.111.24](https://github.com/joaomelo/calystone/compare/v0.111.23...v0.111.24) (2025-10-18)
 
