@@ -59,13 +59,6 @@ jobs:
       - run: npm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm run summary
-      - run: |
-          if ! git diff --quiet docs/CHANGELOG.md; then
-            git add docs/CHANGELOG.md
-            git commit -m "docs[skip ci]: add quality summary to changelog"
-            git push
-          fi          
       - run: npm run build
         env:
           VITE_ENABLE_MEMORY: false
@@ -77,3 +70,10 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CALYSTONE_A5BDF }}"
           projectId: calystone-a5bdf
           channelId: live
+      - run: npm run summary
+      - run: |
+          if ! git diff --quiet docs/CHANGELOG.md; then
+            git add docs/CHANGELOG.md
+            git commit -m "docs[skip ci]: add quality summary to changelog"
+            git push
+          fi
