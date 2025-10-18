@@ -1,11 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import {
-  bundleAsString,
-  bundleFile,
-  isBundle
-} from "./bundle";
+import { bundleAsString } from "./bundle";
 import { readJSON } from "./read";
 import {
   isVitest,
@@ -14,26 +10,27 @@ import {
 } from "./vitest";
 
 const folder = "reports";
-const lines: string[] = [];
 
-const bundle = readJSON(path.resolve(folder, bundleFile), isBundle);
-if (bundle) {
-  lines.push(bundleAsString(bundle));
+async function main(): Promise<void> {
+  const lines: string[] = [];
+
+  const bundleSummary = await bundleAsString();
+  if (bundleSummary) lines.push(bundleSummary);
+
+  const vitest = readJSON(path.resolve(folder, vitestFile), isVitest);
+  if (vitest) lines.push(vitestAsString(vitest));
+
+  if (!lines.length) {
+    process.stdout.write("- No reports found to summarize.");
+    process.exit(1);
+  }
+
+  const md = `### Quality summary\n${lines.map(l => l).join("\n")}\n`;
+
+  process.stdout.write(md);
+
+  const outputPath = path.resolve(folder, "summary.md");
+  fs.writeFileSync(outputPath, md);
 }
 
-const vitest = readJSON(path.resolve(folder, vitestFile), isVitest);
-if (vitest) {
-  lines.push(vitestAsString(vitest));
-}
-
-if (!lines.length) {
-  process.stdout.write("- No reports found to summarize.");
-  process.exit(1);
-}
-
-const md = `### Quality summary\n${lines.map(l => l).join("\n")}\n`;
-
-process.stdout.write(md);
-
-const outputPath = path.resolve(folder, "summary.md");
-fs.writeFileSync(outputPath, md);
+await main();

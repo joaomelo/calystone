@@ -1,125 +1,117 @@
-interface Bundle {
-  version: number;
-  tree: Tree;
-  nodeParts: Record<string, NodePart>;
-  nodeMetas: Record<string, NodeMeta>;
-}
+import type {
+  OutputChunk,
+  RollupOutput,
+  RollupWatcher
+} from "rollup";
 
-interface Tree {
-  name: string;
-  uid?: string;
-  children?: Tree[];
-  isRoot?: true;
-}
+import path from "node:path";
+import { build } from "vite";
 
-interface NodeMeta {
-  id: string;
-  moduleParts: Record<string, string>;
-}
-
-interface NodePart {
-  renderedLength: number;
-  gzipLength: number;
-  metaUid: string;
-}
-
-interface SizeTotals {
-  rendered: number;
-  gzip: number;
-}
-
-export const bundleFile = "bundle-results.json";
-
+const CHUNK_LIST_LIMIT = 3;
+const CHUNK_NAME_MAX_LENGTH = 32;
 const APP_LABEL = "app";
 const INTERNAL_LABEL = "internal";
 
-export function isBundle(obj: unknown): obj is Bundle {
-  return typeof obj === "object"
-    && obj !== null
-    && "version" in obj
-    && typeof (obj).version === "number"
-    && "tree" in obj
-    && typeof (obj).tree === "object"
-    && "nodeParts" in obj
-    && typeof (obj).nodeParts === "object"
-    && "nodeMetas" in obj
-    && typeof (obj).nodeMetas === "object";
-}
+export async function bundleAsString(): Promise<null | string> {
+  let buildResult: RollupOutput | RollupOutput[];
 
-export function bundleAsString(bundle: Bundle): string {
-  const nodePartEntries = Object.entries(bundle.nodeParts);
-  if (!nodePartEntries.length) return "- Bundle: no module information found";
-
-  const chunkByPart = mapPartToChunk(bundle.nodeMetas);
-
-  let totalRendered = 0;
-  let totalGzip = 0;
-
-  const chunkTotals = new Map<string, SizeTotals>();
-  const packageTotals = new Map<string, number>();
-
-  for (const [uid, part] of nodePartEntries) {
-    const rendered = isFiniteNumber(part.renderedLength) ? part.renderedLength : 0;
-    const gzip = isFiniteNumber(part.gzipLength) ? part.gzipLength : 0;
-
-    totalRendered += rendered;
-    totalGzip += gzip;
-
-    const chunkName = chunkByPart.get(uid);
-    if (chunkName) accumulateSize(chunkTotals, chunkName, rendered, gzip);
-
-    const meta = bundle.nodeMetas[part.metaUid];
-    const moduleId = meta.id;
-    const packageName = packageNameFromId(moduleId);
-    packageTotals.set(packageName, (packageTotals.get(packageName) ?? 0) + rendered);
+  try {
+    const result = await build({
+      build: {
+        emptyOutDir: false,
+        write: false
+      },
+      configFile: path.resolve("vite.config.ts"),
+      logLevel: "silent"
+    });
+    if (isRollupWatcher(result)) return null;
+    buildResult = result;
+  } catch (error) {
+    console.warn("bundle summary: vite build failed.", error);
+    return null;
   }
 
-  const chunkCount = chunkTotals.size || (bundle.tree.children?.length ?? 0);
+  const outputs = Array.isArray(buildResult) ? buildResult : [buildResult];
+  const chunks: OutputChunk[] = [];
 
-  const sizeParts = [`${formatBytes(totalRendered)} raw`];
-  if (totalGzip > 0) sizeParts.push(`${formatBytes(totalGzip)} gzip`);
-
-  const largestChunk = [...chunkTotals.entries()]
-    .sort(([, a], [, b]) => b.rendered - a.rendered)[0];
-
-  const topPackages = [...packageTotals.entries()]
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 3)
-    .map(([name, size]) => `${typeof name === "string" ? name : "unknown"} ${formatPercent(totalRendered ? size / totalRendered : 0)}`);
-
-  const segments = [
-    `- Bundle: ${chunkCount.toFixed(0)} chunk${chunkCount === 1 ? "" : "s"} · ${sizeParts.join(", ")}.`,
-    `Largest chunk ${shorten(largestChunk[0])} (${formatBytes(largestChunk[1].rendered)} raw${totalGzip ? `, ${formatBytes(largestChunk[1].gzip)} gzip` : ""}).`,
-    `Top sources: ${topPackages.join(", ")}.`
-  ];
-
-  return segments.join(" ");
-}
-
-function mapPartToChunk(nodeMetas: Record<string, NodeMeta>): Map<string, string> {
-  const result = new Map<string, string>();
-
-  for (const meta of Object.values(nodeMetas)) {
-    if (typeof meta !== "object") continue;
-    if (!("moduleParts" in meta) || typeof meta.moduleParts !== "object") continue;
-    for (const [chunkName, uid] of Object.entries(meta.moduleParts)) {
-      if (typeof chunkName === "string" && typeof uid === "string") {
-        result.set(uid, chunkName);
-      }
+  for (const output of outputs) {
+    for (const item of output.output) {
+      if (item.type === "chunk") chunks.push(item);
     }
   }
 
-  return result;
+  if (!chunks.length) return "- Bundle: no chunks emitted.";
+
+  const chunkSummaries = chunks.map(chunk => {
+    const raw = Buffer.byteLength(chunk.code, "utf8");
+    return {
+      name: chunk.fileName,
+      raw
+    };
+  }).sort((a, b) => b.raw - a.raw);
+
+  const totalRaw = chunkSummaries.reduce((sum, chunk) => sum + chunk.raw, 0);
+  if (!totalRaw) return "- Bundle: no chunk size information found.";
+
+  const chunkSegments = chunkSummaries
+    .slice(0, CHUNK_LIST_LIMIT)
+    .map(({
+      name,
+      raw
+    }) => `${shorten(name)} ${formatBytes(raw)}`);
+
+  const otherRaw = chunkSummaries
+    .slice(CHUNK_LIST_LIMIT)
+    .reduce((sum, chunk) => sum + chunk.raw, 0);
+  if (otherRaw > 0) chunkSegments.push(`others ${formatBytes(otherRaw)}`);
+
+  const packageTotals = aggregatePackages(chunks);
+  const topPackages = [...packageTotals.entries()]
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 3)
+    .map(([name, size]) => `${name} ${formatPercent(totalRaw ? size / totalRaw : 0)}`);
+
+  const chunkCount = chunkSummaries.length;
+  const chunkSummary = chunkSegments.length ? ` (${chunkSegments.join(", ")})` : "";
+
+  const parts = [
+    `- Bundle: ${formatBytes(totalRaw)} raw across ${chunkCount.toFixed(0)} chunk${chunkCount === 1 ? "" : "s"}${chunkSummary}.`,
+    topPackages.length ? `Top sources: ${topPackages.join(", ")}.` : undefined
+  ].filter(Boolean);
+
+  return parts.join(" ");
 }
 
-function accumulateSize(target: Map<string, SizeTotals>, key: string, rendered: number, gzip: number): void {
-  const current = target.get(key) ?? {
-    gzip: 0,
-    rendered: 0
-  };
-  current.rendered += rendered;
-  current.gzip += gzip;
-  target.set(key, current);
+function isRollupWatcher( obj: unknown): obj is RollupWatcher {
+  return (
+    obj !== null
+    && typeof obj === "object"
+    && "on" in obj
+    && typeof (obj as { on: unknown }).on === "function"
+  );
+}
+
+function aggregatePackages(chunks: OutputChunk[]): Map<string, number> {
+  const totals = new Map<string, number>();
+
+  for (const chunk of chunks) {
+    for (const [moduleId, info] of Object.entries(chunk.modules)) {
+      const size = extractModuleSize(info);
+      const name = packageNameFromId(moduleId);
+      totals.set(name, (totals.get(name) ?? 0) + size);
+    }
+  }
+
+  return totals;
+}
+
+function extractModuleSize(info: unknown): number {
+  if (!info || typeof info !== "object") return 0;
+  const rendered = (info as { renderedLength?: unknown }).renderedLength;
+  if (typeof rendered === "number" && Number.isFinite(rendered)) return rendered;
+  const original = (info as { originalLength?: unknown }).originalLength;
+  if (typeof original === "number" && Number.isFinite(original)) return original;
+  return 0;
 }
 
 function packageNameFromId(id: string): string {
@@ -138,14 +130,16 @@ function packageNameFromId(id: string): string {
 }
 
 function formatBytes(bytes: number): string {
-  if (!bytes || !Number.isFinite(bytes)) return "0 B";
+  if (!Number.isFinite(bytes) || bytes <= 0) return "0 B";
   const units = ["B", "KB", "MB", "GB"];
   let value = bytes;
   let unitIndex = 0;
+
   while (value >= 1024 && unitIndex < units.length - 1) {
     value /= 1024;
     unitIndex += 1;
   }
+
   const formatted = value >= 100 ? value.toFixed(0) : value >= 10 ? value.toFixed(1) : value.toFixed(2);
   return `${formatted} ${units[unitIndex]}`;
 }
@@ -156,11 +150,7 @@ function formatPercent(ratio: number): string {
   return percentage >= 10 ? `${percentage.toFixed(0)}%` : `${percentage.toFixed(1)}%`;
 }
 
-function shorten(name: string, maxLength = 28): string {
+function shorten(name: string, maxLength = CHUNK_NAME_MAX_LENGTH): string {
   if (name.length <= maxLength) return name;
   return `${name.slice(0, maxLength - 3)}...`;
-}
-
-function isFiniteNumber(value: unknown): value is number {
-  return typeof value === "number" && Number.isFinite(value);
 }
