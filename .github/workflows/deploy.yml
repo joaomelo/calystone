@@ -59,7 +59,7 @@ jobs:
       - run: npm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm run summary:append
+      - run: npm run summary
       - run: |
           if ! git diff --quiet docs/CHANGELOG.md; then
             git add docs/CHANGELOG.md

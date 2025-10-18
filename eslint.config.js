@@ -20,6 +20,7 @@ export default defineConfig(
   js.configs.recommended,
   { rules: {
     "no-console": ["warn", { allow: ["warn", "error", "info"] }],
+    "no-control-regex": "off",
     "prefer-destructuring": ["error", {
       // typescript does not correctly destruct arrays. when we do [first] = array, it does not account for the possibility of the array been empty
       "array": false,

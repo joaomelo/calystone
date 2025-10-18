@@ -1,6 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 
+import {
+  bundleAsString,
+  bundleFile,
+  isBundle
+} from "./bundle";
 import { readJSON } from "./read";
 import {
   isVitest,
@@ -10,6 +15,11 @@ import {
 
 const folder = "reports";
 const lines: string[] = [];
+
+const bundle = readJSON(path.resolve(folder, bundleFile), isBundle);
+if (bundle) {
+  lines.push(bundleAsString(bundle));
+}
 
 const vitest = readJSON(path.resolve(folder, vitestFile), isVitest);
 if (vitest) {

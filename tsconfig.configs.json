@@ -8,6 +8,7 @@
     "strictNullChecks": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "target": "es2024",
   },
   "include": [
     "./summary/**/*",

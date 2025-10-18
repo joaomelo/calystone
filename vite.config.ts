@@ -30,11 +30,16 @@ export default defineConfig(({ command }) => {
 
   if (isProd) {
     conditionalPlugins.push(visualizer({
-      brotliSize: true,
       filename: "reports/bundle-report.html",
       gzipSize: true,
       open: false,
       template: "treemap"
+    }));
+    conditionalPlugins.push(visualizer({
+      filename: "reports/bundle-results.json",
+      gzipSize: true,
+      open: false,
+      template: "raw-data"
     }));
   }
 

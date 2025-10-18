@@ -26,8 +26,9 @@
     "test:ci:e2e": "npm run test:run:e2e",
     "lint": "eslint",
     "build": "vite build",
-    "quality": "npm run lint && npm run test:ci:unit && npm run test:ci:e2e && npm run summary:create",
+    "quality": "npm run lint && npm run test:ci:unit && npm run test:ci:e2e",
     "release": "release-it --ci --verbose",
+    "summary": "npm run summary:create && npm run summary:append",
     "summary:create": "tsx summary/create.ts",
     "summary:append": "tsx summary/append.ts"
   },
