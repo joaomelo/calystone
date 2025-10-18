@@ -31,7 +31,7 @@ if (!lines.length) {
   process.exit(1);
 }
 
-const md = `**Quality summary**\n${lines.map(l => l).join("\n")}\n`;
+const md = `### Quality summary\n${lines.map(l => l).join("\n")}\n`;
 
 process.stdout.write(md);
 
