@@ -1,5 +1,14 @@
 # Changelog
 
+
+
+## [0.113.0](https://github.com/joaomelo/calystone/compare/v0.112.0...v0.113.0) (2025-10-20)
+
+
+### Features
+
+* enables pdf zoom ([9462cbf](https://github.com/joaomelo/calystone/commit/9462cbf5b2b3d69a62bba65e5c2b7a3e244e152e))
+
 ## [0.112.0](https://github.com/joaomelo/calystone/compare/v0.111.25...v0.112.0) (2025-10-20)
 
 ### Quality summary
