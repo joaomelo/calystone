@@ -6,11 +6,9 @@ import {
 
 import type { TextArtifact } from "@/domain";
 
+import { InputRichText } from "@/display/affordances/input-rich-text";
 import { Store } from "@/display/store";
-import {
-  debounce,
-  InputRichText
-} from "@/utils";
+import { debounce } from "@/utils";
 
 import { EditorNotLoaded } from "../editor-not-loaded";
 import { EditorWorkspace } from "../editor-workspace";

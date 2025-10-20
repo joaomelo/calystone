@@ -2,11 +2,9 @@
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import {
-  AppIcon,
-  ButtonBase,
-  useI18n
-} from "@/utils";
+import { ButtonBase } from "@/display/affordances/button";
+import { useI18n } from "@/display/affordances/i18n";
+import { AppIcon } from "@/display/affordances/icons";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 

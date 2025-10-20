@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useI18n } from "@/utils";
+import { useI18n } from "@/display/affordances/i18n";
 
 const { t } = useI18n();
 </script>

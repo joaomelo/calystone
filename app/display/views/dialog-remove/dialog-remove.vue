@@ -4,11 +4,9 @@ import { useTemplateRef } from "vue";
 import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
-import {
-  ModalConfirm,
-  useDispatch
-} from "@/utils";
-import { useI18n } from "@/utils/i18n";
+import { ModalConfirm, } from "@/display/affordances/dialogs";
+import { useDispatch } from "@/display/affordances/dispatch";
+import { useI18n } from "@/display/affordances/i18n";
 
 const { node } = defineProps<{ node: Node }>();
 defineExpose({ remove });

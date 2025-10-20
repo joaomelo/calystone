@@ -4,12 +4,10 @@ import { useRouter } from "vue-router";
 
 import type { SourceProvider } from "@/infra";
 
+import { ButtonBase } from "@/display/affordances/button";
+import { useDispatch } from "@/display/affordances/dispatch";
+import { useI18n } from "@/display/affordances/i18n";
 import { Store } from "@/display/store";
-import {
-  ButtonBase,
-  useDispatch,
-  useI18n
-} from "@/utils";
 
 const { provider } = defineProps<{
   dataTest: string;

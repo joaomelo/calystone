@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import {
-  InputRadio,
-  useI18n
-} from "@/utils";
+
+import { useI18n } from "@/display/affordances/i18n";
+import { InputRadio } from "@/display/affordances/input-radio";
 
 const {
   availableLocales,

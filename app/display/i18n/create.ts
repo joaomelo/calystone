@@ -1,4 +1,4 @@
-import { createI18n as createUtilsI18n } from "@/utils";
+import { createI18n as createUtilsI18n } from "@/display/affordances/i18n";
 
 import type { MessageSchema } from "./messages";
 

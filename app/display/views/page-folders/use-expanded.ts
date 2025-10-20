@@ -5,15 +5,15 @@ import {
   watch
 } from "vue";
 
-import type { OutlineGridKeys } from "@/utils";
+import type { OutlineGridKeys } from "@/display/affordances/outline-grid";
 
-import { Store } from "@/display/store";
 import {
   arrayToGridKeys,
-  gridToArrayKeys,
-  isArrayFull,
-  useRouteStorage
-} from "@/utils";
+  gridToArrayKeys
+} from "@/display/affordances/outline-grid";
+import { useRouteStorage } from "@/display/affordances/route-storage";
+import { Store } from "@/display/store";
+import { isArrayFull } from "@/utils";
 
 export function useExpanded(selectedKeys: Ref<OutlineGridKeys>) {
 

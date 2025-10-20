@@ -5,16 +5,14 @@ import {
   ref
 } from "vue";
 
+import type { PanelsList } from "@/display/affordances/panels-list";
 import type { TodoArtifact } from "@/domain";
-import type { PanelsList } from "@/utils";
 
+import { AccordionPanels } from "@/display/affordances/accordion-panels";
+import { useI18n } from "@/display/affordances/i18n";
 import { Store } from "@/display/store";
 import { Tagger } from "@/domain";
-import {
-  AccordionPanels,
-  formatDates,
-  useI18n
-} from "@/utils";
+import { formatDates } from "@/utils";
 
 import { EditorNotLoaded } from "../editor-not-loaded";
 import { EditorWorkspace } from "../editor-workspace";

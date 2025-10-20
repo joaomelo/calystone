@@ -3,15 +3,15 @@ import { computed } from "vue";
 
 import type { TodoArtifact } from "@/domain";
 
+import { ButtonBase } from "@/display/affordances/button";
+import { useI18n } from "@/display/affordances/i18n";
+import { InputNumber } from "@/display/affordances/input-number";
+import { InputText } from "@/display/affordances/input-text";
 import { Store } from "@/display/store";
 import { Criterion } from "@/domain";
 import {
-  ButtonBase,
   debounce,
-  InputNumber,
-  InputText,
-  kebabCase,
-  useI18n
+  kebabCase
 } from "@/utils";
 
 const {

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
+import { MasterDetail } from "@/display/affordances/master-detail";
 import { EditorSwitcher } from "@/display/views/editors-node/editor-switcher";
 import { FrameDashboard } from "@/display/views/frame-dashboard";
 import { useSelected } from "@/display/views/use-selected";
-import { MasterDetail } from "@/utils";
 
 import OutlinePriority from "./outline-priority.vue";
 

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 
+import type { OutlineGridKeys } from "@/display/affordances/outline-grid";
 import type { Node } from "@/domain";
-import type { OutlineGridKeys } from "@/utils";
 
+import { useDispatch } from "@/display/affordances/dispatch";
 import { Store } from "@/display/store";
 import { OutlineNodes } from "@/display/views/outline-nodes";
 import {
@@ -16,7 +17,6 @@ import {
   TextArtifact,
   TodoArtifact
 } from "@/domain";
-import { useDispatch } from "@/utils";
 
 import { useItems } from "./use-items";
 

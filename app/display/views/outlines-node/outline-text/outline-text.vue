@@ -3,10 +3,8 @@ import { computed } from "vue";
 
 import type { TextArtifact } from "@/domain";
 
-import {
-  AppIcon,
-  truncate
-} from "@/utils";
+import { AppIcon } from "@/display/affordances/icons";
+import { truncate } from "@/utils";
 
 import { OutlineNode } from "../outline-node";
 

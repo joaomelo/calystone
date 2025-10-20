@@ -7,18 +7,16 @@ import type {
   UnitValue
 } from "@/domain";
 
+import { useI18n, } from "@/display/affordances/i18n";
+import { InputNumber, } from "@/display/affordances/input-number";
+import { InputRadio, } from "@/display/affordances/input-radio";
 import { Store } from "@/display/store";
 import {
   Reference,
   Step,
   Unit
 } from "@/domain";
-import {
-  InputNumber,
-  InputRadio,
-  throwCritical,
-  useI18n
-} from "@/utils";
+import { throwCritical } from "@/utils";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 

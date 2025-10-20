@@ -3,7 +3,7 @@ import { computed } from "vue";
 
 import type { BinaryArtifact } from "@/domain";
 
-import { AppIcon } from "@/utils";
+import { AppIcon } from "@/display/affordances/icons";
 
 import { OutlineNode } from "../outline-node";
 

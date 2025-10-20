@@ -3,13 +3,11 @@ import { computed } from "vue";
 
 import type { TodoArtifact } from "@/domain";
 
+import { useI18n } from "@/display/affordances/i18n";
+import { PropertySheet } from "@/display/affordances/property-sheet";
 import { Store } from "@/display/store";
 import { LinkNodePath } from "@/display/views/link-node-path";
-import {
-  formatDateTime,
-  PropertySheet,
-  useI18n
-} from "@/utils";
+import { formatDateTime } from "@/utils";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 

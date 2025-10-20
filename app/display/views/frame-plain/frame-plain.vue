@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CardPanel } from "@/utils";
+import { CardPanel } from "@/display/affordances/card-panel";
 </script>
 <template>
   <div class="frame-plain">

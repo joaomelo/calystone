@@ -8,12 +8,10 @@ import type { Node } from "@/domain";
 
 import { Store } from "@/display/store";
 import { SaveCancel } from "@/display/views/save-cancel";
-import {
-  InputText,
-  ModalBase,
-  useDispatch
-} from "@/utils";
-import { useI18n } from "@/utils/i18n";
+import { ModalBase } from "@/display/affordances/dialogs";
+import { useDispatch } from "@/display/affordances/dispatch";
+import { useI18n } from "@/display/affordances/i18n";
+import { InputText } from "@/display/affordances/input-text";
 
 const { node } = defineProps<{ node: Node }>();
 defineExpose({ open });

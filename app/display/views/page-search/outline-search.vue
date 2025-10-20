@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import type { OutlineGridKeys } from "@/utils";
+import type { OutlineGridKeys } from "@/display/affordances/outline-grid";
 
+import { InputText } from "@/display/affordances/input-text";
 import { OutlineNodes } from "@/display/views/outline-nodes";
 import {
   OutlineBinary,
@@ -15,10 +16,7 @@ import {
   TextArtifact,
   TodoArtifact
 } from "@/domain";
-import {
-  debounce,
-  InputText
-} from "@/utils";
+import { debounce } from "@/utils";
 
 import { useItems } from "./use-items";
 

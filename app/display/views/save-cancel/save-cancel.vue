@@ -4,8 +4,8 @@ import {
   onUnmounted
 } from "vue";
 
-import { ButtonBase } from "@/utils";
-import { useI18n } from "@/utils/i18n";
+import { ButtonBase } from "@/display/affordances/button";
+import { useI18n } from "@/display/affordances/i18n";
 
 const props = defineProps<{ saving: boolean }>();
 const emit = defineEmits<{

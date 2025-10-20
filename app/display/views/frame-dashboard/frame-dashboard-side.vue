@@ -7,13 +7,13 @@ import {
   useRouter
 } from "vue-router";
 
-import { Store } from "@/display/store";
+import { useI18n } from "@/display/affordances/i18n";
+import { AppIcon } from "@/display/affordances/icons";
 import {
-  AppIcon,
   SideBar,
-  SideItem,
-  useI18n
-} from "@/utils";
+  SideItem
+} from "@/display/affordances/side-bar";
+import { Store } from "@/display/store";
 
 import { usePreloading } from "./use-preloading";
 

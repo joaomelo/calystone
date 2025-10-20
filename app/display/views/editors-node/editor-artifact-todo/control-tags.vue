@@ -7,13 +7,11 @@ import {
 import type { TodoArtifact } from "@/domain";
 
 import { Store } from "@/display/store";
-import {
-  ButtonBase,
-  ChipTags,
-  InputText,
-  useDispatch,
-  useI18n
-} from "@/utils";
+import { ButtonBase } from "@/display/affordances/button";
+import { ChipTags } from "@/display/affordances/chips-tag";
+import { useDispatch } from "@/display/affordances/dispatch";
+import { useI18n } from "@/display/affordances/i18n";
+import { InputText } from "@/display/affordances/input-text";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 

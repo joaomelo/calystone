@@ -1,8 +1,8 @@
-import type { OutlineGridItem } from "@/utils";
+import type { OutlineGridItem } from "@/display/affordances/outline-grid";
 
+import { useDispatch } from "@/display/affordances/dispatch";
 import { Store } from "@/display/store";
 import { Node } from "@/domain";
-import { useDispatch } from "@/utils";
 
 export function useDragAndDrop() {
   const { services } = Store.use();

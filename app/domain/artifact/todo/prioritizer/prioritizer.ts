@@ -75,7 +75,7 @@ export class Prioritizer {
     return this._criteria.get(label);
   }
 
-  criterionOrThrow(label: string) {
+  criterionOrThrow(label: string): Criterion {
     const criterion = this.criterion(label);
     if (!criterion) {
       throwCritical("CRITERION_NOT_FOUND");

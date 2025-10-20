@@ -5,12 +5,10 @@ import type { Directory } from "@/domain";
 
 import { Store } from "@/display/store";
 import { LinkNodePath } from "@/display/views/link-node-path";
-import {
-  PropertySheet,
-  TextMarkdown,
-  TextMessage,
-  useI18n
-} from "@/utils";
+import { useI18n } from "@/display/affordances/i18n";
+import { PropertySheet } from "@/display/affordances/property-sheet";
+import { TextMarkdown } from "@/display/affordances/text-markdown";
+import { TextMessage } from "@/display/affordances/text-message";
 
 import { EditorWorkspace } from "../editor-workspace";
 import {

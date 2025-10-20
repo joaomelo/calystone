@@ -3,13 +3,11 @@ import type {
   OutlineGridItem,
   OutlineGridKeys,
   OutlineGridMode,
-} from "@/utils";
+} from "@/display/affordances/outline-grid";
 
+import { OutlineGrid } from "@/display/affordances/outline-grid";
+import { ScrollPanel } from "@/display/affordances/scroll-panel";
 import { Node } from "@/domain";
-import {
-  OutlineGrid,
-  ScrollPanel
-} from "@/utils";
 
 import type { OutlineNodesItem } from "./outline-nodes-item";
 

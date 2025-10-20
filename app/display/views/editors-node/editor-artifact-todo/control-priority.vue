@@ -3,10 +3,8 @@ import { computed } from "vue";
 
 import type { TodoArtifact } from "@/domain";
 
-import {
-  TextMessage,
-  useI18n
-} from "@/utils";
+import { useI18n } from "@/display/affordances/i18n";
+import { TextMessage } from "@/display/affordances/text-message";
 
 import ControlCriterionAdd from "./control-criterion-add.vue";
 import ControlCriterionManage from "./control-criterion-manage.vue";

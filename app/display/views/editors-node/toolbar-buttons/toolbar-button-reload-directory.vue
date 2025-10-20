@@ -3,13 +3,11 @@ import { computed } from "vue";
 
 import type { Directory } from "@/domain";
 
+import { useDispatch } from "@/display/affordances/dispatch";
+import { useI18n } from "@/display/affordances/i18n";
+import { AppIcon } from "@/display/affordances/icons";
+import { ToolbarButton } from "@/display/affordances/toolbar";
 import { Store } from "@/display/store";
-import {
-  AppIcon,
-  ToolbarButton,
-  useDispatch,
-  useI18n
-} from "@/utils";
 
 const { directory } = defineProps<{ directory: Directory; }>();
 const { dispatchOrToast } = useDispatch();

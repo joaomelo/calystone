@@ -3,12 +3,10 @@ import { useTemplateRef } from "vue";
 
 import type { Directory } from "@/domain";
 
+import { useI18n } from "@/display/affordances/i18n";
+import { AppIcon } from "@/display/affordances/icons";
+import { ToolbarButton } from "@/display/affordances/toolbar";
 import { DialogCreateDirectory } from "@/display/views/dialog-create-directory";
-import {
-  AppIcon,
-  ToolbarButton,
-  useI18n
-} from "@/utils";
 
 const { parent } = defineProps<{ parent: Directory; }>();
 

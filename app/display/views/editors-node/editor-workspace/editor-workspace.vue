@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import { AppIcon } from "@/display/affordances/icons";
 import {
-  AppIcon,
   ToolbarBase,
   ToolbarButton
-} from "@/utils";
+} from "@/display/affordances/toolbar";
 
 defineEmits<{ close: [] }>();
 

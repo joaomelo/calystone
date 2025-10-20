@@ -4,9 +4,9 @@ import { useRouter } from "vue-router";
 
 import type { SourceProvider } from "@/infra";
 
+import { useI18n } from "@/display/affordances/i18n";
 import { Store } from "@/display/store";
 import { Frameplain } from "@/display/views/frame-plain";
-import { useI18n } from "@/utils";
 
 const { provider } = defineProps<{ provider: SourceProvider }>();
 

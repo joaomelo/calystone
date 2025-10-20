@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { TextMarkdown } from "@/display/affordances/text-markdown";
 import { Frameplain } from "@/display/views/frame-plain";
-import { TextMarkdown } from "@/utils";
 
 defineProps<{ text: string; }>();
 </script>

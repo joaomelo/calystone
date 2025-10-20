@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
+import { useI18n } from "@/display/affordances/i18n";
+import { InputSelect } from "@/display/affordances/input-select";
 import { Store } from "@/display/store";
-import {
-  InputSelect,
-  useI18n
-} from "@/utils";
 
 const { t } = useI18n();
 

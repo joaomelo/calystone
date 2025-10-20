@@ -12,6 +12,7 @@ import {
   Store,
   ThemePreset
 } from "@/display"; // this will also apply the css styles as a side effect
+import { ToastService } from "@/display/affordances/dialogs";
 import {
   AccessAdaptersFactory,
   AvailabilityFacade,
@@ -24,7 +25,6 @@ import {
   LoggerContainer,
   PerformanceIssuesMonitor,
   throwCritical,
-  ToastService
 } from "@/utils";
 
 import App from "./app.vue";

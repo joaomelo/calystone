@@ -6,11 +6,9 @@ import {
 
 import type { BinaryArtifact } from "@/domain";
 
+import { InputPdf } from "@/display/affordances/input-pdf";
 import { Store } from "@/display/store";
-import {
-  debounce,
-  InputPdf
-} from "@/utils";
+import { debounce } from "@/utils";
 
 import { EditorNotLoaded } from "../editor-not-loaded";
 import { EditorWorkspace } from "../editor-workspace";

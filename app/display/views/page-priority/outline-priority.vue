@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import type { OutlineGridKeys } from "@/utils";
+import type { OutlineGridKeys } from "@/display/affordances/outline-grid";
 
 import { OutlineNodes } from "@/display/views/outline-nodes";
 import { OutlinePriority } from "@/display/views/outlines-node";

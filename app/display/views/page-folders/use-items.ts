@@ -2,11 +2,9 @@ import type { Ref } from "vue";
 
 import { computed } from "vue";
 
+import type { OutlineGridKeys } from "@/display/affordances/outline-grid";
 import type { OutlineNodesItem } from "@/display/views/outline-nodes";
-import type {
-  Compare,
-  OutlineGridKeys
-} from "@/utils";
+import type { Compare } from "@/utils";
 
 import { Store } from "@/display/store";
 import {

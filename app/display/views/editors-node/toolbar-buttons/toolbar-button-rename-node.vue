@@ -6,13 +6,11 @@ import {
 
 import type { Node } from "@/domain";
 
+import { useI18n } from "@/display/affordances/i18n";
+import { AppIcon } from "@/display/affordances/icons";
+import { ToolbarButton } from "@/display/affordances/toolbar";
 import { Store } from "@/display/store";
 import { DialogRename } from "@/display/views/dialog-rename";
-import {
-  AppIcon,
-  ToolbarButton,
-  useI18n
-} from "@/utils";
 
 const { node } = defineProps<{ node: Node; }>();
 

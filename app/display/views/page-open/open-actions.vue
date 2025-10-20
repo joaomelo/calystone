@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AppIcon } from "@/utils";
+import { AppIcon } from "@/display/affordances/icons";
 
 import OpenAction from "./open-action.vue";
 </script>
