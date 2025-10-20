@@ -1,4 +1,3 @@
-export * from "../../ui/errors";
 export * from "./exceptions";
 export * from "./logger";
 export * from "./perfomance";
