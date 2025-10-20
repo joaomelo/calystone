@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {
   computed,
-  onMounted
+  onMounted,
+  ref
 } from "vue";
 
 import type { BinaryArtifact } from "@/domain";
@@ -18,6 +19,7 @@ import {
   ToolbarButtonRenameNode,
   ToolbarButtonShareNode
 } from "../toolbar-buttons";
+import ToolbarButtonsZoom from "./toolbar-buttons-zoom.vue";
 
 const { content: artifact } = defineProps<{ content: BinaryArtifact; }>();
 defineEmits<{ close: [] }>();
@@ -31,6 +33,8 @@ const pdf = computed(() => {
   return artifact.toBinary();
 });
 
+const zoom = ref(1);
+
 const handleUpdate = debounce(async (newContent: ArrayBuffer) => {
   artifact.fromBinary(newContent);
   await services.exchangeArtifact.postFrom(artifact);
@@ -42,6 +46,7 @@ const handleUpdate = debounce(async (newContent: ArrayBuffer) => {
     @close="$emit('close')"
   >
     <template #toolbar>
+      <ToolbarButtonsZoom v-model="zoom" />
       <ToolbarButtonRenameNode
         :node="artifact"
       />
@@ -60,6 +65,7 @@ const handleUpdate = debounce(async (newContent: ArrayBuffer) => {
       :cache-key="artifact.id"
       data-test="editor-pdf-input"
       :model-value="pdf"
+      :zoom="zoom"
       @update:model-value="handleUpdate"
     />
   </EditorWorkspace>

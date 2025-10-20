@@ -51,6 +51,7 @@ async function handleDelete() {
       :data-test="`control-criterion-manage-${kebabedLabel}__label`"
       :model-value="criterion.label"
       readonly
+      size="fluid"
     />
     <InputNumber
       buttons

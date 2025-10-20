@@ -57,6 +57,7 @@ async function handleRemoveTag(tag: string) {
         class="section-tags__input"
         data-test="input-tag"
         :error="errors.global"
+        size="fluid"
         :suggestions="suggestions"
         @keydown.enter="handleAddTag"
       />

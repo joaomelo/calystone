@@ -12,13 +12,17 @@ import {
   kebabCase
 } from "@/utils";
 
-const { suggestions = [] } = defineProps<{
+const {
+  size = "auto",
+  suggestions,
+} = defineProps<{
   autofocus?: boolean
   dataTest: string
   error?: string
   label?: string;
   readonly?: boolean;
-  suggestions?: string[]
+  size?: "auto" | "content" | "fluid"
+  suggestions?: string[];
 }>();
 const model = defineModel<string>();
 
@@ -42,8 +46,10 @@ const formDatalistName = (baseId: string) => kebabCase(baseId, "suggestions");
       :id="id"
       v-model="model"
       :autofocus="autofocus"
+      :class="{
+        auto: size === 'auto', content: size === 'content', fluid: size === 'fluid'
+      }"
       :data-test="kebabCase(dataTest, 'input')"
-      fluid
       :invalid="!!error"
       :list="formDatalistName(id)"
       :readonly="readonly"
@@ -66,9 +72,13 @@ const formDatalistName = (baseId: string) => kebabCase(baseId, "suggestions");
   </div>
 </template>
 <style scoped>
-.input-radio {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-2);
+.input-text .auto {
+  width: auto;
+}
+.input-text .fluid {
+  width: 100%;
+}
+.input-text .content {
+  field-sizing: content;
 }
 </style>

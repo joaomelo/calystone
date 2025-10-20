@@ -17,7 +17,10 @@ import {
 
 import { throwError } from "@/utils";
 
-const props = defineProps<{ pdf: ArrayBuffer, }>();
+const props = defineProps<{
+  pdf: ArrayBuffer,
+  zoom: number
+}>();
 
 const containerRef = ref<HTMLDivElement | null>(null);
 const isLoading = ref(true);
@@ -70,13 +73,74 @@ function clampScale(unscaledWidth: number, containerWidth: number): number {
   return Number.isFinite(clamped) && clamped > 0 ? clamped : 1;
 }
 
+function sanitizeZoom(value: number): null | number {
+  if (!Number.isFinite(value)) return null;
+  return value > 0 ? value : null;
+}
+
+async function renderDocumentPages(documentProxy: PDFDocumentProxy, renderToken: number) {
+  const container = containerRef.value;
+  if (!container) return;
+
+  resetContainer();
+
+  const zoom = sanitizeZoom(props.zoom);
+  const devicePixelRatio = typeof window === "undefined" ? 1 : window.devicePixelRatio || 1;
+
+  for (let pageNumber = 1; pageNumber <= documentProxy.numPages; pageNumber += 1) {
+    if (renderToken !== activeRenderToken) return;
+
+    const page = await documentProxy.getPage(pageNumber);
+    if (renderToken !== activeRenderToken) return;
+
+    const baseViewport = page.getViewport({ scale: 1 });
+    const containerWidth = container.clientWidth || baseViewport.width;
+    const fallbackScale = clampScale(baseViewport.width, containerWidth);
+    const scale = zoom ?? fallbackScale;
+    const viewport = page.getViewport({ scale });
+
+    const canvas = document.createElement("canvas");
+    canvas.className = "pdfjs-wrapper__page";
+    const outputWidth = Math.floor(viewport.width * devicePixelRatio);
+    const outputHeight = Math.floor(viewport.height * devicePixelRatio);
+    canvas.width = Math.max(outputWidth, 1);
+    canvas.height = Math.max(outputHeight, 1);
+    canvas.style.width = `${viewport.width.toFixed(0)}px`;
+    canvas.style.height = `${viewport.height.toFixed(0)}px`;
+    canvas.style.maxWidth = "none";
+    canvas.style.maxHeight = "none";
+    canvas.style.minWidth = `${viewport.width.toFixed(0)}px`;
+    canvas.style.minHeight = `${viewport.height.toFixed(0)}px`;
+
+    const context = canvas.getContext("2d");
+    if (!context) throwError("PDFJS_WRAPPER_NO_2D_CONTEXT");
+
+    const transform = devicePixelRatio !== 1 ? [devicePixelRatio, 0, 0, devicePixelRatio, 0, 0] : undefined;
+
+    container.appendChild(canvas);
+
+    const renderTask = page.render({
+      canvas,
+      canvasContext: context,
+      transform,
+      viewport,
+    });
+
+    try {
+      await renderTask.promise;
+    } catch (error) {
+      if (renderToken !== activeRenderToken) return;
+      throwError("PDFJS_WRAPPER_RENDER_ERROR", error);
+    }
+  }
+}
+
 async function renderPdfDocument(data: ArrayBuffer) {
   activeRenderToken += 1;
   const renderToken = activeRenderToken;
 
   await destroyLoadingTask();
   await destroyDocument();
-  resetContainer();
 
   isLoading.value = true;
   errorMessage.value = null;
@@ -101,40 +165,7 @@ async function renderPdfDocument(data: ArrayBuffer) {
 
     currentDocument = documentProxy;
 
-    for (let pageNumber = 1; pageNumber <= documentProxy.numPages; pageNumber += 1) {
-      if (renderToken !== activeRenderToken) return;
-
-      const page = await documentProxy.getPage(pageNumber);
-      if (renderToken !== activeRenderToken) return;
-
-      const baseViewport = page.getViewport({ scale: 1 });
-      const containerWidth = container.clientWidth || baseViewport.width;
-      const scale = clampScale(baseViewport.width, containerWidth);
-      const viewport = page.getViewport({ scale });
-
-      const canvas = document.createElement("canvas");
-      canvas.className = "pdfjs-wrapper__page";
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-
-      const context = canvas.getContext("2d");
-      if (!context) throwError("PDFJS_WRAPPER_NO_2D_CONTEXT");
-
-      container.appendChild(canvas);
-
-      const renderTask = page.render({
-        canvas,
-        canvasContext: context,
-        viewport
-      });
-
-      try {
-        await renderTask.promise;
-      } catch (error) {
-        if (renderToken !== activeRenderToken) return;
-        throwError("PDFJS_WRAPPER_RENDER_ERROR", error);
-      }
-    }
+    await renderDocumentPages(documentProxy, renderToken);
   } catch (error) {
     if (renderToken !== activeRenderToken) return;
     errorMessage.value = "Unable to open PDF.";
@@ -143,6 +174,30 @@ async function renderPdfDocument(data: ArrayBuffer) {
     if (renderToken === activeRenderToken) {
       isLoading.value = false;
       currentLoadingTask = null;
+    }
+  }
+}
+
+async function rerenderCurrentDocument() {
+  if (!currentDocument) return;
+
+  activeRenderToken += 1;
+  const renderToken = activeRenderToken;
+
+  isLoading.value = true;
+  errorMessage.value = null;
+
+  await nextTick();
+
+  try {
+    await renderDocumentPages(currentDocument, renderToken);
+  } catch (error) {
+    if (renderToken !== activeRenderToken) return;
+    errorMessage.value = "Unable to render PDF.";
+    throwError("PDFJS_WRAPPER_RENDER_ERROR", error);
+  } finally {
+    if (renderToken === activeRenderToken) {
+      isLoading.value = false;
     }
   }
 }
@@ -159,6 +214,10 @@ watch(() => props.pdf, async (newValue) => {
 
   await renderPdfDocument(newValue);
 }, { immediate: true });
+
+watch(() => props.zoom, () => {
+  void rerenderCurrentDocument();
+});
 
 onBeforeUnmount(() => {
   activeRenderToken += 1;
@@ -192,19 +251,21 @@ onBeforeUnmount(() => {
 .pdfjs-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   height: 100%;
   width: 100%;
 }
 
 .pdfjs-wrapper__container {
+  padding: var(--size-5);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: flex-start;
+  gap: var(--size-2);
   margin: 0 auto;
-  overflow-y: auto;
+  overflow: auto;
   flex: 1;
   width: 100%;
+  background-color: var(--p-surface-100);
 }
 
 .pdfjs-wrapper__container--hidden {
@@ -212,11 +273,12 @@ onBeforeUnmount(() => {
   visibility: hidden;
 }
 
-.pdfjs-wrapper__page {
-  box-shadow: rgba(15, 23, 42, 0.1) 0 2px 8px;
+:deep(.pdfjs-wrapper__page) {
+  box-shadow: var(--p-dialog-shadow);
+  display: block;
   margin: 0 auto;
-  max-width: min(100%, 900px);
-  width: 100%;
+  max-width: none;
+  width: auto;
 }
 
 .pdfjs-wrapper__message {

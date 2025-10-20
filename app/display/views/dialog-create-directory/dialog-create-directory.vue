@@ -55,6 +55,7 @@ function open() {
         data-test="input-name"
         :error="errors.name"
         :label="t('name')"
+        size="fluid"
       />
     </template>
     <template #buttons="{ close }">

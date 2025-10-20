@@ -35,6 +35,7 @@ const handleSearch = debounce((text?: string) => {
       <InputText
         autofocus
         data-test="outline-search__input"
+        size="fluid"
         @update:model-value="handleSearch"
       />
     </div>

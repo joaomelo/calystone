@@ -38,6 +38,7 @@ async function handleAdd() {
       v-model="label"
       class="control-criterion-add__input"
       data-test="control-criterion-add__input"
+      size="fluid"
       :suggestions="suggestions"
       @keydown.enter="handleAdd"
     />

@@ -6,6 +6,7 @@ import PdfjsWrapper from "./pdfjs-wrapper.vue";
 const { cacheKey: cacheKey } = defineProps<{
   cacheKey?: string
   dataTest: string,
+  zoom: number
 }>();
 const model = defineModel<ArrayBuffer>({ required: true });
 const normalizedCacheKey = cacheKey ?? useId();
@@ -13,11 +14,12 @@ const normalizedCacheKey = cacheKey ?? useId();
 <template>
   <div
     class="input-pdf"
-    :dataTest="dataTest"
+    :data-test="dataTest"
   >
     <PdfjsWrapper
       :cache-key="normalizedCacheKey"
       :pdf="model"
+      :zoom="zoom"
     />
   </div>
 </template>
