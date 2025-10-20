@@ -1,5 +1,20 @@
 # Changelog
 
+
+
+## [0.112.0](https://github.com/joaomelo/calystone/compare/v0.111.25...v0.112.0) (2025-10-20)
+
+
+### Features
+
+* improved pdf render logic now using mozilla pdf.js ([dcefc53](https://github.com/joaomelo/calystone/commit/dcefc53c651fcecbc2a826306c3d093ecee24f74))
+
+
+### Bug Fixes
+
+* lint and type errors ([ca44959](https://github.com/joaomelo/calystone/commit/ca44959e7d283d82f2cead85b14e1387a9046ef2))
+* removes unwanted ui exports from utils ([28fa14b](https://github.com/joaomelo/calystone/commit/28fa14b54b46c963ab86d9fb68b4351a865585db))
+
 ## [0.111.25](https://github.com/joaomelo/calystone/compare/v0.111.24...v0.111.25) (2025-10-18)
 
 ### Quality summary
