@@ -1,14 +1,14 @@
+import { PageBootstrap } from "@/display/views/page-bootstrap";
+import { PageCalendar } from "@/display/views/page-calendar";
+import { PageFolders } from "@/display/views/page-folders";
+import { PageOpen } from "@/display/views/page-open";
+import { PagePriority } from "@/display/views/page-priority";
+import { PageSearch } from "@/display/views/page-search";
+import { PageTags } from "@/display/views/page-tags";
 import {
-  PageBootstrap,
-  PageCalendar,
-  PageFolders,
-  PageOpen,
-  PagePriority,
   PagePrivacy,
-  PageSearch,
-  PageTags,
   PageTerms
-} from "@/display/views";
+} from "@/display/views/pages-docs";
 import { sources } from "@/infra";
 
 export const routes = [
