@@ -1,3 +1,4 @@
+import vue from "@vitejs/plugin-vue";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
@@ -49,6 +50,7 @@ export default defineConfig(({ command }) => {
     plugins: [
       ...sharedPlugins(),
       ...conditionalPlugins,
+      vue(),
       VitePWA({
         devOptions: { enabled: false },
         includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],

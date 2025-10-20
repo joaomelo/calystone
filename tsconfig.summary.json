@@ -8,15 +8,13 @@
     "strictNullChecks": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "target": "esnext",
   },
   "include": [
-    "*.config.*",
-    "*.setup.*", 
-    "*.shared.*",
+    "./summary/**/*",
   ],
   "exclude": [
     "node_modules",
     "./dist",
-    "./summary",
   ]  
 }

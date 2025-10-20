@@ -1,4 +1,3 @@
-import vue from "@vitejs/plugin-vue";
 import { resolve } from "node:path";
 import {
   fileURLToPath,
@@ -14,5 +13,5 @@ export const resolveAtProject = (...paths: string[]) => resolve(projectRoot, ...
 export const resolveAtApp = (...paths: string[]) => resolve(appRoot, ...paths);
 
 export function sharedPlugins() {
-  return [vue()];
+  return [];
 }

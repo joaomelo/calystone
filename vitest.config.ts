@@ -21,7 +21,7 @@ export default defineConfig({
       reportsDirectory: "./reports/coverage"
     },
     environment: "jsdom",
-    exclude: ["node_modules/**", ".legacy/**", "e2e/**"],
+    exclude: ["node_modules/**", ".legacy/**", "e2e/**", "summary/**"],
     include: ["app/**/*.test.ts"],
     outputFile: { json: "./reports/vitest-results.json" },
     reporters: isCI ? ["dot", "json"] : ["default"],
