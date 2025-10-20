@@ -6,10 +6,10 @@ import {
 
 import type { TodoArtifact } from "@/domain";
 
-import { Store } from "@/display/store";
 import { ButtonBase } from "@/display/affordances/button";
 import { useI18n } from "@/display/affordances/i18n";
 import { InputText } from "@/display/affordances/input-text";
+import { Store } from "@/display/store";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 

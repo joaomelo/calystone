@@ -3,10 +3,10 @@ import { useTemplateRef } from "vue";
 
 import type { Node } from "@/domain";
 
-import { Store } from "@/display/store";
 import { ModalConfirm, } from "@/display/affordances/dialogs";
 import { useDispatch } from "@/display/affordances/dispatch";
 import { useI18n } from "@/display/affordances/i18n";
+import { Store } from "@/display/store";
 
 const { node } = defineProps<{ node: Node }>();
 defineExpose({ remove });

@@ -6,12 +6,12 @@ import {
 
 import type { Directory } from "@/domain";
 
-import { Store } from "@/display/store";
-import { SaveCancel } from "@/display/views/save-cancel";
 import { ModalBase } from "@/display/affordances/dialogs";
 import { useDispatch } from "@/display/affordances/dispatch";
 import { useI18n } from "@/display/affordances/i18n";
 import { InputText } from "@/display/affordances/input-text";
+import { Store } from "@/display/store";
+import { SaveCancel } from "@/display/views/save-cancel";
 
 const { parent } = defineProps<{ parent: Directory }>();
 defineExpose({ open });

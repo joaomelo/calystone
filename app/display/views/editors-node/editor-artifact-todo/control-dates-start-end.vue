@@ -3,10 +3,10 @@ import { ref } from "vue";
 
 import type { TodoArtifact } from "@/domain";
 
-import { Store } from "@/display/store";
 import { useI18n } from "@/display/affordances/i18n";
 import { InputCheck } from "@/display/affordances/input-check";
 import { InputDate } from "@/display/affordances/input-date";
+import { Store } from "@/display/store";
 
 const { artifact } = defineProps<{ artifact: TodoArtifact; }>();
 
