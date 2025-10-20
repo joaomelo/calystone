@@ -64,17 +64,21 @@ graph LR;
     pageX;
     pageU;
     widgetN
-    widgetM
     useZ
+  end  
+  subgraph affordances
+    componentQ;
+    typeW
   end  
   store
 
   routeA --> pageX;
   routeB --> pageU
   pageX --> widgetN
-  pageU --> widgetM;
   pageU --> widgetN;
+  widgetN --> typeW;
   pageU --> useZ;
+  pageU --> componentQ;
   views --> store;
 ```
 
@@ -92,9 +96,17 @@ Views should mount their layouts inside their own templates. They can reuse capa
 
 While routes are URL/component configuration, the views are what the user really sees. Views access the services and domain via a central construct called the store. All data they need, they grab from the store, and user signals are converted to calls to the methods of the store's inner objects.
 
-Views can be complex structures in order to deal with data orchestration. They can abstract their capacities into subcomponents or composables to streamline code. If these substructures are used only on one page, they will live beside the page; if they are shared by multiple pages, they should be moved to new view submodules.
+Views can be complex structures in order to deal with data orchestration. They can abstract their capabilities into subcomponents or composables to streamline code. If these substructures are used only on one page, they will live beside the page; if they are shared by multiple pages, they should be moved to new view submodules.
 
-Shared UI logic decoupled from the business rules (like buttons, toolbars, and so on) is encouraged to be externalized in components in the utils module. Also, access to UI libraries is discouraged in the views module; prefer creating proxy UI components in utils.
+Shared UI logic decoupled from the business rules (like buttons, toolbars, and so on) is encouraged to be externalized in components in the affordances module. Also, access to UI libraries is discouraged in the views module.
+
+Views modules should not do barrel export. Those components can have very different impact in bundle sizes. For exaple the rich text editor is a very specific feature but carries a huge external dependency. So, views should be imported by module so they can be easily converted to an async import.
+
+### Affordances
+
+In affordances are placed UI structures like componentes and composables that do not have knowledge about business rules. Here we will find things like buttons and tables.
+
+The affordances modules should not do barrel export for the same reasons of the views module.
 
 ### Styles
 
@@ -134,9 +146,11 @@ At the same time, these methods are encouraged to be deep and absorb complexity 
 
 ## Utils
 
-Here reside features used by multiple modules that have no knowledge about business logic.
+Here reside features used by multiple layers that have no knowledge about business logic.
 
-Be aware that generic lib features are considered bad design. Utils is not a candidate for an npm module. Everything should be written to meet the current needs. This isolation is meant for ease of maintenance and not reuse in other apps.
+Utils is meant to house core strucutures that are both light in the bundle and very reusable in multiple layers. For example UI componentes are not to be placed here, since they are only used in the display layer. Structures that clearly are meant to solve a specific layer problem should be placed in modules on that layer.
+
+Be aware that generic lib features are considered bad design. Utils is not a candidate for an npm package. Everything should be written to meet the current app needs. The isolation in utils is meant for ease of maintenance and not reuse in other apps.
 
 # Design choices
 
