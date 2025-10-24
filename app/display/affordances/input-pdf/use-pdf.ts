@@ -142,12 +142,18 @@ export function usePdf({
       canvas.style.maxHeight = "none";
       canvas.style.minWidth = viewportPixels.width;
       canvas.style.minHeight = viewportPixels.height;
+      // improves text layer interaction
+      canvas.style.pointerEvents = "none";
 
       const context = canvas.getContext("2d");
       if (!context) throwError("PDFJS_WRAPPER_NO_2D_CONTEXT");
 
-      const transform = devicePixelRatio !== 1 ? [devicePixelRatio, 0, 0, devicePixelRatio, 0, 0] : undefined;
-
+      const { userUnit } = page;
+      pageContainer.style.setProperty("--total-scale-factor", zoom.toFixed(2));
+      pageContainer.style.setProperty("--scale-factor", zoom.toFixed(2));
+      pageContainer.style.setProperty("--user-unit", userUnit.toFixed(0));
+      pageContainer.style.setProperty("--scale-round-x", "1px");
+      pageContainer.style.setProperty("--scale-round-y", "1px");
       const textLayer = new TextLayerBuilder({ pdfPage: page });
       textLayer.div.classList.add("input-pdf__text-layer");
       currentTextLayers.push(textLayer);
@@ -155,6 +161,8 @@ export function usePdf({
       pageContainer.appendChild(canvas);
       pageContainer.appendChild(textLayer.div);
       container.appendChild(pageContainer);
+
+      const transform = devicePixelRatio !== 1 ? [devicePixelRatio, 0, 0, devicePixelRatio, 0, 0] : undefined;
 
       const pageRenderTask = page.render({
         canvas,
@@ -209,8 +217,8 @@ export function usePdf({
 
 export function viewportPixelDimensions(viewport: PageViewport ) {
   return {
-    height: `${viewport.height.toFixed(0)}px`,
-    width: `${viewport.width.toFixed(0)}px`
+    height: `${viewport.height.toString()}px`,
+    width: `${viewport.width.toString()}px`
   };
 }
 

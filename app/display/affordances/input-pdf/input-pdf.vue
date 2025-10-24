@@ -67,23 +67,15 @@ const {
 }
 
 .input-pdf__document-wrapper {
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
   padding: var(--size-5);
   margin: 0 auto;
   overflow: auto;
   background-color: var(--p-surface-100);
-}
 
-.input-pdf__document-wrapper.hidden {
-  flex: 0;
-  padding: 0;
-  pointer-events: none;
-  visibility: hidden;
+  &.hidden {
+    padding: 0;
+    visibility: hidden;
+  }
 }
 
 :deep(.input-pdf__page-wrapper) {
@@ -92,15 +84,14 @@ const {
 }
 
 :deep(.input-pdf__page) {
-  position: relative; /* to contain the text layer */
-  box-shadow: rgba(15, 23, 42, 0.1) 0 2px 8px;
+  box-shadow: var(--p-card-shadow);
   display: block;
   margin: 0 auto;
   max-width: none;
   width: auto;
 }
 
-:deep(.input-pdf) {
+:deep(.input-pdf__text-layer) {
   position: absolute;
   inset: 0;
   overflow: clip;
@@ -111,8 +102,8 @@ const {
   pointer-events: auto;
 }
 
-:deep(.input-pdf span),
-:deep(.input-pdf br) {
+:deep(.input-pdf__text-layer span),
+:deep(.input-pdf__text-layer br) {
   color: transparent;
   cursor: text;
   position: absolute;
@@ -120,28 +111,11 @@ const {
   transform-origin: 0 0;
 }
 
-:deep(.input-pdf .highlight) {
-  background-color: rgba(180, 0, 170, 0.25);
-  border-radius: 4px;
-}
-
-:deep(.input-pdf .highlight.selected) {
-  background-color: rgba(0, 100, 255, 0.25);
-}
-
-:deep(.input-pdf .endOfContent) {
+:deep(.input-pdf__text-layer .endOfContent) {
   position: absolute;
   width: 1px;
   height: 1px;
   top: 0;
   left: 0;
-}
-
-:deep(.input-pdf ::selection) {
-  background: rgba(0, 100, 255, 0.25);
-}
-
-:deep(.input-pdf ::-moz-selection) {
-  background: rgba(0, 100, 255, 0.4);
 }
 </style>
