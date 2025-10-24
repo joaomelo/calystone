@@ -1,6 +1,7 @@
 export * from "./editor-binary";
 export * from "./editor-directory";
 export * from "./editor-empty";
+export * from "./editor-pdf";
 export * from "./editor-text";
 export * from "./editor-todo";
 export * from "./frame-dashboard";

@@ -1,0 +1,1 @@
+export const editorPdf = { page: "canvas.input-pdf__page", } as const;

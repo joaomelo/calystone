@@ -34,6 +34,7 @@ const nodeInlineItem = "[data-test-type='outline-node']";
 const directoryTree = `${nodeTree}:not(.p-tree-node-leaf)`;
 const artifactTree = `${nodeTree}.p-tree-node-leaf`;
 const nodeLabel = (label: string) => dataTest(`outline-node-label-${label}`);
+const nodeLabelWithExtension = (extension: string) => `[data-test$='.${extension}']`;
 
 export const outlineNodes = {
   artifactTree,
@@ -42,6 +43,7 @@ export const outlineNodes = {
   nodeInline,
   nodeInlineItem,
   nodeLabel,
+  nodeLabelWithExtension,
   nodeToogle,
   nodeTree,
   nodeTreeWithLabel,
