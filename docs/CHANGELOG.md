@@ -1,9 +1,10 @@
 # Changelog
 
-
-
 ## [0.114.0](https://github.com/joaomelo/calystone/compare/v0.113.0...v0.114.0) (2025-10-24)
 
+### Quality summary
+- Bundle: 3.64 MB raw across 3 chunks (index-BIybSYh1.js 3.30 MB, html2canvas.esm-CBrSDip1.js 198 KB, index.es-CtTzVtga.js 147 KB). Top sources: pdfjs-dist 28%, primevue 15%, @faker-js/faker 13%.
+- Unit Tests: 116/116 passed
 
 ### Features
 
