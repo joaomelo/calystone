@@ -118,4 +118,12 @@ const {
   top: 0;
   left: 0;
 }
+
+:deep(.input-pdf__text-layer br::selection) {
+  background: transparent;
+}
+
+:deep(.input-pdf__text-layer br::-moz-selection) {
+  background: transparent;
+}
 </style>
