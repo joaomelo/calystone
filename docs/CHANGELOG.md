@@ -1,5 +1,14 @@
 # Changelog
 
+
+
+## [0.114.0](https://github.com/joaomelo/calystone/compare/v0.113.0...v0.114.0) (2025-10-24)
+
+
+### Features
+
+* pdf text selection mvp ([592c466](https://github.com/joaomelo/calystone/commit/592c466813f65bdfc9be7cac9679dc6c55b05d63))
+
 ## [0.113.0](https://github.com/joaomelo/calystone/compare/v0.112.0...v0.113.0) (2025-10-20)
 
 ### Quality summary
