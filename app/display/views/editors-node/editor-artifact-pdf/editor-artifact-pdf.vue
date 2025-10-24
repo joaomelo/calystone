@@ -30,7 +30,8 @@ onMounted(() => services.exchangeArtifact.fetchInto(artifact));
 
 const pdf = computed(() => {
   if (artifact.isUnloaded()) return undefined;
-  return artifact.toBinary();
+  const binary = artifact.toBinary();
+  return binary;
 });
 
 const zoom = ref(1);
